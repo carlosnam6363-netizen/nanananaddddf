@@ -471,7 +471,7 @@ const INITIAL_EXTERNAL_DASHBOARDS = [
 
 // [study-data imported]
 
-const STORAGE_KEY = 'career_dashboard_data_v1';
+const STORAGE_KEY = 'career_dashboard_data_v2';
 const FIREBASE_CONFIG_KEY = 'career_dashboard_firebase_config';
 
 class SyncManager {
@@ -502,6 +502,7 @@ class SyncManager {
           externalDashboards: parsed.externalDashboards || INITIAL_EXTERNAL_DASHBOARDS,
           dischargeDate: parsed.dischargeDate || INITIAL_DISCHARGE_DATE,
           camino: parsed.camino || INITIAL_CAMINO_DATA,
+          knou: parsed.knou || INITIAL_KNOU_DATA,
           theme: parsed.theme || 'dark'
         };
       }
@@ -517,6 +518,7 @@ class SyncManager {
       externalDashboards: INITIAL_EXTERNAL_DASHBOARDS,
       dischargeDate: INITIAL_DISCHARGE_DATE,
       camino: INITIAL_CAMINO_DATA,
+      knou: INITIAL_KNOU_DATA,
       theme: 'dark'
     };
   }
@@ -854,6 +856,7 @@ function persistState() {
     externalDashboards: state.externalDashboards,
     dischargeDate: state.dischargeDate,
     camino: state.camino,
+    knou: state.knou,
     theme: state.theme
   });
 }
