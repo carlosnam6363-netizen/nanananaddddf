@@ -2252,6 +2252,20 @@ function formatDateTime(dateTimeStr) {
   return `${month}/${date}(${dayName}) ${hours}:${mins}`;
 }
 
+function formatDateSimple(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return dateStr;
+  const m = d.getMonth() + 1;
+  const day = d.getDate();
+  const dayName = ['일', '월', '화', '수', '목', '금', '토'][d.getDay()];
+  const hours = d.getHours();
+  if (hours !== 0 && dateStr.includes('T')) {
+    return `${m}월 ${day}일(${dayName}) ${hours}시`;
+  }
+  return `${m}월 ${day}일(${dayName})`;
+}
+
 function updateDDayDisplay() {
   if (state.activeTab === 'overview') {
     renderOverviewTab();
