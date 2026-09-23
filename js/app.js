@@ -503,6 +503,7 @@ class SyncManager {
           dischargeDate: parsed.dischargeDate || INITIAL_DISCHARGE_DATE,
           camino: parsed.camino || INITIAL_CAMINO_DATA,
           knou: parsed.knou || INITIAL_KNOU_DATA,
+          tabOrder: Array.isArray(parsed.tabOrder) ? parsed.tabOrder : [...DEFAULT_TAB_ORDER],
           theme: parsed.theme || 'dark'
         };
       }
@@ -519,6 +520,7 @@ class SyncManager {
       dischargeDate: INITIAL_DISCHARGE_DATE,
       camino: INITIAL_CAMINO_DATA,
       knou: INITIAL_KNOU_DATA,
+      tabOrder: [...DEFAULT_TAB_ORDER],
       theme: 'dark'
     };
   }
@@ -662,6 +664,29 @@ const INITIAL_KNOU_DATA = {
   ]
 };
 
+// 탭 정의 및 기본 순서
+const DEFAULT_TAB_ORDER = [
+  'overview',
+  'exam',
+  'camino',
+  'band',
+  'energy',
+  'external',
+  'knou',
+  'settings'
+];
+
+const TAB_DEFINITIONS = {
+  overview: { id: 'overview', name: '종합 대시보드', icon: 'fa-house', iconColor: '' },
+  exam: { id: 'exam', name: '시험 및 학사 일정', icon: 'fa-calendar-days', iconColor: '' },
+  camino: { id: 'camino', name: '산티아고 순례길', icon: 'fa-person-hiking', iconColor: 'text-amber-400', badge: '11/9', badgeColor: 'bg-amber-500/20 text-amber-400 font-bold' },
+  band: { id: 'band', name: '밴드 합주 & 문화생활', icon: 'fa-guitar', iconColor: '' },
+  energy: { id: 'energy', name: '에너지관리기사 실기', icon: 'fa-graduation-cap', iconColor: '' },
+  external: { id: 'external', name: '외부 대시보드 연동', icon: 'fa-window-restore', iconColor: '', badge: 'New', badgeColor: 'bg-sky-500/20 text-sky-400 font-bold' },
+  knou: { id: 'knou', name: '방통대 학사 관리', icon: 'fa-university', iconColor: 'text-indigo-400', badge: 'KNOU', badgeColor: 'bg-indigo-500/20 text-indigo-400 font-bold' },
+  settings: { id: 'settings', name: '테마 & 설정', icon: 'fa-palette', iconColor: 'text-indigo-300' }
+};
+
 // Global App State
 let state = {
   exams: [],
@@ -672,6 +697,7 @@ let state = {
   dischargeDate: INITIAL_DISCHARGE_DATE,
   camino: INITIAL_CAMINO_DATA,
   knou: INITIAL_KNOU_DATA,
+  tabOrder: [...DEFAULT_TAB_ORDER],
   theme: 'dark',
   activeTab: 'overview',
   activeExternalTabId: null,
@@ -717,66 +743,105 @@ function persistState() {
     dischargeDate: state.dischargeDate,
     camino: state.camino,
     knou: state.knou,
+    tabOrder: state.tabOrder,
     theme: state.theme
   });
 }
 
 // ==========================================================================
-// Navigation & Tab Routing
+// Navigation & Tab Routing (Dynamic Tab Ordering Supported)
 // ==========================================================================
-function initNavigation() {
-  // Desktop Sidebar Nav Links
-  document.querySelectorAll('[data-nav-tab]').forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      const tabName = btn.getAttribute('data-nav-tab');
-      switchTab(tabName);
-    });
-  });
+function renderNavTabs() {
+  const desktopContainer = document.getElementById('desktop-nav-container');
+  const mobileContainer = document.getElementById('mobile-nav-container');
+  const order = state.tabOrder && state.tabOrder.length > 0 ? state.tabOrder : DEFAULT_TAB_ORDER;
 
-  // Mobile Bottom Nav Links
-  document.querySelectorAll('[data-mobile-tab]').forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      const tabName = btn.getAttribute('data-mobile-tab');
-      switchTab(tabName);
-    });
-  });
-
-  // Theme Toggle Button
-  const themeToggle = document.getElementById('theme-toggle-btn');
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      const newTheme = state.theme === 'dark' ? 'light' : 'dark';
-      state.theme = newTheme;
-      applyTheme(newTheme);
-      persistState();
-    });
+  // 1. Desktop Sidebar Navigation
+  if (desktopContainer) {
+    desktopContainer.innerHTML = order.map(tabId => {
+      const def = TAB_DEFINITIONS[tabId];
+      if (!def) return '';
+      const isActive = state.activeTab === tabId;
+      return `
+        <button data-nav-tab="${tabId}" onclick="window.app.switchTab('${tabId}')"
+          class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs transition ${
+            isActive ? 'nav-tab-active text-blue-500 font-semibold' : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+          }">
+          <i class="fa-solid ${def.icon} w-4 text-center ${def.iconColor || ''}"></i>
+          <span class="flex-1 text-left truncate">${def.name}</span>
+          ${def.badge ? `<span class="text-[9px] px-1.5 py-0.5 rounded ${def.badgeColor || 'bg-slate-700 text-slate-300'}">${def.badge}</span>` : ''}
+        </button>
+      `;
+    }).join('');
   }
+
+  // 2. Mobile Bottom Navigation
+  if (mobileContainer) {
+    mobileContainer.innerHTML = order.map(tabId => {
+      const def = TAB_DEFINITIONS[tabId];
+      if (!def) return '';
+      const isActive = state.activeTab === tabId;
+      const shortName = tabId === 'overview' ? '홈' :
+                        tabId === 'exam' ? '일정' :
+                        tabId === 'camino' ? '순례길' :
+                        tabId === 'band' ? '밴드' :
+                        tabId === 'energy' ? '에너지' :
+                        tabId === 'external' ? '외부탭' :
+                        tabId === 'knou' ? '방통대' : '테마';
+      return `
+        <button data-mobile-tab="${tabId}" onclick="window.app.switchTab('${tabId}')"
+          class="flex flex-col items-center gap-1 text-[10px] flex-1 min-w-[50px] py-1 transition ${
+            isActive ? 'mobile-tab-active text-sky-400 font-bold' : 'text-slate-400'
+          }">
+          <i class="fa-solid ${def.icon} text-sm ${def.iconColor || ''}"></i>
+          <span>${shortName}</span>
+        </button>
+      `;
+    }).join('');
+  }
+}
+
+function initNavigation() {
+  renderNavTabs();
+}
+
+function renderTabOrderList() {
+  const container = document.getElementById('tab-order-list');
+  if (!container) return;
+  const order = state.tabOrder && state.tabOrder.length > 0 ? state.tabOrder : DEFAULT_TAB_ORDER;
+
+  container.innerHTML = order.map((tabId, idx) => {
+    const def = TAB_DEFINITIONS[tabId] || { name: tabId, icon: 'fa-circle' };
+    const isFirst = idx === 0;
+    const isLast = idx === order.length - 1;
+
+    return `
+      <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-800/80 border border-slate-700/60 transition hover:border-slate-600">
+        <div class="flex items-center gap-3 min-w-0">
+          <span class="w-6 h-6 rounded-lg bg-slate-700/80 text-slate-300 text-xs font-bold flex items-center justify-center flex-shrink-0">
+            ${idx + 1}
+          </span>
+          <i class="fa-solid ${def.icon} text-sm text-sky-400 w-4 text-center"></i>
+          <span class="text-xs font-semibold text-white truncate">${def.name}</span>
+        </div>
+        <div class="flex items-center gap-1">
+          <button type="button" onclick="window.app.moveTabOrder(${idx}, -1)" ${isFirst ? 'disabled' : ''}
+            class="w-7 h-7 rounded-lg bg-slate-700/60 hover:bg-slate-700 text-slate-300 disabled:opacity-30 disabled:pointer-events-none flex items-center justify-center text-xs transition" title="위로 이동">
+            <i class="fa-solid fa-chevron-up"></i>
+          </button>
+          <button type="button" onclick="window.app.moveTabOrder(${idx}, 1)" ${isLast ? 'disabled' : ''}
+            class="w-7 h-7 rounded-lg bg-slate-700/60 hover:bg-slate-700 text-slate-300 disabled:opacity-30 disabled:pointer-events-none flex items-center justify-center text-xs transition" title="아래로 이동">
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
 }
 
 function switchTab(tabName) {
   state.activeTab = tabName;
-
-  // Update desktop navigation active state
-  document.querySelectorAll('[data-nav-tab]').forEach((btn) => {
-    if (btn.getAttribute('data-nav-tab') === tabName) {
-      btn.classList.add('nav-tab-active', 'text-blue-500', 'font-semibold');
-      btn.classList.remove('text-slate-400');
-    } else {
-      btn.classList.remove('nav-tab-active', 'text-blue-500', 'font-semibold');
-      btn.classList.add('text-slate-400');
-    }
-  });
-
-  // Update mobile navigation active state
-  document.querySelectorAll('[data-mobile-tab]').forEach((btn) => {
-    if (btn.getAttribute('data-mobile-tab') === tabName) {
-      btn.classList.add('mobile-tab-active', 'text-sky-400');
-      btn.classList.remove('text-slate-400');
-    } else {
-      btn.classList.remove('mobile-tab-active', 'text-sky-400');
-      btn.classList.add('text-slate-400');
-    }
-  });
+  renderNavTabs();
 
   // Show only current tab content section
   document.querySelectorAll('.tab-section').forEach((section) => {
@@ -2469,25 +2534,28 @@ window.app = {
     document.querySelectorAll('.app-modal').forEach(m => m.classList.add('hidden'));
   },
 
-  // Settings Handlers
-  saveFirebaseConfig: async () => {
-    const config = {
-      apiKey: document.getElementById('fb-apikey').value.trim(),
-      projectId: document.getElementById('fb-projectid').value.trim(),
-      authDomain: document.getElementById('fb-authdomain').value.trim(),
-      userId: document.getElementById('fb-userid').value.trim() || 'my_personal_account'
-    };
-
-    if (!config.apiKey || !config.projectId) {
-      alert('API Key와 Project ID를 입력해주세요.');
-      return;
-    }
-
-    const ok = await syncManager.initFirebase(config);
-    if (ok) {
-      showToast('Firebase 클라우드 연동 성공!');
-      renderSettingsTab();
-    }
+  // ── 탭 순서 정렬 핸들러 (⭐) ──
+  openTabOrderModal: () => {
+    renderTabOrderList();
+    document.getElementById('modal-tab-order').classList.remove('hidden');
+  },
+  moveTabOrder: (idx, dir) => {
+    const targetIdx = idx + dir;
+    if (targetIdx < 0 || targetIdx >= state.tabOrder.length) return;
+    const temp = state.tabOrder[idx];
+    state.tabOrder[idx] = state.tabOrder[targetIdx];
+    state.tabOrder[targetIdx] = temp;
+    persistState();
+    renderNavTabs();
+    renderTabOrderList();
+    showToast('탭 순서가 변경되었습니다.');
+  },
+  resetTabOrder: () => {
+    state.tabOrder = [...DEFAULT_TAB_ORDER];
+    persistState();
+    renderNavTabs();
+    renderTabOrderList();
+    showToast('탭 순서가 기본값으로 복원되었습니다.');
   },
   exportData: () => {
     syncManager.exportToJSON({
@@ -2496,6 +2564,7 @@ window.app = {
       formulas: state.formulas,
       questions: state.questions,
       externalDashboards: state.externalDashboards,
+      tabOrder: state.tabOrder,
       theme: state.theme
     });
   },
@@ -2893,70 +2962,79 @@ function renderKnouTab() {
           </div>
         </div>
 
-        <!-- 점수 슬라이더 그리드 -->
+        <!-- 점수 직접 입력 그리드 -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
 
           <!-- 출석률 -->
-          <div class="bg-white/5 rounded-xl p-3">
-            <div class="flex justify-between text-xs text-slate-400 mb-1">
-              <span><i class="fas fa-user-check mr-1 text-blue-400"></i>출석률 (반영 ${attW}%)</span>
-              <span class="text-blue-300 font-bold">${c.attendance.achieved}%</span>
+          <div class="bg-white/5 rounded-xl p-3.5 border border-white/5 hover:border-blue-500/30 transition">
+            <div class="flex items-center justify-between text-xs text-slate-300 mb-2">
+              <span class="font-medium"><i class="fas fa-user-check mr-1.5 text-blue-400"></i>출석률 (반영 ${attW}%)</span>
+              <span class="text-[11px] text-slate-400">환산: <b class="text-blue-300 font-bold">${Math.round((c.attendance.achieved || 0) * (attW / 100))}점</b></span>
             </div>
-            <input type="range" min="0" max="100" value="${c.attendance.achieved}"
-              oninput="window.app.updateKnouScore(${idx},'attendance',this.value)"
-              class="w-full accent-blue-500 cursor-pointer">
-            <div class="flex justify-between text-xs text-slate-500 mt-0.5">
-              <span>0%</span><span>100%</span>
+            <div class="flex items-center gap-2">
+              <input type="number" min="0" max="100" value="${c.attendance.achieved || 0}"
+                oninput="window.app.updateKnouScore(${idx},'attendance',this.value)"
+                class="w-full bg-slate-900 border border-slate-700 focus:border-blue-400 rounded-lg px-3 py-2 text-white font-bold text-sm focus:outline-none transition">
+              <span class="text-xs font-bold text-slate-400">%</span>
             </div>
           </div>
 
           <!-- 중간 과제물/고사 -->
-          <div class="bg-white/5 rounded-xl p-3">
-            <div class="flex justify-between text-xs text-slate-400 mb-1">
-              <span><i class="fas fa-file-lines mr-1 text-orange-400"></i>${c.midterm.type} (반영 ${midW}%)</span>
-              <span class="text-orange-300 font-bold">${c.midterm.achieved}점</span>
+          <div class="bg-white/5 rounded-xl p-3.5 border border-white/5 hover:border-orange-500/30 transition">
+            <div class="flex items-center justify-between text-xs text-slate-300 mb-2">
+              <span class="font-medium"><i class="fas fa-file-lines mr-1.5 text-orange-400"></i>${c.midterm.type} (반영 ${midW}%)</span>
+              <span class="text-[11px] text-slate-400">환산: <b class="text-orange-300 font-bold">${Math.round((c.midterm.achieved || 0) * (midW / 100))}점</b></span>
             </div>
-            <input type="range" min="0" max="100" value="${c.midterm.achieved}"
-              oninput="window.app.updateKnouScore(${idx},'midterm',this.value)"
-              class="w-full accent-orange-500 cursor-pointer">
-            <div class="flex items-center gap-2 mt-1">
+            <div class="flex items-center gap-2 mb-2">
+              <input type="number" min="0" max="100" value="${c.midterm.achieved || 0}"
+                oninput="window.app.updateKnouScore(${idx},'midterm',this.value)"
+                class="w-full bg-slate-900 border border-slate-700 focus:border-orange-400 rounded-lg px-3 py-2 text-white font-bold text-sm focus:outline-none transition">
+              <span class="text-xs font-bold text-slate-400">점</span>
+            </div>
+            <div class="flex items-center gap-2">
               <input type="checkbox" id="mid-sub-${idx}" ${c.midterm.submitted ? 'checked' : ''}
                 onchange="window.app.updateKnouSubmit(${idx},'midterm',this.checked)"
-                class="accent-orange-500 cursor-pointer">
-              <label for="mid-sub-${idx}" class="text-xs text-slate-400 cursor-pointer">제출 완료</label>
+                class="rounded bg-slate-800 border-slate-700 text-orange-500 accent-orange-500 cursor-pointer">
+              <label for="mid-sub-${idx}" class="text-xs text-slate-400 hover:text-white cursor-pointer select-none">제출 완료</label>
             </div>
           </div>
 
           <!-- 기말 과제물/고사 -->
-          <div class="bg-white/5 rounded-xl p-3">
-            <div class="flex justify-between text-xs text-slate-400 mb-1">
-              <span><i class="fas fa-pen-to-square mr-1 text-red-400"></i>${c.final.type} (반영 ${finW}%)</span>
-              <span class="text-red-300 font-bold">${c.final.achieved}점</span>
+          <div class="bg-white/5 rounded-xl p-3.5 border border-white/5 hover:border-red-500/30 transition">
+            <div class="flex items-center justify-between text-xs text-slate-300 mb-2">
+              <span class="font-medium"><i class="fas fa-pen-to-square mr-1.5 text-red-400"></i>${c.final.type} (반영 ${finW}%)</span>
+              <span class="text-[11px] text-slate-400">환산: <b class="text-red-300 font-bold">${Math.round((c.final.achieved || 0) * (finW / 100))}점</b></span>
             </div>
-            <input type="range" min="0" max="100" value="${c.final.achieved}"
-              oninput="window.app.updateKnouScore(${idx},'final',this.value)"
-              class="w-full accent-red-500 cursor-pointer">
-            <div class="flex items-center gap-2 mt-1">
+            <div class="flex items-center gap-2 mb-2">
+              <input type="number" min="0" max="100" value="${c.final.achieved || 0}"
+                oninput="window.app.updateKnouScore(${idx},'final',this.value)"
+                class="w-full bg-slate-900 border border-slate-700 focus:border-red-400 rounded-lg px-3 py-2 text-white font-bold text-sm focus:outline-none transition">
+              <span class="text-xs font-bold text-slate-400">점</span>
+            </div>
+            <div class="flex items-center gap-2">
               <input type="checkbox" id="fin-sub-${idx}" ${c.final.submitted ? 'checked' : ''}
                 onchange="window.app.updateKnouSubmit(${idx},'final',this.checked)"
-                class="accent-red-500 cursor-pointer">
-              <label for="fin-sub-${idx}" class="text-xs text-slate-400 cursor-pointer">제출 완료</label>
+                class="rounded bg-slate-800 border-slate-700 text-red-500 accent-red-500 cursor-pointer">
+              <label for="fin-sub-${idx}" class="text-xs text-slate-400 hover:text-white cursor-pointer select-none">제출 완료</label>
             </div>
           </div>
 
           <!-- 출석수업/과제물 (선택) -->
           ${c.attendanceClass.required ? `
-          <div class="bg-white/5 rounded-xl p-3">
-            <div class="flex justify-between text-xs text-slate-400 mb-1">
-              <span><i class="fas fa-chalkboard-teacher mr-1 text-teal-400"></i>출석수업·과제 (반영 ${clsW}%)</span>
-              <span class="text-teal-300 font-bold">${c.attendanceClass.achieved}점</span>
+          <div class="bg-white/5 rounded-xl p-3.5 border border-white/5 hover:border-teal-500/30 transition">
+            <div class="flex items-center justify-between text-xs text-slate-300 mb-2">
+              <span class="font-medium"><i class="fas fa-chalkboard-teacher mr-1.5 text-teal-400"></i>출석수업·과제 (반영 ${clsW}%)</span>
+              <span class="text-[11px] text-slate-400">환산: <b class="text-teal-300 font-bold">${Math.round((c.attendanceClass.achieved || 0) * (clsW / 100))}점</b></span>
             </div>
-            <input type="range" min="0" max="100" value="${c.attendanceClass.achieved}"
-              oninput="window.app.updateKnouScore(${idx},'attendanceClass',this.value)"
-              class="w-full accent-teal-500 cursor-pointer">
+            <div class="flex items-center gap-2">
+              <input type="number" min="0" max="100" value="${c.attendanceClass.achieved || 0}"
+                oninput="window.app.updateKnouScore(${idx},'attendanceClass',this.value)"
+                class="w-full bg-slate-900 border border-slate-700 focus:border-teal-400 rounded-lg px-3 py-2 text-white font-bold text-sm focus:outline-none transition">
+              <span class="text-xs font-bold text-slate-400">점</span>
+            </div>
           </div>` : `
-          <div class="bg-white/5 rounded-xl p-3 flex items-center justify-center text-slate-600 text-xs">
-            <i class="fas fa-minus-circle mr-1"></i>출석수업 해당 없음
+          <div class="bg-white/5 rounded-xl p-3.5 border border-white/5 flex items-center justify-center text-slate-500 text-xs">
+            <i class="fas fa-minus-circle mr-1.5"></i>출석수업 해당 없음
           </div>`}
         </div>
 
