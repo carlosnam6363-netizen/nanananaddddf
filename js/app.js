@@ -2294,33 +2294,6 @@ function applyTheme(theme) {
   }
 }
 
-window.app.changeTheme = function(theme) {
-  state.theme = theme;
-  applyTheme(theme);
-  persistState();
-  renderSettingsTab(); // 선택된 테마 카드 즉시 갱신
-  showToast(`테마가 "${theme === 'dark' ? '다크 슬레이트' : theme === 'nord' ? '노드 아틱' : '웜 앰버'}"로 변경되었습니다.`);
-};
-
-function getSyncStatusLabel(status) {
-  switch (status) {
-    case 'synced': return '실시간 동기화 됨 (클라우드)';
-    case 'connecting': return '클라우드 연결 중...';
-    case 'error': return '동기화 오류';
-    default: return '로컬 저장 모드 (안전 보관)';
-  }
-}
-
-function updateSyncStatusUI({ status, message }) {
-  const textEl = document.getElementById('sync-status-text');
-  if (textEl) textEl.innerText = getSyncStatusLabel(status);
-
-  const sidebarDot = document.getElementById('sidebar-sync-dot');
-  if (sidebarDot) {
-    sidebarDot.className = `w-2 h-2 rounded-full ${status === 'synced' ? 'bg-emerald-400 animate-pulse' : 'bg-slate-400'}`;
-  }
-}
-
 function initKaTeX() {
   if (window.renderMathInElement) {
     window.renderMathInElement(document.body, {
