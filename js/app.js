@@ -523,160 +523,50 @@ class SyncManager {
     };
   }
 
-  // 로컬 저장
+  // 데이터 저장
   saveToLocal(data) {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
       this.lastSyncedAt = new Date();
       return true;
     } catch (e) {
-      console.error('LocalStorage 저장 실패 (용량 초과 가능성):', e);
+      console.error('LocalStorage 저장 실패:', e);
       return false;
     }
   }
 
-  // Firebase 초기화 시도
-  async initFirebase(config = null) {
-    const activeConfig = config || this.getSavedFirebaseConfig();
-    if (!activeConfig || !activeConfig.apiKey || !activeConfig.projectId) {
-      this.setStatus('local', '로컬 저장 모드 (Firebase 미설정)');
-      return false;
-    }
-
-    this.setStatus('connecting', 'Firebase 클라우드 연결 중...');
-
-    try {
-      // Firebase CDN 동적 로드 (Compat 버전 사용으로 번들러 없이 브라우저에서 바로 동작)
-      if (!window.firebase) {
-        await this.loadScript('https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js');
-        await this.loadScript('https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js');
-      }
-
-      if (!window.firebase.apps.length) {
-        window.firebase.initializeApp(activeConfig);
-      }
-
-      this.db = window.firebase.firestore();
-      const userId = activeConfig.userId || 'my_dashboard_user';
-      const docRef = this.db.collection('dashboards').doc(userId);
-
-      // 실시간 리스너 구독
-      if (this.unsubscribe) this.unsubscribe();
-
-      this.unsubscribe = docRef.onSnapshot(
-        (doc) => {
-          if (doc.exists) {
-            const remoteData = doc.data();
-            this.saveToLocal(remoteData);
-            this.notifyDataChange(remoteData);
-            this.setStatus('synced', '클라우드 동기화 완료 (실시간)');
-          } else {
-            // 원격에 데이터가 없으면 로컬 데이터를 최초 업로드
-            const localData = this.loadInitialData();
-            docRef.set(localData);
-            this.setStatus('synced', '원격 초기 데이터 등록 완료');
-          }
-        },
-        (error) => {
-          console.error('Firestore 동기화 에러:', error);
-          this.setStatus('error', `동기화 오류: ${error.message}`);
-        }
-      );
-
-      // 설정 저장
-      localStorage.setItem(FIREBASE_CONFIG_KEY, JSON.stringify(activeConfig));
-      return true;
-    } catch (err) {
-      console.error('Firebase 초기화 실패:', err);
-      this.setStatus('error', `Firebase 연결 실패: ${err.message}`);
-      return false;
-    }
-  }
-
-  // 클라우드로 데이터 전송
-  async syncToCloud(data) {
+  // 상태 보존
+  syncToCloud(data) {
     this.saveToLocal(data);
-
-    if (this.db) {
-      try {
-        const config = this.getSavedFirebaseConfig();
-        const userId = (config && config.userId) || 'my_dashboard_user';
-        await this.db.collection('dashboards').doc(userId).set(data, { merge: true });
-        this.setStatus('synced', '클라우드에 저장됨');
-      } catch (err) {
-        console.error('클라우드 저장 실패:', err);
-        this.setStatus('error', '클라우드 저장 실패 (로컬에만 보관됨)');
-      }
-    }
   }
 
-  getSavedFirebaseConfig() {
-    try {
-      const val = localStorage.getItem(FIREBASE_CONFIG_KEY);
-      return val ? JSON.parse(val) : null;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  handleNetworkChange(isOnline) {
-    this.isOnline = isOnline;
-    if (!isOnline) {
-      this.setStatus('local', '오프라인 (인터넷 연결 끊김 - 로컬 동작)');
-    } else {
-      if (this.getSavedFirebaseConfig()) {
-        this.initFirebase();
-      } else {
-        this.setStatus('local', '온라인 (로컬 모드)');
-      }
-    }
-  }
-
-  setStatus(status, message) {
-    this.status = status;
-    this.syncStatusListeners.forEach(listener => listener({ status, message, lastSyncedAt: this.lastSyncedAt }));
-  }
-
-  onStatusChange(callback) {
-    this.syncStatusListeners.push(callback);
-  }
-
-  onDataChange(callback) {
-    this.dataChangeListeners.push(callback);
-  }
-
-  notifyDataChange(data) {
-    this.dataChangeListeners.forEach(listener => listener(data));
-  }
-
-  // 스크립트 로더 헬퍼
-  loadScript(src) {
-    return new Promise((resolve, reject) => {
-      const existing = document.querySelector(`script[src="${src}"]`);
-      if (existing) return resolve();
-      const s = document.createElement('script');
-      s.src = src;
-      s.onload = () => resolve();
-      s.onerror = (e) => reject(e);
-      document.head.appendChild(s);
-    });
-  }
-
-  // JSON 파일로 내보내기
+  // JSON 백업 파일 내보내기
   exportToJSON(data) {
     const jsonStr = JSON.stringify(data, null, 2);
     const blob = new Blob([jsonStr], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    const dateStr = new Date().toISOString().slice(0, 10);
     a.href = url;
-    a.download = `career_dashboard_backup_${dateStr}.json`;
-    document.body.appendChild(a);
+    a.download = `career_dashboard_backup_${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
-    document.body.removeChild(a);
     URL.revokeObjectURL(url);
   }
 
+  // JSON 백업 파일 불러오기
+  importFromJSON(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          this.saveToLocal(parsed);
+          resolve(parsed);
+        } catch (err) {
+          reject(new Error('올바르지 않은 JSON 파일입니다.'));
+        }
+      };
+      reader.onerror = () => reject(new Error('파일 읽기 실패'));
+      reader.readAsText(file);
   // JSON 파일 읽어서 복원
   importFromJSON(file) {
     return new Promise((resolve, reject) => {
@@ -684,9 +574,8 @@ class SyncManager {
       reader.onload = (e) => {
         try {
           const parsed = JSON.parse(e.target.result);
-          if (parsed && (parsed.exams || parsed.bands || parsed.questions)) {
+          if (parsed && (parsed.exams || parsed.bands || parsed.questions || parsed.camino)) {
             this.saveToLocal(parsed);
-            if (this.db) this.syncToCloud(parsed);
             resolve(parsed);
           } else {
             reject(new Error('유효하지 않은 대시보드 백업 파일입니다.'));
@@ -819,20 +708,6 @@ function initApp() {
     state.activeExternalTabId = state.externalDashboards[0].id;
   }
 
-  syncManager.onStatusChange(updateSyncStatusUI);
-  syncManager.onDataChange((remoteData) => {
-    state.exams = remoteData.exams || state.exams;
-    state.bands = remoteData.bands || state.bands;
-    state.formulas = remoteData.formulas || state.formulas;
-    state.questions = remoteData.questions || state.questions;
-    state.externalDashboards = remoteData.externalDashboards || state.externalDashboards;
-    if (remoteData.dischargeDate) state.dischargeDate = remoteData.dischargeDate;
-    if (remoteData.camino) state.camino = remoteData.camino;
-    renderCurrentTab();
-    showToast('클라우드에서 최신 데이터를 동기화했습니다.');
-  });
-
-  syncManager.initFirebase();
   applyTheme(state.theme);
   initNavigation();
   initModals();
@@ -1132,14 +1007,14 @@ function renderOverviewTab() {
             <span class="px-2.5 py-0.5 bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[11px] font-bold rounded-full flex items-center gap-1.5">
               <i class="fa-solid fa-compass text-amber-400"></i> Buen Camino!
             </span>
-            <span class="text-[11px] text-slate-400">11.07 ~ 11.09</span>
+            <span class="text-[11px] text-slate-400">11.09 ~ 11.20</span>
           </div>
           <h2 class="text-xl font-black text-white tracking-tight flex items-center gap-2">
             <i class="fa-solid fa-person-hiking text-amber-400 text-lg"></i>
-            <span>산티아고 순례길</span>
+            <span>${camino.title || '까미노 포르투게스'}</span>
           </h2>
           <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">
-            에너지 시험 직후 떠나는 나만의 성찰과 힐링. 스페인 갈리시아 길 걷기.
+            포르투에서 산티아고까지 여유롭게 걷는 낭만과 힐링의 포르투갈 순례길 트레킹.
           </p>
         </div>
 
@@ -1151,7 +1026,7 @@ function renderOverviewTab() {
             </div>
           </div>
           <button onclick="window.app.switchTab('camino')" class="py-1.5 px-3 bg-amber-500 hover:bg-amber-600 text-slate-950 rounded-lg text-xs font-bold transition flex items-center gap-1">
-            <i class="fa-solid fa-map-location-dot"></i> 순례길 계획
+            <i class="fa-solid fa-route"></i> 일정·체크
           </button>
         </div>
       </div>
@@ -1384,22 +1259,22 @@ function renderOverviewTab() {
           <div class="flex items-center justify-between mb-4">
             <div class="flex items-center gap-2">
               <i class="fa-solid fa-person-hiking text-amber-400 text-lg"></i>
-              <h2 class="text-lg font-bold text-white">산티아고 순례길 여정 브리핑</h2>
-              <span class="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">11/7 ~ 11/9</span>
+              <h2 class="text-lg font-bold text-white">산티아고 순례길 (포르투 코스) 여정</h2>
+              <span class="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">11/9 ~ 11/20</span>
             </div>
             <button onclick="window.app.switchTab('camino')" class="text-xs text-amber-400 hover:text-amber-300 font-medium flex items-center gap-1">
               일정 및 짐싸기 체크 <i class="fa-solid fa-arrow-right"></i>
             </button>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
-            ${camino.itinerary.map(item => `
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
+            ${camino.itinerary.slice(0, 3).map(item => `
               <div class="p-3 rounded-xl bg-slate-800/80 border border-amber-500/20">
                 <div class="text-[11px] font-bold text-amber-400 mb-1">${item.day}</div>
                 <div class="text-xs font-bold text-white truncate mb-1">${item.title}</div>
                 <div class="text-[11px] text-slate-400 flex items-center justify-between">
                   <span>${item.distance}</span>
-                  <span class="text-amber-300/80 text-[10px]">${item.highlight.split('&')[0]}</span>
+                  <span class="text-amber-300/80 text-[10px] truncate max-w-[120px]">${item.highlight.split('&')[0]}</span>
                 </div>
               </div>
             `).join('')}
@@ -1548,15 +1423,14 @@ function renderCaminoTab() {
             <span class="px-3 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold rounded-full flex items-center gap-1.5">
               <i class="fa-solid fa-compass"></i> 부엔 카미노 (Buen Camino)
             </span>
-            <span class="text-xs text-slate-400">2026년 11월 7일 ~ 11월 9일 (3일간)</span>
+            <span class="text-xs text-slate-400">${formatScheduleDate(camino.startDate, camino.endDate)} (${camino.itinerary ? camino.itinerary.length : 5}개 구간)</span>
           </div>
           <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
             <i class="fa-solid fa-person-hiking text-amber-400"></i>
-            산티아고 순례길 트레킹 (Camino de Santiago)
+            ${camino.title || '까미노 포르투게스 (Camino Português)'}
           </h1>
           <p class="text-sm text-slate-300 mt-2 max-w-2xl leading-relaxed">
-            에너지관리기사 시험을 마친 직후, 지친 마음을 비우고 새로운 에너지를 채우는 나만의 순례길.
-            노란 화살표를 따라 한 걸음씩 걷는 힐링과 사색의 여정입니다.
+            포르투(Porto)에서 산티아고 데 콤포스텔라까지. 포르투갈과 스페인 갈리시아의 아름다운 해안·마을을 여유롭게 여행하며 걷는 힐링 순례길.
           </p>
         </div>
 
@@ -1581,7 +1455,7 @@ function renderCaminoTab() {
           <div class="flex items-center justify-between mb-4">
             <h2 class="text-lg font-bold text-white flex items-center gap-2">
               <i class="fa-solid fa-route text-amber-400"></i>
-              3일간의 일자별 트레킹 코스 & 알베르게 계획
+              일자별 트레킹 코스 &amp; 알베르게 계획
             </h2>
             <span class="text-xs text-slate-400 bg-slate-800 px-2.5 py-1 rounded-lg">
               총 거리: ${camino.totalDistance}
