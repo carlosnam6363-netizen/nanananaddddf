@@ -503,7 +503,23 @@ class SyncManager {
           dischargeDate: parsed.dischargeDate || INITIAL_DISCHARGE_DATE,
           camino: parsed.camino || INITIAL_CAMINO_DATA,
           knou: parsed.knou || INITIAL_KNOU_DATA,
-          tabOrder: Array.isArray(parsed.tabOrder) ? parsed.tabOrder : [...DEFAULT_TAB_ORDER],
+          awards: parsed.awards || INITIAL_AWARDS_DATA,
+          careers: parsed.careers || INITIAL_CAREER_DATA,
+          tabOrder: (() => {
+            let order = Array.isArray(parsed.tabOrder) ? [...parsed.tabOrder] : [...DEFAULT_TAB_ORDER];
+            DEFAULT_TAB_ORDER.forEach(tabId => {
+              if (!order.includes(tabId)) {
+                if (tabId === 'archive') {
+                  const ovIdx = order.indexOf('overview');
+                  if (ovIdx !== -1) order.splice(ovIdx + 1, 0, 'archive');
+                  else order.push('archive');
+                } else {
+                  order.push(tabId);
+                }
+              }
+            });
+            return order;
+          })(),
           theme: parsed.theme || 'dark'
         };
       }
@@ -520,6 +536,8 @@ class SyncManager {
       dischargeDate: INITIAL_DISCHARGE_DATE,
       camino: INITIAL_CAMINO_DATA,
       knou: INITIAL_KNOU_DATA,
+      awards: INITIAL_AWARDS_DATA,
+      careers: INITIAL_CAREER_DATA,
       tabOrder: [...DEFAULT_TAB_ORDER],
       theme: 'dark'
     };
@@ -664,9 +682,57 @@ const INITIAL_KNOU_DATA = {
   ]
 };
 
+// ─── 수상 내역 (총 23건) ───
+const INITIAL_AWARDS_DATA = [
+  { id: "aw-1", date: "2026-08", year: "2026", title: "제2회 화성시 양성평등 공모전 산문 부문 장려상", issuer: "화성시여성가족청소년재단이사장 표창", category: "대외·공공", icon: "fa-award", badgeColor: "teal" },
+  { id: "aw-2", date: "2026-03", year: "2026", title: "제5기 화성시 청년정책협의회 위원 선정 (동탄 교육·참여·권리 분과장)", issuer: "화성시장 위촉", category: "대외·공공", icon: "fa-landmark", badgeColor: "blue" },
+  { id: "aw-3", date: "2025-12", year: "2025", title: "장애인과 함께하는 문해 글짓기 대회 대상", issuer: "국회 국방위원장상 대상 (국회 국방위원장 표창)", category: "대외·공공", icon: "fa-trophy", badgeColor: "amber", highlight: true },
+  { id: "aw-4", date: "2024-01", year: "2024", title: "방송통신대 총장 표창 우수상", issuer: "방송통신대학교총장 표창", category: "대외·공공", icon: "fa-graduation-cap", badgeColor: "indigo" },
+  { id: "aw-5", date: "2023-07", year: "2023", title: "세이프 인플루언서 우수 활동자 즉시상", issuer: "안전그룹장 표창", category: "환경안전", icon: "fa-shield-halved", badgeColor: "emerald" },
+  { id: "aw-6", date: "2023-02", year: "2023", title: "2023 FOUNDRY DIFFUSION 기술팀 DS경진대회 최다 아이디어부문 우수", issuer: "DIFFUSION기술팀장 표창", category: "혁신아이디어", icon: "fa-lightbulb", badgeColor: "yellow" },
+  { id: "aw-7", date: "2022-12", year: "2022", title: "세이프 인플루언서 최우수 활동자 즉시상", issuer: "안전그룹장 표창", category: "환경안전", icon: "fa-shield-halved", badgeColor: "emerald" },
+  { id: "aw-8", date: "2022-05", year: "2022", title: "모두의 인사 TF 승격분과 본과정 경진대회 시상", issuer: "인사기획그룹 표창", category: "혁신아이디어", icon: "fa-users-gear", badgeColor: "purple" },
+  { id: "aw-9", date: "2022-02", year: "2022", title: "2월 업무 불합리 발굴 우수상", issuer: "DIFFUSION기술팀장 표창", category: "혁신아이디어", icon: "fa-magnifying-glass-plus", badgeColor: "yellow" },
+  { id: "aw-10", date: "2021-10", year: "2021", title: "위험발굴 우수발굴 즉시상", issuer: "기술환경안전팀장 표창", category: "환경안전", icon: "fa-triangle-exclamation", badgeColor: "emerald" },
+  { id: "aw-11", date: "2021-10", year: "2021", title: "기본지키기 서포터즈 6기 우수 활동자 수상", issuer: "안전그룹장 표창", category: "환경안전", icon: "fa-shield-halved", badgeColor: "emerald" },
+  { id: "aw-12", date: "2021-09", year: "2021", title: "21년 하반기 혁신적으로 일하기 공모전 우수상", issuer: "D기술팀장 표창", category: "혁신아이디어", icon: "fa-lightbulb", badgeColor: "yellow" },
+  { id: "aw-13", date: "2021-07", year: "2021", title: "D기술팀 우수사원 즉시상", issuer: "D기술팀장 표창", category: "제조기술", icon: "fa-star", badgeColor: "sky" },
+  { id: "aw-14", date: "2021-02", year: "2021", title: "제조기술센터 설비엔지니어 공정회 우수 기안 시상", issuer: "제조센터장 표창", category: "제조기술", icon: "fa-gears", badgeColor: "sky" },
+  { id: "aw-15", date: "2021-01", year: "2021", title: "기본지키기 서포터즈 1기 ~ 4기 연속 4회 시상", issuer: "안전그룹장 표창", category: "환경안전", icon: "fa-shield-check", badgeColor: "emerald" },
+  { id: "aw-16", date: "2021-01", year: "2021", title: "D기술팀 DigNoel 상 4회 시상 추천 및 본인 시상", issuer: "D기술팀장 표창", category: "제조기술", icon: "fa-medal", badgeColor: "sky" },
+  { id: "aw-17", date: "2020-10", year: "2020", title: "인재개발그룹 즉시상", issuer: "인재개발그룹장 표창", category: "혁신아이디어", icon: "fa-user-graduate", badgeColor: "purple" },
+  { id: "aw-18", date: "2020-07", year: "2020", title: "D기술팀 생산성 향상 공모전 즉시상", issuer: "D기술팀장 표창", category: "제조기술", icon: "fa-chart-line", badgeColor: "sky" },
+  { id: "aw-19", date: "2020-06", year: "2020", title: "제조 시너지 P/J 협업 IDEA & 우수상과 공모전 (최다발굴 시상)", issuer: "제조 시너지 PROJECT장 표창", category: "혁신아이디어", icon: "fa-network-wired", badgeColor: "yellow" },
+  { id: "aw-20", date: "2020-04", year: "2020", title: "환경안전공모전 (아이디어 부문) 은상", issuer: "환경안전팀장 표창", category: "환경안전", icon: "fa-leaf", badgeColor: "emerald" },
+  { id: "aw-21", date: "2018-07", year: "2018", title: "D기술팀 Hidden Worker 부문 즉시상", issuer: "D기술팀장 표창", category: "제조기술", icon: "fa-hand-holding-heart", badgeColor: "sky" },
+  { id: "aw-22", date: "2016-01", year: "2016", title: "D기술팀 환경안전 부문 즉시상", issuer: "D기술팀장 표창", category: "환경안전", icon: "fa-shield", badgeColor: "emerald" },
+  { id: "aw-23", date: "2014-11", year: "2014", title: "슈퍼루키 프로젝트 성과 발표회 우수 시상", issuer: "제조센터장 표창", category: "제조기술", icon: "fa-rocket", badgeColor: "sky", highlight: true }
+];
+
+// ─── 경력 및 주요 활동 (총 16건) ───
+const INITIAL_CAREER_DATA = [
+  { id: "cr-1", period: "연재 중", year: "현재", title: "브런치스토리(Brunch) 작가 활동", desc: "브런치 플랫폼 작가명 '아론'으로 다양한 시선과 경험을 담은 에세이 및 칼럼 연재 중", category: "창작·대외", icon: "fa-feather-pointed", badgeColor: "rose" },
+  { id: "cr-2", period: "2026.03 ~ 현재", year: "2026", title: "제5기 화성시 청년정책협의회 위원 & 분과장", desc: "동탄 교육·참여·권리 분과장 역임, 청년 정책 제안 및 공공 거버넌스 참여", category: "공공·대외", icon: "fa-users-between-lines", badgeColor: "blue" },
+  { id: "cr-3", period: "2023 연중", year: "2023", title: "THE NANUM 100 CLUB 선정", desc: "연간 사내 봉사활동 100시간 이상 달성 우수 나눔 임직원 인증", category: "사회공헌", icon: "fa-heart", badgeColor: "red" },
+  { id: "cr-4", period: "2023 연중", year: "2023", title: "위험물기능장 대비반 운영 (팀 내 7명 배출)", desc: "팀 내 국가기술자격 위험물기능장 스터디 멘토링 주도 및 7명 최종 합격 배출", category: "전문성·교육", icon: "fa-award", badgeColor: "amber", highlight: true },
+  { id: "cr-5", period: "2023.11", year: "2023", title: "SSIT 삼성전자 사내대학 전임교수 추천", desc: "전문 기술 역량 및 사내 인재양성 공로로 삼성전자 공과대학교 전임교수 추천", category: "전문성·교육", icon: "fa-chalkboard-user", badgeColor: "indigo" },
+  { id: "cr-6", period: "2023.09", year: "2023", title: "세이프 인플루언서 TF 3기 활동 및 9월 우수 활동자 수상", desc: "사내 안전 문화 확산 및 현장 위험요소 발굴 활동 주도", category: "사내TF", icon: "fa-bullhorn", badgeColor: "emerald" },
+  { id: "cr-7", period: "2023.07 ~ 현재", year: "2023", title: "기흥/화성 파운드리사업부 위험물 관리자 선임", desc: "Foundry 사업부 핵심 안전관리 법정 위험물안전관리자 선임 및 현장 운영", category: "전문성·자격", icon: "fa-shield-halved", badgeColor: "teal", highlight: true },
+  { id: "cr-8", period: "2023.07", year: "2023", title: "방송통신대학교 생산운영관리 학생출연자 참여", desc: "방통대 정규 강의 방송 패널/출연자로 참여하여 실무 경험 공유", category: "창작·대외", icon: "fa-video", badgeColor: "sky" },
+  { id: "cr-9", period: "2023.05", year: "2023", title: "세이프 인플루언서 TF 2기 + 우수 활동자 시상", desc: "안전 캠페인 기획 및 현장 개선안 공유 우수 실적", category: "사내TF", icon: "fa-bullhorn", badgeColor: "emerald" },
+  { id: "cr-10", period: "2022.12", year: "2022", title: "THE NANUM 50 CLUB 선정", desc: "옷캔, 플로깅 등 사내 봉사활동 연간 50시간 수행", category: "사회공헌", icon: "fa-hands-holding-child", badgeColor: "red" },
+  { id: "cr-11", period: "2022.06 ~ 2023.06", year: "2022", title: "사내 MZ 자문 위원 활동 (1년간)", desc: "세대 간 소통 증진 및 조직문화 개선을 위한 사내 MZ 자문 위원 위촉 활동", category: "사내TF", icon: "fa-people-arrows", badgeColor: "purple" },
+  { id: "cr-12", period: "2022.09 ~ 2022.11", year: "2022", title: "세이프 인플루언서 TF 활동", desc: "사내 현장 안전 소통 강화 TF 참여", category: "사내TF", icon: "fa-shield-virus", badgeColor: "emerald" },
+  { id: "cr-13", period: "2022.08", year: "2022", title: "위드시큐리티 TF 사내 IT분과 참여", desc: "사내 정보보안 거버넌스 및 IT 보안 강화 프로젝트 기여", category: "사내TF", icon: "fa-lock", badgeColor: "indigo" },
+  { id: "cr-14", period: "2022.03 ~ 2022.05", year: "2022", title: "모두의 인사 TF 승격분과 참여", desc: "인사제도 개편 관련 승격제도 혁신 TF 분과원 활동", category: "사내TF", icon: "fa-briefcase", badgeColor: "purple" },
+  { id: "cr-15", period: "2022 연중", year: "2022", title: "지도후배 양성 멘토링", desc: "신입/후배 엔지니어 1:1 직무 역량 지도 및 정착 지원", category: "전문성·교육", icon: "fa-user-plus", badgeColor: "sky" },
+  { id: "cr-16", period: "2021.12", year: "2021", title: "THE NANUM 100 CLUB 선정", desc: "점자 도서 제작, 해외 의류 지원, 편의시설 점검 지도 제작 등 100시간 이상 봉사", category: "사회공헌", icon: "fa-hand-holding-heart", badgeColor: "red", highlight: true }
+];
+
 // 탭 정의 및 기본 순서
 const DEFAULT_TAB_ORDER = [
   'overview',
+  'archive',
   'exam',
   'camino',
   'band',
@@ -678,6 +744,7 @@ const DEFAULT_TAB_ORDER = [
 
 const TAB_DEFINITIONS = {
   overview: { id: 'overview', name: '종합 대시보드', icon: 'fa-house', iconColor: '' },
+  archive: { id: 'archive', name: '커리어 아카이브', icon: 'fa-trophy', iconColor: 'text-amber-400', badge: 'NEW', badgeColor: 'bg-amber-500/20 text-amber-300 font-bold' },
   exam: { id: 'exam', name: '시험 및 학사 일정', icon: 'fa-calendar-days', iconColor: '' },
   camino: { id: 'camino', name: '산티아고 순례길', icon: 'fa-person-hiking', iconColor: 'text-amber-400', badge: '11/9', badgeColor: 'bg-amber-500/20 text-amber-400 font-bold' },
   band: { id: 'band', name: '밴드 합주 & 문화생활', icon: 'fa-guitar', iconColor: '' },
@@ -697,6 +764,8 @@ let state = {
   dischargeDate: INITIAL_DISCHARGE_DATE,
   camino: INITIAL_CAMINO_DATA,
   knou: INITIAL_KNOU_DATA,
+  awards: [...INITIAL_AWARDS_DATA],
+  careers: [...INITIAL_CAREER_DATA],
   tabOrder: [...DEFAULT_TAB_ORDER],
   theme: 'dark',
   activeTab: 'overview',
@@ -705,6 +774,8 @@ let state = {
   bandFilter: 'all',
   energyStudySubtab: 'daily', // 'daily', 'formulas', 'upload'
   knouSubtab: 'schedule',     // 'schedule', 'grades'
+  archiveSubtab: 'awards',    // 'awards', 'careers'
+  archiveFilter: 'all',
   currentQuestionIndex: 0
 };
 
@@ -743,6 +814,8 @@ function persistState() {
     dischargeDate: state.dischargeDate,
     camino: state.camino,
     knou: state.knou,
+    awards: state.awards,
+    careers: state.careers,
     tabOrder: state.tabOrder,
     theme: state.theme
   });
@@ -862,6 +935,9 @@ function renderCurrentTab() {
   switch (state.activeTab) {
     case 'overview':
       renderOverviewTab();
+      break;
+    case 'archive':
+      renderArchiveTab();
       break;
     case 'exam':
       renderExamTab();
@@ -1371,6 +1447,44 @@ function renderOverviewTab() {
           </div>
         </div>
 
+        <!-- 커리어 아카이브 퀵 프리뷰 -->
+        <div class="glass-panel rounded-2xl p-6 border border-amber-500/30 bg-gradient-to-r from-slate-900 via-slate-900 to-amber-950/20">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-trophy text-amber-400 text-lg"></i>
+              <h2 class="text-lg font-bold text-white">커리어 아카이브 (수상 & 주요 활동)</h2>
+              <span class="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">총 ${(state.awards || INITIAL_AWARDS_DATA).length}건 수상</span>
+            </div>
+            <button onclick="window.app.switchTab('archive')" class="text-xs text-amber-400 hover:text-amber-300 font-medium flex items-center gap-1">
+              전체 보기 <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="p-3 rounded-xl bg-slate-800/80 border border-amber-500/30 cursor-pointer hover:border-amber-400 transition" onclick="window.app.switchTab('archive')">
+              <div class="text-[10px] font-bold text-amber-400 mb-1 flex items-center gap-1">
+                <i class="fa-solid fa-crown text-[9px]"></i> 2024 대표 성과
+              </div>
+              <div class="text-xs font-bold text-white truncate mb-1">대한민국 호국미술대전 대상</div>
+              <div class="text-[11px] text-slate-400 truncate">국회 국방위원장상 대상 수상</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-800/80 border border-sky-500/30 cursor-pointer hover:border-sky-400 transition" onclick="window.app.switchTab('archive')">
+              <div class="text-[10px] font-bold text-sky-400 mb-1 flex items-center gap-1">
+                <i class="fa-solid fa-shield-halved text-[9px]"></i> 핵심 전문성
+              </div>
+              <div class="text-xs font-bold text-white truncate mb-1">위험물관리자 & 기능장 7명</div>
+              <div class="text-[11px] text-slate-400 truncate">파운드리 선임 / 대비반 7명 배출</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-800/80 border border-rose-500/30 cursor-pointer hover:border-rose-400 transition" onclick="window.app.switchTab('archive')">
+              <div class="text-[10px] font-bold text-rose-400 mb-1 flex items-center gap-1">
+                <i class="fa-solid fa-heart text-[9px]"></i> 사회공헌 & 거버넌스
+              </div>
+              <div class="text-xs font-bold text-white truncate mb-1">THE NANUM 100 CLUB</div>
+              <div class="text-[11px] text-slate-400 truncate">화성시 청년협의회 분과장</div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- Right 1 Col: 데일리 학습 위젯 & 외부 대시보드 빠른 진입 -->
@@ -1604,6 +1718,432 @@ function renderCaminoTab() {
         </div>
       </div>
 
+    </div>
+  `;
+}
+
+// ==========================================================================
+// Career Archive Tab (수상 내역 23건 + 경력/활동 16건)
+// ==========================================================================
+function renderArchiveTab() {
+  const container = document.getElementById('tab-content-archive');
+  if (!container) return;
+
+  const currentSubtab = state.archiveSubtab || 'awards';
+  const currentFilter = state.archiveFilter || 'all';
+
+  const awardsList = state.awards && state.awards.length > 0 ? state.awards : INITIAL_AWARDS_DATA;
+  const careersList = state.careers && state.careers.length > 0 ? state.careers : INITIAL_CAREER_DATA;
+
+  // KPI Calculations
+  const totalAwards = awardsList.length;
+  const publicAwards = awardsList.filter(a => a.category === '대외·공공').length;
+  const totalCareers = careersList.length;
+
+  // Filter Categories
+  const awardCategories = [
+    { id: 'all', label: '전체' },
+    { id: '대외·공공', label: '대외·공공' },
+    { id: '환경안전', label: '환경안전' },
+    { id: '혁신아이디어', label: '혁신아이디어' },
+    { id: '제조기술', label: '제조기술' },
+    { id: '사회공헌', label: '사회공헌' }
+  ];
+
+  const careerCategories = [
+    { id: 'all', label: '전체' },
+    { id: '공공·대외', label: '공공·대외' },
+    { id: '사내TF', label: '사내TF' },
+    { id: '전문성·교육', label: '전문성·교육' },
+    { id: '전문성·자격', label: '전문성·자격' },
+    { id: '사회공헌', label: '사회공헌' },
+    { id: '창작·대외', label: '창작·대외' }
+  ];
+
+  // Helper for color classes
+  const getBadgeClasses = (color) => {
+    switch (color) {
+      case 'amber': return 'bg-amber-500/15 text-amber-300 border-amber-500/30';
+      case 'blue': return 'bg-blue-500/15 text-blue-300 border-blue-500/30';
+      case 'teal': return 'bg-teal-500/15 text-teal-300 border-teal-500/30';
+      case 'emerald': return 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30';
+      case 'purple': return 'bg-purple-500/15 text-purple-300 border-purple-500/30';
+      case 'yellow': return 'bg-yellow-500/15 text-yellow-300 border-yellow-500/30';
+      case 'rose': return 'bg-rose-500/15 text-rose-300 border-rose-500/30';
+      case 'red': return 'bg-red-500/15 text-red-300 border-red-500/30';
+      case 'indigo': return 'bg-indigo-500/15 text-indigo-300 border-indigo-500/30';
+      case 'sky':
+      default: return 'bg-sky-500/15 text-sky-300 border-sky-500/30';
+    }
+  };
+
+  const getIconBg = (color) => {
+    switch (color) {
+      case 'amber': return 'from-amber-500 to-yellow-600 text-slate-950 shadow-amber-500/20';
+      case 'blue': return 'from-blue-600 to-sky-500 text-white shadow-blue-500/20';
+      case 'teal': return 'from-teal-600 to-emerald-500 text-white shadow-teal-500/20';
+      case 'emerald': return 'from-emerald-600 to-teal-500 text-white shadow-emerald-500/20';
+      case 'purple': return 'from-purple-600 to-indigo-500 text-white shadow-purple-500/20';
+      case 'yellow': return 'from-yellow-500 to-amber-600 text-slate-950 shadow-yellow-500/20';
+      case 'rose': return 'from-rose-600 to-pink-500 text-white shadow-rose-500/20';
+      case 'red': return 'from-red-600 to-rose-500 text-white shadow-red-500/20';
+      case 'indigo': return 'from-indigo-600 to-blue-500 text-white shadow-indigo-500/20';
+      case 'sky':
+      default: return 'from-sky-600 to-blue-500 text-white shadow-sky-500/20';
+    }
+  };
+
+  // Filtered lists
+  let filteredAwards = awardsList.filter(a => currentFilter === 'all' || a.category === currentFilter);
+  // Sort awards descending by date
+  filteredAwards.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+  let filteredCareers = careersList.filter(c => currentFilter === 'all' || c.category === currentFilter);
+
+  // Grouping helper
+  const groupAwardsByYear = () => {
+    const groups = {};
+    filteredAwards.forEach(item => {
+      const yr = item.year || (item.date ? item.date.slice(0, 4) : '기타');
+      if (!groups[yr]) groups[yr] = [];
+      groups[yr].push(item);
+    });
+    return groups;
+  };
+
+  const groupCareersByYear = () => {
+    const groups = {};
+    filteredCareers.forEach(item => {
+      const yr = item.year || '기타';
+      if (!groups[yr]) groups[yr] = [];
+      groups[yr].push(item);
+    });
+    return groups;
+  };
+
+  // Build HTML
+  let contentHtml = '';
+
+  if (currentSubtab === 'awards') {
+    const grouped = groupAwardsByYear();
+    const sortedYears = Object.keys(grouped).sort((a, b) => {
+      if (a === '현재') return -1;
+      if (b === '현재') return 1;
+      return b.localeCompare(a);
+    });
+
+    if (filteredAwards.length === 0) {
+      contentHtml = `
+        <div class="p-12 text-center rounded-2xl bg-slate-900/60 border border-slate-800">
+          <i class="fa-solid fa-trophy text-4xl text-slate-600 mb-3 block"></i>
+          <p class="text-sm font-semibold text-slate-300">선택한 카테고리에 해당하는 수상 내역이 없습니다.</p>
+          <button onclick="window.app.setArchiveFilter('all')" class="mt-3 px-4 py-1.5 bg-slate-800 hover:bg-slate-700 text-xs text-sky-400 rounded-lg transition font-medium">전체 보기</button>
+        </div>
+      `;
+    } else {
+      contentHtml = sortedYears.map(year => `
+        <div class="mb-8">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="px-3 py-1 rounded-xl bg-gradient-to-r from-amber-500/20 to-amber-600/10 border border-amber-500/30 text-amber-300 font-black text-sm tracking-wider flex items-center gap-1.5 shadow-sm">
+              <i class="fa-solid fa-calendar-check text-xs"></i>
+              ${year}년
+            </span>
+            <span class="text-xs text-slate-500 font-semibold">${grouped[year].length}건</span>
+            <div class="flex-1 h-px bg-slate-800"></div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+            ${grouped[year].map(award => {
+              const isHighlight = award.highlight;
+              const cardBorder = isHighlight
+                ? 'border-amber-500/60 bg-gradient-to-br from-amber-500/10 via-slate-900/90 to-slate-900/90 shadow-lg shadow-amber-500/10 ring-1 ring-amber-400/30'
+                : 'border-slate-800/90 bg-slate-900/80 hover:border-slate-700 transition shadow-sm';
+              const iconBg = getIconBg(award.badgeColor || 'amber');
+              const badgeClass = getBadgeClasses(award.badgeColor || 'amber');
+
+              return `
+                <div class="p-4 rounded-2xl border ${cardBorder} flex flex-col justify-between relative group transition duration-200">
+                  <div>
+                    <div class="flex items-start justify-between gap-3 mb-2.5">
+                      <div class="flex items-center gap-3 min-w-0">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br ${iconBg} flex items-center justify-center text-sm shadow-md flex-shrink-0">
+                          <i class="fa-solid ${award.icon || 'fa-award'}"></i>
+                        </div>
+                        <div class="min-w-0">
+                          <div class="flex items-center gap-1.5 flex-wrap mb-1">
+                            <span class="text-[11px] font-mono font-bold text-slate-400 bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700/60">
+                              <i class="fa-regular fa-calendar text-[10px] text-amber-400 mr-1"></i>${award.date}
+                            </span>
+                            <span class="text-[10px] font-semibold px-2 py-0.5 rounded border ${badgeClass}">
+                              ${award.category}
+                            </span>
+                            ${isHighlight ? `
+                              <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 flex items-center gap-1 shadow-sm">
+                                <i class="fa-solid fa-crown text-[9px]"></i> 대표 실적
+                              </span>
+                            ` : ''}
+                          </div>
+                          <h4 class="font-bold text-white text-sm leading-snug line-clamp-2 ${isHighlight ? 'text-amber-100' : ''}">
+                            ${award.title}
+                          </h4>
+                        </div>
+                      </div>
+                      <button onclick="window.app.deleteAward('${award.id}')" class="opacity-0 group-hover:opacity-100 transition text-slate-500 hover:text-red-400 p-1.5 rounded-lg hover:bg-slate-800/80 flex-shrink-0" title="수상 내역 삭제">
+                        <i class="fa-solid fa-trash-can text-xs"></i>
+                      </button>
+                    </div>
+
+                    <div class="mt-2 pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs">
+                      <span class="text-slate-400 flex items-center gap-1.5 truncate">
+                        <i class="fa-solid fa-stamp text-[11px] text-amber-400/80"></i>
+                        <span class="font-medium text-slate-300 truncate">${award.issuer}</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+  } else {
+    // Careers subtab
+    const grouped = groupCareersByYear();
+    const sortedYears = Object.keys(grouped).sort((a, b) => {
+      if (a === '현재') return -1;
+      if (b === '현재') return 1;
+      return b.localeCompare(a);
+    });
+
+    if (filteredCareers.length === 0) {
+      contentHtml = `
+        <div class="p-12 text-center rounded-2xl bg-slate-900/60 border border-slate-800">
+          <i class="fa-solid fa-briefcase text-4xl text-slate-600 mb-3 block"></i>
+          <p class="text-sm font-semibold text-slate-300">선택한 카테고리에 해당하는 경력/활동 내역이 없습니다.</p>
+          <button onclick="window.app.setArchiveFilter('all')" class="mt-3 px-4 py-1.5 bg-slate-800 hover:bg-slate-700 text-xs text-sky-400 rounded-lg transition font-medium">전체 보기</button>
+        </div>
+      `;
+    } else {
+      contentHtml = sortedYears.map(year => `
+        <div class="mb-8">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="px-3 py-1 rounded-xl bg-gradient-to-r from-blue-600/20 to-sky-500/10 border border-blue-500/30 text-sky-300 font-black text-sm tracking-wider flex items-center gap-1.5 shadow-sm">
+              <i class="fa-solid fa-clock-rotate-left text-xs"></i>
+              ${year === '현재' ? '현재 진행 중' : year + '년'}
+            </span>
+            <span class="text-xs text-slate-500 font-semibold">${grouped[year].length}건</span>
+            <div class="flex-1 h-px bg-slate-800"></div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+            ${grouped[year].map(career => {
+              const isHighlight = career.highlight;
+              const cardBorder = isHighlight
+                ? 'border-sky-500/60 bg-gradient-to-br from-sky-500/10 via-slate-900/90 to-slate-900/90 shadow-lg shadow-sky-500/10 ring-1 ring-sky-400/30'
+                : 'border-slate-800/90 bg-slate-900/80 hover:border-slate-700 transition shadow-sm';
+              const iconBg = getIconBg(career.badgeColor || 'sky');
+              const badgeClass = getBadgeClasses(career.badgeColor || 'sky');
+
+              return `
+                <div class="p-4 rounded-2xl border ${cardBorder} flex flex-col justify-between relative group transition duration-200">
+                  <div>
+                    <div class="flex items-start justify-between gap-3 mb-2">
+                      <div class="flex items-center gap-3 min-w-0">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br ${iconBg} flex items-center justify-center text-sm shadow-md flex-shrink-0">
+                          <i class="fa-solid ${career.icon || 'fa-briefcase'}"></i>
+                        </div>
+                        <div class="min-w-0">
+                          <div class="flex items-center gap-1.5 flex-wrap mb-1">
+                            <span class="text-[11px] font-mono font-bold text-sky-300 bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700/60">
+                              <i class="fa-regular fa-clock text-[10px] text-sky-400 mr-1"></i>${career.period}
+                            </span>
+                            <span class="text-[10px] font-semibold px-2 py-0.5 rounded border ${badgeClass}">
+                              ${career.category}
+                            </span>
+                            ${isHighlight ? `
+                              <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-gradient-to-r from-sky-400 to-blue-500 text-slate-950 flex items-center gap-1 shadow-sm">
+                                <i class="fa-solid fa-star text-[9px]"></i> 핵심 활동
+                              </span>
+                            ` : ''}
+                          </div>
+                          <h4 class="font-bold text-white text-sm leading-snug line-clamp-2">
+                            ${career.title}
+                          </h4>
+                        </div>
+                      </div>
+                      <button onclick="window.app.deleteCareer('${career.id}')" class="opacity-0 group-hover:opacity-100 transition text-slate-500 hover:text-red-400 p-1.5 rounded-lg hover:bg-slate-800/80 flex-shrink-0" title="경력/활동 삭제">
+                        <i class="fa-solid fa-trash-can text-xs"></i>
+                      </button>
+                    </div>
+
+                    <div class="mt-2.5 p-3 rounded-xl bg-slate-800/50 border border-slate-700/40 text-xs text-slate-300 leading-relaxed">
+                      ${career.desc}
+                    </div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+
+  // Active categories list
+  const activeCategories = currentSubtab === 'awards' ? awardCategories : careerCategories;
+
+  container.innerHTML = `
+    <!-- Top Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+      <div>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1">
+            <i class="fa-solid fa-medal text-[10px]"></i> Career Milestones
+          </span>
+        </div>
+        <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2">
+          <span>커리어 아카이브</span>
+        </h2>
+        <p class="text-xs text-slate-400 mt-1">
+          사내외 공모전 및 즉시상 수상 실적과 전문 경력·사내 TF·사회공헌 활동을 통합 관리합니다.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2 flex-wrap">
+        ${currentSubtab === 'awards' ? `
+          <button onclick="window.app.openAddAwardModal()" class="px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-xl text-xs shadow-lg shadow-amber-500/20 flex items-center gap-2 transition active:scale-95">
+            <i class="fa-solid fa-trophy"></i>
+            <span>새 수상 내역 등록</span>
+          </button>
+        ` : `
+          <button onclick="window.app.openAddCareerModal()" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-sky-500 hover:from-blue-500 hover:to-sky-400 text-white font-black rounded-xl text-xs shadow-lg shadow-blue-500/20 flex items-center gap-2 transition active:scale-95">
+            <i class="fa-solid fa-briefcase"></i>
+            <span>새 경력/활동 등록</span>
+          </button>
+        `}
+      </div>
+    </div>
+
+    <!-- 4 KPI Summary Cards -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 mb-6">
+      <!-- Card 1: Total Awards -->
+      <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-sm relative overflow-hidden shadow-sm hover:border-amber-500/40 transition">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs text-slate-400 font-semibold">누적 수상 실적</span>
+          <div class="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center text-xs">
+            <i class="fa-solid fa-trophy"></i>
+          </div>
+        </div>
+        <div class="text-2xl font-black text-white font-mono mb-1">
+          ${totalAwards}<span class="text-sm font-normal text-slate-400 ml-1">건</span>
+        </div>
+        <div class="text-[11px] text-slate-400 truncate">
+          삼성전자 사내외 공모전 & 표창
+        </div>
+      </div>
+
+      <!-- Card 2: Public / External Awards -->
+      <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-sm relative overflow-hidden shadow-sm hover:border-blue-500/40 transition">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs text-slate-400 font-semibold">대외·공공 주요 수상</span>
+          <div class="w-7 h-7 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center text-xs">
+            <i class="fa-solid fa-building-columns"></i>
+          </div>
+        </div>
+        <div class="text-2xl font-black text-sky-400 font-mono mb-1">
+          ${publicAwards}<span class="text-sm font-normal text-slate-400 ml-1">건</span>
+        </div>
+        <div class="text-[11px] text-slate-400 truncate">
+          국회 국방위원장상 대상 등
+        </div>
+      </div>
+
+      <!-- Card 3: Core Roles & Credentials -->
+      <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-sm relative overflow-hidden shadow-sm hover:border-teal-500/40 transition">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs text-slate-400 font-semibold">핵심 직무 & 자격</span>
+          <div class="w-7 h-7 rounded-lg bg-teal-500/10 text-teal-400 flex items-center justify-center text-xs">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+        </div>
+        <div class="text-lg font-black text-teal-300 font-mono mb-1 truncate">
+          선임 & 7명 배출
+        </div>
+        <div class="text-[11px] text-slate-400 truncate">
+          파운드리 위험물관리자 / 기능장
+        </div>
+      </div>
+
+      <!-- Card 4: Social Contributions -->
+      <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-sm relative overflow-hidden shadow-sm hover:border-rose-500/40 transition">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs text-slate-400 font-semibold">사회공헌 & 거버넌스</span>
+          <div class="w-7 h-7 rounded-lg bg-rose-500/10 text-rose-400 flex items-center justify-center text-xs">
+            <i class="fa-solid fa-heart"></i>
+          </div>
+        </div>
+        <div class="text-lg font-black text-rose-300 font-mono mb-1 truncate">
+          NANUM 100 CLUB
+        </div>
+        <div class="text-[11px] text-slate-400 truncate">
+          연 100h+ 봉사 & 청년협의회 분과장
+        </div>
+      </div>
+    </div>
+
+    <!-- Subtab Switcher & Filter Bar Container -->
+    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3 mb-6 shadow-sm">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-800/80">
+        <!-- Subtab Switcher Buttons -->
+        <div class="flex items-center gap-1.5 bg-slate-950/80 p-1 rounded-xl border border-slate-800/80">
+          <button onclick="window.app.switchArchiveSubtab('awards')" class="px-4 py-2 rounded-lg text-xs font-black transition flex items-center gap-2 ${currentSubtab === 'awards' ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-md shadow-amber-500/20' : 'text-slate-400 hover:text-white'}">
+            <i class="fa-solid fa-trophy text-xs"></i>
+            <span>수상 내역</span>
+            <span class="px-1.5 py-0.2 rounded-full text-[10px] ${currentSubtab === 'awards' ? 'bg-slate-950/30 text-slate-950 font-black' : 'bg-slate-800 text-slate-300'}">${totalAwards}</span>
+          </button>
+
+          <button onclick="window.app.switchArchiveSubtab('careers')" class="px-4 py-2 rounded-lg text-xs font-black transition flex items-center gap-2 ${currentSubtab === 'careers' ? 'bg-gradient-to-r from-blue-600 to-sky-500 text-white shadow-md shadow-blue-500/20' : 'text-slate-400 hover:text-white'}">
+            <i class="fa-solid fa-briefcase text-xs"></i>
+            <span>경력 & 주요 활동</span>
+            <span class="px-1.5 py-0.2 rounded-full text-[10px] ${currentSubtab === 'careers' ? 'bg-white/20 text-white font-black' : 'bg-slate-800 text-slate-300'}">${totalCareers}</span>
+          </button>
+        </div>
+
+        <div class="text-xs text-slate-400 flex items-center gap-2">
+          <i class="fa-solid fa-filter text-slate-500 text-[11px]"></i>
+          <span>카테고리 필터:</span>
+          <span class="text-slate-200 font-bold">${currentFilter === 'all' ? '전체 보기' : currentFilter}</span>
+        </div>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="flex items-center gap-1.5 pt-3 overflow-x-auto">
+        ${activeCategories.map(cat => {
+          const isActive = currentFilter === cat.id;
+          const count = currentSubtab === 'awards'
+            ? (cat.id === 'all' ? awardsList.length : awardsList.filter(a => a.category === cat.id).length)
+            : (cat.id === 'all' ? careersList.length : careersList.filter(c => c.category === cat.id).length);
+
+          const activeStyle = isActive
+            ? (currentSubtab === 'awards'
+                ? 'bg-amber-500/20 text-amber-300 border-amber-500/50 font-bold shadow-sm'
+                : 'bg-sky-500/20 text-sky-300 border-sky-500/50 font-bold shadow-sm')
+            : 'bg-slate-800/60 text-slate-400 border-slate-700/60 hover:text-slate-200 hover:bg-slate-800';
+
+          return `
+            <button onclick="window.app.setArchiveFilter('${cat.id}')" class="px-3 py-1.5 rounded-lg text-xs border transition flex items-center gap-1.5 whitespace-nowrap ${activeStyle}">
+              <span>${cat.label}</span>
+              <span class="text-[10px] opacity-75 font-mono">(${count})</span>
+            </button>
+          `;
+        }).join('')}
+      </div>
+    </div>
+
+    <!-- Timeline List Content -->
+    <div class="space-y-2">
+      ${contentHtml}
     </div>
   `;
 }
@@ -2534,6 +3074,41 @@ window.app = {
     document.querySelectorAll('.app-modal').forEach(m => m.classList.add('hidden'));
   },
 
+  // Archive Handlers (⭐)
+  switchArchiveSubtab: (subtab) => {
+    state.archiveSubtab = subtab;
+    state.archiveFilter = 'all';
+    renderArchiveTab();
+  },
+  setArchiveFilter: (filter) => {
+    state.archiveFilter = filter;
+    renderArchiveTab();
+  },
+  openAddAwardModal: () => {
+    const m = document.getElementById('modal-add-award');
+    if (m) m.classList.remove('hidden');
+  },
+  openAddCareerModal: () => {
+    const m = document.getElementById('modal-add-career');
+    if (m) m.classList.remove('hidden');
+  },
+  deleteAward: (id) => {
+    if (confirm('해당 수상 내역을 삭제하시겠습니까?')) {
+      state.awards = (state.awards || INITIAL_AWARDS_DATA).filter(a => a.id !== id);
+      persistState();
+      renderArchiveTab();
+      showToast('수상 내역이 삭제되었습니다.');
+    }
+  },
+  deleteCareer: (id) => {
+    if (confirm('해당 경력/활동 내역을 삭제하시겠습니까?')) {
+      state.careers = (state.careers || INITIAL_CAREER_DATA).filter(c => c.id !== id);
+      persistState();
+      renderArchiveTab();
+      showToast('경력/활동 내역이 삭제되었습니다.');
+    }
+  },
+
   // ── 탭 순서 정렬 핸들러 (⭐) ──
   openTabOrderModal: () => {
     renderTabOrderList();
@@ -2564,6 +3139,11 @@ window.app = {
       formulas: state.formulas,
       questions: state.questions,
       externalDashboards: state.externalDashboards,
+      dischargeDate: state.dischargeDate,
+      camino: state.camino,
+      knou: state.knou,
+      awards: state.awards,
+      careers: state.careers,
       tabOrder: state.tabOrder,
       theme: state.theme
     });
@@ -2811,6 +3391,101 @@ function initModals() {
       renderCurrentTab();
       formAddQ.reset();
       showToast('새 학습 문제가 등록되었습니다.');
+    });
+  }
+
+  // 5. Add Award Form
+  const formAddAward = document.getElementById('form-add-award');
+  if (formAddAward) {
+    formAddAward.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const title = document.getElementById('award-title').value.trim();
+      const date = document.getElementById('award-date').value.trim();
+      const category = document.getElementById('award-category').value;
+      const issuer = document.getElementById('award-issuer').value.trim();
+      const isHighlight = document.getElementById('award-highlight').checked;
+
+      // Extract year from date
+      const year = date.split('-')[0] || new Date().getFullYear().toString();
+
+      let icon = 'fa-award';
+      let badgeColor = 'sky';
+      if (category === '대외·공공') { icon = 'fa-trophy'; badgeColor = 'amber'; }
+      else if (category === '환경안전') { icon = 'fa-shield-halved'; badgeColor = 'emerald'; }
+      else if (category === '혁신아이디어') { icon = 'fa-lightbulb'; badgeColor = 'yellow'; }
+      else if (category === '제조기술') { icon = 'fa-gears'; badgeColor = 'sky'; }
+      else if (category === '사회공헌') { icon = 'fa-heart'; badgeColor = 'red'; }
+
+      const newAward = {
+        id: 'aw-' + Date.now(),
+        date: date,
+        year: year,
+        title: title,
+        issuer: issuer,
+        category: category,
+        icon: icon,
+        badgeColor: badgeColor,
+        highlight: isHighlight
+      };
+
+      if (!state.awards) state.awards = [...INITIAL_AWARDS_DATA];
+      state.awards.unshift(newAward);
+      persistState();
+      window.app.closeAllModals();
+      renderCurrentTab();
+      formAddAward.reset();
+      showToast('새 수상 내역이 등록되었습니다.');
+    });
+  }
+
+  // 6. Add Career Form
+  const formAddCareer = document.getElementById('form-add-career');
+  if (formAddCareer) {
+    formAddCareer.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const title = document.getElementById('career-title').value.trim();
+      const period = document.getElementById('career-period').value.trim();
+      const category = document.getElementById('career-category').value;
+      const desc = document.getElementById('career-desc').value.trim();
+      const isHighlight = document.getElementById('career-highlight').checked;
+
+      // Extract year from period
+      let year = '기타';
+      const yearMatch = period.match(/\d{4}/);
+      if (yearMatch) {
+        year = yearMatch[0];
+      } else if (period.includes('현재')) {
+        year = '현재';
+      }
+
+      let icon = 'fa-briefcase';
+      let badgeColor = 'sky';
+      if (category === '공공·대외') { icon = 'fa-users-between-lines'; badgeColor = 'blue'; }
+      else if (category === '사내TF') { icon = 'fa-bullhorn'; badgeColor = 'emerald'; }
+      else if (category === '전문성·교육') { icon = 'fa-chalkboard-user'; badgeColor = 'indigo'; }
+      else if (category === '전문성·자격') { icon = 'fa-shield-halved'; badgeColor = 'teal'; }
+      else if (category === '사회공헌') { icon = 'fa-hand-holding-heart'; badgeColor = 'red'; }
+      else if (category === '창작·대외') { icon = 'fa-feather-pointed'; badgeColor = 'rose'; }
+
+      const newCareer = {
+        id: 'cr-' + Date.now(),
+        period: period,
+        year: year,
+        title: title,
+        desc: desc,
+        category: category,
+        icon: icon,
+        badgeColor: badgeColor,
+        highlight: isHighlight
+      };
+
+      if (!state.careers) state.careers = [...INITIAL_CAREER_DATA];
+      state.careers.unshift(newCareer);
+      persistState();
+      window.app.closeAllModals();
+      renderCurrentTab();
+      formAddCareer.reset();
+      showToast('새 경력/활동 내역이 등록되었습니다.');
     });
   }
 }
