@@ -559,21 +559,6 @@ class SyncManager {
       reader.onload = (e) => {
         try {
           const parsed = JSON.parse(e.target.result);
-          this.saveToLocal(parsed);
-          resolve(parsed);
-        } catch (err) {
-          reject(new Error('올바르지 않은 JSON 파일입니다.'));
-        }
-      };
-      reader.onerror = () => reject(new Error('파일 읽기 실패'));
-      reader.readAsText(file);
-  // JSON 파일 읽어서 복원
-  importFromJSON(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        try {
-          const parsed = JSON.parse(e.target.result);
           if (parsed && (parsed.exams || parsed.bands || parsed.questions || parsed.camino)) {
             this.saveToLocal(parsed);
             resolve(parsed);
