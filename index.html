@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <!-- ✅ 브라우저 캐시 방지 — 항상 최신 파일 로드 -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>개인 업무 및 커리어 대시보드</title>
+  
+  <!-- PWA & Mobile Meta Tags -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="커리어 보드">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- FontAwesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- KaTeX for Mathematical Formula Rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col md:flex-row antialiased selection:bg-sky-500 selection:text-white pb-20 md:pb-0">
+
+  <!-- ========================================================================= -->
+  <!-- Desktop Left Sidebar -->
+  <!-- ========================================================================= -->
+  <aside class="hidden md:flex flex-col w-64 border-r border-slate-800 bg-slate-900/70 backdrop-blur-xl h-screen sticky top-0 z-30 p-4 justify-between">
+    <div>
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3 px-3 py-4 mb-4 border-b border-slate-800/80">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-sky-400 flex items-center justify-center text-white text-lg shadow-lg shadow-blue-500/20">
+          <i class="fa-solid fa-chart-pie"></i>
+        </div>
+        <div>
+          <h1 class="font-bold text-sm text-white tracking-wide">커리어 대시보드</h1>
+          <p class="text-[11px] text-slate-400 font-mono">Personal Hub v1.0</p>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="space-y-1">
+        <button data-nav-tab="overview" onclick="window.app.switchTab('overview')" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs transition nav-tab-active text-blue-500 font-semibold">
+          <i class="fa-solid fa-house w-4 text-center"></i>
+          <span>종합 대시보드</span>
+        </button>
+
+        <button data-nav-tab="exam" onclick="window.app.switchTab('exam')" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <i class="fa-solid fa-calendar-days w-4 text-center"></i>
+          <span>시험 및 학사 일정</span>
+        </button>
+
+        <button data-nav-tab="camino" onclick="window.app.switchTab('camino')" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <i class="fa-solid fa-person-hiking w-4 text-center text-amber-400"></i>
+          <span class="flex-1 text-left">산티아고 순례길</span>
+          <span class="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 font-bold">11/7</span>
+        </button>
+
+        <button data-nav-tab="band" onclick="window.app.switchTab('band')" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <i class="fa-solid fa-guitar w-4 text-center"></i>
+          <span>밴드 합주 & 문화생활</span>
+        </button>
+
+        <button data-nav-tab="energy" onclick="window.app.switchTab('energy')" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <i class="fa-solid fa-graduation-cap w-4 text-center"></i>
+          <span>에너지관리기사 실기</span>
+        </button>
+
+        <button data-nav-tab="external" onclick="window.app.switchTab('external')" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <i class="fa-solid fa-window-restore w-4 text-center"></i>
+          <span class="flex-1 text-left">외부 대시보드 연동</span>
+          <span class="text-[9px] px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-400 font-bold">New</span>
+        </button>
+
+        <button data-nav-tab="knou" onclick="window.app.switchTab('knou')" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <i class="fa-solid fa-university w-4 text-center text-indigo-400"></i>
+          <span class="flex-1 text-left">방통대 학사 관리</span>
+          <span class="text-[9px] px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-400 font-bold">KNOU</span>
+        </button>
+
+        <button data-nav-tab="settings" onclick="window.app.switchTab('settings')" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <i class="fa-solid fa-palette w-4 text-center text-indigo-300"></i>
+          <span>테마 &amp; 설정</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- Bottom Controls -->
+    <div class="border-t border-slate-800/80 pt-4 px-2">
+      <!-- Theme & Action buttons -->
+      <div class="flex items-center justify-between">
+        <button id="theme-toggle-btn" onclick="window.app.switchTab('settings')" class="text-xs text-slate-400 hover:text-white p-2 rounded-lg hover:bg-slate-800 transition flex items-center gap-2" title="테마 변경">
+          <i class="fa-solid fa-palette"></i>
+          <span>테마 변경</span>
+        </button>
+        <span class="text-[10px] text-slate-500">2026</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ========================================================================= -->
+  <!-- Mobile Top Header -->
+  <!-- ========================================================================= -->
+  <header class="md:hidden flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-800 sticky top-0 z-20 backdrop-blur-md">
+    <div class="flex items-center gap-2.5">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-sky-400 flex items-center justify-center text-white text-sm">
+        <i class="fa-solid fa-chart-pie"></i>
+      </div>
+      <div>
+        <h2 class="font-bold text-xs text-white">업무·커리어 대시보드</h2>
+        <span class="text-[10px] text-slate-400">멀티 디바이스 연동</span>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <button onclick="window.app.switchTab('settings')" class="w-8 h-8 rounded-lg bg-slate-800 text-slate-300 flex items-center justify-center text-xs">
+        <i class="fa-solid fa-gear"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- Main Viewport Container -->
+  <!-- ========================================================================= -->
+  <main class="flex-1 min-w-0 p-4 sm:p-8 max-w-7xl mx-auto w-full">
+    
+    <!-- Tab Section 1: 종합 대시보드 -->
+    <section id="tab-content-overview" class="tab-section"></section>
+
+    <!-- Tab Section 2: 시험 및 학사 일정 -->
+    <section id="tab-content-exam" class="tab-section hidden"></section>
+
+    <!-- Tab Section: 산티아고 순례길 (신규) -->
+    <section id="tab-content-camino" class="tab-section hidden"></section>
+
+    <!-- Tab Section 3: 밴드 및 문화 -->
+    <section id="tab-content-band" class="tab-section hidden"></section>
+
+    <!-- Tab Section 4: 에너지관리기사 실기 -->
+    <section id="tab-content-energy" class="tab-section hidden"></section>
+
+    <!-- Tab Section 5: 외부 대시보드 연동 (사용자 추가 요청) -->
+    <section id="tab-content-external" class="tab-section hidden"></section>
+
+    <!-- Tab Section: 방통대 학사 관리 -->
+    <section id="tab-content-knou" class="tab-section hidden"></section>
+
+    <!-- Tab Section 6: 설정 & 클라우드 연동 -->
+    <section id="tab-content-settings" class="tab-section hidden"></section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- Mobile Bottom Navigation Bar -->
+  <!-- ========================================================================= -->
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-slate-900/95 border-t border-slate-800 backdrop-blur-xl z-30 flex items-center justify-around py-2 px-1 overflow-x-auto">
+    <button data-mobile-tab="overview" onclick="window.app.switchTab('overview')" class="flex flex-col items-center gap-1 text-[10px] text-sky-400 mobile-tab-active flex-1 min-w-[50px] py-1">
+      <i class="fa-solid fa-house text-sm"></i>
+      <span>홈</span>
+    </button>
+    <button data-mobile-tab="exam" onclick="window.app.switchTab('exam')" class="flex flex-col items-center gap-1 text-[10px] text-slate-400 flex-1 min-w-[50px] py-1">
+      <i class="fa-solid fa-calendar-days text-sm"></i>
+      <span>일정</span>
+    </button>
+    <button data-mobile-tab="camino" onclick="window.app.switchTab('camino')" class="flex flex-col items-center gap-1 text-[10px] text-slate-400 flex-1 min-w-[50px] py-1">
+      <i class="fa-solid fa-person-hiking text-sm text-amber-400"></i>
+      <span>순례길</span>
+    </button>
+    <button data-mobile-tab="band" onclick="window.app.switchTab('band')" class="flex flex-col items-center gap-1 text-[10px] text-slate-400 flex-1 min-w-[50px] py-1">
+      <i class="fa-solid fa-guitar text-sm"></i>
+      <span>밴드</span>
+    </button>
+    <button data-mobile-tab="energy" onclick="window.app.switchTab('energy')" class="flex flex-col items-center gap-1 text-[10px] text-slate-400 flex-1 min-w-[50px] py-1">
+      <i class="fa-solid fa-graduation-cap text-sm"></i>
+      <span>에너지</span>
+    </button>
+    <button data-mobile-tab="external" onclick="window.app.switchTab('external')" class="flex flex-col items-center gap-1 text-[10px] text-slate-400 flex-1 min-w-[50px] py-1">
+      <i class="fa-solid fa-window-restore text-sm"></i>
+      <span>외부탭</span>
+    </button>
+    <button data-mobile-tab="knou" onclick="window.app.switchTab('knou')" class="flex flex-col items-center gap-1 text-[10px] text-slate-400 flex-1 min-w-[50px] py-1">
+      <i class="fa-solid fa-university text-sm text-indigo-400"></i>
+      <span>방통대</span>
+    </button>
+    <button data-mobile-tab="settings" onclick="window.app.switchTab('settings')" class="flex flex-col items-center gap-1 text-[10px] text-slate-400 flex-1 min-w-[50px] py-1">
+      <i class="fa-solid fa-cloud-arrow-up text-sm"></i>
+      <span>동기화</span>
+    </button>
+  </nav>
+
+  <!-- ========================================================================= -->
+  <!-- Toast Notification Popup -->
+  <!-- ========================================================================= -->
+  <div id="app-toast" class="fixed bottom-24 md:bottom-8 right-1/2 md:right-8 translate-x-1/2 md:translate-x-0 bg-slate-900/95 border border-sky-500/50 text-sky-300 px-4 py-2.5 rounded-xl shadow-2xl text-xs font-bold transition-all duration-300 opacity-0 pointer-events-none z-50 flex items-center gap-2 backdrop-blur-md">
+    <i class="fa-solid fa-circle-check text-sky-400"></i>
+    <span id="toast-message">알림</span>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- Modals -->
+  <!-- ========================================================================= -->
+
+  <!-- 1. Add Exam Modal -->
+  <div id="modal-add-exam" class="app-modal fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-bold text-white text-base flex items-center gap-2">
+          <i class="fa-solid fa-calendar-plus text-blue-500"></i> 새 학사/시험 일정 등록
+        </h3>
+        <button onclick="window.app.closeAllModals()" class="text-slate-400 hover:text-white">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="form-add-exam" class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-300 mb-1 font-semibold">일정 제목 *</label>
+          <input type="text" id="exam-title" required placeholder="예: 전기설비기술기준 기출 풀이" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 mb-1 font-semibold">카테고리</label>
+            <select id="exam-category" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white">
+              <option value="자격증">자격증</option>
+              <option value="학사과제">학사과제</option>
+              <option value="학사신청">학사신청</option>
+              <option value="학사시험">학사시험</option>
+              <option value="활동/발표">활동/발표</option>
+              <option value="기타">기타</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-300 mb-1 font-semibold">우선순위</label>
+            <select id="exam-priority" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white">
+              <option value="normal">보통</option>
+              <option value="high">중요</option>
+              <option value="urgent">긴급 (D-Day 강조)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 mb-1 font-semibold">시작 일시 *</label>
+            <input type="datetime-local" id="exam-start-date" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white">
+          </div>
+          <div>
+            <label class="block text-slate-300 mb-1 font-semibold">종료 일시 (선택)</label>
+            <input type="datetime-local" id="exam-end-date" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 mb-1 font-semibold">장소 / 시스템</label>
+          <input type="text" id="exam-location" placeholder="예: 학사정보시스템 과제제출방" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white">
+        </div>
+
+        <div>
+          <label class="block text-slate-300 mb-1 font-semibold">세부 메모 / 과제 요강</label>
+          <textarea id="exam-desc" rows="3" placeholder="제출 규격, 필요 서류 등..." class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white"></textarea>
+        </div>
+
+        <div class="pt-3 flex justify-end gap-2">
+          <button type="button" onclick="window.app.closeAllModals()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg font-bold">취소</button>
+          <button type="submit" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold shadow-lg shadow-blue-500/20">일정 등록</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. Add Band Modal -->
+  <div id="modal-add-band" class="app-modal fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-bold text-white text-base flex items-center gap-2">
+          <i class="fa-solid fa-guitar text-purple-400"></i> 새 합주 / 공연 관람 등록
+        </h3>
+        <button onclick="window.app.closeAllModals()" class="text-slate-400 hover:text-white">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="form-add-band" class="space-y-3 text-xs">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 mb-1 font-semibold">유형</label>
+            <select id="band-type" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white">
+              <option value="rehearsal">🎸 밴드 합주</option>
+              <option value="performance">🎟️ 공연 관람</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-300 mb-1 font-semibold">일시 *</label>
+            <input type="datetime-local" id="band-date" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 mb-1 font-semibold">일정 제목 *</label>
+          <input type="text" id="band-title" required placeholder="예: 11월 2차 정기 합주 or 콘서트 관람" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white">
+        </div>
+
+        <div>
+          <label class="block text-slate-300 mb-1 font-semibold">장소 / 합주실</label>
+          <input type="text" id="band-location" placeholder="예: 홍대 사운드스페이스 B룸" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white">
+        </div>
+
+        <div>
+          <label class="block text-slate-300 mb-1 font-semibold">합주곡 목록 (엔터로 구분)</label>
+          <textarea id="band-setlist-input" rows="3" placeholder="곡 제목 1&#10;곡 제목 2" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 mb-1 font-semibold">메모 & 준비사항</label>
+          <input type="text" id="band-memos" placeholder="예: 삼각대, 모바일 티켓 캡처" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white">
+        </div>
+
+        <div class="pt-3 flex justify-end gap-2">
+          <button type="button" onclick="window.app.closeAllModals()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg font-bold">취소</button>
+          <button type="submit" class="px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-bold">등록</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. Add External Dashboard Modal (HTML File Drop or URL) ⭐ -->
+  <div id="modal-add-external" class="app-modal fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-bold text-white text-base flex items-center gap-2">
+          <i class="fa-solid fa-window-restore text-cyan-400"></i> 외부 대시보드 탭 추가
+        </h3>
+        <button onclick="window.app.closeAllModals()" class="text-slate-400 hover:text-white">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="form-add-external" class="space-y-4 text-xs">
+        <div>
+          <label class="block text-slate-300 mb-1 font-semibold">대시보드 탭 이름</label>
+          <input type="text" id="ext-title" placeholder="예: 팀 프로젝트 대시보드 / 노션 칸반" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white">
+        </div>
+
+        <!-- Mode selection -->
+        <div>
+          <label class="block text-slate-300 mb-2 font-semibold">가져오기 방식</label>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="flex items-center gap-2 p-3 bg-slate-800/80 rounded-xl border border-slate-700 cursor-pointer">
+              <input type="radio" name="ext-mode" value="file" checked onchange="document.getElementById('section-ext-file').classList.remove('hidden'); document.getElementById('section-ext-url').classList.add('hidden');" class="text-cyan-500">
+              <span class="font-bold text-slate-200">HTML 파일 업로드</span>
+            </label>
+            <label class="flex items-center gap-2 p-3 bg-slate-800/80 rounded-xl border border-slate-700 cursor-pointer">
+              <input type="radio" name="ext-mode" value="url" onchange="document.getElementById('section-ext-url').classList.remove('hidden'); document.getElementById('section-ext-file').classList.add('hidden');" class="text-cyan-500">
+              <span class="font-bold text-slate-200">웹페이지 URL 링크</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- File Upload Section -->
+        <div id="section-ext-file">
+          <label class="block text-slate-300 mb-1 font-semibold">HTML 파일 (.html, .htm)</label>
+          <div id="ext-dropzone" class="drag-drop-zone p-6 rounded-xl text-center cursor-pointer bg-slate-800/40 hover:bg-slate-800/70" onclick="document.getElementById('ext-file-input').click()">
+            <i class="fa-solid fa-file-code text-cyan-400 text-3xl mb-2"></i>
+            <p class="text-slate-300 font-medium">여기로 HTML 파일을 드래그하거나 클릭하여 선택</p>
+            <p class="text-[11px] text-slate-500 mt-1">다른 사람이 제작한 대시보드 파일을 넣으면 바로 독립된 탭으로 구동됩니다.</p>
+            <input type="file" id="ext-file-input" accept=".html,.htm" class="hidden">
+            <div id="ext-file-name-preview" class="mt-3 text-cyan-300 font-bold hidden"></div>
+          </div>
+        </div>
+
+        <!-- URL Input Section -->
+        <div id="section-ext-url" class="hidden">
+          <label class="block text-slate-300 mb-1 font-semibold">웹사이트 / 대시보드 URL</label>
+          <input type="url" id="ext-url-input" placeholder="https://..." class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white">
+          <p class="text-[11px] text-slate-400 mt-1">iframe 임베드를 지원하는 웹 서비스(노션 공개 페이지 등)를 연동할 수 있습니다.</p>
+        </div>
+
+        <div class="pt-3 flex justify-end gap-2">
+          <button type="button" onclick="window.app.closeAllModals()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg font-bold">취소</button>
+          <button type="submit" class="px-5 py-2 bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-black rounded-lg">대시보드 탭 생성</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. Add Question Modal (Energy Study) -->
+  <div id="modal-add-question" class="app-modal fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-bold text-white text-base flex items-center gap-2">
+          <i class="fa-solid fa-square-plus text-amber-400"></i> 기출/계산 문제 수동 추가
+        </h3>
+        <button onclick="window.app.closeAllModals()" class="text-slate-400 hover:text-white">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="form-add-question" class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-300 mb-1 font-semibold">문제 제목</label>
+          <input type="text" id="q-title" required placeholder="예: 과잉공기계수 및 연소가스량 산출" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white">
+        </div>
+
+        <div>
+          <label class="block text-slate-300 mb-1 font-semibold">분야 (Topic)</label>
+          <input type="text" id="q-topic" placeholder="예: 연소공학, 보일러구조, 열정산" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white">
+        </div>
+
+        <div>
+          <label class="block text-slate-300 mb-1 font-semibold">문제 본문</label>
+          <textarea id="q-problem" rows="3" required placeholder="문제 내용을 입력하세요..." class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 mb-1 font-semibold">풀이 과정 및 정답 ($수식$ 지원)</label>
+          <textarea id="q-solution" rows="4" required placeholder="1단계: 공식 확인...&#10;정답: 85.4 %" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 mb-1 font-semibold">핵심 포인트 / 암기 팁</label>
+          <input type="text" id="q-keypoints" placeholder="단위 환산 주의, 기준 잠열 2,257 적용" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white">
+        </div>
+
+        <div class="pt-3 flex justify-end gap-2">
+          <button type="button" onclick="window.app.closeAllModals()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg font-bold">취소</button>
+          <button type="submit" class="px-5 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-lg">문제 등록</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main Application Script (Safe for file:// and http://) -->
+  <script src="js/app.js"></script>
+</body>
+</html>
