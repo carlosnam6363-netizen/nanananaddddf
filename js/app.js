@@ -19,73 +19,157 @@ const INITIAL_DISCHARGE_DATE = "2026-12-19";
 
 // 산티아고 순례길 일정 & 준비물 데이터 (2026-11-07 ~ 11-09)
 const INITIAL_CAMINO_DATA = {
-  title: "까미노 포르투게스 (Camino Português)",
-  startDate: "2026-11-09",
-  endDate: "2026-11-20",
-  ddayTarget: "2026-11-09",
-  route: "포르투(Porto) → 바르셀로스 → 폰테 데 리마 → 투이 → 폰테베드라 → 산티아고 데 콤포스텔라",
-  totalDistance: "약 240km (포르투 전체 코스 / 여정에 따라 조정 가능)",
-  status: "계획 중",
+  title: "산티아고 순례길 트레킹 (Camino de Santiago)",
+  startDate: "2026-11-07",
+  endDate: "2026-11-09",
+  ddayTarget: "2026-11-07",
+  route: "사리아(Sarria) ~ 산티아고 데 콤포스텔라",
+  totalDistance: "약 45~55 km (3일 하이라이트 구간)",
+  status: "준비 중",
   packingList: [
     { text: "크레덴샬(순례자 여권) & 가리비 껍데기", category: "필수/서류", done: false },
-    { text: "발목 지지용 트레킹화 (충분히 길들인 신발)", category: "의류/신발", done: false },
+    { text: "발목 지지용 트레킹화 (길들인 신발)", category: "의류/신발", done: false },
     { text: "30L~35L 경량 순례자 배낭", category: "장비", done: false },
-    { text: "메리노울 트레킹 양말 (3~4켤레)", category: "의류/신발", done: false },
+    { text: "메리노울 트레킹 양말 (3켤레)", category: "의류/신발", done: false },
     { text: "바셀린 & 콤피드(물집 방지 패치)", category: "위생/약품", done: false },
-    { text: "방수 판초 우의 & 배낭 레인커버 (포르투갈 비 대비)", category: "의류/신발", done: false },
+    { text: "방수 판초 우의 & 배낭 레인커버", category: "의류/신발", done: false },
     { text: "트레킹 폴(스틱) & 무릎 보호대", category: "장비", done: false },
     { text: "초경량 침낭 라이너 (알베르게 숙박용)", category: "장비", done: false },
-    { text: "해외 결제 카드(트래블로그) & 현금 유로 약간", category: "필수/서류", done: false },
+    { text: "해외 결제 카드(트래블로그) & 현금 약간", category: "필수/서류", done: false },
     { text: "유럽 eSIM/유심 & 대용량 보조배터리", category: "전자기기", done: false }
   ],
   itinerary: [
     {
-      day: "Day 1~2 (11/09~10)",
+      day: "Day 1 (11/07)",
+      date: "2026-11-07",
+      title: "에너지관리기사 시험 종료 후 순례길 출발",
+      distance: "약 15 km",
+      description: "오전 9시 자격증 시험을 후회 없이 끝마치고, 가벼워진 마음으로 순례길 출발지로 이동. 첫 크레덴샬 스탬프를 찍고 갈리시아 지방의 상쾌한 공기 속에서 첫 알베르게로 향합니다.",
+      albergue: "사리아 / 포르토마린 인근 공립 알베르게",
+      highlight: "새로운 챕터의 시작! 부엔 카미노(Buen Camino)!"
+    },
+    {
+      day: "Day 2 (11/08)",
+      date: "2026-11-08",
+      title: "유칼립투스 숲길과 아기자기한 마을 트레킹",
+      distance: "약 22 km",
+      description: "노란색 조개껍데기 화살표를 따라 묵묵히 걸으며 생각 정리하기. 중간 스페인 마을의 작은 바(Bar)에서 따뜻한 카페 콘 레체와 또르띠야로 꿀맛 같은 휴식을 즐깁니다.",
+      albergue: "팔라스 데 레이 / 아르수아 인근 알베르게",
+      highlight: "나 자신과 마주하는 고요하고 평화로운 시간"
+    },
+    {
+      day: "Day 3 (11/09)",
       date: "2026-11-09",
-      title: "포르투 도착 & 도시 탐방",
-      distance: "이동일 (트레킹 없음)",
-      description: "인천에서 출발해 포르투갈 포르투 공항 도착. 포르투 구시가지(히베이라 광장, 루이스 1세 다리, 렐루 서점)를 여유롭게 산책하며 현지 분위기에 적응. 첫 크레덴샬 스탬프를 세 성당에서 받고 순례길 시작을 기원.",
-      albergue: "포르투 시내 호스텔 또는 부티크 호텔 (2박)",
-      highlight: "포르투 와인 & 프란세시냐로 첫날 저녁 충전!"
-    },
-    {
-      day: "Day 3~5 (11/11~13)",
-      date: "2026-11-11",
-      title: "포르투 → 바르셀로스 → 폰테 데 리마",
-      distance: "약 70km (3일간)",
-      description: "까미노 포르투게스의 시작. 포르투에서 북쪽으로 완만한 해안·내륙 길을 따라 걷습니다. 바르셀로스의 유명한 수탉(갈루 드 바르셀로스) 전설을 듣고 고대 로마 다리를 건너는 낭만적 코스. 각 마을에서 포르투갈 가정식을 즐기며 천천히 이동.",
-      albergue: "바르셀로스 공립 알베르게 → 폰테 데 리마 사립 알베르게",
-      highlight: "폰테 데 리마 — 포르투갈에서 가장 오래된 마을에서 휴식"
-    },
-    {
-      day: "Day 6~8 (11/14~16)",
-      date: "2026-11-14",
-      title: "폰테 데 리마 → 투이 (스페인 국경)",
-      distance: "약 70km (3일간)",
-      description: "포르투갈의 초록 언덕을 지나 드디어 스페인 갈리시아 지방으로 진입. 루비아네스 국경 다리를 건너는 순간의 감동! 투이의 고딕 대성당에서 스탬프를 찍고 스페인 식 저녁을 즐깁니다. 중간 중간 카페에서 'Café com leite'로 쉬어가는 여유를 즐기세요.",
-      albergue: "발렌사 알베르게 → 투이 공립 알베르게",
-      highlight: "포르투갈-스페인 국경 다리를 걸어서 건너는 특별한 경험"
-    },
-    {
-      day: "Day 9~11 (11/17~19)",
-      date: "2026-11-17",
-      title: "투이 → 폰테베드라 → 칼다스 데 레이스",
-      distance: "약 70km (3일간)",
-      description: "스페인 갈리시아 지방의 아름다운 해안·포도밭 길. 폰테베드라 구시가지에서 반드시 하루 쉬어가길 권장 — 숨은 보석 같은 도시입니다. 문어 요리(풀포 아 라 가예가)와 알바리뇨 와인이 일품. 칼다스 데 레이스에서 온천으로 발을 담그며 피로 회복.",
-      albergue: "폰테베드라 사립 알베르게 (권장) → 칼다스 데 레이스",
-      highlight: "폰테베드라 구시가 & 칼다스 온천 — 최고의 힐링 코스"
-    },
-    {
-      day: "Day 12 (11/20)",
-      date: "2026-11-20",
-      title: "산티아고 데 콤포스텔라 대성당 입성 & 완주!",
-      distance: "약 20km (마지막 구간)",
-      description: "드디어 최종 목적지! 오브라도이로 광장에서 대성당을 바라보는 순간의 벅찬 감동. 순례자 사무소(Oficina del Peregrino)에서 완주증(Compostela)을 받고, 순례자 미사에 참석. 광장에서 동료 순례자들과 포옹하고 완주를 자축하세요.",
-      albergue: "산티아고 시내 호텔 (마지막 밤은 특별하게!)",
-      highlight: "Buen Camino — 완주의 희열, 평생 기억할 순간! 🎉"
+      title: "산티아고 대성당 광장 입성 & 완주",
+      distance: "약 18 km",
+      description: "최종 목적지인 산티아고 데 콤포스텔라 대성당 앞 오브라도이로 광장에 도착. 배낭을 내려놓고 푸른 하늘을 바라보며 벅찬 감동을 만끽하고, 순례자 사무소에서 완주증을 발급받습니다.",
+      albergue: "산티아고 시내 부티크 호텔 / 호스텔",
+      highlight: "완주의 희열 & 성당 앞 광장에서 느끼는 벅찬 감동"
     }
   ],
-  memos: "에너지관리기사 시험 직후 지친 심신을 리셋하고 인생의 새로운 챕터를 준비하는 나만의 순례길.\n포르투갈의 여유로운 분위기처럼, 욕심 없이 천천히. '부엔 카미노(Buen Camino)!'\n\n📌 팁: 포르투게스 코스는 사리아 코스보다 훨씬 한산하고 자연이 아름다워요. 비 오는 날도 운치 있는 코스입니다."
+  memos: "에너지관리기사 시험 직후 지친 심신을 리셋하고 인생의 새로운 챕터를 준비하는 나만의 성찰 트레킹.\n'부엔 카미노(Buen Camino)!'를 마음에 품고 욕심 없이 한 걸음씩 걷기."
+};
+
+// 3대 SNS & 퍼스널 브랜딩 통합 관리 초기 데이터 (LinkedIn, Instagram, Brunch)
+const INITIAL_SNS_DATA = {
+  channels: [
+    {
+      id: "linkedin",
+      name: "LinkedIn (링크드인)",
+      handle: "김남현 (Namhyeon Kim)",
+      url: "https://www.linkedin.com/in/%EB%82%A8%ED%98%84-%EA%B9%80-4a62b5340/",
+      icon: "fa-brands fa-linkedin",
+      themeColor: "blue",
+      badgeClass: "bg-blue-500/20 text-blue-400 border-blue-500/30",
+      btnClass: "bg-blue-600 hover:bg-blue-700 text-white",
+      category: "커리어 & 전문 네트워킹",
+      followers: 128,
+      targetFollowers: 500,
+      postsCount: 16,
+      weeklyGoal: "주 1회 커리어/에너지/기후 인사이트 발행",
+      engagementRate: "4.8%",
+      monthlyViews: 850,
+      positioning: "에너지관리·기후탐사·평생교육 융합 전문가 브랜딩",
+      hashtags: "#에너지관리기사 #기후탐사 #커리어성장 #친환경에너지 #프로젝트관리",
+      memo: "자격증 취득 과정, 기후탐사대 성과 발표회 인사이트 중심으로 전문가 네트워크 확장"
+    },
+    {
+      id: "instagram",
+      name: "Instagram (인스타그램)",
+      handle: "@namhyeon_kim_",
+      url: "https://www.instagram.com/namhyeon_kim_/",
+      icon: "fa-brands fa-instagram",
+      themeColor: "pink",
+      badgeClass: "bg-pink-500/20 text-pink-400 border-pink-500/30",
+      btnClass: "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white",
+      category: "라이프스타일 & 뮤직/순례길",
+      followers: 342,
+      targetFollowers: 1000,
+      postsCount: 48,
+      weeklyGoal: "주 2회 피드/릴스 (밴드 합주, 산티아고 순례길, 일상 기록)",
+      engagementRate: "6.2%",
+      monthlyViews: 2400,
+      positioning: "밴드 음악 활동, 산티아고 순례길 도전, 갓생 라이프 아카이빙",
+      hashtags: "#밴드합주 #산티아고순례길 #일상기록 #자기계발 #음악스타그램",
+      memo: "11월 산티아고 순례길 릴스 시리즈 및 합주 영상 하이라이트 업로드 예정"
+    },
+    {
+      id: "brunch",
+      name: "Brunch Story (브런치스토리)",
+      handle: "@musimtook",
+      url: "https://brunch.co.kr/@musimtook",
+      icon: "fa-solid fa-feather-pointed",
+      themeColor: "emerald",
+      badgeClass: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
+      btnClass: "bg-emerald-600 hover:bg-emerald-700 text-white",
+      category: "에세이 & 심층 칼럼 아카이브",
+      followers: 52,
+      targetFollowers: 300,
+      postsCount: 14,
+      weeklyGoal: "격주 1회 깊이 있는 에세이 및 회고록 발행",
+      engagementRate: "8.5%",
+      monthlyViews: 1600,
+      positioning: "삶의 성찰, 순례길 여행기, 커리어와 배움에 대한 진솔한 글쓰기",
+      hashtags: "#브런치작가 #에세이 #산티아고순례길 #성장기록 #사색",
+      memo: "브런치북 연재 기획: 에너지관리기사 도전기 & 산티아고 3일의 기록"
+    }
+  ],
+  posts: [
+    {
+      id: "sns-post-1",
+      platform: "linkedin",
+      title: "화기애애 기후탐사대 성과 발표회 프로젝트 회고 및 인사이트",
+      status: "published", // 'idea' | 'writing' | 'published'
+      date: "2026-10-31",
+      url: "https://www.linkedin.com/in/%EB%82%A8%ED%98%84-%EA%B9%80-4a62b5340/",
+      views: 320,
+      likes: 28,
+      notes: "발표 슬라이드 4장 카드뉴스 형식 공유 및 네트워킹 유도"
+    },
+    {
+      id: "sns-post-2",
+      platform: "instagram",
+      title: "에너지관리기사 시험 종료 & 산티아고 순례길 출발 공항 릴스",
+      status: "idea",
+      date: "2026-11-07",
+      url: "https://www.instagram.com/namhyeon_kim_/",
+      views: 0,
+      likes: 0,
+      notes: "크레덴샬 순례자 여권과 30L 배낭 패킹 샷 촬영"
+    },
+    {
+      id: "sns-post-3",
+      platform: "brunch",
+      title: "[브런치 에세이] 시험장을 나와 산티아고 순례길로 향하는 이유",
+      status: "writing",
+      date: "2026-11-10",
+      url: "https://brunch.co.kr/@musimtook",
+      views: 0,
+      likes: 0,
+      notes: "사리아에서 산티아고까지 걸으며 느낀 마음의 여유와 성찰 기록"
+    }
+  ],
+  strategyMemo: "3대 채널 원소스 멀티유즈(OSMU) 운영 전략:\n1) 브런치스토리: 호흡이 긴 정제된 에세이 및 심층 칼럼 연재\n2) 링크드인: 커리어 인사이트, 프로젝트 성과, 자격증 노하우 요약 공유\n3) 인스타그램: 생생한 현장감 있는 사진(음악 합주, 여행, 일상) 및 숏폼 릴스 활용"
 };
 
 const INITIAL_EXAM_SCHEDULES = [
@@ -471,7 +555,7 @@ const INITIAL_EXTERNAL_DASHBOARDS = [
 
 // [study-data imported]
 
-const STORAGE_KEY = 'career_dashboard_data_v2';
+const STORAGE_KEY = 'career_dashboard_data_v1';
 const FIREBASE_CONFIG_KEY = 'career_dashboard_firebase_config';
 
 class SyncManager {
@@ -502,24 +586,7 @@ class SyncManager {
           externalDashboards: parsed.externalDashboards || INITIAL_EXTERNAL_DASHBOARDS,
           dischargeDate: parsed.dischargeDate || INITIAL_DISCHARGE_DATE,
           camino: parsed.camino || INITIAL_CAMINO_DATA,
-          knou: parsed.knou || INITIAL_KNOU_DATA,
-          awards: parsed.awards || INITIAL_AWARDS_DATA,
-          careers: parsed.careers || INITIAL_CAREER_DATA,
-          tabOrder: (() => {
-            let order = Array.isArray(parsed.tabOrder) ? [...parsed.tabOrder] : [...DEFAULT_TAB_ORDER];
-            DEFAULT_TAB_ORDER.forEach(tabId => {
-              if (!order.includes(tabId)) {
-                if (tabId === 'archive') {
-                  const ovIdx = order.indexOf('overview');
-                  if (ovIdx !== -1) order.splice(ovIdx + 1, 0, 'archive');
-                  else order.push('archive');
-                } else {
-                  order.push(tabId);
-                }
-              }
-            });
-            return order;
-          })(),
+          sns: parsed.sns || INITIAL_SNS_DATA,
           theme: parsed.theme || 'dark'
         };
       }
@@ -535,52 +602,175 @@ class SyncManager {
       externalDashboards: INITIAL_EXTERNAL_DASHBOARDS,
       dischargeDate: INITIAL_DISCHARGE_DATE,
       camino: INITIAL_CAMINO_DATA,
-      knou: INITIAL_KNOU_DATA,
-      awards: INITIAL_AWARDS_DATA,
-      careers: INITIAL_CAREER_DATA,
-      tabOrder: [...DEFAULT_TAB_ORDER],
+      sns: INITIAL_SNS_DATA,
       theme: 'dark'
     };
   }
 
-  // 데이터 저장
+  // 로컬 저장
   saveToLocal(data) {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
       this.lastSyncedAt = new Date();
       return true;
     } catch (e) {
-      console.error('LocalStorage 저장 실패:', e);
+      console.error('LocalStorage 저장 실패 (용량 초과 가능성):', e);
       return false;
     }
   }
 
-  // 상태 보존
-  syncToCloud(data) {
-    this.saveToLocal(data);
+  // Firebase 초기화 시도
+  async initFirebase(config = null) {
+    const activeConfig = config || this.getSavedFirebaseConfig();
+    if (!activeConfig || !activeConfig.apiKey || !activeConfig.projectId) {
+      this.setStatus('local', '로컬 저장 모드 (Firebase 미설정)');
+      return false;
+    }
+
+    this.setStatus('connecting', 'Firebase 클라우드 연결 중...');
+
+    try {
+      // Firebase CDN 동적 로드 (Compat 버전 사용으로 번들러 없이 브라우저에서 바로 동작)
+      if (!window.firebase) {
+        await this.loadScript('https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js');
+        await this.loadScript('https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js');
+      }
+
+      if (!window.firebase.apps.length) {
+        window.firebase.initializeApp(activeConfig);
+      }
+
+      this.db = window.firebase.firestore();
+      const userId = activeConfig.userId || 'my_dashboard_user';
+      const docRef = this.db.collection('dashboards').doc(userId);
+
+      // 실시간 리스너 구독
+      if (this.unsubscribe) this.unsubscribe();
+
+      this.unsubscribe = docRef.onSnapshot(
+        (doc) => {
+          if (doc.exists) {
+            const remoteData = doc.data();
+            this.saveToLocal(remoteData);
+            this.notifyDataChange(remoteData);
+            this.setStatus('synced', '클라우드 동기화 완료 (실시간)');
+          } else {
+            // 원격에 데이터가 없으면 로컬 데이터를 최초 업로드
+            const localData = this.loadInitialData();
+            docRef.set(localData);
+            this.setStatus('synced', '원격 초기 데이터 등록 완료');
+          }
+        },
+        (error) => {
+          console.error('Firestore 동기화 에러:', error);
+          this.setStatus('error', `동기화 오류: ${error.message}`);
+        }
+      );
+
+      // 설정 저장
+      localStorage.setItem(FIREBASE_CONFIG_KEY, JSON.stringify(activeConfig));
+      return true;
+    } catch (err) {
+      console.error('Firebase 초기화 실패:', err);
+      this.setStatus('error', `Firebase 연결 실패: ${err.message}`);
+      return false;
+    }
   }
 
-  // JSON 백업 파일 내보내기
+  // 클라우드로 데이터 전송
+  async syncToCloud(data) {
+    this.saveToLocal(data);
+
+    if (this.db) {
+      try {
+        const config = this.getSavedFirebaseConfig();
+        const userId = (config && config.userId) || 'my_dashboard_user';
+        await this.db.collection('dashboards').doc(userId).set(data, { merge: true });
+        this.setStatus('synced', '클라우드에 저장됨');
+      } catch (err) {
+        console.error('클라우드 저장 실패:', err);
+        this.setStatus('error', '클라우드 저장 실패 (로컬에만 보관됨)');
+      }
+    }
+  }
+
+  getSavedFirebaseConfig() {
+    try {
+      const val = localStorage.getItem(FIREBASE_CONFIG_KEY);
+      return val ? JSON.parse(val) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  handleNetworkChange(isOnline) {
+    this.isOnline = isOnline;
+    if (!isOnline) {
+      this.setStatus('local', '오프라인 (인터넷 연결 끊김 - 로컬 동작)');
+    } else {
+      if (this.getSavedFirebaseConfig()) {
+        this.initFirebase();
+      } else {
+        this.setStatus('local', '온라인 (로컬 모드)');
+      }
+    }
+  }
+
+  setStatus(status, message) {
+    this.status = status;
+    this.syncStatusListeners.forEach(listener => listener({ status, message, lastSyncedAt: this.lastSyncedAt }));
+  }
+
+  onStatusChange(callback) {
+    this.syncStatusListeners.push(callback);
+  }
+
+  onDataChange(callback) {
+    this.dataChangeListeners.push(callback);
+  }
+
+  notifyDataChange(data) {
+    this.dataChangeListeners.forEach(listener => listener(data));
+  }
+
+  // 스크립트 로더 헬퍼
+  loadScript(src) {
+    return new Promise((resolve, reject) => {
+      const existing = document.querySelector(`script[src="${src}"]`);
+      if (existing) return resolve();
+      const s = document.createElement('script');
+      s.src = src;
+      s.onload = () => resolve();
+      s.onerror = (e) => reject(e);
+      document.head.appendChild(s);
+    });
+  }
+
+  // JSON 파일로 내보내기
   exportToJSON(data) {
     const jsonStr = JSON.stringify(data, null, 2);
     const blob = new Blob([jsonStr], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
+    const dateStr = new Date().toISOString().slice(0, 10);
     a.href = url;
-    a.download = `career_dashboard_backup_${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `career_dashboard_backup_${dateStr}.json`;
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
     URL.revokeObjectURL(url);
   }
 
-  // JSON 백업 파일 불러오기
+  // JSON 파일 읽어서 복원
   importFromJSON(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (e) => {
         try {
           const parsed = JSON.parse(e.target.result);
-          if (parsed && (parsed.exams || parsed.bands || parsed.questions || parsed.camino)) {
+          if (parsed && (parsed.exams || parsed.bands || parsed.questions)) {
             this.saveToLocal(parsed);
+            if (this.db) this.syncToCloud(parsed);
             resolve(parsed);
           } else {
             reject(new Error('유효하지 않은 대시보드 백업 파일입니다.'));
@@ -611,149 +801,6 @@ const syncManager = new SyncManager();
 
 // [cloud-sync imported]
 
-// ============================================================
-// 방송통신대학교 사회복지학과 데이터
-// ============================================================
-const INITIAL_KNOU_DATA = {
-  department: "사회복지학과",
-  semester: "2026년 2학기",
-  academicSchedule: [
-    { id: "ks-1", title: "강의 수강 기간", startDate: "2026-09-01", endDate: "2026-11-15", category: "수강", icon: "fa-play-circle", color: "blue" },
-    { id: "ks-2", title: "중간 과제물 제출", startDate: "2026-10-03", endDate: "2026-10-12", category: "과제", icon: "fa-file-lines", color: "orange" },
-    { id: "ks-3", title: "평생교육사 중복 과목 신청", startDate: "2026-10-05", endDate: "2026-10-16", category: "신청", icon: "fa-list-check", color: "purple" },
-    { id: "ks-4", title: "계절 수업 신청 확인", startDate: "2026-10-16", endDate: "2026-10-17", category: "신청", icon: "fa-calendar-check", color: "teal" },
-    { id: "ks-5", title: "기말고사 시험 신청", startDate: "2026-11-10", endDate: "2026-11-10", category: "신청", icon: "fa-edit", color: "red" },
-    { id: "ks-6", title: "기말과제물 제출", startDate: "2026-11-20", endDate: "2026-11-30", category: "과제", icon: "fa-file-lines", color: "orange" },
-    { id: "ks-7", title: "기말고사 시험 기간", startDate: "2026-12-04", endDate: "2026-12-13", category: "시험", icon: "fa-pen-to-square", color: "red" }
-  ],
-  courses: [
-    {
-      id: "c-1",
-      name: "사회복지개론",
-      credits: 3,
-      type: "과제형",
-      attendance: { target: 100, achieved: 0 },
-      midterm: { type: "과제물", weight: 30, achieved: 0, submitted: false },
-      final: { type: "과제물", weight: 40, achieved: 0, submitted: false },
-      attendanceClass: { required: false, weight: 0, achieved: 0 },
-      attendance_weight: 30,
-      grade: "",
-      memo: ""
-    },
-    {
-      id: "c-2",
-      name: "인간행동과 사회환경",
-      credits: 3,
-      type: "과제형",
-      attendance: { target: 100, achieved: 0 },
-      midterm: { type: "과제물", weight: 30, achieved: 0, submitted: false },
-      final: { type: "과제물", weight: 40, achieved: 0, submitted: false },
-      attendanceClass: { required: false, weight: 0, achieved: 0 },
-      attendance_weight: 30,
-      grade: "",
-      memo: ""
-    },
-    {
-      id: "c-3",
-      name: "사회복지실천론",
-      credits: 3,
-      type: "혼합형",
-      attendance: { target: 100, achieved: 0 },
-      midterm: { type: "중간고사", weight: 30, achieved: 0, submitted: false },
-      final: { type: "기말고사", weight: 40, achieved: 0, submitted: false },
-      attendanceClass: { required: true, weight: 10, achieved: 0 },
-      attendance_weight: 20,
-      grade: "",
-      memo: ""
-    },
-    {
-      id: "c-4",
-      name: "사회복지법제론",
-      credits: 3,
-      type: "시험형",
-      attendance: { target: 100, achieved: 0 },
-      midterm: { type: "중간고사", weight: 30, achieved: 0, submitted: false },
-      final: { type: "기말고사", weight: 40, achieved: 0, submitted: false },
-      attendanceClass: { required: false, weight: 0, achieved: 0 },
-      attendance_weight: 30,
-      grade: "",
-      memo: ""
-    }
-  ]
-};
-
-// ─── 수상 내역 (총 23건) ───
-const INITIAL_AWARDS_DATA = [
-  { id: "aw-1", date: "2026-08", year: "2026", title: "제2회 화성시 양성평등 공모전 산문 부문 장려상", issuer: "화성시여성가족청소년재단이사장 표창", category: "대외·공공", icon: "fa-award", badgeColor: "teal" },
-  { id: "aw-2", date: "2026-03", year: "2026", title: "제5기 화성시 청년정책협의회 위원 선정 (동탄 교육·참여·권리 분과장)", issuer: "화성시장 위촉", category: "대외·공공", icon: "fa-landmark", badgeColor: "blue" },
-  { id: "aw-3", date: "2025-12", year: "2025", title: "장애인과 함께하는 문해 글짓기 대회 대상", issuer: "국회 국방위원장상 대상 (국회 국방위원장 표창)", category: "대외·공공", icon: "fa-trophy", badgeColor: "amber", highlight: true },
-  { id: "aw-4", date: "2024-01", year: "2024", title: "방송통신대 총장 표창 우수상", issuer: "방송통신대학교총장 표창", category: "대외·공공", icon: "fa-graduation-cap", badgeColor: "indigo" },
-  { id: "aw-5", date: "2023-07", year: "2023", title: "세이프 인플루언서 우수 활동자 즉시상", issuer: "안전그룹장 표창", category: "환경안전", icon: "fa-shield-halved", badgeColor: "emerald" },
-  { id: "aw-6", date: "2023-02", year: "2023", title: "2023 FOUNDRY DIFFUSION 기술팀 DS경진대회 최다 아이디어부문 우수", issuer: "DIFFUSION기술팀장 표창", category: "혁신아이디어", icon: "fa-lightbulb", badgeColor: "yellow" },
-  { id: "aw-7", date: "2022-12", year: "2022", title: "세이프 인플루언서 최우수 활동자 즉시상", issuer: "안전그룹장 표창", category: "환경안전", icon: "fa-shield-halved", badgeColor: "emerald" },
-  { id: "aw-8", date: "2022-05", year: "2022", title: "모두의 인사 TF 승격분과 본과정 경진대회 시상", issuer: "인사기획그룹 표창", category: "혁신아이디어", icon: "fa-users-gear", badgeColor: "purple" },
-  { id: "aw-9", date: "2022-02", year: "2022", title: "2월 업무 불합리 발굴 우수상", issuer: "DIFFUSION기술팀장 표창", category: "혁신아이디어", icon: "fa-magnifying-glass-plus", badgeColor: "yellow" },
-  { id: "aw-10", date: "2021-10", year: "2021", title: "위험발굴 우수발굴 즉시상", issuer: "기술환경안전팀장 표창", category: "환경안전", icon: "fa-triangle-exclamation", badgeColor: "emerald" },
-  { id: "aw-11", date: "2021-10", year: "2021", title: "기본지키기 서포터즈 6기 우수 활동자 수상", issuer: "안전그룹장 표창", category: "환경안전", icon: "fa-shield-halved", badgeColor: "emerald" },
-  { id: "aw-12", date: "2021-09", year: "2021", title: "21년 하반기 혁신적으로 일하기 공모전 우수상", issuer: "D기술팀장 표창", category: "혁신아이디어", icon: "fa-lightbulb", badgeColor: "yellow" },
-  { id: "aw-13", date: "2021-07", year: "2021", title: "D기술팀 우수사원 즉시상", issuer: "D기술팀장 표창", category: "제조기술", icon: "fa-star", badgeColor: "sky" },
-  { id: "aw-14", date: "2021-02", year: "2021", title: "제조기술센터 설비엔지니어 공정회 우수 기안 시상", issuer: "제조센터장 표창", category: "제조기술", icon: "fa-gears", badgeColor: "sky" },
-  { id: "aw-15", date: "2021-01", year: "2021", title: "기본지키기 서포터즈 1기 ~ 4기 연속 4회 시상", issuer: "안전그룹장 표창", category: "환경안전", icon: "fa-shield-check", badgeColor: "emerald" },
-  { id: "aw-16", date: "2021-01", year: "2021", title: "D기술팀 DigNoel 상 4회 시상 추천 및 본인 시상", issuer: "D기술팀장 표창", category: "제조기술", icon: "fa-medal", badgeColor: "sky" },
-  { id: "aw-17", date: "2020-10", year: "2020", title: "인재개발그룹 즉시상", issuer: "인재개발그룹장 표창", category: "혁신아이디어", icon: "fa-user-graduate", badgeColor: "purple" },
-  { id: "aw-18", date: "2020-07", year: "2020", title: "D기술팀 생산성 향상 공모전 즉시상", issuer: "D기술팀장 표창", category: "제조기술", icon: "fa-chart-line", badgeColor: "sky" },
-  { id: "aw-19", date: "2020-06", year: "2020", title: "제조 시너지 P/J 협업 IDEA & 우수상과 공모전 (최다발굴 시상)", issuer: "제조 시너지 PROJECT장 표창", category: "혁신아이디어", icon: "fa-network-wired", badgeColor: "yellow" },
-  { id: "aw-20", date: "2020-04", year: "2020", title: "환경안전공모전 (아이디어 부문) 은상", issuer: "환경안전팀장 표창", category: "환경안전", icon: "fa-leaf", badgeColor: "emerald" },
-  { id: "aw-21", date: "2018-07", year: "2018", title: "D기술팀 Hidden Worker 부문 즉시상", issuer: "D기술팀장 표창", category: "제조기술", icon: "fa-hand-holding-heart", badgeColor: "sky" },
-  { id: "aw-22", date: "2016-01", year: "2016", title: "D기술팀 환경안전 부문 즉시상", issuer: "D기술팀장 표창", category: "환경안전", icon: "fa-shield", badgeColor: "emerald" },
-  { id: "aw-23", date: "2014-11", year: "2014", title: "슈퍼루키 프로젝트 성과 발표회 우수 시상", issuer: "제조센터장 표창", category: "제조기술", icon: "fa-rocket", badgeColor: "sky", highlight: true }
-];
-
-// ─── 경력 및 주요 활동 (총 16건) ───
-const INITIAL_CAREER_DATA = [
-  { id: "cr-1", period: "연재 중", year: "현재", title: "브런치스토리(Brunch) 작가 활동", desc: "브런치 플랫폼 작가명 '아론'으로 다양한 시선과 경험을 담은 에세이 및 칼럼 연재 중", category: "창작·대외", icon: "fa-feather-pointed", badgeColor: "rose" },
-  { id: "cr-2", period: "2026.03 ~ 현재", year: "2026", title: "제5기 화성시 청년정책협의회 위원 & 분과장", desc: "동탄 교육·참여·권리 분과장 역임, 청년 정책 제안 및 공공 거버넌스 참여", category: "공공·대외", icon: "fa-users-between-lines", badgeColor: "blue" },
-  { id: "cr-3", period: "2023 연중", year: "2023", title: "THE NANUM 100 CLUB 선정", desc: "연간 사내 봉사활동 100시간 이상 달성 우수 나눔 임직원 인증", category: "사회공헌", icon: "fa-heart", badgeColor: "red" },
-  { id: "cr-4", period: "2023 연중", year: "2023", title: "위험물기능장 대비반 운영 (팀 내 7명 배출)", desc: "팀 내 국가기술자격 위험물기능장 스터디 멘토링 주도 및 7명 최종 합격 배출", category: "전문성·교육", icon: "fa-award", badgeColor: "amber", highlight: true },
-  { id: "cr-5", period: "2023.11", year: "2023", title: "SSIT 삼성전자 사내대학 전임교수 추천", desc: "전문 기술 역량 및 사내 인재양성 공로로 삼성전자 공과대학교 전임교수 추천", category: "전문성·교육", icon: "fa-chalkboard-user", badgeColor: "indigo" },
-  { id: "cr-6", period: "2023.09", year: "2023", title: "세이프 인플루언서 TF 3기 활동 및 9월 우수 활동자 수상", desc: "사내 안전 문화 확산 및 현장 위험요소 발굴 활동 주도", category: "사내TF", icon: "fa-bullhorn", badgeColor: "emerald" },
-  { id: "cr-7", period: "2023.07 ~ 현재", year: "2023", title: "기흥/화성 파운드리사업부 위험물 관리자 선임", desc: "Foundry 사업부 핵심 안전관리 법정 위험물안전관리자 선임 및 현장 운영", category: "전문성·자격", icon: "fa-shield-halved", badgeColor: "teal", highlight: true },
-  { id: "cr-8", period: "2023.07", year: "2023", title: "방송통신대학교 생산운영관리 학생출연자 참여", desc: "방통대 정규 강의 방송 패널/출연자로 참여하여 실무 경험 공유", category: "창작·대외", icon: "fa-video", badgeColor: "sky" },
-  { id: "cr-9", period: "2023.05", year: "2023", title: "세이프 인플루언서 TF 2기 + 우수 활동자 시상", desc: "안전 캠페인 기획 및 현장 개선안 공유 우수 실적", category: "사내TF", icon: "fa-bullhorn", badgeColor: "emerald" },
-  { id: "cr-10", period: "2022.12", year: "2022", title: "THE NANUM 50 CLUB 선정", desc: "옷캔, 플로깅 등 사내 봉사활동 연간 50시간 수행", category: "사회공헌", icon: "fa-hands-holding-child", badgeColor: "red" },
-  { id: "cr-11", period: "2022.06 ~ 2023.06", year: "2022", title: "사내 MZ 자문 위원 활동 (1년간)", desc: "세대 간 소통 증진 및 조직문화 개선을 위한 사내 MZ 자문 위원 위촉 활동", category: "사내TF", icon: "fa-people-arrows", badgeColor: "purple" },
-  { id: "cr-12", period: "2022.09 ~ 2022.11", year: "2022", title: "세이프 인플루언서 TF 활동", desc: "사내 현장 안전 소통 강화 TF 참여", category: "사내TF", icon: "fa-shield-virus", badgeColor: "emerald" },
-  { id: "cr-13", period: "2022.08", year: "2022", title: "위드시큐리티 TF 사내 IT분과 참여", desc: "사내 정보보안 거버넌스 및 IT 보안 강화 프로젝트 기여", category: "사내TF", icon: "fa-lock", badgeColor: "indigo" },
-  { id: "cr-14", period: "2022.03 ~ 2022.05", year: "2022", title: "모두의 인사 TF 승격분과 참여", desc: "인사제도 개편 관련 승격제도 혁신 TF 분과원 활동", category: "사내TF", icon: "fa-briefcase", badgeColor: "purple" },
-  { id: "cr-15", period: "2022 연중", year: "2022", title: "지도후배 양성 멘토링", desc: "신입/후배 엔지니어 1:1 직무 역량 지도 및 정착 지원", category: "전문성·교육", icon: "fa-user-plus", badgeColor: "sky" },
-  { id: "cr-16", period: "2021.12", year: "2021", title: "THE NANUM 100 CLUB 선정", desc: "점자 도서 제작, 해외 의류 지원, 편의시설 점검 지도 제작 등 100시간 이상 봉사", category: "사회공헌", icon: "fa-hand-holding-heart", badgeColor: "red", highlight: true }
-];
-
-// 탭 정의 및 기본 순서
-const DEFAULT_TAB_ORDER = [
-  'overview',
-  'archive',
-  'exam',
-  'camino',
-  'band',
-  'energy',
-  'external',
-  'knou',
-  'settings'
-];
-
-const TAB_DEFINITIONS = {
-  overview: { id: 'overview', name: '종합 대시보드', icon: 'fa-house', iconColor: '' },
-  archive: { id: 'archive', name: '커리어 아카이브', icon: 'fa-trophy', iconColor: 'text-amber-400', badge: 'NEW', badgeColor: 'bg-amber-500/20 text-amber-300 font-bold' },
-  exam: { id: 'exam', name: '시험 및 학사 일정', icon: 'fa-calendar-days', iconColor: '' },
-  camino: { id: 'camino', name: '산티아고 순례길', icon: 'fa-person-hiking', iconColor: 'text-amber-400', badge: '11/9', badgeColor: 'bg-amber-500/20 text-amber-400 font-bold' },
-  band: { id: 'band', name: '밴드 합주 & 문화생활', icon: 'fa-guitar', iconColor: '' },
-  energy: { id: 'energy', name: '에너지관리기사 실기', icon: 'fa-graduation-cap', iconColor: '' },
-  external: { id: 'external', name: '외부 대시보드 연동', icon: 'fa-window-restore', iconColor: '', badge: 'New', badgeColor: 'bg-sky-500/20 text-sky-400 font-bold' },
-  knou: { id: 'knou', name: '방통대 학사 관리', icon: 'fa-university', iconColor: 'text-indigo-400', badge: 'KNOU', badgeColor: 'bg-indigo-500/20 text-indigo-400 font-bold' },
-  settings: { id: 'settings', name: '테마 & 설정', icon: 'fa-palette', iconColor: 'text-indigo-300' }
-};
-
 // Global App State
 let state = {
   exams: [],
@@ -763,19 +810,14 @@ let state = {
   externalDashboards: [],
   dischargeDate: INITIAL_DISCHARGE_DATE,
   camino: INITIAL_CAMINO_DATA,
-  knou: INITIAL_KNOU_DATA,
-  awards: [...INITIAL_AWARDS_DATA],
-  careers: [...INITIAL_CAREER_DATA],
-  tabOrder: [...DEFAULT_TAB_ORDER],
+  sns: INITIAL_SNS_DATA,
   theme: 'dark',
   activeTab: 'overview',
   activeExternalTabId: null,
   examFilter: 'all',
   bandFilter: 'all',
+  snsFilter: 'all',
   energyStudySubtab: 'daily', // 'daily', 'formulas', 'upload'
-  knouSubtab: 'schedule',     // 'schedule', 'grades'
-  archiveSubtab: 'awards',    // 'awards', 'careers'
-  archiveFilter: 'all',
   currentQuestionIndex: 0
 };
 
@@ -790,6 +832,21 @@ function initApp() {
     state.activeExternalTabId = state.externalDashboards[0].id;
   }
 
+  syncManager.onStatusChange(updateSyncStatusUI);
+  syncManager.onDataChange((remoteData) => {
+    state.exams = remoteData.exams || state.exams;
+    state.bands = remoteData.bands || state.bands;
+    state.formulas = remoteData.formulas || state.formulas;
+    state.questions = remoteData.questions || state.questions;
+    state.externalDashboards = remoteData.externalDashboards || state.externalDashboards;
+    if (remoteData.dischargeDate) state.dischargeDate = remoteData.dischargeDate;
+    if (remoteData.camino) state.camino = remoteData.camino;
+    if (remoteData.sns) state.sns = remoteData.sns;
+    renderCurrentTab();
+    showToast('클라우드에서 최신 데이터를 동기화했습니다.');
+  });
+
+  syncManager.initFirebase();
   applyTheme(state.theme);
   initNavigation();
   initModals();
@@ -813,108 +870,67 @@ function persistState() {
     externalDashboards: state.externalDashboards,
     dischargeDate: state.dischargeDate,
     camino: state.camino,
-    knou: state.knou,
-    awards: state.awards,
-    careers: state.careers,
-    tabOrder: state.tabOrder,
+    sns: state.sns,
     theme: state.theme
   });
 }
 
 // ==========================================================================
-// Navigation & Tab Routing (Dynamic Tab Ordering Supported)
+// Navigation & Tab Routing
 // ==========================================================================
-function renderNavTabs() {
-  const desktopContainer = document.getElementById('desktop-nav-container');
-  const mobileContainer = document.getElementById('mobile-nav-container');
-  const order = state.tabOrder && state.tabOrder.length > 0 ? state.tabOrder : DEFAULT_TAB_ORDER;
-
-  // 1. Desktop Sidebar Navigation
-  if (desktopContainer) {
-    desktopContainer.innerHTML = order.map(tabId => {
-      const def = TAB_DEFINITIONS[tabId];
-      if (!def) return '';
-      const isActive = state.activeTab === tabId;
-      return `
-        <button data-nav-tab="${tabId}" onclick="window.app.switchTab('${tabId}')"
-          class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs transition ${
-            isActive ? 'nav-tab-active text-blue-500 font-semibold' : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
-          }">
-          <i class="fa-solid ${def.icon} w-4 text-center ${def.iconColor || ''}"></i>
-          <span class="flex-1 text-left truncate">${def.name}</span>
-          ${def.badge ? `<span class="text-[9px] px-1.5 py-0.5 rounded ${def.badgeColor || 'bg-slate-700 text-slate-300'}">${def.badge}</span>` : ''}
-        </button>
-      `;
-    }).join('');
-  }
-
-  // 2. Mobile Bottom Navigation
-  if (mobileContainer) {
-    mobileContainer.innerHTML = order.map(tabId => {
-      const def = TAB_DEFINITIONS[tabId];
-      if (!def) return '';
-      const isActive = state.activeTab === tabId;
-      const shortName = tabId === 'overview' ? '홈' :
-                        tabId === 'exam' ? '일정' :
-                        tabId === 'camino' ? '순례길' :
-                        tabId === 'band' ? '밴드' :
-                        tabId === 'energy' ? '에너지' :
-                        tabId === 'external' ? '외부탭' :
-                        tabId === 'knou' ? '방통대' : '테마';
-      return `
-        <button data-mobile-tab="${tabId}" onclick="window.app.switchTab('${tabId}')"
-          class="flex flex-col items-center gap-1 text-[10px] flex-1 min-w-[50px] py-1 transition ${
-            isActive ? 'mobile-tab-active text-sky-400 font-bold' : 'text-slate-400'
-          }">
-          <i class="fa-solid ${def.icon} text-sm ${def.iconColor || ''}"></i>
-          <span>${shortName}</span>
-        </button>
-      `;
-    }).join('');
-  }
-}
-
 function initNavigation() {
-  renderNavTabs();
-}
+  // Desktop Sidebar Nav Links
+  document.querySelectorAll('[data-nav-tab]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const tabName = btn.getAttribute('data-nav-tab');
+      switchTab(tabName);
+    });
+  });
 
-function renderTabOrderList() {
-  const container = document.getElementById('tab-order-list');
-  if (!container) return;
-  const order = state.tabOrder && state.tabOrder.length > 0 ? state.tabOrder : DEFAULT_TAB_ORDER;
+  // Mobile Bottom Nav Links
+  document.querySelectorAll('[data-mobile-tab]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const tabName = btn.getAttribute('data-mobile-tab');
+      switchTab(tabName);
+    });
+  });
 
-  container.innerHTML = order.map((tabId, idx) => {
-    const def = TAB_DEFINITIONS[tabId] || { name: tabId, icon: 'fa-circle' };
-    const isFirst = idx === 0;
-    const isLast = idx === order.length - 1;
-
-    return `
-      <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-800/80 border border-slate-700/60 transition hover:border-slate-600">
-        <div class="flex items-center gap-3 min-w-0">
-          <span class="w-6 h-6 rounded-lg bg-slate-700/80 text-slate-300 text-xs font-bold flex items-center justify-center flex-shrink-0">
-            ${idx + 1}
-          </span>
-          <i class="fa-solid ${def.icon} text-sm text-sky-400 w-4 text-center"></i>
-          <span class="text-xs font-semibold text-white truncate">${def.name}</span>
-        </div>
-        <div class="flex items-center gap-1">
-          <button type="button" onclick="window.app.moveTabOrder(${idx}, -1)" ${isFirst ? 'disabled' : ''}
-            class="w-7 h-7 rounded-lg bg-slate-700/60 hover:bg-slate-700 text-slate-300 disabled:opacity-30 disabled:pointer-events-none flex items-center justify-center text-xs transition" title="위로 이동">
-            <i class="fa-solid fa-chevron-up"></i>
-          </button>
-          <button type="button" onclick="window.app.moveTabOrder(${idx}, 1)" ${isLast ? 'disabled' : ''}
-            class="w-7 h-7 rounded-lg bg-slate-700/60 hover:bg-slate-700 text-slate-300 disabled:opacity-30 disabled:pointer-events-none flex items-center justify-center text-xs transition" title="아래로 이동">
-            <i class="fa-solid fa-chevron-down"></i>
-          </button>
-        </div>
-      </div>
-    `;
-  }).join('');
+  // Theme Toggle Button
+  const themeToggle = document.getElementById('theme-toggle-btn');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const newTheme = state.theme === 'dark' ? 'light' : 'dark';
+      state.theme = newTheme;
+      applyTheme(newTheme);
+      persistState();
+    });
+  }
 }
 
 function switchTab(tabName) {
   state.activeTab = tabName;
-  renderNavTabs();
+
+  // Update desktop navigation active state
+  document.querySelectorAll('[data-nav-tab]').forEach((btn) => {
+    if (btn.getAttribute('data-nav-tab') === tabName) {
+      btn.classList.add('nav-tab-active', 'text-blue-500', 'font-semibold');
+      btn.classList.remove('text-slate-400');
+    } else {
+      btn.classList.remove('nav-tab-active', 'text-blue-500', 'font-semibold');
+      btn.classList.add('text-slate-400');
+    }
+  });
+
+  // Update mobile navigation active state
+  document.querySelectorAll('[data-mobile-tab]').forEach((btn) => {
+    if (btn.getAttribute('data-mobile-tab') === tabName) {
+      btn.classList.add('mobile-tab-active', 'text-sky-400');
+      btn.classList.remove('text-slate-400');
+    } else {
+      btn.classList.remove('mobile-tab-active', 'text-sky-400');
+      btn.classList.add('text-slate-400');
+    }
+  });
 
   // Show only current tab content section
   document.querySelectorAll('.tab-section').forEach((section) => {
@@ -936,9 +952,6 @@ function renderCurrentTab() {
     case 'overview':
       renderOverviewTab();
       break;
-    case 'archive':
-      renderArchiveTab();
-      break;
     case 'exam':
       renderExamTab();
       break;
@@ -954,8 +967,8 @@ function renderCurrentTab() {
     case 'external':
       renderExternalTab();
       break;
-    case 'knou':
-      renderKnouTab();
+    case 'sns':
+      renderSnsTab();
       break;
     case 'settings':
       renderSettingsTab();
@@ -1133,14 +1146,14 @@ function renderOverviewTab() {
             <span class="px-2.5 py-0.5 bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[11px] font-bold rounded-full flex items-center gap-1.5">
               <i class="fa-solid fa-compass text-amber-400"></i> Buen Camino!
             </span>
-            <span class="text-[11px] text-slate-400">11.09 ~ 11.20</span>
+            <span class="text-[11px] text-slate-400">11.07 ~ 11.09</span>
           </div>
           <h2 class="text-xl font-black text-white tracking-tight flex items-center gap-2">
             <i class="fa-solid fa-person-hiking text-amber-400 text-lg"></i>
-            <span>${camino.title || '까미노 포르투게스'}</span>
+            <span>산티아고 순례길</span>
           </h2>
           <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">
-            포르투에서 산티아고까지 여유롭게 걷는 낭만과 힐링의 포르투갈 순례길 트레킹.
+            에너지 시험 직후 떠나는 나만의 성찰과 힐링. 스페인 갈리시아 길 걷기.
           </p>
         </div>
 
@@ -1152,7 +1165,7 @@ function renderOverviewTab() {
             </div>
           </div>
           <button onclick="window.app.switchTab('camino')" class="py-1.5 px-3 bg-amber-500 hover:bg-amber-600 text-slate-950 rounded-lg text-xs font-bold transition flex items-center gap-1">
-            <i class="fa-solid fa-route"></i> 일정·체크
+            <i class="fa-solid fa-map-location-dot"></i> 순례길 계획
           </button>
         </div>
       </div>
@@ -1385,22 +1398,22 @@ function renderOverviewTab() {
           <div class="flex items-center justify-between mb-4">
             <div class="flex items-center gap-2">
               <i class="fa-solid fa-person-hiking text-amber-400 text-lg"></i>
-              <h2 class="text-lg font-bold text-white">산티아고 순례길 (포르투 코스) 여정</h2>
-              <span class="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">11/9 ~ 11/20</span>
+              <h2 class="text-lg font-bold text-white">산티아고 순례길 여정 브리핑</h2>
+              <span class="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">11/7 ~ 11/9</span>
             </div>
             <button onclick="window.app.switchTab('camino')" class="text-xs text-amber-400 hover:text-amber-300 font-medium flex items-center gap-1">
               일정 및 짐싸기 체크 <i class="fa-solid fa-arrow-right"></i>
             </button>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
-            ${camino.itinerary.slice(0, 3).map(item => `
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+            ${camino.itinerary.map(item => `
               <div class="p-3 rounded-xl bg-slate-800/80 border border-amber-500/20">
                 <div class="text-[11px] font-bold text-amber-400 mb-1">${item.day}</div>
                 <div class="text-xs font-bold text-white truncate mb-1">${item.title}</div>
                 <div class="text-[11px] text-slate-400 flex items-center justify-between">
                   <span>${item.distance}</span>
-                  <span class="text-amber-300/80 text-[10px] truncate max-w-[120px]">${item.highlight.split('&')[0]}</span>
+                  <span class="text-amber-300/80 text-[10px]">${item.highlight.split('&')[0]}</span>
                 </div>
               </div>
             `).join('')}
@@ -1444,44 +1457,6 @@ function renderOverviewTab() {
                 ` : ''}
               </div>
             `).join('')}
-          </div>
-        </div>
-
-        <!-- 커리어 아카이브 퀵 프리뷰 -->
-        <div class="glass-panel rounded-2xl p-6 border border-amber-500/30 bg-gradient-to-r from-slate-900 via-slate-900 to-amber-950/20">
-          <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center gap-2">
-              <i class="fa-solid fa-trophy text-amber-400 text-lg"></i>
-              <h2 class="text-lg font-bold text-white">커리어 아카이브 (수상 & 주요 활동)</h2>
-              <span class="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">총 ${(state.awards || INITIAL_AWARDS_DATA).length}건 수상</span>
-            </div>
-            <button onclick="window.app.switchTab('archive')" class="text-xs text-amber-400 hover:text-amber-300 font-medium flex items-center gap-1">
-              전체 보기 <i class="fa-solid fa-arrow-right"></i>
-            </button>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div class="p-3 rounded-xl bg-slate-800/80 border border-amber-500/30 cursor-pointer hover:border-amber-400 transition" onclick="window.app.switchTab('archive')">
-              <div class="text-[10px] font-bold text-amber-400 mb-1 flex items-center gap-1">
-                <i class="fa-solid fa-crown text-[9px]"></i> 2024 대표 성과
-              </div>
-              <div class="text-xs font-bold text-white truncate mb-1">대한민국 호국미술대전 대상</div>
-              <div class="text-[11px] text-slate-400 truncate">국회 국방위원장상 대상 수상</div>
-            </div>
-            <div class="p-3 rounded-xl bg-slate-800/80 border border-sky-500/30 cursor-pointer hover:border-sky-400 transition" onclick="window.app.switchTab('archive')">
-              <div class="text-[10px] font-bold text-sky-400 mb-1 flex items-center gap-1">
-                <i class="fa-solid fa-shield-halved text-[9px]"></i> 핵심 전문성
-              </div>
-              <div class="text-xs font-bold text-white truncate mb-1">위험물관리자 & 기능장 7명</div>
-              <div class="text-[11px] text-slate-400 truncate">파운드리 선임 / 대비반 7명 배출</div>
-            </div>
-            <div class="p-3 rounded-xl bg-slate-800/80 border border-rose-500/30 cursor-pointer hover:border-rose-400 transition" onclick="window.app.switchTab('archive')">
-              <div class="text-[10px] font-bold text-rose-400 mb-1 flex items-center gap-1">
-                <i class="fa-solid fa-heart text-[9px]"></i> 사회공헌 & 거버넌스
-              </div>
-              <div class="text-xs font-bold text-white truncate mb-1">THE NANUM 100 CLUB</div>
-              <div class="text-[11px] text-slate-400 truncate">화성시 청년협의회 분과장</div>
-            </div>
           </div>
         </div>
 
@@ -1541,6 +1516,43 @@ function renderOverviewTab() {
           </div>
         </div>
 
+        <!-- 3대 SNS 퍼스널 브랜딩 위젯 (신규 ⭐) -->
+        <div class="glass-panel rounded-2xl p-6 border border-pink-500/30 bg-gradient-to-b from-slate-900 to-pink-950/20">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2">
+              <i class="fa-solid fa-share-nodes text-pink-400"></i>
+              SNS & 브랜딩 채널
+            </h3>
+            <button onclick="window.app.switchTab('sns')" class="text-xs text-pink-400 hover:text-pink-300 font-bold flex items-center gap-1">
+              분석 탭 <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            </button>
+          </div>
+
+          <div class="space-y-2 mb-3">
+            ${(state.sns ? state.sns.channels : INITIAL_SNS_DATA.channels).map(ch => `
+              <a href="${ch.url}" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl bg-slate-800/70 hover:bg-slate-800 border border-slate-700/50 hover:border-pink-500/40 flex items-center justify-between transition group">
+                <div class="flex items-center gap-2.5 min-w-0">
+                  <div class="w-7 h-7 rounded-lg flex items-center justify-center text-sm ${ch.id === 'linkedin' ? 'bg-blue-600/20 text-blue-400' : ch.id === 'instagram' ? 'bg-pink-600/20 text-pink-400' : 'bg-emerald-600/20 text-emerald-400'}">
+                    <i class="${ch.icon}"></i>
+                  </div>
+                  <div class="truncate">
+                    <div class="text-xs font-bold text-white group-hover:text-pink-300 transition truncate">${ch.name.split(' ')[0]}</div>
+                    <div class="text-[10px] text-slate-400 font-mono truncate">${ch.handle}</div>
+                  </div>
+                </div>
+                <div class="text-right flex items-center gap-2">
+                  <span class="text-xs font-black text-slate-200">${ch.followers.toLocaleString()}</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square text-[11px] text-slate-500 group-hover:text-pink-400"></i>
+                </div>
+              </a>
+            `).join('')}
+          </div>
+
+          <button onclick="window.app.switchTab('sns')" class="w-full py-2 bg-pink-500/10 hover:bg-pink-500/20 border border-pink-500/30 text-pink-300 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5">
+            <span>콘텐츠 파이프라인 & 성장 지표 관리</span>
+          </button>
+        </div>
+
       </div>
 
     </div>
@@ -1587,14 +1599,15 @@ function renderCaminoTab() {
             <span class="px-3 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold rounded-full flex items-center gap-1.5">
               <i class="fa-solid fa-compass"></i> 부엔 카미노 (Buen Camino)
             </span>
-            <span class="text-xs text-slate-400">${formatScheduleDate(camino.startDate, camino.endDate)} (${camino.itinerary ? camino.itinerary.length : 5}개 구간)</span>
+            <span class="text-xs text-slate-400">2026년 11월 7일 ~ 11월 9일 (3일간)</span>
           </div>
           <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
             <i class="fa-solid fa-person-hiking text-amber-400"></i>
-            ${camino.title || '까미노 포르투게스 (Camino Português)'}
+            산티아고 순례길 트레킹 (Camino de Santiago)
           </h1>
           <p class="text-sm text-slate-300 mt-2 max-w-2xl leading-relaxed">
-            포르투(Porto)에서 산티아고 데 콤포스텔라까지. 포르투갈과 스페인 갈리시아의 아름다운 해안·마을을 여유롭게 여행하며 걷는 힐링 순례길.
+            에너지관리기사 시험을 마친 직후, 지친 마음을 비우고 새로운 에너지를 채우는 나만의 순례길.
+            노란 화살표를 따라 한 걸음씩 걷는 힐링과 사색의 여정입니다.
           </p>
         </div>
 
@@ -1619,7 +1632,7 @@ function renderCaminoTab() {
           <div class="flex items-center justify-between mb-4">
             <h2 class="text-lg font-bold text-white flex items-center gap-2">
               <i class="fa-solid fa-route text-amber-400"></i>
-              일자별 트레킹 코스 &amp; 알베르게 계획
+              3일간의 일자별 트레킹 코스 & 알베르게 계획
             </h2>
             <span class="text-xs text-slate-400 bg-slate-800 px-2.5 py-1 rounded-lg">
               총 거리: ${camino.totalDistance}
@@ -1636,9 +1649,14 @@ function renderCaminoTab() {
                     </span>
                     <span class="text-xs text-slate-400 font-mono"><i class="fa-solid fa-person-walking"></i> ${item.distance}</span>
                   </div>
-                  <span class="text-[11px] text-amber-400/90 font-semibold bg-slate-900/80 px-2.5 py-1 rounded-md">
-                    ★ ${item.highlight}
-                  </span>
+                  <div class="flex items-center gap-2">
+                    <span class="text-[11px] text-amber-400/90 font-semibold bg-slate-900/80 px-2.5 py-1 rounded-md">
+                      ★ ${item.highlight}
+                    </span>
+                    <button onclick="window.app.openEditCaminoItineraryModal(${idx})" class="text-[11px] text-amber-300 hover:text-white px-2 py-1 rounded bg-amber-500/20 hover:bg-amber-500/40 border border-amber-500/30 transition flex items-center gap-1">
+                      <i class="fa-solid fa-pen-to-square"></i> 수정
+                    </button>
+                  </div>
                 </div>
 
                 <h3 class="text-base font-bold text-white mb-2">${item.title}</h3>
@@ -1723,432 +1741,6 @@ function renderCaminoTab() {
 }
 
 // ==========================================================================
-// Career Archive Tab (수상 내역 23건 + 경력/활동 16건)
-// ==========================================================================
-function renderArchiveTab() {
-  const container = document.getElementById('tab-content-archive');
-  if (!container) return;
-
-  const currentSubtab = state.archiveSubtab || 'awards';
-  const currentFilter = state.archiveFilter || 'all';
-
-  const awardsList = state.awards && state.awards.length > 0 ? state.awards : INITIAL_AWARDS_DATA;
-  const careersList = state.careers && state.careers.length > 0 ? state.careers : INITIAL_CAREER_DATA;
-
-  // KPI Calculations
-  const totalAwards = awardsList.length;
-  const publicAwards = awardsList.filter(a => a.category === '대외·공공').length;
-  const totalCareers = careersList.length;
-
-  // Filter Categories
-  const awardCategories = [
-    { id: 'all', label: '전체' },
-    { id: '대외·공공', label: '대외·공공' },
-    { id: '환경안전', label: '환경안전' },
-    { id: '혁신아이디어', label: '혁신아이디어' },
-    { id: '제조기술', label: '제조기술' },
-    { id: '사회공헌', label: '사회공헌' }
-  ];
-
-  const careerCategories = [
-    { id: 'all', label: '전체' },
-    { id: '공공·대외', label: '공공·대외' },
-    { id: '사내TF', label: '사내TF' },
-    { id: '전문성·교육', label: '전문성·교육' },
-    { id: '전문성·자격', label: '전문성·자격' },
-    { id: '사회공헌', label: '사회공헌' },
-    { id: '창작·대외', label: '창작·대외' }
-  ];
-
-  // Helper for color classes
-  const getBadgeClasses = (color) => {
-    switch (color) {
-      case 'amber': return 'bg-amber-500/15 text-amber-300 border-amber-500/30';
-      case 'blue': return 'bg-blue-500/15 text-blue-300 border-blue-500/30';
-      case 'teal': return 'bg-teal-500/15 text-teal-300 border-teal-500/30';
-      case 'emerald': return 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30';
-      case 'purple': return 'bg-purple-500/15 text-purple-300 border-purple-500/30';
-      case 'yellow': return 'bg-yellow-500/15 text-yellow-300 border-yellow-500/30';
-      case 'rose': return 'bg-rose-500/15 text-rose-300 border-rose-500/30';
-      case 'red': return 'bg-red-500/15 text-red-300 border-red-500/30';
-      case 'indigo': return 'bg-indigo-500/15 text-indigo-300 border-indigo-500/30';
-      case 'sky':
-      default: return 'bg-sky-500/15 text-sky-300 border-sky-500/30';
-    }
-  };
-
-  const getIconBg = (color) => {
-    switch (color) {
-      case 'amber': return 'from-amber-500 to-yellow-600 text-slate-950 shadow-amber-500/20';
-      case 'blue': return 'from-blue-600 to-sky-500 text-white shadow-blue-500/20';
-      case 'teal': return 'from-teal-600 to-emerald-500 text-white shadow-teal-500/20';
-      case 'emerald': return 'from-emerald-600 to-teal-500 text-white shadow-emerald-500/20';
-      case 'purple': return 'from-purple-600 to-indigo-500 text-white shadow-purple-500/20';
-      case 'yellow': return 'from-yellow-500 to-amber-600 text-slate-950 shadow-yellow-500/20';
-      case 'rose': return 'from-rose-600 to-pink-500 text-white shadow-rose-500/20';
-      case 'red': return 'from-red-600 to-rose-500 text-white shadow-red-500/20';
-      case 'indigo': return 'from-indigo-600 to-blue-500 text-white shadow-indigo-500/20';
-      case 'sky':
-      default: return 'from-sky-600 to-blue-500 text-white shadow-sky-500/20';
-    }
-  };
-
-  // Filtered lists
-  let filteredAwards = awardsList.filter(a => currentFilter === 'all' || a.category === currentFilter);
-  // Sort awards descending by date
-  filteredAwards.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
-
-  let filteredCareers = careersList.filter(c => currentFilter === 'all' || c.category === currentFilter);
-
-  // Grouping helper
-  const groupAwardsByYear = () => {
-    const groups = {};
-    filteredAwards.forEach(item => {
-      const yr = item.year || (item.date ? item.date.slice(0, 4) : '기타');
-      if (!groups[yr]) groups[yr] = [];
-      groups[yr].push(item);
-    });
-    return groups;
-  };
-
-  const groupCareersByYear = () => {
-    const groups = {};
-    filteredCareers.forEach(item => {
-      const yr = item.year || '기타';
-      if (!groups[yr]) groups[yr] = [];
-      groups[yr].push(item);
-    });
-    return groups;
-  };
-
-  // Build HTML
-  let contentHtml = '';
-
-  if (currentSubtab === 'awards') {
-    const grouped = groupAwardsByYear();
-    const sortedYears = Object.keys(grouped).sort((a, b) => {
-      if (a === '현재') return -1;
-      if (b === '현재') return 1;
-      return b.localeCompare(a);
-    });
-
-    if (filteredAwards.length === 0) {
-      contentHtml = `
-        <div class="p-12 text-center rounded-2xl bg-slate-900/60 border border-slate-800">
-          <i class="fa-solid fa-trophy text-4xl text-slate-600 mb-3 block"></i>
-          <p class="text-sm font-semibold text-slate-300">선택한 카테고리에 해당하는 수상 내역이 없습니다.</p>
-          <button onclick="window.app.setArchiveFilter('all')" class="mt-3 px-4 py-1.5 bg-slate-800 hover:bg-slate-700 text-xs text-sky-400 rounded-lg transition font-medium">전체 보기</button>
-        </div>
-      `;
-    } else {
-      contentHtml = sortedYears.map(year => `
-        <div class="mb-8">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="px-3 py-1 rounded-xl bg-gradient-to-r from-amber-500/20 to-amber-600/10 border border-amber-500/30 text-amber-300 font-black text-sm tracking-wider flex items-center gap-1.5 shadow-sm">
-              <i class="fa-solid fa-calendar-check text-xs"></i>
-              ${year}년
-            </span>
-            <span class="text-xs text-slate-500 font-semibold">${grouped[year].length}건</span>
-            <div class="flex-1 h-px bg-slate-800"></div>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-            ${grouped[year].map(award => {
-              const isHighlight = award.highlight;
-              const cardBorder = isHighlight
-                ? 'border-amber-500/60 bg-gradient-to-br from-amber-500/10 via-slate-900/90 to-slate-900/90 shadow-lg shadow-amber-500/10 ring-1 ring-amber-400/30'
-                : 'border-slate-800/90 bg-slate-900/80 hover:border-slate-700 transition shadow-sm';
-              const iconBg = getIconBg(award.badgeColor || 'amber');
-              const badgeClass = getBadgeClasses(award.badgeColor || 'amber');
-
-              return `
-                <div class="p-4 rounded-2xl border ${cardBorder} flex flex-col justify-between relative group transition duration-200">
-                  <div>
-                    <div class="flex items-start justify-between gap-3 mb-2.5">
-                      <div class="flex items-center gap-3 min-w-0">
-                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br ${iconBg} flex items-center justify-center text-sm shadow-md flex-shrink-0">
-                          <i class="fa-solid ${award.icon || 'fa-award'}"></i>
-                        </div>
-                        <div class="min-w-0">
-                          <div class="flex items-center gap-1.5 flex-wrap mb-1">
-                            <span class="text-[11px] font-mono font-bold text-slate-400 bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700/60">
-                              <i class="fa-regular fa-calendar text-[10px] text-amber-400 mr-1"></i>${award.date}
-                            </span>
-                            <span class="text-[10px] font-semibold px-2 py-0.5 rounded border ${badgeClass}">
-                              ${award.category}
-                            </span>
-                            ${isHighlight ? `
-                              <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 flex items-center gap-1 shadow-sm">
-                                <i class="fa-solid fa-crown text-[9px]"></i> 대표 실적
-                              </span>
-                            ` : ''}
-                          </div>
-                          <h4 class="font-bold text-white text-sm leading-snug line-clamp-2 ${isHighlight ? 'text-amber-100' : ''}">
-                            ${award.title}
-                          </h4>
-                        </div>
-                      </div>
-                      <button onclick="window.app.deleteAward('${award.id}')" class="opacity-0 group-hover:opacity-100 transition text-slate-500 hover:text-red-400 p-1.5 rounded-lg hover:bg-slate-800/80 flex-shrink-0" title="수상 내역 삭제">
-                        <i class="fa-solid fa-trash-can text-xs"></i>
-                      </button>
-                    </div>
-
-                    <div class="mt-2 pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs">
-                      <span class="text-slate-400 flex items-center gap-1.5 truncate">
-                        <i class="fa-solid fa-stamp text-[11px] text-amber-400/80"></i>
-                        <span class="font-medium text-slate-300 truncate">${award.issuer}</span>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              `;
-            }).join('')}
-          </div>
-        </div>
-      `).join('');
-    }
-  } else {
-    // Careers subtab
-    const grouped = groupCareersByYear();
-    const sortedYears = Object.keys(grouped).sort((a, b) => {
-      if (a === '현재') return -1;
-      if (b === '현재') return 1;
-      return b.localeCompare(a);
-    });
-
-    if (filteredCareers.length === 0) {
-      contentHtml = `
-        <div class="p-12 text-center rounded-2xl bg-slate-900/60 border border-slate-800">
-          <i class="fa-solid fa-briefcase text-4xl text-slate-600 mb-3 block"></i>
-          <p class="text-sm font-semibold text-slate-300">선택한 카테고리에 해당하는 경력/활동 내역이 없습니다.</p>
-          <button onclick="window.app.setArchiveFilter('all')" class="mt-3 px-4 py-1.5 bg-slate-800 hover:bg-slate-700 text-xs text-sky-400 rounded-lg transition font-medium">전체 보기</button>
-        </div>
-      `;
-    } else {
-      contentHtml = sortedYears.map(year => `
-        <div class="mb-8">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="px-3 py-1 rounded-xl bg-gradient-to-r from-blue-600/20 to-sky-500/10 border border-blue-500/30 text-sky-300 font-black text-sm tracking-wider flex items-center gap-1.5 shadow-sm">
-              <i class="fa-solid fa-clock-rotate-left text-xs"></i>
-              ${year === '현재' ? '현재 진행 중' : year + '년'}
-            </span>
-            <span class="text-xs text-slate-500 font-semibold">${grouped[year].length}건</span>
-            <div class="flex-1 h-px bg-slate-800"></div>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-            ${grouped[year].map(career => {
-              const isHighlight = career.highlight;
-              const cardBorder = isHighlight
-                ? 'border-sky-500/60 bg-gradient-to-br from-sky-500/10 via-slate-900/90 to-slate-900/90 shadow-lg shadow-sky-500/10 ring-1 ring-sky-400/30'
-                : 'border-slate-800/90 bg-slate-900/80 hover:border-slate-700 transition shadow-sm';
-              const iconBg = getIconBg(career.badgeColor || 'sky');
-              const badgeClass = getBadgeClasses(career.badgeColor || 'sky');
-
-              return `
-                <div class="p-4 rounded-2xl border ${cardBorder} flex flex-col justify-between relative group transition duration-200">
-                  <div>
-                    <div class="flex items-start justify-between gap-3 mb-2">
-                      <div class="flex items-center gap-3 min-w-0">
-                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br ${iconBg} flex items-center justify-center text-sm shadow-md flex-shrink-0">
-                          <i class="fa-solid ${career.icon || 'fa-briefcase'}"></i>
-                        </div>
-                        <div class="min-w-0">
-                          <div class="flex items-center gap-1.5 flex-wrap mb-1">
-                            <span class="text-[11px] font-mono font-bold text-sky-300 bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700/60">
-                              <i class="fa-regular fa-clock text-[10px] text-sky-400 mr-1"></i>${career.period}
-                            </span>
-                            <span class="text-[10px] font-semibold px-2 py-0.5 rounded border ${badgeClass}">
-                              ${career.category}
-                            </span>
-                            ${isHighlight ? `
-                              <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-gradient-to-r from-sky-400 to-blue-500 text-slate-950 flex items-center gap-1 shadow-sm">
-                                <i class="fa-solid fa-star text-[9px]"></i> 핵심 활동
-                              </span>
-                            ` : ''}
-                          </div>
-                          <h4 class="font-bold text-white text-sm leading-snug line-clamp-2">
-                            ${career.title}
-                          </h4>
-                        </div>
-                      </div>
-                      <button onclick="window.app.deleteCareer('${career.id}')" class="opacity-0 group-hover:opacity-100 transition text-slate-500 hover:text-red-400 p-1.5 rounded-lg hover:bg-slate-800/80 flex-shrink-0" title="경력/활동 삭제">
-                        <i class="fa-solid fa-trash-can text-xs"></i>
-                      </button>
-                    </div>
-
-                    <div class="mt-2.5 p-3 rounded-xl bg-slate-800/50 border border-slate-700/40 text-xs text-slate-300 leading-relaxed">
-                      ${career.desc}
-                    </div>
-                  </div>
-                </div>
-              `;
-            }).join('')}
-          </div>
-        </div>
-      `).join('');
-    }
-  }
-
-  // Active categories list
-  const activeCategories = currentSubtab === 'awards' ? awardCategories : careerCategories;
-
-  container.innerHTML = `
-    <!-- Top Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-      <div>
-        <div class="flex items-center gap-2 mb-1">
-          <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1">
-            <i class="fa-solid fa-medal text-[10px]"></i> Career Milestones
-          </span>
-        </div>
-        <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2">
-          <span>커리어 아카이브</span>
-        </h2>
-        <p class="text-xs text-slate-400 mt-1">
-          사내외 공모전 및 즉시상 수상 실적과 전문 경력·사내 TF·사회공헌 활동을 통합 관리합니다.
-        </p>
-      </div>
-
-      <div class="flex items-center gap-2 flex-wrap">
-        ${currentSubtab === 'awards' ? `
-          <button onclick="window.app.openAddAwardModal()" class="px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-xl text-xs shadow-lg shadow-amber-500/20 flex items-center gap-2 transition active:scale-95">
-            <i class="fa-solid fa-trophy"></i>
-            <span>새 수상 내역 등록</span>
-          </button>
-        ` : `
-          <button onclick="window.app.openAddCareerModal()" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-sky-500 hover:from-blue-500 hover:to-sky-400 text-white font-black rounded-xl text-xs shadow-lg shadow-blue-500/20 flex items-center gap-2 transition active:scale-95">
-            <i class="fa-solid fa-briefcase"></i>
-            <span>새 경력/활동 등록</span>
-          </button>
-        `}
-      </div>
-    </div>
-
-    <!-- 4 KPI Summary Cards -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 mb-6">
-      <!-- Card 1: Total Awards -->
-      <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-sm relative overflow-hidden shadow-sm hover:border-amber-500/40 transition">
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-xs text-slate-400 font-semibold">누적 수상 실적</span>
-          <div class="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center text-xs">
-            <i class="fa-solid fa-trophy"></i>
-          </div>
-        </div>
-        <div class="text-2xl font-black text-white font-mono mb-1">
-          ${totalAwards}<span class="text-sm font-normal text-slate-400 ml-1">건</span>
-        </div>
-        <div class="text-[11px] text-slate-400 truncate">
-          삼성전자 사내외 공모전 & 표창
-        </div>
-      </div>
-
-      <!-- Card 2: Public / External Awards -->
-      <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-sm relative overflow-hidden shadow-sm hover:border-blue-500/40 transition">
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-xs text-slate-400 font-semibold">대외·공공 주요 수상</span>
-          <div class="w-7 h-7 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center text-xs">
-            <i class="fa-solid fa-building-columns"></i>
-          </div>
-        </div>
-        <div class="text-2xl font-black text-sky-400 font-mono mb-1">
-          ${publicAwards}<span class="text-sm font-normal text-slate-400 ml-1">건</span>
-        </div>
-        <div class="text-[11px] text-slate-400 truncate">
-          국회 국방위원장상 대상 등
-        </div>
-      </div>
-
-      <!-- Card 3: Core Roles & Credentials -->
-      <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-sm relative overflow-hidden shadow-sm hover:border-teal-500/40 transition">
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-xs text-slate-400 font-semibold">핵심 직무 & 자격</span>
-          <div class="w-7 h-7 rounded-lg bg-teal-500/10 text-teal-400 flex items-center justify-center text-xs">
-            <i class="fa-solid fa-shield-halved"></i>
-          </div>
-        </div>
-        <div class="text-lg font-black text-teal-300 font-mono mb-1 truncate">
-          선임 & 7명 배출
-        </div>
-        <div class="text-[11px] text-slate-400 truncate">
-          파운드리 위험물관리자 / 기능장
-        </div>
-      </div>
-
-      <!-- Card 4: Social Contributions -->
-      <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-sm relative overflow-hidden shadow-sm hover:border-rose-500/40 transition">
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-xs text-slate-400 font-semibold">사회공헌 & 거버넌스</span>
-          <div class="w-7 h-7 rounded-lg bg-rose-500/10 text-rose-400 flex items-center justify-center text-xs">
-            <i class="fa-solid fa-heart"></i>
-          </div>
-        </div>
-        <div class="text-lg font-black text-rose-300 font-mono mb-1 truncate">
-          NANUM 100 CLUB
-        </div>
-        <div class="text-[11px] text-slate-400 truncate">
-          연 100h+ 봉사 & 청년협의회 분과장
-        </div>
-      </div>
-    </div>
-
-    <!-- Subtab Switcher & Filter Bar Container -->
-    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3 mb-6 shadow-sm">
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-800/80">
-        <!-- Subtab Switcher Buttons -->
-        <div class="flex items-center gap-1.5 bg-slate-950/80 p-1 rounded-xl border border-slate-800/80">
-          <button onclick="window.app.switchArchiveSubtab('awards')" class="px-4 py-2 rounded-lg text-xs font-black transition flex items-center gap-2 ${currentSubtab === 'awards' ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-md shadow-amber-500/20' : 'text-slate-400 hover:text-white'}">
-            <i class="fa-solid fa-trophy text-xs"></i>
-            <span>수상 내역</span>
-            <span class="px-1.5 py-0.2 rounded-full text-[10px] ${currentSubtab === 'awards' ? 'bg-slate-950/30 text-slate-950 font-black' : 'bg-slate-800 text-slate-300'}">${totalAwards}</span>
-          </button>
-
-          <button onclick="window.app.switchArchiveSubtab('careers')" class="px-4 py-2 rounded-lg text-xs font-black transition flex items-center gap-2 ${currentSubtab === 'careers' ? 'bg-gradient-to-r from-blue-600 to-sky-500 text-white shadow-md shadow-blue-500/20' : 'text-slate-400 hover:text-white'}">
-            <i class="fa-solid fa-briefcase text-xs"></i>
-            <span>경력 & 주요 활동</span>
-            <span class="px-1.5 py-0.2 rounded-full text-[10px] ${currentSubtab === 'careers' ? 'bg-white/20 text-white font-black' : 'bg-slate-800 text-slate-300'}">${totalCareers}</span>
-          </button>
-        </div>
-
-        <div class="text-xs text-slate-400 flex items-center gap-2">
-          <i class="fa-solid fa-filter text-slate-500 text-[11px]"></i>
-          <span>카테고리 필터:</span>
-          <span class="text-slate-200 font-bold">${currentFilter === 'all' ? '전체 보기' : currentFilter}</span>
-        </div>
-      </div>
-
-      <!-- Category Filter Pills -->
-      <div class="flex items-center gap-1.5 pt-3 overflow-x-auto">
-        ${activeCategories.map(cat => {
-          const isActive = currentFilter === cat.id;
-          const count = currentSubtab === 'awards'
-            ? (cat.id === 'all' ? awardsList.length : awardsList.filter(a => a.category === cat.id).length)
-            : (cat.id === 'all' ? careersList.length : careersList.filter(c => c.category === cat.id).length);
-
-          const activeStyle = isActive
-            ? (currentSubtab === 'awards'
-                ? 'bg-amber-500/20 text-amber-300 border-amber-500/50 font-bold shadow-sm'
-                : 'bg-sky-500/20 text-sky-300 border-sky-500/50 font-bold shadow-sm')
-            : 'bg-slate-800/60 text-slate-400 border-slate-700/60 hover:text-slate-200 hover:bg-slate-800';
-
-          return `
-            <button onclick="window.app.setArchiveFilter('${cat.id}')" class="px-3 py-1.5 rounded-lg text-xs border transition flex items-center gap-1.5 whitespace-nowrap ${activeStyle}">
-              <span>${cat.label}</span>
-              <span class="text-[10px] opacity-75 font-mono">(${count})</span>
-            </button>
-          `;
-        }).join('')}
-      </div>
-    </div>
-
-    <!-- Timeline List Content -->
-    <div class="space-y-2">
-      ${contentHtml}
-    </div>
-  `;
-}
-
-// ==========================================================================
 // 2. Exam & Academic Schedule Tab
 // ==========================================================================
 function renderExamTab() {
@@ -2206,21 +1798,8 @@ function renderExamTab() {
         const dday = calculateDDay(item.ddayTarget || item.startDate);
         const isUrgent = item.priority === 'urgent' || (dday && dday.days <= 7);
 
-        // ── 긴급도별 배지 색상 (종합 대시보드와 동일) ──
-        const ddayBadgeClass = dday.days < 0
-          ? 'bg-slate-800 text-slate-500'
-          : dday.days === 0
-            ? 'bg-red-500 text-white shadow-lg shadow-red-500/30 animate-pulse'
-          : dday.days <= 7
-            ? 'bg-red-500 text-white shadow-lg shadow-red-500/30'
-          : dday.days <= 14
-            ? 'bg-orange-500/90 text-white shadow-md shadow-orange-500/20'
-          : dday.days <= 30
-            ? 'bg-yellow-500/20 text-yellow-300 border border-yellow-500/40'
-          : 'bg-slate-700/60 text-slate-300 border border-slate-600/40';
-
         return `
-          <div class="glass-panel rounded-2xl p-5 border ${isUrgent ? 'border-red-500/40' : dday.days <= 14 ? 'border-orange-500/30' : dday.days <= 30 ? 'border-yellow-500/20' : 'border-slate-700/60'} hover:border-blue-500/40 transition relative">
+          <div class="glass-panel rounded-2xl p-5 border ${isUrgent ? 'border-red-500/40' : 'border-slate-700/60'} hover:border-blue-500/40 transition relative">
             <div class="flex items-start justify-between gap-3 mb-3">
               <div>
                 <div class="flex items-center gap-2 mb-1">
@@ -2236,7 +1815,10 @@ function renderExamTab() {
 
               <!-- D-Day Badge -->
               <div class="text-right">
-                <span class="inline-block px-3 py-1 rounded-xl text-xs font-black ${ddayBadgeClass}">
+                <span class="inline-block px-3 py-1 rounded-xl text-xs font-black ${
+                  dday.days < 0 ? 'bg-slate-800 text-slate-500' :
+                  isUrgent ? 'bg-red-500 text-white shadow-lg shadow-red-500/30' : 'bg-sky-500/20 text-sky-400 border border-sky-500/40'
+                }">
                   ${dday.days === 0 ? 'D-DAY' : dday.days > 0 ? `D-${dday.days}` : '마감됨'}
                 </span>
               </div>
@@ -2276,7 +1858,10 @@ function renderExamTab() {
 
             <!-- Card Actions -->
             <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-700/40">
-              <button onclick="window.app.deleteExam('${item.id}')" class="text-xs text-red-400/70 hover:text-red-400 px-2 py-1 transition">
+              <button onclick="window.app.openEditExamModal('${item.id}')" class="text-xs text-blue-400/90 hover:text-blue-300 px-2.5 py-1 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 transition flex items-center gap-1">
+                <i class="fa-solid fa-pen-to-square"></i> 수정
+              </button>
+              <button onclick="window.app.deleteExam('${item.id}')" class="text-xs text-red-400/70 hover:text-red-400 px-2 py-1 transition flex items-center gap-1">
                 <i class="fa-regular fa-trash-can"></i> 삭제
               </button>
             </div>
@@ -2380,7 +1965,10 @@ function renderBandTab() {
           ` : ''}
 
           <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-700/40">
-            <button onclick="window.app.deleteBand('${item.id}')" class="text-xs text-red-400/70 hover:text-red-400 px-2 py-1 transition">
+            <button onclick="window.app.openEditBandModal('${item.id}')" class="text-xs text-purple-400/90 hover:text-purple-300 px-2.5 py-1 rounded-lg bg-purple-500/10 hover:bg-purple-500/20 transition flex items-center gap-1">
+              <i class="fa-solid fa-pen-to-square"></i> 수정
+            </button>
+            <button onclick="window.app.deleteBand('${item.id}')" class="text-xs text-red-400/70 hover:text-red-400 px-2 py-1 transition flex items-center gap-1">
               <i class="fa-regular fa-trash-can"></i> 삭제
             </button>
           </div>
@@ -2466,7 +2054,15 @@ function renderDailyQuestionView(q) {
             </span>
             <span class="text-xs text-slate-400">${q.examOrigin}</span>
           </div>
-          <span class="text-xs font-mono text-slate-400">${q.day}</span>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-mono text-slate-400">${q.day}</span>
+            <button onclick="window.app.openEditQuestionModal('${q.id}')" class="text-[11px] text-amber-300 hover:text-white px-2.5 py-1 rounded bg-amber-500/20 hover:bg-amber-500/40 border border-amber-500/30 transition flex items-center gap-1">
+              <i class="fa-solid fa-pen-to-square"></i> 문제 수정
+            </button>
+            <button onclick="window.app.deleteQuestion('${q.id}')" class="text-[11px] text-red-400 hover:text-red-300 px-2.5 py-1 rounded bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 transition flex items-center gap-1">
+              <i class="fa-regular fa-trash-can"></i> 삭제
+            </button>
+          </div>
         </div>
 
         <h2 class="text-lg font-bold text-white mb-4">${q.title}</h2>
@@ -2686,104 +2282,441 @@ function renderExternalTab() {
 }
 
 // ==========================================================================
-// 6. Settings Tab (테마 설정 + 데이터 백업)
+// 5-B. SNS & 퍼스널 브랜딩 분석 탭 (⭐ 신규 추가)
+// ==========================================================================
+function renderSnsTab() {
+  const container = document.getElementById('tab-content-sns');
+  if (!container) return;
+
+  const snsData = state.sns || INITIAL_SNS_DATA;
+  const channels = snsData.channels || INITIAL_SNS_DATA.channels;
+  const posts = snsData.posts || INITIAL_SNS_DATA.posts;
+
+  // 필터링된 포스트 목록
+  const filteredPosts = posts.filter(p => {
+    if (state.snsFilter === 'all') return true;
+    return p.platform === state.snsFilter;
+  });
+
+  // 통합 통계 계산
+  const totalFollowers = channels.reduce((sum, ch) => sum + (Number(ch.followers) || 0), 0);
+  const totalTargetFollowers = channels.reduce((sum, ch) => sum + (Number(ch.targetFollowers) || 0), 0);
+  const totalGoalPercent = totalTargetFollowers > 0 ? Math.min(100, Math.round((totalFollowers / totalTargetFollowers) * 100)) : 0;
+  const totalViews = channels.reduce((sum, ch) => sum + (Number(ch.monthlyViews) || 0), 0);
+  const totalPostsCount = channels.reduce((sum, ch) => sum + (Number(ch.postsCount) || 0), 0);
+
+  const ideaCount = posts.filter(p => p.status === 'idea').length;
+  const writingCount = posts.filter(p => p.status === 'writing').length;
+  const publishedCount = posts.filter(p => p.status === 'published').length;
+
+  container.innerHTML = `
+    <!-- Top Header Banner -->
+    <div class="glass-panel rounded-2xl p-6 sm:p-8 mb-8 border border-pink-500/40 bg-gradient-to-r from-slate-900 via-pink-950/30 to-slate-900 relative overflow-hidden shadow-2xl">
+      <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="px-3 py-1 bg-pink-500/20 text-pink-300 border border-pink-500/30 text-xs font-bold rounded-full flex items-center gap-1.5">
+              <i class="fa-solid fa-share-nodes"></i> 퍼스널 브랜딩 허브
+            </span>
+            <span class="text-xs text-slate-400">LinkedIn · Instagram · Brunch Story 3대 채널 통합 관리</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
+            <i class="fa-solid fa-chart-line text-pink-400"></i>
+            SNS & 퍼스널 브랜딩 분석
+          </h1>
+          <p class="text-sm text-slate-300 mt-2 max-w-2xl leading-relaxed">
+            에너지관리·기후탐사 커리어(링크드인), 밴드 합주 & 산티아고 순례길 라이프(인스타그램), 깊이 있는 성찰 에세이(브런치)를 유기적으로 연결하고 성장 지표를 분석합니다.
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button onclick="window.app.openAddSnsPostModal()" class="py-3 px-5 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-pink-500/20 transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-plus"></i> 새 콘텐츠 기획 / 발행 등록
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1. Overall Metrics Summary Cards -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div class="glass-panel rounded-2xl p-5 border border-slate-700/60 bg-slate-900/60">
+        <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
+          <span>총 팔로워 / 구독자</span>
+          <i class="fa-solid fa-users text-pink-400"></i>
+        </div>
+        <div class="text-2xl font-black text-white">${totalFollowers.toLocaleString()}<span class="text-xs text-slate-400 font-normal"> 명</span></div>
+        <div class="mt-2 flex items-center justify-between text-[11px] text-slate-400">
+          <span>목표(${totalTargetFollowers.toLocaleString()}) 대비</span>
+          <span class="font-bold text-pink-400">${totalGoalPercent}%</span>
+        </div>
+        <div class="w-full bg-slate-800 h-1.5 rounded-full mt-1.5 overflow-hidden">
+          <div class="bg-gradient-to-r from-pink-500 to-purple-500 h-full rounded-full" style="width: ${totalGoalPercent}%"></div>
+        </div>
+      </div>
+
+      <div class="glass-panel rounded-2xl p-5 border border-slate-700/60 bg-slate-900/60">
+        <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
+          <span>월간 총 노출 / 조회수</span>
+          <i class="fa-solid fa-eye text-sky-400"></i>
+        </div>
+        <div class="text-2xl font-black text-sky-300">${totalViews.toLocaleString()}<span class="text-xs text-slate-400 font-normal"> 회</span></div>
+        <div class="mt-2 text-[11px] text-slate-400">
+          3대 채널 합산 월간 도달수
+        </div>
+      </div>
+
+      <div class="glass-panel rounded-2xl p-5 border border-slate-700/60 bg-slate-900/60">
+        <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
+          <span>누적 총 게시물</span>
+          <i class="fa-solid fa-layer-group text-amber-400"></i>
+        </div>
+        <div class="text-2xl font-black text-white">${totalPostsCount}<span class="text-xs text-slate-400 font-normal"> 개</span></div>
+        <div class="mt-2 text-[11px] text-slate-400">
+          발행된 글 및 미디어 총합
+        </div>
+      </div>
+
+      <div class="glass-panel rounded-2xl p-5 border border-slate-700/60 bg-slate-900/60">
+        <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
+          <span>콘텐츠 파이프라인</span>
+          <i class="fa-solid fa-pen-nib text-emerald-400"></i>
+        </div>
+        <div class="text-sm font-bold text-slate-200 mt-1 flex items-center gap-2">
+          <span class="px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-300 text-xs">아이디어 ${ideaCount}</span>
+          <span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 text-xs">작성 중 ${writingCount}</span>
+          <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-xs">발행 ${publishedCount}</span>
+        </div>
+        <div class="mt-2 text-[11px] text-slate-400">
+          기획 중인 콘텐츠 총 ${posts.length}개
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. 3대 채널별 심층 관리 카드 -->
+    <div class="mb-8">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-cubes text-pink-400"></i>
+          3대 SNS 채널 프로필 & 성장 지표 관리
+        </h2>
+        <span class="text-xs text-slate-400">카드별 [지표 수정]을 눌러 팔로워 및 전략을 업데이트하세요.</span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        ${channels.map(ch => {
+          const goalPct = ch.targetFollowers > 0 ? Math.min(100, Math.round((ch.followers / ch.targetFollowers) * 100)) : 0;
+          return `
+            <div class="glass-panel rounded-2xl p-6 border ${ch.id === 'linkedin' ? 'border-blue-500/30' : ch.id === 'instagram' ? 'border-pink-500/30' : 'border-emerald-500/30'} flex flex-col justify-between relative group hover:border-slate-500 transition">
+              <div>
+                <!-- Channel Header -->
+                <div class="flex items-start justify-between gap-3 mb-3">
+                  <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-xl flex items-center justify-center text-xl shadow-lg ${
+                      ch.id === 'linkedin' ? 'bg-blue-600/20 text-blue-400 border border-blue-500/40 shadow-blue-500/10' :
+                      ch.id === 'instagram' ? 'bg-pink-600/20 text-pink-400 border border-pink-500/40 shadow-pink-500/10' :
+                      'bg-emerald-600/20 text-emerald-400 border border-emerald-500/40 shadow-emerald-500/10'
+                    }">
+                      <i class="${ch.icon}"></i>
+                    </div>
+                    <div>
+                      <h3 class="text-base font-bold text-white">${ch.name}</h3>
+                      <p class="text-xs text-slate-400 font-mono">${ch.handle}</p>
+                    </div>
+                  </div>
+
+                  <a href="${ch.url}" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 transition" title="새 창에서 프로필 열기">
+                    <span>이동</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                  </a>
+                </div>
+
+                <div class="mb-4">
+                  <span class="text-[11px] px-2 py-0.5 rounded font-bold ${ch.badgeClass}">
+                    ${ch.category}
+                  </span>
+                </div>
+
+                <!-- Stats Progress Box -->
+                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 mb-4 space-y-3">
+                  <div>
+                    <div class="flex items-center justify-between text-xs mb-1">
+                      <span class="text-slate-400">팔로워 / 구독자</span>
+                      <span class="text-white font-bold"><b class="text-base font-black text-slate-100">${ch.followers.toLocaleString()}</b> / ${ch.targetFollowers.toLocaleString()}명</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                      <div class="${ch.id === 'linkedin' ? 'bg-blue-500' : ch.id === 'instagram' ? 'bg-pink-500' : 'bg-emerald-500'} h-full rounded-full transition-all duration-300" style="width: ${goalPct}%"></div>
+                    </div>
+                    <div class="text-[10px] text-right text-slate-400 mt-1">목표 달성률: <b>${goalPct}%</b></div>
+                  </div>
+
+                  <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-800 text-center">
+                    <div>
+                      <div class="text-[10px] text-slate-400">총 게시물</div>
+                      <div class="text-xs font-bold text-slate-200 mt-0.5">${ch.postsCount}개</div>
+                    </div>
+                    <div>
+                      <div class="text-[10px] text-slate-400">월간 조회</div>
+                      <div class="text-xs font-bold text-slate-200 mt-0.5">${(ch.monthlyViews || 0).toLocaleString()}</div>
+                    </div>
+                    <div>
+                      <div class="text-[10px] text-slate-400">반응률</div>
+                      <div class="text-xs font-bold text-slate-200 mt-0.5">${ch.engagementRate || '-'}</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Positioning & Goals -->
+                <div class="space-y-2 text-xs mb-4">
+                  <div class="flex items-start gap-2 bg-slate-800/40 p-2.5 rounded-lg border border-slate-700/40">
+                    <i class="fa-solid fa-bullseye text-amber-400 mt-0.5 w-4 text-center"></i>
+                    <div>
+                      <span class="text-slate-400 font-bold block text-[11px]">주간 목표:</span>
+                      <span class="text-slate-200">${ch.weeklyGoal || '목표를 설정해주세요.'}</span>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start gap-2 bg-slate-800/40 p-2.5 rounded-lg border border-slate-700/40">
+                    <i class="fa-solid fa-compass text-sky-400 mt-0.5 w-4 text-center"></i>
+                    <div>
+                      <span class="text-slate-400 font-bold block text-[11px]">채널 포지셔닝:</span>
+                      <span class="text-slate-300">${ch.positioning || '포지셔닝을 설정해주세요.'}</span>
+                    </div>
+                  </div>
+
+                  ${ch.hashtags ? `
+                    <div class="bg-slate-800/40 p-2.5 rounded-lg border border-slate-700/40">
+                      <div class="flex items-center justify-between mb-1">
+                        <span class="text-slate-400 font-bold text-[11px]"><i class="fa-solid fa-hashtag text-pink-400"></i> 추천 해시태그:</span>
+                        <button onclick="window.app.copySnsHashtags('${ch.id}')" class="text-[10px] text-pink-400 hover:text-pink-300 font-bold flex items-center gap-1">
+                          <i class="fa-regular fa-copy"></i> 복사
+                        </button>
+                      </div>
+                      <p class="text-[11px] text-slate-300 font-mono leading-relaxed">${ch.hashtags}</p>
+                    </div>
+                  ` : ''}
+
+                  ${ch.memo ? `
+                    <div class="text-[11px] text-slate-400 bg-slate-900/50 p-2.5 rounded-lg border border-slate-800/80 leading-relaxed">
+                      💡 <b>운영 메모</b>: ${ch.memo}
+                    </div>
+                  ` : ''}
+                </div>
+              </div>
+
+              <!-- Card Action -->
+              <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+                <a href="${ch.url}" target="_blank" rel="noopener noreferrer" class="text-xs text-slate-400 hover:text-white flex items-center gap-1">
+                  <i class="fa-solid fa-link"></i> 프로필 열기
+                </a>
+                <button onclick="window.app.openEditSnsChannelModal('${ch.id}')" class="px-3 py-1.5 rounded-lg bg-pink-500/10 hover:bg-pink-500/20 text-pink-300 text-xs font-bold transition flex items-center gap-1 border border-pink-500/30">
+                  <i class="fa-solid fa-pen-to-square"></i> 지표/전략 수정
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+
+    <!-- 3. Content Pipeline & Tracker -->
+    <div class="glass-panel rounded-2xl p-6 sm:p-8 mb-8 border border-slate-700/60">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-calendar-check text-pink-400"></i>
+            콘텐츠 발행 파이프라인 & 성과 트래커
+          </h2>
+          <p class="text-xs text-slate-400 mt-1">아이디어 구상부터 작성, 발행 완료 및 조회수·반응수 성과를 체계적으로 기록합니다.</p>
+        </div>
+
+        <button onclick="window.app.openAddSnsPostModal()" class="py-2 px-4 bg-pink-600 hover:bg-pink-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md">
+          <i class="fa-solid fa-plus"></i> 새 포스트 등록
+        </button>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-3 mb-6 text-xs border-b border-slate-800">
+        <button onclick="window.app.setSnsFilter('all')" class="px-3 py-1.5 rounded-lg font-medium transition ${state.snsFilter === 'all' ? 'bg-pink-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">
+          전체 (${posts.length})
+        </button>
+        <button onclick="window.app.setSnsFilter('linkedin')" class="px-3 py-1.5 rounded-lg font-medium transition flex items-center gap-1.5 ${state.snsFilter === 'linkedin' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">
+          <i class="fa-brands fa-linkedin"></i> LinkedIn (${posts.filter(p => p.platform === 'linkedin').length})
+        </button>
+        <button onclick="window.app.setSnsFilter('instagram')" class="px-3 py-1.5 rounded-lg font-medium transition flex items-center gap-1.5 ${state.snsFilter === 'instagram' ? 'bg-pink-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">
+          <i class="fa-brands fa-instagram"></i> Instagram (${posts.filter(p => p.platform === 'instagram').length})
+        </button>
+        <button onclick="window.app.setSnsFilter('brunch')" class="px-3 py-1.5 rounded-lg font-medium transition flex items-center gap-1.5 ${state.snsFilter === 'brunch' ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">
+          <i class="fa-solid fa-feather-pointed"></i> Brunch Story (${posts.filter(p => p.platform === 'brunch').length})
+        </button>
+      </div>
+
+      <!-- Posts List -->
+      <div class="space-y-3">
+        ${filteredPosts.length === 0 ? `
+          <div class="text-center py-10 bg-slate-900/40 rounded-xl border border-slate-800/60">
+            <p class="text-slate-400 text-xs mb-2">등록된 콘텐츠가 없습니다.</p>
+            <button onclick="window.app.openAddSnsPostModal()" class="text-pink-400 text-xs font-bold hover:underline">
+              + 첫 번째 콘텐츠 아이디어를 등록해 보세요
+            </button>
+          </div>
+        ` : filteredPosts.map(p => {
+          const platformLabel = p.platform === 'linkedin' ? 'LinkedIn' : p.platform === 'instagram' ? 'Instagram' : 'Brunch';
+          const platformColor = p.platform === 'linkedin' ? 'bg-blue-500/20 text-blue-400 border-blue-500/30' : p.platform === 'instagram' ? 'bg-pink-500/20 text-pink-400 border-pink-500/30' : 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30';
+          const statusBadge = p.status === 'published' ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' : p.status === 'writing' ? 'bg-blue-500/20 text-blue-300 border-blue-500/30' : 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30';
+          const statusText = p.status === 'published' ? '✅ 발행 완료' : p.status === 'writing' ? '✍️ 작성 중' : '💡 아이디어';
+
+          return `
+            <div class="p-4 rounded-xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 transition flex flex-col md:flex-row md:items-center justify-between gap-3">
+              <div class="flex-1 min-w-0">
+                <div class="flex flex-wrap items-center gap-2 mb-1.5">
+                  <span class="text-[10px] px-2 py-0.5 rounded font-bold border ${platformColor}">
+                    ${platformLabel}
+                  </span>
+                  <button onclick="window.app.toggleSnsPostStatus('${p.id}')" class="text-[10px] px-2 py-0.5 rounded font-bold border ${statusBadge} hover:opacity-80 transition" title="클릭하여 상태 변경">
+                    ${statusText}
+                  </button>
+                  <span class="text-xs text-slate-400 font-mono"><i class="fa-regular fa-calendar mr-1"></i>${p.date || '날짜 미정'}</span>
+                </div>
+
+                <h3 class="text-sm font-bold text-white mb-1 leading-snug">${p.title}</h3>
+
+                ${p.notes ? `
+                  <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed">${p.notes}</p>
+                ` : ''}
+
+                ${p.url ? `
+                  <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="text-[11px] text-sky-400 hover:text-sky-300 inline-flex items-center gap-1 mt-1 truncate max-w-md">
+                    <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i> ${p.url}
+                  </a>
+                ` : ''}
+              </div>
+
+              <!-- Performance & Actions -->
+              <div class="flex items-center justify-between md:justify-end gap-3 pt-2 md:pt-0 border-t md:border-t-0 border-slate-700/60 flex-shrink-0">
+                <div class="flex items-center gap-3 text-xs bg-slate-900/60 px-3 py-1.5 rounded-lg border border-slate-800 text-slate-300">
+                  <span title="조회수"><i class="fa-solid fa-eye text-sky-400 mr-1"></i>${(p.views || 0).toLocaleString()}</span>
+                  <span title="좋아요/반응"><i class="fa-solid fa-heart text-pink-400 mr-1"></i>${(p.likes || 0).toLocaleString()}</span>
+                </div>
+
+                <div class="flex items-center gap-1.5">
+                  <button onclick="window.app.openEditSnsPostModal('${p.id}')" class="text-xs text-pink-400 hover:text-pink-300 px-2.5 py-1 rounded bg-pink-500/10 hover:bg-pink-500/20 transition flex items-center gap-1">
+                    <i class="fa-solid fa-pen-to-square"></i> 수정
+                  </button>
+                  <button onclick="window.app.deleteSnsPost('${p.id}')" class="text-xs text-red-400 hover:text-red-300 px-2 py-1 transition">
+                    <i class="fa-regular fa-trash-can"></i> 삭제
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+
+    <!-- 4. Personal Branding Strategy Note (OSMU) -->
+    <div class="glass-panel rounded-2xl p-6 sm:p-8 border border-slate-700/60">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-base font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-lightbulb text-amber-400"></i>
+          원소스 멀티유즈(OSMU) 퍼스널 브랜딩 전략 노트
+        </h3>
+        <button onclick="window.app.saveSnsStrategyMemo()" class="px-4 py-1.5 bg-pink-600 hover:bg-pink-500 text-white rounded-lg text-xs font-bold transition">
+          전략 저장
+        </button>
+      </div>
+      <textarea id="sns-strategy-memo-input" rows="4" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-xs text-white leading-relaxed focus:outline-none focus:border-pink-400">${snsData.strategyMemo || ''}</textarea>
+      <p class="text-[11px] text-slate-400 mt-2">
+        💡 <b>채널 연계 팁</b>: 브런치에 작성한 깊이 있는 글의 핵심 결론 3가지를 카드뉴스로 만들어 링크드인에 공유하고, 작성 과정의 비하인드 컷을 인스타그램 스토리에 올려 채널 간 유입을 극대화하세요.
+      </p>
+    </div>
+  `;
+}
+
+// ==========================================================================
+// 6. Settings & Cloud Sync Tab
+
 // ==========================================================================
 function renderSettingsTab() {
   const container = document.getElementById('tab-content-settings');
   if (!container) return;
 
-  const themes = [
-    {
-      key: 'dark',
-      name: '🌙 다크 슬레이트',
-      desc: '눈의 피로를 최소화하는 딥 네이비 기반. 야간 사용과 집중 작업에 최적화.',
-      preview: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)',
-      accent: '#38bdf8'
-    },
-    {
-      key: 'nord',
-      name: '❄️ 노드 아틱',
-      desc: '북유럽 빙하에서 영감받은 쿨톤 블루-그레이. GitHub Dark와 VS Code에서 애용되는 팔레트.',
-      preview: 'linear-gradient(135deg, #2e3440 0%, #3b4252 50%, #434c5e 100%)',
-      accent: '#88c0d0'
-    },
-    {
-      key: 'warm',
-      name: '☕ 웜 앰버',
-      desc: '따뜻한 세피아 계열로 독서 모드에 최적. 블루라이트를 줄여 장시간 사용에 편안함.',
-      preview: 'linear-gradient(135deg, #1c1410 0%, #2d1f14 50%, #3d2b1a 100%)',
-      accent: '#f59e0b'
-    }
-  ];
-
-  const themeCards = themes.map(t => `
-    <button onclick="window.app.changeTheme('${t.key}')"
-      class="relative w-full text-left rounded-2xl overflow-hidden border-2 transition-all duration-300 ${state.theme === t.key ? 'border-sky-400 shadow-lg shadow-sky-500/20 scale-[1.02]' : 'border-white/10 hover:border-white/30'}">
-      <!-- 미리보기 배경 -->
-      <div class="h-24 w-full" style="background: ${t.preview}; position:relative;">
-        <!-- 미니 UI 시뮬레이션 -->
-        <div style="position:absolute;top:10px;left:10px;right:10px;bottom:10px;display:flex;gap:8px;">
-          <div style="width:40px;height:100%;background:rgba(0,0,0,0.25);border-radius:8px;"></div>
-          <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
-            <div style="height:12px;width:60%;background:rgba(255,255,255,0.15);border-radius:4px;"></div>
-            <div style="height:8px;width:40%;background:${t.accent};border-radius:4px;opacity:0.8;"></div>
-            <div style="height:8px;width:80%;background:rgba(255,255,255,0.1);border-radius:4px;"></div>
-            <div style="height:8px;width:50%;background:rgba(255,255,255,0.07);border-radius:4px;"></div>
-          </div>
-        </div>
-        ${state.theme === t.key ? `<div style="position:absolute;top:8px;right:8px;background:#38bdf8;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:11px;">✓</div>` : ''}
-      </div>
-      <!-- 정보 영역 -->
-      <div class="p-4 bg-white/5">
-        <div class="font-bold text-white text-sm mb-1">${t.name}</div>
-        <div class="text-xs text-slate-400 leading-relaxed">${t.desc}</div>
-      </div>
-    </button>
-  `).join('');
+  const savedFirebaseConfig = syncManager.getSavedFirebaseConfig() || {};
 
   container.innerHTML = `
     <div class="max-w-3xl mx-auto space-y-6">
-      <!-- 헤더 -->
       <div>
         <h1 class="text-2xl font-bold text-white flex items-center gap-2">
-          <i class="fa-solid fa-palette text-indigo-400"></i>
-          테마 및 설정
+          <i class="fa-solid fa-gear text-slate-400"></i>
+          설정 및 클라우드 동기화 (옵션 A)
         </h1>
-        <p class="text-xs text-slate-400 mt-1">인간 시각 인지 연구를 바탕으로 설계된 3가지 테마 중 선택하세요.</p>
+        <p class="text-xs text-slate-400 mt-1">
+          무료 Firebase Firestore를 연동하여 여러 컴퓨터와 스마트폰에서 실시간으로 일정을 동기화합니다.
+        </p>
       </div>
 
-      <!-- 테마 선택 -->
+      <!-- Cloud Sync Status Card -->
       <div class="glass-panel rounded-2xl p-6 border border-slate-700/60">
-        <h3 class="text-sm font-bold text-white mb-4 flex items-center gap-2">
-          <i class="fa-solid fa-swatchbook text-sky-400"></i>
-          색상 테마 선택
+        <h3 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full ${syncManager.status === 'synced' ? 'bg-emerald-500 animate-pulse' : syncManager.status === 'connecting' ? 'bg-amber-500' : 'bg-slate-500'}"></span>
+          동기화 상태: <span id="sync-status-text" class="text-sky-400">${getSyncStatusLabel(syncManager.status)}</span>
         </h3>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          ${themeCards}
-        </div>
+        <p class="text-xs text-slate-300 leading-relaxed mb-4">
+          클라우드 키가 설정되지 않은 경우에도 모든 데이터는 브라우저 내부(LocalStorage)에 안전하게 자동 저장되므로 즉시 사용하실 수 있습니다.
+        </p>
 
-        <!-- 시각 과학 팁 -->
-        <div class="mt-5 p-4 rounded-xl bg-white/5 border border-white/10 text-xs text-slate-400 space-y-1.5">
-          <div class="font-semibold text-slate-300 mb-2"><i class="fa-solid fa-eye mr-1 text-sky-400"></i>테마 선택 가이드 (시각 인지 기반)</div>
-          <div>🌙 <b class="text-slate-300">다크 슬레이트</b> — 암순응 상태에서 눈부심 없이 정보 인지. 야간·장시간 집중 권장.</div>
-          <div>❄️ <b class="text-slate-300">노드 아틱</b> — 채도 낮은 쿨톤으로 텍스트 대비를 높이되 눈 피로 최소. 개발자·독서 환경 권장.</div>
-          <div>☕ <b class="text-slate-300">웜 앰버</b> — 청색광(블루라이트) 최소화. 저녁·취침 전 열람 또는 감성적 집중 작업 권장.</div>
+        <!-- Firebase Configuration Form -->
+        <div class="space-y-3 bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-300">Firebase 웹 앱 설정 (Free Tier)</span>
+            <a href="https://console.firebase.google.com/" target="_blank" class="text-[11px] text-sky-400 hover:underline">
+              무료 콘솔 열기 <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div>
+              <label class="block text-slate-400 mb-1">API Key</label>
+              <input type="text" id="fb-apikey" value="${savedFirebaseConfig.apiKey || ''}" placeholder="AIzaSy..." class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">Project ID</label>
+              <input type="text" id="fb-projectid" value="${savedFirebaseConfig.projectId || ''}" placeholder="my-dashboard-123" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">Auth Domain (선택)</label>
+              <input type="text" id="fb-authdomain" value="${savedFirebaseConfig.authDomain || ''}" placeholder="my-dashboard.firebaseapp.com" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">내 고유 사용자 ID</label>
+              <input type="text" id="fb-userid" value="${savedFirebaseConfig.userId || 'my_personal_account'}" placeholder="my_personal_account" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white">
+            </div>
+          </div>
+
+          <div class="pt-2 flex justify-end">
+            <button onclick="window.app.saveFirebaseConfig()" class="py-2 px-4 bg-sky-500 hover:bg-sky-600 text-white rounded-lg text-xs font-bold transition">
+              <i class="fa-solid fa-cloud-arrow-up mr-1"></i> Firebase 클라우드 연결 및 동기화
+            </button>
+          </div>
         </div>
       </div>
 
-      <!-- 데이터 백업 -->
+      <!-- Backup & Restore -->
       <div class="glass-panel rounded-2xl p-6 border border-slate-700/60">
         <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
           <i class="fa-solid fa-database text-emerald-400"></i>
           데이터 백업 및 복원 (JSON)
         </h3>
         <p class="text-xs text-slate-400 mb-4">
-          다른 기기나 브라우저로 모든 입력 데이터를 파일 형태로 이전할 수 있습니다.
+          인터넷 연결 없이도 다른 기기나 브라우저로 데이터를 파일 형태로 완벽히 이전할 수 있습니다.
         </p>
+
         <div class="flex flex-wrap items-center gap-3">
           <button onclick="window.app.exportData()" class="py-2 px-4 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-2">
             <i class="fa-solid fa-download text-emerald-400"></i> 백업 파일 다운로드 (.json)
           </button>
+
           <label class="py-2 px-4 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer">
             <i class="fa-solid fa-upload text-blue-400"></i> 백업 파일 불러오기
             <input type="file" id="import-file-input" accept=".json" onchange="window.app.importData(event)" class="hidden">
@@ -2791,21 +2724,16 @@ function renderSettingsTab() {
         </div>
       </div>
 
-      <!-- GitHub 배포 안내 -->
+      <!-- About & PWA Guide -->
       <div class="glass-panel rounded-2xl p-6 border border-slate-700/60 text-xs text-slate-300 space-y-2">
         <h3 class="font-bold text-white text-sm mb-1 flex items-center gap-2">
-          <i class="fa-brands fa-github text-white"></i>
-          GitHub Pages 배포 URL
+          <i class="fa-solid fa-mobile-screen text-amber-400"></i>
+          모바일 PWA (스마트폰 앱 설치 방법)
         </h3>
-        <p class="text-slate-400">아래 주소로 어느 기기에서나 이 대시보드에 접속하세요.</p>
-        <div class="bg-slate-900 rounded-lg px-4 py-3 font-mono text-sky-400 text-sm break-all">
-          https://carlosnam6363-netizen.github.io/nanananaddddf
-        </div>
-        <p class="text-slate-500 mt-1">
-          <i class="fa-solid fa-mobile-screen text-amber-400 mr-1"></i>
-          <b>iOS (아이폰 Safari)</b>: 공유 버튼 → '홈 화면에 추가' /
-          <b>Android (Chrome)</b>: 메뉴 → '앱 설치'
-        </p>
+        <ul class="list-disc list-inside space-y-1 text-slate-400">
+          <li><b>iOS (아이폰 Safari)</b>: 하단 공유 버튼(<i class="fa-solid fa-arrow-up-from-bracket"></i>) → <b>'홈 화면에 추가'</b> 터치</li>
+          <li><b>Android (Chrome)</b>: 우측 상단 메뉴(<i class="fa-solid fa-ellipsis-vertical"></i>) → <b>'앱 설치'</b> 또는 <b>'홈 화면에 추가'</b> 터치</li>
+        </ul>
       </div>
     </div>
   `;
@@ -2857,20 +2785,6 @@ function formatDateTime(dateTimeStr) {
   return `${month}/${date}(${dayName}) ${hours}:${mins}`;
 }
 
-function formatDateSimple(dateStr) {
-  if (!dateStr) return '';
-  const d = new Date(dateStr);
-  if (isNaN(d.getTime())) return dateStr;
-  const m = d.getMonth() + 1;
-  const day = d.getDate();
-  const dayName = ['일', '월', '화', '수', '목', '금', '토'][d.getDay()];
-  const hours = d.getHours();
-  if (hours !== 0 && dateStr.includes('T')) {
-    return `${m}월 ${day}일(${dayName}) ${hours}시`;
-  }
-  return `${m}월 ${day}일(${dayName})`;
-}
-
 function updateDDayDisplay() {
   if (state.activeTab === 'overview') {
     renderOverviewTab();
@@ -2879,23 +2793,31 @@ function updateDDayDisplay() {
 
 function applyTheme(theme) {
   const root = document.documentElement;
-  // 기존 테마 클래스 모두 제거
-  root.classList.remove('dark', 'light', 'theme-nord', 'theme-warm');
-
-  if (theme === 'nord') {
-    root.classList.add('dark', 'theme-nord');
-  } else if (theme === 'warm') {
-    root.classList.add('dark', 'theme-warm');
+  if (theme === 'light') {
+    root.classList.add('light');
+    root.classList.remove('dark');
   } else {
-    // 기본 다크 테마
     root.classList.add('dark');
+    root.classList.remove('light');
   }
+}
 
-  // 사이드바 테마 토글 버튼 라벨 갱신
-  const themeBtn = document.getElementById('theme-toggle-btn');
-  if (themeBtn) {
-    const labels = { dark: '🌙 다크', nord: '❄️ 노드', warm: '☕ 웜' };
-    themeBtn.querySelector('span') && (themeBtn.querySelector('span').innerText = labels[theme] || '다크');
+function getSyncStatusLabel(status) {
+  switch (status) {
+    case 'synced': return '실시간 동기화 됨 (클라우드)';
+    case 'connecting': return '클라우드 연결 중...';
+    case 'error': return '동기화 오류';
+    default: return '로컬 저장 모드 (안전 보관)';
+  }
+}
+
+function updateSyncStatusUI({ status, message }) {
+  const textEl = document.getElementById('sync-status-text');
+  if (textEl) textEl.innerText = getSyncStatusLabel(status);
+
+  const sidebarDot = document.getElementById('sidebar-sync-dot');
+  if (sidebarDot) {
+    sidebarDot.className = `w-2 h-2 rounded-full ${status === 'synced' ? 'bg-emerald-400 animate-pulse' : 'bg-slate-400'}`;
   }
 }
 
@@ -3057,12 +2979,37 @@ window.app = {
     }
   },
 
-  // Modal Handlers
+  // Modal Handlers (Add & Edit ⭐)
   openAddExamModal: () => {
     document.getElementById('modal-add-exam').classList.remove('hidden');
   },
+  openEditExamModal: (examId) => {
+    const exam = state.exams.find(e => e.id === examId);
+    if (!exam) return;
+    document.getElementById('edit-exam-id').value = exam.id;
+    document.getElementById('edit-exam-title').value = exam.title || '';
+    document.getElementById('edit-exam-category').value = exam.category || '기타';
+    document.getElementById('edit-exam-priority').value = exam.priority || 'normal';
+    document.getElementById('edit-exam-start-date').value = exam.startDate ? exam.startDate.slice(0, 16) : '';
+    document.getElementById('edit-exam-end-date').value = exam.endDate ? exam.endDate.slice(0, 16) : '';
+    document.getElementById('edit-exam-location').value = exam.location || '';
+    document.getElementById('edit-exam-desc').value = exam.description || '';
+    document.getElementById('modal-edit-exam').classList.remove('hidden');
+  },
   openAddBandModal: () => {
     document.getElementById('modal-add-band').classList.remove('hidden');
+  },
+  openEditBandModal: (bandId) => {
+    const band = state.bands.find(b => b.id === bandId);
+    if (!band) return;
+    document.getElementById('edit-band-id').value = band.id;
+    document.getElementById('edit-band-type').value = band.type || 'rehearsal';
+    document.getElementById('edit-band-date').value = band.date ? band.date.slice(0, 16) : '';
+    document.getElementById('edit-band-title').value = band.title || '';
+    document.getElementById('edit-band-location').value = band.location || '';
+    document.getElementById('edit-band-setlist-input').value = band.setlist ? band.setlist.map(s => s.song).join('\n') : '';
+    document.getElementById('edit-band-memos').value = band.memos || '';
+    document.getElementById('modal-edit-band').classList.remove('hidden');
   },
   openAddExternalModal: () => {
     document.getElementById('modal-add-external').classList.remove('hidden');
@@ -3070,67 +3017,150 @@ window.app = {
   openAddQuestionModal: () => {
     document.getElementById('modal-add-question').classList.remove('hidden');
   },
+  openEditQuestionModal: (qId) => {
+    const q = state.questions.find(item => item.id === qId);
+    if (!q) return;
+    document.getElementById('edit-q-id').value = q.id;
+    document.getElementById('edit-q-title').value = q.title || '';
+    document.getElementById('edit-q-topic').value = q.topic || '';
+    document.getElementById('edit-q-problem').value = q.problemText || '';
+    const solContent = (q.solutionSteps && q.solutionSteps[0]) ? q.solutionSteps[0].content : '';
+    document.getElementById('edit-q-solution').value = solContent;
+    document.getElementById('edit-q-keypoints').value = q.keyPoints || '';
+    document.getElementById('modal-edit-question').classList.remove('hidden');
+  },
+  deleteQuestion: (qId) => {
+    if (confirm('이 문제를 삭제하시겠습니까?')) {
+      state.questions = state.questions.filter(item => item.id !== qId);
+      if (state.currentQuestionIndex >= state.questions.length) {
+        state.currentQuestionIndex = Math.max(0, state.questions.length - 1);
+      }
+      persistState();
+      renderEnergyTab();
+      showToast('문제가 삭제되었습니다.');
+    }
+  },
+  openEditCaminoItineraryModal: (idx) => {
+    if (!state.camino || !state.camino.itinerary || !state.camino.itinerary[idx]) return;
+    const item = state.camino.itinerary[idx];
+    document.getElementById('edit-camino-idx').value = idx;
+    document.getElementById('edit-camino-title').value = item.title || '';
+    document.getElementById('edit-camino-distance').value = item.distance || '';
+    document.getElementById('edit-camino-highlight').value = item.highlight || '';
+    document.getElementById('edit-camino-albergue').value = item.albergue || '';
+    document.getElementById('edit-camino-desc').value = item.description || '';
+    document.getElementById('modal-edit-camino').classList.remove('hidden');
+  },
+
+  // SNS & Personal Branding Actions (⭐)
+  openEditSnsChannelModal: (channelId) => {
+    if (!state.sns || !state.sns.channels) return;
+    const ch = state.sns.channels.find(c => c.id === channelId);
+    if (!ch) return;
+    document.getElementById('edit-sns-channel-id').value = ch.id;
+    document.getElementById('edit-sns-channel-name').value = ch.name || '';
+    document.getElementById('edit-sns-url').value = ch.url || '';
+    document.getElementById('edit-sns-followers').value = ch.followers || 0;
+    document.getElementById('edit-sns-target-followers').value = ch.targetFollowers || 1000;
+    document.getElementById('edit-sns-posts-count').value = ch.postsCount || 0;
+    document.getElementById('edit-sns-monthly-views').value = ch.monthlyViews || 0;
+    document.getElementById('edit-sns-engagement-rate').value = ch.engagementRate || '';
+    document.getElementById('edit-sns-weekly-goal').value = ch.weeklyGoal || '';
+    document.getElementById('edit-sns-positioning').value = ch.positioning || '';
+    document.getElementById('edit-sns-hashtags').value = ch.hashtags || '';
+    document.getElementById('edit-sns-memo').value = ch.memo || '';
+    document.getElementById('modal-edit-sns-channel').classList.remove('hidden');
+  },
+  openAddSnsPostModal: () => {
+    const form = document.getElementById('form-add-sns-post');
+    if (form) form.reset();
+    const dateInput = document.getElementById('sns-post-date');
+    if (dateInput) dateInput.value = new Date().toISOString().slice(0, 10);
+    document.getElementById('modal-add-sns-post').classList.remove('hidden');
+  },
+  openEditSnsPostModal: (postId) => {
+    if (!state.sns || !state.sns.posts) return;
+    const p = state.sns.posts.find(item => item.id === postId);
+    if (!p) return;
+    document.getElementById('edit-sns-post-id').value = p.id;
+    document.getElementById('edit-sns-post-platform').value = p.platform || 'linkedin';
+    document.getElementById('edit-sns-post-status').value = p.status || 'idea';
+    document.getElementById('edit-sns-post-title').value = p.title || '';
+    document.getElementById('edit-sns-post-date').value = p.date || '';
+    document.getElementById('edit-sns-post-url').value = p.url || '';
+    document.getElementById('edit-sns-post-views').value = p.views || 0;
+    document.getElementById('edit-sns-post-likes').value = p.likes || 0;
+    document.getElementById('edit-sns-post-notes').value = p.notes || '';
+    document.getElementById('modal-edit-sns-post').classList.remove('hidden');
+  },
+  deleteSnsPost: (postId) => {
+    if (confirm('이 포스트를 삭제하시겠습니까?')) {
+      if (state.sns && state.sns.posts) {
+        state.sns.posts = state.sns.posts.filter(p => p.id !== postId);
+        persistState();
+        renderSnsTab();
+        showToast('포스트가 삭제되었습니다.');
+      }
+    }
+  },
+  toggleSnsPostStatus: (postId) => {
+    if (!state.sns || !state.sns.posts) return;
+    const p = state.sns.posts.find(item => item.id === postId);
+    if (!p) return;
+    const statusCycle = { idea: 'writing', writing: 'published', published: 'idea' };
+    p.status = statusCycle[p.status] || 'idea';
+    persistState();
+    renderSnsTab();
+    const statusLabels = { idea: '아이디어 구상', writing: '작성 중', published: '발행 완료' };
+    showToast(`상태 변경: ${statusLabels[p.status]}`);
+  },
+  setSnsFilter: (platform) => {
+    state.snsFilter = platform;
+    renderSnsTab();
+  },
+  copySnsHashtags: (channelId) => {
+    if (!state.sns || !state.sns.channels) return;
+    const ch = state.sns.channels.find(c => c.id === channelId);
+    if (ch && ch.hashtags) {
+      navigator.clipboard.writeText(ch.hashtags).then(() => {
+        showToast(`${ch.name} 추천 해시태그 복사 완료!`);
+      }).catch(() => {
+        showToast('클립보드 복사 실패');
+      });
+    }
+  },
+  saveSnsStrategyMemo: () => {
+    const input = document.getElementById('sns-strategy-memo-input');
+    if (input && state.sns) {
+      state.sns.strategyMemo = input.value;
+      persistState();
+      showToast('OSMU 브랜딩 전략 노트가 저장되었습니다.');
+    }
+  },
+
   closeAllModals: () => {
     document.querySelectorAll('.app-modal').forEach(m => m.classList.add('hidden'));
   },
 
-  // Archive Handlers (⭐)
-  switchArchiveSubtab: (subtab) => {
-    state.archiveSubtab = subtab;
-    state.archiveFilter = 'all';
-    renderArchiveTab();
-  },
-  setArchiveFilter: (filter) => {
-    state.archiveFilter = filter;
-    renderArchiveTab();
-  },
-  openAddAwardModal: () => {
-    const m = document.getElementById('modal-add-award');
-    if (m) m.classList.remove('hidden');
-  },
-  openAddCareerModal: () => {
-    const m = document.getElementById('modal-add-career');
-    if (m) m.classList.remove('hidden');
-  },
-  deleteAward: (id) => {
-    if (confirm('해당 수상 내역을 삭제하시겠습니까?')) {
-      state.awards = (state.awards || INITIAL_AWARDS_DATA).filter(a => a.id !== id);
-      persistState();
-      renderArchiveTab();
-      showToast('수상 내역이 삭제되었습니다.');
-    }
-  },
-  deleteCareer: (id) => {
-    if (confirm('해당 경력/활동 내역을 삭제하시겠습니까?')) {
-      state.careers = (state.careers || INITIAL_CAREER_DATA).filter(c => c.id !== id);
-      persistState();
-      renderArchiveTab();
-      showToast('경력/활동 내역이 삭제되었습니다.');
-    }
-  },
+  // Settings Handlers
+  saveFirebaseConfig: async () => {
+    const config = {
+      apiKey: document.getElementById('fb-apikey').value.trim(),
+      projectId: document.getElementById('fb-projectid').value.trim(),
+      authDomain: document.getElementById('fb-authdomain').value.trim(),
+      userId: document.getElementById('fb-userid').value.trim() || 'my_personal_account'
+    };
 
-  // ── 탭 순서 정렬 핸들러 (⭐) ──
-  openTabOrderModal: () => {
-    renderTabOrderList();
-    document.getElementById('modal-tab-order').classList.remove('hidden');
-  },
-  moveTabOrder: (idx, dir) => {
-    const targetIdx = idx + dir;
-    if (targetIdx < 0 || targetIdx >= state.tabOrder.length) return;
-    const temp = state.tabOrder[idx];
-    state.tabOrder[idx] = state.tabOrder[targetIdx];
-    state.tabOrder[targetIdx] = temp;
-    persistState();
-    renderNavTabs();
-    renderTabOrderList();
-    showToast('탭 순서가 변경되었습니다.');
-  },
-  resetTabOrder: () => {
-    state.tabOrder = [...DEFAULT_TAB_ORDER];
-    persistState();
-    renderNavTabs();
-    renderTabOrderList();
-    showToast('탭 순서가 기본값으로 복원되었습니다.');
+    if (!config.apiKey || !config.projectId) {
+      alert('API Key와 Project ID를 입력해주세요.');
+      return;
+    }
+
+    const ok = await syncManager.initFirebase(config);
+    if (ok) {
+      showToast('Firebase 클라우드 연동 성공!');
+      renderSettingsTab();
+    }
   },
   exportData: () => {
     syncManager.exportToJSON({
@@ -3138,13 +3168,9 @@ window.app = {
       bands: state.bands,
       formulas: state.formulas,
       questions: state.questions,
-      externalDashboards: state.externalDashboards,
-      dischargeDate: state.dischargeDate,
       camino: state.camino,
-      knou: state.knou,
-      awards: state.awards,
-      careers: state.careers,
-      tabOrder: state.tabOrder,
+      sns: state.sns,
+      externalDashboards: state.externalDashboards,
       theme: state.theme
     });
   },
@@ -3159,67 +3185,6 @@ window.app = {
     } catch (err) {
       alert('복원 실패: ' + err.message);
     }
-  },
-
-  // ── 테마 변경 ──
-  changeTheme: (theme) => {
-    state.theme = theme;
-    applyTheme(theme);
-    persistState();
-    renderSettingsTab();
-    const names = { dark: '🌙 다크 슬레이트', nord: '❄️ 노드 아틱', warm: '☕ 웜 앰버' };
-    showToast(`테마가 "${names[theme] || theme}"로 변경되었습니다.`);
-  },
-
-  // ── 방통대 핸들러 ──
-  switchKnouSubtab: (subtab) => {
-    state.knouSubtab = subtab;
-    renderKnouTab();
-  },
-  updateKnouScore: (idx, field, value) => {
-    const c = state.knou.courses[idx];
-    if (!c) return;
-    const v = parseInt(value, 10);
-    if (field === 'attendance') c.attendance.achieved = v;
-    else if (field === 'midterm') c.midterm.achieved = v;
-    else if (field === 'final') c.final.achieved = v;
-    else if (field === 'attendanceClass') c.attendanceClass.achieved = v;
-    persistState();
-    renderKnouTab();
-  },
-  updateKnouSubmit: (idx, field, checked) => {
-    const c = state.knou.courses[idx];
-    if (!c) return;
-    if (field === 'midterm') c.midterm.submitted = checked;
-    if (field === 'final') c.final.submitted = checked;
-    persistState();
-  },
-  updateKnouMemo: (idx, value) => {
-    const c = state.knou.courses[idx];
-    if (!c) return;
-    c.memo = value;
-    persistState();
-  },
-  openKnouAddCourseModal: () => {
-    const name = prompt('과목명을 입력하세요:');
-    if (!name || !name.trim()) return;
-    const credits = parseInt(prompt('학점 수를 입력하세요 (예: 3):') || '3', 10);
-    const type = prompt('평가 유형을 입력하세요 (과제형 / 시험형 / 혼합형):') || '과제형';
-    state.knou.courses.push({
-      id: 'c-' + Date.now(),
-      name: name.trim(),
-      credits: isNaN(credits) ? 3 : credits,
-      type,
-      attendance: { target: 100, achieved: 0 },
-      midterm: { type: type === '시험형' ? '중간고사' : '과제물', weight: 30, achieved: 0, submitted: false },
-      final: { type: type === '시험형' ? '기말고사' : '과제물', weight: 40, achieved: 0, submitted: false },
-      attendanceClass: { required: false, weight: 0, achieved: 0 },
-      attendance_weight: 30,
-      grade: '',
-      memo: ''
-    });
-    persistState();
-    renderKnouTab();
   }
 };
 
@@ -3394,98 +3359,190 @@ function initModals() {
     });
   }
 
-  // 5. Add Award Form
-  const formAddAward = document.getElementById('form-add-award');
-  if (formAddAward) {
-    formAddAward.addEventListener('submit', (e) => {
+  // 5. Edit Exam Form ⭐
+  const formEditExam = document.getElementById('form-edit-exam');
+  if (formEditExam) {
+    formEditExam.addEventListener('submit', (e) => {
       e.preventDefault();
-      const title = document.getElementById('award-title').value.trim();
-      const date = document.getElementById('award-date').value.trim();
-      const category = document.getElementById('award-category').value;
-      const issuer = document.getElementById('award-issuer').value.trim();
-      const isHighlight = document.getElementById('award-highlight').checked;
+      const id = document.getElementById('edit-exam-id').value;
+      const exam = state.exams.find(item => item.id === id);
+      if (exam) {
+        exam.title = document.getElementById('edit-exam-title').value;
+        exam.category = document.getElementById('edit-exam-category').value;
+        exam.priority = document.getElementById('edit-exam-priority').value;
+        exam.startDate = document.getElementById('edit-exam-start-date').value;
+        exam.endDate = document.getElementById('edit-exam-end-date').value || document.getElementById('edit-exam-start-date').value;
+        exam.ddayTarget = document.getElementById('edit-exam-start-date').value;
+        exam.location = document.getElementById('edit-exam-location').value;
+        exam.description = document.getElementById('edit-exam-desc').value;
 
-      // Extract year from date
-      const year = date.split('-')[0] || new Date().getFullYear().toString();
-
-      let icon = 'fa-award';
-      let badgeColor = 'sky';
-      if (category === '대외·공공') { icon = 'fa-trophy'; badgeColor = 'amber'; }
-      else if (category === '환경안전') { icon = 'fa-shield-halved'; badgeColor = 'emerald'; }
-      else if (category === '혁신아이디어') { icon = 'fa-lightbulb'; badgeColor = 'yellow'; }
-      else if (category === '제조기술') { icon = 'fa-gears'; badgeColor = 'sky'; }
-      else if (category === '사회공헌') { icon = 'fa-heart'; badgeColor = 'red'; }
-
-      const newAward = {
-        id: 'aw-' + Date.now(),
-        date: date,
-        year: year,
-        title: title,
-        issuer: issuer,
-        category: category,
-        icon: icon,
-        badgeColor: badgeColor,
-        highlight: isHighlight
-      };
-
-      if (!state.awards) state.awards = [...INITIAL_AWARDS_DATA];
-      state.awards.unshift(newAward);
-      persistState();
-      window.app.closeAllModals();
-      renderCurrentTab();
-      formAddAward.reset();
-      showToast('새 수상 내역이 등록되었습니다.');
+        persistState();
+        window.app.closeAllModals();
+        renderCurrentTab();
+        showToast('일정이 성공적으로 수정되었습니다.');
+      }
     });
   }
 
-  // 6. Add Career Form
-  const formAddCareer = document.getElementById('form-add-career');
-  if (formAddCareer) {
-    formAddCareer.addEventListener('submit', (e) => {
+  // 6. Edit Band Form ⭐
+  const formEditBand = document.getElementById('form-edit-band');
+  if (formEditBand) {
+    formEditBand.addEventListener('submit', (e) => {
       e.preventDefault();
-      const title = document.getElementById('career-title').value.trim();
-      const period = document.getElementById('career-period').value.trim();
-      const category = document.getElementById('career-category').value;
-      const desc = document.getElementById('career-desc').value.trim();
-      const isHighlight = document.getElementById('career-highlight').checked;
+      const id = document.getElementById('edit-band-id').value;
+      const band = state.bands.find(item => item.id === id);
+      if (band) {
+        band.type = document.getElementById('edit-band-type').value;
+        band.date = document.getElementById('edit-band-date').value;
+        band.title = document.getElementById('edit-band-title').value;
+        band.location = document.getElementById('edit-band-location').value;
+        band.memos = document.getElementById('edit-band-memos').value;
+        const setlistRaw = document.getElementById('edit-band-setlist-input').value;
+        band.setlist = setlistRaw.split('\n').filter(s => s.trim()).map(song => ({ song: song.trim(), key: '', tempo: '' }));
 
-      // Extract year from period
-      let year = '기타';
-      const yearMatch = period.match(/\d{4}/);
-      if (yearMatch) {
-        year = yearMatch[0];
-      } else if (period.includes('현재')) {
-        year = '현재';
+        persistState();
+        window.app.closeAllModals();
+        renderCurrentTab();
+        showToast('합주 일정이 성공적으로 수정되었습니다.');
       }
+    });
+  }
 
-      let icon = 'fa-briefcase';
-      let badgeColor = 'sky';
-      if (category === '공공·대외') { icon = 'fa-users-between-lines'; badgeColor = 'blue'; }
-      else if (category === '사내TF') { icon = 'fa-bullhorn'; badgeColor = 'emerald'; }
-      else if (category === '전문성·교육') { icon = 'fa-chalkboard-user'; badgeColor = 'indigo'; }
-      else if (category === '전문성·자격') { icon = 'fa-shield-halved'; badgeColor = 'teal'; }
-      else if (category === '사회공헌') { icon = 'fa-hand-holding-heart'; badgeColor = 'red'; }
-      else if (category === '창작·대외') { icon = 'fa-feather-pointed'; badgeColor = 'rose'; }
+  // 7. Edit Question Form ⭐
+  const formEditQ = document.getElementById('form-edit-question');
+  if (formEditQ) {
+    formEditQ.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('edit-q-id').value;
+      const q = state.questions.find(item => item.id === id);
+      if (q) {
+        q.title = document.getElementById('edit-q-title').value;
+        q.topic = document.getElementById('edit-q-topic').value || '기타';
+        q.problemText = document.getElementById('edit-q-problem').value;
+        if (!q.solutionSteps || q.solutionSteps.length === 0) {
+          q.solutionSteps = [{ stepTitle: "단계별 풀이 과정", content: "" }];
+        }
+        q.solutionSteps[0].content = document.getElementById('edit-q-solution').value;
+        q.keyPoints = document.getElementById('edit-q-keypoints').value;
 
-      const newCareer = {
-        id: 'cr-' + Date.now(),
-        period: period,
-        year: year,
-        title: title,
-        desc: desc,
-        category: category,
-        icon: icon,
-        badgeColor: badgeColor,
-        highlight: isHighlight
+        persistState();
+        window.app.closeAllModals();
+        renderCurrentTab();
+        showToast('문제가 성공적으로 수정되었습니다.');
+      }
+    });
+  }
+
+  // 8. Edit Camino Itinerary Form ⭐
+  const formEditCamino = document.getElementById('form-edit-camino');
+  if (formEditCamino) {
+    formEditCamino.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const idx = parseInt(document.getElementById('edit-camino-idx').value, 10);
+      if (state.camino && state.camino.itinerary && state.camino.itinerary[idx]) {
+        const item = state.camino.itinerary[idx];
+        item.title = document.getElementById('edit-camino-title').value;
+        item.distance = document.getElementById('edit-camino-distance').value;
+        item.highlight = document.getElementById('edit-camino-highlight').value;
+        item.albergue = document.getElementById('edit-camino-albergue').value;
+        item.description = document.getElementById('edit-camino-desc').value;
+
+        persistState();
+        window.app.closeAllModals();
+        renderCurrentTab();
+        showToast('순례길 코스 계획이 성공적으로 수정되었습니다.');
+      }
+    });
+  }
+
+  // 9. Edit SNS Channel Form ⭐
+  const formEditSnsChannel = document.getElementById('form-edit-sns-channel');
+  if (formEditSnsChannel) {
+    formEditSnsChannel.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('edit-sns-channel-id').value;
+      if (state.sns && state.sns.channels) {
+        const ch = state.sns.channels.find(c => c.id === id);
+        if (ch) {
+          ch.url = document.getElementById('edit-sns-url').value;
+          ch.followers = parseInt(document.getElementById('edit-sns-followers').value, 10) || 0;
+          ch.targetFollowers = parseInt(document.getElementById('edit-sns-target-followers').value, 10) || 1;
+          ch.postsCount = parseInt(document.getElementById('edit-sns-posts-count').value, 10) || 0;
+          ch.monthlyViews = parseInt(document.getElementById('edit-sns-monthly-views').value, 10) || 0;
+          ch.engagementRate = document.getElementById('edit-sns-engagement-rate').value;
+          ch.weeklyGoal = document.getElementById('edit-sns-weekly-goal').value;
+          ch.positioning = document.getElementById('edit-sns-positioning').value;
+          ch.hashtags = document.getElementById('edit-sns-hashtags').value;
+          ch.memo = document.getElementById('edit-sns-memo').value;
+
+          persistState();
+          window.app.closeAllModals();
+          renderSnsTab();
+          if (state.activeTab === 'overview') renderOverviewTab();
+          showToast(`${ch.name} 지표가 수정되었습니다.`);
+        }
+      }
+    });
+  }
+
+  // 10. Add SNS Post Form ⭐
+  const formAddSnsPost = document.getElementById('form-add-sns-post');
+  if (formAddSnsPost) {
+    formAddSnsPost.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!state.sns) state.sns = JSON.parse(JSON.stringify(INITIAL_SNS_DATA));
+      if (!state.sns.posts) state.sns.posts = [];
+
+      const newPost = {
+        id: 'sns-post-' + Date.now(),
+        platform: document.getElementById('sns-post-platform').value,
+        status: document.getElementById('sns-post-status').value,
+        title: document.getElementById('sns-post-title').value,
+        date: document.getElementById('sns-post-date').value,
+        url: document.getElementById('sns-post-url').value,
+        views: 0,
+        likes: 0,
+        notes: document.getElementById('sns-post-notes').value
       };
 
-      if (!state.careers) state.careers = [...INITIAL_CAREER_DATA];
-      state.careers.unshift(newCareer);
+      state.sns.posts.unshift(newPost);
+      if (newPost.status === 'published') {
+        const ch = state.sns.channels.find(c => c.id === newPost.platform);
+        if (ch) ch.postsCount = (ch.postsCount || 0) + 1;
+      }
+
       persistState();
       window.app.closeAllModals();
-      renderCurrentTab();
-      formAddCareer.reset();
-      showToast('새 경력/활동 내역이 등록되었습니다.');
+      renderSnsTab();
+      formAddSnsPost.reset();
+      showToast('새 SNS 콘텐츠가 등록되었습니다.');
+    });
+  }
+
+  // 11. Edit SNS Post Form ⭐
+  const formEditSnsPost = document.getElementById('form-edit-sns-post');
+  if (formEditSnsPost) {
+    formEditSnsPost.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('edit-sns-post-id').value;
+      if (state.sns && state.sns.posts) {
+        const p = state.sns.posts.find(item => item.id === id);
+        if (p) {
+          p.platform = document.getElementById('edit-sns-post-platform').value;
+          p.status = document.getElementById('edit-sns-post-status').value;
+          p.title = document.getElementById('edit-sns-post-title').value;
+          p.date = document.getElementById('edit-sns-post-date').value;
+          p.url = document.getElementById('edit-sns-post-url').value;
+          p.views = parseInt(document.getElementById('edit-sns-post-views').value, 10) || 0;
+          p.likes = parseInt(document.getElementById('edit-sns-post-likes').value, 10) || 0;
+          p.notes = document.getElementById('edit-sns-post-notes').value;
+
+          persistState();
+          window.app.closeAllModals();
+          renderSnsTab();
+          showToast('콘텐츠 정보가 성공적으로 수정되었습니다.');
+        }
+      }
     });
   }
 }
@@ -3511,334 +3568,6 @@ function readFileAsText(file) {
   });
 }
 
-
-
-
-
-// ==========================================================================
-// KNOU 방통대 학사관리 탭
-// ==========================================================================
-function renderKnouTab() {
-  const container = document.getElementById('tab-content-knou');
-  if (!container) return;
-
-  const knou = state.knou || INITIAL_KNOU_DATA;
-  const today = new Date();
-
-  // ─── 서브탭 버튼 ────────────────────────────────────────────────────
-  const subtabs = [
-    { key: 'schedule', label: '📅 학사 일정', icon: 'fa-calendar-alt' },
-    { key: 'grades',   label: '📊 학점 관리', icon: 'fa-chart-bar' }
-  ];
-
-  const subtabHtml = subtabs.map(t => `
-    <button onclick="window.app.switchKnouSubtab('${t.key}')"
-      class="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${state.knouSubtab === t.key
-        ? 'bg-indigo-600 text-white shadow-lg'
-        : 'bg-white/10 text-slate-400 hover:bg-white/20 hover:text-white'}">
-      ${t.label}
-    </button>
-  `).join('');
-
-  // ─── 학사 일정 타임라인 ──────────────────────────────────────────────
-  const colorMap = {
-    blue:   { bg: 'bg-blue-500/20',   border: 'border-blue-500',   text: 'text-blue-400',   badge: 'bg-blue-500' },
-    orange: { bg: 'bg-orange-500/20', border: 'border-orange-500', text: 'text-orange-400', badge: 'bg-orange-500' },
-    purple: { bg: 'bg-purple-500/20', border: 'border-purple-500', text: 'text-purple-400', badge: 'bg-purple-500' },
-    teal:   { bg: 'bg-teal-500/20',   border: 'border-teal-500',   text: 'text-teal-400',   badge: 'bg-teal-500' },
-    red:    { bg: 'bg-red-500/20',     border: 'border-red-500',     text: 'text-red-400',   badge: 'bg-red-500' }
-  };
-
-  function fmtDate(str) {
-    const d = new Date(str + 'T00:00:00');
-    return `${d.getMonth()+1}월 ${d.getDate()}일`;
-  }
-
-  function getStatus(s, e) {
-    const start = new Date(s + 'T00:00:00');
-    const end   = new Date(e + 'T23:59:59');
-    if (today < start) {
-      const diff = Math.ceil((start - today) / 86400000);
-      return { label: `D-${diff}`, cls: 'bg-sky-500' };
-    }
-    if (today <= end) return { label: '진행 중', cls: 'bg-green-500' };
-    return { label: '완료', cls: 'bg-slate-500' };
-  }
-
-  const scheduleHtml = knou.academicSchedule.map(ev => {
-    const c = colorMap[ev.color] || colorMap.blue;
-    const st = getStatus(ev.startDate, ev.endDate);
-    const sameDay = ev.startDate === ev.endDate;
-    const dateStr = sameDay ? fmtDate(ev.startDate) : `${fmtDate(ev.startDate)} ~ ${fmtDate(ev.endDate)}`;
-    return `
-      <div class="flex items-start gap-4 p-4 rounded-xl ${c.bg} border ${c.border} border-opacity-40">
-        <div class="w-10 h-10 rounded-full ${c.badge} flex items-center justify-center flex-shrink-0 mt-0.5">
-          <i class="fas ${ev.icon} text-white text-sm"></i>
-        </div>
-        <div class="flex-1 min-w-0">
-          <div class="flex flex-wrap items-center gap-2 mb-1">
-            <span class="font-semibold text-white">${ev.title}</span>
-            <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white ${st.cls}">${st.label}</span>
-            <span class="px-2 py-0.5 rounded-full text-xs ${c.bg} ${c.text} border ${c.border} border-opacity-50">${ev.category}</span>
-          </div>
-          <div class="${c.text} text-sm"><i class="fas fa-clock mr-1"></i>${dateStr}</div>
-        </div>
-      </div>`;
-  }).join('');
-
-  // ─── 학점 관리 테이블 ────────────────────────────────────────────────
-  function gradeColor(score) {
-    if (score >= 90) return 'text-emerald-400';
-    if (score >= 80) return 'text-blue-400';
-    if (score >= 70) return 'text-yellow-400';
-    if (score >= 60) return 'text-orange-400';
-    return 'text-red-400';
-  }
-
-  function letterGrade(score) {
-    if (score >= 95) return 'A+';
-    if (score >= 90) return 'A';
-    if (score >= 85) return 'B+';
-    if (score >= 80) return 'B';
-    if (score >= 75) return 'C+';
-    if (score >= 70) return 'C';
-    if (score >= 65) return 'D+';
-    if (score >= 60) return 'D';
-    return 'F';
-  }
-
-  function estimateScore(c) {
-    const att = (c.attendance.achieved / 100) * c.attendance_weight;
-    const mid = (c.midterm.achieved / 100) * c.midterm.weight;
-    const fin = (c.final.achieved / 100) * c.final.weight;
-    const cls = c.attendanceClass.required ? (c.attendanceClass.achieved / 100) * c.attendanceClass.weight : 0;
-    return Math.round((att + mid + fin + cls) * 10) / 10;
-  }
-
-  const courseRows = knou.courses.map((c, idx) => {
-    const est = estimateScore(c);
-    const lg = letterGrade(est);
-    const gc = gradeColor(est);
-    const attW = c.attendance_weight;
-    const midW = c.midterm.weight;
-    const finW = c.final.weight;
-    const clsW = c.attendanceClass.weight;
-
-    return `
-      <div class="glass rounded-2xl p-5 border border-white/10">
-        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
-          <div>
-            <h3 class="font-bold text-white text-lg">${c.name}</h3>
-            <span class="text-xs text-slate-400">${c.credits}학점 · ${c.type}</span>
-          </div>
-          <div class="text-right">
-            <div class="text-3xl font-black ${gc}">${est > 0 ? est + '점' : '-'}</div>
-            <div class="text-sm font-bold ${gc}">${est > 0 ? lg : '미입력'}</div>
-          </div>
-        </div>
-
-        <!-- 점수 직접 입력 그리드 -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-
-          <!-- 출석률 -->
-          <div class="bg-white/5 rounded-xl p-3.5 border border-white/5 hover:border-blue-500/30 transition">
-            <div class="flex items-center justify-between text-xs text-slate-300 mb-2">
-              <span class="font-medium"><i class="fas fa-user-check mr-1.5 text-blue-400"></i>출석률 (반영 ${attW}%)</span>
-              <span class="text-[11px] text-slate-400">환산: <b class="text-blue-300 font-bold">${Math.round((c.attendance.achieved || 0) * (attW / 100))}점</b></span>
-            </div>
-            <div class="flex items-center gap-2">
-              <input type="number" min="0" max="100" value="${c.attendance.achieved || 0}"
-                oninput="window.app.updateKnouScore(${idx},'attendance',this.value)"
-                class="w-full bg-slate-900 border border-slate-700 focus:border-blue-400 rounded-lg px-3 py-2 text-white font-bold text-sm focus:outline-none transition">
-              <span class="text-xs font-bold text-slate-400">%</span>
-            </div>
-          </div>
-
-          <!-- 중간 과제물/고사 -->
-          <div class="bg-white/5 rounded-xl p-3.5 border border-white/5 hover:border-orange-500/30 transition">
-            <div class="flex items-center justify-between text-xs text-slate-300 mb-2">
-              <span class="font-medium"><i class="fas fa-file-lines mr-1.5 text-orange-400"></i>${c.midterm.type} (반영 ${midW}%)</span>
-              <span class="text-[11px] text-slate-400">환산: <b class="text-orange-300 font-bold">${Math.round((c.midterm.achieved || 0) * (midW / 100))}점</b></span>
-            </div>
-            <div class="flex items-center gap-2 mb-2">
-              <input type="number" min="0" max="100" value="${c.midterm.achieved || 0}"
-                oninput="window.app.updateKnouScore(${idx},'midterm',this.value)"
-                class="w-full bg-slate-900 border border-slate-700 focus:border-orange-400 rounded-lg px-3 py-2 text-white font-bold text-sm focus:outline-none transition">
-              <span class="text-xs font-bold text-slate-400">점</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <input type="checkbox" id="mid-sub-${idx}" ${c.midterm.submitted ? 'checked' : ''}
-                onchange="window.app.updateKnouSubmit(${idx},'midterm',this.checked)"
-                class="rounded bg-slate-800 border-slate-700 text-orange-500 accent-orange-500 cursor-pointer">
-              <label for="mid-sub-${idx}" class="text-xs text-slate-400 hover:text-white cursor-pointer select-none">제출 완료</label>
-            </div>
-          </div>
-
-          <!-- 기말 과제물/고사 -->
-          <div class="bg-white/5 rounded-xl p-3.5 border border-white/5 hover:border-red-500/30 transition">
-            <div class="flex items-center justify-between text-xs text-slate-300 mb-2">
-              <span class="font-medium"><i class="fas fa-pen-to-square mr-1.5 text-red-400"></i>${c.final.type} (반영 ${finW}%)</span>
-              <span class="text-[11px] text-slate-400">환산: <b class="text-red-300 font-bold">${Math.round((c.final.achieved || 0) * (finW / 100))}점</b></span>
-            </div>
-            <div class="flex items-center gap-2 mb-2">
-              <input type="number" min="0" max="100" value="${c.final.achieved || 0}"
-                oninput="window.app.updateKnouScore(${idx},'final',this.value)"
-                class="w-full bg-slate-900 border border-slate-700 focus:border-red-400 rounded-lg px-3 py-2 text-white font-bold text-sm focus:outline-none transition">
-              <span class="text-xs font-bold text-slate-400">점</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <input type="checkbox" id="fin-sub-${idx}" ${c.final.submitted ? 'checked' : ''}
-                onchange="window.app.updateKnouSubmit(${idx},'final',this.checked)"
-                class="rounded bg-slate-800 border-slate-700 text-red-500 accent-red-500 cursor-pointer">
-              <label for="fin-sub-${idx}" class="text-xs text-slate-400 hover:text-white cursor-pointer select-none">제출 완료</label>
-            </div>
-          </div>
-
-          <!-- 출석수업/과제물 (선택) -->
-          ${c.attendanceClass.required ? `
-          <div class="bg-white/5 rounded-xl p-3.5 border border-white/5 hover:border-teal-500/30 transition">
-            <div class="flex items-center justify-between text-xs text-slate-300 mb-2">
-              <span class="font-medium"><i class="fas fa-chalkboard-teacher mr-1.5 text-teal-400"></i>출석수업·과제 (반영 ${clsW}%)</span>
-              <span class="text-[11px] text-slate-400">환산: <b class="text-teal-300 font-bold">${Math.round((c.attendanceClass.achieved || 0) * (clsW / 100))}점</b></span>
-            </div>
-            <div class="flex items-center gap-2">
-              <input type="number" min="0" max="100" value="${c.attendanceClass.achieved || 0}"
-                oninput="window.app.updateKnouScore(${idx},'attendanceClass',this.value)"
-                class="w-full bg-slate-900 border border-slate-700 focus:border-teal-400 rounded-lg px-3 py-2 text-white font-bold text-sm focus:outline-none transition">
-              <span class="text-xs font-bold text-slate-400">점</span>
-            </div>
-          </div>` : `
-          <div class="bg-white/5 rounded-xl p-3.5 border border-white/5 flex items-center justify-center text-slate-500 text-xs">
-            <i class="fas fa-minus-circle mr-1.5"></i>출석수업 해당 없음
-          </div>`}
-        </div>
-
-        <!-- 예상 점수 프로그레스바 -->
-        <div class="mt-4">
-          <div class="flex justify-between text-xs text-slate-400 mb-1">
-            <span>예상 최종 점수</span>
-            <span class="${gc} font-bold">${est}/100점</span>
-          </div>
-          <div class="w-full bg-white/10 rounded-full h-2.5">
-            <div class="h-2.5 rounded-full transition-all duration-500 ${
-              est >= 90 ? 'bg-emerald-500' : est >= 80 ? 'bg-blue-500' : est >= 70 ? 'bg-yellow-500' : est >= 60 ? 'bg-orange-500' : 'bg-red-500'
-            }" style="width:${est}%"></div>
-          </div>
-        </div>
-
-        <!-- 메모 -->
-        <div class="mt-3">
-          <input type="text" placeholder="메모 (과제 주제, 유의사항 등)"
-            value="${c.memo || ''}"
-            onchange="window.app.updateKnouMemo(${idx},this.value)"
-            class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
-        </div>
-      </div>`;
-  }).join('');
-
-  // ─── 전체 평균 ───────────────────────────────────────────────────────
-  const totalEst = knou.courses.length
-    ? Math.round(knou.courses.reduce((sum, c) => sum + estimateScore(c), 0) / knou.courses.length * 10) / 10
-    : 0;
-
-  // ─── 과목 추가 버튼 ──────────────────────────────────────────────────
-  const addCourseHtml = `
-    <button onclick="window.app.openKnouAddCourseModal()"
-      class="w-full py-4 border-2 border-dashed border-white/20 rounded-2xl text-slate-400 hover:border-indigo-500 hover:text-indigo-400 transition-all duration-200 flex items-center justify-center gap-2">
-      <i class="fas fa-plus-circle text-xl"></i>
-      <span class="font-semibold">과목 추가</span>
-    </button>`;
-
-  // ─── 최종 렌더 ───────────────────────────────────────────────────────
-  container.innerHTML = `
-    <div class="space-y-6">
-      <!-- 헤더 -->
-      <div class="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 class="text-2xl font-black text-white">🎓 방송통신대학교</h1>
-          <p class="text-slate-400 text-sm">${knou.department} · ${knou.semester}</p>
-        </div>
-        <div class="glass px-5 py-2 rounded-2xl text-center">
-          <div class="text-xs text-slate-400">전체 평균 예상 점수</div>
-          <div class="text-2xl font-black ${gradeColor(totalEst)}">${totalEst > 0 ? totalEst + '점' : '-'}</div>
-        </div>
-      </div>
-
-      <!-- 서브탭 -->
-      <div class="flex gap-2 flex-wrap">${subtabHtml}</div>
-
-      <!-- 학사 일정 서브탭 -->
-      <div id="knou-schedule-panel" class="${state.knouSubtab === 'schedule' ? '' : 'hidden'} space-y-3">
-        <h2 class="text-lg font-bold text-white"><i class="fas fa-calendar-alt mr-2 text-indigo-400"></i>2학기 전체 학사 일정</h2>
-        ${scheduleHtml}
-      </div>
-
-      <!-- 학점 관리 서브탭 -->
-      <div id="knou-grades-panel" class="${state.knouSubtab === 'grades' ? '' : 'hidden'} space-y-4">
-        <h2 class="text-lg font-bold text-white"><i class="fas fa-chart-bar mr-2 text-indigo-400"></i>이번 학기 과목별 학점 관리</h2>
-        <p class="text-xs text-slate-500">슬라이더를 움직여 출석률, 과제물/시험 점수를 입력하면 예상 학점을 자동 계산합니다.</p>
-        ${courseRows}
-        ${addCourseHtml}
-      </div>
-    </div>`;
-}
-
-// ─── KNOU 헬퍼 핸들러 ─────────────────────────────────────────────────
-window.app = window.app || {};
-
-window.app.switchKnouSubtab = function(subtab) {
-  state.knouSubtab = subtab;
-  renderKnouTab();
-};
-
-window.app.updateKnouScore = function(idx, field, value) {
-  const c = state.knou.courses[idx];
-  if (!c) return;
-  const v = parseInt(value, 10);
-  if (field === 'attendance') c.attendance.achieved = v;
-  else if (field === 'midterm') c.midterm.achieved = v;
-  else if (field === 'final') c.final.achieved = v;
-  else if (field === 'attendanceClass') c.attendanceClass.achieved = v;
-  persistState();
-  renderKnouTab();
-};
-
-window.app.updateKnouSubmit = function(idx, field, checked) {
-  const c = state.knou.courses[idx];
-  if (!c) return;
-  if (field === 'midterm') c.midterm.submitted = checked;
-  if (field === 'final') c.final.submitted = checked;
-  persistState();
-};
-
-window.app.updateKnouMemo = function(idx, value) {
-  const c = state.knou.courses[idx];
-  if (!c) return;
-  c.memo = value;
-  persistState();
-};
-
-window.app.openKnouAddCourseModal = function() {
-  const name = prompt('과목명을 입력하세요:');
-  if (!name || !name.trim()) return;
-  const credits = parseInt(prompt('학점 수를 입력하세요 (예: 3):') || '3', 10);
-  const type = prompt('평가 유형을 입력하세요 (과제형 / 시험형 / 혼합형):') || '과제형';
-  state.knou.courses.push({
-    id: 'c-' + Date.now(),
-    name: name.trim(),
-    credits: isNaN(credits) ? 3 : credits,
-    type: type,
-    attendance: { target: 100, achieved: 0 },
-    midterm: { type: type === '시험형' ? '중간고사' : '과제물', weight: 30, achieved: 0, submitted: false },
-    final: { type: type === '시험형' ? '기말고사' : '과제물', weight: 40, achieved: 0, submitted: false },
-    attendanceClass: { required: false, weight: 0, achieved: 0 },
-    attendance_weight: 30,
-    grade: '',
-    memo: ''
-  });
-  persistState();
-  renderKnouTab();
-};
 
 
   // Start Application

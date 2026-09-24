@@ -1,28 +1,53 @@
-// Updated Service Worker - Network First & Clear Old Cache
-const CACHE_NAME = 'career-dashboard-cache-v2';
+// Simple Cache-First Service Worker for PWA
+const CACHE_NAME = 'career-dashboard-cache-v1';
+const ASSETS_TO_CACHE = [
+  './',
+  './index.html',
+  './css/style.css',
+  './js/app.js',
+  './js/cloud-sync.js',
+  './js/study-data.js',
+  './manifest.json'
+];
 
 self.addEventListener('install', (e) => {
+  e.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(ASSETS_TO_CACHE).catch(() => {});
+    })
+  );
   self.skipWaiting();
 });
 
 self.addEventListener('activate', (e) => {
   e.waitUntil(
     caches.keys().then((keys) => {
-      return Promise.all(keys.map(key => caches.delete(key)));
+      return Promise.all(
+        keys.map((key) => {
+          if (key !== CACHE_NAME) return caches.delete(key);
+        })
+      );
     })
   );
   self.clients.claim();
 });
 
 self.addEventListener('fetch', (e) => {
-  // 네트워크 우선 (Network-First) 전략: 항상 최신 파일을 먼저 받아오고 실패 시에만 캐시 사용
+  // 클라우드 API 요청(firebase, CDN 등)은 네트워크 우선
+  if (e.request.url.includes('firebase') || e.request.url.includes('googleapis') || e.request.url.startsWith('chrome-extension')) {
+    return;
+  }
+
   e.respondWith(
-    fetch(e.request)
-      .then((response) => {
-        return response;
-      })
-      .catch(() => {
-        return caches.match(e.request);
-      })
+    caches.match(e.request).then((res) => {
+      return res || fetch(e.request).then((fetchRes) => {
+        return fetchRes;
+      }).catch(() => {
+        // 오프라인 fallback
+        if (e.request.destination === 'document') {
+          return caches.match('./index.html');
+        }
+      });
+    })
   );
 });
