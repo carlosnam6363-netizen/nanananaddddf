@@ -1,14 +1,6 @@
-# Antigravity 한국어 사용 및 자율 실행 규칙 (Autonomous & Korean Rules)
+# Antigravity 한국어 사용 규칙 (Korean Language Rules)
 
-## 1. 언어 및 소통 기본 원칙
+## 언어 및 소통 기본 원칙
 1. **기본 응답 언어**: 사용자의 모든 요청에 대해 항상 자연스럽고 정확한 **한국어**로 답변합니다.
 2. **코드 주석 및 문서화**: 작성하는 코드의 주석, 커밋 메시지, 계획서, 안내 문서는 특별한 요청이 없는 한 한국어로 작성합니다.
 3. **용어 표현**: 기술 전문 용어(예: Frontend, Backend, D-Day, API, Firebase 등)는 통용되는 명칭을 사용하되, 개념 설명과 안내는 친절한 한국어로 제공합니다.
-
-## 2. 자율 진행 원칙 (Always Proceed / No Confirmation Stops)
-1. **계획서 승인 대기 생략 (`RequestFeedback: false`)**:
-   - 사용자가 별도로 계획을 먼저 검토하겠다고 요청하지 않는 한, `implementation_plan.md`에서 사용자 승인(`Proceed` 버튼 클릭)을 기다리지 않고 **즉시 코드 구현 및 파일 수정을 끝까지 실행**합니다.
-2. **중간 확인 질문 최소화**:
-   - 단순 파일 수정, 스크립트 검증, 백업 파일 동기화, 폴더 열기 등 일상적인 개발 작업은 사용자에게 되묻지 않고 자율적으로 판단하여 한 번에 완료합니다.
-3. **안전한 명령어 우선 사용**:
-   - 파일 읽기/쓰기/검색 시 터미널 명령어(`run_command`) 대신 전용 내장 도구(`view_file`, `replace_file_content`, `write_to_file`, `grep_search`, `find_by_name`)를 최우선으로 사용하여 불필요한 터미널 승인 팝업이 뜨지 않도록 합니다.
