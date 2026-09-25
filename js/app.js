@@ -173,6 +173,359 @@ const INITIAL_SNS_DATA = {
   strategyMemo: "3대 채널 원소스 멀티유즈(OSMU) 운영 전략:\n1) 브런치스토리 (@musimtook · 구독자 223명 / 글 741편 / 독서노트 75편): 호흡이 긴 에세이 및 아론 작가 멤버십 칼럼 연재\n2) 인스타그램 (@namhyeon_kim_ · 팔로워 302명 / 게시물 180개): 음악 합주, 산티아고 순례길 현장 사진 및 숏폼 릴스 아카이빙\n3) 링크드인 (김남현): 삼성전자 TF 경험, 안전·에너지 기술자격, 화성시 청년정책협의체 분과장 활동 인사이트 공유"
 };
 
+// ==========================================================================
+// 수상 내역 (23건) & 주요 경력 (15건) 통합 포트폴리오 초기 데이터 (⭐ 신규 추가)
+// ==========================================================================
+const INITIAL_PORTFOLIO_DATA = {
+  portfolioDataVersion: 1,
+  awards: [
+    {
+      id: "award-2026-1",
+      year: "2026",
+      period: "8월",
+      title: "제2회 화성시 양성평등 공모전 산문 부문 장려상 수상",
+      issuer: "화성시여성가족청소년재단이사장 표창",
+      category: "대외·공공·문학",
+      description: "양성평등 문화 확산 및 일상 속 성찰을 담은 산문 부문 우수작 선정"
+    },
+    {
+      id: "award-2026-2",
+      year: "2026",
+      period: "3월",
+      title: "제5기 화성시 청년정책협의체 위원 선정 (동탄 교육·참여·권리 분과장 역임)",
+      issuer: "화성시장 위촉",
+      category: "대외·공공·문학",
+      description: "화성시 동탄권역 청년 교육·참여·권리 증진 정책 발굴 및 3분과장 리더십 수행"
+    },
+    {
+      id: "award-2025-1",
+      year: "2025",
+      period: "12월",
+      title: "장애인과 함께하는 문해(문예) 글짓기 대회 대상 수상 (국회 국방위원장상)",
+      issuer: "국회 국방위원장 표창",
+      category: "대외·공공·문학",
+      description: "전국 규모 문예 글짓기 대회 최고 영예 대상(국회 국방위원장 표창) 수상"
+    },
+    {
+      id: "award-2024-1",
+      year: "2024",
+      period: "1월",
+      title: "방송통신대학교 총장 표창 우수상 수상",
+      issuer: "방송통신대학교총장 표창",
+      category: "대외·공공·문학",
+      description: "산업공학과 재학 중 탁월한 학업 성취 및 대학교 대외 기여 공로 표창"
+    },
+    {
+      id: "award-2023-2",
+      year: "2023",
+      period: "7월",
+      title: "세이프 인플루언서(Safe Influencer) 우수 활동자 즉시상",
+      issuer: "안전그룹장 표창",
+      category: "안전·환경",
+      description: "삼성전자 사내 안전문화 확산 및 현장 자율 안전 캠페인 우수 활동"
+    },
+    {
+      id: "award-2023-1",
+      year: "2023",
+      period: "2월",
+      title: "2023 FOUNDRY DIFFUSION 기술팀 DS경진대회 최다 아이디어부문 우수",
+      issuer: "DIFFUSION기술팀장 표창",
+      category: "기술·생산성·혁신",
+      description: "파운드리 디퓨전 기술팀 DS경진대회 기술 혁신 아이디어 최다 발굴 및 채택"
+    },
+    {
+      id: "award-2022-3",
+      year: "2022",
+      period: "12월",
+      title: "세이프 인플루언서 최우수 활동자 즉시상",
+      issuer: "안전그룹장 표창",
+      category: "안전·환경",
+      description: "2022년 사내 안전문화 개편 TF 세이프 인플루언서 최우수 기여자 선정"
+    },
+    {
+      id: "award-2022-2",
+      year: "2022",
+      period: "3월 ~ 5월",
+      title: "모두의 인사 TF 승격분과 본과정 경진대회 우수 표창",
+      issuer: "인사기획그룹 표창",
+      category: "인사·교육·조직문화",
+      description: "삼성전자 인사제도 개편 TF 승격분과 본과정 경진대회 기획안 우수 표창"
+    },
+    {
+      id: "award-2022-1",
+      year: "2022",
+      period: "2월",
+      title: "2월 업무 불합리 발굴 우수상",
+      issuer: "DIFFUSION기술팀장 표창",
+      category: "기술·생산성·혁신",
+      description: "현장 공정 및 업무 프로세스 불합리 요소 선제적 발굴·개선"
+    },
+    {
+      id: "award-2021-5",
+      year: "2021",
+      period: "10월",
+      title: "위험발굴 우수발굴 즉시상",
+      issuer: "기술환경안전팀장 표창",
+      category: "안전·환경",
+      description: "사업장 잠재 위험요인 발굴 및 중대재해 예방 활동 우수 기여"
+    },
+    {
+      id: "award-2021-4",
+      year: "2021",
+      period: "10월",
+      title: "기본지키기 서포터즈 6기 우수 활동자 수상",
+      issuer: "안전그룹장 표창",
+      category: "안전·환경",
+      description: "현장 안전 기본수칙 준수 문화 정착 서포터즈 6기 핵심 활동"
+    },
+    {
+      id: "award-2021-3",
+      year: "2021",
+      period: "9월",
+      title: "21년 하반기 혁신적으로 일하기 공모전 우수상",
+      issuer: "D기술팀장 표창",
+      category: "기술·생산성·혁신",
+      description: "스마트 워크 및 엔지니어링 업무 효율화 혁신 아이디어 우수상"
+    },
+    {
+      id: "award-2021-2",
+      year: "2021",
+      period: "7월",
+      title: "D기술팀 우수사원 즉시상",
+      issuer: "D기술팀장 표창",
+      category: "인사·교육·조직문화",
+      description: "기술팀 내 모범적 직무 수행 및 조직 시너지 창출 우수사원 표창"
+    },
+    {
+      id: "award-2021-1",
+      year: "2021",
+      period: "2월",
+      title: "제조기술센터 설비엔지니어 공정회 우수 기안 시상",
+      issuer: "제조센터장 표창",
+      category: "기술·생산성·혁신",
+      description: "설비엔지니어 공정 개선 기안 우수작 선정 및 센터장 표창"
+    },
+    {
+      id: "award-2020-6",
+      year: "2020",
+      period: "10월",
+      title: "인재개발그룹 즉시상",
+      issuer: "인재개발그룹장 표창",
+      category: "인사·교육·조직문화",
+      description: "사내 직무 교육 및 후배 엔지니어 역량 개발 기여 표창"
+    },
+    {
+      id: "award-2020-5",
+      year: "2020",
+      period: "7월",
+      title: "D기술팀 생산성 향상 공모전 즉시상 시상",
+      issuer: "D기술팀장 표창",
+      category: "기술·생산성·혁신",
+      description: "설비 가동률 및 공정 생산성 향상 아이디어 공모전 입상"
+    },
+    {
+      id: "award-2020-4",
+      year: "2020",
+      period: "6월",
+      title: "제조 시너지 P/J 협업 IDEA & 우수성과 공모전 (시너지 협업 IDEA 부문 최다발굴 시상)",
+      issuer: "제조 시너지 PROJECT장 표창",
+      category: "기술·생산성·혁신",
+      description: "부서 간 제조 시너지 창출 협업 아이디어 최다 발굴 기록 달성"
+    },
+    {
+      id: "award-2020-3",
+      year: "2020",
+      period: "6월 ~ 2021년 1월",
+      title: "기본지키기 서포터즈 1기 ~ 4기 연속 4회 시상",
+      issuer: "안전그룹장 표창",
+      category: "안전·환경",
+      description: "1기부터 4기까지 전 기수 연속 우수 서포터즈 4회 연속 표창 달성"
+    },
+    {
+      id: "award-2020-2",
+      year: "2020",
+      period: "4월",
+      title: "환경안전공모전 (아이디어 부문) 은상",
+      issuer: "환경안전팀장 표창",
+      category: "안전·환경",
+      description: "사내 환경안전 개선 아이디어 공모전 은상 수상"
+    },
+    {
+      id: "award-2020-1",
+      year: "2020",
+      period: "2월 ~ 2021년 1월",
+      title: "D기술팀 DigNoel 상 4회 시상 추천 및 본인 시상",
+      issuer: "D기술팀장 표창",
+      category: "인사·교육·조직문화",
+      description: "동료 칭찬·격려 및 협업 문화 확산 DigNoel 상 4회 연속 추천·수상"
+    },
+    {
+      id: "award-2018-1",
+      year: "2018",
+      period: "7월",
+      title: "D기술팀 (Hidden Worker) 부문 즉시상 시상",
+      issuer: "D기술팀장 표창",
+      category: "인사·교육·조직문화",
+      description: "보이지 않는 곳에서 묵묵히 현장 난제를 해결한 히든워커 표창"
+    },
+    {
+      id: "award-2016-1",
+      year: "2016",
+      period: "1월",
+      title: "D기술팀 환경안전 부문 즉시상 시상",
+      issuer: "D기술팀장 표창",
+      category: "안전·환경",
+      description: "현장 환경안전 리스크 예방 및 안전 수칙 준수 솔선수범 표창"
+    },
+    {
+      id: "award-2014-1",
+      year: "2014",
+      period: "11월",
+      title: "슈퍼루키 프로젝트 성과 발표회 우수 시상",
+      issuer: "제조센터장 표창",
+      category: "기술·생산성·혁신",
+      description: "신입 엔지니어 슈퍼루키 프로젝트 혁신 과제 발표 우수상(제조센터장 표창)"
+    }
+  ],
+  careers: [
+    {
+      id: "career-brunch",
+      year: "상시",
+      period: "연재 중",
+      title: "브런치스토리 플랫폼 작가명 '아론(@musimtook)' 연재 및 멤버십 운영",
+      role: "브런치 정식 작가 (아론)",
+      category: "작가·대외·학술",
+      description: "에세이 및 칼럼 741편 발행 · 매거진/작품 18집 · 독서노트 75편 · 구독자 223명 보유 ('아론 작가 멤버십' 운영)"
+    },
+    {
+      id: "career-2023-7",
+      year: "2023",
+      period: "11월",
+      title: "SSIT 삼성전자 사내대학(공과대학) 전임교수 추천",
+      role: "삼성전자 SSIT 전임교수 후보 추천",
+      category: "전문선임·교육·교수",
+      description: "반도체 설비·안전·직무 전문성 및 강의 역량을 인정받아 삼성전자 사내대학(SSIT) 전임교수 추천"
+    },
+    {
+      id: "career-2023-6",
+      year: "2023",
+      period: "연중",
+      title: "사내 위험물 기능장 대비반 직접 운영 ➔ 팀 내 기능장 7명 배출",
+      role: "위험물 기능장 대비반 강사·멘토",
+      category: "전문선임·교육·교수",
+      description: "본인의 위험물기능장 취득 노하우를 바탕으로 사내 대비반을 직접 운영하여 팀 내 국가기술자격 최상위 등급인 '기능장' 7명 합격 배출"
+    },
+    {
+      id: "career-2023-5",
+      year: "2023",
+      period: "7월 ~ 현재",
+      title: "기흥/화성 파운드리사업부 위험물 관리자 선임",
+      role: "삼성전자 파운드리사업부 위험물 안전관리자",
+      category: "전문선임·교육·교수",
+      description: "기흥·화성 캠퍼스 파운드리사업부 위험물 취급·안전관리 법정/전문 관리자 선임 수행"
+    },
+    {
+      id: "career-2023-4",
+      year: "2023",
+      period: "9월",
+      title: "세이프 인플루언서(Safe Influencer) TF 3기 활동 및 9월 우수 활동자 수상",
+      role: "삼성전자 안전문화 TF 3기 위원",
+      category: "사내 핵심 TF",
+      description: "1기~3기 연속 사내 안전문화 혁신 TF 참여 및 9월 우수 활동자 선정"
+    },
+    {
+      id: "career-2023-3",
+      year: "2023",
+      period: "7월",
+      title: "방송통신대학교 [생산운영관리] 정규 교과목 방송 학생출연자 참여",
+      role: "한국방송통신대학교 산업공학과 대표 학생출연자",
+      category: "작가·대외·학술",
+      description: "산업공학과 전공 정규 강의 [생산운영관리] 과목 제작 참여 및 방송 출연"
+    },
+    {
+      id: "career-2023-2",
+      year: "2023",
+      period: "5월",
+      title: "세이프 인플루언서 TF 2기 활동 및 우수활동자 시상",
+      role: "삼성전자 안전문화 TF 2기 위원",
+      category: "사내 핵심 TF",
+      description: "현장 밀착형 안전 캠페인 기획 및 안전문화 전파 우수활동자 수상"
+    },
+    {
+      id: "career-2023-1",
+      year: "2023",
+      period: "연중",
+      title: "THE NANUM 100 CLUB 선정 (사내외 사회공헌 100시간 달성)",
+      role: "삼성전자 나눔클럽 아너스 멤버",
+      category: "사회공헌·봉사",
+      description: "연간 누적 봉사활동 100시간 이상 달성 임직원에게 수여되는 THE NANUM 100 CLUB 재선정"
+    },
+    {
+      id: "career-2022-6",
+      year: "2022",
+      period: "2022.06 ~ 2023.06",
+      title: "삼성전자 경영진 제언 사내 MZ 자문단 위원 활동",
+      role: "사내 MZ 자문위원 (1년 역임)",
+      category: "사내 핵심 TF",
+      description: "경영진 직속 제언 기구인 MZ 자문단 위원으로 활동하며 조직문화 및 일하는 방식 혁신 제안"
+    },
+    {
+      id: "career-2022-5",
+      year: "2022",
+      period: "12월",
+      title: "THE NANUM 50 CLUB 선정 (옷캔, 플로깅 등 사내 봉사 50시간 수행)",
+      role: "삼성전자 사회공헌 우수 봉사자",
+      category: "사회공헌·봉사",
+      description: "해외 의류 기부(옷캔), 환경 정화 플로깅 등 연간 봉사활동 50시간 이상 완수"
+    },
+    {
+      id: "career-2022-4",
+      year: "2022",
+      period: "9월 ~ 11월",
+      title: "세이프 인플루언서(Safe Influencer) TF 1기 활동",
+      role: "삼성전자 안전문화 개편 TF 1기",
+      category: "사내 핵심 TF",
+      description: "사내 안전문화 개편 원년 멤버로 참여하여 최우수 활동자 표창 수상"
+    },
+    {
+      id: "career-2022-3",
+      year: "2022",
+      period: "8월",
+      title: "위드시큐리티(With Security) TF 사내 IT분과 참여",
+      role: "보안 개편 TF IT분과 실무위원",
+      category: "사내 핵심 TF",
+      description: "삼성전자 사내 정보보안 의식 제고 및 IT 보안 프로세스 개선 TF 활동"
+    },
+    {
+      id: "career-2022-2",
+      year: "2022",
+      period: "3월 ~ 5월",
+      title: "인사제도 개편 관련 '모두의 인사 TF' 승격분과 참여",
+      role: "모두의 인사 TF 승격분과장 / 위원",
+      category: "사내 핵심 TF",
+      description: "삼성전자 미래 인사·승격 제도 개편 TF에 참여하여 본과정 경진대회 표창 수상"
+    },
+    {
+      id: "career-2022-1",
+      year: "2022",
+      period: "연중",
+      title: "삼성전자 사내 지도후배 양성 멘토링",
+      role: "기술팀 지도선배 멘토",
+      category: "전문선임·교육·교수",
+      description: "신입 및 후배 엔지니어 직무 역량 강화와 조직 적응을 돕는 전담 멘토링 수행"
+    },
+    {
+      id: "career-2021-1",
+      year: "2021",
+      period: "12월",
+      title: "THE NANUM 100 CLUB 선정 (점자 도서·해외 의류·편의시설 지도 제작 100시간+)",
+      role: "삼성전자 우수 봉사자 (100시간+)",
+      category: "사회공헌·봉사",
+      description: "시각장애인 점자 도서 제작, 해외 의류 지원, 장애인 편의시설 점검 지도 제작 등 연간 100시간 이상 봉사 참여"
+    }
+  ]
+};
+
 const INITIAL_EXAM_SCHEDULES = [
   {
     id: "exam-1",
@@ -582,8 +935,12 @@ class SyncManager {
         const upgradedSns = (parsed.sns && parsed.sns.snsDataVersion === 2)
           ? parsed.sns
           : JSON.parse(JSON.stringify(INITIAL_SNS_DATA));
-        if (!parsed.sns || parsed.sns.snsDataVersion !== 2) {
+        const upgradedPortfolio = (parsed.portfolio && parsed.portfolio.portfolioDataVersion === 1)
+          ? parsed.portfolio
+          : JSON.parse(JSON.stringify(INITIAL_PORTFOLIO_DATA));
+        if (!parsed.sns || parsed.sns.snsDataVersion !== 2 || !parsed.portfolio || parsed.portfolio.portfolioDataVersion !== 1) {
           parsed.sns = upgradedSns;
+          parsed.portfolio = upgradedPortfolio;
           localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
         }
         return {
@@ -595,6 +952,7 @@ class SyncManager {
           dischargeDate: parsed.dischargeDate || INITIAL_DISCHARGE_DATE,
           camino: parsed.camino || INITIAL_CAMINO_DATA,
           sns: upgradedSns,
+          portfolio: upgradedPortfolio,
           theme: parsed.theme || 'dark'
         };
       }
@@ -611,6 +969,7 @@ class SyncManager {
       dischargeDate: INITIAL_DISCHARGE_DATE,
       camino: INITIAL_CAMINO_DATA,
       sns: INITIAL_SNS_DATA,
+      portfolio: INITIAL_PORTFOLIO_DATA,
       theme: 'dark'
     };
   }
@@ -819,12 +1178,17 @@ let state = {
   dischargeDate: INITIAL_DISCHARGE_DATE,
   camino: INITIAL_CAMINO_DATA,
   sns: INITIAL_SNS_DATA,
+  portfolio: INITIAL_PORTFOLIO_DATA,
   theme: 'dark',
   activeTab: 'overview',
   activeExternalTabId: null,
   examFilter: 'all',
   bandFilter: 'all',
   snsFilter: 'all',
+  portfolioMode: 'awards', // 'awards' | 'careers' | 'timeline'
+  awardFilter: 'all',
+  careerFilter: 'all',
+  portfolioSearch: '',
   energyStudySubtab: 'daily', // 'daily', 'formulas', 'upload'
   currentQuestionIndex: 0
 };
@@ -850,6 +1214,7 @@ function initApp() {
     if (remoteData.dischargeDate) state.dischargeDate = remoteData.dischargeDate;
     if (remoteData.camino) state.camino = remoteData.camino;
     if (remoteData.sns) state.sns = remoteData.sns;
+    if (remoteData.portfolio) state.portfolio = remoteData.portfolio;
     renderCurrentTab();
     showToast('클라우드에서 최신 데이터를 동기화했습니다.');
   });
@@ -879,6 +1244,7 @@ function persistState() {
     dischargeDate: state.dischargeDate,
     camino: state.camino,
     sns: state.sns,
+    portfolio: state.portfolio,
     theme: state.theme
   });
 }
@@ -916,6 +1282,11 @@ function initNavigation() {
 }
 
 function switchTab(tabName) {
+  if (tabName === 'awards') {
+    state.portfolioMode = 'awards';
+  } else if (tabName === 'careers') {
+    state.portfolioMode = 'careers';
+  }
   state.activeTab = tabName;
 
   // Update desktop navigation active state
@@ -945,7 +1316,10 @@ function switchTab(tabName) {
     section.classList.add('hidden');
   });
 
-  const activeSection = document.getElementById(`tab-content-${tabName}`);
+  const sectionId = (tabName === 'awards' || tabName === 'careers' || tabName === 'portfolio')
+    ? 'tab-content-portfolio'
+    : `tab-content-${tabName}`;
+  const activeSection = document.getElementById(sectionId);
   if (activeSection) {
     activeSection.classList.remove('hidden');
   }
@@ -977,6 +1351,11 @@ function renderCurrentTab() {
       break;
     case 'sns':
       renderSnsTab();
+      break;
+    case 'awards':
+    case 'careers':
+    case 'portfolio':
+      renderPortfolioTab();
       break;
     case 'settings':
       renderSettingsTab();
@@ -1559,6 +1938,46 @@ function renderOverviewTab() {
           <button onclick="window.app.switchTab('sns')" class="w-full py-2 bg-pink-500/10 hover:bg-pink-500/20 border border-pink-500/30 text-pink-300 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5">
             <span>콘텐츠 파이프라인 & 성장 지표 관리</span>
           </button>
+        </div>
+
+        <!-- 수상 내역 & 주요 경력 포트폴리오 위젯 (신규 ⭐) -->
+        <div class="glass-panel rounded-2xl p-6 border border-amber-500/30 bg-gradient-to-b from-slate-900 to-amber-950/20">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2">
+              <i class="fa-solid fa-trophy text-amber-400"></i>
+              수상 & 주요 경력 아카이브
+            </h3>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold">총 ${((state.portfolio ? state.portfolio.awards.length : 23) + (state.portfolio ? state.portfolio.careers.length : 15))}건</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2.5 mb-3">
+            <div onclick="window.app.openPortfolioTab('awards')" class="p-3 rounded-xl bg-slate-800/80 hover:bg-slate-800 border border-amber-500/30 cursor-pointer transition group">
+              <div class="flex items-center justify-between text-xs text-amber-400 mb-1">
+                <span class="font-bold">🏅 수상 내역</span>
+                <i class="fa-solid fa-chevron-right text-[10px] group-hover:translate-x-0.5 transition"></i>
+              </div>
+              <div class="text-xl font-black text-white">${state.portfolio ? state.portfolio.awards.length : 23}<span class="text-xs font-normal text-slate-400"> 건</span></div>
+              <div class="text-[10px] text-slate-400 mt-0.5 truncate">사내 표창 · 국회 국방위원장상 등</div>
+            </div>
+
+            <div onclick="window.app.openPortfolioTab('careers')" class="p-3 rounded-xl bg-slate-800/80 hover:bg-slate-800 border border-emerald-500/30 cursor-pointer transition group">
+              <div class="flex items-center justify-between text-xs text-emerald-400 mb-1">
+                <span class="font-bold">💼 주요 경력</span>
+                <i class="fa-solid fa-chevron-right text-[10px] group-hover:translate-x-0.5 transition"></i>
+              </div>
+              <div class="text-xl font-black text-white">${state.portfolio ? state.portfolio.careers.length : 15}<span class="text-xs font-normal text-slate-400"> 건</span></div>
+              <div class="text-[10px] text-slate-400 mt-0.5 truncate">SSIT 교수추천 · 기능장 7명 배출</div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <button onclick="window.app.openPortfolioTab('awards')" class="py-2 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 rounded-xl text-xs font-bold transition">
+              수상 탭 열기
+            </button>
+            <button onclick="window.app.openPortfolioTab('careers')" class="py-2 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 rounded-xl text-xs font-bold transition">
+              경력 탭 열기
+            </button>
+          </div>
         </div>
 
       </div>
@@ -2656,6 +3075,374 @@ function renderSnsTab() {
 }
 
 // ==========================================================================
+// 5-C. 수상 내역(23건) & 주요 경력(15건) 포트폴리오 탭 (⭐ 신규 추가)
+// ==========================================================================
+function renderPortfolioTab() {
+  const container = document.getElementById('tab-content-portfolio');
+  if (!container) return;
+
+  const pData = state.portfolio || INITIAL_PORTFOLIO_DATA;
+  const awards = pData.awards || INITIAL_PORTFOLIO_DATA.awards;
+  const careers = pData.careers || INITIAL_PORTFOLIO_DATA.careers;
+  const mode = state.portfolioMode || 'awards'; // 'awards' | 'careers' | 'timeline'
+  const query = (state.portfolioSearch || '').trim().toLowerCase();
+
+  // 필터링된 수상 목록
+  const filteredAwards = awards.filter(a => {
+    const matchCat = state.awardFilter === 'all' || a.category === state.awardFilter;
+    const matchQuery = !query || [a.year, a.period, a.title, a.issuer, a.category, a.badge].join(' ').toLowerCase().includes(query);
+    return matchCat && matchQuery;
+  });
+
+  // 필터링된 경력 목록
+  const filteredCareers = careers.filter(c => {
+    const matchCat = state.careerFilter === 'all' || c.category === state.careerFilter;
+    const matchQuery = !query || [c.startYear, c.period, c.title, c.role, c.category, c.impact].join(' ').toLowerCase().includes(query);
+    return matchCat && matchQuery;
+  });
+
+  // 카테고리별 색상 헬퍼
+  const getAwardBadge = (cat) => {
+    if (cat.includes('환경안전')) return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30';
+    if (cat.includes('기술')) return 'bg-sky-500/20 text-sky-300 border-sky-500/30';
+    if (cat.includes('제조')) return 'bg-amber-500/20 text-amber-300 border-amber-500/30';
+    if (cat.includes('봉사')) return 'bg-pink-500/20 text-pink-300 border-pink-500/30';
+    return 'bg-purple-500/20 text-purple-300 border-purple-500/30';
+  };
+
+  const getCareerBadge = (cat) => {
+    if (cat.includes('환경안전')) return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30';
+    if (cat.includes('설비')) return 'bg-blue-500/20 text-blue-300 border-blue-500/30';
+    if (cat.includes('사내강사')) return 'bg-amber-500/20 text-amber-300 border-amber-500/30';
+    return 'bg-purple-500/20 text-purple-300 border-purple-500/30';
+  };
+
+  // 연도별 그룹핑 헬퍼
+  const groupByYear = (items) => {
+    const map = {};
+    items.forEach(item => {
+      const y = item.year || item.startYear || '기타';
+      if (!map[y]) map[y] = [];
+      map[y].push(item);
+    });
+    return Object.keys(map).sort((a, b) => (parseInt(b, 10) || 0) - (parseInt(a, 10) || 0))
+      .map(year => ({ year, list: map[year] }));
+  };
+
+  const awardYearGroups = groupByYear(filteredAwards);
+  const careerYearGroups = groupByYear(filteredCareers);
+
+  // 통합 타임라인용 연도별 묶음
+  const combinedItems = [
+    ...filteredAwards.map(a => ({ ...a, itemType: 'award' })),
+    ...filteredCareers.map(c => ({ ...c, itemType: 'career', year: c.startYear }))
+  ];
+  const combinedYearGroups = groupByYear(combinedItems);
+  const highlightCount = awards.filter(a => a.highlight).length;
+  const ongoingCount = careers.filter(c => c.status === 'ongoing').length;
+
+  container.innerHTML = `
+    <!-- Top Banner -->
+    <div class="glass-panel rounded-2xl p-6 sm:p-8 mb-6 border ${mode === 'awards' ? 'border-amber-500/40 bg-gradient-to-r from-slate-900 via-amber-950/30 to-slate-900' : mode === 'careers' ? 'border-emerald-500/40 bg-gradient-to-r from-slate-900 via-emerald-950/30 to-slate-900' : 'border-sky-500/40 bg-gradient-to-r from-slate-900 via-sky-950/30 to-slate-900'} relative overflow-hidden shadow-2xl">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+        <div>
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="px-3 py-1 ${mode === 'awards' ? 'bg-amber-500/20 text-amber-300 border-amber-500/30' : mode === 'careers' ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' : 'bg-sky-500/20 text-sky-300 border-sky-500/30'} border text-xs font-bold rounded-full flex items-center gap-1.5">
+              <i class="fa-solid ${mode === 'awards' ? 'fa-trophy' : mode === 'careers' ? 'fa-briefcase' : 'fa-layer-group'}"></i>
+              ${mode === 'awards' ? '수상 내역 전용 관리 모드 (Option B)' : mode === 'careers' ? '주요 경력 & TF 활동 전용 관리 모드 (Option B)' : '수상·경력 연도별 통합 타임라인 (Option A)'}
+            </span>
+            <span class="text-xs text-slate-400">2014년 ~ 2026년 삼성전자 사내 표창 및 주요 경력 아카이브</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
+            ${mode === 'awards' ? '<i class="fa-solid fa-trophy text-amber-400"></i> 수상 및 표창 이력 관리' : mode === 'careers' ? '<i class="fa-solid fa-briefcase text-emerald-400"></i> 주요 경력 & 사내 TF 활동' : '<i class="fa-solid fa-award text-sky-400"></i> 수상 & 경력 연도별 통합 포트폴리오'}
+          </h1>
+          <p class="text-sm text-slate-300 mt-2 max-w-3xl leading-relaxed">
+            ${mode === 'awards'
+              ? '삼성전자 총괄부사장·부사장·센터장·기술팀장 표창 및 병무청장 표창까지 총 23건의 수상 실적을 연도별·분야별로 한눈에 관리합니다.'
+              : mode === 'careers'
+              ? '에너지 절감 TF·환경안전 개선 TF·초순수(UPW) 절감 TF·설비 이설 TF(화성↔평택)·DS부문 안전문화 사내강사 등 15건의 핵심 경력을 관리합니다.'
+              : '수상 내역(23건)과 주요 경력(15건)을 연도 흐름에 따라 좌우 2단으로 교차 비교하며 이력서·포트폴리오용으로 한눈에 조망합니다.'}
+          </p>
+        </div>
+
+        <div class="flex flex-wrap gap-2.5">
+          <button onclick="window.app.openAddAwardModal()" class="py-2.5 px-4 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-xl text-xs font-extrabold shadow-lg shadow-amber-500/20 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-plus"></i> 새 수상 내역 추가
+          </button>
+          <button onclick="window.app.openAddCareerModal()" class="py-2.5 px-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-extrabold shadow-lg shadow-emerald-500/20 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-plus"></i> 새 경력/활동 추가
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Big 3-Way View Switcher (가독성 극대화: 수상 전용 / 경력 전용 / 연도별 통합) -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+      <button onclick="window.app.openPortfolioTab('awards')" class="p-4 rounded-2xl border text-left transition flex items-center justify-between ${mode === 'awards' ? 'bg-amber-500/20 border-amber-400 text-white shadow-lg shadow-amber-500/10' : 'bg-slate-900/70 border-slate-800 text-slate-400 hover:bg-slate-800/80 hover:text-slate-200'}">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-lg">
+            <i class="fa-solid fa-trophy"></i>
+          </div>
+          <div>
+            <div class="text-sm font-extrabold ${mode === 'awards' ? 'text-amber-300' : 'text-white'}">1. 수상 내역 전용 탭</div>
+            <div class="text-[11px] text-slate-400">2014~2026 사내외 표창 아카이브</div>
+          </div>
+        </div>
+        <span class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 text-xs font-black">${awards.length}건</span>
+      </button>
+
+      <button onclick="window.app.openPortfolioTab('careers')" class="p-4 rounded-2xl border text-left transition flex items-center justify-between ${mode === 'careers' ? 'bg-emerald-500/20 border-emerald-400 text-white shadow-lg shadow-emerald-500/10' : 'bg-slate-900/70 border-slate-800 text-slate-400 hover:bg-slate-800/80 hover:text-slate-200'}">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-lg">
+            <i class="fa-solid fa-briefcase"></i>
+          </div>
+          <div>
+            <div class="text-sm font-extrabold ${mode === 'careers' ? 'text-emerald-300' : 'text-white'}">2. 주요 경력 & TF 전용 탭</div>
+            <div class="text-[11px] text-slate-400">기술팀/그룹 대표 TF · 사내강사</div>
+          </div>
+        </div>
+        <span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 text-xs font-black">${careers.length}건</span>
+      </button>
+
+      <button onclick="window.app.openPortfolioTab('timeline')" class="p-4 rounded-2xl border text-left transition flex items-center justify-between ${mode === 'timeline' ? 'bg-sky-500/20 border-sky-400 text-white shadow-lg shadow-sky-500/10' : 'bg-slate-900/70 border-slate-800 text-slate-400 hover:bg-slate-800/80 hover:text-slate-200'}">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-sky-500/20 border border-sky-500/40 flex items-center justify-center text-sky-400 text-lg">
+            <i class="fa-solid fa-timeline"></i>
+          </div>
+          <div>
+            <div class="text-sm font-extrabold ${mode === 'timeline' ? 'text-sky-300' : 'text-white'}">3. 연도별 수상·경력 통합 뷰</div>
+            <div class="text-[11px] text-slate-400">연도별 수상+경력 2단 교차 비교</div>
+          </div>
+        </div>
+        <span class="px-2.5 py-1 rounded-lg bg-sky-500/20 text-sky-300 text-xs font-black">${awards.length + careers.length}건</span>
+      </button>
+    </div>
+
+    <!-- 4 KPI Highlight Cards -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div class="glass-panel rounded-2xl p-4 border border-slate-800 bg-slate-900/60">
+        <div class="text-[11px] text-slate-400 flex items-center justify-between mb-1">
+          <span>누적 수상 및 표창</span>
+          <i class="fa-solid fa-medal text-amber-400"></i>
+        </div>
+        <div class="text-2xl font-black text-white">${awards.length}<span class="text-xs font-normal text-slate-400"> 건</span></div>
+        <div class="text-[11px] text-amber-300 mt-1">⭐ 주요/메이저 표창 ${highlightCount}건 포함</div>
+      </div>
+
+      <div class="glass-panel rounded-2xl p-4 border border-slate-800 bg-slate-900/60">
+        <div class="text-[11px] text-slate-400 flex items-center justify-between mb-1">
+          <span>핵심 경력 & 사내외 TF</span>
+          <i class="fa-solid fa-users-gear text-emerald-400"></i>
+        </div>
+        <div class="text-2xl font-black text-white">${careers.length}<span class="text-xs font-normal text-slate-400"> 건</span></div>
+        <div class="text-[11px] text-emerald-300 mt-1">🟢 현업 진행 중(Active) ${ongoingCount}건</div>
+      </div>
+
+      <div class="glass-panel rounded-2xl p-4 border border-slate-800 bg-slate-900/60">
+        <div class="text-[11px] text-slate-400 flex items-center justify-between mb-1">
+          <span>환경안전 · 에너지 전문성</span>
+          <i class="fa-solid fa-shield-halved text-sky-400"></i>
+        </div>
+        <div class="text-base font-black text-sky-300 mt-0.5">환경안전·에너지 특화</div>
+        <div class="text-[11px] text-slate-400 mt-1">에너지절감·UPW절감·위험성평가·사내강사</div>
+      </div>
+
+      <div class="glass-panel rounded-2xl p-4 border border-slate-800 bg-slate-900/60">
+        <div class="text-[11px] text-slate-400 flex items-center justify-between mb-1">
+          <span>최고 훈격 및 대표 성과</span>
+          <i class="fa-solid fa-crown text-pink-400"></i>
+        </div>
+        <div class="text-base font-black text-pink-300 mt-0.5">부사장 표창 5회 · 병무청장상</div>
+        <div class="text-[11px] text-slate-400 mt-1">메모리 기술전 2연속 · 품질인의 날 BP상</div>
+      </div>
+    </div>
+
+    <!-- Filter & Search Bar -->
+    <div class="glass-panel rounded-2xl p-4 mb-6 border border-slate-800 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+      <div class="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 text-xs">
+        ${mode === 'awards' ? `
+          <button onclick="window.app.setAwardFilter('all')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.awardFilter === 'all' ? 'bg-amber-500 text-slate-950' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">전체 (${awards.length})</button>
+          <button onclick="window.app.setAwardFilter('환경안전/보건')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.awardFilter === '환경안전/보건' ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">🛡️ 환경안전/보건 (${awards.filter(a => a.category === '환경안전/보건').length})</button>
+          <button onclick="window.app.setAwardFilter('기술/품질/학술')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.awardFilter === '기술/품질/학술' ? 'bg-sky-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">⚡ 기술/품질/학술 (${awards.filter(a => a.category === '기술/품질/학술').length})</button>
+          <button onclick="window.app.setAwardFilter('제조/모범/혁신')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.awardFilter === '제조/모범/혁신' ? 'bg-amber-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">🏆 제조/모범/혁신 (${awards.filter(a => a.category === '제조/모범/혁신').length})</button>
+          <button onclick="window.app.setAwardFilter('직무/협업')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.awardFilter === '직무/협업' ? 'bg-purple-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">🤝 직무/협업 (${awards.filter(a => a.category === '직무/협업').length})</button>
+          <button onclick="window.app.setAwardFilter('봉사/공헌')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.awardFilter === '봉사/공헌' ? 'bg-pink-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">💚 봉사/공헌 (${awards.filter(a => a.category === '봉사/공헌').length})</button>
+        ` : mode === 'careers' ? `
+          <button onclick="window.app.setCareerFilter('all')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.careerFilter === 'all' ? 'bg-emerald-500 text-slate-950' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">전체 (${careers.length})</button>
+          <button onclick="window.app.setCareerFilter('환경안전/에너지')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.careerFilter === '환경안전/에너지' ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">🌿 환경안전/에너지 (${careers.filter(c => c.category === '환경안전/에너지').length})</button>
+          <button onclick="window.app.setCareerFilter('설비/제조혁신 TF')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.careerFilter === '설비/제조혁신 TF' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">⚙️ 설비/제조혁신 TF (${careers.filter(c => c.category === '설비/제조혁신 TF').length})</button>
+          <button onclick="window.app.setCareerFilter('사내강사/리더십')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.careerFilter === '사내강사/리더십' ? 'bg-amber-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">🎤 사내강사/리더십 (${careers.filter(c => c.category === '사내강사/리더십').length})</button>
+          <button onclick="window.app.setCareerFilter('조직문화/협의체')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.careerFilter === '조직문화/협의체' ? 'bg-purple-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">💬 조직문화/협의체 (${careers.filter(c => c.category === '조직문화/협의체').length})</button>
+        ` : `
+          <span class="text-xs text-sky-300 font-bold px-2"><i class="fa-solid fa-circle-info mr-1"></i> 연도별로 수상 내역(🏅)과 주요 경력(💼)이 함께 표시됩니다.</span>
+        `}
+      </div>
+
+      <div class="relative w-full md:w-64">
+        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+        <input type="text" value="${state.portfolioSearch || ''}" oninput="window.app.setPortfolioSearch(this.value)" placeholder="수상명, 표창자, TF, 연도 검색..." class="w-full bg-slate-900 border border-slate-700 focus:border-sky-400 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white focus:outline-none">
+      </div>
+    </div>
+
+    <!-- Main Content Area by Mode -->
+    ${mode === 'awards' ? `
+      <div class="space-y-6">
+        ${awardYearGroups.length === 0 ? `
+          <div class="glass-panel rounded-2xl p-10 text-center text-slate-400 text-xs">조건에 맞는 수상 내역이 없습니다.</div>
+        ` : awardYearGroups.map(group => `
+          <div class="glass-panel rounded-2xl p-5 sm:p-6 border border-slate-800/90">
+            <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-800">
+              <div class="flex items-center gap-2.5">
+                <span class="px-3 py-1 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-black text-sm">${group.year}년</span>
+                <span class="text-xs text-slate-400 font-semibold">수상 및 표창 ${group.list.length}건</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-3">
+              ${group.list.map(a => `
+                <div class="p-4 rounded-xl ${a.highlight ? 'bg-gradient-to-r from-amber-950/30 via-slate-800/80 to-slate-800/60 border-amber-500/40' : 'bg-slate-800/60 border-slate-700/60'} hover:bg-slate-800 border transition flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div class="space-y-1.5">
+                    <div class="flex flex-wrap items-center gap-2">
+                      ${a.highlight ? `<span class="text-[10px] font-black px-2 py-0.5 rounded bg-amber-500 text-slate-950">⭐ 주요 표창</span>` : ''}
+                      <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-slate-900 text-amber-300 border border-slate-700">
+                        <i class="fa-regular fa-calendar mr-1"></i>${a.period}
+                      </span>
+                      <span class="text-[11px] font-bold px-2.5 py-0.5 rounded border ${getAwardBadge(a.category)}">
+                        ${a.category}
+                      </span>
+                      <span class="text-[11px] font-bold px-2.5 py-0.5 rounded bg-amber-500/15 text-amber-200 border border-amber-500/30">
+                        🏅 ${a.issuer}
+                      </span>
+                    </div>
+                    <h3 class="text-sm sm:text-base font-extrabold text-white leading-snug">${a.title}</h3>
+                  </div>
+
+                  <div class="flex items-center gap-1.5 self-end sm:self-center flex-shrink-0">
+                    <button onclick="window.app.openEditAwardModal('${a.id}')" class="px-2.5 py-1 rounded-lg bg-slate-700/70 hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 text-xs font-bold transition flex items-center gap-1">
+                      <i class="fa-solid fa-pen-to-square"></i> 수정
+                    </button>
+                    <button onclick="window.app.deleteAward('${a.id}')" class="px-2 py-1 rounded-lg bg-slate-700/40 hover:bg-red-500/20 text-slate-400 hover:text-red-300 text-xs transition">
+                      <i class="fa-regular fa-trash-can"></i>
+                    </button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    ` : mode === 'careers' ? `
+      <div class="space-y-6">
+        ${careerYearGroups.length === 0 ? `
+          <div class="glass-panel rounded-2xl p-10 text-center text-slate-400 text-xs">조건에 맞는 경력 내역이 없습니다.</div>
+        ` : careerYearGroups.map(group => `
+          <div class="glass-panel rounded-2xl p-5 sm:p-6 border border-slate-800/90">
+            <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-800">
+              <div class="flex items-center gap-2.5">
+                <span class="px-3 py-1 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-black text-sm">${group.year}년 시작</span>
+                <span class="text-xs text-slate-400 font-semibold">주요 경력 & TF 활동 ${group.list.length}건</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-3">
+              ${group.list.map(c => `
+                <div class="p-4 rounded-xl bg-slate-800/60 hover:bg-slate-800 border ${c.status === 'ongoing' ? 'border-emerald-500/40' : 'border-slate-700/60'} transition flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div class="space-y-1.5">
+                    <div class="flex flex-wrap items-center gap-2">
+                      <span class="text-[10px] font-bold px-2 py-0.5 rounded ${c.status === 'ongoing' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' : 'bg-slate-700/70 text-slate-300'}">
+                        ${c.status === 'ongoing' ? '🟢 진행 중 (Active)' : '⚪ 완료'}
+                      </span>
+                      <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-slate-900 text-emerald-300 border border-slate-700">
+                        <i class="fa-regular fa-clock mr-1"></i>${c.period}
+                      </span>
+                      <span class="text-[11px] font-bold px-2.5 py-0.5 rounded border ${getCareerBadge(c.category)}">
+                        ${c.category}
+                      </span>
+                      <span class="text-[11px] font-bold px-2.5 py-0.5 rounded bg-emerald-500/15 text-emerald-200 border border-emerald-500/30">
+                        💼 ${c.role}
+                      </span>
+                    </div>
+                    <h3 class="text-sm sm:text-base font-extrabold text-white leading-snug">${c.title}</h3>
+                    ${c.impact ? `<p class="text-xs text-slate-400 leading-relaxed">💡 핵심 성과: ${c.impact}</p>` : ''}
+                  </div>
+
+                  <div class="flex items-center gap-1.5 self-end sm:self-center flex-shrink-0">
+                    <button onclick="window.app.openEditCareerModal('${c.id}')" class="px-2.5 py-1 rounded-lg bg-slate-700/70 hover:bg-emerald-500/20 text-slate-300 hover:text-emerald-300 text-xs font-bold transition flex items-center gap-1">
+                      <i class="fa-solid fa-pen-to-square"></i> 수정
+                    </button>
+                    <button onclick="window.app.deleteCareer('${c.id}')" class="px-2 py-1 rounded-lg bg-slate-700/40 hover:bg-red-500/20 text-slate-400 hover:text-red-300 text-xs transition">
+                      <i class="fa-regular fa-trash-can"></i>
+                    </button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    ` : `
+      <!-- Combined Year-by-Year Timeline View -->
+      <div class="space-y-6">
+        ${combinedYearGroups.map(group => `
+          <div class="glass-panel rounded-2xl p-5 sm:p-6 border border-slate-800/90">
+            <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-800">
+              <div class="flex items-center gap-2.5">
+                <span class="px-3 py-1 rounded-xl bg-sky-500/20 border border-sky-500/40 text-sky-300 font-black text-sm">${group.year === '상시' ? '상시 활동' : group.year + '년'}</span>
+                <span class="text-xs text-slate-400">수상 ${group.list.filter(i => i.itemType === 'award').length}건 · 경력/TF ${group.list.filter(i => i.itemType === 'career').length}건</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <!-- Left Column: Awards in that year -->
+              <div class="space-y-2.5">
+                <div class="text-xs font-bold text-amber-400 flex items-center gap-1.5 mb-1">
+                  <i class="fa-solid fa-trophy"></i> 수상 내역 (${group.list.filter(i => i.itemType === 'award').length})
+                </div>
+                ${group.list.filter(i => i.itemType === 'award').length === 0 ? `
+                  <div class="p-3 rounded-xl bg-slate-900/40 border border-slate-800/60 text-[11px] text-slate-500">해당 연도 등록된 수상 없음</div>
+                ` : group.list.filter(i => i.itemType === 'award').map(a => `
+                  <div class="p-3.5 rounded-xl bg-amber-950/15 border border-amber-500/25 flex items-start justify-between gap-2">
+                    <div>
+                      <div class="flex flex-wrap items-center gap-1.5 mb-1">
+                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">${a.period}</span>
+                        <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-amber-200 font-semibold">${a.issuer}</span>
+                      </div>
+                      <div class="text-xs font-bold text-white">${a.title}</div>
+                    </div>
+                    <button onclick="window.app.openEditAwardModal('${a.id}')" class="text-[11px] text-amber-400 hover:underline flex-shrink-0">수정</button>
+                  </div>
+                `).join('')}
+              </div>
+
+              <!-- Right Column: Careers in that year -->
+              <div class="space-y-2.5">
+                <div class="text-xs font-bold text-emerald-400 flex items-center gap-1.5 mb-1">
+                  <i class="fa-solid fa-briefcase"></i> 주요 경력 & TF (${group.list.filter(i => i.itemType === 'career').length})
+                </div>
+                ${group.list.filter(i => i.itemType === 'career').length === 0 ? `
+                  <div class="p-3 rounded-xl bg-slate-900/40 border border-slate-800/60 text-[11px] text-slate-500">해당 연도 등록된 경력 없음</div>
+                ` : group.list.filter(i => i.itemType === 'career').map(c => `
+                  <div class="p-3.5 rounded-xl bg-emerald-950/15 border border-emerald-500/25 flex items-start justify-between gap-2">
+                    <div>
+                      <div class="flex flex-wrap items-center gap-1.5 mb-1">
+                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">${c.period}</span>
+                        <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-emerald-200 font-semibold">${c.role}</span>
+                      </div>
+                      <div class="text-xs font-bold text-white">${c.title}</div>
+                    </div>
+                    <button onclick="window.app.openEditCareerModal('${c.id}')" class="text-[11px] text-emerald-400 hover:underline flex-shrink-0">수정</button>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `}
+  `;
+}
+
+// ==========================================================================
 // 6. Settings & Cloud Sync Tab
 
 // ==========================================================================
@@ -3179,6 +3966,86 @@ window.app = {
     }
   },
 
+  // Awards & Career Portfolio Actions (🏅💼)
+  openPortfolioTab: (mode) => {
+    state.portfolioMode = mode || 'awards';
+    switchTab(mode === 'careers' ? 'careers' : 'awards');
+  },
+  setAwardFilter: (cat) => {
+    state.awardFilter = cat;
+    renderPortfolioTab();
+  },
+  setCareerFilter: (cat) => {
+    state.careerFilter = cat;
+    renderPortfolioTab();
+  },
+  setPortfolioSearch: (q) => {
+    state.portfolioSearch = q;
+    renderPortfolioTab();
+  },
+  openAddAwardModal: () => {
+    const form = document.getElementById('form-add-award');
+    if (form) form.reset();
+    document.getElementById('modal-add-award').classList.remove('hidden');
+  },
+  openEditAwardModal: (id) => {
+    if (!state.portfolio || !state.portfolio.awards) return;
+    const item = state.portfolio.awards.find(a => a.id === id);
+    if (!item) return;
+    document.getElementById('edit-award-id').value = item.id;
+    document.getElementById('edit-award-year').value = item.year || '';
+    document.getElementById('edit-award-period').value = item.period || '';
+    document.getElementById('edit-award-category').value = item.category || '직무/협업';
+    document.getElementById('edit-award-issuer').value = item.issuer || '';
+    document.getElementById('edit-award-title').value = item.title || '';
+    document.getElementById('edit-award-badge').value = item.badge || '';
+    document.getElementById('edit-award-highlight').checked = !!item.highlight;
+    document.getElementById('modal-edit-award').classList.remove('hidden');
+  },
+  deleteAward: (id) => {
+    if (confirm('이 수상 내역을 삭제하시겠습니까?')) {
+      if (state.portfolio && state.portfolio.awards) {
+        state.portfolio.awards = state.portfolio.awards.filter(a => a.id !== id);
+        persistState();
+        updatePortfolioBadges();
+        renderPortfolioTab();
+        if (state.activeTab === 'overview') renderOverviewTab();
+        showToast('수상 내역이 삭제되었습니다.');
+      }
+    }
+  },
+  openAddCareerModal: () => {
+    const form = document.getElementById('form-add-career');
+    if (form) form.reset();
+    document.getElementById('modal-add-career').classList.remove('hidden');
+  },
+  openEditCareerModal: (id) => {
+    if (!state.portfolio || !state.portfolio.careers) return;
+    const item = state.portfolio.careers.find(c => c.id === id);
+    if (!item) return;
+    document.getElementById('edit-career-id').value = item.id;
+    document.getElementById('edit-career-year').value = item.startYear || '';
+    document.getElementById('edit-career-period').value = item.period || '';
+    document.getElementById('edit-career-category').value = item.category || '설비/제조혁신 TF';
+    document.getElementById('edit-career-role').value = item.role || '';
+    document.getElementById('edit-career-title').value = item.title || '';
+    document.getElementById('edit-career-status').value = item.status || 'completed';
+    document.getElementById('edit-career-impact').value = item.impact || '';
+    document.getElementById('modal-edit-career').classList.remove('hidden');
+  },
+  deleteCareer: (id) => {
+    if (confirm('이 경력/TF 이력을 삭제하시겠습니까?')) {
+      if (state.portfolio && state.portfolio.careers) {
+        state.portfolio.careers = state.portfolio.careers.filter(c => c.id !== id);
+        persistState();
+        updatePortfolioBadges();
+        renderPortfolioTab();
+        if (state.activeTab === 'overview') renderOverviewTab();
+        showToast('경력/TF 이력이 삭제되었습니다.');
+      }
+    }
+  },
+
   closeAllModals: () => {
     document.querySelectorAll('.app-modal').forEach(m => m.classList.add('hidden'));
   },
@@ -3211,6 +4078,7 @@ window.app = {
       questions: state.questions,
       camino: state.camino,
       sns: state.sns,
+      portfolio: state.portfolio,
       externalDashboards: state.externalDashboards,
       theme: state.theme
     });
@@ -3221,6 +4089,7 @@ window.app = {
     try {
       const parsed = await syncManager.importFromJSON(file);
       state = { ...state, ...parsed };
+      updatePortfolioBadges();
       renderCurrentTab();
       showToast('백업 파일에서 성공적으로 복원했습니다.');
     } catch (err) {
@@ -3229,10 +4098,22 @@ window.app = {
   }
 };
 
+function updatePortfolioBadges() {
+  const awardsBadge = document.getElementById('nav-badge-awards');
+  const careersBadge = document.getElementById('nav-badge-careers');
+  if (awardsBadge && state.portfolio && state.portfolio.awards) {
+    awardsBadge.textContent = `${state.portfolio.awards.length}건`;
+  }
+  if (careersBadge && state.portfolio && state.portfolio.careers) {
+    careersBadge.textContent = `${state.portfolio.careers.length}건`;
+  }
+}
+
 // ==========================================================================
 // Modal Form Submissions
 // ==========================================================================
 function initModals() {
+  updatePortfolioBadges();
   // Backdrop click to close
   document.querySelectorAll('.app-modal').forEach(modal => {
     modal.addEventListener('click', (e) => {
@@ -3582,6 +4463,120 @@ function initModals() {
           window.app.closeAllModals();
           renderSnsTab();
           showToast('콘텐츠 정보가 성공적으로 수정되었습니다.');
+        }
+      }
+    });
+  }
+
+  // 12. Add Award Form 🏅
+  const formAddAward = document.getElementById('form-add-award');
+  if (formAddAward) {
+    formAddAward.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!state.portfolio) state.portfolio = JSON.parse(JSON.stringify(INITIAL_PORTFOLIO_DATA));
+      if (!state.portfolio.awards) state.portfolio.awards = [];
+
+      const newAward = {
+        id: 'aw-' + Date.now(),
+        year: parseInt(document.getElementById('add-award-year').value, 10) || new Date().getFullYear(),
+        period: document.getElementById('add-award-period').value.trim(),
+        category: document.getElementById('add-award-category').value,
+        issuer: document.getElementById('add-award-issuer').value.trim(),
+        title: document.getElementById('add-award-title').value.trim(),
+        badge: document.getElementById('add-award-badge').value.trim() || '표창',
+        highlight: document.getElementById('add-award-highlight').checked
+      };
+
+      state.portfolio.awards.unshift(newAward);
+      persistState();
+      updatePortfolioBadges();
+      window.app.closeAllModals();
+      renderPortfolioTab();
+      if (state.activeTab === 'overview') renderOverviewTab();
+      formAddAward.reset();
+      showToast('새 수상 내역이 등록되었습니다.');
+    });
+  }
+
+  // 13. Edit Award Form 🏅
+  const formEditAward = document.getElementById('form-edit-award');
+  if (formEditAward) {
+    formEditAward.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('edit-award-id').value;
+      if (state.portfolio && state.portfolio.awards) {
+        const item = state.portfolio.awards.find(a => a.id === id);
+        if (item) {
+          item.year = parseInt(document.getElementById('edit-award-year').value, 10) || item.year;
+          item.period = document.getElementById('edit-award-period').value.trim();
+          item.category = document.getElementById('edit-award-category').value;
+          item.issuer = document.getElementById('edit-award-issuer').value.trim();
+          item.title = document.getElementById('edit-award-title').value.trim();
+          item.badge = document.getElementById('edit-award-badge').value.trim() || '표창';
+          item.highlight = document.getElementById('edit-award-highlight').checked;
+
+          persistState();
+          window.app.closeAllModals();
+          renderPortfolioTab();
+          if (state.activeTab === 'overview') renderOverviewTab();
+          showToast('수상 내역이 수정되었습니다.');
+        }
+      }
+    });
+  }
+
+  // 14. Add Career Form 💼
+  const formAddCareer = document.getElementById('form-add-career');
+  if (formAddCareer) {
+    formAddCareer.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!state.portfolio) state.portfolio = JSON.parse(JSON.stringify(INITIAL_PORTFOLIO_DATA));
+      if (!state.portfolio.careers) state.portfolio.careers = [];
+
+      const newCareer = {
+        id: 'cr-' + Date.now(),
+        startYear: parseInt(document.getElementById('add-career-year').value, 10) || new Date().getFullYear(),
+        period: document.getElementById('add-career-period').value.trim(),
+        category: document.getElementById('add-career-category').value,
+        role: document.getElementById('add-career-role').value.trim(),
+        title: document.getElementById('add-career-title').value.trim(),
+        status: document.getElementById('add-career-status').value,
+        impact: document.getElementById('add-career-impact').value.trim()
+      };
+
+      state.portfolio.careers.unshift(newCareer);
+      persistState();
+      updatePortfolioBadges();
+      window.app.closeAllModals();
+      renderPortfolioTab();
+      if (state.activeTab === 'overview') renderOverviewTab();
+      formAddCareer.reset();
+      showToast('새 주요 경력/TF 활동이 등록되었습니다.');
+    });
+  }
+
+  // 15. Edit Career Form 💼
+  const formEditCareer = document.getElementById('form-edit-career');
+  if (formEditCareer) {
+    formEditCareer.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('edit-career-id').value;
+      if (state.portfolio && state.portfolio.careers) {
+        const item = state.portfolio.careers.find(c => c.id === id);
+        if (item) {
+          item.startYear = parseInt(document.getElementById('edit-career-year').value, 10) || item.startYear;
+          item.period = document.getElementById('edit-career-period').value.trim();
+          item.category = document.getElementById('edit-career-category').value;
+          item.role = document.getElementById('edit-career-role').value.trim();
+          item.title = document.getElementById('edit-career-title').value.trim();
+          item.status = document.getElementById('edit-career-status').value;
+          item.impact = document.getElementById('edit-career-impact').value.trim();
+
+          persistState();
+          window.app.closeAllModals();
+          renderPortfolioTab();
+          if (state.activeTab === 'overview') renderOverviewTab();
+          showToast('경력/TF 활동 정보가 수정되었습니다.');
         }
       }
     });
