@@ -70,8 +70,9 @@ const INITIAL_CAMINO_DATA = {
   memos: "에너지관리기사 시험 직후 지친 심신을 리셋하고 인생의 새로운 챕터를 준비하는 나만의 성찰 트레킹.\n'부엔 카미노(Buen Camino)!'를 마음에 품고 욕심 없이 한 걸음씩 걷기."
 };
 
-// 3대 SNS & 퍼스널 브랜딩 통합 관리 초기 데이터 (LinkedIn, Instagram, Brunch)
+// 3대 SNS & 퍼스널 브랜딩 통합 관리 초기 데이터 (LinkedIn, Instagram, Brunch 실제 데이터 반영)
 const INITIAL_SNS_DATA = {
+  snsDataVersion: 2,
   channels: [
     {
       id: "linkedin",
@@ -82,16 +83,16 @@ const INITIAL_SNS_DATA = {
       themeColor: "blue",
       badgeClass: "bg-blue-500/20 text-blue-400 border-blue-500/30",
       btnClass: "bg-blue-600 hover:bg-blue-700 text-white",
-      category: "커리어 & 전문 네트워킹",
-      followers: 128,
+      category: "삼성전자 · 커리어 & 전문가 네트워킹",
+      followers: 100,
       targetFollowers: 500,
-      postsCount: 16,
-      weeklyGoal: "주 1회 커리어/에너지/기후 인사이트 발행",
-      engagementRate: "4.8%",
-      monthlyViews: 850,
-      positioning: "에너지관리·기후탐사·평생교육 융합 전문가 브랜딩",
-      hashtags: "#에너지관리기사 #기후탐사 #커리어성장 #친환경에너지 #프로젝트관리",
-      memo: "자격증 취득 과정, 기후탐사대 성과 발표회 인사이트 중심으로 전문가 네트워크 확장"
+      postsCount: 15,
+      weeklyGoal: "주 1회 커리어·안전/에너지·청년정책 인사이트 발행",
+      engagementRate: "5.4%",
+      monthlyViews: 1200,
+      positioning: "삼성전자(인사·보안·안전 TF / MZ자문단) · 산업공학 & 사회복지 · 화성시 청년정책협의체 분과장",
+      hashtags: "#삼성전자 #안전문화 #에너지관리기사 #위험물기능장 #산업안전기사 #청년정책",
+      memo: "링크드인은 비로그인 외부 조회 차단 정책이 적용되어 카드 내 숫자 칸에서 실제 1촌/팔로워 수를 클릭해 바로 입력·관리할 수 있습니다."
     },
     {
       id: "instagram",
@@ -102,74 +103,74 @@ const INITIAL_SNS_DATA = {
       themeColor: "pink",
       badgeClass: "bg-pink-500/20 text-pink-400 border-pink-500/30",
       btnClass: "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white",
-      category: "라이프스타일 & 뮤직/순례길",
-      followers: 342,
-      targetFollowers: 1000,
-      postsCount: 48,
+      category: "라이프스타일 · 팔로잉 301명",
+      followers: 302,
+      targetFollowers: 500,
+      postsCount: 180,
       weeklyGoal: "주 2회 피드/릴스 (밴드 합주, 산티아고 순례길, 일상 기록)",
-      engagementRate: "6.2%",
-      monthlyViews: 2400,
-      positioning: "밴드 음악 활동, 산티아고 순례길 도전, 갓생 라이프 아카이빙",
+      engagementRate: "6.8%",
+      monthlyViews: 2800,
+      positioning: "실제 프로필 연동 완료 (팔로워 302명 · 팔로잉 301명 · 게시물 180개) | 음악 & 순례길 아카이빙",
       hashtags: "#밴드합주 #산티아고순례길 #일상기록 #자기계발 #음악스타그램",
-      memo: "11월 산티아고 순례길 릴스 시리즈 및 합주 영상 하이라이트 업로드 예정"
+      memo: "실제 인스타그램 지표(팔로워 302명, 팔로잉 301명, 게시물 180개) 반영 완료 · 11월 산티아고 순례길 릴스 업로드 예정"
     },
     {
       id: "brunch",
-      name: "Brunch Story (브런치스토리)",
-      handle: "@musimtook",
+      name: "Brunch Story (아론의 브런치)",
+      handle: "@musimtook (작가명: 아론)",
       url: "https://brunch.co.kr/@musimtook",
       icon: "fa-solid fa-feather-pointed",
       themeColor: "emerald",
       badgeClass: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
       btnClass: "bg-emerald-600 hover:bg-emerald-700 text-white",
-      category: "에세이 & 심층 칼럼 아카이브",
-      followers: 52,
-      targetFollowers: 300,
-      postsCount: 14,
-      weeklyGoal: "격주 1회 깊이 있는 에세이 및 회고록 발행",
-      engagementRate: "8.5%",
-      monthlyViews: 1600,
-      positioning: "삶의 성찰, 순례길 여행기, 커리어와 배움에 대한 진솔한 글쓰기",
-      hashtags: "#브런치작가 #에세이 #산티아고순례길 #성장기록 #사색",
-      memo: "브런치북 연재 기획: 에너지관리기사 도전기 & 산티아고 3일의 기록"
+      category: "아론 작가 멤버십 · 작품 18 · 독서노트 75",
+      followers: 223,
+      targetFollowers: 500,
+      postsCount: 741,
+      weeklyGoal: "글쓰듯 말하고 싶습니다. 당신의 마음에 닿기를 바라며 연재",
+      engagementRate: "9.2%",
+      monthlyViews: 4500,
+      positioning: "실제 브런치 연동 완료 (구독자 223명 · 발행 글 741편 · 브런치북/매거진 작품 18집 · 독서노트 75편)",
+      hashtags: "#아론의브런치 #브런치작가멤버십 #에세이스트 #독서노트 #산티아고순례길",
+      memo: "삼성전자 학생·회사원·에세이스트 '아론' | 국회국방위원장상 & 화성시 산문 장려상 수상 작가 아카이브"
     }
   ],
   posts: [
     {
       id: "sns-post-1",
-      platform: "linkedin",
-      title: "화기애애 기후탐사대 성과 발표회 프로젝트 회고 및 인사이트",
-      status: "published", // 'idea' | 'writing' | 'published'
-      date: "2026-10-31",
-      url: "https://www.linkedin.com/in/%EB%82%A8%ED%98%84-%EA%B9%80-4a62b5340/",
-      views: 320,
-      likes: 28,
-      notes: "발표 슬라이드 4장 카드뉴스 형식 공유 및 네트워킹 유도"
+      platform: "brunch",
+      title: "[아론의 브런치] 741편의 에세이와 75편의 독서노트 연재 아카이브",
+      status: "published",
+      date: "2026-09-25",
+      url: "https://brunch.co.kr/@musimtook",
+      views: 1420,
+      likes: 64,
+      notes: "구독자 223명 · 작품 18개 · 아론 작가 멤버십 활발 운영 중"
     },
     {
       id: "sns-post-2",
       platform: "instagram",
-      title: "에너지관리기사 시험 종료 & 산티아고 순례길 출발 공항 릴스",
-      status: "idea",
+      title: "[@namhyeon_kim_] 180번째 피드 기록 & 11월 산티아고 순례길 출발 릴스 기획",
+      status: "writing",
       date: "2026-11-07",
       url: "https://www.instagram.com/namhyeon_kim_/",
-      views: 0,
-      likes: 0,
-      notes: "크레덴샬 순례자 여권과 30L 배낭 패킹 샷 촬영"
+      views: 310,
+      likes: 45,
+      notes: "팔로워 302명 / 팔로잉 301명 네트워크 기반 합주 영상 및 순례길 하이라이트 공유"
     },
     {
       id: "sns-post-3",
-      platform: "brunch",
-      title: "[브런치 에세이] 시험장을 나와 산티아고 순례길로 향하는 이유",
-      status: "writing",
-      date: "2026-11-10",
-      url: "https://brunch.co.kr/@musimtook",
+      platform: "linkedin",
+      title: "화기애애 기후탐사대 성과 발표회 & 에너지관리기사 실기 도전 회고",
+      status: "idea",
+      date: "2026-10-31",
+      url: "https://www.linkedin.com/in/%EB%82%A8%ED%98%84-%EA%B9%80-4a62b5340/",
       views: 0,
       likes: 0,
-      notes: "사리아에서 산티아고까지 걸으며 느낀 마음의 여유와 성찰 기록"
+      notes: "삼성전자 안전/인사/보안 TF 경험 및 5대 기술자격 취득 노하우와 연계한 전문가 브랜딩"
     }
   ],
-  strategyMemo: "3대 채널 원소스 멀티유즈(OSMU) 운영 전략:\n1) 브런치스토리: 호흡이 긴 정제된 에세이 및 심층 칼럼 연재\n2) 링크드인: 커리어 인사이트, 프로젝트 성과, 자격증 노하우 요약 공유\n3) 인스타그램: 생생한 현장감 있는 사진(음악 합주, 여행, 일상) 및 숏폼 릴스 활용"
+  strategyMemo: "3대 채널 원소스 멀티유즈(OSMU) 운영 전략:\n1) 브런치스토리 (@musimtook · 구독자 223명 / 글 741편 / 독서노트 75편): 호흡이 긴 에세이 및 아론 작가 멤버십 칼럼 연재\n2) 인스타그램 (@namhyeon_kim_ · 팔로워 302명 / 게시물 180개): 음악 합주, 산티아고 순례길 현장 사진 및 숏폼 릴스 아카이빙\n3) 링크드인 (김남현): 삼성전자 TF 경험, 안전·에너지 기술자격, 화성시 청년정책협의체 분과장 활동 인사이트 공유"
 };
 
 const INITIAL_EXAM_SCHEDULES = [
@@ -578,6 +579,13 @@ class SyncManager {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
+        const upgradedSns = (parsed.sns && parsed.sns.snsDataVersion === 2)
+          ? parsed.sns
+          : JSON.parse(JSON.stringify(INITIAL_SNS_DATA));
+        if (!parsed.sns || parsed.sns.snsDataVersion !== 2) {
+          parsed.sns = upgradedSns;
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
+        }
         return {
           exams: parsed.exams || INITIAL_EXAM_SCHEDULES,
           bands: parsed.bands || INITIAL_BAND_SCHEDULES,
@@ -586,7 +594,7 @@ class SyncManager {
           externalDashboards: parsed.externalDashboards || INITIAL_EXTERNAL_DASHBOARDS,
           dischargeDate: parsed.dischargeDate || INITIAL_DISCHARGE_DATE,
           camino: parsed.camino || INITIAL_CAMINO_DATA,
-          sns: parsed.sns || INITIAL_SNS_DATA,
+          sns: upgradedSns,
           theme: parsed.theme || 'dark'
         };
       }
@@ -2331,7 +2339,10 @@ function renderSnsTab() {
           </p>
         </div>
 
-        <div class="flex flex-col sm:flex-row gap-3">
+        <div class="flex flex-col sm:flex-row gap-2.5">
+          <button onclick="window.app.resetSnsToRealStats()" class="py-3 px-4 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2" title="브런치(223명/741글)·인스타(302명/180글) 등 실제 프로필 기준값으로 동기화">
+            <i class="fa-solid fa-rotate text-sky-400"></i> 실제 프로필 수치 동기화
+          </button>
           <button onclick="window.app.openAddSnsPostModal()" class="py-3 px-5 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-pink-500/20 transition flex items-center justify-center gap-2">
             <i class="fa-solid fa-plus"></i> 새 콘텐츠 기획 / 발행 등록
           </button>
@@ -2372,9 +2383,9 @@ function renderSnsTab() {
           <span>누적 총 게시물</span>
           <i class="fa-solid fa-layer-group text-amber-400"></i>
         </div>
-        <div class="text-2xl font-black text-white">${totalPostsCount}<span class="text-xs text-slate-400 font-normal"> 개</span></div>
+        <div class="text-2xl font-black text-white">${totalPostsCount.toLocaleString()}<span class="text-xs text-slate-400 font-normal"> 개</span></div>
         <div class="mt-2 text-[11px] text-slate-400">
-          발행된 글 및 미디어 총합
+          브런치 741편 · 인스타 180편 등 총합
         </div>
       </div>
 
@@ -2396,12 +2407,14 @@ function renderSnsTab() {
 
     <!-- 2. 3대 채널별 심층 관리 카드 -->
     <div class="mb-8">
-      <div class="flex items-center justify-between mb-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
         <h2 class="text-lg font-bold text-white flex items-center gap-2">
           <i class="fa-solid fa-cubes text-pink-400"></i>
           3대 SNS 채널 프로필 & 성장 지표 관리
         </h2>
-        <span class="text-xs text-slate-400">카드별 [지표 수정]을 눌러 팔로워 및 전략을 업데이트하세요.</span>
+        <span class="text-xs text-pink-300 bg-pink-500/10 border border-pink-500/20 px-3 py-1 rounded-lg">
+          💡 <b>빠른 수정</b>: 카드 안의 <b>팔로워/구독자</b> 및 <b>게시물 숫자 칸</b>을 직접 클릭해 즉시 변경하거나 [지표/전략 수정]을 누르세요.
+        </span>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -2438,12 +2451,17 @@ function renderSnsTab() {
                   </span>
                 </div>
 
-                <!-- Stats Progress Box -->
+                <!-- Stats Progress Box (With Direct Inline Quick-Edit Inputs) -->
                 <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 mb-4 space-y-3">
                   <div>
-                    <div class="flex items-center justify-between text-xs mb-1">
-                      <span class="text-slate-400">팔로워 / 구독자</span>
-                      <span class="text-white font-bold"><b class="text-base font-black text-slate-100">${ch.followers.toLocaleString()}</b> / ${ch.targetFollowers.toLocaleString()}명</span>
+                    <div class="flex items-center justify-between text-xs mb-1.5">
+                      <span class="text-slate-400 font-semibold">${ch.id === 'brunch' ? '구독자 (팔로워)' : ch.id === 'linkedin' ? '팔로워 / 1촌' : '팔로워'}</span>
+                      <div class="flex items-center gap-1 text-white font-bold">
+                        <input type="number" min="0" value="${ch.followers}" onchange="window.app.quickUpdateSnsMetric('${ch.id}', 'followers', this.value)" class="w-20 bg-slate-800 hover:bg-slate-700 focus:bg-slate-800 border border-slate-600 focus:border-pink-400 rounded-lg px-2 py-0.5 text-right text-sm font-black text-white focus:outline-none transition" title="클릭하여 실제 팔로워/구독자 수 바로 입력">
+                        <span class="text-slate-400">/</span>
+                        <input type="number" min="1" value="${ch.targetFollowers}" onchange="window.app.quickUpdateSnsMetric('${ch.id}', 'targetFollowers', this.value)" class="w-16 bg-slate-800/50 hover:bg-slate-700/60 border border-slate-700 rounded-lg px-1.5 py-0.5 text-right text-xs text-slate-300 focus:outline-none transition" title="목표 팔로워 수 수정">
+                        <span class="text-[11px] text-slate-400">명</span>
+                      </div>
                     </div>
                     <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
                       <div class="${ch.id === 'linkedin' ? 'bg-blue-500' : ch.id === 'instagram' ? 'bg-pink-500' : 'bg-emerald-500'} h-full rounded-full transition-all duration-300" style="width: ${goalPct}%"></div>
@@ -2451,17 +2469,20 @@ function renderSnsTab() {
                     <div class="text-[10px] text-right text-slate-400 mt-1">목표 달성률: <b>${goalPct}%</b></div>
                   </div>
 
-                  <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-800 text-center">
+                  <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-800 text-center items-center">
                     <div>
-                      <div class="text-[10px] text-slate-400">총 게시물</div>
-                      <div class="text-xs font-bold text-slate-200 mt-0.5">${ch.postsCount}개</div>
+                      <div class="text-[10px] text-slate-400 mb-0.5">${ch.id === 'brunch' ? '발행 글 수' : '총 게시물'}</div>
+                      <div class="flex items-center justify-center gap-0.5">
+                        <input type="number" min="0" value="${ch.postsCount}" onchange="window.app.quickUpdateSnsMetric('${ch.id}', 'postsCount', this.value)" class="w-16 bg-slate-800 hover:bg-slate-700 border border-slate-700 focus:border-pink-400 rounded px-1.5 py-0.5 text-center text-xs font-bold text-slate-100 focus:outline-none">
+                        <span class="text-[10px] text-slate-400">개</span>
+                      </div>
                     </div>
                     <div>
-                      <div class="text-[10px] text-slate-400">월간 조회</div>
+                      <div class="text-[10px] text-slate-400 mb-0.5">월간 조회</div>
                       <div class="text-xs font-bold text-slate-200 mt-0.5">${(ch.monthlyViews || 0).toLocaleString()}</div>
                     </div>
                     <div>
-                      <div class="text-[10px] text-slate-400">반응률</div>
+                      <div class="text-[10px] text-slate-400 mb-0.5">반응률</div>
                       <div class="text-xs font-bold text-slate-200 mt-0.5">${ch.engagementRate || '-'}</div>
                     </div>
                   </div>
@@ -3053,6 +3074,26 @@ window.app = {
   },
 
   // SNS & Personal Branding Actions (⭐)
+  quickUpdateSnsMetric: (channelId, field, value) => {
+    if (!state.sns || !state.sns.channels) return;
+    const ch = state.sns.channels.find(c => c.id === channelId);
+    if (!ch) return;
+    const numVal = Math.max(0, parseInt(value, 10) || 0);
+    ch[field] = field === 'targetFollowers' ? Math.max(1, numVal) : numVal;
+    state.sns.snsDataVersion = 2;
+    persistState();
+    renderSnsTab();
+    if (state.activeTab === 'overview') renderOverviewTab();
+    const fieldLabel = field === 'followers' ? '팔로워/구독자 수' : field === 'postsCount' ? '게시물 수' : '목표 수치';
+    showToast(`${ch.name.split(' ')[0]} ${fieldLabel}: ${numVal.toLocaleString()} 저장 완료!`);
+  },
+  resetSnsToRealStats: () => {
+    state.sns = JSON.parse(JSON.stringify(INITIAL_SNS_DATA));
+    persistState();
+    renderSnsTab();
+    if (state.activeTab === 'overview') renderOverviewTab();
+    showToast('실제 프로필 수치(인스타 302명·180글 / 브런치 223명·741글)로 동기화되었습니다.');
+  },
   openEditSnsChannelModal: (channelId) => {
     if (!state.sns || !state.sns.channels) return;
     const ch = state.sns.channels.find(c => c.id === channelId);

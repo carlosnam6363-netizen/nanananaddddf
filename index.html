@@ -100,25 +100,11 @@
           <span class="flex-1 text-left">SNS & 브랜딩 분석</span>
           <span class="text-[9px] px-1.5 py-0.5 rounded bg-pink-500/20 text-pink-400 font-bold">3채널</span>
         </button>
-
-        <button data-nav-tab="settings" onclick="window.app.switchTab('settings')" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
-          <i class="fa-solid fa-cloud-arrow-up w-4 text-center"></i>
-          <span>클라우드 동기화 & 설정</span>
-        </button>
       </nav>
     </div>
 
     <!-- Bottom Status & Controls -->
     <div class="border-t border-slate-800/80 pt-4 px-2 space-y-3">
-      <!-- Sync Status Indicator -->
-      <div class="flex items-center justify-between text-[11px] text-slate-400 bg-slate-800/50 px-3 py-2 rounded-lg">
-        <span class="flex items-center gap-2">
-          <span id="sidebar-sync-dot" class="w-2 h-2 rounded-full bg-slate-400"></span>
-          동기화 상태
-        </span>
-        <span class="text-sky-400 font-medium">연동 준비</span>
-      </div>
-
       <!-- Theme & Action buttons -->
       <div class="flex items-center justify-between">
         <button id="theme-toggle-btn" class="text-xs text-slate-400 hover:text-white p-2 rounded-lg hover:bg-slate-800 transition flex items-center gap-2" title="테마 변경">
@@ -140,14 +126,8 @@
       </div>
       <div>
         <h2 class="font-bold text-xs text-white">업무·커리어 대시보드</h2>
-        <span class="text-[10px] text-slate-400">멀티 디바이스 연동</span>
+        <span class="text-[10px] text-slate-400">Personal Career Hub</span>
       </div>
-    </div>
-
-    <div class="flex items-center gap-2">
-      <button onclick="window.app.switchTab('settings')" class="w-8 h-8 rounded-lg bg-slate-800 text-slate-300 flex items-center justify-center text-xs">
-        <i class="fa-solid fa-gear"></i>
-      </button>
     </div>
   </header>
 
@@ -176,9 +156,6 @@
 
     <!-- Tab Section 7: SNS & 퍼스널 브랜딩 분석 (신규) -->
     <section id="tab-content-sns" class="tab-section hidden"></section>
-
-    <!-- Tab Section 6: 설정 & 클라우드 연동 -->
-    <section id="tab-content-settings" class="tab-section hidden"></section>
 
   </main>
 
@@ -213,10 +190,6 @@
     <button data-mobile-tab="external" onclick="window.app.switchTab('external')" class="flex flex-col items-center gap-1 text-[10px] text-slate-400 flex-1 min-w-[46px] py-1">
       <i class="fa-solid fa-window-restore text-sm"></i>
       <span>외부탭</span>
-    </button>
-    <button data-mobile-tab="settings" onclick="window.app.switchTab('settings')" class="flex flex-col items-center gap-1 text-[10px] text-slate-400 flex-1 min-w-[46px] py-1">
-      <i class="fa-solid fa-cloud-arrow-up text-sm"></i>
-      <span>동기화</span>
     </button>
   </nav>
 
