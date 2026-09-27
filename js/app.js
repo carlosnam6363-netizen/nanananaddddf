@@ -173,6 +173,450 @@ const INITIAL_SNS_DATA = {
   strategyMemo: "3대 채널 원소스 멀티유즈(OSMU) 운영 전략:\n1) 브런치스토리 (@musimtook · 구독자 223명 / 글 741편 / 독서노트 75편): 호흡이 긴 에세이 및 아론 작가 멤버십 칼럼 연재\n2) 인스타그램 (@namhyeon_kim_ · 팔로워 302명 / 게시물 180개): 음악 합주, 산티아고 순례길 현장 사진 및 숏폼 릴스 아카이빙\n3) 링크드인 (김남현): 삼성전자 TF 경험, 안전·에너지 기술자격, 화성시 청년정책협의체 분과장 활동 인사이트 공유"
 };
 
+// ==========================================================================
+// 수상 내역 (23건) & 주요 경력 (15건) 통합 포트폴리오 초기 데이터 (⭐ 신규 추가)
+// ==========================================================================
+const INITIAL_PORTFOLIO_DATA = {
+  portfolioDataVersion: 2,
+  awards: [
+    {
+      id: "award-2026-1",
+      year: "2026",
+      period: "2026.08",
+      title: "제2회 화성시 양성평등 공모전 산문 부문 장려상 수상",
+      issuer: "화성시여성가족청소년재단이사장 표창",
+      category: "대외·공공·문학",
+      badge: "재단이사장 표창",
+      highlight: true,
+      description: "양성평등 문화 확산 및 일상 속 성찰을 담은 산문 부문 우수작 선정"
+    },
+    {
+      id: "award-2026-2",
+      year: "2026",
+      period: "2026.03",
+      title: "제5기 화성시 청년정책협의체 위원 선정 (동탄 교육·참여·권리 분과장 역임)",
+      issuer: "화성시장 위촉",
+      category: "대외·공공·문학",
+      badge: "화성시장 위촉 · 분과장",
+      highlight: true,
+      description: "화성시 동탄권역 청년 교육·참여·권리 증진 정책 발굴 및 3분과장 리더십 수행"
+    },
+    {
+      id: "award-2025-1",
+      year: "2025",
+      period: "2025.12",
+      title: "장애인과 함께하는 문해(문예) 글짓기 대회 대상 수상 (국회 국방위원장상)",
+      issuer: "국회 국방위원장 표창",
+      category: "대외·공공·문학",
+      badge: "대상 · 국회 국방위원장상",
+      highlight: true,
+      description: "전국 규모 문예 글짓기 대회 최고 영예 대상(국회 국방위원장 표창) 수상"
+    },
+    {
+      id: "award-2024-1",
+      year: "2024",
+      period: "2024.01",
+      title: "방송통신대학교 총장 표창 우수상 수상",
+      issuer: "방송통신대학교총장 표창",
+      category: "대외·공공·문학",
+      badge: "총장 표창 · 우수상",
+      highlight: true,
+      description: "산업공학과 재학 중 탁월한 학업 성취 및 대학교 대외 기여 공로 표창"
+    },
+    {
+      id: "award-2023-2",
+      year: "2023",
+      period: "2023.07",
+      title: "세이프 인플루언서(Safe Influencer) 우수 활동자 즉시상",
+      issuer: "안전그룹장 표창",
+      category: "안전·환경",
+      badge: "안전그룹장 표창",
+      highlight: false,
+      description: "삼성전자 사내 안전문화 확산 및 현장 자율 안전 캠페인 우수 활동"
+    },
+    {
+      id: "award-2023-1",
+      year: "2023",
+      period: "2023.02",
+      title: "2023 FOUNDRY DIFFUSION 기술팀 DS경진대회 최다 아이디어부문 우수",
+      issuer: "DIFFUSION기술팀장 표창",
+      category: "기술·생산성·혁신",
+      badge: "최다 아이디어 우수",
+      highlight: true,
+      description: "파운드리 디퓨전 기술팀 DS경진대회 기술 혁신 아이디어 최다 발굴 및 채택"
+    },
+    {
+      id: "award-2022-3",
+      year: "2022",
+      period: "2022.12",
+      title: "세이프 인플루언서 최우수 활동자 즉시상",
+      issuer: "안전그룹장 표창",
+      category: "안전·환경",
+      badge: "최우수 활동자 표창",
+      highlight: true,
+      description: "2022년 사내 안전문화 개편 TF 세이프 인플루언서 최우수 기여자 선정"
+    },
+    {
+      id: "award-2022-2",
+      year: "2022",
+      period: "2022.03 ~ 05",
+      title: "모두의 인사 TF 승격분과 본과정 경진대회 우수 표창",
+      issuer: "인사기획그룹 표창",
+      category: "인사·교육·조직문화",
+      badge: "인사기획그룹 우수 표창",
+      highlight: true,
+      description: "삼성전자 인사제도 개편 TF 승격분과 본과정 경진대회 기획안 우수 표창"
+    },
+    {
+      id: "award-2022-1",
+      year: "2022",
+      period: "2022.02",
+      title: "2월 업무 불합리 발굴 우수상",
+      issuer: "DIFFUSION기술팀장 표창",
+      category: "기술·생산성·혁신",
+      badge: "기술팀장 표창",
+      highlight: false,
+      description: "현장 공정 및 업무 프로세스 불합리 요소 선제적 발굴·개선"
+    },
+    {
+      id: "award-2021-5",
+      year: "2021",
+      period: "2021.10",
+      title: "위험발굴 우수발굴 즉시상",
+      issuer: "기술환경안전팀장 표창",
+      category: "안전·환경",
+      badge: "기술환경안전팀장 표창",
+      highlight: false,
+      description: "사업장 잠재 위험요인 발굴 및 중대재해 예방 활동 우수 기여"
+    },
+    {
+      id: "award-2021-4",
+      year: "2021",
+      period: "2021.10",
+      title: "기본지키기 서포터즈 6기 우수 활동자 수상",
+      issuer: "안전그룹장 표창",
+      category: "안전·환경",
+      badge: "안전그룹장 표창",
+      highlight: false,
+      description: "현장 안전 기본수칙 준수 문화 정착 서포터즈 6기 핵심 활동"
+    },
+    {
+      id: "award-2021-3",
+      year: "2021",
+      period: "2021.09",
+      title: "21년 하반기 혁신적으로 일하기 공모전 우수상",
+      issuer: "D기술팀장 표창",
+      category: "기술·생산성·혁신",
+      badge: "공모전 우수상",
+      highlight: false,
+      description: "스마트 워크 및 엔지니어링 업무 효율화 혁신 아이디어 우수상"
+    },
+    {
+      id: "award-2021-2",
+      year: "2021",
+      period: "2021.07",
+      title: "D기술팀 우수사원 즉시상",
+      issuer: "D기술팀장 표창",
+      category: "인사·교육·조직문화",
+      badge: "우수사원 표창",
+      highlight: true,
+      description: "기술팀 내 모범적 직무 수행 및 조직 시너지 창출 우수사원 표창"
+    },
+    {
+      id: "award-2021-1",
+      year: "2021",
+      period: "2021.02",
+      title: "제조기술센터 설비엔지니어 공정회 우수 기안 시상",
+      issuer: "제조센터장 표창",
+      category: "기술·생산성·혁신",
+      badge: "제조센터장 표창",
+      highlight: true,
+      description: "설비엔지니어 공정 개선 기안 우수작 선정 및 센터장 표창"
+    },
+    {
+      id: "award-2020-6",
+      year: "2020",
+      period: "2020.10",
+      title: "인재개발그룹 즉시상",
+      issuer: "인재개발그룹장 표창",
+      category: "인사·교육·조직문화",
+      badge: "인재개발그룹장 표창",
+      highlight: false,
+      description: "사내 직무 교육 및 후배 엔지니어 역량 개발 기여 표창"
+    },
+    {
+      id: "award-2020-5",
+      year: "2020",
+      period: "2020.07",
+      title: "D기술팀 생산성 향상 공모전 즉시상 시상",
+      issuer: "D기술팀장 표창",
+      category: "기술·생산성·혁신",
+      badge: "D기술팀장 표창",
+      highlight: false,
+      description: "설비 가동률 및 공정 생산성 향상 아이디어 공모전 입상"
+    },
+    {
+      id: "award-2020-4",
+      year: "2020",
+      period: "2020.06",
+      title: "제조 시너지 P/J 협업 IDEA & 우수성과 공모전 (시너지 협업 IDEA 부문 최다발굴 시상)",
+      issuer: "제조 시너지 PROJECT장 표창",
+      category: "기술·생산성·혁신",
+      badge: "최다발굴 표창",
+      highlight: true,
+      description: "부서 간 제조 시너지 창출 협업 아이디어 최다 발굴 기록 달성"
+    },
+    {
+      id: "award-2020-3",
+      year: "2020",
+      period: "2020.06 ~ 2021.01",
+      title: "기본지키기 서포터즈 1기 ~ 4기 연속 4회 시상",
+      issuer: "안전그룹장 표창",
+      category: "안전·환경",
+      badge: "4기 연속 표창",
+      highlight: true,
+      description: "1기부터 4기까지 전 기수 연속 우수 서포터즈 4회 연속 표창 달성"
+    },
+    {
+      id: "award-2020-2",
+      year: "2020",
+      period: "2020.04",
+      title: "환경안전공모전 (아이디어 부문) 은상",
+      issuer: "환경안전팀장 표창",
+      category: "안전·환경",
+      badge: "공모전 은상",
+      highlight: false,
+      description: "사내 환경안전 개선 아이디어 공모전 은상 수상"
+    },
+    {
+      id: "award-2020-1",
+      year: "2020",
+      period: "2020.02 ~ 2021.01",
+      title: "D기술팀 DigNoel 상 4회 시상 추천 및 본인 시상",
+      issuer: "D기술팀장 표창",
+      category: "인사·교육·조직문화",
+      badge: "4회 연속 수상",
+      highlight: false,
+      description: "동료 칭찬·격려 및 협업 문화 확산 DigNoel 상 4회 연속 추천·수상"
+    },
+    {
+      id: "award-2018-1",
+      year: "2018",
+      period: "2018.07",
+      title: "D기술팀 (Hidden Worker) 부문 즉시상 시상",
+      issuer: "D기술팀장 표창",
+      category: "인사·교육·조직문화",
+      badge: "Hidden Worker상",
+      highlight: false,
+      description: "보이지 않는 곳에서 묵묵히 현장 난제를 해결한 히든워커 표창"
+    },
+    {
+      id: "award-2016-1",
+      year: "2016",
+      period: "2016.01",
+      title: "D기술팀 환경안전 부문 즉시상 시상",
+      issuer: "D기술팀장 표창",
+      category: "안전·환경",
+      badge: "D기술팀장 표창",
+      highlight: false,
+      description: "현장 환경안전 리스크 예방 및 안전 수칙 준수 솔선수범 표창"
+    },
+    {
+      id: "award-2014-1",
+      year: "2014",
+      period: "2014.11",
+      title: "슈퍼루키 프로젝트 성과 발표회 우수 시상",
+      issuer: "제조센터장 표창",
+      category: "기술·생산성·혁신",
+      badge: "제조센터장 표창",
+      highlight: true,
+      description: "신입 엔지니어 슈퍼루키 프로젝트 혁신 과제 발표 우수상(제조센터장 표창)"
+    }
+  ],
+  careers: [
+    {
+      id: "career-brunch",
+      year: "상시",
+      startYear: "상시",
+      period: "연재 중",
+      title: "브런치스토리 플랫폼 작가명 '아론(@musimtook)' 연재 및 멤버십 운영",
+      role: "브런치 정식 작가 (아론)",
+      category: "작가·대외·학술",
+      status: "ongoing",
+      impact: "에세이 및 칼럼 741편 발행 · 매거진/작품 18집 · 독서노트 75편 · 구독자 223명 보유 ('아론 작가 멤버십' 운영)",
+      description: "에세이 및 칼럼 741편 발행 · 매거진/작품 18집 · 독서노트 75편 · 구독자 223명 보유 ('아론 작가 멤버십' 운영)"
+    },
+    {
+      id: "career-2023-7",
+      year: "2023",
+      startYear: "2023",
+      period: "2023.11",
+      title: "SSIT 삼성전자 사내대학(공과대학) 전임교수 추천",
+      role: "삼성전자 SSIT 전임교수 후보 추천",
+      category: "전문선임·교육·교수",
+      status: "completed",
+      impact: "반도체 설비·안전·직무 전문성 및 강의 역량을 인정받아 삼성전자 사내대학(SSIT) 전임교수 추천",
+      description: "반도체 설비·안전·직무 전문성 및 강의 역량을 인정받아 삼성전자 사내대학(SSIT) 전임교수 추천"
+    },
+    {
+      id: "career-2023-6",
+      year: "2023",
+      startYear: "2023",
+      period: "2023 연중",
+      title: "사내 위험물 기능장 대비반 직접 운영 ➔ 팀 내 기능장 7명 배출",
+      role: "위험물 기능장 대비반 강사·멘토",
+      category: "전문선임·교육·교수",
+      status: "completed",
+      impact: "본인의 위험물기능장 취득 노하우를 바탕으로 사내 대비반을 직접 운영하여 팀 내 국가기술자격 최상위 등급인 '기능장' 7명 합격 배출",
+      description: "본인의 위험물기능장 취득 노하우를 바탕으로 사내 대비반을 직접 운영하여 팀 내 국가기술자격 최상위 등급인 '기능장' 7명 합격 배출"
+    },
+    {
+      id: "career-2023-5",
+      year: "2023",
+      startYear: "2023",
+      period: "2023.07 ~ 현재",
+      title: "기흥/화성 파운드리사업부 위험물 관리자 선임",
+      role: "삼성전자 파운드리사업부 위험물 안전관리자",
+      category: "전문선임·교육·교수",
+      status: "ongoing",
+      impact: "기흥·화성 캠퍼스 파운드리사업부 위험물 취급·안전관리 법정/전문 관리자 선임 수행",
+      description: "기흥·화성 캠퍼스 파운드리사업부 위험물 취급·안전관리 법정/전문 관리자 선임 수행"
+    },
+    {
+      id: "career-2023-4",
+      year: "2023",
+      startYear: "2023",
+      period: "2023.09",
+      title: "세이프 인플루언서(Safe Influencer) TF 3기 활동 및 9월 우수 활동자 수상",
+      role: "삼성전자 안전문화 TF 3기 위원",
+      category: "사내 핵심 TF",
+      status: "completed",
+      impact: "1기~3기 연속 사내 안전문화 혁신 TF 참여 및 9월 우수 활동자 선정",
+      description: "1기~3기 연속 사내 안전문화 혁신 TF 참여 및 9월 우수 활동자 선정"
+    },
+    {
+      id: "career-2023-3",
+      year: "2023",
+      startYear: "2023",
+      period: "2023.07",
+      title: "방송통신대학교 [생산운영관리] 정규 교과목 방송 학생출연자 참여",
+      role: "한국방송통신대학교 산업공학과 대표 학생출연자",
+      category: "작가·대외·학술",
+      status: "completed",
+      impact: "산업공학과 전공 정규 강의 [생산운영관리] 과목 제작 참여 및 방송 출연",
+      description: "산업공학과 전공 정규 강의 [생산운영관리] 과목 제작 참여 및 방송 출연"
+    },
+    {
+      id: "career-2023-2",
+      year: "2023",
+      startYear: "2023",
+      period: "2023.05",
+      title: "세이프 인플루언서 TF 2기 활동 및 우수활동자 시상",
+      role: "삼성전자 안전문화 TF 2기 위원",
+      category: "사내 핵심 TF",
+      status: "completed",
+      impact: "현장 밀착형 안전 캠페인 기획 및 안전문화 전파 우수활동자 수상",
+      description: "현장 밀착형 안전 캠페인 기획 및 안전문화 전파 우수활동자 수상"
+    },
+    {
+      id: "career-2023-1",
+      year: "2023",
+      startYear: "2023",
+      period: "2023 연중",
+      title: "THE NANUM 100 CLUB 선정 (사내외 사회공헌 100시간 달성)",
+      role: "삼성전자 나눔클럽 아너스 멤버",
+      category: "사회공헌·봉사",
+      status: "completed",
+      impact: "연간 누적 봉사활동 100시간 이상 달성 임직원에게 수여되는 THE NANUM 100 CLUB 재선정",
+      description: "연간 누적 봉사활동 100시간 이상 달성 임직원에게 수여되는 THE NANUM 100 CLUB 재선정"
+    },
+    {
+      id: "career-2022-6",
+      year: "2022",
+      startYear: "2022",
+      period: "2022.06 ~ 2023.06",
+      title: "삼성전자 경영진 제언 사내 MZ 자문단 위원 활동",
+      role: "사내 MZ 자문위원 (1년 역임)",
+      category: "사내 핵심 TF",
+      status: "completed",
+      impact: "경영진 직속 제언 기구인 MZ 자문단 위원으로 활동하며 조직문화 및 일하는 방식 혁신 제안",
+      description: "경영진 직속 제언 기구인 MZ 자문단 위원으로 활동하며 조직문화 및 일하는 방식 혁신 제안"
+    },
+    {
+      id: "career-2022-5",
+      year: "2022",
+      startYear: "2022",
+      period: "2022.12",
+      title: "THE NANUM 50 CLUB 선정 (옷캔, 플로깅 등 사내 봉사 50시간 수행)",
+      role: "삼성전자 사회공헌 우수 봉사자",
+      category: "사회공헌·봉사",
+      status: "completed",
+      impact: "해외 의류 기부(옷캔), 환경 정화 플로깅 등 연간 봉사활동 50시간 이상 완수",
+      description: "해외 의류 기부(옷캔), 환경 정화 플로깅 등 연간 봉사활동 50시간 이상 완수"
+    },
+    {
+      id: "career-2022-4",
+      year: "2022",
+      startYear: "2022",
+      period: "2022.09 ~ 11",
+      title: "세이프 인플루언서(Safe Influencer) TF 1기 활동",
+      role: "삼성전자 안전문화 개편 TF 1기",
+      category: "사내 핵심 TF",
+      status: "completed",
+      impact: "사내 안전문화 개편 원년 멤버로 참여하여 최우수 활동자 표창 수상",
+      description: "사내 안전문화 개편 원년 멤버로 참여하여 최우수 활동자 표창 수상"
+    },
+    {
+      id: "career-2022-3",
+      year: "2022",
+      startYear: "2022",
+      period: "2022.08",
+      title: "위드시큐리티(With Security) TF 사내 IT분과 참여",
+      role: "보안 개편 TF IT분과 실무위원",
+      category: "사내 핵심 TF",
+      status: "completed",
+      impact: "삼성전자 사내 정보보안 의식 제고 및 IT 보안 프로세스 개선 TF 활동",
+      description: "삼성전자 사내 정보보안 의식 제고 및 IT 보안 프로세스 개선 TF 활동"
+    },
+    {
+      id: "career-2022-2",
+      year: "2022",
+      startYear: "2022",
+      period: "2022.03 ~ 05",
+      title: "인사제도 개편 관련 '모두의 인사 TF' 승격분과 참여",
+      role: "모두의 인사 TF 승격분과 위원",
+      category: "사내 핵심 TF",
+      status: "completed",
+      impact: "삼성전자 미래 인사·승격 제도 개편 TF에 참여하여 본과정 경진대회 표창 수상",
+      description: "삼성전자 미래 인사·승격 제도 개편 TF에 참여하여 본과정 경진대회 표창 수상"
+    },
+    {
+      id: "career-2022-1",
+      year: "2022",
+      startYear: "2022",
+      period: "2022 연중",
+      title: "삼성전자 사내 지도후배 양성 멘토링",
+      role: "기술팀 지도선배 멘토",
+      category: "전문선임·교육·교수",
+      status: "completed",
+      impact: "신입 및 후배 엔지니어 직무 역량 강화와 조직 적응을 돕는 전담 멘토링 수행",
+      description: "신입 및 후배 엔지니어 직무 역량 강화와 조직 적응을 돕는 전담 멘토링 수행"
+    },
+    {
+      id: "career-2021-1",
+      year: "2021",
+      startYear: "2021",
+      period: "2021.12",
+      title: "THE NANUM 100 CLUB 선정 (점자 도서·해외 의류·편의시설 지도 제작 100시간+)",
+      role: "삼성전자 우수 봉사자 (100시간+)",
+      category: "사회공헌·봉사",
+      status: "completed",
+      impact: "시각장애인 점자 도서 제작, 해외 의류 지원, 장애인 편의시설 점검 지도 제작 등 연간 100시간 이상 봉사 참여",
+      description: "시각장애인 점자 도서 제작, 해외 의류 지원, 장애인 편의시설 점검 지도 제작 등 연간 100시간 이상 봉사 참여"
+    }
+  ]
+};
+
 const INITIAL_EXAM_SCHEDULES = [
   {
     id: "exam-1",
@@ -556,52 +1000,6 @@ const INITIAL_EXTERNAL_DASHBOARDS = [
 
 // [study-data imported]
 
-const INITIAL_PORTFOLIO_DATA = {
-  portfolioDataVersion: 1,
-  awards: [
-    { id: 'aw-2026-01', year: 2026, period: '2026.02', category: '봉사/공헌', issuer: '병무청장 표창', title: '모범 사회복무요원 표창장', badge: '병무청장 표창', highlight: true },
-    { id: 'aw-2025-01', year: 2025, period: '2025.12', category: '봉사/공헌', issuer: '복지관장 표창', title: '모범 사회복무요원 표창장', badge: '기관장 표창', highlight: false },
-    { id: 'aw-2024-02', year: 2024, period: '2024.06', category: '환경안전/보건', issuer: '사내 공모전', title: '작업중지권 숏폼 공모전 장려상', badge: '장려상', highlight: false },
-    { id: 'aw-2024-01', year: 2024, period: '2024.05', category: '제조/모범/혁신', issuer: '메모리제조기술센터장 표창', title: '2024년 올해의 딜라이트 상 시상', badge: '센터장 표창', highlight: true },
-    { id: 'aw-2023-03', year: 2023, period: '2023.12', category: '환경안전/보건', issuer: '메모리제조기술센터장 표창', title: '보건개선 우수사례 발표대회 최우수상', badge: '최우수상', highlight: true },
-    { id: 'aw-2023-02', year: 2023, period: '2023.11', category: '기술/품질/학술', issuer: '제조&기술담당 부사장 표창', title: '제 22회 메모리 기술전 (환경안전 분야) 동상', badge: '부사장 표창 · 동상', highlight: true },
-    { id: 'aw-2023-01', year: 2023, period: '2023.09', category: '환경안전/보건', issuer: '제조&기술담당 부사장 표창', title: '작업중지권 우수사례 포상 (최우수)', badge: '부사장 표창 · 최우수', highlight: true },
-    { id: 'aw-2022-05', year: 2022, period: '2022.11', category: '환경안전/보건', issuer: '글로벌 제조&인프라총괄 부사장 표창', title: 'DS부문 환경안전인의 날 유공자 표창', badge: '총괄부사장 표창', highlight: true },
-    { id: 'aw-2022-04', year: 2022, period: '2022.11', category: '기술/품질/학술', issuer: '제조&기술담당 부사장 표창', title: '제 21회 메모리 기술전 (환경안전 분야) 장려상', badge: '부사장 표창 · 장려상', highlight: true },
-    { id: 'aw-2022-03', year: 2022, period: '2022.07', category: '직무/협업', issuer: 'D기술팀장 표창', title: '핵심가치 (고객우선 부문) 즉시상 시상', badge: 'D기술팀장 표창', highlight: false },
-    { id: 'aw-2022-02', year: 2022, period: '2022.02 ~ 07', category: '제조/모범/혁신', issuer: '메모리제조기술센터장 표창', title: '모범사원상 연속 2회 추천 및 본인 시상', badge: '센터장 표창 (2회)', highlight: true },
-    { id: 'aw-2022-01', year: 2022, period: '2022.01', category: '환경안전/보건', issuer: '사내 공모전', title: '안전 슬로건 공모전 동상', badge: '동상', highlight: false },
-    { id: 'aw-2021-02', year: 2021, period: '2021.11', category: '기술/품질/학술', issuer: '글로벌 제조&인프라총괄 부사장 표창', title: 'DS부문 품질인의 날 분임조 우수상 (Best Practice상)', badge: '총괄부사장 표창 · BP상', highlight: true },
-    { id: 'aw-2021-01', year: 2021, period: '2021.11', category: '환경안전/보건', issuer: '메모리제조기술센터장 표창', title: '안전문화 캠페인 우수부서 포상 금상 (대표 수상)', badge: '센터장 표창 · 금상', highlight: true },
-    { id: 'aw-2020-06', year: 2020, period: '2020.11', category: '기술/품질/학술', issuer: '제조센터장 표창', title: '2020년 하반기 제안왕 시상 (최다 제안 등록)', badge: '제조센터장 표창 · 제안왕', highlight: true },
-    { id: 'aw-2020-05', year: 2020, period: '2020.07', category: '환경안전/보건', issuer: '환경안전팀장 표창', title: '환경안전공모전 (웹툰 부문) 장려상', badge: '환경안전팀장 표창', highlight: false },
-    { id: 'aw-2020-04', year: 2020, period: '2020.06', category: '직무/협업', issuer: '제조 시너지 PROJECT장 표창', title: '제조 시너지 P/J 협업 IDEA & 우수성과 공모전 (최다발굴 시상)', badge: '시너지 P/J장 표창', highlight: false },
-    { id: 'aw-2020-03', year: 2020, period: '2020.06 ~ 2021.01', category: '환경안전/보건', issuer: '안전그룹장 표창', title: '기본지키기 서포터즈 1기 ~ 4기 연속 4회 시상', badge: '안전그룹장 표창 (4연속)', highlight: false },
-    { id: 'aw-2020-02', year: 2020, period: '2020.04', category: '환경안전/보건', issuer: '환경안전팀장 표창', title: '환경안전공모전 (아이디어 부문) 은상', badge: '환경안전팀장 표창 · 은상', highlight: false },
-    { id: 'aw-2020-01', year: 2020, period: '2020.02 ~ 2021.01', category: '직무/협업', issuer: 'D기술팀장 표창', title: 'D기술팀 DigNoel 상 4회 시상 추천 및 본인 시상', badge: 'D기술팀장 표창 (4회)', highlight: false },
-    { id: 'aw-2018-01', year: 2018, period: '2018.07', category: '직무/협업', issuer: 'D기술팀장 표창', title: 'D기술팀 (Hidden Worker) 부문 즉시상 시상', badge: 'D기술팀장 표창', highlight: false },
-    { id: 'aw-2016-01', year: 2016, period: '2016.01', category: '환경안전/보건', issuer: 'D기술팀장 표창', title: 'D기술팀 환경안전 부문 즉시상 시상', badge: 'D기술팀장 표창', highlight: false },
-    { id: 'aw-2014-01', year: 2014, period: '2014.11', category: '제조/모범/혁신', issuer: '제조센터장 표창', title: '슈퍼루키 프로젝트 성과 발표회 우수 시상', badge: '제조센터장 표창', highlight: true }
-  ],
-  careers: [
-    { id: 'cr-15', startYear: 2024, period: '2024.06 ~ 2024.10', category: '설비/제조혁신 TF', role: '기술팀 담당', title: '보전작업 mapping 및 설비 유지보수체계 고도화 TF (기술팀 담당)', status: 'completed', impact: '설비 보전작업 표준 매핑 및 유지보수 체계 고도화 수행' },
-    { id: 'cr-14', startYear: 2024, period: '2024.04 ~ 2024.07', category: '환경안전/에너지', role: '기술팀 대표', title: '작업중지권 확대 적용 TF (기술팀 대표)', status: 'completed', impact: '현장 자율 안전 문화 확산 및 작업중지권 제도 안착 기여' },
-    { id: 'cr-13', startYear: 2024, period: '2024.04 ~ 2024.08', category: '조직문화/협의체', role: '기술팀 위원', title: '화성 소통협의체 (한마음협의회 산하 조직) (기술팀 위원)', status: 'completed', impact: '화성 캠퍼스 임직원 소통 채널 운영 및 현안 개선' },
-    { id: 'cr-12', startYear: 2024, period: '2024.03 ~ 현재', category: '환경안전/에너지', role: '기술팀 대표', title: '기술팀 에너지 절감 TF 활동 (기술팀 대표)', status: 'ongoing', impact: '설비 유틸리티·전력 절감 과제 발굴 및 에너지 효율화 추진' },
-    { id: 'cr-11', startYear: 2024, period: '2024.02 ~ 현재', category: '설비/제조혁신 TF', role: '기술팀 대표', title: 'GEN.Pade 설비 대표 Engineer 활동 (기술팀 대표)', status: 'ongoing', impact: '차세대 설비 표준화 및 핵심 기술 엔지니어링 대표 수행' },
-    { id: 'cr-10', startYear: 2024, period: '2024.01 ~ 현재', category: '환경안전/에너지', role: '기술팀 대표', title: '환경안전 개선 TF (중대재해 Zero, Smart 안전 파견 등) (기술팀 대표)', status: 'ongoing', impact: '중대재해 Zero 달성 및 스마트 안전 기술 현장 도입 리딩' },
-    { id: 'cr-09', startYear: 2023, period: '2023.09 ~ 2024.02', category: '조직문화/협의체', role: '그룹 대표', title: '그룹 Change Agent (그룹 대표)', status: 'completed', impact: '그룹 조직문화 혁신 및 세대·직무 간 시너지 활성화 주도' },
-    { id: 'cr-08', startYear: 2023, period: '2023.08 ~ 현재', category: '사내강사/리더십', role: '사내강사', title: 'DS부문 안전문화 사내강사 활동 (설비/공정 엔지니어 대상 안전 강의)', status: 'ongoing', impact: '설비·공정 엔지니어 맞춤형 실무 안전문화 교육 출강' },
-    { id: 'cr-07', startYear: 2023, period: '2023.02 ~ 현재', category: '설비/제조혁신 TF', role: '그룹 대표', title: '그룹 자산담당자 (유휴설비 매각 및 이전 업무) (그룹 대표)', status: 'ongoing', impact: '그룹 내 유휴 설비 자산 최적화, 매각 및 거점 이전 총괄 관리' },
-    { id: 'cr-06', startYear: 2023, period: '2023.02 ~ 현재', category: '설비/제조혁신 TF', role: '기술팀 대표', title: '제조기술센터 설비 이설 TF 활동 (화성 ↔ 평택) (기술팀 대표)', status: 'ongoing', impact: '화성↔평택 캠퍼스 간 핵심 반도체 설비 이설 기술팀 총괄 대응' },
-    { id: 'cr-05', startYear: 2022, period: '2022.12 ~ 현재', category: '환경안전/에너지', role: '그룹 대표', title: '사업장 위험성평가 실무자 (그룹 대표)', status: 'ongoing', impact: '공정·작업별 유해위험요인 발굴 및 위험성 감소대책 수립' },
-    { id: 'cr-04', startYear: 2022, period: '2022.10 ~ 2024.09', category: '환경안전/에너지', role: '기술팀 대표', title: '초순수(UPW) 절감 TF 활동 (기술팀 대표)', status: 'completed', impact: '반도체 공정 초순수(UPW) 절감 아이템 발굴 및 수자원 절약 달성' },
-    { id: 'cr-03', startYear: 2022, period: '2022.02 ~ 현재', category: '환경안전/에너지', role: '그룹 대표', title: '부서 환경안전보조자 활동 (그룹 대표)', status: 'ongoing', impact: '부서 내 밀착형 환경안전 관리 및 상시 안전점검 체계 운영' },
-    { id: 'cr-02', startYear: 2022, period: '2022.01 ~ 2022.11', category: '환경안전/에너지', role: '기술팀 대표', title: '제조기술센터 안전문화 1팀 1사례 TF 활동 (기술팀 대표)', status: 'completed', impact: '현장 체감형 안전문화 우수사례 발굴 및 센터 전파' },
-    { id: 'cr-01', startYear: 2021, period: '2021.02 ~ 2023.09', category: '사내강사/리더십', role: '그룹 대표', title: '부서 신입사원 멘토 활동 (그룹 대표)', status: 'completed', impact: '신입 엔지니어 직무 온보딩 멘토링 및 조기 전력화 지원' }
-  ]
-};
-
 const STORAGE_KEY = 'career_dashboard_data_v1';
 const FIREBASE_CONFIG_KEY = 'career_dashboard_firebase_config';
 
@@ -628,10 +1026,10 @@ class SyncManager {
         const upgradedSns = (parsed.sns && parsed.sns.snsDataVersion === 2)
           ? parsed.sns
           : JSON.parse(JSON.stringify(INITIAL_SNS_DATA));
-        const upgradedPortfolio = (parsed.portfolio && parsed.portfolio.portfolioDataVersion === 1)
+        const upgradedPortfolio = (parsed.portfolio && parsed.portfolio.portfolioDataVersion === 2)
           ? parsed.portfolio
           : JSON.parse(JSON.stringify(INITIAL_PORTFOLIO_DATA));
-        if (!parsed.sns || parsed.sns.snsDataVersion !== 2 || !parsed.portfolio || parsed.portfolio.portfolioDataVersion !== 1) {
+        if (!parsed.sns || parsed.sns.snsDataVersion !== 2 || !parsed.portfolio || parsed.portfolio.portfolioDataVersion !== 2) {
           parsed.sns = upgradedSns;
           parsed.portfolio = upgradedPortfolio;
           localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
@@ -872,16 +1270,16 @@ let state = {
   camino: INITIAL_CAMINO_DATA,
   sns: INITIAL_SNS_DATA,
   portfolio: INITIAL_PORTFOLIO_DATA,
-  portfolioMode: 'awards', // 'awards' | 'careers' | 'timeline'
-  awardFilter: 'all',
-  careerFilter: 'all',
-  portfolioSearch: '',
   theme: 'dark',
   activeTab: 'overview',
   activeExternalTabId: null,
   examFilter: 'all',
   bandFilter: 'all',
   snsFilter: 'all',
+  portfolioMode: 'awards', // 'awards' | 'careers' | 'timeline'
+  awardFilter: 'all',
+  careerFilter: 'all',
+  portfolioSearch: '',
   energyStudySubtab: 'daily', // 'daily', 'formulas', 'upload'
   currentQuestionIndex: 0
 };
@@ -922,7 +1320,9 @@ function initApp() {
   setInterval(updateDDayDisplay, 60000);
 
   if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
-    navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW fail', err));
+    navigator.serviceWorker.register('./sw.js?v=20260926_v3', { updateViaCache: 'none' })
+      .then(reg => reg.update())
+      .catch(err => console.log('SW fail', err));
   }
 }
 
@@ -1631,6 +2031,46 @@ function renderOverviewTab() {
           <button onclick="window.app.switchTab('sns')" class="w-full py-2 bg-pink-500/10 hover:bg-pink-500/20 border border-pink-500/30 text-pink-300 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5">
             <span>콘텐츠 파이프라인 & 성장 지표 관리</span>
           </button>
+        </div>
+
+        <!-- 수상 내역 & 주요 경력 포트폴리오 위젯 (신규 ⭐) -->
+        <div class="glass-panel rounded-2xl p-6 border border-amber-500/30 bg-gradient-to-b from-slate-900 to-amber-950/20">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2">
+              <i class="fa-solid fa-trophy text-amber-400"></i>
+              수상 & 주요 경력 아카이브
+            </h3>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold">총 ${((state.portfolio ? state.portfolio.awards.length : 23) + (state.portfolio ? state.portfolio.careers.length : 15))}건</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2.5 mb-3">
+            <div onclick="window.app.openPortfolioTab('awards')" class="p-3 rounded-xl bg-slate-800/80 hover:bg-slate-800 border border-amber-500/30 cursor-pointer transition group">
+              <div class="flex items-center justify-between text-xs text-amber-400 mb-1">
+                <span class="font-bold">🏅 수상 내역</span>
+                <i class="fa-solid fa-chevron-right text-[10px] group-hover:translate-x-0.5 transition"></i>
+              </div>
+              <div class="text-xl font-black text-white">${state.portfolio ? state.portfolio.awards.length : 23}<span class="text-xs font-normal text-slate-400"> 건</span></div>
+              <div class="text-[10px] text-slate-400 mt-0.5 truncate">사내 표창 · 국회 국방위원장상 등</div>
+            </div>
+
+            <div onclick="window.app.openPortfolioTab('careers')" class="p-3 rounded-xl bg-slate-800/80 hover:bg-slate-800 border border-emerald-500/30 cursor-pointer transition group">
+              <div class="flex items-center justify-between text-xs text-emerald-400 mb-1">
+                <span class="font-bold">💼 주요 경력</span>
+                <i class="fa-solid fa-chevron-right text-[10px] group-hover:translate-x-0.5 transition"></i>
+              </div>
+              <div class="text-xl font-black text-white">${state.portfolio ? state.portfolio.careers.length : 15}<span class="text-xs font-normal text-slate-400"> 건</span></div>
+              <div class="text-[10px] text-slate-400 mt-0.5 truncate">SSIT 교수추천 · 기능장 7명 배출</div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <button onclick="window.app.openPortfolioTab('awards')" class="py-2 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 rounded-xl text-xs font-bold transition">
+              수상 탭 열기
+            </button>
+            <button onclick="window.app.openPortfolioTab('careers')" class="py-2 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 rounded-xl text-xs font-bold transition">
+              경력 탭 열기
+            </button>
+          </div>
         </div>
 
       </div>
@@ -2756,18 +3196,18 @@ function renderPortfolioTab() {
 
   // 카테고리별 색상 헬퍼
   const getAwardBadge = (cat) => {
-    if (cat.includes('환경안전')) return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30';
+    if (cat.includes('안전')) return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30';
     if (cat.includes('기술')) return 'bg-sky-500/20 text-sky-300 border-sky-500/30';
-    if (cat.includes('제조')) return 'bg-amber-500/20 text-amber-300 border-amber-500/30';
-    if (cat.includes('봉사')) return 'bg-pink-500/20 text-pink-300 border-pink-500/30';
+    if (cat.includes('인사')) return 'bg-purple-500/20 text-purple-300 border-purple-500/30';
+    if (cat.includes('대외') || cat.includes('봉사')) return 'bg-amber-500/20 text-amber-300 border-amber-500/30';
     return 'bg-purple-500/20 text-purple-300 border-purple-500/30';
   };
 
   const getCareerBadge = (cat) => {
-    if (cat.includes('환경안전')) return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30';
-    if (cat.includes('설비')) return 'bg-blue-500/20 text-blue-300 border-blue-500/30';
-    if (cat.includes('사내강사')) return 'bg-amber-500/20 text-amber-300 border-amber-500/30';
-    return 'bg-purple-500/20 text-purple-300 border-purple-500/30';
+    if (cat.includes('TF')) return 'bg-blue-500/20 text-blue-300 border-blue-500/30';
+    if (cat.includes('전문선임') || cat.includes('교육')) return 'bg-amber-500/20 text-amber-300 border-amber-500/30';
+    if (cat.includes('사회공헌') || cat.includes('봉사')) return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30';
+    return 'bg-pink-500/20 text-pink-300 border-pink-500/30';
   };
 
   // 연도별 그룹핑 헬퍼
@@ -2778,8 +3218,11 @@ function renderPortfolioTab() {
       if (!map[y]) map[y] = [];
       map[y].push(item);
     });
-    return Object.keys(map).sort((a, b) => (parseInt(b, 10) || 0) - (parseInt(a, 10) || 0))
-      .map(year => ({ year, list: map[year] }));
+    return Object.keys(map).sort((a, b) => {
+      if (a === '상시') return -1;
+      if (b === '상시') return 1;
+      return (parseInt(b, 10) || 0) - (parseInt(a, 10) || 0);
+    }).map(year => ({ year, list: map[year] }));
   };
 
   const awardYearGroups = groupByYear(filteredAwards);
@@ -2788,7 +3231,7 @@ function renderPortfolioTab() {
   // 통합 타임라인용 연도별 묶음
   const combinedItems = [
     ...filteredAwards.map(a => ({ ...a, itemType: 'award' })),
-    ...filteredCareers.map(c => ({ ...c, itemType: 'career', year: c.startYear }))
+    ...filteredCareers.map(c => ({ ...c, itemType: 'career', year: c.year || c.startYear }))
   ];
   const combinedYearGroups = groupByYear(combinedItems);
   const highlightCount = awards.filter(a => a.highlight).length;
@@ -2804,16 +3247,16 @@ function renderPortfolioTab() {
               <i class="fa-solid ${mode === 'awards' ? 'fa-trophy' : mode === 'careers' ? 'fa-briefcase' : 'fa-layer-group'}"></i>
               ${mode === 'awards' ? '수상 내역 전용 관리 모드 (Option B)' : mode === 'careers' ? '주요 경력 & TF 활동 전용 관리 모드 (Option B)' : '수상·경력 연도별 통합 타임라인 (Option A)'}
             </span>
-            <span class="text-xs text-slate-400">2014년 ~ 2026년 삼성전자 사내 표창 및 주요 경력 아카이브</span>
+            <span class="text-xs text-slate-400">2014년 ~ 2026년 삼성전자 사내외 표창 및 주요 경력 아카이브</span>
           </div>
           <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
-            ${mode === 'awards' ? '<i class="fa-solid fa-trophy text-amber-400"></i> 수상 및 표창 이력 관리' : mode === 'careers' ? '<i class="fa-solid fa-briefcase text-emerald-400"></i> 주요 경력 & 사내 TF 활동' : '<i class="fa-solid fa-award text-sky-400"></i> 수상 & 경력 연도별 통합 포트폴리오'}
+            ${mode === 'awards' ? '<i class="fa-solid fa-trophy text-amber-400"></i> 수상 및 표창 이력 관리' : mode === 'careers' ? '<i class="fa-solid fa-briefcase text-emerald-400"></i> 주요 경력 & 사내외 TF 활동' : '<i class="fa-solid fa-award text-sky-400"></i> 수상 & 경력 연도별 통합 포트폴리오'}
           </h1>
           <p class="text-sm text-slate-300 mt-2 max-w-3xl leading-relaxed">
             ${mode === 'awards'
-              ? '삼성전자 총괄부사장·부사장·센터장·기술팀장 표창 및 병무청장 표창까지 총 23건의 수상 실적을 연도별·분야별로 한눈에 관리합니다.'
+              ? '삼성전자 사내 표창(제조센터장·안전그룹장·인사기획그룹·기술팀장)부터 국회 국방위원장 대상·방통대 총장상·화성시장 위촉까지 총 23건의 수상 실적을 관리합니다.'
               : mode === 'careers'
-              ? '에너지 절감 TF·환경안전 개선 TF·초순수(UPW) 절감 TF·설비 이설 TF(화성↔평택)·DS부문 안전문화 사내강사 등 15건의 핵심 경력을 관리합니다.'
+              ? 'SSIT 사내대학 전임교수 추천·위험물 기능장 대비반(7명 배출)·파운드리 위험물 관리자 선임·모두의 인사/세이프 인플루언서 TF·MZ 자문단·THE NANUM 100 CLUB·브런치 작가 활동 등 15건의 핵심 경력을 관리합니다.'
               : '수상 내역(23건)과 주요 경력(15건)을 연도 흐름에 따라 좌우 2단으로 교차 비교하며 이력서·포트폴리오용으로 한눈에 조망합니다.'}
           </p>
         </div>
@@ -2851,7 +3294,7 @@ function renderPortfolioTab() {
           </div>
           <div>
             <div class="text-sm font-extrabold ${mode === 'careers' ? 'text-emerald-300' : 'text-white'}">2. 주요 경력 & TF 전용 탭</div>
-            <div class="text-[11px] text-slate-400">기술팀/그룹 대표 TF · 사내강사</div>
+            <div class="text-[11px] text-slate-400">SSIT 교수추천 · 기능장 7명 배출 · TF</div>
           </div>
         </div>
         <span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 text-xs font-black">${careers.length}건</span>
@@ -2888,25 +3331,25 @@ function renderPortfolioTab() {
           <i class="fa-solid fa-users-gear text-emerald-400"></i>
         </div>
         <div class="text-2xl font-black text-white">${careers.length}<span class="text-xs font-normal text-slate-400"> 건</span></div>
-        <div class="text-[11px] text-emerald-300 mt-1">🟢 현업 진행 중(Active) ${ongoingCount}건</div>
+        <div class="text-[11px] text-emerald-300 mt-1">🟢 상시/현업 활동 ${ongoingCount}건 포함</div>
       </div>
 
       <div class="glass-panel rounded-2xl p-4 border border-slate-800 bg-slate-900/60">
         <div class="text-[11px] text-slate-400 flex items-center justify-between mb-1">
-          <span>환경안전 · 에너지 전문성</span>
+          <span>전문 선임 · 후배 양성</span>
           <i class="fa-solid fa-shield-halved text-sky-400"></i>
         </div>
-        <div class="text-base font-black text-sky-300 mt-0.5">환경안전·에너지 특화</div>
-        <div class="text-[11px] text-slate-400 mt-1">에너지절감·UPW절감·위험성평가·사내강사</div>
+        <div class="text-base font-black text-sky-300 mt-0.5">SSIT 교수 추천 · 기능장 7명 배출</div>
+        <div class="text-[11px] text-slate-400 mt-1">기흥·화성 파운드리 위험물 관리자 선임</div>
       </div>
 
       <div class="glass-panel rounded-2xl p-4 border border-slate-800 bg-slate-900/60">
         <div class="text-[11px] text-slate-400 flex items-center justify-between mb-1">
-          <span>최고 훈격 및 대표 성과</span>
+          <span>대외 표창 & 사회공헌</span>
           <i class="fa-solid fa-crown text-pink-400"></i>
         </div>
-        <div class="text-base font-black text-pink-300 mt-0.5">부사장 표창 5회 · 병무청장상</div>
-        <div class="text-[11px] text-slate-400 mt-1">메모리 기술전 2연속 · 품질인의 날 BP상</div>
+        <div class="text-base font-black text-pink-300 mt-0.5">국회 국방위원장상 · 방통대 총장상</div>
+        <div class="text-[11px] text-slate-400 mt-1">THE NANUM 100 CLUB · 화성시 분과장</div>
       </div>
     </div>
 
@@ -2915,17 +3358,16 @@ function renderPortfolioTab() {
       <div class="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 text-xs">
         ${mode === 'awards' ? `
           <button onclick="window.app.setAwardFilter('all')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.awardFilter === 'all' ? 'bg-amber-500 text-slate-950' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">전체 (${awards.length})</button>
-          <button onclick="window.app.setAwardFilter('환경안전/보건')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.awardFilter === '환경안전/보건' ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">🛡️ 환경안전/보건 (${awards.filter(a => a.category === '환경안전/보건').length})</button>
-          <button onclick="window.app.setAwardFilter('기술/품질/학술')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.awardFilter === '기술/품질/학술' ? 'bg-sky-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">⚡ 기술/품질/학술 (${awards.filter(a => a.category === '기술/품질/학술').length})</button>
-          <button onclick="window.app.setAwardFilter('제조/모범/혁신')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.awardFilter === '제조/모범/혁신' ? 'bg-amber-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">🏆 제조/모범/혁신 (${awards.filter(a => a.category === '제조/모범/혁신').length})</button>
-          <button onclick="window.app.setAwardFilter('직무/협업')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.awardFilter === '직무/협업' ? 'bg-purple-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">🤝 직무/협업 (${awards.filter(a => a.category === '직무/협업').length})</button>
-          <button onclick="window.app.setAwardFilter('봉사/공헌')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.awardFilter === '봉사/공헌' ? 'bg-pink-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">💚 봉사/공헌 (${awards.filter(a => a.category === '봉사/공헌').length})</button>
+          <button onclick="window.app.setAwardFilter('안전·환경')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.awardFilter === '안전·환경' ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">🛡️ 안전·환경 (${awards.filter(a => a.category === '안전·환경').length})</button>
+          <button onclick="window.app.setAwardFilter('기술·생산성·혁신')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.awardFilter === '기술·생산성·혁신' ? 'bg-sky-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">⚡ 기술·생산성·혁신 (${awards.filter(a => a.category === '기술·생산성·혁신').length})</button>
+          <button onclick="window.app.setAwardFilter('인사·교육·조직문화')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.awardFilter === '인사·교육·조직문화' ? 'bg-purple-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">🤝 인사·교육·조직문화 (${awards.filter(a => a.category === '인사·교육·조직문화').length})</button>
+          <button onclick="window.app.setAwardFilter('대외·공공·문학')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.awardFilter === '대외·공공·문학' ? 'bg-amber-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">🏛️ 대외·공공·문학 (${awards.filter(a => a.category === '대외·공공·문학').length})</button>
         ` : mode === 'careers' ? `
           <button onclick="window.app.setCareerFilter('all')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.careerFilter === 'all' ? 'bg-emerald-500 text-slate-950' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">전체 (${careers.length})</button>
-          <button onclick="window.app.setCareerFilter('환경안전/에너지')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.careerFilter === '환경안전/에너지' ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">🌿 환경안전/에너지 (${careers.filter(c => c.category === '환경안전/에너지').length})</button>
-          <button onclick="window.app.setCareerFilter('설비/제조혁신 TF')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.careerFilter === '설비/제조혁신 TF' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">⚙️ 설비/제조혁신 TF (${careers.filter(c => c.category === '설비/제조혁신 TF').length})</button>
-          <button onclick="window.app.setCareerFilter('사내강사/리더십')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.careerFilter === '사내강사/리더십' ? 'bg-amber-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">🎤 사내강사/리더십 (${careers.filter(c => c.category === '사내강사/리더십').length})</button>
-          <button onclick="window.app.setCareerFilter('조직문화/협의체')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.careerFilter === '조직문화/협의체' ? 'bg-purple-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">💬 조직문화/협의체 (${careers.filter(c => c.category === '조직문화/협의체').length})</button>
+          <button onclick="window.app.setCareerFilter('사내 핵심 TF')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.careerFilter === '사내 핵심 TF' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">🚀 사내 핵심 TF (${careers.filter(c => c.category === '사내 핵심 TF').length})</button>
+          <button onclick="window.app.setCareerFilter('전문선임·교육·교수')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.careerFilter === '전문선임·교육·교수' ? 'bg-amber-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">🎓 전문선임·교육·교수 (${careers.filter(c => c.category === '전문선임·교육·교수').length})</button>
+          <button onclick="window.app.setCareerFilter('사회공헌·봉사')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.careerFilter === '사회공헌·봉사' ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">💚 사회공헌·봉사 (${careers.filter(c => c.category === '사회공헌·봉사').length})</button>
+          <button onclick="window.app.setCareerFilter('작가·대외·학술')" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.careerFilter === '작가·대외·학술' ? 'bg-pink-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">✍️ 작가·대외·학술 (${careers.filter(c => c.category === '작가·대외·학술').length})</button>
         ` : `
           <span class="text-xs text-sky-300 font-bold px-2"><i class="fa-solid fa-circle-info mr-1"></i> 연도별로 수상 내역(🏅)과 주요 경력(💼)이 함께 표시됩니다.</span>
         `}
@@ -2968,6 +3410,7 @@ function renderPortfolioTab() {
                       </span>
                     </div>
                     <h3 class="text-sm sm:text-base font-extrabold text-white leading-snug">${a.title}</h3>
+                    ${a.description ? `<p class="text-xs text-slate-400 leading-relaxed">💡 ${a.description}</p>` : ''}
                   </div>
 
                   <div class="flex items-center gap-1.5 self-end sm:self-center flex-shrink-0">
@@ -3034,16 +3477,14 @@ function renderPortfolioTab() {
         `).join('')}
       </div>
     ` : `
-      <!-- Mode 3: Combined Chronological Timeline -->
+      <!-- Combined Year-by-Year Timeline View -->
       <div class="space-y-6">
         ${combinedYearGroups.map(group => `
-          <div class="glass-panel rounded-2xl p-5 sm:p-6 border border-slate-800">
+          <div class="glass-panel rounded-2xl p-5 sm:p-6 border border-slate-800/90">
             <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-800">
-              <div class="flex items-center gap-3">
-                <span class="px-3.5 py-1 rounded-xl bg-sky-500/20 border border-sky-500/40 text-sky-300 font-black text-base">${group.year}년</span>
-                <span class="text-xs text-slate-400">
-                  수상 <b>${group.list.filter(i => i.itemType === 'award').length}건</b> · 경력 <b>${group.list.filter(i => i.itemType === 'career').length}건</b>
-                </span>
+              <div class="flex items-center gap-2.5">
+                <span class="px-3 py-1 rounded-xl bg-sky-500/20 border border-sky-500/40 text-sky-300 font-black text-sm">${group.year === '상시' ? '상시 활동' : group.year + '년'}</span>
+                <span class="text-xs text-slate-400">수상 ${group.list.filter(i => i.itemType === 'award').length}건 · 경력/TF ${group.list.filter(i => i.itemType === 'career').length}건</span>
               </div>
             </div>
 
