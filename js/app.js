@@ -1319,10 +1319,13 @@ function initApp() {
   switchTab(state.activeTab);
   setInterval(updateDDayDisplay, 60000);
 
-  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
-    navigator.serviceWorker.register('./sw.js?v=20260926_v3', { updateViaCache: 'none' })
-      .then(reg => reg.update())
-      .catch(err => console.log('SW fail', err));
+  // 서비스 워커 해제 (캐시 고착 문제 원천 차단)
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(regs => {
+      for (const reg of regs) {
+        reg.unregister();
+      }
+    });
   }
 }
 
