@@ -10,52 +10,46 @@
   <title>개인 업무 및 커리어 대시보드</title>
   
   <!-- PWA & Mobile Meta Tags -->
-  <link rel="manifest" href="manifest.json?v=20260926_v3">
+  <link rel="manifest" href="manifest.json?v=20260927_v5">
   <meta name="theme-color" content="#0f172a">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="커리어 보드">
 
-  <!-- 구버전 Service Worker 캐시 자동 정리 및 최신 버전 자동 반영 스크립트 -->
+  <!-- Service Worker 강제 제거 및 브라우저 캐시 전량 자동 소각 스크립트 -->
   <script>
     (function() {
-      const CURRENT_APP_BUILD = '20260926_v3';
-      try {
-        if ('caches' in window) {
-          caches.keys().then(function(keys) {
-            keys.forEach(function(key) {
-              if (key.indexOf('v1') !== -1 || key.indexOf('v2') !== -1) {
-                caches.delete(key);
-              }
-            });
-          });
-        }
-        if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
-          navigator.serviceWorker.getRegistrations().then(function(regs) {
-            regs.forEach(function(reg) { reg.update(); });
-          });
-          let refreshing = false;
-          navigator.serviceWorker.addEventListener('controllerchange', function() {
-            if (!refreshing) {
-              refreshing = true;
-              window.location.reload();
+      // 1. 등록된 모든 서비스 워커(Service Worker) 강제 해제
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(regs) {
+          if (regs.length > 0) {
+            for (var reg of regs) {
+              reg.unregister();
             }
-          });
-        }
-        const prevBuild = localStorage.getItem('career_dashboard_build_ver');
-        if (prevBuild && prevBuild !== CURRENT_APP_BUILD) {
-          localStorage.setItem('career_dashboard_build_ver', CURRENT_APP_BUILD);
-          if ('caches' in window) {
-            caches.keys().then(function(keys) {
-              return Promise.all(keys.map(function(k) { return caches.delete(k); }));
-            }).then(function() {
-              window.location.reload();
-            });
+            if (!sessionStorage.getItem('sw_unregistered_reload')) {
+              sessionStorage.setItem('sw_unregistered_reload', '1');
+              window.location.reload(true);
+            }
           }
-        } else {
-          localStorage.setItem('career_dashboard_build_ver', CURRENT_APP_BUILD);
+        });
+      }
+      // 2. 브라우저 캐시 스토리지(Cache Storage) 전량 삭제
+      if ('caches' in window) {
+        caches.keys().then(function(keys) {
+          for (var k of keys) {
+            caches.delete(k);
+          }
+        });
+      }
+      // 3. 빌드 버전 검사를 통한 자동 1회 새로고침
+      var APP_VER = '20260927_v5';
+      if (localStorage.getItem('career_app_build') !== APP_VER) {
+        localStorage.setItem('career_app_build', APP_VER);
+        if (!sessionStorage.getItem('build_updated')) {
+          sessionStorage.setItem('build_updated', '1');
+          window.location.reload(true);
         }
-      } catch (e) {}
+      }
     })();
   </script>
 
@@ -88,7 +82,7 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
 
   <!-- Custom CSS (Cache-Busted) -->
-  <link rel="stylesheet" href="css/style.css?v=20260926_v3">
+  <link rel="stylesheet" href="css/style.css?v=20260927_v5">
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col md:flex-row antialiased selection:bg-sky-500 selection:text-white pb-20 md:pb-0">
 
@@ -1194,6 +1188,6 @@
   </div>
 
   <!-- Main Application Script (Safe for file:// and http://) -->
-  <script src="js/app.js?v=20260926_v3"></script>
+  <script src="js/app.js?v=20260927_v5"></script>
 </body>
 </html>
