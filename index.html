@@ -1317,6 +1317,87 @@
     </div>
   </div>
 
+  <!-- 18. Tab Locked Notice Modal (자물쇠 모양 사용 불가 안내 팝업) 🔒 -->
+  <div id="modal-tab-locked" class="app-modal fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-amber-500/50 rounded-3xl w-full max-w-md p-6 max-h-[90vh] flex flex-col shadow-2xl relative overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      <div class="absolute -right-12 -top-12 w-48 h-48 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-12 -bottom-12 w-48 h-48 bg-rose-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Header with Big Lock Icon -->
+      <div class="flex items-center justify-between pb-4 border-b border-slate-800 relative z-10">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center text-xl shadow-lg shadow-amber-500/10 flex-shrink-0">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+          <div>
+            <h3 class="font-extrabold text-white text-base flex items-center gap-1.5">
+              <span>기능 잠금 안내</span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 font-bold">사용 불가</span>
+            </h3>
+            <p class="text-xs text-slate-400">관리자 로그인이 필요한 전용 영역입니다</p>
+          </div>
+        </div>
+        <button onclick="window.app.closeAllModals()" class="text-slate-400 hover:text-white p-1.5 rounded-xl hover:bg-slate-800 transition">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Body Notice Content -->
+      <div class="py-5 space-y-4 text-xs text-slate-300 relative z-10">
+        <!-- Target Tab Card -->
+        <div class="p-4 rounded-2xl bg-slate-800/80 border border-amber-500/30 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2 text-white font-bold text-sm">
+              <span id="locked-tab-icon" class="text-amber-400 text-base"><i class="fa-solid fa-lock"></i></span>
+              <span id="locked-tab-title" class="text-amber-300 font-extrabold">선택하신 탭</span>
+            </div>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono font-bold flex items-center gap-1">
+              <i class="fa-solid fa-lock text-[8px]"></i> Locked
+            </span>
+          </div>
+          <div id="locked-tab-desc" class="text-slate-300 text-[11px] leading-relaxed pt-1">
+            읽기 전용 모드에서는 <b>종합 대시보드(Overview)</b>만 이용 가능합니다.<br>
+            시험 관리, 산티아고 순례길, 밴드 활동, 에너지관리기사, 인바디 89개 기록, SNS 브랜딩 및 수상·경력 등 모든 세부 탭은 <b>관리자 로그인을 완료해야 열람 및 사용</b>할 수 있습니다.
+          </div>
+        </div>
+
+        <!-- Mode Comparison -->
+        <div class="grid grid-cols-2 gap-2 text-[11px]">
+          <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800 space-y-1">
+            <div class="text-slate-400 font-bold flex items-center gap-1">
+              <i class="fa-solid fa-user text-slate-500"></i> 현재 모드
+            </div>
+            <div class="text-amber-400 font-bold">읽기 전용 (게스트)</div>
+            <div class="text-[10px] text-slate-400">종합 대시보드만 이용 가능</div>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-950/60 border border-emerald-500/30 space-y-1">
+            <div class="text-emerald-400 font-bold flex items-center gap-1">
+              <i class="fa-solid fa-crown text-amber-400"></i> 관리자 모드
+            </div>
+            <div class="text-emerald-300 font-bold">전체 잠금 해제</div>
+            <div class="text-[10px] text-slate-400">모든 탭 & 세부 데이터 사용</div>
+          </div>
+        </div>
+
+        <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-[11px] flex items-center justify-between font-mono">
+          <span class="text-slate-400">관리자 계정:</span>
+          <span class="text-sky-400 font-bold">carlosnam6363@gmail.com</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="pt-4 border-t border-slate-800 flex flex-col gap-2 relative z-10">
+        <button type="button" onclick="window.app.openAuthModal()" class="w-full py-3 px-4 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-black rounded-xl text-xs transition flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 active:scale-98 cursor-pointer">
+          <i class="fa-solid fa-crown text-sm"></i>
+          <span>관리자 로그인하고 모든 기능 열기</span>
+        </button>
+        <button type="button" onclick="window.app.closeAllModals()" class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold transition cursor-pointer">
+          종합 대시보드로 돌아가기
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- 19. Google Admin Auth Modal 🛡️ -->
   <div id="modal-admin-auth" class="app-modal fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-slate-900 border border-slate-700/80 rounded-3xl w-full max-w-md p-6 max-h-[90vh] flex flex-col shadow-2xl relative overflow-hidden">
@@ -1329,7 +1410,7 @@
           </div>
           <div>
             <h3 class="font-bold text-white text-base">관리자 권한 인증</h3>
-            <p class="text-xs text-slate-400">데이터 추가 및 수정 권한 제어</p>
+            <p class="text-xs text-slate-400">데이터 추가·수정 및 전체 탭 열람 제어</p>
           </div>
         </div>
         <button onclick="window.app.closeAllModals()" class="text-slate-400 hover:text-white p-1">
@@ -1341,10 +1422,10 @@
         <div class="p-4 rounded-2xl bg-slate-800/80 border border-amber-500/30 space-y-2">
           <div class="flex items-center gap-2 text-amber-400 font-extrabold text-sm">
             <i class="fa-solid fa-lock"></i>
-            <span>지정된 관리자 계정만 수정 가능</span>
+            <span>지정된 관리자 계정만 전체 기능 사용 가능</span>
           </div>
           <p class="text-slate-300 leading-relaxed">
-            보안을 위해 대시보드의 데이터 추가·수정·삭제 및 백업 복원 권한은 오직 지정된 Google 계정으로 로그인한 소유자에게만 부여됩니다.
+            보안을 위해 대시보드의 세부 탭 열람 및 데이터 추가·수정·삭제 권한은 오직 지정된 관리자에게만 부여됩니다.
           </p>
           <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-700 font-mono text-amber-300 text-xs flex items-center justify-between">
             <span>허용 계정:</span>
@@ -1354,6 +1435,22 @@
 
         <div id="auth-modal-user-status" class="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 flex items-center justify-between text-xs">
           <!-- Injected dynamically by renderAuthWidget() -->
+        </div>
+
+        <!-- Quick Admin PIN Input -->
+        <div class="p-3.5 rounded-2xl bg-slate-800/60 border border-slate-700/80 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-slate-300 font-bold flex items-center gap-1.5">
+              <i class="fa-solid fa-key text-amber-400"></i> 관리자 간편 PIN 인증
+            </span>
+            <span class="text-[10px] text-slate-400 font-mono">기본: 6363</span>
+          </div>
+          <form onsubmit="window.app.handlePinLogin(event)" class="flex gap-2">
+            <input type="password" id="input-admin-pin" placeholder="PIN 번호 입력 (6363)" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono focus:border-amber-500 outline-none text-xs">
+            <button type="submit" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl text-xs transition flex-shrink-0 cursor-pointer">
+              확인
+            </button>
+          </form>
         </div>
       </div>
 
@@ -1369,7 +1466,7 @@
         </button>
 
         <button type="button" onclick="window.app.closeAllModals()" class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold transition cursor-pointer">
-          닫기 (게스트 읽기 모드 유지)
+          닫기 (종합 대시보드 유지)
         </button>
       </div>
     </div>
@@ -1474,6 +1571,6 @@
   </div>
 
   <!-- Main Application Script (Safe for file:// and http://) -->
-  <script src="js/app.js?v=20260928_v6"></script>
+  <script src="js/app.js?v=20260928_v7"></script>
 </body>
 </html>
