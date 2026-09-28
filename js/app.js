@@ -1231,7 +1231,116 @@ const INITIAL_EXTERNAL_DASHBOARDS = [
 
 
   // =========================================================================
-  // 2. Cloud Sync & Storage Manager
+  
+// ==========================================================================
+// 체구 감량 & 인바디 지속 관리 초기 데이터 (⭐ '체중 변화 없는 성공적인 다이어트')
+// ==========================================================================
+const INITIAL_INBODY_DATA = {
+  inbodyDataVersion: 1,
+  title: "체중 변화 없는 성공적인 다이어트 (체성분 재구성 & 체구 감량)",
+  subtitle: "체중계의 착각을 넘어 골격근 증량 & 순수 체지방 감량으로 실루엣을 바꾸는 상승 다이어트 (Body Recomposition)",
+  targetStats: {
+    targetWeight: 74.0,
+    targetMuscle: 35.0,
+    targetBodyFatRate: 15.0,
+    targetVisceral: 4,
+    targetWaist: 29.5
+  },
+  bodyMeasurements: {
+    chest: 102,
+    waist: 77, // 30.3 inch
+    hip: 96,
+    thigh: 56,
+    arm: 34
+  },
+  records: [
+    {
+      id: "inbody-1",
+      date: "2026-06-15",
+      weight: 74.8,
+      skeletalMuscle: 32.1,
+      bodyFatMass: 17.5,
+      bodyFatRate: 23.4,
+      bmi: 24.1,
+      visceralFat: 7,
+      waistHipRatio: 0.88,
+      bmr: 1620,
+      score: 74,
+      bodyType: "C자형 (체지방 과다형)",
+      waistSize: 33.5,
+      notes: "다이어트 시작. 체중은 정상이나 복부 지방 집중. 굶지 않고 단백질 식단과 웨이트 트레이닝 착수"
+    },
+    {
+      id: "inbody-2",
+      date: "2026-07-20",
+      weight: 74.5,
+      skeletalMuscle: 32.8,
+      bodyFatMass: 16.2,
+      bodyFatRate: 21.7,
+      bmi: 24.0,
+      visceralFat: 6,
+      waistHipRatio: 0.86,
+      bmr: 1645,
+      score: 77,
+      bodyType: "I자형 (표준 균형형)",
+      waistSize: 32.3,
+      notes: "단백질 120g 매일 섭취 + 웨이트 3대 운동 점진적 과부하 적용, 체중 유지하며 골격근 증가 확인"
+    },
+    {
+      id: "inbody-3",
+      date: "2026-08-25",
+      weight: 74.2,
+      skeletalMuscle: 33.5,
+      bodyFatMass: 14.8,
+      bodyFatRate: 19.9,
+      bmi: 23.9,
+      visceralFat: 5,
+      waistHipRatio: 0.84,
+      bmr: 1670,
+      score: 81,
+      bodyType: "I-D 전환형",
+      waistSize: 31.1,
+      notes: "체지방률 20% 언더 돌파! 허리둘레 눈에 띄게 감소, 셔츠/바지 핏 대폭 개선"
+    },
+    {
+      id: "inbody-4",
+      date: "2026-09-25",
+      weight: 74.0,
+      skeletalMuscle: 34.2,
+      bodyFatMass: 13.5,
+      bodyFatRate: 18.2,
+      bmi: 23.8,
+      visceralFat: 5,
+      waistHipRatio: 0.82,
+      bmr: 1695,
+      score: 85,
+      bodyType: "D자형 (골격근 발달형 / 이상적)",
+      waistSize: 30.3,
+      notes: "★ 체중은 -0.8kg 유지 상태에서 골격근 +2.1kg 증량 & 체지방 -4.0kg 감량으로 체구 축소 대성공!"
+    }
+  ],
+  principles: [
+    {
+      title: "1. 체중계의 착각 극복 (밀도와 부피의 비밀)",
+      description: "체중은 뼈, 수분, 근육, 지방의 총합입니다. 지방 1kg의 부피는 근육 1kg보다 약 18% 더 큽니다. 같은 74kg이라도 근육이 늘고 지방이 빠지면 체구와 허리둘레가 드라마틱하게 슬림해집니다."
+    },
+    {
+      title: "2. 체중당 1.6~2.0g 단백질 고정 공급",
+      description: "근손실 없는 체지방 감량을 위해 체중(74kg) 기준 하루 120~150g 단백질(닭가슴살 400g 상당)을 3~4끼로 분할 공급하여 근합성을 최적화합니다."
+    },
+    {
+      title: "3. 대근육 중심 웨이트 트레이닝 (점진적 과부하)",
+      description: "단순 유산소만 하면 근육이 함께 빠져 기초대사량이 감소합니다. 스쿼트, 데드리프트, 벤치프레스 등 대근육 복합 다관절 운동으로 근육을 자극해야 체형이 바로 잡힙니다."
+    },
+    {
+      title: "4. 수분 2.5L 섭취 & 7시간 숙면",
+      description: "충분한 수분 공급은 간의 지방 대사를 원활하게 하며, 깊은 수면 중 분비되는 성장호르몬이 근육 회복과 체지방 분해를 촉진합니다."
+    }
+  ]
+};
+
+
+// 2. Cloud Sync & Storage Manager
   // =========================================================================
 /**
  * Cloud Sync & Local Storage Module
@@ -1280,12 +1389,16 @@ class SyncManager {
         const upgradedPortfolio = (parsed.portfolio && parsed.portfolio.portfolioDataVersion === 2)
           ? parsed.portfolio
           : JSON.parse(JSON.stringify(INITIAL_PORTFOLIO_DATA));
+        const upgradedInbody = (parsed.inbody && parsed.inbody.inbodyDataVersion === 1)
+          ? parsed.inbody
+          : JSON.parse(JSON.stringify(INITIAL_INBODY_DATA));
 
         parsed.camino = upgradedCamino;
         parsed.bands = upgradedBands;
         parsed.energyPlan = upgradedEnergyPlan;
         parsed.sns = upgradedSns;
         parsed.portfolio = upgradedPortfolio;
+        parsed.inbody = upgradedInbody;
         localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
 
         return {
@@ -1299,6 +1412,7 @@ class SyncManager {
           camino: upgradedCamino,
           sns: upgradedSns,
           portfolio: upgradedPortfolio,
+          inbody: upgradedInbody,
           theme: parsed.theme || 'dark'
         };
       }
@@ -1317,6 +1431,7 @@ class SyncManager {
       camino: INITIAL_CAMINO_DATA,
       sns: INITIAL_SNS_DATA,
       portfolio: INITIAL_PORTFOLIO_DATA,
+      inbody: INITIAL_INBODY_DATA,
       theme: 'dark'
     };
   }
@@ -1529,6 +1644,8 @@ let state = {
   camino: INITIAL_CAMINO_DATA,
   sns: INITIAL_SNS_DATA,
   portfolio: INITIAL_PORTFOLIO_DATA,
+  inbody: INITIAL_INBODY_DATA,
+  externalSubtab: 'excel', // 'excel' or 'dashboards'
   theme: 'dark',
   activeTab: 'overview',
   activeExternalTabId: null,
@@ -1706,6 +1823,9 @@ function renderCurrentTab() {
       break;
     case 'sns':
       renderSnsTab();
+      break;
+    case 'inbody':
+      renderInbodyTab();
       break;
     case 'awards':
     case 'careers':
@@ -3432,13 +3552,334 @@ function renderUploadGuidanceView() {
 // ==========================================================================
 // 5. External Dashboard 연동 탭 (⭐ 사용자가 요청한 핵심 기능)
 // ==========================================================================
+// ==========================================================================
+// 5. External Dashboard & Full Data Excel Export Hub (⭐ 신규 추가)
+// ==========================================================================
 function renderExternalTab() {
   const container = document.getElementById('tab-content-external');
   if (!container) return;
 
+  const currentSubtab = state.externalSubtab || 'excel'; // 'excel' or 'dashboards'
   const activeExt = state.externalDashboards.find(e => e.id === state.activeExternalTabId) || state.externalDashboards[0];
 
   container.innerHTML = `
+    <!-- Top Sub-Tab Switcher: 📊 엑셀 추출 허브 vs 🌐 연동 대시보드 -->
+    <div class="flex items-center justify-between gap-4 border-b border-slate-800 pb-4 mb-6">
+      <div class="flex items-center gap-2">
+        <button onclick="window.app.setExternalSubtab('excel')" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 ${currentSubtab === 'excel' ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg shadow-emerald-600/20' : 'bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700'}">
+          <i class="fa-solid fa-file-excel text-base"></i>
+          <span>대시보드 전 데이터 엑셀(Excel) 추출</span>
+        </button>
+        <button onclick="window.app.setExternalSubtab('dashboards')" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 ${currentSubtab === 'dashboards' ? 'bg-sky-500 text-slate-950 shadow-md' : 'bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700'}">
+          <i class="fa-solid fa-window-restore text-base"></i>
+          <span>외부 대시보드 연동 (${state.externalDashboards.length}개)</span>
+        </button>
+      </div>
+
+      <div class="text-xs text-slate-400 hidden sm:block">
+        ${currentSubtab === 'excel' ? '모든 대시보드 데이터를 실시간 엑셀 워크북으로 백업합니다' : 'HTML 파일이나 외부 URL 대시보드를 임베드합니다'}
+      </div>
+    </div>
+
+    <!-- View based on Subtab -->
+    ${currentSubtab === 'excel' ? renderExcelExportHubView() : renderExternalDashboardsView(activeExt)}
+  `;
+
+  // If in dashboards view, load active iframe
+  if (currentSubtab === 'dashboards' && activeExt) {
+    setTimeout(() => {
+      const iframe = document.getElementById('external-iframe');
+      if (!iframe) return;
+      if (activeExt.type === 'url') {
+        iframe.src = activeExt.content;
+      } else {
+        iframe.srcdoc = activeExt.content;
+      }
+    }, 50);
+  }
+}
+
+// --------------------------------------------------------------------------
+// 5-A. Excel Export Hub View (⭐)
+// --------------------------------------------------------------------------
+function renderExcelExportHubView() {
+  const exams = state.exams || INITIAL_EXAM_SCHEDULES;
+  const bands = state.bands || INITIAL_BAND_SCHEDULES;
+  const energyPlan = state.energyPlan || INITIAL_ENERGY_STUDY_PLAN;
+  const awards = (state.portfolio && state.portfolio.awards) || (INITIAL_PORTFOLIO_DATA.awards);
+  const careers = (state.portfolio && state.portfolio.careers) || (INITIAL_PORTFOLIO_DATA.careers);
+  const caminoItinerary = (state.camino && state.camino.itinerary) || (INITIAL_CAMINO_DATA.itinerary);
+  const snsChannels = (state.sns && state.sns.channels) || (INITIAL_SNS_DATA.channels);
+  const inbodyRecords = (state.inbody && state.inbody.records) || (INITIAL_INBODY_DATA.records);
+
+  return `
+    <div class="space-y-8">
+      
+      <!-- Top Big Action Banner -->
+      <div class="glass-panel rounded-2xl p-6 sm:p-8 border border-emerald-500/40 bg-gradient-to-r from-slate-900 via-emerald-950/30 to-slate-900 relative overflow-hidden shadow-2xl">
+        <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold rounded-full flex items-center gap-1.5">
+                <i class="fa-solid fa-file-excel"></i> Excel Export Engine (SheetJS Full Support)
+              </span>
+              <span class="text-xs text-slate-400">8대 전 카테고리 다중 시트 통합</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
+              <i class="fa-solid fa-cloud-arrow-down text-emerald-400"></i>
+              대시보드 전 데이터 엑셀(Excel) 추출 & 백업
+            </h1>
+            <p class="text-sm text-slate-300 mt-2 max-w-2xl leading-relaxed">
+              현재까지 구축한 <b>학사·자격증 시험, 밴드 합주, 에너지관리기사 41일 플랜, 사내외 수상(23건), 주요 경력(15건), 산티아고 순례길, SNS 브랜딩, 체구 감량/인바디 데이터</b>를 원클릭으로 정돈된 엑셀(.xlsx) 파일로 내보냅니다.
+            </p>
+          </div>
+
+          <button onclick="window.app.exportAllDashboardToExcel()" class="py-4 px-6 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black rounded-2xl text-sm shadow-xl shadow-emerald-500/20 transition flex items-center gap-3 flex-shrink-0 group">
+            <i class="fa-solid fa-file-arrow-down text-xl group-hover:scale-110 transition"></i>
+            <div class="text-left">
+              <div class="text-[11px] text-slate-900 font-bold">원클릭 8대 시트 통합</div>
+              <div class="text-base font-black">통합 엑셀(.xlsx) 다운로드</div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Category Individual Export Grid -->
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-table-cells text-emerald-400"></i>
+            카테고리별 개별 엑셀 / 데이터 추출 (단독 시트)
+          </h2>
+          <span class="text-xs text-slate-400">필요한 영역만 선택하여 즉시 다운로드할 수 있습니다</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          
+          <!-- 1. 학사/시험 -->
+          <div class="p-5 rounded-2xl bg-slate-800/60 border border-slate-700/60 flex flex-col justify-between hover:border-blue-500/40 transition">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-lg">
+                  <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <span class="text-xs font-mono font-bold text-slate-400">${exams.length}개 일정</span>
+              </div>
+              <h3 class="text-sm font-bold text-white mb-1">학사 및 자격증 일정</h3>
+              <p class="text-xs text-slate-400 mb-4">방통대 과제·기말고사, 에너지관리기사 접수 및 D-Day</p>
+            </div>
+            <button onclick="window.app.exportCategoryToExcel('exams')" class="w-full py-2 bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 text-blue-300 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-download"></i> 시험일정 엑셀 추출
+            </button>
+          </div>
+
+          <!-- 2. 밴드 합주 -->
+          <div class="p-5 rounded-2xl bg-slate-800/60 border border-slate-700/60 flex flex-col justify-between hover:border-purple-500/40 transition">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-lg">
+                  <i class="fa-solid fa-guitar"></i>
+                </div>
+                <span class="text-xs font-mono font-bold text-slate-400">${bands.length}개 일정</span>
+              </div>
+              <h3 class="text-sm font-bold text-white mb-1">밴드 합주 & 세트리스트</h3>
+              <p class="text-xs text-slate-400 mb-4">홍대 호랑이 합주실, Eve 제제로감 및 셋리스트</p>
+            </div>
+            <button onclick="window.app.exportCategoryToExcel('bands')" class="w-full py-2 bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30 text-purple-300 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-download"></i> 밴드일정 엑셀 추출
+            </button>
+          </div>
+
+          <!-- 3. 에너지관리기사 -->
+          <div class="p-5 rounded-2xl bg-slate-800/60 border border-slate-700/60 flex flex-col justify-between hover:border-amber-500/40 transition">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg">
+                  <i class="fa-solid fa-list-check"></i>
+                </div>
+                <span class="text-xs font-mono font-bold text-slate-400">${energyPlan.length}일 로드맵</span>
+              </div>
+              <h3 class="text-sm font-bold text-white mb-1">에너지기사 41일 플랜</h3>
+              <p class="text-xs text-slate-400 mb-4">1~4단계 일자별 기출·계산 및 마지막 7일 반복 과제</p>
+            </div>
+            <button onclick="window.app.exportCategoryToExcel('energy')" class="w-full py-2 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-download"></i> 학습플랜 엑셀 추출
+            </button>
+          </div>
+
+          <!-- 4. 수상 내역 -->
+          <div class="p-5 rounded-2xl bg-slate-800/60 border border-slate-700/60 flex flex-col justify-between hover:border-amber-500/40 transition">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg">
+                  <i class="fa-solid fa-trophy"></i>
+                </div>
+                <span class="text-xs font-mono font-bold text-slate-400">${awards.length}건 등록</span>
+              </div>
+              <h3 class="text-sm font-bold text-white mb-1">사내외 수상 내역 (23건)</h3>
+              <p class="text-xs text-slate-400 mb-4">국회 국방위원장상 대상, 슈퍼루키 우수, 안전그룹장 표창</p>
+            </div>
+            <button onclick="window.app.exportCategoryToExcel('awards')" class="w-full py-2 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-download"></i> 수상내역 엑셀 추출
+            </button>
+          </div>
+
+          <!-- 5. 주요 경력 -->
+          <div class="p-5 rounded-2xl bg-slate-800/60 border border-slate-700/60 flex flex-col justify-between hover:border-emerald-500/40 transition">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg">
+                  <i class="fa-solid fa-briefcase"></i>
+                </div>
+                <span class="text-xs font-mono font-bold text-slate-400">${careers.length}건 등록</span>
+              </div>
+              <h3 class="text-sm font-bold text-white mb-1">주요 경력 & TF 활동 (15건)</h3>
+              <p class="text-xs text-slate-400 mb-4">삼성전자 사내 TF, 위험물관리자, 화성시 분과장 등</p>
+            </div>
+            <button onclick="window.app.exportCategoryToExcel('careers')" class="w-full py-2 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-download"></i> 주요경력 엑셀 추출
+            </button>
+          </div>
+
+          <!-- 6. 산티아고 순례길 -->
+          <div class="p-5 rounded-2xl bg-slate-800/60 border border-slate-700/60 flex flex-col justify-between hover:border-amber-500/40 transition">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg">
+                  <i class="fa-solid fa-person-hiking"></i>
+                </div>
+                <span class="text-xs font-mono font-bold text-slate-400">${caminoItinerary.length}일 코스</span>
+              </div>
+              <h3 class="text-sm font-bold text-white mb-1">산티아고 순례길 21일</h3>
+              <p class="text-xs text-slate-400 mb-4">출입국 4일 + 4대 거점 각 2일 체류 + 코스별 알베르게</p>
+            </div>
+            <button onclick="window.app.exportCategoryToExcel('camino')" class="w-full py-2 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-download"></i> 순례일정 엑셀 추출
+            </button>
+          </div>
+
+          <!-- 7. 브런치 & SNS -->
+          <div class="p-5 rounded-2xl bg-slate-800/60 border border-slate-700/60 flex flex-col justify-between hover:border-pink-500/40 transition">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 rounded-xl bg-pink-500/20 text-pink-400 flex items-center justify-center text-lg">
+                  <i class="fa-solid fa-share-nodes"></i>
+                </div>
+                <span class="text-xs font-mono font-bold text-slate-400">브런치 741편</span>
+              </div>
+              <h3 class="text-sm font-bold text-white mb-1">SNS & 브런치 브랜딩</h3>
+              <p class="text-xs text-slate-400 mb-4">구독자 223명, 12시간 동기화 지표, 링크드인/인스타</p>
+            </div>
+            <button onclick="window.app.exportCategoryToExcel('sns')" class="w-full py-2 bg-pink-500/10 hover:bg-pink-500/20 border border-pink-500/30 text-pink-300 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-download"></i> SNS지표 엑셀 추출
+            </button>
+          </div>
+
+          <!-- 8. 체구 감량 & 인바디 -->
+          <div class="p-5 rounded-2xl bg-slate-800/60 border border-rose-500/30 flex flex-col justify-between hover:border-rose-400 transition bg-rose-950/10">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-lg">
+                  <i class="fa-solid fa-weight-scale"></i>
+                </div>
+                <span class="text-xs font-mono font-bold text-rose-400">${inbodyRecords.length}회차 기록</span>
+              </div>
+              <h3 class="text-sm font-bold text-white mb-1">체구 감량 & 인바디</h3>
+              <p class="text-xs text-slate-400 mb-4">체중 유지 상승 다이어트, 골격근, 체지방률, 허리둘레</p>
+            </div>
+            <button onclick="window.app.exportCategoryToExcel('inbody')" class="w-full py-2 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-md">
+              <i class="fa-solid fa-download"></i> 인바디 엑셀 추출
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Live Data Preview Table -->
+      <div class="glass-panel rounded-2xl p-6 border border-slate-700/60 bg-slate-900/60">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-sm font-bold text-slate-300 flex items-center gap-2">
+            <i class="fa-solid fa-table text-slate-400"></i>
+            엑셀 시트 구성 및 데이터 항목 요약
+          </h3>
+          <span class="text-xs text-emerald-400 font-bold">8개 시트 / 약 150+ 데이터 행</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left text-slate-300">
+            <thead class="text-[11px] text-slate-400 uppercase bg-slate-800/80 border-b border-slate-700">
+              <tr>
+                <th class="py-2.5 px-3">시트 이름</th>
+                <th class="py-2.5 px-3">데이터 행 수</th>
+                <th class="py-2.5 px-3">포함 컬럼 항목</th>
+                <th class="py-2.5 px-3 text-right">추출 포맷</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800">
+              <tr class="hover:bg-slate-800/40">
+                <td class="py-2 px-3 font-bold text-blue-400">1. 학사_자격증_시험일정</td>
+                <td class="py-2 px-3">${exams.length}건</td>
+                <td class="py-2 px-3 text-slate-400">일정ID, 제목, 분류, 시작일, 종료일, 장소, D-Day, 비고</td>
+                <td class="py-2 px-3 text-right font-mono text-emerald-400">XLSX / CSV</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40">
+                <td class="py-2 px-3 font-bold text-purple-400">2. 밴드합주_문화생활</td>
+                <td class="py-2 px-3">${bands.length}건</td>
+                <td class="py-2 px-3 text-slate-400">제목, 유형, 일시, 장소, 세트리스트(제제로감 등), 메모</td>
+                <td class="py-2 px-3 text-right font-mono text-emerald-400">XLSX / CSV</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40">
+                <td class="py-2 px-3 font-bold text-amber-400">3. 에너지관리기사_41일플랜</td>
+                <td class="py-2 px-3">${energyPlan.length}건</td>
+                <td class="py-2 px-3 text-slate-400">D-Day, 일자, 단계명, 학습토픽, 세부실행과제, 완료여부, 파이널7일구분</td>
+                <td class="py-2 px-3 text-right font-mono text-emerald-400">XLSX / CSV</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40">
+                <td class="py-2 px-3 font-bold text-amber-300">4. 수상내역_23건</td>
+                <td class="py-2 px-3">${awards.length}건</td>
+                <td class="py-2 px-3 text-slate-400">연도, 시기, 수상명, 수여기관, 분야, 대표실적여부, 상세공적</td>
+                <td class="py-2 px-3 text-right font-mono text-emerald-400">XLSX / CSV</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40">
+                <td class="py-2 px-3 font-bold text-emerald-400">5. 주요경력_15건</td>
+                <td class="py-2 px-3">${careers.length}건</td>
+                <td class="py-2 px-3 text-slate-400">기간, 역할/직책, 프로젝트명, 전문분야, 진행상태, 핵심성과</td>
+                <td class="py-2 px-3 text-right font-mono text-emerald-400">XLSX / CSV</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40">
+                <td class="py-2 px-3 font-bold text-amber-400">6. 산티아고순례길_21일</td>
+                <td class="py-2 px-3">${caminoItinerary.length}건</td>
+                <td class="py-2 px-3 text-slate-400">일차, 일자, 일정명, 이동유형, 이동거리, 숙소/알베르게, 하이라이트, 설명</td>
+                <td class="py-2 px-3 text-right font-mono text-emerald-400">XLSX / CSV</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40">
+                <td class="py-2 px-3 font-bold text-pink-400">7. SNS_브랜딩_지표</td>
+                <td class="py-2 px-3">${snsChannels.length}건</td>
+                <td class="py-2 px-3 text-slate-400">플랫폼, 채널명, 핸들, 팔로워, 게시물수, 월간조회, 포지셔닝, URL</td>
+                <td class="py-2 px-3 text-right font-mono text-emerald-400">XLSX / CSV</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40">
+                <td class="py-2 px-3 font-bold text-rose-400">8. 체구관리_인바디기록</td>
+                <td class="py-2 px-3">${inbodyRecords.length}건</td>
+                <td class="py-2 px-3 text-slate-400">측정일, 체중(kg), 골격근(kg), 체지방(kg), 체지방률(%), 허리둘레(인치), BMI, BMR, 체형구분, 피드백</td>
+                <td class="py-2 px-3 text-right font-mono text-emerald-400">XLSX / CSV</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  `;
+}
+
+// --------------------------------------------------------------------------
+// 5-B. External Dashboards Iframe View
+// --------------------------------------------------------------------------
+function renderExternalDashboardsView(activeExt) {
+  return `
     <!-- Sub-tabs for each imported Dashboard -->
     <div class="flex items-center justify-between gap-2 border-b border-slate-700/80 pb-3 mb-4 overflow-x-auto">
       <div class="flex items-center gap-2 flex-nowrap">
@@ -3490,26 +3931,9 @@ function renderExternalTab() {
       </div>
     `}
   `;
-
-  // Render content into iframe safely
-  if (activeExt) {
-    setTimeout(() => {
-      const iframe = document.getElementById('external-iframe');
-      if (!iframe) return;
-      if (activeExt.type === 'url') {
-        iframe.src = activeExt.content;
-      } else {
-        iframe.srcdoc = activeExt.content;
-      }
-    }, 50);
-  }
 }
 
-// ==========================================================================
-// 5-B. SNS & 퍼스널 브랜딩 분석 탭 (⭐ 신규 추가)
-// ==========================================================================
-// ==========================================================================
-// 5-B. SNS & 퍼스널 브랜딩 분석 탭 (Brunch 집중 12시간 동기화 & 직통 링크)
+
 // ==========================================================================
 function renderSnsTab() {
   const container = document.getElementById('tab-content-sns');
@@ -3856,6 +4280,300 @@ function renderSnsTab() {
 
 
 // ==========================================================================
+
+// ==========================================================================
+// 5-C. 체구 감량 & 인바디 지속 관리 탭 (⭐ '체중 변화 없는 성공적인 다이어트')
+// ==========================================================================
+function renderInbodyTab() {
+  const container = document.getElementById('tab-content-inbody');
+  if (!container) return;
+
+  const inbody = state.inbody || INITIAL_INBODY_DATA;
+  const records = inbody.records || INITIAL_INBODY_DATA.records;
+  
+  // Sort records by date ascending
+  const sortedRecords = [...records].sort((a, b) => new Date(a.date) - new Date(b.date));
+  const firstRec = sortedRecords[0] || {};
+  const latestRec = sortedRecords[sortedRecords.length - 1] || {};
+
+  // Key Deltas
+  const deltaWeight = (latestRec.weight && firstRec.weight) ? (latestRec.weight - firstRec.weight).toFixed(1) : 0;
+  const deltaMuscle = (latestRec.skeletalMuscle && firstRec.skeletalMuscle) ? (latestRec.skeletalMuscle - firstRec.skeletalMuscle).toFixed(1) : 0;
+  const deltaFat = (latestRec.bodyFatMass && firstRec.bodyFatMass) ? (latestRec.bodyFatMass - firstRec.bodyFatMass).toFixed(1) : 0;
+  const deltaFatRate = (latestRec.bodyFatRate && firstRec.bodyFatRate) ? (latestRec.bodyFatRate - firstRec.bodyFatRate).toFixed(1) : 0;
+  const deltaWaist = (latestRec.waistSize && firstRec.waistSize) ? (latestRec.waistSize - firstRec.waistSize).toFixed(1) : 0;
+
+  container.innerHTML = `
+    <!-- Top Header Banner -->
+    <div class="glass-panel rounded-2xl p-6 sm:p-8 mb-8 border border-rose-500/40 bg-gradient-to-r from-slate-900 via-rose-950/30 to-slate-900 relative overflow-hidden shadow-2xl">
+      <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-rose-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
+        <div>
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="px-3 py-1 bg-rose-500/20 text-rose-300 border border-rose-500/30 text-xs font-bold rounded-full flex items-center gap-1.5">
+              <i class="fa-solid fa-weight-scale"></i> 체성분 재구성 (Body Recomposition)
+            </span>
+            <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold rounded-full">
+              D자형 근육형 진입 달성
+            </span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
+            <i class="fa-solid fa-heart-pulse text-rose-400"></i>
+            체중 변화 없는 성공적인 다이어트 & 체구 관리
+          </h1>
+          <p class="text-sm text-slate-300 mt-2 max-w-2xl leading-relaxed">
+            체중계의 단순 숫자에 속지 마세요! <b>체중은 일정하게 유지(-0.8kg)</b>되면서, 
+            <b>골격근량은 +2.1kg 늘리고 순수 체지방만 -4.0kg 감량</b>하여 허리둘레가 줄어들고 겉보기 체구가 슬림해지는 가장 이상적인 <b>'상승 다이어트'</b> 지속 관리 대시보드입니다.
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-2.5">
+          <button onclick="window.app.openAddInbodyModal()" class="py-3 px-5 bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-rose-600/20 transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-plus"></i> 새 인바디 측정치 등록
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1. Key Metrics 4-Grid: Recomposition Achievements -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      
+      <!-- 체중 유지 지표 -->
+      <div class="glass-panel p-5 rounded-2xl border border-slate-700/60 bg-slate-900/60">
+        <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
+          <span>현재 체중 (유지형)</span>
+          <i class="fa-solid fa-scale-balanced text-sky-400"></i>
+        </div>
+        <div class="text-2xl font-black text-white">${latestRec.weight || 74.0}<span class="text-xs text-slate-400 font-normal"> kg</span></div>
+        <div class="mt-2 text-[11px] flex items-center gap-1.5 font-bold ${deltaWeight <= 0 ? 'text-sky-400' : 'text-amber-400'}">
+          <i class="fa-solid ${deltaWeight <= 0 ? 'fa-arrow-trend-down' : 'fa-arrow-trend-up'}"></i>
+          <span>시작 대비 ${deltaWeight > 0 ? `+${deltaWeight}` : deltaWeight} kg (체중 유지 성공)</span>
+        </div>
+      </div>
+
+      <!-- 골격근량 증가 지표 -->
+      <div class="glass-panel p-5 rounded-2xl border border-emerald-500/30 bg-slate-900/60">
+        <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
+          <span>골격근량 (근성장)</span>
+          <i class="fa-solid fa-dumbbell text-emerald-400"></i>
+        </div>
+        <div class="text-2xl font-black text-emerald-400">${latestRec.skeletalMuscle || 34.2}<span class="text-xs text-slate-400 font-normal"> kg</span></div>
+        <div class="mt-2 text-[11px] flex items-center gap-1.5 font-bold text-emerald-400">
+          <i class="fa-solid fa-arrow-trend-up"></i>
+          <span>시작 대비 +${deltaMuscle} kg 폭발적 성장 💪</span>
+        </div>
+      </div>
+
+      <!-- 체지방량 / 체지방률 감소 지표 -->
+      <div class="glass-panel p-5 rounded-2xl border border-rose-500/30 bg-slate-900/60">
+        <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
+          <span>체지방률 / 체지방량</span>
+          <i class="fa-solid fa-fire-flame-curved text-rose-400"></i>
+        </div>
+        <div class="text-2xl font-black text-rose-400">${latestRec.bodyFatRate || 18.2}<span class="text-xs text-slate-400 font-normal"> % (${latestRec.bodyFatMass}kg)</span></div>
+        <div class="mt-2 text-[11px] flex items-center gap-1.5 font-bold text-rose-400">
+          <i class="fa-solid fa-arrow-trend-down"></i>
+          <span>시작 대비 ${deltaFatRate}%p (${deltaFat}kg 순수 지방 연소) 🔥</span>
+        </div>
+      </div>
+
+      <!-- 허리둘레 & 체구 감량 실체감 지표 -->
+      <div class="glass-panel p-5 rounded-2xl border border-amber-500/30 bg-slate-900/60">
+        <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
+          <span>허리둘레 (체구 축소)</span>
+          <i class="fa-solid fa-ruler-combined text-amber-400"></i>
+        </div>
+        <div class="text-2xl font-black text-amber-300">${latestRec.waistSize || 30.3}<span class="text-xs text-slate-400 font-normal"> 인치</span></div>
+        <div class="mt-2 text-[11px] flex items-center gap-1.5 font-bold text-amber-400">
+          <i class="fa-solid fa-arrow-trend-down"></i>
+          <span>시작 대비 ${deltaWaist}인치 감소 (바지 34➔30) ✨</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 2. 인바디 C-I-D형 체형 분석 비주얼라이저 -->
+    <div class="glass-panel rounded-2xl p-6 mb-8 border border-slate-700/60 bg-slate-900/60 shadow-xl">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5 border-b border-slate-800 pb-4">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-chart-simple text-rose-400"></i>
+            인바디 3대 체형 (C ➔ I ➔ D) 변화 트래커
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">체중·골격근·체지방 3선 연결 형태가 C자형에서 가장 이상적인 D자형으로 진화했습니다.</p>
+        </div>
+        <span class="px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold">
+          ★ 현재 체형: ${latestRec.bodyType || 'D자형 (골격근 발달형)'}
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        <div class="p-4 rounded-xl border ${latestRec.bodyType && latestRec.bodyType.includes('C') ? 'border-amber-500 bg-amber-950/20' : 'border-slate-800 bg-slate-800/40 opacity-70'}">
+          <div class="flex items-center justify-between font-bold text-slate-300 mb-2">
+            <span>C자형 (체지방 과다형)</span>
+            <span class="text-[10px] text-slate-400">과거 6월 상태</span>
+          </div>
+          <p class="text-slate-400 leading-relaxed mb-3">체중 대비 골격근량이 적고 체지방이 많아 3선 연결선이 'C'자 형태를 띰 (마른 비만 또는 과체중형).</p>
+          <div class="text-[11px] text-slate-500 font-mono">체지방 23.4% · 골격근 32.1kg</div>
+        </div>
+
+        <div class="p-4 rounded-xl border ${latestRec.bodyType && latestRec.bodyType.includes('I') ? 'border-sky-500 bg-sky-950/20' : 'border-slate-800 bg-slate-800/40 opacity-70'}">
+          <div class="flex items-center justify-between font-bold text-slate-300 mb-2">
+            <span>I자형 (표준 균형형)</span>
+            <span class="text-[10px] text-sky-400">7~8월 전환기</span>
+          </div>
+          <p class="text-slate-400 leading-relaxed mb-3">체중, 골격근, 체지방이 고르게 균형을 이루어 일직선 'I'자 형태를 띰 (건강한 표준형 체형).</p>
+          <div class="text-[11px] text-sky-400 font-mono">체지방 21.7% · 골격근 32.8kg</div>
+        </div>
+
+        <div class="p-4 rounded-xl border border-emerald-500/80 bg-emerald-950/20 shadow-lg shadow-emerald-500/10">
+          <div class="flex items-center justify-between font-black text-emerald-300 mb-2">
+            <span class="flex items-center gap-1.5"><i class="fa-solid fa-crown text-amber-400"></i> D자형 (이상적 근육형)</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/30 text-emerald-300 font-bold">현재 도달</span>
+          </div>
+          <p class="text-slate-200 leading-relaxed mb-3">골격근량이 체중과 체지방보다 앞으로 돌출되어 'D'자 형태를 띰 (신진대사가 높고 탄탄한 몸매).</p>
+          <div class="text-[11px] text-emerald-400 font-mono font-bold">체지방 18.2% · 골격근 34.2kg (달성!)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. 인바디 누적 측정치 타임라인 & 상세 관리 리스트 (CRUD) -->
+    <div class="glass-panel rounded-2xl p-6 sm:p-7 mb-8 border border-slate-700/60 bg-slate-900/60 shadow-xl">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-clipboard-list text-rose-400"></i>
+            인바디 측정 히스토리 & 피드백 로그 (${sortedRecords.length}회차)
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">정기적으로 측정한 체성분 변화와 당시 식단/운동 루틴 기록입니다.</p>
+        </div>
+        <button onclick="window.app.openAddInbodyModal()" class="px-3.5 py-2 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md">
+          <i class="fa-solid fa-plus"></i> 새 측정 기록
+        </button>
+      </div>
+
+      <div class="space-y-4">
+        ${[...sortedRecords].reverse().map(rec => `
+          <div class="p-5 rounded-2xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 transition flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+            <div class="flex-1 min-w-0">
+              <div class="flex flex-wrap items-center gap-2 mb-2">
+                <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-slate-700 text-white">
+                  ${rec.date}
+                </span>
+                <span class="text-xs font-bold px-2.5 py-0.5 rounded ${rec.bodyType && rec.bodyType.includes('D') ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-black' : rec.bodyType && rec.bodyType.includes('I') ? 'bg-sky-500/20 text-sky-300 border border-sky-500/30' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'}">
+                  ${rec.bodyType || '측정 완료'}
+                </span>
+                <span class="text-xs font-bold px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                  인바디 점수: ${rec.score || '-'}점
+                </span>
+              </div>
+
+              <!-- 4-Grid Values -->
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 py-2 my-2 border-y border-slate-700/60 text-xs">
+                <div>
+                  <span class="text-slate-400 block text-[11px]">체중:</span>
+                  <span class="text-white font-black text-sm">${rec.weight} kg</span>
+                </div>
+                <div>
+                  <span class="text-slate-400 block text-[11px]">골격근량:</span>
+                  <span class="text-emerald-400 font-black text-sm">${rec.skeletalMuscle} kg</span>
+                </div>
+                <div>
+                  <span class="text-slate-400 block text-[11px]">체지방률 (체지방량):</span>
+                  <span class="text-rose-400 font-black text-sm">${rec.bodyFatRate}% <span class="text-xs font-normal">(${rec.bodyFatMass}kg)</span></span>
+                </div>
+                <div>
+                  <span class="text-slate-400 block text-[11px]">허리둘레 / 내장지방:</span>
+                  <span class="text-amber-300 font-black text-sm">${rec.waistSize || '-'}인치 <span class="text-xs font-normal">/ 레벨 ${rec.visceralFat || '-'}</span></span>
+                </div>
+              </div>
+
+              <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+                💡 <b>루틴 & 피드백</b>: ${rec.notes || '기록 없음'}
+              </p>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-2 self-end lg:self-center flex-shrink-0">
+              <button onclick="window.app.openEditInbodyModal('${rec.id}')" class="px-3 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs font-bold transition flex items-center gap-1">
+                <i class="fa-solid fa-pen-to-square"></i> 수정
+              </button>
+              <button onclick="window.app.deleteInbodyRecord('${rec.id}')" class="px-2.5 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs transition flex items-center gap-1">
+                <i class="fa-regular fa-trash-can"></i>
+              </button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <!-- 4. 단백질 섭취 계산기 & '체중 변화 없는 성공 다이어트' 4대 원칙 -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      
+      <!-- Left 1 Col: 단백질 및 영양 계산기 -->
+      <div class="glass-panel rounded-2xl p-6 border border-slate-700/60 bg-slate-900/60 space-y-4">
+        <h3 class="text-base font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-calculator text-rose-400"></i>
+          일일 권장 단백질 섭취 계산기
+        </h3>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          근손실 없이 체지방만 태우기 위해 체중당 1.6~2.0g의 단백질이 필수적입니다.
+        </p>
+
+        <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700">
+          <div class="text-xs text-slate-400 mb-1">내 체중 기준 (74.0 kg)</div>
+          <div class="text-2xl font-black text-rose-400 mb-2">120g ~ 148g <span class="text-xs text-slate-400 font-normal">/ 일</span></div>
+          <div class="text-xs text-slate-300 space-y-1.5 pt-2 border-t border-slate-700/80">
+            <div class="flex items-center justify-between">
+              <span>🍗 닭가슴살 환산:</span>
+              <b class="text-white">약 3~4덩이 (400~500g)</b>
+            </div>
+            <div class="flex items-center justify-between">
+              <span>🥚 계란 완숙 환산:</span>
+              <b class="text-white">약 18~20개 분량</b>
+            </div>
+            <div class="flex items-center justify-between">
+              <span>🥛 프로틴 쉐이크:</span>
+              <b class="text-white">2스쿱 (약 50g 충당)</b>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-800/40 border border-slate-700/60 text-xs text-slate-300">
+          <span class="font-bold text-emerald-400 block mb-1">💧 수분 섭취 가이드:</span>
+          하루 <b>2.5L</b> 이상의 미온수 섭취를 유지하여 간의 지방 대사 기능과 근육 내 수분율을 최상으로 유지합니다.
+        </div>
+      </div>
+
+      <!-- Right 2 Cols: 4대 성공 원칙 카드 -->
+      <div class="lg:col-span-2 glass-panel rounded-2xl p-6 border border-slate-700/60 bg-slate-900/60">
+        <h3 class="text-base font-bold text-white flex items-center gap-2 mb-4">
+          <i class="fa-solid fa-book-bookmark text-rose-400"></i>
+          '체중 변화 없는 성공적인 다이어트' 핵심 원칙 4선
+        </h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          ${(inbody.principles || INITIAL_INBODY_DATA.principles).map((p, idx) => `
+            <div class="p-4 rounded-xl bg-slate-800/70 border border-slate-700/60 flex flex-col justify-between">
+              <div>
+                <h4 class="text-sm font-bold text-rose-300 mb-2">${p.title}</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">${p.description}</p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-700/60 text-[11px] text-slate-400 flex items-center gap-1">
+                <i class="fa-solid fa-check text-rose-400"></i>
+                <span>실천 지침 준수 중</span>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+    </div>
+  `;
+}
+
+
 function renderPortfolioTab() {
   const container = document.getElementById('tab-content-portfolio');
   if (!container) return;
@@ -4437,6 +5155,275 @@ function showToast(msg) {
 // Expose Public Methods to Window for UI Interactions
 // ==========================================================================
 window.app = {
+  // External Subtab Switcher
+  setExternalSubtab: (subtab) => {
+    state.externalSubtab = subtab;
+    renderExternalTab();
+  },
+
+  // InBody Handlers (⭐ '체중 변화 없는 성공적인 다이어트')
+  openAddInbodyModal: () => {
+    const today = new Date().toISOString().split('T')[0];
+    const dateInput = document.getElementById('add-inbody-date');
+    if (dateInput) dateInput.value = today;
+    const modal = document.getElementById('modal-add-inbody');
+    if (modal) modal.classList.remove('hidden');
+  },
+  openEditInbodyModal: (id) => {
+    if (!state.inbody || !state.inbody.records) return;
+    const item = state.inbody.records.find(r => r.id === id);
+    if (!item) return;
+    document.getElementById('edit-inbody-id').value = item.id;
+    document.getElementById('edit-inbody-date').value = item.date;
+    document.getElementById('edit-inbody-weight').value = item.weight;
+    document.getElementById('edit-inbody-muscle').value = item.skeletalMuscle;
+    document.getElementById('edit-inbody-fat-mass').value = item.bodyFatMass;
+    document.getElementById('edit-inbody-fat-rate').value = item.bodyFatRate || '';
+    document.getElementById('edit-inbody-visceral').value = item.visceralFat || '';
+    document.getElementById('edit-inbody-waist').value = item.waistSize || '';
+    document.getElementById('edit-inbody-bmr').value = item.bmr || '';
+    document.getElementById('edit-inbody-score').value = item.score || '';
+    document.getElementById('edit-inbody-notes').value = item.notes || '';
+    const modal = document.getElementById('modal-edit-inbody');
+    if (modal) modal.classList.remove('hidden');
+  },
+  deleteInbodyRecord: (id) => {
+    if (confirm('선택한 인바디 측정 기록을 삭제하시겠습니까?')) {
+      if (state.inbody && state.inbody.records) {
+        state.inbody.records = state.inbody.records.filter(r => r.id !== id);
+        persistState();
+        renderInbodyTab();
+        showToast('인바디 측정 기록이 삭제되었습니다.');
+      }
+    }
+  },
+
+  // ⭐ Full Excel Export Engine (SheetJS + CSV Fallback)
+  exportAllDashboardToExcel: () => {
+    const todayStr = new Date().toISOString().split('T')[0].replace(/-/g, '');
+    const filename = `김남현_커리어_라이프_통합대시보드_${todayStr}.xlsx`;
+
+    // 1. Data mapping for all 8 sheets
+    const examsData = (state.exams || []).map(e => ({
+      "일정ID": e.id,
+      "일정명": e.title,
+      "분류": e.category,
+      "시작일시": e.startDate,
+      "종료일시": e.endDate || e.startDate,
+      "장소/방식": e.location || '온라인',
+      "우선순위": e.priority === 'urgent' ? '긴급' : '보통',
+      "비고": e.notes || ''
+    }));
+
+    const bandsData = (state.bands || []).map(b => ({
+      "일정명": b.title,
+      "유형": b.type === 'rehearsal' ? '밴드 합주' : '공연 관람',
+      "일시": b.date,
+      "합주장소": b.location,
+      "세트리스트": (b.setlist || []).map(s => s.song).join(', '),
+      "준비메모": b.memos || ''
+    }));
+
+    const energyPlanData = (state.energyPlan || []).map(p => ({
+      "D-Day": p.dday,
+      "학습일자": p.date,
+      "단계": p.phaseName,
+      "핵심토픽": p.topic,
+      "세부실습과제": p.task,
+      "완료여부": p.done ? '완료' : '진행중',
+      "파이널7일집중여부": p.isFinalWeek ? '★마지막7일반복' : '일반과제'
+    }));
+
+    const awardsData = ((state.portfolio && state.portfolio.awards) || []).map(a => ({
+      "연도": a.year,
+      "취득시기": a.period,
+      "수상명": a.title,
+      "수여기관": a.issuer,
+      "분야": a.category,
+      "대표실적여부": a.highlight ? '★대표실적' : '일반수상',
+      "상세공적": a.description
+    }));
+
+    const careersData = ((state.portfolio && state.portfolio.careers) || []).map(c => ({
+      "활동기간": c.period,
+      "역할/직책": c.role,
+      "프로젝트/활동명": c.title,
+      "전문분야": c.category,
+      "진행상태": c.status === 'ongoing' ? '진행중' : '완료',
+      "핵심임팩트": c.impact
+    }));
+
+    const caminoData = ((state.camino && state.camino.itinerary) || []).map(i => ({
+      "일차": i.day,
+      "일자": i.date,
+      "일정명": i.title,
+      "유형": i.type === 'flight' ? '항공이동' : i.type === 'stay' ? '거점체류관광' : '도보순례',
+      "이동거리": i.distance,
+      "숙소/알베르게": i.albergue || i.stay || '',
+      "하이라이트": i.highlight,
+      "상세안내": i.description
+    }));
+
+    const snsData = ((state.sns && state.sns.channels) || []).map(s => ({
+      "플랫폼": s.id,
+      "채널명": s.name,
+      "계정핸들": s.handle,
+      "팔로워/구독자수": s.followers,
+      "목표팔로워": s.targetFollowers,
+      "누적게시물수": s.postsCount,
+      "월간조회수": s.monthlyViews,
+      "채널포지셔닝": s.positioning,
+      "공식URL": s.url
+    }));
+
+    const inbodyData = ((state.inbody && state.inbody.records) || []).map(r => ({
+      "측정일자": r.date,
+      "체중(kg)": r.weight,
+      "골격근량(kg)": r.skeletalMuscle,
+      "체지방량(kg)": r.bodyFatMass,
+      "체지방률(%)": r.bodyFatRate,
+      "허리둘레(인치)": r.waistSize || '',
+      "BMI": r.bmi || '',
+      "내장지방레벨": r.visceralFat || '',
+      "기초대사량(kcal)": r.bmr || '',
+      "인바디점수": r.score || '',
+      "체형판정": r.bodyType || '',
+      "루틴및피드백": r.notes || ''
+    }));
+
+    // Check if SheetJS is available
+    if (window.XLSX) {
+      try {
+        const wb = XLSX.utils.book_new();
+
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(examsData), "학사_시험_일정");
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(bandsData), "밴드합주_문화");
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(energyPlanData), "에너지기사_41일플랜");
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(awardsData), "수상내역_23건");
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(careersData), "주요경력_15건");
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(caminoData), "산티아고순례길_21일");
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(snsData), "SNS_브랜딩_지표");
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(inbodyData), "체구관리_인바디");
+
+        XLSX.writeFile(wb, filename);
+        showToast(`성공: '${filename}' 통합 엑셀 파일이 다운로드되었습니다.`);
+        return;
+      } catch (err) {
+        console.warn('SheetJS 내보내기 오류, CSV 다운로드로 대체:', err);
+      }
+    }
+
+    // Fallback: CSV export
+    let csvContent = "\uFEFF"; // UTF-8 BOM for Excel Korean support
+    const appendSection = (title, data) => {
+      if (!data || data.length === 0) return;
+      csvContent += `\r\n[=== ${title} ===]\r\n`;
+      const keys = Object.keys(data[0]);
+      csvContent += keys.map(k => `"${k}"`).join(',') + "\r\n";
+      data.forEach(row => {
+        csvContent += keys.map(k => `"${String(row[k] || '').replace(/"/g, '""')}"`).join(',') + "\r\n";
+      });
+    };
+
+    appendSection("1. 학사 및 시험 일정", examsData);
+    appendSection("2. 밴드 합주 & 문화생활", bandsData);
+    appendSection("3. 에너지관리기사 41일 실기 플래너", energyPlanData);
+    appendSection("4. 사내외 수상 내역 (23건)", awardsData);
+    appendSection("5. 주요 경력 & TF 활동 (15건)", careersData);
+    appendSection("6. 산티아고 순례길 21일 코스", caminoData);
+    appendSection("7. SNS 퍼스널 브랜딩 (브런치 741편)", snsData);
+    appendSection("8. 체구 감량 & 인바디 측정 기록", inbodyData);
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", filename.replace('.xlsx', '.csv'));
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showToast('통합 데이터가 CSV 엑셀 호환 포맷으로 다운로드되었습니다.');
+  },
+
+  // Export Single Category to Excel/CSV
+  exportCategoryToExcel: (cat) => {
+    let data = [];
+    let title = "";
+    const todayStr = new Date().toISOString().split('T')[0].replace(/-/g, '');
+
+    if (cat === 'exams') {
+      title = "학사_자격증_시험일정";
+      data = (state.exams || []).map(e => ({
+        "일정명": e.title, "분류": e.category, "시작일": e.startDate, "종료일": e.endDate || '', "장소": e.location || '', "비고": e.notes || ''
+      }));
+    } else if (cat === 'bands') {
+      title = "밴드합주_세트리스트";
+      data = (state.bands || []).map(b => ({
+        "일정명": b.title, "구분": b.type, "일시": b.date, "장소": b.location, "세트리스트": (b.setlist || []).map(s => s.song).join(', ')
+      }));
+    } else if (cat === 'energy') {
+      title = "에너지관리기사_41일플랜";
+      data = (state.energyPlan || []).map(p => ({
+        "D-Day": p.dday, "학습일자": p.date, "단계": p.phaseName, "토픽": p.topic, "과제": p.task, "완료": p.done ? '완료' : '미완료', "파이널7일": p.isFinalWeek ? '★반복' : '-'
+      }));
+    } else if (cat === 'awards') {
+      title = "수상내역_23건";
+      data = ((state.portfolio && state.portfolio.awards) || []).map(a => ({
+        "연도": a.year, "시기": a.period, "수상명": a.title, "수여기관": a.issuer, "분야": a.category, "공적": a.description
+      }));
+    } else if (cat === 'careers') {
+      title = "주요경력_15건";
+      data = ((state.portfolio && state.portfolio.careers) || []).map(c => ({
+        "기간": c.period, "역할": c.role, "활동명": c.title, "분야": c.category, "상태": c.status, "임팩트": c.impact
+      }));
+    } else if (cat === 'camino') {
+      title = "산티아고순례길_21일";
+      data = ((state.camino && state.camino.itinerary) || []).map(i => ({
+        "일차": i.day, "일자": i.date, "일정명": i.title, "유형": i.type, "거리": i.distance, "숙소": i.albergue || i.stay, "하이라이트": i.highlight
+      }));
+    } else if (cat === 'sns') {
+      title = "SNS_브랜딩_지표";
+      data = ((state.sns && state.sns.channels) || []).map(s => ({
+        "채널": s.name, "계정": s.handle, "구독자/팔로워": s.followers, "게시물": s.postsCount, "월간조회": s.monthlyViews, "포지셔닝": s.positioning
+      }));
+    } else if (cat === 'inbody') {
+      title = "체구감량_인바디기록";
+      data = ((state.inbody && state.inbody.records) || []).map(r => ({
+        "측정일": r.date, "체중(kg)": r.weight, "골격근(kg)": r.skeletalMuscle, "체지방량(kg)": r.bodyFatMass, "체지방률(%)": r.bodyFatRate, "허리둘레(인치)": r.waistSize || '', "체형": r.bodyType || '', "피드백": r.notes || ''
+      }));
+    }
+
+    const filename = `${title}_${todayStr}.xlsx`;
+
+    if (window.XLSX) {
+      try {
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(data), title.substring(0, 31));
+        XLSX.writeFile(wb, filename);
+        showToast(`'${filename}' 파일이 다운로드되었습니다.`);
+        return;
+      } catch (e) {
+        console.warn('XLSX 단일 시트 오류:', e);
+      }
+    }
+
+    // CSV fallback
+    let csv = "\uFEFF";
+    const keys = Object.keys(data[0] || {});
+    csv += keys.map(k => `"${k}"`).join(',') + "\r\n";
+    data.forEach(r => {
+      csv += keys.map(k => `"${String(r[k] || '').replace(/"/g, '""')}"`).join(',') + "\r\n";
+    });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = filename.replace('.xlsx', '.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showToast(`'${title}' 데이터가 다운로드되었습니다.`);
+  },
+
   // Camino Handlers (⭐)
   toggleCaminoPacking: (idx) => {
     if (state.camino && state.camino.packingList && state.camino.packingList[idx]) {
@@ -5403,6 +6390,80 @@ function initModals() {
     });
   }
 }
+
+
+  // Form Add InBody
+  const formAddInbody = document.getElementById('form-add-inbody');
+  if (formAddInbody) {
+    formAddInbody.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const weight = parseFloat(document.getElementById('add-inbody-weight').value) || 0;
+      const muscle = parseFloat(document.getElementById('add-inbody-muscle').value) || 0;
+      const fatMass = parseFloat(document.getElementById('add-inbody-fat-mass').value) || 0;
+      const fatRate = parseFloat(document.getElementById('add-inbody-fat-rate').value) || (weight > 0 ? ((fatMass / weight) * 100).toFixed(1) : 0);
+      const waist = parseFloat(document.getElementById('add-inbody-waist').value) || 0;
+
+      // Determine body type
+      let bodyType = "I자형 (표준형)";
+      if (fatRate >= 22) bodyType = "C자형 (체지방 과다형)";
+      else if (fatRate <= 19 && muscle >= 33) bodyType = "D자형 (골격근 발달 근육형)";
+
+      const newRec = {
+        id: "inbody-" + Date.now(),
+        date: document.getElementById('add-inbody-date').value,
+        weight: weight,
+        skeletalMuscle: muscle,
+        bodyFatMass: fatMass,
+        bodyFatRate: parseFloat(fatRate),
+        bmi: (weight / ((1.76) ** 2)).toFixed(1), // standard height ~176cm
+        visceralFat: parseInt(document.getElementById('add-inbody-visceral').value, 10) || 5,
+        waistHipRatio: 0.82,
+        bmr: parseInt(document.getElementById('add-inbody-bmr').value, 10) || (1600 + Math.round(muscle * 3)),
+        score: parseInt(document.getElementById('add-inbody-score').value, 10) || 80,
+        bodyType: bodyType,
+        waistSize: waist || 30.5,
+        notes: document.getElementById('add-inbody-notes').value.trim()
+      };
+
+      if (!state.inbody) state.inbody = INITIAL_INBODY_DATA;
+      state.inbody.records.push(newRec);
+      persistState();
+      window.app.closeAllModals();
+      renderInbodyTab();
+      formAddInbody.reset();
+      showToast('새 인바디 측정치가 성공적으로 등록되었습니다.');
+    });
+  }
+
+  // Form Edit InBody
+  const formEditInbody = document.getElementById('form-edit-inbody');
+  if (formEditInbody) {
+    formEditInbody.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('edit-inbody-id').value;
+      if (state.inbody && state.inbody.records) {
+        const item = state.inbody.records.find(r => r.id === id);
+        if (item) {
+          item.date = document.getElementById('edit-inbody-date').value;
+          item.weight = parseFloat(document.getElementById('edit-inbody-weight').value) || item.weight;
+          item.skeletalMuscle = parseFloat(document.getElementById('edit-inbody-muscle').value) || item.skeletalMuscle;
+          item.bodyFatMass = parseFloat(document.getElementById('edit-inbody-fat-mass').value) || item.bodyFatMass;
+          item.bodyFatRate = parseFloat(document.getElementById('edit-inbody-fat-rate').value) || item.bodyFatRate;
+          item.visceralFat = parseInt(document.getElementById('edit-inbody-visceral').value, 10) || item.visceralFat;
+          item.waistSize = parseFloat(document.getElementById('edit-inbody-waist').value) || item.waistSize;
+          item.bmr = parseInt(document.getElementById('edit-inbody-bmr').value, 10) || item.bmr;
+          item.score = parseInt(document.getElementById('edit-inbody-score').value, 10) || item.score;
+          item.notes = document.getElementById('edit-inbody-notes').value.trim();
+
+          persistState();
+          window.app.closeAllModals();
+          renderInbodyTab();
+          showToast('인바디 측정 정보가 수정되었습니다.');
+        }
+      }
+    });
+  }
+
 
 function handleExternalFileSelect(file) {
   const preview = document.getElementById('ext-file-name-preview');
