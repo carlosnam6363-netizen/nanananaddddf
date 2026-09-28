@@ -114,7 +114,7 @@
       </div>
 
       <!-- Dynamic Desktop Navigation Container -->
-      <nav id="desktop-sidebar-nav" class="space-y-1">
+      <nav id="desktop-sidebar-nav" class="space-y-1 overflow-y-auto max-h-[calc(100vh-210px)] pr-1 custom-scrollbar">
         <!-- Rendered dynamically by window.app.renderNavigation() -->
       </nav>
     </div>
@@ -1267,6 +1267,17 @@
             <i class="fa-solid fa-arrow-down-up-across-line text-sky-400"></i> 대시보드 탭 순서 정렬
           </h3>
           <p class="text-xs text-slate-400 mt-1">화살표(▲, ▼)를 클릭하여 메뉴 노출 순서를 원하는 대로 설정하세요.</p>
+          <div class="flex items-center gap-1.5 mt-2 flex-wrap text-[10px]">
+            <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold flex items-center gap-1">
+              <i class="fa-solid fa-briefcase text-[9px]"></i> 커리어 패스 4
+            </span>
+            <span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 font-bold flex items-center gap-1">
+              <i class="fa-solid fa-heart text-[9px]"></i> 취미 4
+            </span>
+            <span class="px-2 py-0.5 rounded-full bg-slate-700/60 text-slate-300 border border-slate-600/40 font-bold flex items-center gap-1">
+              <i class="fa-solid fa-layer-group text-[9px]"></i> 기타 2
+            </span>
+          </div>
         </div>
         <button onclick="window.app.closeAllModals()" class="text-slate-400 hover:text-white p-1">
           <i class="fa-solid fa-xmark text-lg"></i>

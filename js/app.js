@@ -5534,19 +5534,57 @@ const syncManager = new SyncManager();
 // [cloud-sync imported]
 
 // ==========================================================================
-// Central Tab Registry & Reordering System
+// Central Tab Registry & Reordering System (3 Major Categories)
+// 1. 커리어 패스 관리 (career) : 에너지관리기사, 시험 및 학사 일정, 주요 경력 & TF, 수상 내역 관리
+// 2. 취미 (hobby) : 산티아고 순례길, 체구 감량 & 인바디, 밴드 합주 & 문화, SNS & 브랜딩
+// 3. 기타 (etc) : 종합 대시보드, 외부 연동 & 엑셀
 // ==========================================================================
+const TAB_CATEGORIES = [
+  {
+    id: 'career',
+    name: '커리어 패스 관리',
+    shortName: '커리어',
+    icon: 'fa-briefcase',
+    color: 'text-amber-400',
+    badgeClass: 'bg-amber-500/20 text-amber-300 border border-amber-500/30',
+    headerBadge: 'bg-amber-500/15 text-amber-300 border border-amber-500/30'
+  },
+  {
+    id: 'hobby',
+    name: '취미',
+    shortName: '취미',
+    icon: 'fa-heart',
+    color: 'text-rose-400',
+    badgeClass: 'bg-rose-500/20 text-rose-300 border border-rose-500/30',
+    headerBadge: 'bg-rose-500/15 text-rose-300 border border-rose-500/30'
+  },
+  {
+    id: 'etc',
+    name: '기타',
+    shortName: '기타',
+    icon: 'fa-layer-group',
+    color: 'text-slate-400',
+    badgeClass: 'bg-slate-700/50 text-slate-300 border border-slate-600/40',
+    headerBadge: 'bg-slate-800 text-slate-300 border border-slate-700/50'
+  }
+];
+
 const TAB_REGISTRY = [
-  { id: 'overview', name: '종합 대시보드', shortName: '홈', icon: 'fa-house', color: 'text-sky-400', badge: null, badgeClass: '' },
-  { id: 'exam', name: '시험 및 학사 일정', shortName: '일정', icon: 'fa-calendar-days', color: 'text-blue-400', badge: null, badgeClass: '' },
-  { id: 'camino', name: '산티아고 순례길', shortName: '순례길', icon: 'fa-person-hiking', color: 'text-amber-400', badge: '11/9 (3주)', badgeClass: 'bg-amber-500/20 text-amber-400' },
-  { id: 'band', name: '밴드 합주 & 문화', shortName: '밴드', icon: 'fa-guitar', color: 'text-purple-400', badge: '10/10', badgeClass: 'bg-purple-500/20 text-purple-300' },
-  { id: 'energy', name: '에너지관리기사', shortName: '에너지', icon: 'fa-graduation-cap', color: 'text-amber-300', badge: 'D-40', badgeClass: 'bg-sky-500/20 text-sky-300' },
-  { id: 'awards', name: '수상 내역 관리', shortName: '수상', icon: 'fa-trophy', color: 'text-amber-400', badge: '23건', badgeClass: 'bg-amber-500/20 text-amber-400', isPortfolio: true },
-  { id: 'careers', name: '주요 경력 & TF', shortName: '경력', icon: 'fa-briefcase', color: 'text-emerald-400', badge: '15건', badgeClass: 'bg-emerald-500/20 text-emerald-400', isPortfolio: true },
-  { id: 'sns', name: 'SNS & 브랜딩', shortName: 'SNS', icon: 'fa-share-nodes', color: 'text-pink-400', badge: 'Brunch', badgeClass: 'bg-pink-500/20 text-pink-400' },
-  { id: 'inbody', name: '체구 감량 & 인바디', shortName: '인바디', icon: 'fa-weight-scale', color: 'text-rose-400', badge: '89회', badgeClass: 'bg-rose-500/20 text-rose-400' },
-  { id: 'external', name: '외부 연동 & 엑셀', shortName: '연동·엑셀', icon: 'fa-window-restore', color: 'text-emerald-400', badge: 'Excel', badgeClass: 'bg-emerald-500/20 text-emerald-400' }
+  // 1. 커리어 패스 관리 (4개)
+  { id: 'energy', name: '에너지관리기사', shortName: '에너지', icon: 'fa-graduation-cap', color: 'text-amber-300', badge: 'D-40', badgeClass: 'bg-sky-500/20 text-sky-300', category: 'career', categoryName: '커리어 패스 관리' },
+  { id: 'exam', name: '시험 및 학사 일정', shortName: '일정', icon: 'fa-calendar-days', color: 'text-blue-400', badge: null, badgeClass: '', category: 'career', categoryName: '커리어 패스 관리' },
+  { id: 'careers', name: '주요 경력 & TF', shortName: '경력', icon: 'fa-briefcase', color: 'text-emerald-400', badge: '15건', badgeClass: 'bg-emerald-500/20 text-emerald-400', isPortfolio: true, category: 'career', categoryName: '커리어 패스 관리' },
+  { id: 'awards', name: '수상 내역 관리', shortName: '수상', icon: 'fa-trophy', color: 'text-amber-400', badge: '23건', badgeClass: 'bg-amber-500/20 text-amber-400', isPortfolio: true, category: 'career', categoryName: '커리어 패스 관리' },
+
+  // 2. 취미 (4개)
+  { id: 'camino', name: '산티아고 순례길', shortName: '순례길', icon: 'fa-person-hiking', color: 'text-amber-400', badge: '11/9 (3주)', badgeClass: 'bg-amber-500/20 text-amber-400', category: 'hobby', categoryName: '취미' },
+  { id: 'inbody', name: '체구 감량 & 인바디', shortName: '인바디', icon: 'fa-weight-scale', color: 'text-rose-400', badge: '89회', badgeClass: 'bg-rose-500/20 text-rose-400', category: 'hobby', categoryName: '취미' },
+  { id: 'band', name: '밴드 합주 & 문화', shortName: '밴드', icon: 'fa-guitar', color: 'text-purple-400', badge: '10/10', badgeClass: 'bg-purple-500/20 text-purple-300', category: 'hobby', categoryName: '취미' },
+  { id: 'sns', name: 'SNS & 브랜딩', shortName: 'SNS', icon: 'fa-share-nodes', color: 'text-pink-400', badge: 'Brunch', badgeClass: 'bg-pink-500/20 text-pink-400', category: 'hobby', categoryName: '취미' },
+
+  // 3. 기타 (2개)
+  { id: 'overview', name: '종합 대시보드', shortName: '홈', icon: 'fa-house', color: 'text-sky-400', badge: null, badgeClass: '', category: 'etc', categoryName: '기타' },
+  { id: 'external', name: '외부 연동 & 엑셀', shortName: '연동·엑셀', icon: 'fa-window-restore', color: 'text-emerald-400', badge: 'Excel', badgeClass: 'bg-emerald-500/20 text-emerald-400', category: 'etc', categoryName: '기타' }
 ];
 
 const DEFAULT_TAB_ORDER = TAB_REGISTRY.map(t => t.id);
@@ -5605,6 +5643,7 @@ let state = {
   theme: 'dark',
   activeTab: 'overview',
   tabOrder: getTabOrder(),
+  navCategoryFilter: 'all', // 'all' | 'career' | 'hobby' | 'etc'
   activeExternalTabId: null,
   examFilter: 'all',
   bandFilter: 'all',
@@ -5620,38 +5659,93 @@ let state = {
 // ==========================================================================
 // Dynamic Navigation & Tab Reordering Functions
 // ==========================================================================
+function setNavCategoryFilter(catId) {
+  state.navCategoryFilter = catId;
+  renderNavigation();
+}
+
 function renderNavigation() {
   const currentTab = state.activeTab;
   const order = state.tabOrder && state.tabOrder.length > 0 ? state.tabOrder : getTabOrder();
   state.tabOrder = order;
+  const catFilter = state.navCategoryFilter || 'all';
 
   // 1. Desktop Sidebar Navigation
   const desktopContainer = document.getElementById('desktop-sidebar-nav');
   if (desktopContainer) {
-    desktopContainer.innerHTML = order.map((tabId) => {
-      const tabDef = TAB_REGISTRY.find(t => t.id === tabId);
-      if (!tabDef) return '';
-      const isActive = currentTab === tabDef.id;
-      const activeClass = isActive
-        ? 'nav-tab-active text-sky-400 bg-sky-500/15 font-bold border border-sky-500/30 shadow-sm'
-        : 'text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium';
-      
-      const badgeHtml = tabDef.badge
-        ? `<span class="text-[9px] px-1.5 py-0.5 rounded font-bold ${tabDef.badgeClass || 'bg-slate-800 text-slate-300'}">${tabDef.badge}</span>`
-        : '';
+    // Category Filter Chips
+    const filterChipsHtml = `
+      <div class="grid grid-cols-4 gap-1 p-1 bg-slate-900/90 rounded-xl border border-slate-800 mb-3 text-[10px]">
+        <button onclick="window.app.setNavCategoryFilter('all')" class="py-1 px-1 rounded-lg font-bold transition text-center ${catFilter === 'all' ? 'bg-sky-500 text-white shadow-sm' : 'text-slate-400 hover:text-white'}">
+          전체
+        </button>
+        <button onclick="window.app.setNavCategoryFilter('career')" class="py-1 px-1 rounded-lg font-bold transition text-center truncate ${catFilter === 'career' ? 'bg-amber-500 text-slate-950 font-black shadow-sm' : 'text-slate-400 hover:text-amber-300'}" title="커리어 패스 관리">
+          💼 커리어
+        </button>
+        <button onclick="window.app.setNavCategoryFilter('hobby')" class="py-1 px-1 rounded-lg font-bold transition text-center truncate ${catFilter === 'hobby' ? 'bg-rose-500 text-white shadow-sm' : 'text-slate-400 hover:text-rose-300'}" title="취미">
+          ❤️ 취미
+        </button>
+        <button onclick="window.app.setNavCategoryFilter('etc')" class="py-1 px-1 rounded-lg font-bold transition text-center truncate ${catFilter === 'etc' ? 'bg-slate-700 text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'}" title="기타">
+          ⚙️ 기타
+        </button>
+      </div>
+    `;
 
-      const clickHandler = tabDef.isPortfolio
-        ? `window.app.openPortfolioTab('${tabDef.id}')`
-        : `window.app.switchTab('${tabDef.id}')`;
+    // Filter categories to display
+    const targetCategories = catFilter === 'all'
+      ? TAB_CATEGORIES
+      : TAB_CATEGORIES.filter(c => c.id === catFilter);
+
+    const sectionsHtml = targetCategories.map(cat => {
+      // Find tabs belonging to this category, preserving relative order from state.tabOrder
+      const catTabs = order
+        .map(id => TAB_REGISTRY.find(t => t.id === id))
+        .filter(t => t && t.category === cat.id);
+
+      if (catTabs.length === 0) return '';
+
+      const tabsHtml = catTabs.map(tabDef => {
+        const isActive = currentTab === tabDef.id;
+        const activeClass = isActive
+          ? 'nav-tab-active text-sky-400 bg-sky-500/15 font-bold border border-sky-500/30 shadow-sm'
+          : 'text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium';
+        
+        const badgeHtml = tabDef.badge
+          ? `<span class="text-[9px] px-1.5 py-0.5 rounded font-bold ${tabDef.badgeClass || 'bg-slate-800 text-slate-300'}">${tabDef.badge}</span>`
+          : '';
+
+        const clickHandler = tabDef.isPortfolio
+          ? `window.app.openPortfolioTab('${tabDef.id}')`
+          : `window.app.switchTab('${tabDef.id}')`;
+
+        return `
+          <button data-nav-tab="${tabDef.id}" onclick="${clickHandler}" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs transition ${activeClass}">
+            <i class="fa-solid ${tabDef.icon} w-4 text-center ${tabDef.color}"></i>
+            <span class="flex-1 text-left truncate">${tabDef.name}</span>
+            ${badgeHtml}
+          </button>
+        `;
+      }).join('');
 
       return `
-        <button data-nav-tab="${tabDef.id}" onclick="${clickHandler}" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs transition ${activeClass}">
-          <i class="fa-solid ${tabDef.icon} w-4 text-center ${tabDef.color}"></i>
-          <span class="flex-1 text-left truncate">${tabDef.name}</span>
-          ${badgeHtml}
-        </button>
+        <div class="mb-3">
+          <div class="flex items-center justify-between px-2.5 py-1 mb-1">
+            <span class="text-[10px] font-extrabold flex items-center gap-1.5 ${cat.color}">
+              <i class="fa-solid ${cat.icon} text-[10px]"></i>
+              <span>${cat.name}</span>
+            </span>
+            <span class="text-[9px] px-1.5 py-0.5 rounded-full font-bold ${cat.headerBadge}">
+              ${catTabs.length}
+            </span>
+          </div>
+          <div class="space-y-1">
+            ${tabsHtml}
+          </div>
+        </div>
       `;
     }).join('');
+
+    desktopContainer.innerHTML = filterChipsHtml + sectionsHtml;
   }
 
   // 2. Mobile Bottom Navigation
@@ -5669,8 +5763,12 @@ function renderNavigation() {
         ? `window.app.openPortfolioTab('${tabDef.id}')`
         : `window.app.switchTab('${tabDef.id}')`;
 
+      const catDef = TAB_CATEGORIES.find(c => c.id === tabDef.category);
+      const dotColor = catDef ? (catDef.id === 'career' ? 'bg-amber-400' : catDef.id === 'hobby' ? 'bg-rose-400' : 'bg-slate-400') : 'bg-slate-500';
+
       return `
-        <button data-mobile-tab="${tabDef.id}" onclick="${clickHandler}" class="flex flex-col items-center justify-center gap-1 text-[10px] px-2.5 py-1.5 rounded-xl flex-shrink-0 min-w-[52px] transition ${activeClass}">
+        <button data-mobile-tab="${tabDef.id}" onclick="${clickHandler}" class="flex flex-col items-center justify-center gap-1 text-[10px] px-2.5 py-1.5 rounded-xl flex-shrink-0 min-w-[52px] transition relative ${activeClass}">
+          <span class="w-1.5 h-1.5 rounded-full ${dotColor} absolute top-1 right-2"></span>
           <i class="fa-solid ${tabDef.icon} text-sm ${tabDef.color}"></i>
           <span class="truncate max-w-[56px]">${tabDef.shortName}</span>
         </button>
@@ -5692,6 +5790,13 @@ function renderTabOrderModal() {
     const isFirst = idx === 0;
     const isLast = idx === order.length - 1;
 
+    const catDef = TAB_CATEGORIES.find(c => c.id === tabDef.category) || {
+      name: tabDef.categoryName || '기타',
+      shortName: '기타',
+      badgeClass: 'bg-slate-700/50 text-slate-300 border border-slate-600/40',
+      icon: 'fa-layer-group'
+    };
+
     const badgeHtml = tabDef.badge
       ? `<span class="text-[9px] px-1.5 py-0.5 rounded font-bold ${tabDef.badgeClass || 'bg-slate-800 text-slate-300'}">${tabDef.badge}</span>`
       : '';
@@ -5703,7 +5808,12 @@ function renderTabOrderModal() {
             ${idx + 1}
           </span>
           <i class="fa-solid ${tabDef.icon} ${tabDef.color} text-sm w-4 text-center flex-shrink-0"></i>
-          <span class="text-xs font-bold text-white truncate">${tabDef.name}</span>
+          <div class="flex items-center gap-1.5 truncate">
+            <span class="text-xs font-bold text-white truncate">${tabDef.name}</span>
+            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold flex-shrink-0 ${catDef.badgeClass}">
+              <i class="fa-solid ${catDef.icon} text-[8px]"></i> ${catDef.shortName}
+            </span>
+          </div>
           ${badgeHtml}
         </div>
         <div class="flex items-center gap-1 flex-shrink-0">
@@ -6098,6 +6208,159 @@ function renderOverviewTab() {
         </div>
       </div>
 
+    </div>
+
+    <!-- ======================================================================= -->
+    <!-- 📂 [3대 범주 분류 허브] 커리어 패스 관리 · 취미 · 기타 퀵 네비게이션 -->
+    <!-- ======================================================================= -->
+    <div class="glass-panel rounded-2xl p-5 sm:p-6 mb-8 border border-slate-700/60 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 shadow-2xl relative overflow-hidden">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5 border-b border-slate-800 pb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-sky-500/20 border border-sky-500/30 text-sky-400 flex items-center justify-center text-lg shadow-lg">
+            <i class="fa-solid fa-shapes"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="text-lg font-black text-white">대시보드 3대 범주 통합 허브</h2>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/30 font-bold">10대 탭 분류 완료</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5">사용자 지정 3대 카테고리: 커리어 패스 관리(4) · 취미(4) · 기타(2)</p>
+          </div>
+        </div>
+        <button onclick="window.app.openTabOrderModal()" class="text-xs text-sky-400 hover:text-sky-300 px-3 py-1.5 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center gap-1.5 font-bold transition">
+          <i class="fa-solid fa-arrow-down-up-across-line text-[11px]"></i>
+          <span>메뉴 순서 정렬</span>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <!-- 1. 커리어 패스 관리 (4개) -->
+        <div class="p-4 rounded-xl bg-slate-800/60 border border-amber-500/30 hover:border-amber-500/60 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-black text-amber-400 flex items-center gap-1.5">
+                <i class="fa-solid fa-briefcase"></i> 커리어 패스 관리
+              </span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                4개 탭
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-400 mb-3">
+              자격증 실기 대비, 방송통신대 학사 일정, 삼성전자 15건 사내 경력, 23건 수상 내역
+            </p>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="window.app.switchTab('energy')" class="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-700/80 border border-slate-700 text-left transition group">
+                <div class="flex items-center justify-between text-[11px] mb-1">
+                  <span class="font-bold text-white group-hover:text-amber-300 truncate">에너지관리기사</span>
+                  <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-sky-500/20 text-sky-300">D-40</span>
+                </div>
+                <div class="text-[10px] text-slate-400">플래시카드 & 40일 플랜</div>
+              </button>
+              <button onclick="window.app.switchTab('exam')" class="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-700/80 border border-slate-700 text-left transition group">
+                <div class="flex items-center justify-between text-[11px] mb-1">
+                  <span class="font-bold text-white group-hover:text-blue-300 truncate">시험·학사 일정</span>
+                  <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-blue-500/20 text-blue-300">${state.exams.length}건</span>
+                </div>
+                <div class="text-[10px] text-slate-400">2학기 중간/기말 일정</div>
+              </button>
+              <button onclick="window.app.openPortfolioTab('careers')" class="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-700/80 border border-slate-700 text-left transition group">
+                <div class="flex items-center justify-between text-[11px] mb-1">
+                  <span class="font-bold text-white group-hover:text-emerald-300 truncate">주요 경력 & TF</span>
+                  <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-emerald-500/20 text-emerald-300">15건</span>
+                </div>
+                <div class="text-[10px] text-slate-400">DIFFUSION 엔지니어</div>
+              </button>
+              <button onclick="window.app.openPortfolioTab('awards')" class="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-700/80 border border-slate-700 text-left transition group">
+                <div class="flex items-center justify-between text-[11px] mb-1">
+                  <span class="font-bold text-white group-hover:text-amber-300 truncate">수상 내역 관리</span>
+                  <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-amber-500/20 text-amber-300">23건</span>
+                </div>
+                <div class="text-[10px] text-slate-400">국방위원장상 대상 등</div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. 취미 (4개) -->
+        <div class="p-4 rounded-xl bg-slate-800/60 border border-rose-500/30 hover:border-rose-500/60 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-black text-rose-400 flex items-center gap-1.5">
+                <i class="fa-solid fa-heart"></i> 취미
+              </span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">
+                4개 탭
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-400 mb-3">
+              포르투 까미노 3주 순례, 골격근 40kg+ 인바디 다이어트, 직장인 인디밴드 합주, 브런치 연재
+            </p>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="window.app.switchTab('camino')" class="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-700/80 border border-slate-700 text-left transition group">
+                <div class="flex items-center justify-between text-[11px] mb-1">
+                  <span class="font-bold text-white group-hover:text-amber-300 truncate">산티아고 순례길</span>
+                  <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-amber-500/20 text-amber-400">11/9</span>
+                </div>
+                <div class="text-[10px] text-slate-400">3주간 포르투 코스</div>
+              </button>
+              <button onclick="window.app.switchTab('inbody')" class="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-700/80 border border-slate-700 text-left transition group">
+                <div class="flex items-center justify-between text-[11px] mb-1">
+                  <span class="font-bold text-white group-hover:text-rose-300 truncate">체구 감량 & 인바디</span>
+                  <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-rose-500/20 text-rose-300">89회</span>
+                </div>
+                <div class="text-[10px] text-slate-400">골격근 40kg+ 유지 다이어트</div>
+              </button>
+              <button onclick="window.app.switchTab('band')" class="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-700/80 border border-slate-700 text-left transition group">
+                <div class="flex items-center justify-between text-[11px] mb-1">
+                  <span class="font-bold text-white group-hover:text-purple-300 truncate">밴드 합주 & 문화</span>
+                  <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-purple-500/20 text-purple-300">10/10</span>
+                </div>
+                <div class="text-[10px] text-slate-400">호랑이 합주실 '제제로감'</div>
+              </button>
+              <button onclick="window.app.switchTab('sns')" class="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-700/80 border border-slate-700 text-left transition group">
+                <div class="flex items-center justify-between text-[11px] mb-1">
+                  <span class="font-bold text-white group-hover:text-pink-300 truncate">SNS & 브랜딩</span>
+                  <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-pink-500/20 text-pink-300">Brunch</span>
+                </div>
+                <div class="text-[10px] text-slate-400">741편 12h 주기 연재</div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. 기타 (2개) -->
+        <div class="p-4 rounded-xl bg-slate-800/60 border border-slate-700/60 hover:border-slate-500/60 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-black text-slate-300 flex items-center gap-1.5">
+                <i class="fa-solid fa-layer-group"></i> 기타
+              </span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-slate-700 text-slate-300 border border-slate-600">
+                2개 탭
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-400 mb-3">
+              개인 커리어 통합 메인 관제 센터, 전체 10개 탭 원클릭 엑셀 내보내기 및 외부 연동
+            </p>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="window.app.switchTab('overview')" class="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-700/80 border border-slate-700 text-left transition group">
+                <div class="flex items-center justify-between text-[11px] mb-1">
+                  <span class="font-bold text-white group-hover:text-sky-300 truncate">종합 대시보드</span>
+                  <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-sky-500/20 text-sky-300">홈</span>
+                </div>
+                <div class="text-[10px] text-slate-400">마일스톤 & D-Day 레이더</div>
+              </button>
+              <button onclick="window.app.switchTab('external')" class="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-700/80 border border-slate-700 text-left transition group">
+                <div class="flex items-center justify-between text-[11px] mb-1">
+                  <span class="font-bold text-white group-hover:text-emerald-300 truncate">외부 연동 & 엑셀</span>
+                  <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-emerald-500/20 text-emerald-300">Excel</span>
+                </div>
+                <div class="text-[10px] text-slate-400">전체 데이터 추출/백업</div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- ======================================================================= -->
@@ -9871,6 +10134,7 @@ window.app = {
   moveTabDown: (idx) => moveTabDown(idx),
   resetTabOrder: () => resetTabOrder(),
   renderNavigation: () => renderNavigation(),
+  setNavCategoryFilter: (catId) => setNavCategoryFilter(catId),
 
   // External Subtab Switcher
   setExternalSubtab: (subtab) => {
