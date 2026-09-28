@@ -1375,6 +1375,104 @@
     </div>
   </div>
 
+  <!-- 20. SNS Metrics Quick Edit Modal (Admin Only) 📊 -->
+  <div id="modal-edit-sns-metrics" class="app-modal fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700/80 rounded-3xl w-full max-w-lg p-6 max-h-[90vh] flex flex-col shadow-2xl relative overflow-hidden">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center text-lg shadow-lg">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-white text-base">SNS 브랜딩 지표 수동 갱신</h3>
+            <p class="text-xs text-slate-400">구독자, 글 편수, 독서노트, 팔로워 수 직접 수정 (관리자 전용)</p>
+          </div>
+        </div>
+        <button onclick="window.app.closeAllModals()" class="text-slate-400 hover:text-white p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form id="form-edit-sns-metrics" onsubmit="window.app.saveSnsMetrics(event)" class="py-4 space-y-4 overflow-y-auto custom-scrollbar flex-1 text-xs">
+        <!-- Brunch Section -->
+        <div class="p-4 rounded-2xl bg-slate-800/60 border border-emerald-500/30 space-y-3">
+          <div class="flex items-center justify-between text-emerald-400 font-bold">
+            <span class="flex items-center gap-1.5"><i class="fa-solid fa-feather-pointed"></i> 아론의 브런치스토리 (@musimtook)</span>
+            <span class="text-[10px] text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded">핵심 플랫폼</span>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-slate-300 font-medium mb-1">구독자 수 (명)</label>
+              <input type="number" id="input-sns-brunch-followers" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono focus:border-emerald-500 outline-none">
+            </div>
+            <div>
+              <label class="block text-slate-300 font-medium mb-1">발행된 글 (편)</label>
+              <input type="number" id="input-sns-brunch-posts" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono focus:border-emerald-500 outline-none">
+            </div>
+            <div>
+              <label class="block text-slate-300 font-medium mb-1">브런치북 / 매거진 (개)</label>
+              <input type="number" id="input-sns-brunch-magazines" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono focus:border-emerald-500 outline-none">
+            </div>
+            <div>
+              <label class="block text-slate-300 font-medium mb-1">서평 & 독서노트 (편)</label>
+              <input type="number" id="input-sns-brunch-reading-notes" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono focus:border-emerald-500 outline-none">
+            </div>
+          </div>
+        </div>
+
+        <!-- Instagram Section -->
+        <div class="p-4 rounded-2xl bg-slate-800/60 border border-pink-500/30 space-y-3">
+          <div class="flex items-center justify-between text-pink-400 font-bold">
+            <span class="flex items-center gap-1.5"><i class="fa-brands fa-instagram"></i> 인스타그램 (@namhyeon_kim_)</span>
+            <span class="text-[10px] text-pink-300 bg-pink-500/20 px-2 py-0.5 rounded">라이프스타일</span>
+          </div>
+          <div class="grid grid-cols-3 gap-3">
+            <div>
+              <label class="block text-slate-300 font-medium mb-1">팔로워 (명)</label>
+              <input type="number" id="input-sns-insta-followers" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono focus:border-pink-500 outline-none">
+            </div>
+            <div>
+              <label class="block text-slate-300 font-medium mb-1">팔로잉 (명)</label>
+              <input type="number" id="input-sns-insta-following" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono focus:border-pink-500 outline-none">
+            </div>
+            <div>
+              <label class="block text-slate-300 font-medium mb-1">게시물 수 (개)</label>
+              <input type="number" id="input-sns-insta-posts" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono focus:border-pink-500 outline-none">
+            </div>
+          </div>
+        </div>
+
+        <!-- LinkedIn Section -->
+        <div class="p-4 rounded-2xl bg-slate-800/60 border border-blue-500/30 space-y-3">
+          <div class="flex items-center justify-between text-blue-400 font-bold">
+            <span class="flex items-center gap-1.5"><i class="fa-brands fa-linkedin"></i> 링크드인 (김남현)</span>
+            <span class="text-[10px] text-blue-300 bg-blue-500/20 px-2 py-0.5 rounded">전문가 네트워크</span>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-slate-300 font-medium mb-1">1촌 / 팔로워 (명)</label>
+              <input type="number" id="input-sns-linkedin-followers" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono focus:border-blue-500 outline-none">
+            </div>
+            <div>
+              <label class="block text-slate-300 font-medium mb-1">발행 포스트 (건)</label>
+              <input type="number" id="input-sns-linkedin-posts" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono focus:border-blue-500 outline-none">
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-slate-800 flex justify-end gap-2.5">
+          <button type="button" onclick="window.app.closeAllModals()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold transition cursor-pointer">
+            취소
+          </button>
+          <button type="submit" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition shadow-lg shadow-emerald-600/20 cursor-pointer flex items-center gap-1.5">
+            <i class="fa-solid fa-check"></i>
+            <span>지표 저장하기</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Main Application Script (Safe for file:// and http://) -->
   <script src="js/app.js?v=20260928_v4"></script>
 </body>

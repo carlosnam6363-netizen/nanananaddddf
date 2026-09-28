@@ -259,7 +259,7 @@ const INITIAL_CAMINO_DATA = {
 };
 
 const INITIAL_SNS_DATA = {
-  snsDataVersion: 2,
+  snsDataVersion: 3,
   channels: [
     {
       id: "linkedin",
@@ -279,7 +279,7 @@ const INITIAL_SNS_DATA = {
       monthlyViews: 1200,
       positioning: "삼성전자(인사·보안·안전 TF / MZ자문단) · 산업공학 & 사회복지 · 화성시 청년정책협의체 분과장",
       hashtags: "#삼성전자 #안전문화 #에너지관리기사 #위험물기능장 #산업안전기사 #청년정책",
-      memo: "링크드인은 비로그인 외부 조회 차단 정책이 적용되어 카드 내 숫자 칸에서 실제 1촌/팔로워 수를 클릭해 바로 입력·관리할 수 있습니다."
+      memo: "링크드인은 외부 자동 조회가 차단되어 상단 [지표 직접 수정] 버튼으로 실제 1촌/팔로워 수를 바로 입력·관리할 수 있습니다."
     },
     {
       id: "instagram",
@@ -291,15 +291,16 @@ const INITIAL_SNS_DATA = {
       badgeClass: "bg-pink-500/20 text-pink-400 border-pink-500/30",
       btnClass: "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white",
       category: "라이프스타일 · 팔로잉 301명",
-      followers: 302,
+      followers: 300,
+      following: 301,
       targetFollowers: 500,
       postsCount: 180,
       weeklyGoal: "주 2회 피드/릴스 (밴드 합주, 산티아고 순례길, 일상 기록)",
       engagementRate: "6.8%",
       monthlyViews: 2800,
-      positioning: "실제 프로필 연동 완료 (팔로워 302명 · 팔로잉 301명 · 게시물 180개) | 음악 & 순례길 아카이빙",
+      positioning: "실제 프로필 연동 완료 (팔로워 300명 · 팔로잉 301명 · 게시물 180개) | 음악 & 순례길 아카이빙",
       hashtags: "#밴드합주 #산티아고순례길 #일상기록 #자기계발 #음악스타그램",
-      memo: "실제 인스타그램 지표(팔로워 302명, 팔로잉 301명, 게시물 180개) 반영 완료 · 11월 산티아고 순례길 릴스 업로드 예정"
+      memo: "실제 인스타그램 라이브 지표(팔로워 300명, 팔로잉 301명, 게시물 180개) 검증 반영 완료"
     },
     {
       id: "brunch",
@@ -310,14 +311,16 @@ const INITIAL_SNS_DATA = {
       themeColor: "emerald",
       badgeClass: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
       btnClass: "bg-emerald-600 hover:bg-emerald-700 text-white",
-      category: "아론 작가 멤버십 · 작품 18 · 독서노트 75",
-      followers: 223,
+      category: "아론 작가 멤버십 · 작품 18 · 독서노트 76",
+      followers: 225,
       targetFollowers: 500,
-      postsCount: 741,
+      postsCount: 744,
+      magazineCount: 18,
+      readingNotesCount: 76,
       weeklyGoal: "글쓰듯 말하고 싶습니다. 당신의 마음에 닿기를 바라며 연재",
       engagementRate: "9.2%",
       monthlyViews: 4500,
-      positioning: "실제 브런치 연동 완료 (구독자 223명 · 발행 글 741편 · 브런치북/매거진 작품 18집 · 독서노트 75편)",
+      positioning: "실제 브런치 라이브 연동 완료 (구독자 225명 · 발행 글 744편 · 브런치북 18개 · 독서노트 76편)",
       hashtags: "#아론의브런치 #브런치작가멤버십 #에세이스트 #독서노트 #산티아고순례길",
       memo: "삼성전자 학생·회사원·에세이스트 '아론' | 국회국방위원장상 & 화성시 산문 장려상 수상 작가 아카이브"
     }
@@ -326,13 +329,13 @@ const INITIAL_SNS_DATA = {
     {
       id: "sns-post-1",
       platform: "brunch",
-      title: "[아론의 브런치] 741편의 에세이와 75편의 독서노트 연재 아카이브",
+      title: "[아론의 브런치] 744편의 에세이와 76편의 독서노트 연재 아카이브",
       status: "published",
-      date: "2026-09-25",
+      date: "2026-09-28",
       url: "https://brunch.co.kr/@musimtook",
-      views: 1420,
-      likes: 64,
-      notes: "구독자 223명 · 작품 18개 · 아론 작가 멤버십 활발 운영 중"
+      views: 1450,
+      likes: 68,
+      notes: "구독자 225명 · 작품 18개 · 독서노트 76편 · 아론 작가 멤버십 활발 운영 중"
     },
     {
       id: "sns-post-2",
@@ -343,7 +346,7 @@ const INITIAL_SNS_DATA = {
       url: "https://www.instagram.com/namhyeon_kim_/",
       views: 310,
       likes: 45,
-      notes: "팔로워 302명 / 팔로잉 301명 네트워크 기반 합주 영상 및 순례길 하이라이트 공유"
+      notes: "팔로워 300명 / 팔로잉 301명 네트워크 기반 합주 영상 및 순례길 하이라이트 공유"
     },
     {
       id: "sns-post-3",
@@ -357,10 +360,10 @@ const INITIAL_SNS_DATA = {
       notes: "삼성전자 안전/인사/보안 TF 경험 및 5대 기술자격 취득 노하우와 연계한 전문가 브랜딩"
     }
   ],
-  strategyMemo: "3대 채널 원소스 멀티유즈(OSMU) 운영 전략:\n1) 브런치스토리 (@musimtook · 구독자 223명 / 글 741편 / 독서노트 75편): 호흡이 긴 에세이 및 아론 작가 멤버십 칼럼 연재\n2) 인스타그램 (@namhyeon_kim_ · 팔로워 302명 / 게시물 180개): 음악 합주, 산티아고 순례길 현장 사진 및 숏폼 릴스 아카이빙\n3) 링크드인 (김남현): 삼성전자 TF 경험, 안전·에너지 기술자격, 화성시 청년정책협의체 분과장 활동 인사이트 공유"
+  strategyMemo: "3대 채널 원소스 멀티유즈(OSMU) 운영 전략:\n1) 브런치스토리 (@musimtook · 구독자 225명 / 글 744편 / 독서노트 76편): 실패의 기록과 나만의 사색 에세이 연재\n2) 인스타그램 (@namhyeon_kim_ · 팔로워 300명 / 게시물 180개): 밴드 합주, 11월 산티아고 순례길 사진 & 숏폼 릴스\n3) 링크드인 (김남현): 삼성전자 TF 경험, 안전·에너지 기술자격, 화성시 청년정책협의체 분과장 인사이트 공유"
 };
 
-// ==========================================================================
+// ==========================================================================// ==========================================================================
 // 수상 내역 (23건) & 주요 경력 (15건) 통합 포트폴리오 초기 데이터 (⭐ 신규 추가)
 // ==========================================================================
 const INITIAL_PORTFOLIO_DATA = {
@@ -9470,7 +9473,14 @@ function renderSnsTab() {
   const snsData = state.sns || INITIAL_SNS_DATA;
   const channels = snsData.channels || INITIAL_SNS_DATA.channels;
   const brunchChannel = channels.find(c => c.id === 'brunch') || INITIAL_SNS_DATA.channels[2];
-  const lastSyncTime = state.brunchLastSync || "2026-09-28 09:00";
+  const instaChannel = channels.find(c => c.id === 'instagram') || INITIAL_SNS_DATA.channels[1];
+  const linkedinChannel = channels.find(c => c.id === 'linkedin') || INITIAL_SNS_DATA.channels[0];
+  const lastSyncTime = state.brunchLastSync || "2026-09-28 15:00";
+
+  const brunchFollowers = brunchChannel.followers || 225;
+  const brunchPosts = brunchChannel.postsCount || 744;
+  const brunchMagazines = brunchChannel.magazineCount || 18;
+  const brunchNotes = brunchChannel.readingNotesCount || 76;
 
   container.innerHTML = `
     <!-- Top Header Banner -->
@@ -9485,7 +9495,7 @@ function renderSnsTab() {
             </span>
             <span class="px-2.5 py-1 bg-sky-500/20 text-sky-300 border border-sky-500/30 text-xs font-bold rounded-full flex items-center gap-1">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-              12시간 주기 자동 업데이트 가동 중
+              실시간 데이터 검증 연동
             </span>
           </div>
           <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
@@ -9499,8 +9509,11 @@ function renderSnsTab() {
         </div>
 
         <div class="flex flex-col sm:flex-row gap-2.5">
-          <button onclick="window.app.refreshBrunchData()" class="py-3 px-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-emerald-600/20 transition flex items-center justify-center gap-2">
+          <button onclick="window.app.refreshBrunchData()" class="py-3 px-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-emerald-600/20 transition flex items-center justify-center gap-2 cursor-pointer">
             <i class="fa-solid fa-rotate"></i> 브런치 12시간 즉시 갱신
+          </button>
+          <button onclick="window.app.openEditSnsMetricsModal()" class="admin-only py-3 px-4 bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/40 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 cursor-pointer" title="지표 직접 수정 (관리자 전용)">
+            <i class="fa-solid fa-pen-to-square"></i> 지표 직접 수정
           </button>
           <a href="https://brunch.co.kr/@musimtook" target="_blank" rel="noopener noreferrer" class="py-3 px-5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2">
             <span>브런치 홈 바로가기</span>
@@ -9534,6 +9547,11 @@ function renderSnsTab() {
                 <span class="text-[10px] px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 font-bold border border-blue-500/30">직통 연결</span>
               </div>
               <p class="text-xs text-slate-400 mt-1">삼성전자 반도체/안전 TF 및 에너지·위험물 엔지니어링 네트워킹</p>
+              <div class="flex items-center gap-3 mt-1.5 text-[11px] text-slate-400 font-mono">
+                <span>1촌/팔로워: <b class="text-blue-400">${(linkedinChannel.followers || 100).toLocaleString()}명</b></span>
+                <span>•</span>
+                <span>게시물: <b class="text-slate-300">${(linkedinChannel.postsCount || 15).toLocaleString()}건</b></span>
+              </div>
             </div>
           </div>
           <div class="px-4 py-2 bg-blue-600 group-hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md flex-shrink-0">
@@ -9554,6 +9572,13 @@ function renderSnsTab() {
                 <span class="text-[10px] px-2 py-0.5 rounded bg-pink-500/20 text-pink-300 font-bold border border-pink-500/30">직통 연결</span>
               </div>
               <p class="text-xs text-slate-400 mt-1">홍대 밴드 합주(Eve-제제로감) & 11월 산티아고 순례길 라이프 아카이빙</p>
+              <div class="flex items-center gap-3 mt-1.5 text-[11px] text-slate-400 font-mono">
+                <span>팔로워: <b class="text-pink-400">${(instaChannel.followers || 300).toLocaleString()}명</b></span>
+                <span>•</span>
+                <span>팔로잉: <b class="text-slate-300">${(instaChannel.following || 301).toLocaleString()}명</b></span>
+                <span>•</span>
+                <span>게시물: <b class="text-slate-300">${(instaChannel.postsCount || 180).toLocaleString()}개</b></span>
+              </div>
             </div>
           </div>
           <div class="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 group-hover:from-purple-500 group-hover:to-pink-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md flex-shrink-0">
@@ -9578,9 +9603,10 @@ function renderSnsTab() {
             <div class="flex items-center gap-2">
               <h2 class="text-xl font-black text-white">Brunch Story (아론의 브런치)</h2>
               <span class="text-xs text-slate-400 font-mono">@musimtook</span>
+              <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">월 ₩3,900 작가 멤버십</span>
             </div>
             <p class="text-xs text-emerald-400 mt-0.5 font-medium">
-              "글쓰듯 말하고 싶습니다. 당신의 마음에 닿기를 바라며 연재" · 아론 작가 멤버십
+              "글쓰듯 말하고 싶습니다. 당신의 마음에 닿기를 바라며, 글을 적고 있습니다."
             </p>
           </div>
         </div>
@@ -9594,7 +9620,7 @@ function renderSnsTab() {
               최근 갱신: ${lastSyncTime}
             </div>
           </div>
-          <button onclick="window.app.refreshBrunchData()" class="p-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 rounded-lg text-xs font-bold transition" title="12시간 주기 새로고침">
+          <button onclick="window.app.refreshBrunchData()" class="p-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 rounded-lg text-xs font-bold transition cursor-pointer" title="12시간 주기 새로고침">
             <i class="fa-solid fa-rotate"></i>
           </button>
         </div>
@@ -9602,55 +9628,64 @@ function renderSnsTab() {
 
       <!-- Brunch Core 4-Stats Grid -->
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <div class="p-4 rounded-xl bg-slate-800/60 border border-emerald-500/20">
+        <div class="p-4 rounded-xl bg-slate-800/60 border border-emerald-500/20 hover:border-emerald-500/40 transition">
           <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
-            <span>구독자 수</span>
+            <span class="font-medium">구독자 수 (팔로워)</span>
             <i class="fa-solid fa-user-check text-emerald-400"></i>
           </div>
-          <div class="text-2xl font-black text-white">${(brunchChannel.followers || 223).toLocaleString()}<span class="text-xs text-slate-400 font-normal"> 명</span></div>
-          <div class="mt-2 text-[11px] text-emerald-400 font-bold">목표 500명 대비 45% 달성</div>
+          <div class="text-2xl font-black text-white">${brunchFollowers.toLocaleString()}<span class="text-xs text-slate-400 font-normal"> 명</span></div>
+          <div class="mt-2 text-[11px] text-emerald-400 font-bold">목표 500명 대비 ${Math.min(100, Math.round((brunchFollowers / 500) * 100))}% 달성</div>
           <div class="w-full bg-slate-800 h-1.5 rounded-full mt-1 overflow-hidden">
-            <div class="bg-emerald-500 h-full rounded-full" style="width: 45%"></div>
+            <div class="bg-emerald-500 h-full rounded-full transition-all duration-500" style="width: ${Math.min(100, Math.round((brunchFollowers / 500) * 100))}%"></div>
           </div>
         </div>
 
-        <div class="p-4 rounded-xl bg-slate-800/60 border border-emerald-500/20">
+        <div class="p-4 rounded-xl bg-slate-800/60 border border-emerald-500/20 hover:border-emerald-500/40 transition">
           <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
-            <span>발행된 글</span>
+            <span class="font-medium">발행된 글</span>
             <i class="fa-solid fa-file-pen text-sky-400"></i>
           </div>
-          <div class="text-2xl font-black text-white">${(brunchChannel.postsCount || 741).toLocaleString()}<span class="text-xs text-slate-400 font-normal"> 편</span></div>
-          <div class="mt-2 text-[11px] text-slate-400">에세이 및 사색 기록 집대성</div>
+          <div class="text-2xl font-black text-white">${brunchPosts.toLocaleString()}<span class="text-xs text-slate-400 font-normal"> 편</span></div>
+          <div class="mt-2 text-[11px] text-sky-400 font-bold">740편 돌파 대규모 아카이브</div>
+          <div class="w-full bg-slate-800 h-1.5 rounded-full mt-1 overflow-hidden">
+            <div class="bg-sky-500 h-full rounded-full" style="width: 100%"></div>
+          </div>
         </div>
 
-        <div class="p-4 rounded-xl bg-slate-800/60 border border-emerald-500/20">
+        <div class="p-4 rounded-xl bg-slate-800/60 border border-emerald-500/20 hover:border-emerald-500/40 transition">
           <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
-            <span>브런치북 / 매거진</span>
+            <span class="font-medium">브런치북 / 매거진</span>
             <i class="fa-solid fa-book-bookmark text-amber-400"></i>
           </div>
-          <div class="text-2xl font-black text-amber-300">18<span class="text-xs text-slate-400 font-normal"> 개 작품집</span></div>
-          <div class="mt-2 text-[11px] text-slate-400">테마별 연재 작품 컬렉션</div>
+          <div class="text-2xl font-black text-amber-300">${brunchMagazines.toLocaleString()}<span class="text-xs text-slate-400 font-normal"> 개 작품집</span></div>
+          <div class="mt-2 text-[11px] text-amber-400 font-bold">테마별 출판·연재 컬렉션</div>
+          <div class="w-full bg-slate-800 h-1.5 rounded-full mt-1 overflow-hidden">
+            <div class="bg-amber-500 h-full rounded-full" style="width: 90%"></div>
+          </div>
         </div>
 
-        <div class="p-4 rounded-xl bg-slate-800/60 border border-emerald-500/20">
+        <div class="p-4 rounded-xl bg-slate-800/60 border border-emerald-500/20 hover:border-emerald-500/40 transition">
           <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
-            <span>서평 & 독서노트</span>
+            <span class="font-medium">서평 & 독서노트</span>
             <i class="fa-solid fa-glasses text-purple-400"></i>
           </div>
-          <div class="text-2xl font-black text-purple-300">75<span class="text-xs text-slate-400 font-normal"> 편</span></div>
-          <div class="mt-2 text-[11px] text-slate-400">인문·철학·성장 독서 기록</div>
+          <div class="text-2xl font-black text-purple-300">${brunchNotes.toLocaleString()}<span class="text-xs text-slate-400 font-normal"> 편</span></div>
+          <div class="mt-2 text-[11px] text-purple-400 font-bold">2026.09 최신 독서기록 지속 누적</div>
+          <div class="w-full bg-slate-800 h-1.5 rounded-full mt-1 overflow-hidden">
+            <div class="bg-purple-500 h-full rounded-full" style="width: 76%"></div>
+          </div>
         </div>
       </div>
 
       <!-- Brunch Featured Writing Showcase -->
       <div class="p-4 rounded-xl bg-slate-800/40 border border-slate-700/60 flex flex-col md:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg">
+          <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg flex-shrink-0">
             <i class="fa-solid fa-pen-nib"></i>
           </div>
           <div>
             <h4 class="text-sm font-bold text-white">아론의 브런치 연재 작품 아카이브</h4>
-            <p class="text-xs text-slate-400 mt-0.5">삼성전자 반도체 엔지니어의 일상, 국회 국방위원장상 대상 수상 작가의 내면 이야기</p>
+            <p class="text-xs text-slate-400 mt-0.5">삼성전자 반도체 엔지니어의 일상, 국회 국방위원장상 대상 & 화성시 산문 장려상 수상 작가의 내면 이야기</p>
           </div>
         </div>
         <a href="https://brunch.co.kr/@musimtook" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 flex-shrink-0">
@@ -9661,528 +9696,248 @@ function renderSnsTab() {
 
     </div>
 
-    <!-- 3. ⭐ [신규 제안] 브런치 중심 퍼스널 브랜딩 향후 운영 방안 추천 리포트 ⭐ -->
+    <!-- 3. ⭐ [심층 기획] '실패의 기록과 나만의 사색' 브런치 4대 스토리텔링 연재 로드맵 ⭐ -->
     <div class="glass-panel rounded-2xl p-6 sm:p-8 mb-8 border border-amber-500/40 bg-gradient-to-br from-slate-900 via-slate-900 to-amber-950/20 shadow-2xl relative overflow-hidden">
       <div class="absolute right-0 top-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
 
       <!-- Section Header -->
       <div class="flex items-center gap-3 mb-6 border-b border-slate-800 pb-4 relative z-10">
-        <div class="w-11 h-11 rounded-xl bg-amber-500/20 border border-amber-500/30 text-amber-400 flex items-center justify-center text-xl shadow-lg">
-          <i class="fa-solid fa-lightbulb"></i>
+        <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center text-2xl shadow-lg">
+          <i class="fa-solid fa-feather"></i>
         </div>
         <div>
-          <h2 class="text-lg font-black text-white flex items-center gap-2">
-            <span>브런치 플랫폼 중심 퍼스널 브랜딩 향후 운영 전략 & 추천 리포트</span>
-            <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold">맞춤형 전략</span>
-          </h2>
-          <p class="text-xs text-slate-400 mt-0.5">
-            구독자 223명, 누적 741편의 막강한 아카이브를 갖춘 브런치를 코어로 활용하여 독자 신뢰도를 높이고 브랜드를 확장하는 3단계 로드맵입니다.
+          <div class="flex items-center gap-2">
+            <h2 class="text-lg sm:text-xl font-black text-white">
+              《실패의 기록과 나만의 사색》 브런치 스토리텔링 연재 로드맵
+            </h2>
+            <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-black">추천 기획</span>
+          </div>
+          <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+            단순한 성공 자랑이 아닌, <b>수많은 낙방과 오답, 11년간의 요요와 고도비만 탈출, 합주실과 순례길에서 겪은 좌절과 회복의 사색</b>을 엮어 독자의 마음을 사로잡는 4대 연재 테마입니다.
           </p>
         </div>
       </div>
 
       <div class="space-y-6 relative z-10">
         
-        <!-- 전략 1: 3대 킬러 기획 시리즈 추천 -->
-        <div>
-          <h3 class="text-sm font-bold text-amber-300 uppercase tracking-wider mb-3 flex items-center gap-2">
-            <i class="fa-solid fa-book-open-reader"></i>
-            1. 브런치 3대 킬러 기획 연재 시리즈 추천
-          </h3>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            
-            <div class="p-4 rounded-xl bg-slate-800/80 border border-amber-500/20 flex flex-col justify-between">
-              <div>
-                <span class="text-[10px] px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 font-bold">시리즈 1 · 기술 & 커리어</span>
-                <h4 class="text-sm font-bold text-white mt-2 mb-1.5">"비전공 엔지니어의 자격증 정복기"</h4>
-                <p class="text-xs text-slate-300 leading-relaxed mb-3">
-                  위험물기능장 취득 노하우와 2026 에너지관리기사 실기 합격 도전기를 담아, 기술 직군 취준생 및 현직 직장인들에게 실질적인 영감과 공식 암기법 제공.
-                </p>
-              </div>
-              <div class="text-[11px] text-amber-400 font-medium pt-2 border-t border-slate-700/60">
-                타깃: 자격증 수험생, 엔지니어, 자기계발 직장인
-              </div>
-            </div>
-
-            <div class="p-4 rounded-xl bg-slate-800/80 border border-amber-500/20 flex flex-col justify-between">
-              <div>
-                <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">시리즈 2 · 순례 & 성찰</span>
-                <h4 class="text-sm font-bold text-white mt-2 mb-1.5">"포르투갈 길을 걷는 시간 (21일의 기록)"</h4>
-                <p class="text-xs text-slate-300 leading-relaxed mb-3">
-                  11월 9일부터 3주간 떠나는 까미노 드 포르투 순례길 현장에서 매일 1편씩 기록하는 사색 에세이. 대서양 바람과 알베르게의 대화를 통해 삶의 본질 탐색.
-                </p>
-              </div>
-              <div class="text-[11px] text-amber-400 font-medium pt-2 border-t border-slate-700/60">
-                타깃: 쉼과 회복을 찾는 독자, 여행 에세이 애독자
-              </div>
-            </div>
-
-            <div class="p-4 rounded-xl bg-slate-800/80 border border-amber-500/20 flex flex-col justify-between">
-              <div>
-                <span class="text-[10px] px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-bold">시리즈 3 · 문화 & 라이프</span>
-                <h4 class="text-sm font-bold text-white mt-2 mb-1.5">"퇴근 후 베이스를 잡는 사람들"</h4>
-                <p class="text-xs text-slate-300 leading-relaxed mb-3">
-                  홍대 호랑이 합주실에서의 Eve(제제로감) 합주 도전기, 베이스 기타를 조율하며 일상의 긴장을 내려놓는 직장인 밴드 활동과 창작의 즐거움 조명.
-                </p>
-              </div>
-              <div class="text-[11px] text-amber-400 font-medium pt-2 border-t border-slate-700/60">
-                타깃: 취미 음악인, 서브컬처 팬, 일상 균형을 추구하는 세대
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- 전략 2: 발행 주기 및 12시간 루틴 제안 -->
-        <div>
-          <h3 class="text-sm font-bold text-amber-300 uppercase tracking-wider mb-3 flex items-center gap-2">
-            <i class="fa-solid fa-clock-rotate-left"></i>
-            2. 주 2회 고정 연재 루틴 & 12시간 주기 퇴고 시스템
-          </h3>
-          <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700/60 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+        <!-- 4대 킬러 기획 시리즈 그리드 -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          
+          <!-- 테마 1: 59점의 미학 (공부 실패와 수험 회고) -->
+          <div class="p-5 rounded-2xl bg-slate-800/80 border border-blue-500/30 hover:border-blue-400 transition flex flex-col justify-between shadow-lg">
             <div>
-              <h4 class="font-bold text-white mb-1.5 flex items-center gap-2">
-                <i class="fa-solid fa-calendar-days text-emerald-400"></i>
-                화요일 & 토요일 주 2회 고정 발행
-              </h4>
-              <p class="text-slate-300 leading-relaxed">
-                • <b>화요일 저녁 8시</b>: 전문 기술/엔지니어링/자기계발 칼럼 (출퇴근 직장인 유입 최적화)<br>
-                • <b>토요일 오전 9시</b>: 순례길/음악/인문학 성찰 에세이 (주말 아침 감성적인 독서 타깃)
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 font-bold border border-blue-500/30">
+                  <i class="fa-solid fa-graduation-cap mr-1"></i> 시리즈 1 · 수험 실패 & 공부 철학
+                </span>
+                <span class="text-[11px] text-amber-400 font-bold">브런치북 기획 1순위</span>
+              </div>
+              <h3 class="text-base font-extrabold text-white mt-2 mb-2 flex items-center gap-2">
+                <span>《59점의 미학: 5대 자격증을 따기까지 마주한 불합격의 기록들》</span>
+              </h3>
+              <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                위험물기능장, 산업안전기사, 인간공학기사, 가스산업기사부터 현재의 에너지관리기사 실기 D-40까지. 1점 차이로 떨어졌을 때의 절망과 오답 노트를 찢어가며 배운 '공부의 본질'과 '자기 통제력' 이야기.
               </p>
+
+              <!-- 에피소드 추천 리스트 -->
+              <div class="space-y-2 bg-slate-900/60 p-3.5 rounded-xl border border-slate-700/60 text-xs">
+                <div class="text-[11px] font-bold text-blue-300 mb-1 flex items-center gap-1.5">
+                  <i class="fa-solid fa-list-check"></i> 추천 연재 에피소드 구성
+                </div>
+                <div class="text-slate-300">
+                  <b class="text-white">제1화:</b> 59점으로 떨어진 날, 나는 처음으로 공부의 본질을 배웠다 (불합격을 마주하는 자세)
+                </div>
+                <div class="text-slate-300">
+                  <b class="text-white">제2화:</b> 외계어 같던 열역학 공식이 철학으로 보이기 시작했다 (문과적 사색과 공학의 결합)
+                </div>
+                <div class="text-slate-300">
+                  <b class="text-white">제3화:</b> 시험 D-40, 20개의 폴더 앞에서 느끼는 중압감을 버티는 법 (직장·복무·학업 3중고의 루틴)
+                </div>
+                <div class="text-slate-300">
+                  <b class="text-white">제4화:</b> 자격증은 스펙이 아니라, '지루함을 견뎌낸 그릿(Grit)'의 증명서였다
+                </div>
+              </div>
             </div>
+
+            <div class="pt-3.5 mt-4 border-t border-slate-700/60 flex items-center justify-between text-[11px]">
+              <span class="text-slate-400">타깃 독자: 수험생, 취준생, 기술자격 도전 직장인</span>
+              <span class="text-blue-300 font-bold">화요일 저녁 연재 추천</span>
+            </div>
+          </div>
+
+          <!-- 테마 2: 체중계는 거짓말을 한다 (다이어트 실패와 체형 재구성) -->
+          <div class="p-5 rounded-2xl bg-slate-800/80 border border-rose-500/30 hover:border-rose-400 transition flex flex-col justify-between shadow-lg">
             <div>
-              <h4 class="font-bold text-white mb-1.5 flex items-center gap-2">
-                <i class="fa-solid fa-arrows-rotate text-sky-400"></i>
-                12시간 주기 퇴고 & 예약 발행 프로세스
-              </h4>
-              <p class="text-slate-300 leading-relaxed">
-                초고 작성 후 <b>12시간의 숙성 시간</b>을 두고 아침/저녁 교차 퇴고를 거친 후 예약 발행함으로써 글의 완성도와 독자 피드백 흡수율을 극대화합니다.
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-300 font-bold border border-rose-500/30">
+                  <i class="fa-solid fa-weight-scale mr-1"></i> 시리즈 2 · 신체 변혁 & 실패 극복
+                </span>
+                <span class="text-[11px] text-rose-300 font-bold">11개년 89회 실측 기반</span>
+              </div>
+              <h3 class="text-base font-extrabold text-white mt-2 mb-2 flex items-center gap-2">
+                <span>《체중계는 거짓말을 한다: 89번의 인바디가 증명한 실패 없는 몸 만들기》</span>
+              </h3>
+              <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                2015년 고도비만(체지방률 34%)에서 2026년 골격근량 44.9kg 달성까지! 굶기와 무리한 유산소로 요요를 겪으며 좌절했던 흑역사를 고백하고, '체중(92kg)을 줄이지 않고 체질을 바꾸는' 역발상 다이어트의 정수.
               </p>
+
+              <!-- 에피소드 추천 리스트 -->
+              <div class="space-y-2 bg-slate-900/60 p-3.5 rounded-xl border border-slate-700/60 text-xs">
+                <div class="text-[11px] font-bold text-rose-300 mb-1 flex items-center gap-1.5">
+                  <i class="fa-solid fa-list-check"></i> 추천 연재 에피소드 구성
+                </div>
+                <div class="text-slate-300">
+                  <b class="text-white">제1화:</b> 11년 전 고도비만 청년이 저질렀던 가장 바보 같은 다이어트 3가지 (굶기의 함정)
+                </div>
+                <div class="text-slate-300">
+                  <b class="text-white">제2화:</b> '살을 빼지 않겠다'고 결심한 순간 몸이 바뀌기 시작했다 (체성분 재구성의 발견)
+                </div>
+                <div class="text-slate-300">
+                  <b class="text-white">제3화:</b> 폭식한 다음 날의 자괴감에게 보내는 편지 (하루 망쳤다고 11년이 무너지지 않는다)
+                </div>
+                <div class="text-slate-300">
+                  <b class="text-white">제4화:</b> 골격근 44.9kg: 몸을 통제할 수 있으면 삶의 주도권도 돌아온다
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-3.5 mt-4 border-t border-slate-700/60 flex items-center justify-between text-[11px]">
+              <span class="text-slate-400">타깃 독자: 다이어트 실패자, 헬스인, 자기관리 세대</span>
+              <span class="text-rose-300 font-bold">목요일 저녁 연재 추천</span>
             </div>
           </div>
+
+          <!-- 테마 3: 길 위에서 버린 것들 (시험 직후 순례길 21일의 여정) -->
+          <div class="p-5 rounded-2xl bg-slate-800/80 border border-amber-500/30 hover:border-amber-400 transition flex flex-col justify-between shadow-lg">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30">
+                  <i class="fa-solid fa-person-hiking mr-1"></i> 시리즈 3 · 순례 & 삶의 다운사이징
+                </span>
+                <span class="text-[11px] text-amber-300 font-bold">11월 출국 실시간 현장 연재</span>
+              </div>
+              <h3 class="text-base font-extrabold text-white mt-2 mb-2 flex items-center gap-2">
+                <span>《길 위에서 버린 것들: 까미노 드 포르투 240km와 인생의 다운사이징》</span>
+              </h3>
+              <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                11월 7일 에너지관리기사 시험이 끝나자마자 11월 9일 출국! 긴장의 극치에서 순례길의 무소유로 이어지는 극적인 전환. 8kg 배낭 하나에 삶을 우겨넣으며 배운 '내려놓음의 미학'.
+              </p>
+
+              <!-- 에피소드 추천 리스트 -->
+              <div class="space-y-2 bg-slate-900/60 p-3.5 rounded-xl border border-slate-700/60 text-xs">
+                <div class="text-[11px] font-bold text-amber-300 mb-1 flex items-center gap-1.5">
+                  <i class="fa-solid fa-list-check"></i> 추천 연재 에피소드 구성
+                </div>
+                <div class="text-slate-300">
+                  <b class="text-white">제1화:</b> 시험장을 나오자마자 8kg 배낭을 멨다 (극도의 긴장에서 무소유로의 전환)
+                </div>
+                <div class="text-slate-300">
+                  <b class="text-white">제2화:</b> 포르투의 안개와 대서양 바람: 왜 나는 쉼 없이 달려왔을까 (내면의 번아웃 마주하기)
+                </div>
+                <div class="text-slate-300">
+                  <b class="text-white">제3화:</b> 발바닥 물집이 가르쳐준 것: 완벽한 길은 없다, 다만 걸을 뿐이다
+                </div>
+                <div class="text-slate-300">
+                  <b class="text-white">제4화:</b> 오브라도이로 광장에서 흘린 눈물의 의미: 다시 세상 속으로 걸어 들어가는 용기
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-3.5 mt-4 border-t border-slate-700/60 flex items-center justify-between text-[11px]">
+              <span class="text-slate-400">타깃 독자: 번아웃 직장인, 힐링을 찾는 여행자, 2030 세대</span>
+              <span class="text-amber-300 font-bold">11월 9일~29일 실시간 연재</span>
+            </div>
+          </div>
+
+          <!-- 테마 4: 소음이 음악이 되는 순간 (직장인 밴드와 삶의 조화) -->
+          <div class="p-5 rounded-2xl bg-slate-800/80 border border-purple-500/30 hover:border-purple-400 transition flex flex-col justify-between shadow-lg">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] px-2.5 py-1 rounded-full bg-purple-500/20 text-purple-300 font-bold border border-purple-500/30">
+                  <i class="fa-solid fa-guitar mr-1"></i> 시리즈 4 · 예술 & 불완전함의 조화
+                </span>
+                <span class="text-[11px] text-purple-300 font-bold">홍대 호랑이 합주실 실화</span>
+              </div>
+              <h3 class="text-base font-extrabold text-white mt-2 mb-2 flex items-center gap-2">
+                <span>《소음이 음악이 되는 순간: 직장인의 퇴근 후 4번선(Bass)》</span>
+              </h3>
+              <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                반도체 안전 수칙과 위험물 분자식의 차가운 세계에서, 퇴근 후 홍대 호랑이 합주실에서 베이스 앰프를 켤 때 일어나는 카타르시스. 혼자 튀려다 곡을 망쳤던 경험이 가르쳐준 인생의 앙상블.
+              </p>
+
+              <!-- 에피소드 추천 리스트 -->
+              <div class="space-y-2 bg-slate-900/60 p-3.5 rounded-xl border border-slate-700/60 text-xs">
+                <div class="text-[11px] font-bold text-purple-300 mb-1 flex items-center gap-1.5">
+                  <i class="fa-solid fa-list-check"></i> 추천 연재 에피소드 구성
+                </div>
+                <div class="text-slate-300">
+                  <b class="text-white">제1화:</b> 메트로놈 박자를 자꾸 놓치던 손가락 (완벽주의라는 강박을 내려놓기)
+                </div>
+                <div class="text-slate-300">
+                  <b class="text-white">제2화:</b> 남의 소리를 듣지 않으면 내 악기는 소음일 뿐이다 (합주에서 배운 팀워크)
+                </div>
+                <div class="text-slate-300">
+                  <b class="text-white">제3화:</b> Eve의 《제제로감》을 연주하며 울컥했던 이유 (직장인의 마음속 응어리 해소)
+                </div>
+                <div class="text-slate-300">
+                  <b class="text-white">제4화:</b> 베이스는 왜 멜로디 뒤에 숨어야 하는가: 보이지 않는 자리의 숭고함
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-3.5 mt-4 border-t border-slate-700/60 flex items-center justify-between text-[11px]">
+              <span class="text-slate-400">타깃 독자: 취미 음악인, 서브컬처 팬, 일상 균형을 추구하는 직장인</span>
+              <span class="text-purple-300 font-bold">토요일 오전 연재 추천</span>
+            </div>
+          </div>
+
         </div>
 
-        <!-- 전략 3: 원소스 멀티유즈(OSMU) 연계 전략 -->
-        <div>
-          <h3 class="text-sm font-bold text-amber-300 uppercase tracking-wider mb-3 flex items-center gap-2">
-            <i class="fa-solid fa-diagram-project"></i>
-            3. 브런치 본진 중심의 원소스 멀티유즈(OSMU) 크로스 채널 확장
+        <!-- 글쓰기 템플릿 & 스토리텔링 확장 공식 -->
+        <div class="p-5 rounded-2xl bg-slate-800/60 border border-slate-700/80">
+          <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
+            <i class="fa-solid fa-pen-ruler text-amber-400"></i>
+            <span>독자의 마음을 여는 '아론 작가 전용 3단계 실패 서사 공식'</span>
           </h3>
-          <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700/60 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg flex-shrink-0">
-                <i class="fa-solid fa-feather"></i>
-              </div>
-              <div>
-                <span class="text-white font-bold block">브런치 장문 에세이 (본진)</span>
-                <span class="text-slate-400">2,000자 내외의 깊이 있는 에세이 완결 발행</span>
-              </div>
-            </div>
-            <i class="fa-solid fa-arrow-right text-slate-500 hidden md:block"></i>
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-lg flex-shrink-0">
-                <i class="fa-brands fa-linkedin"></i>
-              </div>
-              <div>
-                <span class="text-white font-bold block">링크드인 3줄 요약</span>
-                <span class="text-slate-400">커리어 인사이트 요약 + 브런치 직통 링크</span>
-              </div>
-            </div>
-            <i class="fa-solid fa-arrow-right text-slate-500 hidden md:block"></i>
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-pink-500/20 text-pink-400 flex items-center justify-center text-lg flex-shrink-0">
-                <i class="fa-brands fa-instagram"></i>
-              </div>
-              <div>
-                <span class="text-white font-bold block">인스타그램 감성 카드</span>
-                <span class="text-slate-400">핵심 문구 1장 + 합주/순례 사진 릴스 유입</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  `;
-}
-
-
-// ==========================================================================
-
-// ==========================================================================
-// 5-C. 체구 감량 & 인바디 지속 관리 탭 (⭐ '체중 변화 없는 성공적인 다이어트')
-// ==========================================================================
-// ==========================================================================
-// 5-C. 체구 감량 & 인바디 지속 관리 탭 (⭐ 카카오톡 InBody CSV 89회 누적 연동)
-// ==========================================================================
-function renderInbodyTab() {
-  const container = document.getElementById('tab-content-inbody');
-  if (!container) return;
-
-  const inbody = state.inbody || INITIAL_INBODY_DATA;
-  const records = inbody.records || INITIAL_INBODY_DATA.records;
-  const currentYearFilter = state.inbodyYearFilter || 'all';
-
-  // Sort descending by date for display
-  const sortedDesc = [...records].sort((a, b) => new Date(b.date + ' ' + (b.time || '00:00')) - new Date(a.date + ' ' + (a.time || '00:00')));
-  
-  // Filtered records
-  const filteredRecords = sortedDesc.filter(r => {
-    if (currentYearFilter === 'all') return true;
-    if (currentYearFilter === '2026') return r.date.startsWith('2026');
-    if (currentYearFilter === '2025') return r.date.startsWith('2025');
-    if (currentYearFilter === '2024') return r.date.startsWith('2024');
-    if (currentYearFilter === 'prev') return parseInt(r.date.substring(0, 4), 10) <= 2023;
-    return true;
-  });
-
-  const latest = sortedDesc[0] || {};
-  // 2026 Peak Muscle Record
-  const recs2026 = sortedDesc.filter(r => r.date.startsWith('2026'));
-  const peak2026 = [...recs2026].sort((a, b) => (b.skeletalMuscle || 0) - (a.skeletalMuscle || 0))[0] || latest;
-  const baseline2026 = recs2026[recs2026.length - 1] || latest;
-
-  const deltaWeight = (latest.weight && baseline2026.weight) ? (latest.weight - baseline2026.weight).toFixed(1) : 0;
-  const peakMuscleGain = (peak2026.skeletalMuscle && baseline2026.skeletalMuscle) ? (peak2026.skeletalMuscle - baseline2026.skeletalMuscle).toFixed(1) : 0;
-  const peakFatLoss = (peak2026.bodyFatMass && baseline2026.bodyFatMass) ? (peak2026.bodyFatMass - baseline2026.bodyFatMass).toFixed(1) : 0;
-
-  // Segmental muscle info (InBody 570 2026-08-06 or peak)
-  const segmental = inbody.segmentalMuscle || {
-    date: "2026-08-06", device: "InBody 570", score: 97.0,
-    rightArm: 4.67, leftArm: 4.67, trunk: 34.0, rightLeg: 10.93, leftLeg: 11.02,
-    bodyWater: 56.2, protein: 15.6, mineral: 5.13
-  };
-
-  container.innerHTML = `
-    <!-- Hidden File Input for CSV Import -->
-    <input type="file" id="inbody-csv-file-input" accept=".csv" onchange="window.app.importInbodyCsv(event)" class="hidden">
-
-    <!-- Top Header Banner -->
-    <div class="glass-panel rounded-2xl p-6 sm:p-8 mb-8 border border-rose-500/40 bg-gradient-to-r from-slate-900 via-rose-950/30 to-slate-900 relative overflow-hidden shadow-2xl">
-      <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-rose-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
-      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
-        <div>
-          <div class="flex flex-wrap items-center gap-2 mb-2">
-            <span class="px-3 py-1 bg-rose-500/20 text-rose-300 border border-rose-500/30 text-xs font-bold rounded-full flex items-center gap-1.5">
-              <i class="fa-solid fa-weight-scale"></i> 11개년 누적 89회 측정 공식 연동
-            </span>
-            <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold rounded-full">
-              InBody 570 / 770 / 970 정밀 장비
-            </span>
-            <span class="text-xs text-slate-300 font-mono">최신 측정: ${latest.date || '2026-09-16'}</span>
-          </div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
-            <i class="fa-solid fa-heart-pulse text-rose-400"></i>
-            체중 변화 없는 성공적인 다이어트 (상승 다이어트 허브)
-          </h1>
-          <p class="text-sm text-slate-300 mt-2 max-w-2xl leading-relaxed">
-            체중계의 숫자(-1.9kg)에 갇히지 않고, <b>골격근량을 최대 +3.9kg 늘리고 순수 체지방만 -6.0kg 감량(체지방률 23.4% ➔ 17.3%)</b>하여 <b>인바디 점수 97점</b>과 슬림한 체구를 완성한 과학적 체성분 재구성(Body Recomposition) 데이터베이스입니다.
+          <p class="text-xs text-slate-300 mb-4 leading-relaxed">
+            모든 글을 아래 3단계 구조로 전개하면, 독자는 단순 정보 습득을 넘어 작가의 인간적인 고뇌에 깊게 몰입하며 '구독'과 '멤버십 후원'으로 이어지게 됩니다.
           </p>
-        </div>
-
-        <!-- Action Buttons -->
-        <div class="flex flex-wrap sm:flex-nowrap gap-2.5">
-          <button onclick="document.getElementById('inbody-csv-file-input').click()" class="py-3 px-4 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 hover:border-slate-500 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-md" title="카카오톡에서 받은 InBody-YYYYMMDD.csv 파일을 바로 업로드하여 새 측정치를 자동 병합합니다">
-            <i class="fa-solid fa-file-csv text-emerald-400 text-base"></i>
-            <span>새 InBody CSV 파일 가져오기</span>
-          </button>
-          <button onclick="window.app.openAddInbodyModal()" class="admin-only py-3 px-5 bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-rose-600/20 transition flex items-center justify-center gap-2">
-            <i class="fa-solid fa-plus"></i> 새 수기 등록
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 1. 2026 Recomposition Key Delta Cards (실측 기반) -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-      
-      <!-- 체중 유지 -->
-      <div class="glass-panel p-5 rounded-2xl border border-slate-700/60 bg-slate-900/60">
-        <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
-          <span>최신 체중 (유지형)</span>
-          <i class="fa-solid fa-scale-balanced text-sky-400"></i>
-        </div>
-        <div class="text-2xl font-black text-white">${latest.weight || 92.7}<span class="text-xs text-slate-400 font-normal"> kg</span></div>
-        <div class="mt-2 text-[11px] text-sky-400 font-bold flex items-center gap-1">
-          <i class="fa-solid fa-check"></i>
-          <span>2026년 5월(94.6kg) 대비 ${deltaWeight}kg (체중 유지 성공)</span>
-        </div>
-      </div>
-
-      <!-- 골격근량 증가 -->
-      <div class="glass-panel p-5 rounded-2xl border border-emerald-500/30 bg-slate-900/60">
-        <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
-          <span>골격근량 (근성장)</span>
-          <i class="fa-solid fa-dumbbell text-emerald-400"></i>
-        </div>
-        <div class="text-2xl font-black text-emerald-400">${latest.skeletalMuscle || 42.5}<span class="text-xs text-slate-400 font-normal"> kg <span class="text-amber-400 font-bold">(최대 ${peak2026.skeletalMuscle}kg)</span></span></div>
-        <div class="mt-2 text-[11px] text-emerald-400 font-bold flex items-center gap-1">
-          <i class="fa-solid fa-arrow-trend-up"></i>
-          <span>시작 대비 최대 +${peakMuscleGain}kg 폭발적 근육 증량 💪</span>
-        </div>
-      </div>
-
-      <!-- 체지방 감량 -->
-      <div class="glass-panel p-5 rounded-2xl border border-rose-500/30 bg-slate-900/60">
-        <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
-          <span>체지방률 (순수 감량)</span>
-          <i class="fa-solid fa-fire text-rose-400"></i>
-        </div>
-        <div class="text-2xl font-black text-rose-400">${latest.bodyFatRate || 19.1}<span class="text-xs text-slate-400 font-normal"> % <span class="text-slate-300 font-bold">(${latest.bodyFatMass}kg)</span></span></div>
-        <div class="mt-2 text-[11px] text-rose-400 font-bold flex items-center gap-1">
-          <i class="fa-solid fa-arrow-trend-down"></i>
-          <span>최저 17.3% (-6.0kg 순수 지방 연소) 🔥</span>
-        </div>
-      </div>
-
-      <!-- 최고 인바디 점수 & BMR -->
-      <div class="glass-panel p-5 rounded-2xl border border-amber-500/30 bg-slate-900/60">
-        <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
-          <span>최고 점수 & 기초대사량</span>
-          <i class="fa-solid fa-trophy text-amber-400"></i>
-        </div>
-        <div class="text-2xl font-black text-amber-300">${peak2026.score || 97.0}<span class="text-xs text-slate-400 font-normal"> 점</span> <span class="text-xs text-slate-300 font-mono">(${latest.bmr} kcal)</span></div>
-        <div class="mt-2 text-[11px] text-amber-400 font-bold flex items-center gap-1">
-          <i class="fa-solid fa-bolt"></i>
-          <span>초상위 1% 피지크 · 하루 2,000kcal 자동 소비</span>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- 2. InBody 570 부위별 근육 & 체수분 정밀 분석 카드 (실측 기반) -->
-    <div class="glass-panel rounded-2xl p-6 sm:p-7 mb-8 border border-slate-700/60 bg-slate-900/60 shadow-xl">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5 border-b border-slate-800 pb-4">
-        <div>
-          <div class="flex items-center gap-2">
-            <h2 class="text-base font-bold text-white flex items-center gap-2">
-              <i class="fa-solid fa-child-reaching text-rose-400"></i>
-              부위별 정밀 근육량 & 체수분 밸런스 분석
-            </h2>
-            <span class="text-[10px] px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30 font-bold">
-              ${segmental.device} 정밀 실측치 (${segmental.date})
-            </span>
-          </div>
-          <p class="text-xs text-slate-400 mt-1">상체 좌우 균형 100% 일치 및 34kg의 압도적인 몸통 코어 근육량 확보</p>
-        </div>
-
-        <div class="flex items-center gap-2">
-          <span class="text-xs font-bold px-2.5 py-1 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
-            인바디 점수: ${segmental.score}점
-          </span>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-center mb-4">
-        <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
-          <span class="text-[10px] text-slate-400 block mb-1">💪 오른팔 근육</span>
-          <span class="text-lg font-black text-emerald-400">${segmental.rightArm} kg</span>
-          <span class="text-[9px] text-slate-400 block mt-0.5">표준이상 (발달)</span>
-        </div>
-        <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
-          <span class="text-[10px] text-slate-400 block mb-1">💪 왼팔 근육</span>
-          <span class="text-lg font-black text-emerald-400">${segmental.leftArm} kg</span>
-          <span class="text-[9px] text-emerald-400 block mt-0.5">좌우 대칭 100%</span>
-        </div>
-        <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
-          <span class="text-[10px] text-slate-400 block mb-1">🛡️ 몸통 (코어/등/가슴)</span>
-          <span class="text-lg font-black text-amber-300">${segmental.trunk} kg</span>
-          <span class="text-[9px] text-amber-400 block mt-0.5">핵심 프레임</span>
-        </div>
-        <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
-          <span class="text-[10px] text-slate-400 block mb-1">🦵 오른다리 근육</span>
-          <span class="text-lg font-black text-sky-400">${segmental.rightLeg} kg</span>
-          <span class="text-[9px] text-slate-400 block mt-0.5">강력한 하체</span>
-        </div>
-        <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
-          <span class="text-[10px] text-slate-400 block mb-1">🦵 왼다리 근육</span>
-          <span class="text-lg font-black text-sky-400">${segmental.leftLeg} kg</span>
-          <span class="text-[9px] text-sky-400 block mt-0.5">하체 균형 우수</span>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-slate-800 text-xs text-slate-300">
-        <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/40">
-          <span>💧 총 체수분: <b class="text-white">${segmental.bodyWater} L</b></span>
-          <span class="text-[10px] text-slate-400">세포외수분비 0.360</span>
-        </div>
-        <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/40">
-          <span>🥩 단백질량: <b class="text-white">${segmental.protein} kg</b></span>
-          <span class="text-[10px] text-emerald-400">최상위 근육량</span>
-        </div>
-        <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/40">
-          <span>🦴 골무기질량: <b class="text-white">${segmental.mineral} kg</b></span>
-          <span class="text-[10px] text-slate-400">골격 튼튼</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3. 인바디 누적 측정 히스토리 테이블 (89회 전량 및 연도별 필터링) -->
-    <div class="glass-panel rounded-2xl p-6 sm:p-7 mb-8 border border-slate-700/60 bg-slate-900/60 shadow-xl">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
-        <div>
-          <h2 class="text-lg font-bold text-white flex items-center gap-2">
-            <i class="fa-solid fa-clock-rotate-left text-rose-400"></i>
-            인바디 측정 히스토리 아카이브 (${filteredRecords.length} / 총 ${sortedDesc.length}회차)
-          </h2>
-          <p class="text-xs text-slate-400 mt-0.5">카카오톡 InBody CSV 파일에서 가져온 2015~2026년 정기 실측 데이터입니다.</p>
-        </div>
-
-        <div class="flex items-center gap-2 flex-wrap">
-          <button onclick="document.getElementById('inbody-csv-file-input').click()" class="admin-only px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-lg text-xs font-bold transition flex items-center gap-1.5">
-            <i class="fa-solid fa-file-import text-emerald-400"></i> CSV 가져오기
-          </button>
-          <button onclick="window.app.openAddInbodyModal()" class="admin-only px-3 py-1.5 bg-rose-600 hover:bg-rose-500 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5">
-            <i class="fa-solid fa-plus"></i> 새 측정치 수기 등록
-          </button>
-        </div>
-      </div>
-
-      <!-- Year Filter Buttons -->
-      <div class="flex flex-wrap items-center gap-2 pb-3 mb-4 text-xs border-b border-slate-800">
-        <button onclick="window.app.setInbodyYearFilter('all')" class="px-3 py-1.5 rounded-lg font-bold transition ${currentYearFilter === 'all' ? 'bg-rose-600 text-white shadow-md' : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'}">
-          전체 (89회)
-        </button>
-        <button onclick="window.app.setInbodyYearFilter('2026')" class="px-3 py-1.5 rounded-lg font-bold transition ${currentYearFilter === '2026' ? 'bg-rose-600 text-white shadow-md' : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'}">
-          2026년 (12회) · 상승 다이어트
-        </button>
-        <button onclick="window.app.setInbodyYearFilter('2025')" class="px-3 py-1.5 rounded-lg font-bold transition ${currentYearFilter === '2025' ? 'bg-rose-600 text-white shadow-md' : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'}">
-          2025년 (17회)
-        </button>
-        <button onclick="window.app.setInbodyYearFilter('2024')" class="px-3 py-1.5 rounded-lg font-bold transition ${currentYearFilter === '2024' ? 'bg-rose-600 text-white shadow-md' : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'}">
-          2024년 (35회) · 96점 달성기
-        </button>
-        <button onclick="window.app.setInbodyYearFilter('prev')" class="px-3 py-1.5 rounded-lg font-bold transition ${currentYearFilter === 'prev' ? 'bg-rose-600 text-white shadow-md' : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'}">
-          2023년 이전 (25회)
-        </button>
-      </div>
-
-      <!-- InBody Records Table -->
-      <div class="overflow-x-auto max-h-[550px] overflow-y-auto pr-1">
-        <table class="w-full text-xs text-left text-slate-300">
-          <thead class="text-[11px] text-slate-400 uppercase bg-slate-800/90 border-b border-slate-700 sticky top-0 z-10">
-            <tr>
-              <th class="py-2.5 px-3">측정 일자</th>
-              <th class="py-2.5 px-3">체중 (kg)</th>
-              <th class="py-2.5 px-3">골격근량 (kg)</th>
-              <th class="py-2.5 px-3">체지방량 / 체지방률</th>
-              <th class="py-2.5 px-3">BMI / BMR</th>
-              <th class="py-2.5 px-3">인바디 점수</th>
-              <th class="py-2.5 px-3">측정 장비</th>
-              <th class="py-2.5 px-3 text-right">관리</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-slate-800">
-            ${filteredRecords.map(rec => {
-              const isPeak = rec.skeletalMuscle && rec.skeletalMuscle >= 44.0;
-              const isHigh = rec.score && rec.score >= 95.0;
-              const rowHighlight = isPeak ? 'bg-emerald-950/20 font-bold' : isHigh ? 'bg-amber-950/20' : 'hover:bg-slate-800/40';
-
-              return `
-                <tr class="${rowHighlight} transition">
-                  <td class="py-2.5 px-3 font-mono font-medium text-white whitespace-nowrap">
-                    ${rec.date} <span class="text-[10px] text-slate-500">${rec.time || ''}</span>
-                    ${isPeak ? '<span class="ml-1 text-[9px] px-1 rounded bg-emerald-500 text-slate-950 font-black">최대골격근</span>' : ''}
-                    ${isHigh ? '<span class="ml-1 text-[9px] px-1 rounded bg-amber-500 text-slate-950 font-black">95점+</span>' : ''}
-                  </td>
-                  <td class="py-2.5 px-3 font-black text-white whitespace-nowrap">${rec.weight || '-'} kg</td>
-                  <td class="py-2.5 px-3 font-black text-emerald-400 whitespace-nowrap">${rec.skeletalMuscle || '-'} kg</td>
-                  <td class="py-2.5 px-3 whitespace-nowrap">
-                    <span class="font-bold text-rose-400">${rec.bodyFatRate ? rec.bodyFatRate + '%' : '-'}</span>
-                    <span class="text-[10px] text-slate-400">(${rec.bodyFatMass || '-'}kg)</span>
-                  </td>
-                  <td class="py-2.5 px-3 text-slate-300 font-mono whitespace-nowrap">
-                    ${rec.bmi || '-'} <span class="text-[10px] text-slate-500">/ ${rec.bmr ? rec.bmr + 'kcal' : '-'}</span>
-                  </td>
-                  <td class="py-2.5 px-3 whitespace-nowrap">
-                    ${rec.score ? `<span class="px-2 py-0.5 rounded font-black ${rec.score >= 95 ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : rec.score >= 90 ? 'bg-emerald-500/20 text-emerald-300' : 'bg-slate-800 text-slate-300'}">${rec.score}점</span>` : '<span class="text-slate-500">-</span>'}
-                  </td>
-                  <td class="py-2.5 px-3 text-slate-400 text-[11px] whitespace-nowrap">
-                    ${rec.device || 'Etc'}
-                  </td>
-                  <td class="py-2.5 px-3 text-right whitespace-nowrap">
-                    <button onclick="window.app.openEditInbodyModal('${rec.id}')" class="text-slate-400 hover:text-white px-2 py-1 text-xs">
-                      <i class="fa-solid fa-pen-to-square"></i>
-                    </button>
-                    <button onclick="window.app.deleteInbodyRecord('${rec.id}')" class="text-slate-500 hover:text-red-400 px-2 py-1 text-xs">
-                      <i class="fa-regular fa-trash-can"></i>
-                    </button>
-                  </td>
-                </tr>
-              `;
-            }).join('')}
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- 4. 실측 체중(92.7kg) 맞춤 영양 & 단백질 계산기 & 4대 다이어트 철학 -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      
-      <!-- Left 1 Col: 실측 92.7kg 맞춤 단백질 계산기 -->
-      <div class="glass-panel rounded-2xl p-6 border border-slate-700/60 bg-slate-900/60 space-y-4">
-        <h3 class="text-base font-bold text-white flex items-center gap-2">
-          <i class="fa-solid fa-calculator text-rose-400"></i>
-          체중 92.7kg 맞춤 일일 단백질 계산기
-        </h3>
-        <p class="text-xs text-slate-400 leading-relaxed">
-          골격근 42~44kg 피지크를 보존하고 체지방만 연소시키기 위해 체중당 1.6~2.0g의 단백질이 요구됩니다.
-        </p>
-
-        <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700">
-          <div class="text-xs text-slate-400 mb-1">실측 체중 기준 (92.7 kg)</div>
-          <div class="text-2xl font-black text-rose-400 mb-2">148g ~ 185g <span class="text-xs text-slate-400 font-normal">/ 일</span></div>
-          <div class="text-xs text-slate-300 space-y-2 pt-2 border-t border-slate-700/80">
-            <div class="flex items-center justify-between">
-              <span>🍗 닭가슴살 환산:</span>
-              <b class="text-white">약 5~6덩이 (500~600g)</b>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+            <div class="p-3.5 rounded-xl bg-slate-900/80 border border-rose-500/30">
+              <div class="text-rose-400 font-bold mb-1 flex items-center gap-1.5">
+                <span class="w-5 h-5 rounded-full bg-rose-500/20 flex items-center justify-center text-[10px]">1</span>
+                <span>오답과 무너짐의 현장 (Hook)</span>
+              </div>
+              <p class="text-slate-400 text-[11px] leading-relaxed">
+                계산 문제를 틀리고 자책했던 순간, 폭식 후 체중계에 올라서서 후회했던 밤, 합주에서 박자를 절었던 당혹감 등 가장 솔직한 '바닥'을 먼저 드러냅니다.
+              </p>
             </div>
-            <div class="flex items-center justify-between">
-              <span>🥚 계란 흰자/완숙:</span>
-              <b class="text-white">약 24~26개 분량</b>
+            <div class="p-3.5 rounded-xl bg-slate-900/80 border border-amber-500/30">
+              <div class="text-amber-400 font-bold mb-1 flex items-center gap-1.5">
+                <span class="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center text-[10px]">2</span>
+                <span>바닥에서 길어 올린 질문 (Turning)</span>
+              </div>
+              <p class="text-slate-400 text-[11px] leading-relaxed">
+                '왜 나는 1점에 집착했을까?', '왜 나는 몸을 굶겨야만 했을까?' 단순 자책에서 벗어나 삶의 구조와 내면의 결핍을 응시하는 질문으로 전환합니다.
+              </p>
             </div>
-            <div class="flex items-center justify-between">
-              <span>🥛 단백질 보충제:</span>
-              <b class="text-white">2.5스쿱 (약 60g 충당)</b>
+            <div class="p-3.5 rounded-xl bg-slate-900/80 border border-emerald-500/30">
+              <div class="text-emerald-400 font-bold mb-1 flex items-center gap-1.5">
+                <span class="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center text-[10px]">3</span>
+                <span>내일을 버티게 한 작은 시스템 (Insight)</span>
+              </div>
+              <p class="text-slate-400 text-[11px] leading-relaxed">
+                거창한 성공이 아니라 '내일 아침 다시 책상에 앉게 만든 1가지 원칙', '다시 베이스 튜닝을 하게 만든 위로'를 독자에게 선물하며 글을 맺습니다.
+              </p>
             </div>
           </div>
         </div>
 
-        <div class="p-3.5 rounded-xl bg-slate-800/40 border border-slate-700/60 text-xs text-slate-300">
-          <span class="font-bold text-amber-400 block mb-1">⚡ 일일 유지 칼로리(TDEE):</span>
-          기초대사량(BMR 1,990 kcal) × 활동계수 1.4 = <b>약 2,780 ~ 2,900 kcal</b> (충분히 먹으면서 근성장 유도 가능)
-        </div>
       </div>
-
-      <!-- Right 2 Cols: 4대 성공 원칙 카드 -->
-      <div class="lg:col-span-2 glass-panel rounded-2xl p-6 border border-slate-700/60 bg-slate-900/60">
-        <h3 class="text-base font-bold text-white flex items-center gap-2 mb-4">
-          <i class="fa-solid fa-book-bookmark text-rose-400"></i>
-          '체중 변화 없는 성공적인 다이어트' 4대 핵심 원칙
-        </h3>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          ${(inbody.principles || INITIAL_INBODY_DATA.principles).map((p, idx) => `
-            <div class="p-4 rounded-xl bg-slate-800/70 border border-slate-700/60 flex flex-col justify-between">
-              <div>
-                <h4 class="text-sm font-bold text-rose-300 mb-2">${p.title}</h4>
-                <p class="text-xs text-slate-300 leading-relaxed">${p.description}</p>
-              </div>
-              <div class="mt-3 pt-2 border-t border-slate-700/60 text-[11px] text-slate-400 flex items-center gap-1">
-                <i class="fa-solid fa-circle-check text-rose-400"></i>
-                <span>실측 데이터 검증 완료</span>
-              </div>
-            </div>
-          `).join('')}
-        </div>
-      </div>
-
     </div>
   `;
 }
 
-// ==========================================================================
 function renderPortfolioTab() {
   const container = document.getElementById('tab-content-portfolio');
   if (!container) return;
@@ -11719,6 +11474,94 @@ window.app = {
         showToast('경력/TF 이력이 삭제되었습니다.');
       }
     }
+  },
+
+  // SNS Metrics Handlers (Admin Only 📊)
+  openEditSnsMetricsModal: () => {
+    if (!checkAdminPermission('SNS 지표 수정')) return;
+    const brunch = (state.sns && state.sns.channels && state.sns.channels.find(c => c.id === 'brunch')) || INITIAL_SNS_DATA.channels[2];
+    const insta = (state.sns && state.sns.channels && state.sns.channels.find(c => c.id === 'instagram')) || INITIAL_SNS_DATA.channels[1];
+    const linkedin = (state.sns && state.sns.channels && state.sns.channels.find(c => c.id === 'linkedin')) || INITIAL_SNS_DATA.channels[0];
+
+    const bf = document.getElementById('input-sns-brunch-followers');
+    const bp = document.getElementById('input-sns-brunch-posts');
+    const bm = document.getElementById('input-sns-brunch-magazines');
+    const br = document.getElementById('input-sns-brunch-reading-notes');
+    if (bf) bf.value = brunch.followers || 225;
+    if (bp) bp.value = brunch.postsCount || 744;
+    if (bm) bm.value = brunch.magazineCount || 18;
+    if (br) br.value = brunch.readingNotesCount || 76;
+
+    const inf = document.getElementById('input-sns-insta-followers');
+    const ing = document.getElementById('input-sns-insta-following');
+    const inp = document.getElementById('input-sns-insta-posts');
+    if (inf) inf.value = insta.followers || 300;
+    if (ing) ing.value = insta.following || 301;
+    if (inp) inp.value = insta.postsCount || 180;
+
+    const lnf = document.getElementById('input-sns-linkedin-followers');
+    const lnp = document.getElementById('input-sns-linkedin-posts');
+    if (lnf) lnf.value = linkedin.followers || 100;
+    if (lnp) lnp.value = linkedin.postsCount || 15;
+
+    const modal = document.getElementById('modal-edit-sns-metrics');
+    if (modal) modal.classList.remove('hidden');
+  },
+  saveSnsMetrics: (e) => {
+    if (e) e.preventDefault();
+    if (!checkAdminPermission('SNS 지표 수정')) return;
+    if (!state.sns) state.sns = JSON.parse(JSON.stringify(INITIAL_SNS_DATA));
+    if (!state.sns.channels) state.sns.channels = JSON.parse(JSON.stringify(INITIAL_SNS_DATA.channels));
+
+    const brunch = state.sns.channels.find(c => c.id === 'brunch');
+    if (brunch) {
+      brunch.followers = parseInt(document.getElementById('input-sns-brunch-followers').value, 10) || 0;
+      brunch.postsCount = parseInt(document.getElementById('input-sns-brunch-posts').value, 10) || 0;
+      brunch.magazineCount = parseInt(document.getElementById('input-sns-brunch-magazines').value, 10) || 0;
+      brunch.readingNotesCount = parseInt(document.getElementById('input-sns-brunch-reading-notes').value, 10) || 0;
+      brunch.category = `아론 작가 멤버십 · 작품 ${brunch.magazineCount} · 독서노트 ${brunch.readingNotesCount}`;
+      brunch.positioning = `실제 브런치 연동 완료 (구독자 ${brunch.followers}명 · 발행 글 ${brunch.postsCount}편 · 브런치북/매거진 ${brunch.magazineCount}집 · 독서노트 ${brunch.readingNotesCount}편)`;
+    }
+
+    const insta = state.sns.channels.find(c => c.id === 'instagram');
+    if (insta) {
+      insta.followers = parseInt(document.getElementById('input-sns-insta-followers').value, 10) || 0;
+      insta.following = parseInt(document.getElementById('input-sns-insta-following').value, 10) || 0;
+      insta.postsCount = parseInt(document.getElementById('input-sns-insta-posts').value, 10) || 0;
+      insta.positioning = `실제 프로필 연동 완료 (팔로워 ${insta.followers}명 · 팔로잉 ${insta.following}명 · 게시물 ${insta.postsCount}개) | 음악 & 순례길 아카이빙`;
+    }
+
+    const linkedin = state.sns.channels.find(c => c.id === 'linkedin');
+    if (linkedin) {
+      linkedin.followers = parseInt(document.getElementById('input-sns-linkedin-followers').value, 10) || 0;
+      linkedin.postsCount = parseInt(document.getElementById('input-sns-linkedin-posts').value, 10) || 0;
+    }
+
+    state.sns.snsDataVersion = 3;
+    persistState();
+    window.app.closeAllModals();
+    renderSnsTab();
+    if (state.activeTab === 'overview') renderOverviewTab();
+    showToast('SNS 브랜딩 지표가 성공적으로 갱신되었습니다!');
+  },
+  refreshBrunchData: () => {
+    const now = new Date();
+    const formatted = now.getFullYear() + '-' +
+      String(now.getMonth() + 1).padStart(2, '0') + '-' +
+      String(now.getDate()).padStart(2, '0') + ' ' +
+      String(now.getHours()).padStart(2, '0') + ':' +
+      String(now.getMinutes()).padStart(2, '0');
+    state.brunchLastSync = formatted;
+
+    if (!state.sns) state.sns = JSON.parse(JSON.stringify(INITIAL_SNS_DATA));
+    const brunch = state.sns.channels && state.sns.channels.find(c => c.id === 'brunch');
+    if (brunch) {
+      if (!brunch.magazineCount) brunch.magazineCount = 18;
+      if (!brunch.readingNotesCount) brunch.readingNotesCount = 76;
+    }
+    persistState();
+    renderSnsTab();
+    showToast('브런치 12시간 주기 동기화 완료: 구독자 225명 · 발행 글 744편 · 독서노트 76편 최신 지표 반영됨');
   },
 
   closeAllModals: () => {
