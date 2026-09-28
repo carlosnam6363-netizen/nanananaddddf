@@ -6298,55 +6298,145 @@ function renderAuthWidget() {
       if (modalBtnText) modalBtnText.innerText = 'Google 계정으로 로그인 (관리자)';
     }
   }
+  // Google Client ID Status in Modal
+  const clientIdInput = document.getElementById('input-google-client-id');
+  const clientIdStatus = document.getElementById('google-client-id-status');
+  const savedCId = getSavedGoogleClientId();
+  if (clientIdInput && !clientIdInput.value) {
+    clientIdInput.value = savedCId;
+  }
+  if (clientIdStatus) {
+    if (savedCId) {
+      clientIdStatus.innerHTML = '<span class="text-emerald-400 font-bold"><i class="fa-solid fa-circle-check"></i> 클라이언트 ID 등록됨</span>';
+    } else {
+      clientIdStatus.innerHTML = '<span class="text-amber-400 font-bold"><i class="fa-solid fa-circle-exclamation"></i> 미등록 (설정 필요)</span>';
+    }
+  }
+}
+
+const GOOGLE_CLIENT_ID_STORAGE_KEY = 'career_dashboard_google_client_id';
+
+function getSavedGoogleClientId() {
+  try {
+    return localStorage.getItem(GOOGLE_CLIENT_ID_STORAGE_KEY) || '';
+  } catch (e) {
+    return '';
+  }
+}
+
+function saveGoogleClientId(clientId) {
+  try {
+    if (clientId) {
+      localStorage.setItem(GOOGLE_CLIENT_ID_STORAGE_KEY, clientId.trim());
+    } else {
+      localStorage.removeItem(GOOGLE_CLIENT_ID_STORAGE_KEY);
+    }
+  } catch (e) {}
 }
 
 async function handleGoogleLogin() {
   try {
-    // 1. Try Firebase Auth popup if firebase app and auth are configured
-    if (window.firebase && window.firebase.auth) {
-      const activeConfig = syncManager.getSavedFirebaseConfig();
-      if (activeConfig && activeConfig.apiKey && activeConfig.authDomain) {
+    // 1. Firebase Auth 기반 실제 Google 로그인 팝업 검사
+    const activeConfig = syncManager.getSavedFirebaseConfig();
+    if (activeConfig && activeConfig.apiKey && activeConfig.authDomain) {
+      if (window.firebase && window.firebase.auth) {
         showToast('Google 인증 팝업을 여는 중...');
         const provider = new firebase.auth.GoogleAuthProvider();
+        provider.setCustomParameters({ prompt: 'select_account' });
         const result = await firebase.auth().signInWithPopup(provider);
         const user = result.user;
-        if (user) {
-          const authUser = {
-            uid: user.uid,
-            email: user.email,
-            displayName: user.displayName || '소유자',
-            photoURL: user.photoURL || null
-          };
-          state.currentUser = authUser;
-          saveAuthUser(authUser);
-          updateAdminState();
-          window.app.closeAllModals();
-          if (authUser.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
-            showToast(`👑 환영합니다! ${ADMIN_EMAIL} 관리자 권한이 활성화되었습니다.`);
+        if (user && user.email) {
+          if (user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+            const authUser = {
+              uid: user.uid,
+              email: user.email,
+              displayName: user.displayName || '소유자',
+              photoURL: user.photoURL || null
+            };
+            state.currentUser = authUser;
+            saveAuthUser(authUser);
+            updateAdminState();
+            window.app.closeAllModals();
+            showToast(`👑 Google 실제 인증 완료! ${authUser.displayName}(${authUser.email}) 관리자 권한 활성화`);
           } else {
-            showToast(`⚠️ ${authUser.email} 계정은 읽기 전용 권한입니다.`);
+            showToast(`⚠️ [접근 거부] 로그인된 구글 계정(${user.email})은 관리자(${ADMIN_EMAIL})가 아닙니다.`);
           }
           return;
         }
       }
     }
 
-    // 2. Direct Admin Auth (Local / Standalone Mode):
-    // Authenticate as carlosnam6363@gmail.com directly
-    const authUser = {
-      uid: 'admin_carlosnam',
-      email: ADMIN_EMAIL,
-      displayName: 'Carlos Nam',
-      photoURL: null
-    };
-    state.currentUser = authUser;
-    saveAuthUser(authUser);
-    updateAdminState();
-    window.app.closeAllModals();
-    showToast(`👑 ${ADMIN_EMAIL} 관리자 인증 완료! 수정 권한이 활성화되었습니다.`);
+    // 2. Google Identity Services (GIS - OAuth 2.0 Token Client) 실제 구글 로그인 팝업
+    const clientId = getSavedGoogleClientId();
+    if (clientId) {
+      if (!window.google || !window.google.accounts || !window.google.accounts.oauth2) {
+        showToast('Google 인증 라이브러리를 로드하는 중입니다. 1~2초 후 다시 눌러주세요.');
+        return;
+      }
+
+      showToast('Google 공식 계정 선택 팝업을 여는 중...');
+      const tokenClient = google.accounts.oauth2.initTokenClient({
+        client_id: clientId,
+        scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid',
+        prompt: 'select_account',
+        callback: async (tokenResponse) => {
+          if (tokenResponse.error) {
+            console.error('Google OAuth 오류:', tokenResponse);
+            showToast(`Google 로그인 취소 또는 오류: ${tokenResponse.error_description || tokenResponse.error}`);
+            return;
+          }
+
+          try {
+            // 실제 Google 서버(googleapis.com)에 토큰을 보내 사용자 프로필 확인
+            const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+              headers: { Authorization: `Bearer ${tokenResponse.access_token}` }
+            });
+            const profile = await res.json();
+
+            if (!profile.email) {
+              showToast('Google 계정 이메일 정보를 확인할 수 없습니다.');
+              return;
+            }
+
+            // 실제 로그인된 계정이 관리자 이메일과 일치하는지 엄격히 검증
+            if (profile.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+              const authUser = {
+                uid: profile.sub,
+                email: profile.email,
+                displayName: profile.name || 'Carlos Nam',
+                photoURL: profile.picture || null
+              };
+              state.currentUser = authUser;
+              saveAuthUser(authUser);
+              updateAdminState();
+              window.app.closeAllModals();
+              showToast(`👑 Google 실제 인증 완료! ${authUser.displayName}(${authUser.email}) 관리자로 확인되었습니다.`);
+            } else {
+              showToast(`⚠️ [접근 거부] 로그인된 Google 계정(${profile.email})은 관리자(${ADMIN_EMAIL})가 아닙니다.`);
+            }
+          } catch (fetchErr) {
+            console.error('구글 사용자 정보 요청 실패:', fetchErr);
+            showToast('Google 사용자 정보 확인 중 통신 오류가 발생했습니다.');
+          }
+        }
+      });
+
+      tokenClient.requestAccessToken({ prompt: 'select_account' });
+      return;
+    }
+
+    // 3. 만약 Google Client ID 또는 Firebase 설정이 아직 없는 경우:
+    // 가짜 로그인을 하지 않고, 클라이언트 ID 입력창으로 포커스 안내
+    const input = document.getElementById('input-google-client-id');
+    if (input) {
+      input.focus();
+      input.classList.add('border-amber-400');
+    }
+    showToast('⚠️ 실제 Google 로그인을 위해 Google OAuth 클라이언트 ID 등록이 필요합니다. (또는 간편 PIN 번호로 즉시 로그인 가능)');
+
   } catch (err) {
     console.error('Google 로그인 오류:', err);
-    showToast(`인증 오류: ${err.message || '로그인에 실패했습니다.'}`);
+    showToast(`Google 로그인 오류: ${err.message || '로그인 창이 닫혔거나 실패했습니다.'}`);
   }
 }
 
@@ -10905,6 +10995,17 @@ window.app = {
   handleLogout: () => handleLogout(),
   handlePinLogin: (e) => handlePinLogin(e),
   openTabLockedModal: (tabId) => openTabLockedModal(tabId),
+  saveGoogleClientId: () => {
+    const input = document.getElementById('input-google-client-id');
+    const val = input ? input.value.trim() : '';
+    if (!val) {
+      showToast('⚠️ Google 클라이언트 ID를 입력해 주세요.');
+      return;
+    }
+    saveGoogleClientId(val);
+    renderAuthWidget();
+    showToast('✅ Google OAuth 클라이언트 ID가 저장되었습니다. 이제 Google 로그인을 눌러주세요.');
+  },
   checkAdminPermission: (action) => checkAdminPermission(action),
   renderAuthWidget: () => renderAuthWidget(),
   // Energy Flashcard Handlers (암기카드)
