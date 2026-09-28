@@ -2601,104 +2601,216 @@ const INITIAL_ENERGY_FORMULAS = [
 // 4. 에너지관리기사 실기 기출 & 계산 풀이 예제 (사진 첨부 및 AI 해설 기능 연동)
 const INITIAL_ENERGY_QUESTIONS = [
   {
-    id: "q-1",
-    day: "Day 1",
-    title: "보일러 열효율 및 상당증발량 계산",
-    topic: "열정산 / 효율",
-    examOrigin: "실기 기출 빈출 1순위 (10점 배점형)",
-    imageUrl: null, // 사용자가 사진 등록 가능
-    problemText: `어느 보일러에서 시간당 250kg의 중유를 연소하여 압력 1.0 MPa(포화온도 179.9℃), 발생증기량 3,200 kg/h의 포화증기를 발생시키고 있다.
-급수온도는 25℃이고, 중유의 저위발열량은 41,860 kJ/kg이다.
-(단, 1.0 MPa 포화증기 엔탈피는 2,778 kJ/kg이고, 25℃ 물의 엔탈피는 105 kJ/kg, 기준 증발잠열은 2,257 kJ/kg이다.)
-다음 물음에 답하시오.
-1) 보일러의 열효율(%)을 구하시오.
-2) 보일러의 상당증발량(kg/h)을 구하시오.`,
-    solutionSteps: [
+    "id": "q-1",
+    "cardNumber": 1,
+    "day": "Day 1",
+    "title": "보일러 열효율 및 상당증발량 계산",
+    "topic": "열정산 / 효율",
+    "examOrigin": "실기 기출 빈출 1순위 (10점 배점형)",
+    "imageUrl": null,
+    "problemText": "어느 보일러에서 시간당 250kg의 중유를 연소하여 압력 1.0 MPa(포화온도 179.9℃), 발생증기량 3,200 kg/h의 포화증기를 발생시키고 있다.\n급수온도는 25℃이고, 중유의 저위발열량은 41,860 kJ/kg이다.\n(단, 1.0 MPa 포화증기 엔탈피는 2,778 kJ/kg이고, 25℃ 물의 엔탈피는 105 kJ/kg, 기준 증발잠열은 2,257 kJ/kg이다.)\n다음 물음에 답하시오.\n1) 보일러의 열효율(%)을 구하시오.\n2) 보일러의 상당증발량(kg/h)을 구하시오.",
+    "finalAnswer": "1) 열효율: 81.73 %,   2) 상당증발량: 3,789.81 kg/h",
+    "solutionSteps": [
       {
-        stepTitle: "1단계: 공식 확인 및 데이터 정리",
-        content: `연료소비량 $G_f = 250 \\; kg/h$
-실제증발량 $G_a = 3,200 \\; kg/h$
-발생증기 엔탈피 $h_2 = 2,778 \\; kJ/kg$
-급수 엔탈피 $h_1 = 105 \\; kJ/kg$
-저위발열량 $H_l = 41,860 \\; kJ/kg$`
+        "stepTitle": "1단계: 주어진 제원 정리 및 단위 일치",
+        "content": "연료소비량 $G_f = 250 \\; \\text{kg/h}$\n실제증발량 $G_a = 3,200 \\; \\text{kg/h}$\n발생증기 엔탈피 $h_2 = 2,778 \\; \\text{kJ/kg}$\n급수 엔탈피 $h_1 = 105 \\; \\text{kJ/kg}$\n연료 저위발열량 $H_l = 41,860 \\; \\text{kJ/kg}$"
       },
       {
-        stepTitle: "2단계: 1) 보일러 열효율(η) 계산",
-        content: `$$\\eta = \\frac{G_a (h_2 - h_1)}{G_f \\times H_l} \\times 100$$
-$$\\eta = \\frac{3,200 \\times (2,778 - 105)}{250 \\times 41,860} \\times 100$$
-$$\\eta = \\frac{3,200 \\times 2,673}{10,465,000} \\times 100 = \\frac{8,553,600}{10,465,000} \\times 100 \\approx 81.734 \\; [\\%]$$
-**정답: 81.73 %**`
+        "stepTitle": "2단계: 보일러 열효율(η) 계산",
+        "content": "$$\\eta = \\frac{G_a (h_2 - h_1)}{G_f \\times H_l} \\times 100 \\; [\\%]$$\n$$\\eta = \\frac{3,200 \\times (2,778 - 105)}{250 \\times 41,860} \\times 100$$\n$$\\eta = \\frac{3,200 \\times 2,673}{10,465,000} \\times 100 = \\frac{8,553,600}{10,465,000} \\times 100 \\approx 81.734 \\; [\\%]$$\n**정답: 81.73 %**"
       },
       {
-        stepTitle: "3단계: 2) 상당증발량(Ge) 계산",
-        content: `$$G_e = \\frac{G_a (h_2 - h_1)}{2,257}$$
-$$G_e = \\frac{3,200 \\times (2,778 - 105)}{2,257} = \\frac{8,553,600}{2,257} \\approx 3,789.81 \\; [kg/h]$$
-**정답: 3,789.81 kg/h**`
+        "stepTitle": "3단계: 상당증발량(Ge) 계산",
+        "content": "$$G_e = \\frac{G_a (h_2 - h_1)}{2,257} \\; [\\text{kg/h}]$$\n$$G_e = \\frac{3,200 \\times (2,778 - 105)}{2,257} = \\frac{8,553,600}{2,257} \\approx 3,789.809 \\; [\\text{kg/h}]$$\n**정답: 3,789.81 kg/h**"
       }
     ],
-    keyPoints: "★ 단위 주의: kJ 단위가 주어졌으므로 잠열은 539가 아니라 2,257 kJ/kg을 적용해야 감점을 피할 수 있습니다.",
-    userMemo: "급수엔탈피 105 kJ/kg 빼먹지 말 것! (온도 x 비열)",
-    isReviewed: true
+    "keyPoints": "★ 잠열 단위 주의: 문제 조건에서 kJ/kg이 주어졌으므로 분모에 539가 아니라 2,257 kJ/kg을 대입해야 감점을 피할 수 있습니다.",
+    "userMemo": "급수엔탈피 h1(105) 반드시 차감할 것!",
+    "isReviewed": true
   },
   {
-    id: "q-2",
-    day: "Day 2",
-    title: "굴뚝 이론 통풍력 및 배기가스 밀도 계산",
-    topic: "통풍장치",
-    examOrigin: "실기 기출 유형 (6점)",
-    imageUrl: null,
-    problemText: `높이 45m의 굴뚝에서 외기 온도가 20℃이고, 배기가스의 평균 온도가 240℃이다.
-표준상태(0℃, 1기압)에서 공기의 밀도는 1.293 kg/Nm³, 배기가스의 밀도는 1.340 kg/Nm³일 때, 굴뚝의 이론 통풍력(mmH2O)을 구하시오.`,
-    solutionSteps: [
+    "id": "q-2",
+    "cardNumber": 2,
+    "day": "Day 2",
+    "title": "굴뚝 이론 통풍력 및 작동온도 배기가스 밀도 계산",
+    "topic": "통풍장치",
+    "examOrigin": "실기 기출 빈출 유형 (6점 배점형)",
+    "imageUrl": null,
+    "problemText": "높이 45m의 굴뚝에서 외기 온도가 20℃이고, 배기가스의 평균 온도가 240℃이다.\n표준상태(0℃, 1기압)에서 공기의 밀도는 1.293 kg/Nm³, 배기가스의 밀도는 1.340 kg/Nm³일 때, 굴뚝의 이론 통풍력(mmH2O)을 구하시오.",
+    "finalAnswer": "이론 통풍력 Z = 22.12 mmH2O",
+    "solutionSteps": [
       {
-        stepTitle: "1단계: 작동온도 상태의 외기 및 배기가스 밀도 산출",
-        content: `$$\\gamma_a = 1.293 \\times \\frac{273}{273 + 20} = 1.293 \\times \\frac{273}{293} \\approx 1.2047 \\; [kg/m^3]$$
-$$\\gamma_g = 1.340 \\times \\frac{273}{273 + 240} = 1.340 \\times \\frac{273}{513} \\approx 0.7131 \\; [kg/m^3]$$`
+        "stepTitle": "1단계: 작동온도 상태의 외기 밀도(γa) 및 배기가스 밀도(γg) 산출",
+        "content": "$$\\gamma_a = 1.293 \\times \\frac{273}{273 + 20} = 1.293 \\times \\frac{273}{293} \\approx 1.2047 \\; [\\text{kg/m}^3]$$\n$$\\gamma_g = 1.340 \\times \\frac{273}{273 + 240} = 1.340 \\times \\frac{273}{513} \\approx 0.7131 \\; [\\text{kg/m}^3]$$"
       },
       {
-        stepTitle: "2단계: 이론 통풍력 공식 대입",
-        content: `$$Z = H \\cdot (\\gamma_a - \\gamma_g) \\; [mmH_2O]$$
-$$Z = 45 \\times (1.2047 - 0.7131) = 45 \\times 0.4916 \\approx 22.122 \\; [mmH_2O]$$
-**정답: 22.12 mmH2O**`
+        "stepTitle": "2단계: 이론 통풍력(Z) 공식 대입 및 계산",
+        "content": "$$Z = H (\\gamma_a - \\gamma_g) \\; [\\text{mmH}_2\\text{O}]$$\n$$Z = 45 \\times (1.2047 - 0.7131) = 45 \\times 0.4916 \\approx 22.122 \\; [\\text{mmH}_2\\text{O}]$$\n**정답: 22.12 mmH2O**"
       }
     ],
-    keyPoints: "샤를의 법칙에 따른 온도 보정 (273 / 273+T) 원리를 완벽히 숙지해야 합니다.",
-    userMemo: "외기밀도와 가스밀도가 각각 다르게 주어졌을 때는 간이공식(353) 대신 밀도 직접계산식을 써야 함!",
-    isReviewed: false
+    "keyPoints": "샤를의 법칙에 따른 온도 보정 (273 / (273 + t))을 적용하고, 밀도가 각각 주어졌을 때는 간이공식(353) 대신 밀도차 공식을 적용합니다.",
+    "userMemo": "밀도차 공식: Z = H(γa - γg) 암기!",
+    "isReviewed": false
   },
   {
-    id: "q-3",
-    day: "Day 3",
-    title: "중유 연소 시 이론공기량 및 실제공기량",
-    topic: "연소공학",
-    examOrigin: "실기 기출 필수 (8점)",
-    imageUrl: null,
-    problemText: `탄소 85%, 수소 12%, 황 2%, 산소 1%의 조성을 가진 중유 1kg을 공기비(m) 1.25로 완전연소시킬 때, 다음을 구하시오.
-1) 이론산소량 Oo (Nm³/kg)
-2) 이론공기량 Ao (Nm³/kg)
-3) 실제공기량 A (Nm³/kg)`,
-    solutionSteps: [
+    "id": "q-3",
+    "cardNumber": 3,
+    "day": "Day 3",
+    "title": "중유 연소 시 이론산소량, 이론공기량, 실제공기량 계산",
+    "topic": "연소공학",
+    "examOrigin": "실기 기출 필수 (8점 배점형)",
+    "imageUrl": null,
+    "problemText": "탄소 85%, 수소 12%, 황 2%, 산소 1%의 조성을 가진 중유 1kg을 공기비(m) 1.25로 완전연소시킬 때, 다음을 구하시오.\n1) 이론산소량 Oo (Nm³/kg)\n2) 이론공기량 Ao (Nm³/kg)\n3) 실제공기량 A (Nm³/kg)",
+    "finalAnswer": "1) Oo = 2.27 Nm³/kg,   2) Ao = 10.79 Nm³/kg,   3) A = 13.49 Nm³/kg",
+    "solutionSteps": [
       {
-        stepTitle: "1단계: 이론산소량(Oo) 계산",
-        content: `$$O_0 = 1.867 \\cdot C + 5.6 \\left( H - \\frac{O}{8} \\right) + 0.7 \\cdot S$$
-$$O_0 = 1.867(0.85) + 5.6\\left(0.12 - \\frac{0.01}{8}\\right) + 0.7(0.02)$$
-$$O_0 = 1.58695 + 5.6(0.11875) + 0.014 = 1.58695 + 0.665 + 0.014 = 2.26595 \\; [Nm^3/kg]$$
-**정답: 2.27 Nm³/kg**`
+        "stepTitle": "1단계: 이론산소량(Oo) 계산",
+        "content": "$$O_0 = 1.867 \\cdot C + 5.6 \\left( H - \\frac{O}{8} \\right) + 0.7 \\cdot S \\; [\\text{Nm}^3/\\text{kg}]$$\n$$O_0 = 1.867(0.85) + 5.6\\left(0.12 - \\frac{0.01}{8}\\right) + 0.7(0.02)$$\n$$O_0 = 1.58695 + 5.6(0.11875) + 0.014 = 1.58695 + 0.665 + 0.014 = 2.26595 \\; [\\text{Nm}^3/\\text{kg}]$$\n**정답: 2.27 Nm³/kg**"
       },
       {
-        stepTitle: "2단계: 이론공기량(Ao) 계산",
-        content: `$$A_0 = \\frac{O_0}{0.21} = \\frac{2.26595}{0.21} \\approx 10.7902 \\; [Nm^3/kg]$$
-**정답: 10.79 Nm³/kg**`
+        "stepTitle": "2단계: 이론공기량(Ao) 계산",
+        "content": "$$A_0 = \\frac{O_0}{0.21} = \\frac{2.26595}{0.21} \\approx 10.7902 \\; [\\text{Nm}^3/\\text{kg}]$$\n**정답: 10.79 Nm³/kg**"
       },
       {
-        stepTitle: "3단계: 실제공기량(A) 계산",
-        content: `$$A = m \\times A_0 = 1.25 \\times 10.7902 \\approx 13.4878 \\; [Nm^3/kg]$$
-**정답: 13.49 Nm³/kg**`
+        "stepTitle": "3단계: 실제공기량(A) 계산",
+        "content": "$$A = m \\times A_0 = 1.25 \\times 10.7902 \\approx 13.4878 \\; [\\text{Nm}^3/\\text{kg}]$$\n**정답: 13.49 Nm³/kg**"
       }
     ],
-    keyPoints: "1.867(탄소), 5.6(수소), 0.7(황) 계수는 분자량(C:12, H2:2, S:32)과 22.4L 부피 환산에서 도출됩니다.",
-    userMemo: "시험장에서 바로 튀어나올 수 있도록 계수 암기 필수!",
-    isReviewed: false
+    "keyPoints": "1.867(탄소), 5.6(수소), 0.7(황) 계수 암기와 산소 기결합분(O/8) 차감에 주의합니다.",
+    "userMemo": "A0 = O0 / 0.21, A = m * A0 순서 준수!",
+    "isReviewed": false
+  },
+  {
+    "id": "q-4",
+    "cardNumber": 4,
+    "day": "Day 4",
+    "title": "대향류 열교환기 LMTD 및 전열면적 산정",
+    "topic": "전열공학 / 열교환기",
+    "examOrigin": "실기 기출 고빈출 (8점 배점형)",
+    "imageUrl": null,
+    "problemText": "고온 유체(오일)를 130℃에서 70℃로 냉각하기 위해 20℃의 냉각수를 60℃로 가열하는 대향류(Counter-flow) 열교환기가 있다.\n전열량 Q = 150 kW 이고 총괄열전달계수 K = 450 W/(m²·K) 일 때 다음을 구하시오.\n1) 대수평균온도차 LMTD (℃)\n2) 필요 전열면적 A (m²)",
+    "finalAnswer": "1) LMTD = 59.44 ℃,   2) 전열면적 A = 5.61 m²",
+    "solutionSteps": [
+      {
+        "stepTitle": "1단계: 대향류 입출구 온도차 산출",
+        "content": "대향류 흐름에서 양단 온도차:\n$$\\Delta T_1 = T_{h1} - T_{c2} = 130 - 60 = 70 \\; [^\\circ\\text{C}]$$\n$$\\Delta T_2 = T_{h2} - T_{c1} = 70 - 20 = 50 \\; [^\\circ\\text{C}]$$"
+      },
+      {
+        "stepTitle": "2단계: 대수평균온도차(LMTD) 계산",
+        "content": "$$\\Delta T_m = \\frac{\\Delta T_1 - \\Delta T_2}{\\ln(\\Delta T_1 / \\Delta T_2)} = \\frac{70 - 50}{\\ln(70 / 50)} = \\frac{20}{\\ln(1.4)} = \\frac{20}{0.33647} \\approx 59.4406 \\; [^\\circ\\text{C}]$$\n**정답: 59.44 ℃**"
+      },
+      {
+        "stepTitle": "3단계: 필요 전열면적(A) 계산",
+        "content": "$$Q = K \\cdot A \\cdot \\Delta T_m \\implies A = \\frac{Q}{K \\cdot \\Delta T_m}$$\n$$Q = 150 \\; \\text{kW} = 150,000 \\; \\text{W}$$\n$$A = \\frac{150,000}{450 \\times 59.4406} = \\frac{150,000}{26,748.27} \\approx 5.6078 \\; [\\text{m}^2]$$\n**정답: 5.61 m²**"
+      }
+    ],
+    "keyPoints": "전열량 Q의 kW를 W(J/s)로 반드시 환산(150,000)하여 K [W/(m²·K)]와 단위를 일치시켜야 합니다.",
+    "userMemo": "LMTD는 ln(ΔT1/ΔT2) 분모 위치 유의!",
+    "isReviewed": false
+  },
+  {
+    "id": "q-5",
+    "cardNumber": 5,
+    "day": "Day 5",
+    "title": "보일러 급수 펌프 수동력, 축동력 및 전동기 소요동력 계산",
+    "topic": "유체역학 / 펌프",
+    "examOrigin": "실기 기출 단골 (7점 배점형)",
+    "imageUrl": null,
+    "problemText": "토출량 Q = 90 m³/h, 전양정 H = 80 m 인 원심 급수 펌프가 있다.\n물의 밀도가 1,000 kg/m³, 펌프 효율 η = 78 %, 전동기 여유율 α = 15 % 일 때 다음을 구하시오.\n1) 펌프의 수동력(Water Power, kW)\n2) 펌프의 축동력(Brake Power, kW)\n3) 전동기 소요동력(Motor Power, kW)",
+    "finalAnswer": "1) 수동력: 19.61 kW,   2) 축동력: 25.14 kW,   3) 전동기동력: 28.91 kW",
+    "solutionSteps": [
+      {
+        "stepTitle": "1단계: 유량 단위 환산 (m³/h ➔ m³/s)",
+        "content": "$$Q = \\frac{90}{3,600} = 0.025 \\; [\\text{m}^3/\\text{s}]$$\n비중량 $\\gamma = 1,000 \\; \\text{kg/m}^3$ (또는 $9.8 \\; \\text{kN/m}^3$)"
+      },
+      {
+        "stepTitle": "2단계: 1) 펌프 수동력 계산",
+        "content": "$$P_w = \\frac{\\gamma \\cdot Q \\cdot H}{102} = \\frac{1,000 \\times 0.025 \\times 80}{102} = \\frac{2,000}{102} \\approx 19.6078 \\; [\\text{kW}]$$\n**정답: 19.61 kW**"
+      },
+      {
+        "stepTitle": "3단계: 2) 펌프 축동력 계산",
+        "content": "$$P_s = \\frac{P_w}{\\eta} = \\frac{19.6078}{0.78} \\approx 25.1382 \\; [\\text{kW}]$$\n**정답: 25.14 kW**"
+      },
+      {
+        "stepTitle": "4단계: 3) 전동기 소요동력 계산",
+        "content": "$$P_m = P_s \\times (1 + \\alpha) = 25.1382 \\times 1.15 \\approx 28.9089 \\; [\\text{kW}]$$\n**정답: 28.91 kW**"
+      }
+    ],
+    "keyPoints": "유량이 m³/h로 주어지면 분모를 102 × 3600 = 367,200 또는 6,120(m³/min)으로 변환하여 대입합니다.",
+    "userMemo": "수동력 ➔ /효율(축동력) ➔ *(1+여유율)(모터동력) 단계별 잊지 말기!",
+    "isReviewed": false
+  },
+  {
+    "id": "q-6",
+    "cardNumber": 6,
+    "day": "Day 6",
+    "title": "보일러 급수 연속 블로우다운율 및 농축배수 산정",
+    "topic": "급수처리 / 수질관리",
+    "examOrigin": "실기 기출 필수 (6점 배점형)",
+    "imageUrl": null,
+    "problemText": "증기 발생량 Ga = 5,000 kg/h 인 증기보일러에서 급수의 용해고형물(TDS) 농도가 25 ppm 이고, 보일러수의 허용 TDS 농도가 400 ppm 이다.\n1) 보일러의 연속 블로우다운율 B (%)을 구하시오.\n2) 시간당 블로우다운량 Wb (kg/h)을 구하시오.",
+    "finalAnswer": "1) 블로우다운율 B = 6.67 %,   2) 블로우다운량 Wb = 333.33 kg/h",
+    "solutionSteps": [
+      {
+        "stepTitle": "1단계: 블로우다운율(B) 공식 대입 및 계산",
+        "content": "$$B = \\frac{S_f}{S_b - S_f} \\times 100 \\; [\\%]$$\n$$B = \\frac{25}{400 - 25} \\times 100 = \\frac{25}{375} \\times 100 \\approx 6.6667 \\; [\\%]$$\n**정답: 6.67 %**"
+      },
+      {
+        "stepTitle": "2단계: 시간당 블로우다운량(Wb) 계산",
+        "content": "$$W_b = G_a \\times \\frac{B}{100} = 5,000 \\times \\frac{25}{375} = \\frac{125,000}{375} \\approx 333.333 \\; [\\text{kg/h}]$$\n(검산: 급수량 $G_f = G_a + W_b = 5,333.33$, 급수염분 $5333.33 \\times 25 = 133,333$, 분출염분 $333.33 \\times 400 = 133,333$)\n**정답: 333.33 kg/h**"
+      }
+    ],
+    "keyPoints": "분모가 Sb가 아니라 (Sb - Sf)임에 유의해야 합니다! (급수량 기준이 아닌 증발량 기준 블로우다운 공식)",
+    "userMemo": "분모는 (보일러수농도 - 급수농도)!",
+    "isReviewed": false
+  },
+  {
+    "id": "q-7",
+    "cardNumber": 7,
+    "day": "Day 7",
+    "title": "고압 응축수 방출 시 플래시 증기 발생률 및 발생량 계산",
+    "topic": "증기설비 / 응축수 회수",
+    "examOrigin": "실기 기출 단골 (7점 배점형)",
+    "imageUrl": null,
+    "problemText": "압력 1.0 MPa (포화수 엔탈피 hf1 = 763 kJ/kg)의 응축수가 시간당 2,000 kg/h 발생하여 대기압(0.1 MPa, 포화수 엔탈피 hf2 = 419 kJ/kg, 증발잠열 r2 = 2,257 kJ/kg) 플래시 탱크로 방출된다.\n1) 플래시 증기 발생률 X (%)을 구하시오.\n2) 시간당 발생하는 플래시 증기량 Gs (kg/h)을 구하시오.",
+    "finalAnswer": "1) 재증발률 X = 15.24 %,   2) 플래시 증기량 Gs = 304.83 kg/h",
+    "solutionSteps": [
+      {
+        "stepTitle": "1단계: 플래시 증기 발생률(X) 계산",
+        "content": "$$X = \\frac{h_{f1} - h_{f2}}{r_2} \\times 100 \\; [\\%]$$\n$$X = \\frac{763 - 419}{2,257} \\times 100 = \\frac{344}{2,257} \\times 100 \\approx 15.2415 \\; [\\%]$$\n**정답: 15.24 %**"
+      },
+      {
+        "stepTitle": "2단계: 시간당 플래시 증기 발생량(Gs) 계산",
+        "content": "$$G_s = G_c \\times \\frac{X}{100} = 2,000 \\times \\frac{15.2415}{100} \\approx 304.829 \\; [\\text{kg/h}]$$\n**정답: 304.83 kg/h**"
+      }
+    ],
+    "keyPoints": "고압 응축수의 잉여 현열(hf1 - hf2)이 저압 조건에서 증발잠열(r2)로 쓰여 자가 증발하는 원리입니다.",
+    "userMemo": "분모는 저압 측 증발잠열 r2 대입!",
+    "isReviewed": false
+  },
+  {
+    "id": "q-8",
+    "cardNumber": 8,
+    "day": "Day 8",
+    "title": "원관 보온재 임계단열반경 및 표면 열손실량 계산",
+    "topic": "단열공학 / 보온시공",
+    "examOrigin": "실기 기출 필수 (6점 배점형)",
+    "imageUrl": null,
+    "problemText": "외경 40mm (반경 r1 = 20mm)의 강관 표면에 열전도율 λ = 0.06 W/(m·K) 인 보온재를 시공하려고 한다.\n보온재 외표면의 열전달계수 αo = 8.0 W/(m²·K) 일 때,\n1) 임계단열반경 rc (mm)를 구하시오.\n2) 현재 강관에 보온재를 얇게(외경이 rc 이하가 되도록) 시공하면 방열량이 증가하는지 감소하는지 판정하고 그 이유를 기술하시오.",
+    "finalAnswer": "1) 임계반경 rc = 7.5 mm,   2) 방열량 감소 (원관 반경 20mm가 rc 7.5mm보다 크므로 보온 효과 즉시 발휘)",
+    "solutionSteps": [
+      {
+        "stepTitle": "1단계: 임계단열반경(rc) 공식 대입 및 계산",
+        "content": "$$r_c = \\frac{\\lambda}{\\alpha_o} = \\frac{0.06}{8.0} = 0.0075 \\; [\\text{m}] = 7.5 \\; [\\text{mm}]$$\n**정답: 7.5 mm**"
+      },
+      {
+        "stepTitle": "2단계: 방열량 증감 판정 및 역학적 이유 기술",
+        "content": "**판정: 방열량이 감소한다.**\n**이유:** 강관의 원래 반경($r_1 = 20 \\; \\text{mm}$)이 임계단열반경($r_c = 7.5 \\; \\text{mm}$)보다 크므로, 보온재를 추가 시공하면 외표면적 증가에 의한 대류 열손실 증가 효과보다 전도 열저항 증가 효과가 더 커서 총 방열량이 지속적으로 감소하게 됩니다."
+      }
+    ],
+    "keyPoints": "원관 반경이 rc보다 작을 때 보온재를 씌우면 오히려 방열량이 증가하는 '임계반경 역설'의 판정 기준을 묻는 핵심 문제입니다.",
+    "userMemo": "rc = λ / αo 공식과 r1과 rc의 대소비교 서술 숙지!",
+    "isReviewed": false
   }
 ];
 
@@ -5477,6 +5589,9 @@ let state = {
   energyStudySubtab: 'briefing', // 'briefing', 'plan', 'folders', 'daily', 'formulas', 'upload' (오늘 브리핑 기본)
   selectedBriefingDate: '2026-09-28',
   showBriefingQuiz: false,
+  flashcardMode: 'single', // 'single' or 'list'
+  cardFlipped: {}, // { [qId]: boolean }
+  cardMastered: {},
   foldersDone: {},
   energyPlanPhaseFilter: 'all',
   externalDashboards: [],
@@ -7157,7 +7272,7 @@ function renderEnergyTab() {
         </button>
         <button onclick="window.app.setEnergySubtab('daily')" class="px-3.5 py-2 rounded-xl font-bold transition flex items-center gap-1.5 ${state.energyStudySubtab === 'daily' ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20 font-black' : 'text-slate-400 hover:text-white hover:bg-slate-800/60'}">
           <i class="fa-solid fa-pen-to-square"></i>
-          <span>📝 기출 풀이 & AI</span>
+          <span>🃏 실기 기출 낱말 카드</span>
         </button>
       </div>
     </div>
@@ -7616,103 +7731,262 @@ function renderEnergyPlanView() {
   `;
 }
 
-function renderDailyQuestionView(q) {
-  if (!q) return `<p class="text-slate-400 text-center py-12">등록된 문제가 없습니다.</p>`;
+
+// ==========================================================================
+// 4-D. Energy Practical Flashcard System (낱말 카드 형태 문제 및 답·풀이 나열 🃏)
+// ==========================================================================
+function renderDailyQuestionView(currentQ) {
+  const questions = state.questions || INITIAL_ENERGY_QUESTIONS;
+  if (!questions || questions.length === 0) {
+    return `<p class="text-slate-400 text-center py-12">등록된 낱말 카드 문제가 없습니다.</p>`;
+  }
+
+  const mode = state.flashcardMode || 'single';
+  const curIdx = (state.currentQuestionIndex >= 0 && state.currentQuestionIndex < questions.length) 
+    ? state.currentQuestionIndex 
+    : 0;
+  state.currentQuestionIndex = curIdx;
+  const activeQ = questions[curIdx];
+
+  const masteredCount = questions.filter(q => (state.cardMastered && state.cardMastered[q.id]) || q.isReviewed).length;
+  const progressPct = Math.round((masteredCount / questions.length) * 100);
 
   return `
     <div class="space-y-6">
-      <!-- Question Navigation Bar -->
-      <div class="flex items-center justify-between bg-slate-800/60 p-3 rounded-xl border border-slate-700/60 text-xs">
-        <div class="flex items-center gap-2 overflow-x-auto">
-          ${state.questions.map((item, idx) => `
-            <button onclick="window.app.selectQuestionIndex(${idx})" class="px-3 py-1.5 rounded-lg font-bold whitespace-nowrap transition ${state.currentQuestionIndex === idx ? 'bg-amber-500 text-slate-900' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}">
-              ${item.day} ${item.isReviewed ? '✓' : ''}
-            </button>
-          `).join('')}
+      
+      <!-- Top Flashcard Controller Bar -->
+      <div class="glass-panel rounded-2xl p-4 sm:p-5 border border-amber-500/40 bg-slate-900/90 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+        
+        <!-- Left: Progress & Indicator -->
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center text-lg flex-shrink-0">
+            <i class="fa-solid fa-layer-group"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="text-base font-bold text-white">실기 기출 계산 낱말 카드 (Flashcards)</h2>
+              <span class="text-xs px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold font-mono">
+                ${mode === 'single' ? `카드 ${curIdx + 1} / ${questions.length}` : `총 ${questions.length}문항`}
+              </span>
+            </div>
+            <div class="flex items-center gap-3 mt-1 text-xs text-slate-400">
+              <span>암기 완료: <strong class="text-emerald-400">${masteredCount}</strong> / ${questions.length} 문항 (${progressPct}%)</span>
+              <div class="w-24 bg-slate-800 h-1.5 rounded-full overflow-hidden inline-block align-middle">
+                <div class="bg-emerald-500 h-full rounded-full transition-all duration-300" style="width: ${progressPct}%"></div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <button onclick="window.app.toggleQuestionReviewed('${q.id}')" class="px-3 py-1.5 rounded-lg font-bold transition flex items-center gap-1.5 flex-shrink-0 ${q.isReviewed ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-slate-700 text-slate-300'}">
-          <i class="fa-solid fa-check"></i>
-          <span>${q.isReviewed ? '오늘 복습 완료' : '복습 완료 체크'}</span>
-        </button>
+        <!-- Right: Mode Switches & Action Buttons -->
+        <div class="flex flex-wrap items-center gap-2">
+          
+          <!-- Mode Toggle: Single vs List -->
+          <div class="bg-slate-800 p-1 rounded-xl border border-slate-700 flex items-center text-xs">
+            <button onclick="window.app.setFlashcardMode('single')" class="px-3 py-1.5 rounded-lg font-bold transition flex items-center gap-1.5 ${mode === 'single' ? 'bg-amber-500 text-slate-950 shadow-sm' : 'text-slate-400 hover:text-white'}">
+              <i class="fa-regular fa-square"></i>
+              <span>한 장씩 넘기기</span>
+            </button>
+            <button onclick="window.app.setFlashcardMode('list')" class="px-3 py-1.5 rounded-lg font-bold transition flex items-center gap-1.5 ${mode === 'list' ? 'bg-amber-500 text-slate-950 shadow-sm' : 'text-slate-400 hover:text-white'}">
+              <i class="fa-solid fa-list-ul"></i>
+              <span>전체 나열 보기</span>
+            </button>
+          </div>
+
+          <button onclick="window.app.toggleAllFlashcardsFlip()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition border border-slate-700 flex items-center gap-1.5">
+            <i class="fa-solid fa-arrows-rotate"></i>
+            <span>답/풀이 일괄 토글</span>
+          </button>
+
+          <button onclick="window.app.openAddQuestionModal()" class="px-3 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-md shadow-sky-600/20">
+            <i class="fa-solid fa-plus"></i>
+            <span>새 낱말 카드 등록</span>
+          </button>
+        </div>
       </div>
 
-      <!-- Problem Statement Card -->
-      <div class="glass-panel rounded-2xl p-6 border border-slate-700/60">
-        <div class="flex items-center justify-between mb-3">
-          <div class="flex items-center gap-2">
-            <span class="px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold text-xs">
-              ${q.topic}
-            </span>
-            <span class="text-xs text-slate-400">${q.examOrigin}</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-mono text-slate-400">${q.day}</span>
-            <button onclick="window.app.openEditQuestionModal('${q.id}')" class="text-[11px] text-amber-300 hover:text-white px-2.5 py-1 rounded bg-amber-500/20 hover:bg-amber-500/40 border border-amber-500/30 transition flex items-center gap-1">
-              <i class="fa-solid fa-pen-to-square"></i> 문제 수정
-            </button>
-            <button onclick="window.app.deleteQuestion('${q.id}')" class="text-[11px] text-red-400 hover:text-red-300 px-2.5 py-1 rounded bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 transition flex items-center gap-1">
-              <i class="fa-regular fa-trash-can"></i> 삭제
-            </button>
-          </div>
+      <!-- Single Mode: Card Slider & Navigation Buttons -->
+      ${mode === 'single' ? `
+        <!-- Card Number Quick Selector Ribbon -->
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs">
+          ${questions.map((item, idx) => {
+            const isM = (state.cardMastered && state.cardMastered[item.id]) || item.isReviewed;
+            const isSelected = curIdx === idx;
+            return `
+              <button onclick="window.app.selectQuestionIndex(${idx})" class="px-3 py-1.5 rounded-xl font-bold whitespace-nowrap transition flex items-center gap-1 ${isSelected ? 'bg-amber-500 text-slate-950 shadow-md font-black' : isM ? 'bg-emerald-950/40 text-emerald-300 border border-emerald-500/30 hover:bg-slate-800' : 'bg-slate-800/80 text-slate-400 border border-slate-700/60 hover:text-white'}">
+                <span>카드 ${idx + 1}</span>
+                ${isM ? '<i class="fa-solid fa-check text-[10px] text-emerald-400"></i>' : ''}
+              </button>
+            `;
+          }).join('')}
         </div>
 
-        <h2 class="text-lg font-bold text-white mb-4">${q.title}</h2>
+        <!-- Render Current Single Flashcard -->
+        <div class="max-w-4xl mx-auto">
+          ${renderSingleFlashcard(activeQ, curIdx, true)}
+        </div>
+
+        <!-- Bottom Slider Navigation Buttons -->
+        <div class="flex items-center justify-between max-w-4xl mx-auto pt-2">
+          <button onclick="window.app.prevFlashcard()" ${curIdx === 0 ? 'disabled' : ''} class="px-5 py-2.5 rounded-2xl bg-slate-800 hover:bg-slate-700 disabled:opacity-30 disabled:cursor-not-allowed text-white text-xs font-bold transition flex items-center gap-2 border border-slate-700 shadow-lg">
+            <i class="fa-solid fa-chevron-left"></i> 이전 낱말 카드
+          </button>
+
+          <button onclick="window.app.shuffleFlashcard()" class="px-4 py-2.5 rounded-2xl bg-slate-800/80 hover:bg-slate-700 text-amber-300 text-xs font-bold transition border border-amber-500/30 flex items-center gap-2">
+            <i class="fa-solid fa-shuffle"></i> 랜덤 섞기
+          </button>
+
+          <button onclick="window.app.nextFlashcard()" ${curIdx === questions.length - 1 ? 'disabled' : ''} class="px-5 py-2.5 rounded-2xl bg-slate-800 hover:bg-slate-700 disabled:opacity-30 disabled:cursor-not-allowed text-white text-xs font-bold transition flex items-center gap-2 border border-slate-700 shadow-lg">
+            다음 낱말 카드 <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+      ` : `
+        <!-- List Mode: All Flashcards Stacked -->
+        <div class="space-y-6 max-w-4xl mx-auto">
+          ${questions.map((q, idx) => renderSingleFlashcard(q, idx, false)).join('')}
+        </div>
+      `}
+
+    </div>
+  `;
+}
+
+// Helper: Render Single Flashcard Component
+function renderSingleFlashcard(q, idx, isSingleMode) {
+  const isFlipped = state.cardFlipped && state.cardFlipped[q.id];
+  const isMastered = (state.cardMastered && state.cardMastered[q.id]) || q.isReviewed;
+
+  return `
+    <div id="flashcard-${q.id}" class="glass-panel rounded-3xl p-6 sm:p-8 border ${isMastered ? 'border-emerald-500/50 bg-gradient-to-b from-slate-900 via-slate-900 to-emerald-950/20' : 'border-amber-500/40 bg-gradient-to-b from-slate-900 via-slate-900 to-amber-950/20'} shadow-2xl relative transition-all duration-300">
+      
+      <!-- Card Top Bar: Badge, Topic, Origin & Actions -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b border-slate-800">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="px-3 py-1 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-xs shadow-md">
+            <i class="fa-solid fa-clone mr-1"></i> 낱말 카드 #${idx + 1}
+          </span>
+          <span class="px-2.5 py-1 rounded-xl bg-slate-800 text-amber-300 border border-amber-500/30 font-bold text-xs">
+            ${q.topic}
+          </span>
+          <span class="text-xs text-slate-400 font-medium">
+            ${q.examOrigin || ''}
+          </span>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <!-- Mastered / Memorized Toggle Button -->
+          <button onclick="window.app.toggleCardMastered('${q.id}')" class="px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${isMastered ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 shadow-sm' : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700'}">
+            <i class="fa-solid ${isMastered ? 'fa-circle-check text-emerald-400' : 'fa-circle-check text-slate-500'}"></i>
+            <span>${isMastered ? '외웠어요 ✓' : '외우는 중'}</span>
+          </button>
+
+          <button onclick="window.app.openEditQuestionModal('${q.id}')" class="text-xs text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800 transition" title="문제 수정">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- =================================================================== -->
+      <!-- FRONT: Problem Presentation Section (문제 카드 영역) -->
+      <!-- =================================================================== -->
+      <div class="space-y-4">
+        <div>
+          <div class="text-[11px] font-bold text-amber-400/90 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+            <i class="fa-solid fa-circle-question"></i> 문제 (Question)
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight leading-snug">
+            ${q.title}
+          </h3>
+        </div>
 
         ${q.imageUrl ? `
-          <div class="mb-4 rounded-xl overflow-hidden border border-slate-700 max-h-96">
+          <div class="rounded-2xl overflow-hidden border border-slate-700 max-h-96 my-3">
             <img src="${q.imageUrl}" alt="문제 사진" class="w-full object-contain bg-black/40">
           </div>
         ` : ''}
 
-        <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 text-slate-200 text-sm leading-relaxed whitespace-pre-line font-sans mb-4">
+        <!-- Problem Statement Box -->
+        <div class="p-5 rounded-2xl bg-slate-950/80 border border-slate-800 text-slate-200 text-sm leading-relaxed whitespace-pre-line font-sans shadow-inner">
           ${q.problemText}
         </div>
-
-        <!-- Key Points Badge -->
-        ${q.keyPoints ? `
-          <div class="p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl text-xs text-amber-300/90 leading-relaxed">
-            <i class="fa-solid fa-lightbulb mr-1"></i> ${q.keyPoints}
-          </div>
-        ` : ''}
       </div>
 
-      <!-- Step-by-Step AI Solution Card -->
-      <div class="glass-panel rounded-2xl p-6 border border-sky-500/30 bg-gradient-to-br from-slate-900 to-sky-950/20">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="text-base font-bold text-white flex items-center gap-2">
-            <i class="fa-solid fa-calculator text-sky-400"></i>
-            단계별 계산 풀이 과정 및 정답
-          </h3>
-          <span class="text-xs px-2.5 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30 font-bold">
-            수식 렌더링 (KaTeX)
-          </span>
-        </div>
+      <!-- =================================================================== -->
+      <!-- CENTER ACTION: Flip / Reveal Answer & Solution Button -->
+      <!-- =================================================================== -->
+      <div class="pt-5 mt-5 border-t border-slate-800/80">
+        <button onclick="window.app.toggleFlashcardFlip('${q.id}')" class="w-full py-3.5 px-4 rounded-2xl font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2.5 shadow-xl ${isFlipped ? 'bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700' : 'bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black shadow-amber-500/20 active:scale-[0.99]'}">
+          <i class="fa-solid ${isFlipped ? 'fa-eye-slash text-slate-400' : 'fa-lightbulb text-slate-950 text-base animate-pulse'}"></i>
+          <span>${isFlipped ? '답과 단계별 풀이 접기 ▲' : '💡 답과 단계별 풀이 확인하기 (클릭하여 나열) ▼'}</span>
+        </button>
+      </div>
 
-        <div class="space-y-4">
-          ${q.solutionSteps.map((step, sIdx) => `
-            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
-              <h4 class="text-xs font-bold text-sky-300 mb-2">${step.stepTitle}</h4>
-              <div class="text-sm text-slate-200 leading-relaxed formula-math-content">
-                ${step.content.replace(/\n/g, '<br>')}
+      <!-- =================================================================== -->
+      <!-- BACK: Answer & Step-by-Step Solution Listing (답과 풀이 나열 영역) -->
+      <!-- =================================================================== -->
+      ${isFlipped ? `
+        <div class="mt-6 pt-6 border-t border-slate-800 space-y-5 animate-fadeIn">
+          
+          <!-- 1. Highlighted Final Answer Banner -->
+          <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-slate-900 to-emerald-950/20 border border-emerald-500/50 shadow-lg">
+            <div class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+              <i class="fa-solid fa-trophy"></i> 최종 정답 (Final Answer)
+            </div>
+            <div class="text-base sm:text-lg font-black text-white font-mono leading-relaxed">
+              ${q.finalAnswer ? q.finalAnswer : (q.solutionSteps[q.solutionSteps.length - 1]?.content.match(/\*\*정답:.*?\*\*/)?.[0]?.replace(/\*\*/g, '') || '상세 풀이 참조')}
+            </div>
+          </div>
+
+          <!-- 2. Step-by-Step Solution Breakdown List -->
+          <div>
+            <div class="text-xs font-bold text-sky-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+              <i class="fa-solid fa-calculator"></i> 단계별 계산 및 풀이 과정 (Solution Steps)
+            </div>
+
+            <div class="space-y-3.5">
+              ${q.solutionSteps.map((step, sIdx) => `
+                <div class="p-4 sm:p-5 rounded-2xl bg-slate-950/70 border border-slate-800/90 shadow-sm">
+                  <div class="flex items-center gap-2 mb-2 pb-2 border-b border-slate-800/60">
+                    <span class="w-5 h-5 rounded-lg bg-sky-500/20 text-sky-300 font-bold text-xs flex items-center justify-center font-mono">
+                      ${sIdx + 1}
+                    </span>
+                    <h4 class="text-xs font-bold text-sky-300 font-sans">${step.stepTitle}</h4>
+                  </div>
+                  <div class="text-xs sm:text-sm text-slate-200 leading-relaxed font-mono whitespace-pre-line formula-math-content">
+                    ${step.content.replace(/\n/g, '<br>')}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- 3. Key Points & Examiner Traps -->
+          ${q.keyPoints ? `
+            <div class="p-4 rounded-2xl bg-amber-950/30 border border-amber-500/40 flex items-start gap-3">
+              <i class="fa-solid fa-lightbulb text-amber-400 text-base mt-0.5 flex-shrink-0"></i>
+              <div class="text-xs text-amber-200 leading-relaxed">
+                <strong class="text-amber-300 font-bold block mb-0.5">핵심 채점 기준 & 실수 방지 팁:</strong>
+                ${q.keyPoints}
               </div>
             </div>
-          `).join('')}
-        </div>
+          ` : ''}
 
-        <!-- User Memo Section -->
-        <div class="mt-6 pt-4 border-t border-slate-700/50">
-          <label class="block text-xs font-bold text-slate-400 mb-1.5">
-            <i class="fa-regular fa-pen-to-square"></i> 내 오답 노트 / 복습 메모
-          </label>
-          <div class="flex gap-2">
-            <input type="text" id="memo-input-${q.id}" value="${q.userMemo || ''}" placeholder="시험 전 반드시 외워야 할 주의사항을 적어두세요..." class="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400">
-            <button onclick="window.app.saveQuestionMemo('${q.id}')" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-xl text-xs font-bold transition">
-              저장
-            </button>
+          <!-- 4. User Personal Study Memo -->
+          <div class="p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80">
+            <label class="block text-xs font-bold text-slate-400 mb-1.5">
+              <i class="fa-regular fa-pen-to-square"></i> 내 낱말 카드 오답 노트 / 복습 메모
+            </label>
+            <div class="flex gap-2">
+              <input type="text" id="memo-input-${q.id}" value="${q.userMemo || ''}" placeholder="다음에 다시 볼 때 주의할 포인트나 실수를 적어두세요..." class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400">
+              <button onclick="window.app.saveQuestionMemo('${q.id}')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 rounded-xl text-xs font-bold transition flex-shrink-0">
+                메모 저장
+              </button>
+            </div>
           </div>
+
         </div>
-      </div>
+      ` : ''}
+
     </div>
   `;
 }
@@ -9484,6 +9758,58 @@ function showToast(msg) {
 // Expose Public Methods to Window for UI Interactions
 // ==========================================================================
 window.app = {
+  // Energy Flashcard Handlers (낱말 카드)
+  setFlashcardMode: (mode) => {
+    state.flashcardMode = mode;
+    renderEnergyTab();
+  },
+  toggleFlashcardFlip: (qId) => {
+    if (!state.cardFlipped) state.cardFlipped = {};
+    state.cardFlipped[qId] = !state.cardFlipped[qId];
+    renderEnergyTab();
+  },
+  toggleAllFlashcardsFlip: () => {
+    if (!state.cardFlipped) state.cardFlipped = {};
+    const questions = state.questions || INITIAL_ENERGY_QUESTIONS;
+    const allFlipped = questions.every(q => state.cardFlipped[q.id]);
+    questions.forEach(q => {
+      state.cardFlipped[q.id] = !allFlipped;
+    });
+    renderEnergyTab();
+  },
+  toggleCardMastered: (qId) => {
+    if (!state.cardMastered) state.cardMastered = {};
+    state.cardMastered[qId] = !state.cardMastered[qId];
+    const isM = state.cardMastered[qId];
+    showToast(isM ? '낱말 카드 암기를 완료했습니다! ✓' : '암기 상태를 해제했습니다.');
+    renderEnergyTab();
+  },
+  prevFlashcard: () => {
+    const questions = state.questions || INITIAL_ENERGY_QUESTIONS;
+    if (state.currentQuestionIndex > 0) {
+      state.currentQuestionIndex--;
+      renderEnergyTab();
+    }
+  },
+  nextFlashcard: () => {
+    const questions = state.questions || INITIAL_ENERGY_QUESTIONS;
+    if (state.currentQuestionIndex < questions.length - 1) {
+      state.currentQuestionIndex++;
+      renderEnergyTab();
+    }
+  },
+  shuffleFlashcard: () => {
+    const questions = state.questions || INITIAL_ENERGY_QUESTIONS;
+    if (questions.length > 1) {
+      let nextIdx = Math.floor(Math.random() * questions.length);
+      if (nextIdx === state.currentQuestionIndex) {
+        nextIdx = (nextIdx + 1) % questions.length;
+      }
+      state.currentQuestionIndex = nextIdx;
+      renderEnergyTab();
+    }
+  },
+
   // Core Tab Switcher
   switchTab: (tabName) => switchTab(tabName),
 
