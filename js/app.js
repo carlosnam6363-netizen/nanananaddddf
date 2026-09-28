@@ -298,8 +298,8 @@ const INITIAL_SNS_DATA = {
       weeklyGoal: "주 2회 피드/릴스 (밴드 합주, 산티아고 순례길, 일상 기록)",
       engagementRate: "6.8%",
       monthlyViews: 2800,
-      positioning: "실제 프로필 연동 완료 (팔로워 300명 · 팔로잉 301명 · 게시물 180개) | 음악 & 순례길 아카이빙",
-      hashtags: "#밴드합주 #산티아고순례길 #일상기록 #자기계발 #음악스타그램",
+      positioning: "실제 프로필 연동 완료 (팔로워 300명 · 팔로잉 301명 · 게시물 180개) | 음악(보컬·신디사이저) & 순례길 아카이빙",
+      hashtags: "#밴드합주 #보컬 #신디사이저 #산티아고순례길 #일상기록 #자기계발 #음악스타그램",
       memo: "실제 인스타그램 라이브 지표(팔로워 300명, 팔로잉 301명, 게시물 180개) 검증 반영 완료"
     },
     {
@@ -346,7 +346,7 @@ const INITIAL_SNS_DATA = {
       url: "https://www.instagram.com/namhyeon_kim_/",
       views: 310,
       likes: 45,
-      notes: "팔로워 300명 / 팔로잉 301명 네트워크 기반 합주 영상 및 순례길 하이라이트 공유"
+      notes: "팔로워 300명 / 팔로잉 301명 네트워크 기반 보컬·신디사이저 합주 영상 및 순례길 하이라이트 공유"
     },
     {
       id: "sns-post-3",
@@ -360,7 +360,7 @@ const INITIAL_SNS_DATA = {
       notes: "삼성전자 안전/인사/보안 TF 경험 및 5대 기술자격 취득 노하우와 연계한 전문가 브랜딩"
     }
   ],
-  strategyMemo: "3대 채널 원소스 멀티유즈(OSMU) 운영 전략:\n1) 브런치스토리 (@musimtook · 구독자 225명 / 글 744편 / 독서노트 76편): 실패의 기록과 나만의 사색 에세이 연재\n2) 인스타그램 (@namhyeon_kim_ · 팔로워 300명 / 게시물 180개): 밴드 합주, 11월 산티아고 순례길 사진 & 숏폼 릴스\n3) 링크드인 (김남현): 삼성전자 TF 경험, 안전·에너지 기술자격, 화성시 청년정책협의체 분과장 인사이트 공유"
+  strategyMemo: "3대 채널 원소스 멀티유즈(OSMU) 운영 전략:\n1) 브런치스토리 (@musimtook · 구독자 225명 / 글 744편 / 독서노트 76편): 실패의 기록과 나만의 사색 에세이 연재\n2) 인스타그램 (@namhyeon_kim_ · 팔로워 300명 / 게시물 180개): 밴드 합주(보컬·신디사이저), 11월 산티아고 순례길 사진 & 숏폼 릴스\n3) 링크드인 (김남현): 삼성전자 TF 경험, 안전·에너지 기술자격, 화성시 청년정책협의체 분과장 인사이트 공유"
 };
 
 // ==========================================================================// ==========================================================================
@@ -949,18 +949,19 @@ const INITIAL_EXAM_SCHEDULES = [
 const INITIAL_BAND_SCHEDULES = [
   {
     id: "band-1",
-    type: "rehearsal", // rehearsal (합주) or performance (공연 관람)
+    type: "rehearsal",
+    myRole: "보컬 & 신디사이저", // rehearsal (합주) or performance (공연 관람)
     title: "정기 밴드 합주 (10월 2차 - 호랑이 합주실)",
     date: "2026-10-10T16:00",
     location: "홍대 호랑이 합주실",
     status: "scheduled",
     setlist: [
-      { song: "제제로감 (廻廻奇譚 / Eve)", key: "C# Minor / E Major", tempo: "185 BPM", notes: "★ 오늘 합주 메인 집중 곡 - 인트로 베이스 슬랩 & 후렴구 드럼/기타 질주감 싱크 맞추기" },
-      { song: "한 페이지가 될 수 있게 (DAY6)", key: "D Major", tempo: "165 BPM", notes: "브릿지 솔로 싱코페이션 타이밍 집중" },
-      { song: "스물다섯, 스물하나 (자우림)", key: "G Major", tempo: "92 BPM", notes: "2절 빌드업 다이내믹스 조절" },
-      { song: "Hype Boy (Band Ver.)", key: "E Major", tempo: "120 BPM", notes: "인트로 베이스 그루브 & 드럼 킥 맞추기" }
+      { song: "제제로감 (廻廻奇譚 / Eve)", key: "C# Minor / E Major", tempo: "185 BPM", notes: "★ 오늘 합주 메인 집중 곡 - 보컬 호흡·음역대 컨트롤 & 신디사이저 아르페지오/신스패드 리프 질주감 싱크" },
+      { song: "한 페이지가 될 수 있게 (DAY6)", key: "D Major", tempo: "165 BPM", notes: "신디사이저 스트링 보이싱 및 보컬 샤우팅 브릿지 싱크" },
+      { song: "스물다섯, 스물하나 (자우림)", key: "G Major", tempo: "92 BPM", notes: "피아노/신디 감성적 터치 & 보컬 서정적 다이내믹스 조절" },
+      { song: "Hype Boy (Band Ver.)", key: "E Major", tempo: "120 BPM", notes: "신디사이저 펑키한 멜로디 톤 메이킹 & 보컬 하모니 점검" }
     ],
-    memos: "홍대 호랑이 합주실 15분 전 도착하여 튜닝 완료하기. 메인 합주곡 '제제로감' 템포 185 BPM 메트로놈 체크 및 삼각대 촬영 준비."
+    memos: "홍대 호랑이 합주실 15분 전 도착하여 신디사이저 음색(패치) 세팅 및 보컬 마이크 음량 테스트 완료하기. 메인 합주곡 '제제로감' (보컬 & 신디사이저 동시 연주) 템포 185 BPM 메트로놈 체크 및 영상 촬영 준비."
   },
   {
     id: "band-2",
@@ -5714,7 +5715,7 @@ class SyncManager {
         const upgradedCamino = (parsed.camino && parsed.camino.caminoDataVersion === 3)
           ? parsed.camino
           : JSON.parse(JSON.stringify(INITIAL_CAMINO_DATA));
-        const upgradedBands = (parsed.bands && parsed.bands.length > 0 && parsed.bands[0].date === "2026-10-10 16:00")
+        const upgradedBands = (parsed.bands && parsed.bands.length > 0 && parsed.bands[0].setlist && parsed.bands[0].setlist[0].notes.includes("보컬"))
           ? parsed.bands
           : JSON.parse(JSON.stringify(INITIAL_BAND_SCHEDULES));
         const upgradedEnergyPlan = (parsed.energyPlan && parsed.energyPlan.length === INITIAL_ENERGY_STUDY_PLAN.length)
@@ -7550,7 +7551,7 @@ function renderOverviewTab() {
               <div class="p-4 rounded-xl bg-slate-800/60 border border-purple-500/20">
                 <div class="flex items-center justify-between mb-2">
                   <span class="text-xs font-bold px-2 py-0.5 rounded ${b.type === 'rehearsal' ? 'bg-purple-500/20 text-purple-300' : 'bg-pink-500/20 text-pink-300'}">
-                    ${b.type === 'rehearsal' ? '🎸 밴드 합주' : '🎟️ 공연 관람'}
+                    ${b.type === 'rehearsal' ? '🎤 밴드 합주 (보컬·신디)' : '🎟️ 공연 관람'}
                   </span>
                   <span class="text-xs text-slate-400">${formatDateTime(b.date)}</span>
                 </div>
@@ -8089,12 +8090,17 @@ function renderBandTab() {
     <!-- Tab Header -->
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
       <div>
-        <h1 class="text-2xl font-bold text-white flex items-center gap-2">
-          <i class="fa-solid fa-guitar text-purple-400"></i>
-          공연 관람 & 밴드 합주 관리
-        </h1>
+        <div class="flex flex-wrap items-center gap-2.5 mb-1">
+          <h1 class="text-2xl font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-music text-purple-400"></i>
+            공연 관람 & 밴드 합주 관리
+          </h1>
+          <span class="px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 text-xs font-bold border border-purple-500/30 flex items-center gap-1.5 shadow-sm">
+            <i class="fa-solid fa-microphone-lines text-pink-400"></i> 보컬 & <i class="fa-solid fa-keyboard text-sky-400"></i> 신디사이저 담당
+          </span>
+        </div>
         <p class="text-xs text-slate-400 mt-1">
-          합주실 일정, 연주곡(Setlist), 티켓팅 및 공연 관람 일정을 기록합니다.
+          홍대 합주실 일정, 보컬 & 신디사이저 연주곡(Setlist), 티켓팅 및 공연 관람 일정을 기록합니다.
         </p>
       </div>
 
@@ -9696,244 +9702,531 @@ function renderSnsTab() {
 
     </div>
 
-    <!-- 3. ⭐ [심층 기획] '실패의 기록과 나만의 사색' 브런치 4대 스토리텔링 연재 로드맵 ⭐ -->
+    <!-- 3. ⭐ [심층 기획] 《실패의 기록과 나만의 사색》 5대 테마별 25선 연재 주제 추천 로드맵 ⭐ -->
     <div class="glass-panel rounded-2xl p-6 sm:p-8 mb-8 border border-amber-500/40 bg-gradient-to-br from-slate-900 via-slate-900 to-amber-950/20 shadow-2xl relative overflow-hidden">
       <div class="absolute right-0 top-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
 
       <!-- Section Header -->
-      <div class="flex items-center gap-3 mb-6 border-b border-slate-800 pb-4 relative z-10">
-        <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center text-2xl shadow-lg">
-          <i class="fa-solid fa-feather"></i>
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <h2 class="text-lg sm:text-xl font-black text-white">
-              《실패의 기록과 나만의 사색》 브런치 스토리텔링 연재 로드맵
-            </h2>
-            <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-black">추천 기획</span>
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6 border-b border-slate-800 pb-5 relative z-10">
+        <div class="flex items-center gap-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center text-2xl shadow-lg">
+            <i class="fa-solid fa-feather-pointed"></i>
           </div>
-          <p class="text-xs text-slate-300 mt-1 leading-relaxed">
-            단순한 성공 자랑이 아닌, <b>수많은 낙방과 오답, 11년간의 요요와 고도비만 탈출, 합주실과 순례길에서 겪은 좌절과 회복의 사색</b>을 엮어 독자의 마음을 사로잡는 4대 연재 테마입니다.
-          </p>
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="text-lg sm:text-xl font-black text-white">
+                《실패의 기록과 나만의 사색》 5대 테마별 연재 주제 컬렉션 (총 25선)
+              </h2>
+              <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-black">맞춤 추천</span>
+            </div>
+            <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+              성공담보다 더 진한 울림을 주는 <b>수험의 오답, 11년간 89번 인바디의 다이어트 시행착오, 홍대 합주실 보컬·신디사이저의 호흡, 까미노 순례길의 비움</b>을 테마별로 여러 개 추천합니다.
+            </p>
+          </div>
+        </div>
+
+        <div class="text-right flex-shrink-0">
+          <span class="text-[11px] text-amber-400 font-bold bg-amber-500/10 px-3 py-1.5 rounded-xl border border-amber-500/20">
+            총 25개 기획 주제 엄선
+          </span>
         </div>
       </div>
 
+      <!-- Category Filter Chips -->
+      <div class="flex flex-wrap items-center gap-2 mb-6 relative z-10 text-xs">
+        <button onclick="window.app.setSnsTopicCategoryFilter('all')" class="px-3.5 py-1.5 rounded-xl font-bold transition cursor-pointer ${(!state.snsTopicCategoryFilter || state.snsTopicCategoryFilter === 'all') ? 'bg-amber-500 text-slate-950 shadow-md' : 'bg-slate-800 text-slate-400 hover:text-white'}">
+          전체 주제 (25선)
+        </button>
+        <button onclick="window.app.setSnsTopicCategoryFilter('study')" class="px-3.5 py-1.5 rounded-xl font-bold transition cursor-pointer ${state.snsTopicCategoryFilter === 'study' ? 'bg-blue-600 text-white shadow-md' : 'bg-slate-800 text-slate-400 hover:text-blue-300'}">
+          📚 1. 수험·공부 실패 & 회복력 (5선)
+        </button>
+        <button onclick="window.app.setSnsTopicCategoryFilter('body')" class="px-3.5 py-1.5 rounded-xl font-bold transition cursor-pointer ${state.snsTopicCategoryFilter === 'body' ? 'bg-rose-600 text-white shadow-md' : 'bg-slate-800 text-slate-400 hover:text-rose-300'}">
+          ⚖️ 2. 다이어트·인바디 실패 & 체질 재구성 (5선)
+        </button>
+        <button onclick="window.app.setSnsTopicCategoryFilter('music')" class="px-3.5 py-1.5 rounded-xl font-bold transition cursor-pointer ${state.snsTopicCategoryFilter === 'music' ? 'bg-purple-600 text-white shadow-md' : 'bg-slate-800 text-slate-400 hover:text-purple-300'}">
+          🎤🎹 3. 밴드 합주 & 보컬·신디사이저 (5선)
+        </button>
+        <button onclick="window.app.setSnsTopicCategoryFilter('camino')" class="px-3.5 py-1.5 rounded-xl font-bold transition cursor-pointer ${state.snsTopicCategoryFilter === 'camino' ? 'bg-amber-600 text-white shadow-md' : 'bg-slate-800 text-slate-400 hover:text-amber-300'}">
+          🎒 4. 산티아고 순례길 & 삶의 비움 (5선)
+        </button>
+        <button onclick="window.app.setSnsTopicCategoryFilter('career')" class="px-3.5 py-1.5 rounded-xl font-bold transition cursor-pointer ${state.snsTopicCategoryFilter === 'career' ? 'bg-emerald-600 text-white shadow-md' : 'bg-slate-800 text-slate-400 hover:text-emerald-300'}">
+          💼 5. 조직 경험 & 청년정책·사회복지 (5선)
+        </button>
+      </div>
+
+      <!-- Topics Showcase Container -->
       <div class="space-y-6 relative z-10">
-        
-        <!-- 4대 킬러 기획 시리즈 그리드 -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-          
-          <!-- 테마 1: 59점의 미학 (공부 실패와 수험 회고) -->
-          <div class="p-5 rounded-2xl bg-slate-800/80 border border-blue-500/30 hover:border-blue-400 transition flex flex-col justify-between shadow-lg">
-            <div>
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-[10px] px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 font-bold border border-blue-500/30">
-                  <i class="fa-solid fa-graduation-cap mr-1"></i> 시리즈 1 · 수험 실패 & 공부 철학
-                </span>
-                <span class="text-[11px] text-amber-400 font-bold">브런치북 기획 1순위</span>
-              </div>
-              <h3 class="text-base font-extrabold text-white mt-2 mb-2 flex items-center gap-2">
-                <span>《59점의 미학: 5대 자격증을 따기까지 마주한 불합격의 기록들》</span>
-              </h3>
-              <p class="text-xs text-slate-300 leading-relaxed mb-4">
-                위험물기능장, 산업안전기사, 인간공학기사, 가스산업기사부터 현재의 에너지관리기사 실기 D-40까지. 1점 차이로 떨어졌을 때의 절망과 오답 노트를 찢어가며 배운 '공부의 본질'과 '자기 통제력' 이야기.
-              </p>
 
-              <!-- 에피소드 추천 리스트 -->
-              <div class="space-y-2 bg-slate-900/60 p-3.5 rounded-xl border border-slate-700/60 text-xs">
-                <div class="text-[11px] font-bold text-blue-300 mb-1 flex items-center gap-1.5">
-                  <i class="fa-solid fa-list-check"></i> 추천 연재 에피소드 구성
-                </div>
-                <div class="text-slate-300">
-                  <b class="text-white">제1화:</b> 59점으로 떨어진 날, 나는 처음으로 공부의 본질을 배웠다 (불합격을 마주하는 자세)
-                </div>
-                <div class="text-slate-300">
-                  <b class="text-white">제2화:</b> 외계어 같던 열역학 공식이 철학으로 보이기 시작했다 (문과적 사색과 공학의 결합)
-                </div>
-                <div class="text-slate-300">
-                  <b class="text-white">제3화:</b> 시험 D-40, 20개의 폴더 앞에서 느끼는 중압감을 버티는 법 (직장·복무·학업 3중고의 루틴)
-                </div>
-                <div class="text-slate-300">
-                  <b class="text-white">제4화:</b> 자격증은 스펙이 아니라, '지루함을 견뎌낸 그릿(Grit)'의 증명서였다
-                </div>
-              </div>
-            </div>
-
-            <div class="pt-3.5 mt-4 border-t border-slate-700/60 flex items-center justify-between text-[11px]">
-              <span class="text-slate-400">타깃 독자: 수험생, 취준생, 기술자격 도전 직장인</span>
-              <span class="text-blue-300 font-bold">화요일 저녁 연재 추천</span>
-            </div>
+        <!-- 1. 수험 & 공부 실패 회복력 (5선) -->
+        ${(!state.snsTopicCategoryFilter || state.snsTopicCategoryFilter === 'all' || state.snsTopicCategoryFilter === 'study') ? `
+        <div class="p-5 rounded-2xl bg-slate-800/60 border border-blue-500/30">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-sm font-bold text-blue-300 flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs">1</span>
+              <span>📚 수험·공부 실패 & 회복력 추천 주제 (5선)</span>
+            </h3>
+            <span class="text-[11px] text-slate-400 font-mono">국가기술자격 5대 보유 & 에너지관리기사 실기 D-40</span>
           </div>
 
-          <!-- 테마 2: 체중계는 거짓말을 한다 (다이어트 실패와 체형 재구성) -->
-          <div class="p-5 rounded-2xl bg-slate-800/80 border border-rose-500/30 hover:border-rose-400 transition flex flex-col justify-between shadow-lg">
-            <div>
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-[10px] px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-300 font-bold border border-rose-500/30">
-                  <i class="fa-solid fa-weight-scale mr-1"></i> 시리즈 2 · 신체 변혁 & 실패 극복
-                </span>
-                <span class="text-[11px] text-rose-300 font-bold">11개년 89회 실측 기반</span>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 text-xs">
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-blue-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 font-bold">주제 1-1 · 대표작</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《59점의 미학: 5대 자격증을 따기까지 마주한 불합격의 기록들》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  1점 차이 불합격 통지서를 받았을 때 느꼈던 비참함과 자책, 그리고 오답을 정면으로 마주하면서 비로소 깨달은 공부의 본질.
+                </p>
               </div>
-              <h3 class="text-base font-extrabold text-white mt-2 mb-2 flex items-center gap-2">
-                <span>《체중계는 거짓말을 한다: 89번의 인바디가 증명한 실패 없는 몸 만들기》</span>
-              </h3>
-              <p class="text-xs text-slate-300 leading-relaxed mb-4">
-                2015년 고도비만(체지방률 34%)에서 2026년 골격근량 44.9kg 달성까지! 굶기와 무리한 유산소로 요요를 겪으며 좌절했던 흑역사를 고백하고, '체중(92kg)을 줄이지 않고 체질을 바꾸는' 역발상 다이어트의 정수.
-              </p>
-
-              <!-- 에피소드 추천 리스트 -->
-              <div class="space-y-2 bg-slate-900/60 p-3.5 rounded-xl border border-slate-700/60 text-xs">
-                <div class="text-[11px] font-bold text-rose-300 mb-1 flex items-center gap-1.5">
-                  <i class="fa-solid fa-list-check"></i> 추천 연재 에피소드 구성
-                </div>
-                <div class="text-slate-300">
-                  <b class="text-white">제1화:</b> 11년 전 고도비만 청년이 저질렀던 가장 바보 같은 다이어트 3가지 (굶기의 함정)
-                </div>
-                <div class="text-slate-300">
-                  <b class="text-white">제2화:</b> '살을 빼지 않겠다'고 결심한 순간 몸이 바뀌기 시작했다 (체성분 재구성의 발견)
-                </div>
-                <div class="text-slate-300">
-                  <b class="text-white">제3화:</b> 폭식한 다음 날의 자괴감에게 보내는 편지 (하루 망쳤다고 11년이 무너지지 않는다)
-                </div>
-                <div class="text-slate-300">
-                  <b class="text-white">제4화:</b> 골격근 44.9kg: 몸을 통제할 수 있으면 삶의 주도권도 돌아온다
-                </div>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-blue-400 font-medium flex justify-between">
+                <span>핵심: 오답 직면의 용기</span>
+                <span>추천: 브런치북 1순위</span>
               </div>
             </div>
 
-            <div class="pt-3.5 mt-4 border-t border-slate-700/60 flex items-center justify-between text-[11px]">
-              <span class="text-slate-400">타깃 독자: 다이어트 실패자, 헬스인, 자기관리 세대</span>
-              <span class="text-rose-300 font-bold">목요일 저녁 연재 추천</span>
-            </div>
-          </div>
-
-          <!-- 테마 3: 길 위에서 버린 것들 (시험 직후 순례길 21일의 여정) -->
-          <div class="p-5 rounded-2xl bg-slate-800/80 border border-amber-500/30 hover:border-amber-400 transition flex flex-col justify-between shadow-lg">
-            <div>
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-[10px] px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30">
-                  <i class="fa-solid fa-person-hiking mr-1"></i> 시리즈 3 · 순례 & 삶의 다운사이징
-                </span>
-                <span class="text-[11px] text-amber-300 font-bold">11월 출국 실시간 현장 연재</span>
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-blue-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 font-bold">주제 1-2 · 통섭 사색</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《수포자 문과 감성의 공학 탈출기: 열역학 공식이 철학으로 보인 순간》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  보일러 열정산 효율식(η)과 엔탈피 수식에서 인생의 에너지 보존과 균형의 법칙을 읽어낸 인문학적 사색의 여정.
+                </p>
               </div>
-              <h3 class="text-base font-extrabold text-white mt-2 mb-2 flex items-center gap-2">
-                <span>《길 위에서 버린 것들: 까미노 드 포르투 240km와 인생의 다운사이징》</span>
-              </h3>
-              <p class="text-xs text-slate-300 leading-relaxed mb-4">
-                11월 7일 에너지관리기사 시험이 끝나자마자 11월 9일 출국! 긴장의 극치에서 순례길의 무소유로 이어지는 극적인 전환. 8kg 배낭 하나에 삶을 우겨넣으며 배운 '내려놓음의 미학'.
-              </p>
-
-              <!-- 에피소드 추천 리스트 -->
-              <div class="space-y-2 bg-slate-900/60 p-3.5 rounded-xl border border-slate-700/60 text-xs">
-                <div class="text-[11px] font-bold text-amber-300 mb-1 flex items-center gap-1.5">
-                  <i class="fa-solid fa-list-check"></i> 추천 연재 에피소드 구성
-                </div>
-                <div class="text-slate-300">
-                  <b class="text-white">제1화:</b> 시험장을 나오자마자 8kg 배낭을 멨다 (극도의 긴장에서 무소유로의 전환)
-                </div>
-                <div class="text-slate-300">
-                  <b class="text-white">제2화:</b> 포르투의 안개와 대서양 바람: 왜 나는 쉼 없이 달려왔을까 (내면의 번아웃 마주하기)
-                </div>
-                <div class="text-slate-300">
-                  <b class="text-white">제3화:</b> 발바닥 물집이 가르쳐준 것: 완벽한 길은 없다, 다만 걸을 뿐이다
-                </div>
-                <div class="text-slate-300">
-                  <b class="text-white">제4화:</b> 오브라도이로 광장에서 흘린 눈물의 의미: 다시 세상 속으로 걸어 들어가는 용기
-                </div>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-blue-400 font-medium flex justify-between">
+                <span>핵심: 공학 수식의 철학화</span>
+                <span>추천: 화요일 저녁 칼럼</span>
               </div>
             </div>
 
-            <div class="pt-3.5 mt-4 border-t border-slate-700/60 flex items-center justify-between text-[11px]">
-              <span class="text-slate-400">타깃 독자: 번아웃 직장인, 힐링을 찾는 여행자, 2030 세대</span>
-              <span class="text-amber-300 font-bold">11월 9일~29일 실시간 연재</span>
-            </div>
-          </div>
-
-          <!-- 테마 4: 소음이 음악이 되는 순간 (직장인 밴드와 삶의 조화) -->
-          <div class="p-5 rounded-2xl bg-slate-800/80 border border-purple-500/30 hover:border-purple-400 transition flex flex-col justify-between shadow-lg">
-            <div>
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-[10px] px-2.5 py-1 rounded-full bg-purple-500/20 text-purple-300 font-bold border border-purple-500/30">
-                  <i class="fa-solid fa-guitar mr-1"></i> 시리즈 4 · 예술 & 불완전함의 조화
-                </span>
-                <span class="text-[11px] text-purple-300 font-bold">홍대 호랑이 합주실 실화</span>
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-blue-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 font-bold">주제 1-3 · 루틴 극복</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《시험 D-40, 20개의 기출 폴더 앞에서 느끼는 중압감을 이겨내는 법》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  방대한 실기 기출 분량에 압도될 때 '하루 1문제만 완벽히 소화하자'는 마이크로 루틴으로 불안을 잠재우는 실천 기술.
+                </p>
               </div>
-              <h3 class="text-base font-extrabold text-white mt-2 mb-2 flex items-center gap-2">
-                <span>《소음이 음악이 되는 순간: 직장인의 퇴근 후 4번선(Bass)》</span>
-              </h3>
-              <p class="text-xs text-slate-300 leading-relaxed mb-4">
-                반도체 안전 수칙과 위험물 분자식의 차가운 세계에서, 퇴근 후 홍대 호랑이 합주실에서 베이스 앰프를 켤 때 일어나는 카타르시스. 혼자 튀려다 곡을 망쳤던 경험이 가르쳐준 인생의 앙상블.
-              </p>
-
-              <!-- 에피소드 추천 리스트 -->
-              <div class="space-y-2 bg-slate-900/60 p-3.5 rounded-xl border border-slate-700/60 text-xs">
-                <div class="text-[11px] font-bold text-purple-300 mb-1 flex items-center gap-1.5">
-                  <i class="fa-solid fa-list-check"></i> 추천 연재 에피소드 구성
-                </div>
-                <div class="text-slate-300">
-                  <b class="text-white">제1화:</b> 메트로놈 박자를 자꾸 놓치던 손가락 (완벽주의라는 강박을 내려놓기)
-                </div>
-                <div class="text-slate-300">
-                  <b class="text-white">제2화:</b> 남의 소리를 듣지 않으면 내 악기는 소음일 뿐이다 (합주에서 배운 팀워크)
-                </div>
-                <div class="text-slate-300">
-                  <b class="text-white">제3화:</b> Eve의 《제제로감》을 연주하며 울컥했던 이유 (직장인의 마음속 응어리 해소)
-                </div>
-                <div class="text-slate-300">
-                  <b class="text-white">제4화:</b> 베이스는 왜 멜로디 뒤에 숨어야 하는가: 보이지 않는 자리의 숭고함
-                </div>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-blue-400 font-medium flex justify-between">
+                <span>핵심: 현재 진행형 수험기</span>
+                <span>추천: 수험생 공감 1순위</span>
               </div>
             </div>
 
-            <div class="pt-3.5 mt-4 border-t border-slate-700/60 flex items-center justify-between text-[11px]">
-              <span class="text-slate-400">타깃 독자: 취미 음악인, 서브컬처 팬, 일상 균형을 추구하는 직장인</span>
-              <span class="text-purple-300 font-bold">토요일 오전 연재 추천</span>
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-blue-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 font-bold">주제 1-4 · 오답 분석</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《오답 노트를 찢던 밤: 실수를 자책하지 않고 무기로 바꾸는 '실패 복기 프로세스'》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  같은 문제를 3번 틀렸을 때의 절망을 극복하고, 암기카드와 단계별 풀이로 뇌에 각인시키는 실전 복기 학습법.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-blue-400 font-medium flex justify-between">
+                <span>핵심: 메타인지 & 복기법</span>
+                <span>추천: 공부법 에세이</span>
+              </div>
             </div>
-          </div>
 
-        </div>
-
-        <!-- 글쓰기 템플릿 & 스토리텔링 확장 공식 -->
-        <div class="p-5 rounded-2xl bg-slate-800/60 border border-slate-700/80">
-          <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
-            <i class="fa-solid fa-pen-ruler text-amber-400"></i>
-            <span>독자의 마음을 여는 '아론 작가 전용 3단계 실패 서사 공식'</span>
-          </h3>
-          <p class="text-xs text-slate-300 mb-4 leading-relaxed">
-            모든 글을 아래 3단계 구조로 전개하면, 독자는 단순 정보 습득을 넘어 작가의 인간적인 고뇌에 깊게 몰입하며 '구독'과 '멤버십 후원'으로 이어지게 됩니다.
-          </p>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-            <div class="p-3.5 rounded-xl bg-slate-900/80 border border-rose-500/30">
-              <div class="text-rose-400 font-bold mb-1 flex items-center gap-1.5">
-                <span class="w-5 h-5 rounded-full bg-rose-500/20 flex items-center justify-center text-[10px]">1</span>
-                <span>오답과 무너짐의 현장 (Hook)</span>
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-blue-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 font-bold">주제 1-5 · 동기 부여</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《자격증은 단순한 스펙이 아니라, '지루함을 견뎌내는 그릿(Grit)'의 증명서였다》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  퇴근 후 졸린 눈을 비비며 책상 앞에 앉았던 수천 시간이 내 자존감을 지켜주고 삶의 주도권을 되찾아준 이야기.
+                </p>
               </div>
-              <p class="text-slate-400 text-[11px] leading-relaxed">
-                계산 문제를 틀리고 자책했던 순간, 폭식 후 체중계에 올라서서 후회했던 밤, 합주에서 박자를 절었던 당혹감 등 가장 솔직한 '바닥'을 먼저 드러냅니다.
-              </p>
-            </div>
-            <div class="p-3.5 rounded-xl bg-slate-900/80 border border-amber-500/30">
-              <div class="text-amber-400 font-bold mb-1 flex items-center gap-1.5">
-                <span class="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center text-[10px]">2</span>
-                <span>바닥에서 길어 올린 질문 (Turning)</span>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-blue-400 font-medium flex justify-between">
+                <span>핵심: 끈기와 자기통제감</span>
+                <span>추천: 브런치 에디터 추천 노림</span>
               </div>
-              <p class="text-slate-400 text-[11px] leading-relaxed">
-                '왜 나는 1점에 집착했을까?', '왜 나는 몸을 굶겨야만 했을까?' 단순 자책에서 벗어나 삶의 구조와 내면의 결핍을 응시하는 질문으로 전환합니다.
-              </p>
-            </div>
-            <div class="p-3.5 rounded-xl bg-slate-900/80 border border-emerald-500/30">
-              <div class="text-emerald-400 font-bold mb-1 flex items-center gap-1.5">
-                <span class="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center text-[10px]">3</span>
-                <span>내일을 버티게 한 작은 시스템 (Insight)</span>
-              </div>
-              <p class="text-slate-400 text-[11px] leading-relaxed">
-                거창한 성공이 아니라 '내일 아침 다시 책상에 앉게 만든 1가지 원칙', '다시 베이스 튜닝을 하게 만든 위로'를 독자에게 선물하며 글을 맺습니다.
-              </p>
             </div>
           </div>
         </div>
+        ` : ''}
+
+        <!-- 2. 다이어트 & 인바디 실패 극복 (5선) -->
+        ${(!state.snsTopicCategoryFilter || state.snsTopicCategoryFilter === 'all' || state.snsTopicCategoryFilter === 'body') ? `
+        <div class="p-5 rounded-2xl bg-slate-800/60 border border-rose-500/30">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-sm font-bold text-rose-300 flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center text-xs">2</span>
+              <span>⚖️ 다이어트·인바디 실패 & 체질 재구성 추천 주제 (5선)</span>
+            </h3>
+            <span class="text-[11px] text-slate-400 font-mono">11개년(2015~2026) 누적 89회 인바디 측정 실화</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 text-xs">
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-rose-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold">주제 2-1 · 대표작</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《체중계는 거짓말을 한다: 92kg를 지키며 골격근 44.9kg를 만든 역발상 다이어트》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  체중 숫자에 일희일비하지 않고 골격근 증량과 체성분 재구성(Recomposition)으로 체지방 6kg를 순수 감량한 과학적 승리.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-rose-400 font-medium flex justify-between">
+                <span>핵심: 체성분 재구성의 정석</span>
+                <span>추천: 독자 반응 폭발 예상</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-rose-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold">주제 2-2 · 흑역사 고백</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《11년 전 고도비만 청년의 흑역사: 굶기와 무리한 유산소가 낳은 요요의 비극》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  체지방률 34% 시절 저질렀던 3대 치명적 실수(단식, 원푸드, 극단적 절제)로 근육만 깎아먹었던 암흑기의 솔직한 고백.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-rose-400 font-medium flex justify-between">
+                <span>핵심: 굶기 다이어트의 위험성</span>
+                <span>추천: 목요일 저녁 발행</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-rose-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold">주제 2-3 · 멘탈 복구</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《폭식한 다음 날의 자괴감에게: 하루 무너졌다고 11년의 데이터가 사라지지 않는다》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  다이어터들이 가장 많이 좌절하는 '자책의 굴레'를 끊어내고 다음 날 즉시 평정심으로 복귀하는 멘탈 관리 시스템.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-rose-400 font-medium flex justify-between">
+                <span>핵심: 죄책감 해소 & 회복</span>
+                <span>추천: 힐링 에세이</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-rose-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold">주제 2-4 · 데이터 분석</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《89번의 인바디 종이가 가르쳐준 것: 정체기는 실패가 아니라 몸이 적응하는 시간이다》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  수개월간 숫자가 정체될 때 포기하지 않고, 세포와 대사가 항상성을 재정비하는 과정을 데이터로 증명한 이야기.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-rose-400 font-medium flex justify-between">
+                <span>핵심: 정체기를 버티는 힘</span>
+                <span>추천: 헬스인 필독</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-rose-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold">주제 2-5 · 지속 가능성</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《식단 강박 내려놓기: 평생 지속 가능한 클린 식단과 치팅 데이의 철학》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  사회생활과 회식을 병행하면서도 근육을 지켜내고 체지방을 덜어내는 현실적이고 스트레스 없는 식습관 구축 노하우.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-rose-400 font-medium flex justify-between">
+                <span>핵심: 평생 식습관 디자인</span>
+                <span>추천: 주말 브런치 연재</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        ` : ''}
+
+        <!-- 3. 밴드 합주 & 보컬·신디사이저 (5선) -->
+        ${(!state.snsTopicCategoryFilter || state.snsTopicCategoryFilter === 'all' || state.snsTopicCategoryFilter === 'music') ? `
+        <div class="p-5 rounded-2xl bg-slate-800/60 border border-purple-500/30">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-sm font-bold text-purple-300 flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center text-xs">3</span>
+              <span>🎤🎹 밴드 합주 & 보컬·신디사이저 추천 주제 (5선)</span>
+            </h3>
+            <span class="text-[11px] text-slate-400 font-mono">홍대 호랑이 합주실 & 보컬·신디사이저 담당 실화</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 text-xs">
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-purple-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-bold">주제 3-1 · 대표작</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《소음이 음악이 되는 순간: 퇴근 후 홍대 합주실에서 마이크와 건반을 켤 때》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  차가운 안전 규정과 공학 수식에서 벗어나, 보컬의 목소리와 신디사이저 멜로디로 일상의 긴장을 내려놓는 정화의 카타르시스.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-purple-400 font-medium flex justify-between">
+                <span>핵심: 직장인의 숨구멍</span>
+                <span>추천: 토요일 오전 감성에세이</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-purple-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-bold">주제 3-2 · 보컬의 사색</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《보컬의 호흡과 인생의 완급 조절: 고음을 내지르려다 목이 쉬어버린 날의 깨달음》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  노래에 힘을 줄수록 음이 갈라지듯, 인생에서도 불필요한 힘을 빼야 비로소 멀리 갈 수 있다는 보컬 레슨과 삶의 통찰.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-purple-400 font-medium flex justify-between">
+                <span>핵심: 완급 조절과 이완의 미학</span>
+                <span>추천: 호흡과 목소리 에세이</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-purple-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-bold">주제 3-3 · 신디사이저 사색</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《신디사이저 톤 메이킹의 미학: 수백 가지 전자음 속에서 '나만의 소리'를 믹싱하는 법》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  건반을 누르며 오실레이터와 필터를 조절해 밴드 사운드에 녹아드는 음색을 빚어내는 과정 — 타인과 조화를 이루는 나의 색채.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-purple-400 font-medium flex justify-between">
+                <span>핵심: 음색 탐색 & 나다움</span>
+                <span>추천: 음악 애호가 취향저격</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-purple-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-bold">주제 3-4 · 앙상블 경청</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《Eve의 〈제제로감〉 185 BPM 질주 속에서: 남의 소리를 들어야 비로소 내 건반이 산다》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  초고속 템포의 합주에서 드럼 킥과 기타 리프를 듣지 않으면 불협화음이 되듯, 밴드 앙상블에서 배운 진정한 경청과 소통의 미덕.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-purple-400 font-medium flex justify-between">
+                <span>핵심: 185 BPM 속의 경청</span>
+                <span>추천: 인스타 릴스 숏폼 연계</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-purple-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-bold">주제 3-5 · 불완전함의 미학</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《완벽주의라는 박자 놓치기: 음이탈이 나도 웃으며 다음 마디로 넘어가는 밴드의 미덕》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  실수 하나에 얼어붙던 강박을 깨고, 멤버들의 눈빛을 보며 리듬을 다시 타게 된 무대 위의 자유와 인간적인 연대의 순간.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-purple-400 font-medium flex justify-between">
+                <span>핵심: 실패를 유쾌하게 넘기기</span>
+                <span>추천: 주말 힐링 연재</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        ` : ''}
+
+        <!-- 4. 산티아고 순례길 & 삶의 비움 (5선) -->
+        ${(!state.snsTopicCategoryFilter || state.snsTopicCategoryFilter === 'all' || state.snsTopicCategoryFilter === 'camino') ? `
+        <div class="p-5 rounded-2xl bg-slate-800/60 border border-amber-500/30">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-sm font-bold text-amber-300 flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs">4</span>
+              <span>🎒 산티아고 순례길 & 삶의 비움 추천 주제 (5선)</span>
+            </h3>
+            <span class="text-[11px] text-slate-400 font-mono">11/9~11/29 까미노 드 포르투 240km 현장 연재</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 text-xs">
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-amber-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">주제 4-1 · 출국 프롤로그</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《길 위에서 버린 것들: 시험장을 나오자마자 8kg 배낭 하나 메고 출국한 이유》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  11월 7일 에너지 시험 직후 11월 9일 포르투로 날아가며, 수험서 대신 최소한의 짐만 챙기며 배운 소유의 무게와 해방감.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-amber-400 font-medium flex justify-between">
+                <span>핵심: 시험 종료 ➔ 순례길 직행</span>
+                <span>추천: 11월 9일 출국일 발행</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-amber-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">주제 4-2 · 번아웃 치유</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《포르투의 안개와 대서양 바람 앞에서: 왜 나는 그동안 멈추지 못하고 달려왔을까》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  삼성전자 TF, 자격증, 다이어트, 복무까지 쉼 없이 스스로를 채찍질했던 내면의 번아웃을 마주하고 다정하게 안아주는 시간.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-amber-400 font-medium flex justify-between">
+                <span>핵심: 멈춤과 자기 용서</span>
+                <span>추천: 순례 1주차 현장 기록</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-amber-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">주제 4-3 · 신체의 한계</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《발바닥 물집이 가르쳐준 것: 완벽한 길은 없다, 다만 한 걸음씩 걸을 뿐이다》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  갈리시아 전원의 비바람과 무릎 통증 앞에서, 목표에 대한 조급함을 내려놓고 발밑의 한 걸음에 집중하며 얻은 깨달음.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-amber-400 font-medium flex justify-between">
+                <span>핵심: 물집과 통증의 역설</span>
+                <span>추천: 순례 2주차 현장 기록</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-amber-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">주제 4-4 · 인간적인 연대</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《알베르게의 낯선 식탁: 언어가 통하지 않아도 통했던 순례자들의 따뜻한 눈빛》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  국적과 나이를 넘어 같은 목적지를 향해 걷는 사람들과 함께 나눈 소박한 빵 한 조각과 와인, 그리고 삶의 진솔한 고백들.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-amber-400 font-medium flex justify-between">
+                <span>핵심: 부엔 카미노의 연대감</span>
+                <span>추천: 따뜻한 감동 에세이</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-amber-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">주제 4-5 · 완주 에필로그</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《산티아고 오브라도이로 광장의 눈물: 240km 대장정 끝에서 시작된 진짜 나의 삶》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  대성당 광장에 배낭을 내려놓고 올려다본 하늘, 3주간의 비움 끝에 더 성숙하고 단단해진 나로서 일상에 복귀하는 벅찬 감회.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-amber-400 font-medium flex justify-between">
+                <span>핵심: 콤포스텔라 완주 감격</span>
+                <span>추천: 11월 말 완주 기념작</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        ` : ''}
+
+        <!-- 5. 조직 경험 & 청년정책·사회복지 (5선) -->
+        ${(!state.snsTopicCategoryFilter || state.snsTopicCategoryFilter === 'all' || state.snsTopicCategoryFilter === 'career') ? `
+        <div class="p-5 rounded-2xl bg-slate-800/60 border border-emerald-500/30">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-sm font-bold text-emerald-300 flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs">5</span>
+              <span>💼 조직 경험 & 청년정책·사회복지 추천 주제 (5선)</span>
+            </h3>
+            <span class="text-[11px] text-slate-400 font-mono">삼성전자 TF 분과장 & 화성시 청년정책협의체 실무 경험</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 text-xs">
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-emerald-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">주제 5-1 · 조직 소통</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《삼성전자 TF 분과장으로 일하며 배운 것: 거대 조직에서 내 목소리를 내는 법》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  인사제도 개편 [모두의 인사] 분과장 및 보안 TF를 수행하며 체득한 설득과 조율, 수평적 소통의 현실적 방법론.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-emerald-400 font-medium flex justify-between">
+                <span>핵심: 대기업 TF 리더십</span>
+                <span>추천: 링크드인 공유 최적화</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-emerald-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">주제 5-2 · 온기의 발견</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《고등학교 특수학급 활동지원 이야기: 느린 아이들의 속도에 내 보폭을 맞추며》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  항상 효율과 속도를 쫓던 내가 장애학생들을 지원하며 배운 기다림과 온기, 국회국방위원장상 대상 수상작의 진솔한 배경.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-emerald-400 font-medium flex justify-between">
+                <span>핵심: 국회국방위원장상 실화</span>
+                <span>추천: 독자 눈물 버튼 에세이</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-emerald-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">주제 5-3 · 청년 정책</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《화성시 청년정책협의체 분과장 일기: 청년들의 작은 목소리가 조례가 되기까지》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  교육·참여·권리 분과장으로서 청년들의 실질적인 고민을 정책으로 다듬고 제안하며 겪었던 공공 참여의 보람과 현실.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-emerald-400 font-medium flex justify-between">
+                <span>핵심: 청년 거버넌스 실무</span>
+                <span>추천: 공공·사회복지 관심층</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-emerald-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">주제 5-4 · 학문 통섭</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《산업공학과 사회복지의 교차점: 효율만을 쫓던 엔지니어가 '사람의 마음'을 공부한 이유》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  생산관리와 최적화를 전공하던 공학도가 사회복지와 직업상담을 공부하며 인생의 시야를 넓히게 된 지적 호기심의 여정.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-emerald-400 font-medium flex justify-between">
+                <span>핵심: 공학 + 인문복지 통섭</span>
+                <span>추천: 대학생·N잡러 타깃</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-emerald-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">주제 5-5 · N잡러 시너지</span>
+                <h4 class="text-sm font-extrabold text-white mt-1.5 mb-1">《회사원·학생·에세이스트·음악인: 4개의 명함을 지닌 N잡러의 24시간 설계법》</h4>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  분열이 아닌 시너지 — 일터의 경험이 글의 소재가 되고, 밴드 음악의 감성이 수험 생활의 에너지로 순환하는 라이프스타일.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-emerald-400 font-medium flex justify-between">
+                <span>핵심: 멀티 페르소나 시간관리</span>
+                <span>추천: 자기계발 독자 타깃</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        ` : ''}
 
       </div>
+
+      <!-- 글쓰기 템플릿 & 스토리텔링 확장 공식 -->
+      <div class="mt-6 p-5 rounded-2xl bg-slate-800/60 border border-slate-700/80 relative z-10">
+        <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
+          <i class="fa-solid fa-pen-ruler text-amber-400"></i>
+          <span>독자의 마음을 여는 '아론 작가 전용 3단계 실패 서사 공식'</span>
+        </h3>
+        <p class="text-xs text-slate-300 mb-4 leading-relaxed">
+          어떤 주제를 선택하든 아래 3단계 구조로 전개하면, 독자는 단순 정보 습득을 넘어 작가의 인간적인 고뇌에 깊게 몰입하며 '구독'과 '멤버십 후원'으로 이어지게 됩니다.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+          <div class="p-3.5 rounded-xl bg-slate-900/80 border border-rose-500/30">
+            <div class="text-rose-400 font-bold mb-1 flex items-center gap-1.5">
+              <span class="w-5 h-5 rounded-full bg-rose-500/20 flex items-center justify-center text-[10px]">1</span>
+              <span>오답과 무너짐의 현장 (Hook)</span>
+            </div>
+            <p class="text-slate-400 text-[11px] leading-relaxed">
+              계산 문제를 틀리고 자책했던 새벽, 폭식 후 후회했던 밤, 합주에서 박자를 절거나 음이탈이 났던 당혹감 등 가장 솔직한 '바닥'을 먼저 드러냅니다.
+            </p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-900/80 border border-amber-500/30">
+            <div class="text-amber-400 font-bold mb-1 flex items-center gap-1.5">
+              <span class="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center text-[10px]">2</span>
+              <span>바닥에서 길어 올린 질문 (Turning)</span>
+            </div>
+            <p class="text-slate-400 text-[11px] leading-relaxed">
+              '왜 나는 1점에 집착했을까?', '왜 나는 몸을 굶겨야만 했을까?' 단순 자책에서 벗어나 삶의 구조와 내면의 결핍을 응시하는 질문으로 전환합니다.
+            </p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-900/80 border border-emerald-500/30">
+            <div class="text-emerald-400 font-bold mb-1 flex items-center gap-1.5">
+              <span class="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center text-[10px]">3</span>
+              <span>내일을 버티게 한 작은 시스템 (Insight)</span>
+            </div>
+            <p class="text-slate-400 text-[11px] leading-relaxed">
+              거창한 성공이 아니라 '내일 아침 다시 책상에 앉게 만든 1가지 원칙', '다시 신디사이저 건반을 누르게 만든 위로'를 독자에게 선물하며 글을 맺습니다.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  `;
+}
     </div>
   `;
 }
@@ -11476,6 +11769,10 @@ window.app = {
     }
   },
 
+  setSnsTopicCategoryFilter: (cat) => {
+    state.snsTopicCategoryFilter = cat;
+    renderSnsTab();
+  },
   // SNS Metrics Handlers (Admin Only 📊)
   openEditSnsMetricsModal: () => {
     if (!checkAdminPermission('SNS 지표 수정')) return;
@@ -11528,7 +11825,7 @@ window.app = {
       insta.followers = parseInt(document.getElementById('input-sns-insta-followers').value, 10) || 0;
       insta.following = parseInt(document.getElementById('input-sns-insta-following').value, 10) || 0;
       insta.postsCount = parseInt(document.getElementById('input-sns-insta-posts').value, 10) || 0;
-      insta.positioning = `실제 프로필 연동 완료 (팔로워 ${insta.followers}명 · 팔로잉 ${insta.following}명 · 게시물 ${insta.postsCount}개) | 음악 & 순례길 아카이빙`;
+      insta.positioning = `실제 프로필 연동 완료 (팔로워 ${insta.followers}명 · 팔로잉 ${insta.following}명 · 게시물 ${insta.postsCount}개) | 음악(보컬·신디사이저) & 순례길 아카이빙`;
     }
 
     const linkedin = state.sns.channels.find(c => c.id === 'linkedin');
