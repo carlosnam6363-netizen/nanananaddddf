@@ -104,67 +104,18 @@
         </div>
       </div>
 
-      <!-- Navigation Links -->
-      <nav class="space-y-1">
-        <button data-nav-tab="overview" onclick="window.app.switchTab('overview')" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs transition nav-tab-active text-blue-500 font-semibold">
-          <i class="fa-solid fa-house w-4 text-center"></i>
-          <span>종합 대시보드</span>
+      <!-- Navigation Header with Tab Order Button -->
+      <div class="flex items-center justify-between px-3 py-1.5 mb-2">
+        <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">메뉴 네비게이션</span>
+        <button onclick="window.app.openTabOrderModal()" class="text-[11px] text-sky-400 hover:text-sky-300 flex items-center gap-1.5 px-2 py-1 rounded-lg hover:bg-sky-500/10 border border-sky-500/20 transition font-medium" title="탭 순서 변경">
+          <i class="fa-solid fa-arrow-down-up-across-line text-[10px]"></i>
+          <span>순서 정렬</span>
         </button>
+      </div>
 
-        <button data-nav-tab="exam" onclick="window.app.switchTab('exam')" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
-          <i class="fa-solid fa-calendar-days w-4 text-center"></i>
-          <span>시험 및 학사 일정</span>
-        </button>
-
-        <button data-nav-tab="camino" onclick="window.app.switchTab('camino')" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
-          <i class="fa-solid fa-person-hiking w-4 text-center text-amber-400"></i>
-          <span class="flex-1 text-left">산티아고 순례길</span>
-          <span class="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 font-bold">11/7</span>
-        </button>
-
-        <button data-nav-tab="band" onclick="window.app.switchTab('band')" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
-          <i class="fa-solid fa-guitar w-4 text-center"></i>
-          <span>밴드 합주 & 문화생활</span>
-        </button>
-
-        <button data-nav-tab="energy" onclick="window.app.switchTab('energy')" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
-          <i class="fa-solid fa-graduation-cap w-4 text-center"></i>
-          <span>에너지관리기사 실기</span>
-        </button>
-
-        <div class="pt-2 pb-1 px-3">
-          <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">커리어 포트폴리오</p>
-        </div>
-
-        <button data-nav-tab="awards" onclick="window.app.openPortfolioTab('awards')" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
-          <i class="fa-solid fa-trophy w-4 text-center text-amber-400"></i>
-          <span class="flex-1 text-left">수상 내역 관리</span>
-          <span id="nav-badge-awards" class="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 font-bold">23건</span>
-        </button>
-
-        <button data-nav-tab="careers" onclick="window.app.openPortfolioTab('careers')" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
-          <i class="fa-solid fa-briefcase w-4 text-center text-emerald-400"></i>
-          <span class="flex-1 text-left">주요 경력 & TF 활동</span>
-          <span id="nav-badge-careers" class="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold">15건</span>
-        </button>
-
-        <button data-nav-tab="sns" onclick="window.app.switchTab('sns')" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
-          <i class="fa-solid fa-share-nodes w-4 text-center text-pink-400"></i>
-          <span class="flex-1 text-left">SNS & 브랜딩 분석</span>
-          <span class="text-[9px] px-1.5 py-0.5 rounded bg-pink-500/20 text-pink-400 font-bold">3채널</span>
-        </button>
-
-        <button data-nav-tab="inbody" onclick="window.app.switchTab('inbody')" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
-          <i class="fa-solid fa-weight-scale w-4 text-center text-rose-400"></i>
-          <span class="flex-1 text-left">체구 감량 & 인바디</span>
-          <span class="text-[9px] px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-400 font-bold">D자형</span>
-        </button>
-
-        <button data-nav-tab="external" onclick="window.app.switchTab('external')" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
-          <i class="fa-solid fa-window-restore w-4 text-center"></i>
-          <span class="flex-1 text-left">외부 연동 & 엑셀 추출</span>
-          <span class="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold">Excel</span>
-        </button>
+      <!-- Dynamic Desktop Navigation Container -->
+      <nav id="desktop-sidebar-nav" class="space-y-1">
+        <!-- Rendered dynamically by window.app.renderNavigation() -->
       </nav>
     </div>
 
@@ -194,6 +145,10 @@
         <span class="text-[10px] text-slate-400">Personal Career Hub</span>
       </div>
     </div>
+    <button onclick="window.app.openTabOrderModal()" class="text-xs text-sky-400 bg-sky-500/10 border border-sky-500/20 px-2.5 py-1 rounded-lg flex items-center gap-1.5 hover:bg-sky-500/20 transition font-bold" title="탭 순서 정렬">
+      <i class="fa-solid fa-arrow-down-up-across-line text-[10px]"></i>
+      <span class="text-[11px]">순서 정렬</span>
+    </button>
   </header>
 
   <!-- ========================================================================= -->
@@ -229,41 +184,10 @@
   </main>
 
   <!-- ========================================================================= -->
-  <!-- Mobile Bottom Navigation Bar -->
+  <!-- Mobile Bottom Navigation Bar (Dynamic) -->
   <!-- ========================================================================= -->
-  <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-slate-900/95 border-t border-slate-800 backdrop-blur-xl z-30 flex items-center justify-around py-2 px-1 overflow-x-auto">
-    <button data-mobile-tab="overview" onclick="window.app.switchTab('overview')" class="flex flex-col items-center gap-1 text-[10px] text-sky-400 mobile-tab-active flex-1 min-w-[42px] py-1">
-      <i class="fa-solid fa-house text-sm"></i>
-      <span>홈</span>
-    </button>
-    <button data-mobile-tab="exam" onclick="window.app.switchTab('exam')" class="flex flex-col items-center gap-1 text-[10px] text-slate-400 flex-1 min-w-[42px] py-1">
-      <i class="fa-solid fa-calendar-days text-sm"></i>
-      <span>일정</span>
-    </button>
-    <button data-mobile-tab="awards" onclick="window.app.openPortfolioTab('awards')" class="flex flex-col items-center gap-1 text-[10px] text-slate-400 flex-1 min-w-[42px] py-1">
-      <i class="fa-solid fa-trophy text-sm text-amber-400"></i>
-      <span>수상</span>
-    </button>
-    <button data-mobile-tab="careers" onclick="window.app.openPortfolioTab('careers')" class="flex flex-col items-center gap-1 text-[10px] text-slate-400 flex-1 min-w-[42px] py-1">
-      <i class="fa-solid fa-briefcase text-sm text-emerald-400"></i>
-      <span>경력</span>
-    </button>
-    <button data-mobile-tab="camino" onclick="window.app.switchTab('camino')" class="flex flex-col items-center gap-1 text-[10px] text-slate-400 flex-1 min-w-[42px] py-1">
-      <i class="fa-solid fa-person-hiking text-sm text-amber-400"></i>
-      <span>순례길</span>
-    </button>
-    <button data-mobile-tab="band" onclick="window.app.switchTab('band')" class="flex flex-col items-center gap-1 text-[10px] text-slate-400 flex-1 min-w-[42px] py-1">
-      <i class="fa-solid fa-guitar text-sm"></i>
-      <span>밴드</span>
-    </button>
-    <button data-mobile-tab="energy" onclick="window.app.switchTab('energy')" class="flex flex-col items-center gap-1 text-[10px] text-slate-400 flex-1 min-w-[42px] py-1">
-      <i class="fa-solid fa-graduation-cap text-sm"></i>
-      <span>에너지</span>
-    </button>
-    <button data-mobile-tab="sns" onclick="window.app.switchTab('sns')" class="flex flex-col items-center gap-1 text-[10px] text-slate-400 flex-1 min-w-[42px] py-1">
-      <i class="fa-solid fa-share-nodes text-sm text-pink-400"></i>
-      <span>SNS</span>
-    </button>
+  <nav id="mobile-bottom-nav" class="md:hidden fixed bottom-0 left-0 right-0 bg-slate-900/95 border-t border-slate-800 backdrop-blur-xl z-30 flex items-center py-1.5 px-2 overflow-x-auto gap-1">
+    <!-- Rendered dynamically by window.app.renderNavigation() -->
   </nav>
 
   <!-- ========================================================================= -->
@@ -1334,7 +1258,39 @@
     </div>
   </div>
 
+  <!-- 18. Tab Order Modal ↕️ -->
+  <div id="modal-tab-order" class="app-modal fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700/80 rounded-2xl w-full max-w-md p-5 sm:p-6 max-h-[90vh] flex flex-col shadow-2xl">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div>
+          <h3 class="font-bold text-white text-base flex items-center gap-2">
+            <i class="fa-solid fa-arrow-down-up-across-line text-sky-400"></i> 대시보드 탭 순서 정렬
+          </h3>
+          <p class="text-xs text-slate-400 mt-1">화살표(▲, ▼)를 클릭하여 메뉴 노출 순서를 원하는 대로 설정하세요.</p>
+        </div>
+        <button onclick="window.app.closeAllModals()" class="text-slate-400 hover:text-white p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Tab Items List Container -->
+      <div id="tab-order-list" class="my-4 space-y-2 overflow-y-auto max-h-[50vh] pr-1">
+        <!-- Rendered dynamically by renderTabOrderModal() -->
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="pt-3 border-t border-slate-800 flex items-center justify-between gap-2">
+        <button type="button" onclick="window.app.resetTabOrder()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold transition flex items-center gap-1.5 border border-slate-700">
+          <i class="fa-solid fa-rotate-left"></i> 기본 순서로 초기화
+        </button>
+        <button type="button" onclick="window.app.closeAllModals()" class="px-5 py-2 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl text-xs transition shadow-lg shadow-sky-600/20">
+          완료 및 닫기
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Main Application Script (Safe for file:// and http://) -->
-  <script src="js/app.js?v=20260927_v5"></script>
+  <script src="js/app.js?v=20260928_v1"></script>
 </body>
 </html>

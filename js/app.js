@@ -3899,6 +3899,52 @@ const syncManager = new SyncManager();
 
 // [cloud-sync imported]
 
+// ==========================================================================
+// Central Tab Registry & Reordering System
+// ==========================================================================
+const TAB_REGISTRY = [
+  { id: 'overview', name: '종합 대시보드', shortName: '홈', icon: 'fa-house', color: 'text-sky-400', badge: null, badgeClass: '' },
+  { id: 'exam', name: '시험 및 학사 일정', shortName: '일정', icon: 'fa-calendar-days', color: 'text-blue-400', badge: null, badgeClass: '' },
+  { id: 'camino', name: '산티아고 순례길', shortName: '순례길', icon: 'fa-person-hiking', color: 'text-amber-400', badge: '11/9 (3주)', badgeClass: 'bg-amber-500/20 text-amber-400' },
+  { id: 'band', name: '밴드 합주 & 문화', shortName: '밴드', icon: 'fa-guitar', color: 'text-purple-400', badge: '10/10', badgeClass: 'bg-purple-500/20 text-purple-300' },
+  { id: 'energy', name: '에너지관리기사', shortName: '에너지', icon: 'fa-graduation-cap', color: 'text-amber-300', badge: 'D-40', badgeClass: 'bg-sky-500/20 text-sky-300' },
+  { id: 'awards', name: '수상 내역 관리', shortName: '수상', icon: 'fa-trophy', color: 'text-amber-400', badge: '23건', badgeClass: 'bg-amber-500/20 text-amber-400', isPortfolio: true },
+  { id: 'careers', name: '주요 경력 & TF', shortName: '경력', icon: 'fa-briefcase', color: 'text-emerald-400', badge: '15건', badgeClass: 'bg-emerald-500/20 text-emerald-400', isPortfolio: true },
+  { id: 'sns', name: 'SNS & 브랜딩', shortName: 'SNS', icon: 'fa-share-nodes', color: 'text-pink-400', badge: 'Brunch', badgeClass: 'bg-pink-500/20 text-pink-400' },
+  { id: 'inbody', name: '체구 감량 & 인바디', shortName: '인바디', icon: 'fa-weight-scale', color: 'text-rose-400', badge: '89회', badgeClass: 'bg-rose-500/20 text-rose-400' },
+  { id: 'external', name: '외부 연동 & 엑셀', shortName: '연동·엑셀', icon: 'fa-window-restore', color: 'text-emerald-400', badge: 'Excel', badgeClass: 'bg-emerald-500/20 text-emerald-400' }
+];
+
+const DEFAULT_TAB_ORDER = TAB_REGISTRY.map(t => t.id);
+
+function getTabOrder() {
+  try {
+    const saved = localStorage.getItem('career_dashboard_tab_order');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        const validOrder = parsed.filter(id => TAB_REGISTRY.some(t => t.id === id));
+        DEFAULT_TAB_ORDER.forEach(id => {
+          if (!validOrder.includes(id)) validOrder.push(id);
+        });
+        return validOrder;
+      }
+    }
+  } catch (e) {
+    console.warn('탭 순서 로드 실패, 기본값 사용:', e);
+  }
+  return [...DEFAULT_TAB_ORDER];
+}
+
+function saveTabOrder(order) {
+  try {
+    localStorage.setItem('career_dashboard_tab_order', JSON.stringify(order));
+    state.tabOrder = order;
+  } catch (e) {
+    console.error('탭 순서 저장 실패:', e);
+  }
+}
+
 // Global App State
 let state = {
   exams: [],
@@ -3918,6 +3964,7 @@ let state = {
   inbodyYearFilter: 'all', // 'all', '2026', '2025', '2024', 'prev'
   theme: 'dark',
   activeTab: 'overview',
+  tabOrder: getTabOrder(),
   activeExternalTabId: null,
   examFilter: 'all',
   bandFilter: 'all',
@@ -3929,6 +3976,147 @@ let state = {
   currentQuestionIndex: 0,
   brunchLastSync: "2026-09-28 09:00"
 };
+
+// ==========================================================================
+// Dynamic Navigation & Tab Reordering Functions
+// ==========================================================================
+function renderNavigation() {
+  const currentTab = state.activeTab;
+  const order = state.tabOrder && state.tabOrder.length > 0 ? state.tabOrder : getTabOrder();
+  state.tabOrder = order;
+
+  // 1. Desktop Sidebar Navigation
+  const desktopContainer = document.getElementById('desktop-sidebar-nav');
+  if (desktopContainer) {
+    desktopContainer.innerHTML = order.map((tabId) => {
+      const tabDef = TAB_REGISTRY.find(t => t.id === tabId);
+      if (!tabDef) return '';
+      const isActive = currentTab === tabDef.id;
+      const activeClass = isActive
+        ? 'nav-tab-active text-sky-400 bg-sky-500/15 font-bold border border-sky-500/30 shadow-sm'
+        : 'text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium';
+      
+      const badgeHtml = tabDef.badge
+        ? `<span class="text-[9px] px-1.5 py-0.5 rounded font-bold ${tabDef.badgeClass || 'bg-slate-800 text-slate-300'}">${tabDef.badge}</span>`
+        : '';
+
+      const clickHandler = tabDef.isPortfolio
+        ? `window.app.openPortfolioTab('${tabDef.id}')`
+        : `window.app.switchTab('${tabDef.id}')`;
+
+      return `
+        <button data-nav-tab="${tabDef.id}" onclick="${clickHandler}" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs transition ${activeClass}">
+          <i class="fa-solid ${tabDef.icon} w-4 text-center ${tabDef.color}"></i>
+          <span class="flex-1 text-left truncate">${tabDef.name}</span>
+          ${badgeHtml}
+        </button>
+      `;
+    }).join('');
+  }
+
+  // 2. Mobile Bottom Navigation
+  const mobileContainer = document.getElementById('mobile-bottom-nav');
+  if (mobileContainer) {
+    mobileContainer.innerHTML = order.map((tabId) => {
+      const tabDef = TAB_REGISTRY.find(t => t.id === tabId);
+      if (!tabDef) return '';
+      const isActive = currentTab === tabDef.id;
+      const activeClass = isActive
+        ? 'mobile-tab-active text-sky-400 font-bold bg-sky-500/20 border border-sky-500/30'
+        : 'text-slate-400 font-medium hover:text-slate-200';
+
+      const clickHandler = tabDef.isPortfolio
+        ? `window.app.openPortfolioTab('${tabDef.id}')`
+        : `window.app.switchTab('${tabDef.id}')`;
+
+      return `
+        <button data-mobile-tab="${tabDef.id}" onclick="${clickHandler}" class="flex flex-col items-center justify-center gap-1 text-[10px] px-2.5 py-1.5 rounded-xl flex-shrink-0 min-w-[52px] transition ${activeClass}">
+          <i class="fa-solid ${tabDef.icon} text-sm ${tabDef.color}"></i>
+          <span class="truncate max-w-[56px]">${tabDef.shortName}</span>
+        </button>
+      `;
+    }).join('');
+  }
+}
+
+function renderTabOrderModal() {
+  const container = document.getElementById('tab-order-list');
+  if (!container) return;
+
+  const order = state.tabOrder && state.tabOrder.length > 0 ? state.tabOrder : getTabOrder();
+  state.tabOrder = order;
+
+  container.innerHTML = order.map((tabId, idx) => {
+    const tabDef = TAB_REGISTRY.find(t => t.id === tabId);
+    if (!tabDef) return '';
+    const isFirst = idx === 0;
+    const isLast = idx === order.length - 1;
+
+    const badgeHtml = tabDef.badge
+      ? `<span class="text-[9px] px-1.5 py-0.5 rounded font-bold ${tabDef.badgeClass || 'bg-slate-800 text-slate-300'}">${tabDef.badge}</span>`
+      : '';
+
+    return `
+      <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-800/80 border border-slate-700/60 hover:border-slate-600 transition">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <span class="w-6 h-6 rounded-lg bg-slate-900 border border-slate-700 flex items-center justify-center text-xs font-bold text-slate-400 font-mono flex-shrink-0">
+            ${idx + 1}
+          </span>
+          <i class="fa-solid ${tabDef.icon} ${tabDef.color} text-sm w-4 text-center flex-shrink-0"></i>
+          <span class="text-xs font-bold text-white truncate">${tabDef.name}</span>
+          ${badgeHtml}
+        </div>
+        <div class="flex items-center gap-1 flex-shrink-0">
+          <button onclick="window.app.moveTabUp(${idx})" ${isFirst ? 'disabled' : ''} class="w-8 h-8 rounded-lg ${isFirst ? 'opacity-30 cursor-not-allowed bg-slate-900 text-slate-600' : 'bg-slate-700 hover:bg-sky-600 text-white cursor-pointer active:scale-95'} flex items-center justify-center text-xs transition" title="위로 이동">
+            <i class="fa-solid fa-arrow-up"></i>
+          </button>
+          <button onclick="window.app.moveTabDown(${idx})" ${isLast ? 'disabled' : ''} class="w-8 h-8 rounded-lg ${isLast ? 'opacity-30 cursor-not-allowed bg-slate-900 text-slate-600' : 'bg-slate-700 hover:bg-sky-600 text-white cursor-pointer active:scale-95'} flex items-center justify-center text-xs transition" title="아래로 이동">
+            <i class="fa-solid fa-arrow-down"></i>
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function moveTabUp(idx) {
+  if (idx <= 0 || !state.tabOrder) return;
+  const newOrder = [...state.tabOrder];
+  const temp = newOrder[idx - 1];
+  newOrder[idx - 1] = newOrder[idx];
+  newOrder[idx] = temp;
+  saveTabOrder(newOrder);
+  renderNavigation();
+  renderTabOrderModal();
+  const movedTab = TAB_REGISTRY.find(t => t.id === newOrder[idx - 1]);
+  showToast(`'${movedTab ? movedTab.name : ''}' 탭을 위로 이동했습니다.`);
+}
+
+function moveTabDown(idx) {
+  if (!state.tabOrder || idx >= state.tabOrder.length - 1) return;
+  const newOrder = [...state.tabOrder];
+  const temp = newOrder[idx + 1];
+  newOrder[idx + 1] = newOrder[idx];
+  newOrder[idx] = temp;
+  saveTabOrder(newOrder);
+  renderNavigation();
+  renderTabOrderModal();
+  const movedTab = TAB_REGISTRY.find(t => t.id === newOrder[idx + 1]);
+  showToast(`'${movedTab ? movedTab.name : ''}' 탭을 아래로 이동했습니다.`);
+}
+
+function resetTabOrder() {
+  saveTabOrder([...DEFAULT_TAB_ORDER]);
+  renderNavigation();
+  renderTabOrderModal();
+  showToast('대시보드 탭 순서가 기본 설정으로 초기화되었습니다.');
+}
+
+function openTabOrderModal() {
+  renderTabOrderModal();
+  const modal = document.getElementById('modal-tab-order');
+  if (modal) modal.classList.remove('hidden');
+}
 
 // ==========================================================================
 // Initialization
@@ -3995,21 +4183,8 @@ function persistState() {
 // Navigation & Tab Routing
 // ==========================================================================
 function initNavigation() {
-  // Desktop Sidebar Nav Links
-  document.querySelectorAll('[data-nav-tab]').forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      const tabName = btn.getAttribute('data-nav-tab');
-      switchTab(tabName);
-    });
-  });
-
-  // Mobile Bottom Nav Links
-  document.querySelectorAll('[data-mobile-tab]').forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      const tabName = btn.getAttribute('data-mobile-tab');
-      switchTab(tabName);
-    });
-  });
+  // Initial dynamic navigation render
+  renderNavigation();
 
   // Theme Toggle Button
   const themeToggle = document.getElementById('theme-toggle-btn');
@@ -4031,27 +4206,8 @@ function switchTab(tabName) {
   }
   state.activeTab = tabName;
 
-  // Update desktop navigation active state
-  document.querySelectorAll('[data-nav-tab]').forEach((btn) => {
-    if (btn.getAttribute('data-nav-tab') === tabName) {
-      btn.classList.add('nav-tab-active', 'text-blue-500', 'font-semibold');
-      btn.classList.remove('text-slate-400');
-    } else {
-      btn.classList.remove('nav-tab-active', 'text-blue-500', 'font-semibold');
-      btn.classList.add('text-slate-400');
-    }
-  });
-
-  // Update mobile navigation active state
-  document.querySelectorAll('[data-mobile-tab]').forEach((btn) => {
-    if (btn.getAttribute('data-mobile-tab') === tabName) {
-      btn.classList.add('mobile-tab-active', 'text-sky-400');
-      btn.classList.remove('text-slate-400');
-    } else {
-      btn.classList.remove('mobile-tab-active', 'text-sky-400');
-      btn.classList.add('text-slate-400');
-    }
-  });
+  // Sync active states across dynamic navigation
+  renderNavigation();
 
   // Show only current tab content section
   document.querySelectorAll('.tab-section').forEach((section) => {
@@ -7506,6 +7662,13 @@ function showToast(msg) {
 // Expose Public Methods to Window for UI Interactions
 // ==========================================================================
 window.app = {
+  // Tab Reordering & Dynamic Navigation Handlers
+  openTabOrderModal: () => openTabOrderModal(),
+  moveTabUp: (idx) => moveTabUp(idx),
+  moveTabDown: (idx) => moveTabDown(idx),
+  resetTabOrder: () => resetTabOrder(),
+  renderNavigation: () => renderNavigation(),
+
   // External Subtab Switcher
   setExternalSubtab: (subtab) => {
     state.externalSubtab = subtab;
