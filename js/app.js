@@ -18,59 +18,246 @@
 const INITIAL_DISCHARGE_DATE = "2026-12-19";
 
 // 산티아고 순례길 일정 & 준비물 데이터 (2026-11-07 ~ 11-09)
+// 산티아고 순례길 일정 & 준비물 데이터 (까미노 드 포르투 3주 여정: 2026-11-09 ~ 11-29)
 const INITIAL_CAMINO_DATA = {
-  title: "산티아고 순례길 트레킹 (Camino de Santiago)",
-  startDate: "2026-11-07",
-  endDate: "2026-11-09",
-  ddayTarget: "2026-11-07",
-  route: "사리아(Sarria) ~ 산티아고 데 콤포스텔라",
-  totalDistance: "약 45~55 km (3일 하이라이트 구간)",
-  status: "준비 중",
+  caminoDataVersion: 3,
+  title: "산티아고 순례길 까미노 드 포르투 (Camino Portugués 3주)",
+  startDate: "2026-11-09",
+  endDate: "2026-11-29",
+  ddayTarget: "2026-11-09",
+  route: "포르투(Porto) 해안길 ~ 비아나 ~ 비고 ~ 산티아고 데 콤포스텔라 ~ 피스테라",
+  totalDistance: "약 240 km (도보 순례 + 주요 거점 도시 2일 체류)",
+  status: "준비 중 (항공권 & 코스 확정)",
+  durationInfo: "총 21일간 (출국 2일, 귀국 2일, 포르투/비아나/비고/산티아고 4대 거점 각 2일 체류 관광)",
   packingList: [
     { text: "크레덴샬(순례자 여권) & 가리비 껍데기", category: "필수/서류", done: false },
-    { text: "발목 지지용 트레킹화 (길들인 신발)", category: "의류/신발", done: false },
-    { text: "30L~35L 경량 순례자 배낭", category: "장비", done: false },
-    { text: "메리노울 트레킹 양말 (3켤레)", category: "의류/신발", done: false },
-    { text: "바셀린 & 콤피드(물집 방지 패치)", category: "위생/약품", done: false },
-    { text: "방수 판초 우의 & 배낭 레인커버", category: "의류/신발", done: false },
-    { text: "트레킹 폴(스틱) & 무릎 보호대", category: "장비", done: false },
-    { text: "초경량 침낭 라이너 (알베르게 숙박용)", category: "장비", done: false },
-    { text: "해외 결제 카드(트래블로그) & 현금 약간", category: "필수/서류", done: false },
-    { text: "유럽 eSIM/유심 & 대용량 보조배터리", category: "전자기기", done: false }
+    { text: "발목 지지용 트레킹화 (길들인 중등산화)", category: "의류/신발", done: false },
+    { text: "30L~35L 경량 순례자 배낭 & 레인커버", category: "장비", done: false },
+    { text: "메리노울 트레킹 양말 (3켤레) & 스포츠 테이프", category: "의류/신발", done: false },
+    { text: "바셀린 & 콤피드(물집 방지 패치) & 소독약", category: "위생/약품", done: false },
+    { text: "방수 기능성 판초 우의 & 바람막이", category: "의류/신발", done: false },
+    { text: "카본 트레킹 폴(스틱 1쌍) & 무릎 보호대", category: "장비", done: false },
+    { text: "초경량 침낭 라이너 & 귀마개 (알베르게 필수)", category: "장비", done: false },
+    { text: "트래블로그 카드 2장 & 유로화 소액 현금", category: "필수/서류", done: false },
+    { text: "유럽 통합 eSIM & 20,000mAh 보조배터리", category: "전자기기", done: false },
+    { text: "휴대용 빨랫줄 & 옷핀 & 속건 여행용 타월", category: "위생/생활", done: false },
+    { text: "미니 플래시 / 헤드랜턴 (새벽 출발용)", category: "장비", done: false }
   ],
   itinerary: [
     {
-      day: "Day 1 (11/07)",
-      date: "2026-11-07",
-      title: "에너지관리기사 시험 종료 후 순례길 출발",
-      distance: "약 15 km",
-      description: "오전 9시 자격증 시험을 후회 없이 끝마치고, 가벼워진 마음으로 순례길 출발지로 이동. 첫 크레덴샬 스탬프를 찍고 갈리시아 지방의 상쾌한 공기 속에서 첫 알베르게로 향합니다.",
-      albergue: "사리아 / 포르토마린 인근 공립 알베르게",
-      highlight: "새로운 챕터의 시작! 부엔 카미노(Buen Camino)!"
-    },
-    {
-      day: "Day 2 (11/08)",
-      date: "2026-11-08",
-      title: "유칼립투스 숲길과 아기자기한 마을 트레킹",
-      distance: "약 22 km",
-      description: "노란색 조개껍데기 화살표를 따라 묵묵히 걸으며 생각 정리하기. 중간 스페인 마을의 작은 바(Bar)에서 따뜻한 카페 콘 레체와 또르띠야로 꿀맛 같은 휴식을 즐깁니다.",
-      albergue: "팔라스 데 레이 / 아르수아 인근 알베르게",
-      highlight: "나 자신과 마주하는 고요하고 평화로운 시간"
-    },
-    {
-      day: "Day 3 (11/09)",
+      day: "Day 1 (11/09)",
       date: "2026-11-09",
-      title: "산티아고 대성당 광장 입성 & 완주",
-      distance: "약 18 km",
-      description: "최종 목적지인 산티아고 데 콤포스텔라 대성당 앞 오브라도이로 광장에 도착. 배낭을 내려놓고 푸른 하늘을 바라보며 벅찬 감동을 만끽하고, 순례자 사무소에서 완주증을 발급받습니다.",
-      albergue: "산티아고 시내 부티크 호텔 / 호스텔",
-      highlight: "완주의 희열 & 성당 앞 광장에서 느끼는 벅찬 감동"
+      title: "인천 국제공항 출발 (출국 1일차)",
+      distance: "비행 약 14시간",
+      type: "flight",
+      stay: "기내 1박",
+      description: "인천공항 제2터미널 출발, 유럽 주요 허브(파리/프랑크푸르트 등) 경유. 에너지관리기사 시험 후 홀가분한 마음으로 떠나는 3주 순례 여정의 시작.",
+      highlight: "설레는 여정의 첫 발걸음!"
+    },
+    {
+      day: "Day 2 (11/10)",
+      date: "2026-11-10",
+      title: "포르투(Porto) 공항 도착 & 호텔 체크인 (출국 2일차)",
+      distance: "시내 이동",
+      type: "flight",
+      stay: "포르투 구시가지 호텔",
+      description: "포르투 프란시스코 사 카르네이루 공항 도착. 지하철(메트로)로 시내 이동 후 숙소 체크인. 도루강(Douro River) 강변 노을을 바라보며 시차 적응 및 휴식.",
+      highlight: "낭만의 도시 포르투 입성"
+    },
+    {
+      day: "Day 3 (11/11)",
+      date: "2026-11-11",
+      title: "포르투 시내 관광 & 순례자 등록 (포르투 2일 체류 1일차)",
+      distance: "도보 관광 약 8 km",
+      type: "tour",
+      stay: "포르투 구시가지 호텔",
+      description: "아름다운 아줄레주 타일의 상벤투(São Bento) 기차역, 해리포터 모티브 렐루 서점, 클레리구스 탑 탐방. 포르투 대성당(Sé do Porto) 방문하여 순례자 여권(Credencial) 수령 및 첫 공식 스탬프(Sello) 날인.",
+      highlight: "대성당에서 순례자 여권(크레덴샬) 수령 & 첫 스탬프"
+    },
+    {
+      day: "Day 4 (11/12)",
+      date: "2026-11-12",
+      title: "동루이스 다리 & 빌라 노바 드 가이아 와이너리 (포르투 2일 체류 2일차)",
+      distance: "도보 관광 약 6 km",
+      type: "tour",
+      stay: "포르투 구시가지 호텔",
+      description: "동루이스 1세 다리(Ponte de Dom Luís I) 2층 상판 도보 횡단. 가이아 지구의 유서 깊은 포트 와인(Port Wine) 와이너리 투어 및 시음. 리베이라 광장에서 강변 버스킹 음악 감상하며 내일부터 시작될 도보 순례 마음 다잡기.",
+      highlight: "동루이스 다리 파노라마 선셋 & 포트 와인 투어"
+    },
+    {
+      day: "Day 5 (11/13)",
+      date: "2026-11-13",
+      title: "포르투 대성당 ~ 마토지뉴스 ~ 빌라 두 콘드 (해안길 도보 순례 시작)",
+      distance: "약 22 km",
+      type: "walk",
+      stay: "빌라 두 콘드 알베르게/숙소",
+      description: "포르투 대성당 앞 출발! 도루강을 따라 대서양 바다와 만나는 포즈(Foz) 지구를 지나 마토지뉴스 해변 나무 데크길을 걷습니다. 시원한 대서양 파도 소리와 함께하는 해안길(Senda Litoral) 첫 구간.",
+      highlight: "대서양 해안 나무 데크길(Passadiços) 첫 도보 순례"
+    },
+    {
+      day: "Day 6 (11/14)",
+      date: "2026-11-14",
+      title: "빌라 두 콘드 ~ 포보아 드 바르징 ~ 에스포센드",
+      distance: "약 24 km",
+      type: "walk",
+      stay: "에스포센드 알베르게",
+      description: "유서 깊은 어촌 마을 포보아 드 바르징(Póvoa de Varzim)을 거쳐 카바두강 하구의 에스포센드(Esposende)로 전진. 넓게 펼쳐진 백사장과 모래언덕, 소나무 숲길이 번갈아 나타납니다.",
+      highlight: "모래언덕(Dunes)과 소나무 숲길의 정취"
+    },
+    {
+      day: "Day 7 (11/15)",
+      date: "2026-11-15",
+      title: "에스포센드 ~ 비아나 두 카스텔루 (거점 도시 입성)",
+      distance: "약 25 km",
+      type: "walk",
+      stay: "비아나 두 카스텔루 호텔/호스텔",
+      description: "네이바강을 건너 유칼립투스 숲길을 지나 포르투갈 북부의 보석이라 불리는 해안 항구 도시 비아나 두 카스텔루(Viana do Castelo)에 입성. 에펠이 설계한 철교를 건너 역사 지구 도착.",
+      highlight: "에펠 철교 건너 아름다운 항구 도시 입성"
+    },
+    {
+      day: "Day 8 (11/16)",
+      date: "2026-11-16",
+      title: "비아나 두 카스텔루 산타 루시아 & 휴식 (비아나 2일 체류)",
+      distance: "도보 관광 약 5 km",
+      type: "tour",
+      stay: "비아나 두 카스텔루 호텔/호스텔",
+      description: "푸니쿨라를 타고 몬테 데 산타 루시아(Santa Luzia) 성당 등정. 내셔널 지오그래픽이 선정한 세계 최고의 파노라마 뷰 감상. 카베델루 해변 산책 및 전통 해산물 밥(Arroz de Marisco) 만찬으로 체력 완벽 재충전.",
+      highlight: "산타 루시아 성당에서 내려다보는 대서양 파노라마 전경"
+    },
+    {
+      day: "Day 9 (11/17)",
+      date: "2026-11-17",
+      title: "비아나 두 카스텔루 ~ 카미냐 (포르투갈 국경 관문)",
+      distance: "약 27 km",
+      type: "walk",
+      stay: "카미냐 알베르게/숙소",
+      description: "해안 암초와 바닷길을 따라 북진하여 포르투갈의 국경 관문 카미냐(Caminha) 도착. 미뇨강(Rio Minho) 건너편으로 스페인 갈리시아의 산등성이가 손에 잡힐 듯 보입니다.",
+      highlight: "국경 도시 카미냐의 고즈넉한 광장 정취"
+    },
+    {
+      day: "Day 10 (11/18)",
+      date: "2026-11-18",
+      title: "카미냐 (페리 국경 도하) ~ 아 과르다 ~ 바이오나 (스페인 진입)",
+      distance: "약 25 km",
+      type: "walk",
+      stay: "바이오나 알베르게/호스텔",
+      description: "보트를 타고 미뇨강을 건너 스페인 갈리시아 아 과르다(A Guarda)로 입국! 시차 1시간 빨라짐. 켈트 유적지 산타 테크라를 바라보며 웅장한 해안 절벽길을 따라 콜럼버스의 배 핀타호가 도착했던 역사 도시 바이오나(Baiona) 도착.",
+      highlight: "보트 타고 스페인 국경 넘기 & 웅장한 해안 절벽길"
+    },
+    {
+      day: "Day 11 (11/19)",
+      date: "2026-11-19",
+      title: "바이오나 ~ 비고 (갈리시아 최대 항구 도시 입성)",
+      distance: "약 25 km",
+      type: "walk",
+      stay: "비고 중심가 호텔/숙소",
+      description: "리아스 바이샤스(Rías Baixas) 해안 만을 따라 비고(Vigo)로 행진. 도시 외곽에서 바라보는 비고 만과 시에스 제도(Islas Cíes)의 전경이 장관을 이룹니다. 활기 넘치는 대도시 숙소 체크인.",
+      highlight: "비고 만과 시에스 섬 조망 & 활기찬 항구 도시 진입"
+    },
+    {
+      day: "Day 12 (11/20)",
+      date: "2026-11-20",
+      title: "비고 구시가지 & 카스트로 요새 탐방 (비고 2일 체류)",
+      distance: "도보 관광 약 6 km",
+      type: "tour",
+      stay: "비고 중심가 호텔/숙소",
+      description: "구시가지 카스코 베호(Casco Vello) 산책, 몬테 도 카스트로(O Castro) 요새에서 비고 항 전경 감상. 유명 굴 거리(Rúa da Pescadería)에서 신선한 갈리시아산 생굴과 알바리뇨(Albariño) 화이트 와인 페어링 즐기기.",
+      highlight: "카스트로 요새 전망 & 신선한 갈리시아 굴 거리 미식"
+    },
+    {
+      day: "Day 13 (11/21)",
+      date: "2026-11-21",
+      title: "비고 ~ 레돈델라 (해안길과 중앙길의 합류)",
+      distance: "약 16 km",
+      type: "walk",
+      stay: "레돈델라 공립 알베르게",
+      description: "비고를 출발해 산길과 숲길을 지나 레돈델라(Redondela)에 도착. 포르투갈 내륙 중앙길(Central Route)을 걸어온 전 세계 순례자들과 반갑게 합류하는 상징적인 지점.",
+      highlight: "중앙길 순례자들과의 반가운 만남 & '부엔 카미노!'"
+    },
+    {
+      day: "Day 14 (11/22)",
+      date: "2026-11-22",
+      title: "레돈델라 ~ 폰테삼파이오 ~ 폰테베드라",
+      distance: "약 19 km",
+      type: "walk",
+      stay: "폰테베드라 알베르게/호스텔",
+      description: "나폴레옹 군대를 물리친 유서 깊은 중세 다리 폰테삼파이오(Ponte Sampaio)를 건너 숲길 트레킹. 갈리시아의 주도 폰테베드라(Pontevedra) 도착, 조개껍데기 모양의 성 페레그리나(La Peregrina) 성당 참배.",
+      highlight: "조개껍데기 평면의 순례자 성 페레그리나 성당"
+    },
+    {
+      day: "Day 15 (11/23)",
+      date: "2026-11-23",
+      title: "폰테베드라 ~ 칼다스 데 레스 (온천 마을)",
+      distance: "약 21 km",
+      type: "walk",
+      stay: "칼다스 데 레스 숙소",
+      description: "아름다운 포도밭 터널과 조용한 시골 마을길을 걷습니다. 로마 시대부터 유명한 온천 마을 칼다스 데 레스(Caldas de Reis) 도착. 광장의 천연 유황 온천 족욕 분수대에 발을 담그고 피로를 말끔히 씻어냅니다.",
+      highlight: "마을 공용 온천 족욕탕에서 즐기는 피로 해소"
+    },
+    {
+      day: "Day 16 (11/24)",
+      date: "2026-11-24",
+      title: "칼다스 데 레스 ~ 발가 ~ 파드론 (성 야고보 전설의 땅)",
+      distance: "약 19 km",
+      type: "walk",
+      stay: "파드론 알베르게/숙소",
+      description: "갈리시아 전원 풍경을 지나 성 야고보의 유해를 실은 배가 도착했던 성지 파드론(Padrón) 도착. 산티아고 성당의 '페드론(배를 묶었던 돌)' 확인. 스페인 전통 꽈리고추 튀김(Pimientos de Padrón) 맛보기.",
+      highlight: "성 야고보 유골의 기원 파드론 도착 & 피미엔토스 고추 튀김"
+    },
+    {
+      day: "Day 17 (11/25)",
+      date: "2026-11-25",
+      title: "파드론 ~ 산티아고 데 콤포스텔라 (영광의 완주 입성!)",
+      distance: "약 24 km",
+      type: "walk",
+      stay: "산티아고 시내 부티크 호텔",
+      description: "마지막 걸음! 멀리 대성당 첨탑이 보이는 환희의 언덕(Monte do Gozo)을 지나 대망의 산티아고 대성당 앞 오브라도이로(Obradoiro) 광장에 마침내 입성! 배낭을 바닥에 내려놓고 성당을 올려다보는 순간 뜨거운 감격. 순례자 사무소에서 완주 인증서(Compostela) 수령.",
+      highlight: "★ 240km 대장정 완주! 오브라도이로 광장의 벅찬 감동 & 콤포스텔라 인증서"
+    },
+    {
+      day: "Day 18 (11/26)",
+      date: "2026-11-26",
+      title: "산티아고 대성당 순례자 미사 & 축하 만찬 (산티아고 2일 체류)",
+      distance: "시내 관광 약 5 km",
+      type: "tour",
+      stay: "산티아고 시내 부티크 호텔",
+      description: "낮 12시 산티아고 대성당 공식 순례자 미사 참배. 거대한 은제 향로가 성당 공중을 가르는 보타푸메이로(Botafumeiro) 장관 관람. 순례길 동행들과의 감격스러운 완주 축하 갈리시아 문어 요리(Pulpo a la Gallega) 만찬.",
+      highlight: "대성당 보타푸메이로(거대 향로) 순례자 미사 & 갈리시아 풀포 만찬"
+    },
+    {
+      day: "Day 19 (11/27)",
+      date: "2026-11-27",
+      title: "세상의 끝 피스테라(Finisterre) & 무시아(Muxía) 당일 투어",
+      distance: "투어 버스 당일 여행",
+      type: "tour",
+      stay: "산티아고 시내 부티크 호텔",
+      description: "중세 순례자들이 세상의 끝이라 믿었던 피스테라 곶(0.00 km 표지석) 방문. 끝없이 펼쳐진 대서양 바다를 바라보며 낡은 부츠나 조개껍데기를 마주하고 새로운 다짐. 파도가 부서지는 성스러운 무시아 성모 성당 방문.",
+      highlight: "대서양 절벽 끝 '0.00 km' 표지석에서 완성하는 순례의 마침표"
+    },
+    {
+      day: "Day 20 (11/28)",
+      date: "2026-11-28",
+      title: "산티아고 공항 출발 & 유럽 경유 (귀국 1일차)",
+      distance: "비행 약 15시간",
+      type: "flight",
+      stay: "기내 1박",
+      description: "산티아고 데 콤포스텔라(SCQ) 공항 출발, 마드리드/파리 경유하여 인천행 국제선 탑승. 3주간의 잊지 못할 추억과 단단해진 내면을 가슴에 품고 귀국길에 오릅니다.",
+      highlight: "3주간의 여정을 가슴에 품고 귀국길"
+    },
+    {
+      day: "Day 21 (11/29)",
+      date: "2026-11-29",
+      title: "인천 국제공항 무사 귀국 (귀국 2일차)",
+      distance: "귀가",
+      type: "flight",
+      stay: "스위트 홈",
+      description: "인천 국제공항 무사 도착. 짐 정리 및 사랑하는 가족/지인들과의 반가운 재회. 순례길에서 얻은 맑은 에너지로 앞으로의 일상과 커리어 도약을 당차게 시작!",
+      highlight: "무사 귀국 완료! 더 성숙하고 당당해진 나로서의 새로운 출발"
     }
   ],
-  memos: "에너지관리기사 시험 직후 지친 심신을 리셋하고 인생의 새로운 챕터를 준비하는 나만의 성찰 트레킹.\n'부엔 카미노(Buen Camino)!'를 마음에 품고 욕심 없이 한 걸음씩 걷기."
+  memos: "에너지관리기사 시험 직후 지친 심신을 완벽히 리셋하고 3주간 나 자신과 깊게 대화한 성찰의 시간.\n'부엔 카미노(Buen Camino)!'에서 배운 한 걸음의 위대함을 품고 앞으로 나아가기."
 };
 
-// 3대 SNS & 퍼스널 브랜딩 통합 관리 초기 데이터 (LinkedIn, Instagram, Brunch 실제 데이터 반영)
 const INITIAL_SNS_DATA = {
   snsDataVersion: 2,
   channels: [
@@ -755,20 +942,22 @@ const INITIAL_EXAM_SCHEDULES = [
 ];
 
 // 2. 문화생활 & 밴드 합주 일정
+// 2. 문화생활 & 밴드 합주 일정
 const INITIAL_BAND_SCHEDULES = [
   {
     id: "band-1",
     type: "rehearsal", // rehearsal (합주) or performance (공연 관람)
-    title: "정기 밴드 합주 (10월 1차)",
-    date: "2026-10-04T16:00",
-    location: "홍대 사운드스페이스 합주실 B룸",
+    title: "정기 밴드 합주 (10월 2차 - 호랑이 합주실)",
+    date: "2026-10-10T16:00",
+    location: "홍대 호랑이 합주실",
     status: "scheduled",
     setlist: [
+      { song: "제제로감 (廻廻奇譚 / Eve)", key: "C# Minor / E Major", tempo: "185 BPM", notes: "★ 오늘 합주 메인 집중 곡 - 인트로 베이스 슬랩 & 후렴구 드럼/기타 질주감 싱크 맞추기" },
       { song: "한 페이지가 될 수 있게 (DAY6)", key: "D Major", tempo: "165 BPM", notes: "브릿지 솔로 싱코페이션 타이밍 집중" },
       { song: "스물다섯, 스물하나 (자우림)", key: "G Major", tempo: "92 BPM", notes: "2절 빌드업 다이내믹스 조절" },
       { song: "Hype Boy (Band Ver.)", key: "E Major", tempo: "120 BPM", notes: "인트로 베이스 그루브 & 드럼 킥 맞추기" }
     ],
-    memos: "합주 15분 전 도착하여 튜닝 완료하기. 영상 녹화용 삼각대 지참."
+    memos: "홍대 호랑이 합주실 15분 전 도착하여 튜닝 완료하기. 메인 합주곡 '제제로감' 템포 185 BPM 메트로놈 체크 및 삼각대 촬영 준비."
   },
   {
     id: "band-2",
@@ -795,7 +984,60 @@ const INITIAL_BAND_SCHEDULES = [
   }
 ];
 
-// 3. 에너지관리기사 실기 핵심 공식 치트시트 & 데일리 기출 문제
+// 3-B. 에너지관리기사 실기 D-40 일자별 학습 플래너 (2026-09-28 ~ 2026-11-07)
+const INITIAL_ENERGY_STUDY_PLAN = [
+  // ── 1단계: 핵심 계산 공식 & 기본 기출 (09/28 ~ 10/11, 14일간) ──
+  { id: "ep-1", date: "2026-09-28", dday: "D-40", phase: 1, phaseName: "1단계: 핵심 계산 공식 & 기본 기출", topic: "공기비 & 연소가스량 계산", task: "공기비(m), 이론/실제 공기량(A0, A), 연소가스량 산출 공식 암기 & 예제 5제 풀이", isFinalWeek: false, done: false },
+  { id: "ep-2", date: "2026-09-29", dday: "D-39", phase: 1, phaseName: "1단계: 핵심 계산 공식 & 기본 기출", topic: "보일러 열효율 계산", task: "보일러 입출열 효율(정압시험법, 입출열법) 및 연료 소비량 계산 기출 풀이", isFinalWeek: false, done: false },
+  { id: "ep-3", date: "2026-09-30", dday: "D-38", phase: 1, phaseName: "1단계: 핵심 계산 공식 & 기본 기출", topic: "상당증발량 & 보일러 마력", task: "상당증발량(Ge)과 보일러 마력(BHP) 환산 및 전열면적 산정 기출 풀이", isFinalWeek: false, done: false },
+  { id: "ep-4", date: "2026-10-01", dday: "D-37", phase: 1, phaseName: "1단계: 핵심 계산 공식 & 기본 기출", topic: "굴뚝 이론 통풍력", task: "외기/배기가스 절대온도에 따른 이론 통풍력(Z) 계산 및 통풍저항 마스터", isFinalWeek: false, done: false },
+  { id: "ep-5", date: "2026-10-02", dday: "D-36", phase: 1, phaseName: "1단계: 핵심 계산 공식 & 기본 기출", topic: "열전달 및 열관류율", task: "전도·대류·복사 3요소 및 원통관/평면벽 열관류율(K), 열손실량(Q) 계산", isFinalWeek: false, done: false },
+  { id: "ep-6", date: "2026-10-03", dday: "D-35", phase: 1, phaseName: "1단계: 핵심 계산 공식 & 기본 기출", topic: "증기트랩 & 열회수 장치", task: "증기트랩 용량 산정, 플래시 증기 회수율 및 절탄기/공기예열기 열정산", isFinalWeek: false, done: false },
+  { id: "ep-7", date: "2026-10-04", dday: "D-34", phase: 1, phaseName: "1단계: 핵심 계산 공식 & 기본 기출", topic: "1주차 계산 공식 백지 복습", task: "1~6일차 공식 백지 암기 테스트 & 보일러 본체 구조 핵심 단답 기출 정리", isFinalWeek: false, done: false },
+  { id: "ep-8", date: "2026-10-05", dday: "D-33", phase: 1, phaseName: "1단계: 핵심 계산 공식 & 기본 기출", topic: "배기가스 분석 & 손실열량", task: "배기가스 분석(O2, CO2, CO 농도) 및 불완전연소 손실열량 계산식 마스터", isFinalWeek: false, done: false },
+  { id: "ep-9", date: "2026-10-06", dday: "D-32", phase: 1, phaseName: "1단계: 핵심 계산 공식 & 기본 기출", topic: "보일러 급수처리 기술", task: "급수 경도, 용존산소 탈기, 화학세정 및 캐리오버/포밍 방지 대책 정리", isFinalWeek: false, done: false },
+  { id: "ep-10", date: "2026-10-07", dday: "D-31", phase: 1, phaseName: "1단계: 핵심 계산 공식 & 기본 기출", topic: "보일러 자동제어 계통", task: "2원소/3원소 급수제어, 연소제어(ACR), 시퀀스/인터록 제어 단답 정리", isFinalWeek: false, done: false },
+  { id: "ep-11", date: "2026-10-08", dday: "D-30", phase: 1, phaseName: "1단계: 핵심 계산 공식 & 기본 기출", topic: "연소장치 & 버너 구조", task: "고체/액체/기체 연료 연소장치(스토커, 버너), 화염 검출기(플레임아이) 원리", isFinalWeek: false, done: false },
+  { id: "ep-12", date: "2026-10-09", dday: "D-29", phase: 1, phaseName: "1단계: 핵심 계산 공식 & 기본 기출", topic: "단열재 경제적 두께 산정", task: "보온 단열재 경제적 두께 계산 및 배관 표면 방열 손실량 계산 실전 풀이", isFinalWeek: false, done: false },
+  { id: "ep-13", date: "2026-10-10", dday: "D-28", phase: 1, phaseName: "1단계: 핵심 계산 공식 & 기본 기출", topic: "안전밸브 분출량 & 법정수칙", task: "안전밸브 분출용량 계산식 암기 및 보일러 취급·유지관리 법정 안전수칙", isFinalWeek: false, done: false },
+  { id: "ep-14", date: "2026-10-11", dday: "D-27", phase: 1, phaseName: "1단계: 핵심 계산 공식 & 기본 기출", topic: "1단계 종합 모의 계산 테스트", task: "연소/열정산 종합 10대 계산 유형 모의 테스트 & 약점 파트 집중 오답 정리", isFinalWeek: false, done: false },
+
+  // ── 2단계: 과년도 5개년 실기 기출 집중 풀이 (10/12 ~ 10/24, 13일간) ──
+  { id: "ep-15", date: "2026-10-12", dday: "D-26", phase: 2, phaseName: "2단계: 과년도 5개년 기출 집중", topic: "2019년 1회 실기 기출", task: "2019년 1회 기출문제 전 문항 실전 풀이 & 서술형 단답 채점 기준 분석", isFinalWeek: false, done: false },
+  { id: "ep-16", date: "2026-10-13", dday: "D-25", phase: 2, phaseName: "2단계: 과년도 5개년 기출 집중", topic: "2019년 2회 실기 기출", task: "2019년 2회 기출 풀이, 열효율 및 배기가스 손실 계산문제 재풀이", isFinalWeek: false, done: false },
+  { id: "ep-17", date: "2026-10-14", dday: "D-24", phase: 2, phaseName: "2단계: 과년도 5개년 기출 집중", topic: "2019년 3회 실기 기출", task: "2019년 3회 기출 풀이, 배관 계통도 및 계측제어 기호 완벽 암기", isFinalWeek: false, done: false },
+  { id: "ep-18", date: "2026-10-15", dday: "D-23", phase: 2, phaseName: "2단계: 과년도 5개년 기출 집중", topic: "2020년 1회 실기 기출", task: "2020년 1회 기출 풀이, 연소 계산 공식 적용 실수 교정 및 오답 노트", isFinalWeek: false, done: false },
+  { id: "ep-19", date: "2026-10-16", dday: "D-22", phase: 2, phaseName: "2단계: 과년도 5개년 기출 집중", topic: "2020년 2회 실기 기출", task: "2020년 2회 기출 풀이, 에너지이용합리화법 법령 및 에너지 진단 기준", isFinalWeek: false, done: false },
+  { id: "ep-20", date: "2026-10-17", dday: "D-21", phase: 2, phaseName: "2단계: 과년도 5개년 기출 집중", topic: "2020년 3회 실기 기출", task: "2020년 3회 기출 풀이, 환산증발량 심화 유형 및 통풍력 복습", isFinalWeek: false, done: false },
+  { id: "ep-21", date: "2026-10-18", dday: "D-20", phase: 2, phaseName: "2단계: 과년도 5개년 기출 집중", topic: "2021년 1회 실기 기출", task: "2021년 1회 기출 풀이, 증기 보일러 입열 및 출열 분석 문제 마스터", isFinalWeek: false, done: false },
+  { id: "ep-22", date: "2026-10-19", dday: "D-19", phase: 2, phaseName: "2단계: 과년도 5개년 기출 집중", topic: "2021년 2회 실기 기출", task: "2021년 2회 기출 풀이, 수격작용(Water Hammering) 방지 대책 단답 정리", isFinalWeek: false, done: false },
+  { id: "ep-23", date: "2026-10-20", dday: "D-18", phase: 2, phaseName: "2단계: 과년도 5개년 기출 집중", topic: "2021년 3회 실기 기출", task: "2021년 3회 기출 풀이, 온수보일러 순환 수두 및 팽창탱크 용량 계산", isFinalWeek: false, done: false },
+  { id: "ep-24", date: "2026-10-21", dday: "D-17", phase: 2, phaseName: "2단계: 과년도 5개년 기출 집중", topic: "2022년 1회 실기 기출", task: "2022년 1회 기출 풀이, 배기가스 O2 농도 기반 공기비 역산출 문제", isFinalWeek: false, done: false },
+  { id: "ep-25", date: "2026-10-22", dday: "D-16", phase: 2, phaseName: "2단계: 과년도 5개년 기출 집중", topic: "2022년 2회 실기 기출", task: "2022년 2회 기출 풀이, 집진장치 효율(원심력, 여과, 전기집진기) 비교", isFinalWeek: false, done: false },
+  { id: "ep-26", date: "2026-10-23", dday: "D-15", phase: 2, phaseName: "2단계: 과년도 5개년 기출 집중", topic: "2022년 3회 실기 기출", task: "2022년 3회 기출 풀이, 연관보일러 vs 수관보일러 구조적 장단점 단답", isFinalWeek: false, done: false },
+  { id: "ep-27", date: "2026-10-24", dday: "D-14", phase: 2, phaseName: "2단계: 과년도 5개년 기출 집중", topic: "2023년 1·2회 실기 기출", task: "2023년 최신 기출 2회분 연속 풀이 & 최근 출제 경향성 분석", isFinalWeek: false, done: false },
+
+  // ── 3단계: 고난도 계산 복합 유형 & 공식 암기 총정리 (10/25 ~ 10/31, 7일간) ──
+  { id: "ep-28", date: "2026-10-25", dday: "D-13", phase: 3, phaseName: "3단계: 고난도 계산 & 단답 마스터", topic: "최신 2023 3회 + 2024 기출", task: "2023년 3회 및 2024년 1회 최신 기출문제 정밀 풀이 및 채점", isFinalWeek: false, done: false },
+  { id: "ep-29", date: "2026-10-26", dday: "D-12", phase: 3, phaseName: "3단계: 고난도 계산 & 단답 마스터", topic: "복합 열정산 수지표 정복", task: "보일러+절탄기+공기예열기 통합 열정산 수지표 고난도 문제 정복", isFinalWeek: false, done: false },
+  { id: "ep-30", date: "2026-10-27", dday: "D-11", phase: 3, phaseName: "3단계: 고난도 계산 & 단답 마스터", topic: "복합 연료 혼소 연소 계산", task: "기체+액체 연료 혼소 시 평균 저위발열량, 이론공기량 산출 심화 풀이", isFinalWeek: false, done: false },
+  { id: "ep-31", date: "2026-10-28", dday: "D-10", phase: 3, phaseName: "3단계: 고난도 계산 & 단답 마스터", topic: "열교환기 LMTD 심화", task: "대향류/병행류 대수평균온도차(LMTD) 및 전열효율 계산 심화 마스터", isFinalWeek: false, done: false },
+  { id: "ep-32", date: "2026-10-29", dday: "D-9", phase: 3, phaseName: "3단계: 고난도 계산 & 단답 마스터", topic: "압력용기 두께 & 경판 강도", task: "원통형 동판/경판 두께 계산식(부식여유, 용접효율 적용) 암기 및 풀이", isFinalWeek: false, done: false },
+  { id: "ep-33", date: "2026-10-30", dday: "D-8", phase: 3, phaseName: "3단계: 고난도 계산 & 단답 마스터", topic: "빈출 단답 암기 100선 (1회독)", task: "안전사고 대책, 스케일 장해, 역화/소화 원인 등 단답형 100선 1회독 완독", isFinalWeek: false, done: false },
+  { id: "ep-34", date: "2026-10-31", dday: "D-7", phase: 3, phaseName: "3단계: 고난도 계산 & 단답 마스터", topic: "핵심 공식 20선 백지 테스트", task: "에너지관리기사 전 범위 핵심 계산 공식 20선 백지 인출 테스트 100점 달성", isFinalWeek: false, done: false },
+
+  // ── 4단계: ⭐ [마지막 7일 파이널] 연습문제 & 기출문제 무한 반복 모드 (11/01 ~ 11/06) ──
+  { id: "ep-35", date: "2026-11-01", dday: "D-6", phase: 4, phaseName: "4단계: [마지막 7일] 연습 & 기출 무한 반복", topic: "파이널 Day 1: 빈출 계산 20선 반복", task: "★ [마지막 7일 반복] 2019~2024년 최다 빈출 계산문제 20선 2회독 반복 풀이 (풀이 과정 정밀 표기)", isFinalWeek: true, done: false },
+  { id: "ep-36", date: "2026-11-02", dday: "D-5", phase: 4, phaseName: "4단계: [마지막 7일] 연습 & 기출 무한 반복", topic: "파이널 Day 2: 단답형 50제 무한 반복", task: "★ [마지막 7일 반복] 핵심 단답형 50문항 키워드 연상 암기 무한 반복 훈련 (배점 감점 요인 방지)", isFinalWeek: true, done: false },
+  { id: "ep-37", date: "2026-11-03", dday: "D-4", phase: 4, phaseName: "4단계: [마지막 7일] 연습 & 기출 무한 반복", topic: "파이널 Day 3: 실전 모의고사 1회차", task: "★ [실전 모의고사 1회] 2시간 실제 시험 시간 준수 풀이 & 연습문제 15제 추가 풀이", isFinalWeek: true, done: false },
+  { id: "ep-38", date: "2026-11-04", dday: "D-4", phase: 4, phaseName: "4단계: [마지막 7일] 연습 & 기출 무한 반복", topic: "파이널 Day 4: 실전 모의고사 2회차", task: "★ [실전 모의고사 2회] 계산 실수 제로화 훈련, 소수점 처리/단위 표기 집중 점검 & 연습문제 반복", isFinalWeek: true, done: false },
+  { id: "ep-39", date: "2026-11-05", dday: "D-2", phase: 4, phaseName: "4단계: [마지막 7일] 연습 & 기출 무한 반복", topic: "파이널 Day 5: 오답노트 & 공식 3회독", task: "★ [전 범위 총정리] 40일간 작성한 개인 오답노트 & 나만의 요약집 3회독 반복 완독", isFinalWeek: true, done: false },
+  { id: "ep-40", date: "2026-11-06", dday: "D-1", phase: 4, phaseName: "4단계: [마지막 7일] 연습 & 기출 무한 반복", topic: "파이널 Day 6: 전야 마인드컨트롤 & 준비물", task: "★ [시험 전야] 필수 공식 10개 최종 리마인드, 신분증·수험표·공학용계산기(리셋 확인) 지참, 컨디션 조절", isFinalWeek: true, done: false },
+
+  // ── D-Day (11/07) ──
+  { id: "ep-41", date: "2026-11-07", dday: "D-Day", phase: 4, phaseName: "4단계: [마지막 7일] 연습 & 기출 무한 반복", topic: "★ 2026년 정기 기사 실기 시험 당일!", task: "오전 09:00 실기 필답형 완벽 응시! 침착하고 정확하게 답안 작성하여 당당히 최종 합격 쟁취!", isFinalWeek: true, done: false }
+];
+
 const INITIAL_ENERGY_FORMULAS = [
   {
     id: "form-1",
@@ -1023,25 +1265,38 @@ class SyncManager {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
-        const upgradedSns = (parsed.sns && parsed.sns.snsDataVersion === 2)
+        const upgradedCamino = (parsed.camino && parsed.camino.caminoDataVersion === 3)
+          ? parsed.camino
+          : JSON.parse(JSON.stringify(INITIAL_CAMINO_DATA));
+        const upgradedBands = (parsed.bands && parsed.bands.length > 0 && parsed.bands[0].date === "2026-10-10 16:00")
+          ? parsed.bands
+          : JSON.parse(JSON.stringify(INITIAL_BAND_SCHEDULES));
+        const upgradedEnergyPlan = (parsed.energyPlan && parsed.energyPlan.length === INITIAL_ENERGY_STUDY_PLAN.length)
+          ? parsed.energyPlan
+          : JSON.parse(JSON.stringify(INITIAL_ENERGY_STUDY_PLAN));
+        const upgradedSns = (parsed.sns && parsed.sns.snsDataVersion === 3)
           ? parsed.sns
           : JSON.parse(JSON.stringify(INITIAL_SNS_DATA));
         const upgradedPortfolio = (parsed.portfolio && parsed.portfolio.portfolioDataVersion === 2)
           ? parsed.portfolio
           : JSON.parse(JSON.stringify(INITIAL_PORTFOLIO_DATA));
-        if (!parsed.sns || parsed.sns.snsDataVersion !== 2 || !parsed.portfolio || parsed.portfolio.portfolioDataVersion !== 2) {
-          parsed.sns = upgradedSns;
-          parsed.portfolio = upgradedPortfolio;
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
-        }
+
+        parsed.camino = upgradedCamino;
+        parsed.bands = upgradedBands;
+        parsed.energyPlan = upgradedEnergyPlan;
+        parsed.sns = upgradedSns;
+        parsed.portfolio = upgradedPortfolio;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
+
         return {
           exams: parsed.exams || INITIAL_EXAM_SCHEDULES,
-          bands: parsed.bands || INITIAL_BAND_SCHEDULES,
+          bands: upgradedBands,
           formulas: parsed.formulas || INITIAL_ENERGY_FORMULAS,
           questions: parsed.questions || INITIAL_ENERGY_QUESTIONS,
+          energyPlan: upgradedEnergyPlan,
           externalDashboards: parsed.externalDashboards || INITIAL_EXTERNAL_DASHBOARDS,
           dischargeDate: parsed.dischargeDate || INITIAL_DISCHARGE_DATE,
-          camino: parsed.camino || INITIAL_CAMINO_DATA,
+          camino: upgradedCamino,
           sns: upgradedSns,
           portfolio: upgradedPortfolio,
           theme: parsed.theme || 'dark'
@@ -1056,6 +1311,7 @@ class SyncManager {
       bands: INITIAL_BAND_SCHEDULES,
       formulas: INITIAL_ENERGY_FORMULAS,
       questions: INITIAL_ENERGY_QUESTIONS,
+      energyPlan: INITIAL_ENERGY_STUDY_PLAN,
       externalDashboards: INITIAL_EXTERNAL_DASHBOARDS,
       dischargeDate: INITIAL_DISCHARGE_DATE,
       camino: INITIAL_CAMINO_DATA,
@@ -1265,6 +1521,9 @@ let state = {
   bands: [],
   formulas: [],
   questions: [],
+  energyPlan: INITIAL_ENERGY_STUDY_PLAN,
+  energyStudySubtab: 'plan', // 'plan', 'daily', 'formulas', 'upload' (일자별 플래너 기본)
+  energyPlanPhaseFilter: 'all',
   externalDashboards: [],
   dischargeDate: INITIAL_DISCHARGE_DATE,
   camino: INITIAL_CAMINO_DATA,
@@ -1280,8 +1539,8 @@ let state = {
   awardFilter: 'all',
   careerFilter: 'all',
   portfolioSearch: '',
-  energyStudySubtab: 'daily', // 'daily', 'formulas', 'upload'
-  currentQuestionIndex: 0
+  currentQuestionIndex: 0,
+  brunchLastSync: "2026-09-28 09:00"
 };
 
 // ==========================================================================
@@ -1503,14 +1762,14 @@ function renderOverviewTab() {
     })),
     {
       id: 'camino-milestone',
-      title: '산티아고 순례길 트레킹 출발',
-      targetDate: camino.startDate || '2026-11-07',
-      endDate: camino.endDate || '2026-11-09',
-      category: '순례/힐링',
+      title: '산티아고 순례길 까미노 드 포르투 출발',
+      targetDate: camino.startDate || '2026-11-09',
+      endDate: camino.endDate || '2026-11-29',
+      category: '순례/3주',
       icon: 'fa-person-hiking',
       type: 'camino',
       tab: 'camino',
-      location: '스페인 사리아'
+      location: '스페인 포르투 ~ 산티아고'
     },
     {
       id: 'discharge-milestone',
@@ -1629,14 +1888,14 @@ function renderOverviewTab() {
             <span class="px-2.5 py-0.5 bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[11px] font-bold rounded-full flex items-center gap-1.5">
               <i class="fa-solid fa-compass text-amber-400"></i> Buen Camino!
             </span>
-            <span class="text-[11px] text-slate-400">11.07 ~ 11.09</span>
+            <span class="text-[11px] text-amber-300 font-bold">11.09 ~ 11.29 (3주간)</span>
           </div>
           <h2 class="text-xl font-black text-white tracking-tight flex items-center gap-2">
             <i class="fa-solid fa-person-hiking text-amber-400 text-lg"></i>
-            <span>산티아고 순례길</span>
+            <span>산티아고 순례길 (포르투 코스)</span>
           </h2>
           <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">
-            에너지 시험 직후 떠나는 나만의 성찰과 힐링. 스페인 갈리시아 길 걷기.
+            에너지 시험 후 떠나는 3주 대장정. 출입국 각 2일, 거점 4대 도시 각 2일 체류 관광.
           </p>
         </div>
 
@@ -1775,6 +2034,225 @@ function renderOverviewTab() {
       ` : ''}
     </div>
 
+
+    <!-- ======================================================================= -->
+    <!-- ⭐ [신규 추가] 🏆 연계형 커리어 패스 & 역량 성장 로드맵 (Connected Career Path) ⭐ -->
+    <!-- ======================================================================= -->
+    <div class="glass-panel rounded-2xl p-6 sm:p-7 mb-8 border border-amber-500/40 bg-gradient-to-br from-slate-900 via-slate-900 to-amber-950/20 shadow-2xl relative overflow-hidden">
+      <div class="absolute -right-10 -bottom-10 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Section Header -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 border-b border-slate-800 pb-5 relative z-10">
+        <div class="flex items-center gap-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center text-2xl shadow-lg shadow-amber-500/10">
+            <i class="fa-solid fa-trophy"></i>
+          </div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2">
+              <h2 class="text-xl font-black text-white tracking-tight">
+                연계형 커리어 패스 & 역량 성장 로드맵 (Connected Career Path)
+              </h2>
+              <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold">
+                수상(23건) ⮂ 주요 경력(15건) 유기적 연계
+              </span>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">
+              삼성전자 제조기술 사내 수상과 자격 취득, 사내 핵심 TF 활동 및 대외 공공·문학 기여가 상호 연계된 4대 핵심 역량 트랙입니다.
+            </p>
+          </div>
+        </div>
+
+        <!-- Quick Jump Buttons to Full Details -->
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="window.app.switchTab('awards')" class="px-3.5 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 text-xs font-bold transition flex items-center gap-1.5">
+            <i class="fa-solid fa-award"></i>
+            <span>수상 내역 (23건)</span>
+          </button>
+          <button onclick="window.app.switchTab('careers')" class="px-3.5 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 text-xs font-bold transition flex items-center gap-1.5">
+            <i class="fa-solid fa-briefcase"></i>
+            <span>주요 경력 (15건)</span>
+          </button>
+          <button onclick="window.app.switchTab('portfolio')" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold transition flex items-center gap-1.5">
+            <i class="fa-solid fa-timeline"></i>
+            <span>통합 타임라인</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 4 Interconnected Career Track Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 relative z-10">
+        
+        <!-- Track 1: 환경안전 & 법정 전문기술 리더십 -->
+        <div class="p-5 rounded-2xl bg-slate-800/70 border border-emerald-500/30 hover:border-emerald-500/60 transition group flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm font-bold">
+                  <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h3 class="text-base font-bold text-white group-hover:text-emerald-300 transition">
+                  1. 환경안전 & 법정기술 관리자 패스
+                </h3>
+              </div>
+              <span class="text-[11px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 font-bold">
+                EHS 리더십
+              </span>
+            </div>
+
+            <!-- Interconnection Flow -->
+            <div class="space-y-2.5 text-xs">
+              <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                <span class="text-amber-400 font-bold block mb-1">🏆 사내 수상 연계:</span>
+                <span class="text-slate-300 leading-relaxed">
+                  안전그룹장 표창 (기본지키기 서포터즈 1~4기 4연속 수상), 환경안전공모전 은상, 세이프 인플루언서 즉시상
+                </span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                <span class="text-sky-400 font-bold block mb-1">⚡ 직무 & 자격 역량 확장:</span>
+                <span class="text-slate-300 leading-relaxed">
+                  <b>위험물기능장</b> 취득 완료 ➔ <b>2026 에너지관리기사 실기 응시</b>로 연결되어 산업 현장 최고 수준의 법정 안전관리자 역량 완성
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
+            <span class="text-slate-400">서포터즈 4연속 수상 ➔ 법정기술 선임 마스터</span>
+            <button onclick="window.app.switchTab('awards')" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-1">
+              관련 수상 6건 보기 <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Track 2: 반도체 첨단제조기술 & 공정 생산성 혁신 -->
+        <div class="p-5 rounded-2xl bg-slate-800/70 border border-blue-500/30 hover:border-blue-500/60 transition group flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center text-sm font-bold">
+                  <i class="fa-solid fa-microchip"></i>
+                </div>
+                <h3 class="text-base font-bold text-white group-hover:text-blue-300 transition">
+                  2. 반도체 첨단제조 & 공정혁신 패스
+                </h3>
+              </div>
+              <span class="text-[11px] px-2 py-0.5 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20 font-bold">
+                공정 엔지니어링
+              </span>
+            </div>
+
+            <!-- Interconnection Flow -->
+            <div class="space-y-2.5 text-xs">
+              <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                <span class="text-amber-400 font-bold block mb-1">🏆 사내 수상 연계:</span>
+                <span class="text-slate-300 leading-relaxed">
+                  슈퍼루키 프로젝트 우수(제조센터장), 제조시너지 협업 IDEA 최다발굴, Hidden Worker 즉시상, DigNoel 4회 수상
+                </span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                <span class="text-sky-400 font-bold block mb-1">⚡ 직무 & 자격 역량 확장:</span>
+                <span class="text-slate-300 leading-relaxed">
+                  삼성전자 DIFFUSION 기술팀 현장 문제 해결 ➔ <b>방송통신대학교 산업공학과 학사 취득</b>으로 이어져 공정 데이터 최적화 엔지니어로 진화
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
+            <span class="text-slate-400">슈퍼루키 입증 ➔ 생산성 시너지 혁신 리딩</span>
+            <button onclick="window.app.switchTab('awards')" class="text-blue-400 hover:text-blue-300 font-bold flex items-center gap-1">
+              관련 수상 8건 보기 <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Track 3: 직무 교육·공정기술 전수 & 사내 조직문화 리더십 -->
+        <div class="p-5 rounded-2xl bg-slate-800/70 border border-purple-500/30 hover:border-purple-500/60 transition group flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center text-sm font-bold">
+                  <i class="fa-solid fa-users-gear"></i>
+                </div>
+                <h3 class="text-base font-bold text-white group-hover:text-purple-300 transition">
+                  3. 직무 교육 전수 & 사내 TF 리더십 패스
+                </h3>
+              </div>
+              <span class="text-[11px] px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/20 font-bold">
+                멘토링 & 조직혁신
+              </span>
+            </div>
+
+            <!-- Interconnection Flow -->
+            <div class="space-y-2.5 text-xs">
+              <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                <span class="text-amber-400 font-bold block mb-1">🏆 사내 수상 연계:</span>
+                <span class="text-slate-300 leading-relaxed">
+                  DIFFUSION 기술팀 DS경진대회 최다 아이디어 우수, 사내 칭찬 감사페스티벌, 조직 활성화 기여
+                </span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                <span class="text-sky-400 font-bold block mb-1">⚡ 직무 & 자격 역량 확장:</span>
+                <span class="text-slate-300 leading-relaxed">
+                  후배 엔지니어 직무 멘토링 교수 ➔ <b>사내 인사·보안·안전 핵심 TF 및 MZ자문단</b> 핵심 멤버로 참여하여 건강한 사내 소통 문화 정립
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
+            <span class="text-slate-400">사내 핵심 TF 5개년 연속 리딩 멘토</span>
+            <button onclick="window.app.switchTab('careers')" class="text-purple-400 hover:text-purple-300 font-bold flex items-center gap-1">
+              관련 경력 5건 보기 <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Track 4: 대외 공공 기여 & 문학·퍼스널 브랜딩 -->
+        <div class="p-5 rounded-2xl bg-slate-800/70 border border-pink-500/30 hover:border-pink-500/60 transition group flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg bg-pink-500/20 text-pink-400 flex items-center justify-center text-sm font-bold">
+                  <i class="fa-solid fa-feather-pointed"></i>
+                </div>
+                <h3 class="text-base font-bold text-white group-hover:text-pink-300 transition">
+                  4. 대외 공공기여 & 인문학 브랜딩 패스
+                </h3>
+              </div>
+              <span class="text-[11px] px-2 py-0.5 rounded bg-pink-500/10 text-pink-300 border border-pink-500/20 font-bold">
+                공공정책 & 작가
+              </span>
+            </div>
+
+            <!-- Interconnection Flow -->
+            <div class="space-y-2.5 text-xs">
+              <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                <span class="text-amber-400 font-bold block mb-1">🏆 대외 수상 연계:</span>
+                <span class="text-slate-300 leading-relaxed">
+                  <b>문해 글짓기 대상 (국회 국방위원장상)</b>, 방송통신대 총장 표창 우수상, 화성시 양성평등 공모전 산문 장려상
+                </span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                <span class="text-sky-400 font-bold block mb-1">⚡ 직무 & 공공 역량 확장:</span>
+                <span class="text-slate-300 leading-relaxed">
+                  <b>화성시 청년정책협의체 동탄 분과장 위촉</b> ➔ <b>사회복무요원 성실 복무 만료</b> ➔ <b>브런치 741편 연재 작가(@musimtook)</b>로 사회적 선한 영향력 확산
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
+            <span class="text-slate-400">국회 국방위원장상 대상 ➔ 청년 분과장 & 작가</span>
+            <button onclick="window.app.switchTab('awards')" class="text-pink-400 hover:text-pink-300 font-bold flex items-center gap-1">
+              관련 수상 4건 보기 <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
     <!-- Quick Stats Grid -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
       <div class="glass-panel p-4 rounded-xl border border-slate-700/60 flex items-center gap-4">
@@ -1882,7 +2360,7 @@ function renderOverviewTab() {
             <div class="flex items-center gap-2">
               <i class="fa-solid fa-person-hiking text-amber-400 text-lg"></i>
               <h2 class="text-lg font-bold text-white">산티아고 순례길 여정 브리핑</h2>
-              <span class="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">11/7 ~ 11/9</span>
+              <span class="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">11/9 ~ 11/29 (3주 포르투 코스)</span>
             </div>
             <button onclick="window.app.switchTab('camino')" class="text-xs text-amber-400 hover:text-amber-300 font-medium flex items-center gap-1">
               일정 및 짐싸기 체크 <i class="fa-solid fa-arrow-right"></i>
@@ -2101,12 +2579,13 @@ function formatDateSimple(dateStr) {
 // ==========================================================================
 // 2-B. 산티아고 순례길 Tab (⭐ 신규 추가)
 // ==========================================================================
+// ==========================================================================
 function renderCaminoTab() {
   const container = document.getElementById('tab-content-camino');
   if (!container) return;
 
   const camino = state.camino || INITIAL_CAMINO_DATA;
-  const ddayCamino = calculateDDay(camino.startDate);
+  const ddayCamino = calculateDDay(camino.startDate || '2026-11-09');
   const totalPacking = camino.packingList ? camino.packingList.length : 0;
   const donePacking = camino.packingList ? camino.packingList.filter(p => p.done).length : 0;
   const packPercent = totalPacking > 0 ? Math.round((donePacking / totalPacking) * 100) : 0;
@@ -2118,31 +2597,73 @@ function renderCaminoTab() {
 
       <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
         <div>
-          <div class="flex items-center gap-2 mb-2">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
             <span class="px-3 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold rounded-full flex items-center gap-1.5">
               <i class="fa-solid fa-compass"></i> 부엔 카미노 (Buen Camino)
             </span>
-            <span class="text-xs text-slate-400">2026년 11월 7일 ~ 11월 9일 (3일간)</span>
+            <span class="px-3 py-1 bg-sky-500/20 text-sky-300 border border-sky-500/30 text-xs font-bold rounded-full">
+              까미노 드 포르투 (Camino Portugués)
+            </span>
+            <span class="text-xs text-slate-300 font-medium">2026년 11월 9일 ~ 11월 29일 (3주간 / 21일 코스)</span>
           </div>
           <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
             <i class="fa-solid fa-person-hiking text-amber-400"></i>
-            산티아고 순례길 트레킹 (Camino de Santiago)
+            산티아고 순례길 트레킹 (포르투 코스 3주)
           </h1>
           <p class="text-sm text-slate-300 mt-2 max-w-2xl leading-relaxed">
-            에너지관리기사 시험을 마친 직후, 지친 마음을 비우고 새로운 에너지를 채우는 나만의 순례길.
-            노란 화살표를 따라 한 걸음씩 걷는 힐링과 사색의 여정입니다.
+            에너지관리기사 실기 시험(11/7) 직후 떠나는 나만의 성찰과 힐링의 3주.
+            <b>출국 2일(11/9~10)</b>, <b>귀국 2일(11/28~29)</b>을 확보하고, <b>포르투·비아나 두 카스텔루·비고·산티아고 데 콤포스텔라</b> 등 주요 거점 도시에서 <b>각 2일씩 머무르며 관광과 쉼</b>을 병행하는 맞춤형 포르투갈 해안 & 센트럴 순례길입니다.
           </p>
         </div>
 
         <div class="bg-slate-800/90 border border-amber-400/40 rounded-xl p-4 sm:p-6 text-center min-w-[200px] shadow-lg">
-          <div class="text-xs font-bold text-amber-400 uppercase tracking-wider mb-1">순례길 출발까지</div>
+          <div class="text-xs font-bold text-amber-400 uppercase tracking-wider mb-1">순례길 출발 D-Day</div>
           <div class="text-3xl sm:text-4xl font-black text-amber-300 tracking-tight">
             ${ddayCamino.days >= 0 ? `D-${ddayCamino.days}` : `D+${Math.abs(ddayCamino.days)}`}
           </div>
           <div class="text-xs text-slate-400 mt-1">
-            ${ddayCamino.days >= 0 ? `약 ${Math.floor(ddayCamino.days / 7)}주 후 출발` : '여정 진행 중 / 완료'}
+            ${ddayCamino.days >= 0 ? `2026.11.09 인천 출국 (D-${ddayCamino.days})` : '여정 진행 중 / 완료'}
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Quick Info Cards (21일 3주 핵심 요약) -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div class="glass-panel p-4 rounded-xl border border-sky-500/30 bg-slate-900/60">
+        <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
+          <span>총 일정 규모</span>
+          <i class="fa-solid fa-plane-departure text-sky-400"></i>
+        </div>
+        <div class="text-lg font-bold text-white">3주간 (총 21일)</div>
+        <div class="text-[11px] text-sky-400 mt-1">출국 2일 + 귀국 2일 포함</div>
+      </div>
+
+      <div class="glass-panel p-4 rounded-xl border border-emerald-500/30 bg-slate-900/60">
+        <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
+          <span>거점 도시 2일 체류</span>
+          <i class="fa-solid fa-landmark text-emerald-400"></i>
+        </div>
+        <div class="text-lg font-bold text-emerald-300">4대 거점 각 2일 머무름</div>
+        <div class="text-[11px] text-slate-400 mt-1">포르투·비아나·비고·산티아고</div>
+      </div>
+
+      <div class="glass-panel p-4 rounded-xl border border-amber-500/30 bg-slate-900/60">
+        <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
+          <span>도보 순례 코스</span>
+          <i class="fa-solid fa-route text-amber-400"></i>
+        </div>
+        <div class="text-lg font-bold text-amber-300">${camino.totalDistance || '약 240 km'}</div>
+        <div class="text-[11px] text-slate-400 mt-1">대서양 해안길 + 센트럴 코스</div>
+      </div>
+
+      <div class="glass-panel p-4 rounded-xl border border-purple-500/30 bg-slate-900/60">
+        <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
+          <span>준비물 패킹율</span>
+          <i class="fa-solid fa-backpack text-purple-400"></i>
+        </div>
+        <div class="text-lg font-bold text-white">${packPercent}% (${donePacking}/${totalPacking})</div>
+        <div class="text-[11px] text-slate-400 mt-1">12대 필수 품목 점검 중</div>
       </div>
     </div>
 
@@ -2153,44 +2674,62 @@ function renderCaminoTab() {
       <div class="lg:col-span-2 space-y-6">
         <div class="glass-panel rounded-2xl p-6 border border-slate-700/60">
           <div class="flex items-center justify-between mb-4">
-            <h2 class="text-lg font-bold text-white flex items-center gap-2">
-              <i class="fa-solid fa-route text-amber-400"></i>
-              3일간의 일자별 트레킹 코스 & 알베르게 계획
-            </h2>
-            <span class="text-xs text-slate-400 bg-slate-800 px-2.5 py-1 rounded-lg">
-              총 거리: ${camino.totalDistance}
+            <div>
+              <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-route text-amber-400"></i>
+                21일간의 까미노 드 포르투 여정 & 체류·알베르게 계획
+              </h2>
+              <p class="text-xs text-slate-400 mt-0.5">출국 2일, 귀국 2일 및 거점 도시 2일 체류 관광이 포함된 3주 풀 코스</p>
+            </div>
+            <span class="text-xs text-amber-300 bg-amber-500/10 border border-amber-500/20 px-3 py-1.5 rounded-lg font-bold">
+              총 21일 일정
             </span>
           </div>
 
           <div class="space-y-4">
-            ${camino.itinerary.map((item, idx) => `
-              <div class="p-5 rounded-xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 transition relative">
-                <div class="flex items-start justify-between gap-3 mb-2">
-                  <div class="flex items-center gap-2">
-                    <span class="px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold">
-                      ${item.day}
-                    </span>
-                    <span class="text-xs text-slate-400 font-mono"><i class="fa-solid fa-person-walking"></i> ${item.distance}</span>
+            ${(camino.itinerary || []).map((item, idx) => {
+              let typeBadge = '';
+              let cardBorder = 'border-slate-700/60 hover:border-slate-600';
+              if (item.type === 'flight') {
+                typeBadge = '<span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30 text-[11px] font-bold"><i class="fa-solid fa-plane"></i> 항공 이동</span>';
+                cardBorder = 'border-blue-500/30 bg-blue-950/10';
+              } else if (item.type === 'stay') {
+                typeBadge = '<span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[11px] font-bold"><i class="fa-solid fa-landmark"></i> 거점 관광 & 2일 체류</span>';
+                cardBorder = 'border-emerald-500/40 bg-emerald-950/10';
+              } else {
+                typeBadge = '<span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[11px] font-bold"><i class="fa-solid fa-person-walking"></i> 도보 순례</span>';
+              }
+
+              return `
+                <div class="p-5 rounded-xl bg-slate-800/60 hover:bg-slate-800 border ${cardBorder} transition relative">
+                  <div class="flex items-start justify-between gap-3 mb-2">
+                    <div class="flex flex-wrap items-center gap-2">
+                      <span class="px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold">
+                        ${item.day}
+                      </span>
+                      ${typeBadge}
+                      <span class="text-xs text-slate-400 font-mono"><i class="fa-solid fa-person-walking"></i> ${item.distance}</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-[11px] text-amber-400/90 font-semibold bg-slate-900/80 px-2.5 py-1 rounded-md">
+                        ★ ${item.highlight}
+                      </span>
+                      <button onclick="window.app.openEditCaminoItineraryModal(${idx})" class="text-[11px] text-amber-300 hover:text-white px-2 py-1 rounded bg-amber-500/20 hover:bg-amber-500/40 border border-amber-500/30 transition flex items-center gap-1">
+                        <i class="fa-solid fa-pen-to-square"></i> 수정
+                      </button>
+                    </div>
                   </div>
-                  <div class="flex items-center gap-2">
-                    <span class="text-[11px] text-amber-400/90 font-semibold bg-slate-900/80 px-2.5 py-1 rounded-md">
-                      ★ ${item.highlight}
-                    </span>
-                    <button onclick="window.app.openEditCaminoItineraryModal(${idx})" class="text-[11px] text-amber-300 hover:text-white px-2 py-1 rounded bg-amber-500/20 hover:bg-amber-500/40 border border-amber-500/30 transition flex items-center gap-1">
-                      <i class="fa-solid fa-pen-to-square"></i> 수정
-                    </button>
+
+                  <h3 class="text-base font-bold text-white mb-2">${item.title}</h3>
+                  <p class="text-xs text-slate-300 leading-relaxed mb-3">${item.description}</p>
+
+                  <div class="bg-slate-900/50 p-2.5 rounded-lg border border-slate-800/80 text-xs text-slate-400 flex items-center gap-2">
+                    <i class="fa-solid fa-bed text-amber-400"></i>
+                    <span>숙소/체류: <b class="text-slate-200">${item.albergue || item.stay}</b></span>
                   </div>
                 </div>
-
-                <h3 class="text-base font-bold text-white mb-2">${item.title}</h3>
-                <p class="text-xs text-slate-300 leading-relaxed mb-3">${item.description}</p>
-
-                <div class="bg-slate-900/50 p-2.5 rounded-lg border border-slate-800/80 text-xs text-slate-400 flex items-center gap-2">
-                  <i class="fa-solid fa-bed text-amber-400"></i>
-                  <span>숙소/알베르게: <b class="text-slate-200">${item.albergue}</b></span>
-                </div>
-              </div>
-            `).join('')}
+              `;
+            }).join('')}
           </div>
         </div>
 
@@ -2206,56 +2745,50 @@ function renderCaminoTab() {
             </button>
           </div>
           <textarea id="camino-memos-input" rows="4" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-xs text-white leading-relaxed focus:outline-none focus:border-amber-400">${camino.memos || ''}</textarea>
-          <p class="text-[11px] text-slate-400 mt-2">
-            💡 <b>순례길 팁</b>: 배낭 무게는 본인 몸무게의 10% 이내가 이상적입니다. 물집 방지를 위해 발가락 사이에 바셀린을 바르고 양말을 수시로 말려주세요.
-          </p>
         </div>
       </div>
 
-      <!-- Right 1 Col: 순례자 필수 준비물 체크리스트 (Packing Checklist) -->
+      <!-- Right 1 Col: 준비물 패킹리스트 (12대 품목) -->
       <div class="space-y-6">
-        <div class="glass-panel rounded-2xl p-6 border border-amber-500/30">
-          <div class="flex items-center justify-between mb-3">
+        <div class="glass-panel rounded-2xl p-6 border border-slate-700/60">
+          <div class="flex items-center justify-between mb-4">
             <h3 class="text-base font-bold text-white flex items-center gap-2">
               <i class="fa-solid fa-list-check text-amber-400"></i>
-              순례자 배낭 패킹 체크리스트
+              순례자 필수 패킹리스트
             </h3>
+            <span class="text-xs font-bold text-amber-400">${donePacking}/${totalPacking}</span>
           </div>
 
           <!-- Progress Bar -->
-          <div class="mb-4">
-            <div class="flex justify-between text-xs text-slate-400 mb-1">
-              <span>패킹 준비율</span>
-              <span class="font-bold text-amber-400">${donePacking}/${totalPacking} (${packPercent}%)</span>
-            </div>
-            <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
-              <div class="bg-gradient-to-r from-amber-500 to-yellow-400 h-full rounded-full transition-all duration-300" style="width: ${packPercent}%"></div>
-            </div>
+          <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden mb-4">
+            <div class="bg-gradient-to-r from-amber-500 to-yellow-400 h-full rounded-full transition-all duration-300" style="width: ${packPercent}%"></div>
           </div>
 
-          <!-- Checklist items -->
-          <div class="space-y-2 mb-4 max-h-[480px] overflow-y-auto pr-1">
-            ${camino.packingList.map((item, idx) => `
-              <div class="p-2.5 rounded-lg bg-slate-800/60 hover:bg-slate-800 border border-slate-700/40 flex items-center justify-between transition">
-                <label class="flex items-center gap-2.5 text-xs text-slate-200 cursor-pointer flex-1 min-w-0">
-                  <input type="checkbox" ${item.done ? 'checked' : ''} onchange="window.app.toggleCaminoPacking(${idx})" class="rounded text-amber-500 bg-slate-700 border-slate-600 focus:ring-0">
-                  <span class="${item.done ? 'todo-checked' : ''} truncate">${item.text}</span>
+          <!-- Add Item Input -->
+          <div class="flex gap-2 mb-4">
+            <input type="text" id="new-camino-packing-input" placeholder="새 준비물 입력..." class="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-400">
+            <button onclick="window.app.addCaminoPackingItem()" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold rounded-lg text-xs transition">
+              추가
+            </button>
+          </div>
+
+          <!-- Items Checklist -->
+          <div class="space-y-2 max-h-[500px] overflow-y-auto pr-1">
+            ${(camino.packingList || []).map((p, idx) => `
+              <div class="p-2.5 rounded-lg bg-slate-800/40 hover:bg-slate-800 border border-slate-700/40 flex items-center justify-between gap-3 text-xs">
+                <label class="flex items-center gap-2.5 cursor-pointer flex-1 min-w-0">
+                  <input type="checkbox" ${p.done ? 'checked' : ''} onchange="window.app.toggleCaminoPacking(${idx})" class="w-4 h-4 rounded text-amber-500 focus:ring-0 border-slate-600 bg-slate-700">
+                  <span class="${p.done ? 'line-through text-slate-500' : 'text-slate-200'} truncate">${p.text}</span>
                 </label>
-                <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-700 text-slate-400 ml-2 flex-shrink-0">${item.category}</span>
-                <button onclick="window.app.deleteCaminoPackingItem(${idx})" class="text-slate-500 hover:text-red-400 text-xs ml-1.5 flex-shrink-0">
-                  <i class="fa-solid fa-xmark"></i>
-                </button>
+                <div class="flex items-center gap-1.5 flex-shrink-0">
+                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-700 text-slate-400">${p.category}</span>
+                  <button onclick="window.app.deleteCaminoPackingItem(${idx})" class="text-slate-500 hover:text-red-400 text-xs p-1">
+                    <i class="fa-regular fa-trash-can"></i>
+                  </button>
+                </div>
               </div>
             `).join('')}
           </div>
-
-          <!-- Add new item input -->
-          <form onsubmit="event.preventDefault(); window.app.addCaminoPackingItem();" class="flex gap-2">
-            <input type="text" id="new-camino-packing-input" placeholder="새 준비물 추가..." class="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400">
-            <button type="submit" class="px-3 py-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold rounded-lg text-xs transition">
-              추가
-            </button>
-          </form>
         </div>
       </div>
 
@@ -2263,8 +2796,6 @@ function renderCaminoTab() {
   `;
 }
 
-// ==========================================================================
-// 2. Exam & Academic Schedule Tab
 // ==========================================================================
 function renderExamTab() {
   const container = document.getElementById('tab-content-exam');
@@ -2523,21 +3054,26 @@ function renderEnergyTab() {
         </p>
       </div>
 
-      <!-- Sub-tabs: 데일리 문제 / 공식 모음 / AI 풀이 연동 안내 -->
-      <div class="flex items-center gap-1 bg-slate-800/80 p-1 rounded-xl border border-slate-700 text-xs">
-        <button onclick="window.app.setEnergySubtab('daily')" class="px-3 py-1.5 rounded-lg font-bold transition ${state.energyStudySubtab === 'daily' ? 'bg-amber-500 text-slate-900' : 'text-slate-400 hover:text-white'}">
+      <!-- Sub-tabs: 시험대비 플래너 / 데일리 문제 / 공식 모음 / AI 풀이 연동 안내 -->
+      <div class="flex flex-wrap items-center gap-1 bg-slate-800/80 p-1 rounded-xl border border-slate-700 text-xs">
+        <button onclick="window.app.setEnergySubtab('plan')" class="px-3 py-1.5 rounded-lg font-bold transition flex items-center gap-1.5 ${state.energyStudySubtab === 'plan' ? 'bg-amber-500 text-slate-900 shadow-md' : 'text-slate-400 hover:text-white'}">
+          <i class="fa-regular fa-calendar-check text-sm"></i>
+          <span>📅 시험대비 플래너 (D-40)</span>
+        </button>
+        <button onclick="window.app.setEnergySubtab('daily')" class="px-3 py-1.5 rounded-lg font-bold transition ${state.energyStudySubtab === 'daily' ? 'bg-amber-500 text-slate-900 shadow-md' : 'text-slate-400 hover:text-white'}">
           데일리 기출 풀이
         </button>
-        <button onclick="window.app.setEnergySubtab('formulas')" class="px-3 py-1.5 rounded-lg font-bold transition ${state.energyStudySubtab === 'formulas' ? 'bg-amber-500 text-slate-900' : 'text-slate-400 hover:text-white'}">
+        <button onclick="window.app.setEnergySubtab('formulas')" class="px-3 py-1.5 rounded-lg font-bold transition ${state.energyStudySubtab === 'formulas' ? 'bg-amber-500 text-slate-900 shadow-md' : 'text-slate-400 hover:text-white'}">
           필수 공식 치트시트
         </button>
-        <button onclick="window.app.setEnergySubtab('upload')" class="px-3 py-1.5 rounded-lg font-bold transition ${state.energyStudySubtab === 'upload' ? 'bg-amber-500 text-slate-900' : 'text-slate-400 hover:text-white'}">
+        <button onclick="window.app.setEnergySubtab('upload')" class="px-3 py-1.5 rounded-lg font-bold transition ${state.energyStudySubtab === 'upload' ? 'bg-amber-500 text-slate-900 shadow-md' : 'text-slate-400 hover:text-white'}">
           문제 사진 & AI 풀이 연동
         </button>
       </div>
     </div>
 
     <!-- View based on Subtab -->
+    ${state.energyStudySubtab === 'plan' ? renderEnergyPlanView() : ''}
     ${state.energyStudySubtab === 'daily' ? renderDailyQuestionView(currentQ) : ''}
     ${state.energyStudySubtab === 'formulas' ? renderFormulasView() : ''}
     ${state.energyStudySubtab === 'upload' ? renderUploadGuidanceView() : ''}
@@ -2546,6 +3082,171 @@ function renderEnergyTab() {
   // Trigger KaTeX rendering for math formulas
   setTimeout(initKaTeX, 50);
 }
+
+
+// ==========================================================================
+// 4-A. Energy Study 41-Day Planner View (4단계 & 마지막 7일 집중 반복)
+// ==========================================================================
+function renderEnergyPlanView() {
+  const plan = state.energyPlan || INITIAL_ENERGY_STUDY_PLAN;
+  const currentFilter = state.energyPlanPhaseFilter || 'all';
+
+  const totalCount = plan.length;
+  const doneCount = plan.filter(p => p.done).length;
+  const progressPct = totalCount > 0 ? Math.round((doneCount / totalCount) * 100) : 0;
+
+  // Filter items
+  const filteredPlan = plan.filter(item => {
+    if (currentFilter === 'all') return true;
+    if (currentFilter === 'phase1') return item.phase === 1;
+    if (currentFilter === 'phase2') return item.phase === 2;
+    if (currentFilter === 'phase3') return item.phase === 3;
+    if (currentFilter === 'phase4') return item.phase === 4;
+    if (currentFilter === 'final7') return item.isFinalWeek;
+    return true;
+  });
+
+  return `
+    <div class="space-y-6">
+      
+      <!-- Top Overview Banner -->
+      <div class="glass-panel rounded-2xl p-6 border border-amber-500/40 bg-gradient-to-r from-slate-900 via-amber-950/30 to-slate-900 relative overflow-hidden shadow-xl">
+        <div class="absolute -right-8 -bottom-8 w-48 h-48 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+          <div>
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold">
+                2026.09.28 ~ 2026.11.07 (41일간의 로드맵)
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-red-500/20 text-red-300 border border-red-500/30 text-xs font-bold flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-red-400 animate-ping"></span>
+                실기 필답형 시험일: 2026년 11월 7일 (토) 09:00
+              </span>
+            </div>
+            <h2 class="text-2xl font-black text-white tracking-tight flex items-center gap-2.5">
+              <i class="fa-solid fa-list-check text-amber-400"></i>
+              에너지관리기사 실기 합격 대비 41일 맞춤 계획표
+            </h2>
+            <p class="text-xs text-slate-300 mt-2 max-w-2xl leading-relaxed">
+              기출문제와 계산문제를 일자별로 체계적으로 마스터하며, 
+              <b>마지막 7일(11/01 ~ 11/06)은 고난도 연습문제와 과년도 기출문제를 무한 반복 풀이</b>하여 실전 적응력을 극대화합니다.
+            </p>
+          </div>
+
+          <!-- Progress Widget -->
+          <div class="bg-slate-900/80 border border-amber-500/30 rounded-xl p-4 sm:p-5 min-w-[220px] text-center shadow-lg flex-shrink-0">
+            <div class="text-xs font-bold text-amber-400 mb-1">전체 학습 진도율</div>
+            <div class="text-3xl font-black text-white">${progressPct}% <span class="text-xs text-slate-400 font-normal">(${doneCount}/${totalCount}일)</span></div>
+            <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden mt-2">
+              <div class="bg-gradient-to-r from-amber-500 to-yellow-400 h-full rounded-full transition-all duration-300" style="width: ${progressPct}%"></div>
+            </div>
+            <div class="text-[10px] text-slate-400 mt-1.5">시험까지 D-40 남음</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ⭐ [마지막 7일 파이널 반복 전략 안내 배너] ⭐ -->
+      <div class="glass-panel rounded-2xl p-5 border border-amber-400/60 bg-gradient-to-r from-amber-950/40 via-slate-900 to-amber-950/30 relative overflow-hidden shadow-lg">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center text-xl flex-shrink-0 shadow-md">
+            <i class="fa-solid fa-rotate animate-spin" style="animation-duration: 8s;"></i>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex flex-wrap items-center gap-2 mb-1">
+              <span class="px-2.5 py-0.5 rounded bg-amber-500 text-slate-950 font-black text-xs">
+                ★ 마지막 7일 파이널 (11/01 ~ 11/06) 무한 반복 모드
+              </span>
+              <span class="text-xs text-amber-300 font-bold">시험 직전 핵심 집중 훈련</span>
+            </div>
+            <p class="text-xs text-slate-200 leading-relaxed">
+              시험 7일 전부터는 새로운 이론 공부를 멈추고, <b>빈출 계산문제 20선 2회독</b>, <b>필수 단답 50문항 키워드 암기</b>, <b>실전 모의고사 2회분(시간 엄수)</b>, <b>나만의 오답노트 & 요약집 3회독</b>을 반복하여 풀이 속도와 소수점/단위 표기 정확도를 100%로 끌어올립니다.
+            </p>
+          </div>
+          <button onclick="window.app.setEnergyPlanPhaseFilter('final7')" class="hidden sm:flex px-3.5 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold items-center gap-1.5 flex-shrink-0 transition">
+            <span>마지막 7일만 모아보기</span>
+            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Phase Filter Buttons -->
+      <div class="flex flex-wrap items-center gap-2 pb-2 text-xs border-b border-slate-800">
+        <button onclick="window.app.setEnergyPlanPhaseFilter('all')" class="px-3.5 py-2 rounded-xl font-bold transition ${currentFilter === 'all' ? 'bg-amber-500 text-slate-900 shadow-md' : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'}">
+          전체 보기 (41일)
+        </button>
+        <button onclick="window.app.setEnergyPlanPhaseFilter('phase1')" class="px-3.5 py-2 rounded-xl font-bold transition ${currentFilter === 'phase1' ? 'bg-sky-500 text-white shadow-md' : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'}">
+          1단계: 핵심 공식 & 기본기출 (11일)
+        </button>
+        <button onclick="window.app.setEnergyPlanPhaseFilter('phase2')" class="px-3.5 py-2 rounded-xl font-bold transition ${currentFilter === 'phase2' ? 'bg-blue-500 text-white shadow-md' : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'}">
+          2단계: 5개년 기출 집중 (16일)
+        </button>
+        <button onclick="window.app.setEnergyPlanPhaseFilter('phase3')" class="px-3.5 py-2 rounded-xl font-bold transition ${currentFilter === 'phase3' ? 'bg-purple-500 text-white shadow-md' : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'}">
+          3단계: 고난도 계산 & 단답 (7일)
+        </button>
+        <button onclick="window.app.setEnergyPlanPhaseFilter('final7')" class="px-3.5 py-2 rounded-xl font-black transition flex items-center gap-1.5 ${currentFilter === 'final7' ? 'bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 shadow-lg shadow-amber-500/20' : 'bg-amber-500/10 text-amber-300 border border-amber-500/30 hover:bg-amber-500/20'}">
+          <i class="fa-solid fa-star text-xs"></i>
+          <span>★ 4단계: [마지막 7일] 연습 & 기출 반복 (7일)</span>
+        </button>
+      </div>
+
+      <!-- Plan Items Timeline List -->
+      <div class="space-y-3">
+        ${filteredPlan.map((item, idx) => {
+          const isFinal = item.isFinalWeek;
+          const cardBorder = isFinal 
+            ? 'border-amber-400/80 bg-gradient-to-r from-amber-950/40 via-slate-900 to-amber-950/20 shadow-lg shadow-amber-500/5' 
+            : 'border-slate-700/60 bg-slate-900/60 hover:border-slate-600';
+
+          return `
+            <div class="p-4 sm:p-5 rounded-2xl border ${cardBorder} transition flex flex-col md:flex-row md:items-center justify-between gap-4">
+              
+              <!-- Left: Checkbox + Date & Phase Badges + Topic & Task -->
+              <div class="flex items-start gap-3.5 flex-1 min-w-0">
+                <input type="checkbox" ${item.done ? 'checked' : ''} onchange="window.app.toggleEnergyPlanItem('${item.id}')" class="w-5 h-5 rounded text-amber-500 focus:ring-0 border-slate-600 bg-slate-800 mt-0.5 cursor-pointer flex-shrink-0">
+                
+                <div class="flex-1 min-w-0">
+                  <div class="flex flex-wrap items-center gap-2 mb-1.5">
+                    <span class="px-2.5 py-0.5 rounded text-xs font-mono font-bold ${isFinal ? 'bg-amber-500 text-slate-950 font-black' : 'bg-slate-800 text-amber-300 border border-amber-500/30'}">
+                      ${item.dday}
+                    </span>
+                    <span class="text-xs text-slate-400 font-mono">${item.date}</span>
+                    <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-medium">
+                      ${item.phaseName}
+                    </span>
+                    ${isFinal ? `
+                      <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-bold">
+                        ★ 연습 & 기출 반복
+                      </span>
+                    ` : ''}
+                  </div>
+
+                  <h3 class="text-base font-bold text-white mb-1 ${item.done ? 'line-through text-slate-500' : ''}">
+                    ${item.topic}
+                  </h3>
+                  <p class="text-xs text-slate-300 leading-relaxed ${item.done ? 'line-through text-slate-500' : ''}">
+                    ${item.task}
+                  </p>
+                </div>
+              </div>
+
+              <!-- Right: Status Toggle Button -->
+              <div class="flex items-center gap-2 self-end md:self-center flex-shrink-0">
+                <button onclick="window.app.toggleEnergyPlanItem('${item.id}')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${item.done ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-slate-800 hover:bg-slate-700 text-slate-300'}">
+                  <i class="fa-solid ${item.done ? 'fa-check' : 'fa-circle'} text-[10px]"></i>
+                  <span>${item.done ? '학습 완료' : '완료 체크'}</span>
+                </button>
+              </div>
+
+            </div>
+          `;
+        }).join('')}
+      </div>
+
+    </div>
+  `;
+}
+
 
 function renderDailyQuestionView(q) {
   if (!q) return `<p class="text-slate-400 text-center py-12">등록된 문제가 없습니다.</p>`;
@@ -2807,371 +3508,353 @@ function renderExternalTab() {
 // ==========================================================================
 // 5-B. SNS & 퍼스널 브랜딩 분석 탭 (⭐ 신규 추가)
 // ==========================================================================
+// ==========================================================================
+// 5-B. SNS & 퍼스널 브랜딩 분석 탭 (Brunch 집중 12시간 동기화 & 직통 링크)
+// ==========================================================================
 function renderSnsTab() {
   const container = document.getElementById('tab-content-sns');
   if (!container) return;
 
   const snsData = state.sns || INITIAL_SNS_DATA;
   const channels = snsData.channels || INITIAL_SNS_DATA.channels;
-  const posts = snsData.posts || INITIAL_SNS_DATA.posts;
-
-  // 필터링된 포스트 목록
-  const filteredPosts = posts.filter(p => {
-    if (state.snsFilter === 'all') return true;
-    return p.platform === state.snsFilter;
-  });
-
-  // 통합 통계 계산
-  const totalFollowers = channels.reduce((sum, ch) => sum + (Number(ch.followers) || 0), 0);
-  const totalTargetFollowers = channels.reduce((sum, ch) => sum + (Number(ch.targetFollowers) || 0), 0);
-  const totalGoalPercent = totalTargetFollowers > 0 ? Math.min(100, Math.round((totalFollowers / totalTargetFollowers) * 100)) : 0;
-  const totalViews = channels.reduce((sum, ch) => sum + (Number(ch.monthlyViews) || 0), 0);
-  const totalPostsCount = channels.reduce((sum, ch) => sum + (Number(ch.postsCount) || 0), 0);
-
-  const ideaCount = posts.filter(p => p.status === 'idea').length;
-  const writingCount = posts.filter(p => p.status === 'writing').length;
-  const publishedCount = posts.filter(p => p.status === 'published').length;
+  const brunchChannel = channels.find(c => c.id === 'brunch') || INITIAL_SNS_DATA.channels[2];
+  const lastSyncTime = state.brunchLastSync || "2026-09-28 09:00";
 
   container.innerHTML = `
     <!-- Top Header Banner -->
-    <div class="glass-panel rounded-2xl p-6 sm:p-8 mb-8 border border-pink-500/40 bg-gradient-to-r from-slate-900 via-pink-950/30 to-slate-900 relative overflow-hidden shadow-2xl">
-      <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="glass-panel rounded-2xl p-6 sm:p-8 mb-8 border border-emerald-500/40 bg-gradient-to-r from-slate-900 via-emerald-950/30 to-slate-900 relative overflow-hidden shadow-2xl">
+      <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
       <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
         <div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="px-3 py-1 bg-pink-500/20 text-pink-300 border border-pink-500/30 text-xs font-bold rounded-full flex items-center gap-1.5">
-              <i class="fa-solid fa-share-nodes"></i> 퍼스널 브랜딩 허브
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold rounded-full flex items-center gap-1.5">
+              <i class="fa-solid fa-feather-pointed"></i> Brunch Story 주력 플랫폼
             </span>
-            <span class="text-xs text-slate-400">LinkedIn · Instagram · Brunch Story 3대 채널 통합 관리</span>
+            <span class="px-2.5 py-1 bg-sky-500/20 text-sky-300 border border-sky-500/30 text-xs font-bold rounded-full flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+              12시간 주기 자동 업데이트 가동 중
+            </span>
           </div>
           <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
-            <i class="fa-solid fa-chart-line text-pink-400"></i>
+            <i class="fa-solid fa-chart-line text-emerald-400"></i>
             SNS & 퍼스널 브랜딩 분석
           </h1>
           <p class="text-sm text-slate-300 mt-2 max-w-2xl leading-relaxed">
-            에너지관리·기후탐사 커리어(링크드인), 밴드 합주 & 산티아고 순례길 라이프(인스타그램), 깊이 있는 성찰 에세이(브런치)를 유기적으로 연결하고 성장 지표를 분석합니다.
+            사색과 철학이 담긴 <b>아론의 브런치(Brunch Story)</b>를 본진으로 집중 육성하며, <b>12시간 간격 자동 동기화</b>를 통해 독자 유입과 연재 지표를 추적합니다.
+            링크드인과 인스타그램은 직통 하이퍼링크 단추를 통해 신속하게 접근할 수 있습니다.
           </p>
         </div>
 
         <div class="flex flex-col sm:flex-row gap-2.5">
-          <button onclick="window.app.resetSnsToRealStats()" class="py-3 px-4 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2" title="브런치(223명/741글)·인스타(302명/180글) 등 실제 프로필 기준값으로 동기화">
-            <i class="fa-solid fa-rotate text-sky-400"></i> 실제 프로필 수치 동기화
+          <button onclick="window.app.refreshBrunchData()" class="py-3 px-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-emerald-600/20 transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-rotate"></i> 브런치 12시간 즉시 갱신
           </button>
-          <button onclick="window.app.openAddSnsPostModal()" class="py-3 px-5 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-pink-500/20 transition flex items-center justify-center gap-2">
-            <i class="fa-solid fa-plus"></i> 새 콘텐츠 기획 / 발행 등록
-          </button>
+          <a href="https://brunch.co.kr/@musimtook" target="_blank" rel="noopener noreferrer" class="py-3 px-5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2">
+            <span>브런치 홈 바로가기</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-[11px]"></i>
+          </a>
         </div>
       </div>
     </div>
 
-    <!-- 1. Overall Metrics Summary Cards -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-      <div class="glass-panel rounded-2xl p-5 border border-slate-700/60 bg-slate-900/60">
-        <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
-          <span>총 팔로워 / 구독자</span>
-          <i class="fa-solid fa-users text-pink-400"></i>
-        </div>
-        <div class="text-2xl font-black text-white">${totalFollowers.toLocaleString()}<span class="text-xs text-slate-400 font-normal"> 명</span></div>
-        <div class="mt-2 flex items-center justify-between text-[11px] text-slate-400">
-          <span>목표(${totalTargetFollowers.toLocaleString()}) 대비</span>
-          <span class="font-bold text-pink-400">${totalGoalPercent}%</span>
-        </div>
-        <div class="w-full bg-slate-800 h-1.5 rounded-full mt-1.5 overflow-hidden">
-          <div class="bg-gradient-to-r from-pink-500 to-purple-500 h-full rounded-full" style="width: ${totalGoalPercent}%"></div>
-        </div>
-      </div>
-
-      <div class="glass-panel rounded-2xl p-5 border border-slate-700/60 bg-slate-900/60">
-        <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
-          <span>월간 총 노출 / 조회수</span>
-          <i class="fa-solid fa-eye text-sky-400"></i>
-        </div>
-        <div class="text-2xl font-black text-sky-300">${totalViews.toLocaleString()}<span class="text-xs text-slate-400 font-normal"> 회</span></div>
-        <div class="mt-2 text-[11px] text-slate-400">
-          3대 채널 합산 월간 도달수
-        </div>
-      </div>
-
-      <div class="glass-panel rounded-2xl p-5 border border-slate-700/60 bg-slate-900/60">
-        <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
-          <span>누적 총 게시물</span>
-          <i class="fa-solid fa-layer-group text-amber-400"></i>
-        </div>
-        <div class="text-2xl font-black text-white">${totalPostsCount.toLocaleString()}<span class="text-xs text-slate-400 font-normal"> 개</span></div>
-        <div class="mt-2 text-[11px] text-slate-400">
-          브런치 741편 · 인스타 180편 등 총합
-        </div>
-      </div>
-
-      <div class="glass-panel rounded-2xl p-5 border border-slate-700/60 bg-slate-900/60">
-        <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
-          <span>콘텐츠 파이프라인</span>
-          <i class="fa-solid fa-pen-nib text-emerald-400"></i>
-        </div>
-        <div class="text-sm font-bold text-slate-200 mt-1 flex items-center gap-2">
-          <span class="px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-300 text-xs">아이디어 ${ideaCount}</span>
-          <span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 text-xs">작성 중 ${writingCount}</span>
-          <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-xs">발행 ${publishedCount}</span>
-        </div>
-        <div class="mt-2 text-[11px] text-slate-400">
-          기획 중인 콘텐츠 총 ${posts.length}개
-        </div>
-      </div>
-    </div>
-
-    <!-- 2. 3대 채널별 심층 관리 카드 -->
+    <!-- 1. 연결 채널 직통 하이퍼링크 단추 (LinkedIn & Instagram) -->
     <div class="mb-8">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-        <h2 class="text-lg font-bold text-white flex items-center gap-2">
-          <i class="fa-solid fa-cubes text-pink-400"></i>
-          3대 SNS 채널 프로필 & 성장 지표 관리
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-sm font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+          <i class="fa-solid fa-link text-slate-400"></i>
+          외부 연계 SNS 플랫폼 직통 연결 단추
         </h2>
-        <span class="text-xs text-pink-300 bg-pink-500/10 border border-pink-500/20 px-3 py-1 rounded-lg">
-          💡 <b>빠른 수정</b>: 카드 안의 <b>팔로워/구독자</b> 및 <b>게시물 숫자 칸</b>을 직접 클릭해 즉시 변경하거나 [지표/전략 수정]을 누르세요.
-        </span>
+        <span class="text-xs text-slate-500">클릭 시 각 채널 공식 프로필로 즉시 이동합니다</span>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        ${channels.map(ch => {
-          const goalPct = ch.targetFollowers > 0 ? Math.min(100, Math.round((ch.followers / ch.targetFollowers) * 100)) : 0;
-          return `
-            <div class="glass-panel rounded-2xl p-6 border ${ch.id === 'linkedin' ? 'border-blue-500/30' : ch.id === 'instagram' ? 'border-pink-500/30' : 'border-emerald-500/30'} flex flex-col justify-between relative group hover:border-slate-500 transition">
-              <div>
-                <!-- Channel Header -->
-                <div class="flex items-start justify-between gap-3 mb-3">
-                  <div class="flex items-center gap-3">
-                    <div class="w-11 h-11 rounded-xl flex items-center justify-center text-xl shadow-lg ${
-                      ch.id === 'linkedin' ? 'bg-blue-600/20 text-blue-400 border border-blue-500/40 shadow-blue-500/10' :
-                      ch.id === 'instagram' ? 'bg-pink-600/20 text-pink-400 border border-pink-500/40 shadow-pink-500/10' :
-                      'bg-emerald-600/20 text-emerald-400 border border-emerald-500/40 shadow-emerald-500/10'
-                    }">
-                      <i class="${ch.icon}"></i>
-                    </div>
-                    <div>
-                      <h3 class="text-base font-bold text-white">${ch.name}</h3>
-                      <p class="text-xs text-slate-400 font-mono">${ch.handle}</p>
-                    </div>
-                  </div>
-
-                  <a href="${ch.url}" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 transition" title="새 창에서 프로필 열기">
-                    <span>이동</span>
-                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                  </a>
-                </div>
-
-                <div class="mb-4">
-                  <span class="text-[11px] px-2 py-0.5 rounded font-bold ${ch.badgeClass}">
-                    ${ch.category}
-                  </span>
-                </div>
-
-                <!-- Stats Progress Box (With Direct Inline Quick-Edit Inputs) -->
-                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 mb-4 space-y-3">
-                  <div>
-                    <div class="flex items-center justify-between text-xs mb-1.5">
-                      <span class="text-slate-400 font-semibold">${ch.id === 'brunch' ? '구독자 (팔로워)' : ch.id === 'linkedin' ? '팔로워 / 1촌' : '팔로워'}</span>
-                      <div class="flex items-center gap-1 text-white font-bold">
-                        <input type="number" min="0" value="${ch.followers}" onchange="window.app.quickUpdateSnsMetric('${ch.id}', 'followers', this.value)" class="w-20 bg-slate-800 hover:bg-slate-700 focus:bg-slate-800 border border-slate-600 focus:border-pink-400 rounded-lg px-2 py-0.5 text-right text-sm font-black text-white focus:outline-none transition" title="클릭하여 실제 팔로워/구독자 수 바로 입력">
-                        <span class="text-slate-400">/</span>
-                        <input type="number" min="1" value="${ch.targetFollowers}" onchange="window.app.quickUpdateSnsMetric('${ch.id}', 'targetFollowers', this.value)" class="w-16 bg-slate-800/50 hover:bg-slate-700/60 border border-slate-700 rounded-lg px-1.5 py-0.5 text-right text-xs text-slate-300 focus:outline-none transition" title="목표 팔로워 수 수정">
-                        <span class="text-[11px] text-slate-400">명</span>
-                      </div>
-                    </div>
-                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                      <div class="${ch.id === 'linkedin' ? 'bg-blue-500' : ch.id === 'instagram' ? 'bg-pink-500' : 'bg-emerald-500'} h-full rounded-full transition-all duration-300" style="width: ${goalPct}%"></div>
-                    </div>
-                    <div class="text-[10px] text-right text-slate-400 mt-1">목표 달성률: <b>${goalPct}%</b></div>
-                  </div>
-
-                  <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-800 text-center items-center">
-                    <div>
-                      <div class="text-[10px] text-slate-400 mb-0.5">${ch.id === 'brunch' ? '발행 글 수' : '총 게시물'}</div>
-                      <div class="flex items-center justify-center gap-0.5">
-                        <input type="number" min="0" value="${ch.postsCount}" onchange="window.app.quickUpdateSnsMetric('${ch.id}', 'postsCount', this.value)" class="w-16 bg-slate-800 hover:bg-slate-700 border border-slate-700 focus:border-pink-400 rounded px-1.5 py-0.5 text-center text-xs font-bold text-slate-100 focus:outline-none">
-                        <span class="text-[10px] text-slate-400">개</span>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="text-[10px] text-slate-400 mb-0.5">월간 조회</div>
-                      <div class="text-xs font-bold text-slate-200 mt-0.5">${(ch.monthlyViews || 0).toLocaleString()}</div>
-                    </div>
-                    <div>
-                      <div class="text-[10px] text-slate-400 mb-0.5">반응률</div>
-                      <div class="text-xs font-bold text-slate-200 mt-0.5">${ch.engagementRate || '-'}</div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Positioning & Goals -->
-                <div class="space-y-2 text-xs mb-4">
-                  <div class="flex items-start gap-2 bg-slate-800/40 p-2.5 rounded-lg border border-slate-700/40">
-                    <i class="fa-solid fa-bullseye text-amber-400 mt-0.5 w-4 text-center"></i>
-                    <div>
-                      <span class="text-slate-400 font-bold block text-[11px]">주간 목표:</span>
-                      <span class="text-slate-200">${ch.weeklyGoal || '목표를 설정해주세요.'}</span>
-                    </div>
-                  </div>
-
-                  <div class="flex items-start gap-2 bg-slate-800/40 p-2.5 rounded-lg border border-slate-700/40">
-                    <i class="fa-solid fa-compass text-sky-400 mt-0.5 w-4 text-center"></i>
-                    <div>
-                      <span class="text-slate-400 font-bold block text-[11px]">채널 포지셔닝:</span>
-                      <span class="text-slate-300">${ch.positioning || '포지셔닝을 설정해주세요.'}</span>
-                    </div>
-                  </div>
-
-                  ${ch.hashtags ? `
-                    <div class="bg-slate-800/40 p-2.5 rounded-lg border border-slate-700/40">
-                      <div class="flex items-center justify-between mb-1">
-                        <span class="text-slate-400 font-bold text-[11px]"><i class="fa-solid fa-hashtag text-pink-400"></i> 추천 해시태그:</span>
-                        <button onclick="window.app.copySnsHashtags('${ch.id}')" class="text-[10px] text-pink-400 hover:text-pink-300 font-bold flex items-center gap-1">
-                          <i class="fa-regular fa-copy"></i> 복사
-                        </button>
-                      </div>
-                      <p class="text-[11px] text-slate-300 font-mono leading-relaxed">${ch.hashtags}</p>
-                    </div>
-                  ` : ''}
-
-                  ${ch.memo ? `
-                    <div class="text-[11px] text-slate-400 bg-slate-900/50 p-2.5 rounded-lg border border-slate-800/80 leading-relaxed">
-                      💡 <b>운영 메모</b>: ${ch.memo}
-                    </div>
-                  ` : ''}
-                </div>
-              </div>
-
-              <!-- Card Action -->
-              <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
-                <a href="${ch.url}" target="_blank" rel="noopener noreferrer" class="text-xs text-slate-400 hover:text-white flex items-center gap-1">
-                  <i class="fa-solid fa-link"></i> 프로필 열기
-                </a>
-                <button onclick="window.app.openEditSnsChannelModal('${ch.id}')" class="px-3 py-1.5 rounded-lg bg-pink-500/10 hover:bg-pink-500/20 text-pink-300 text-xs font-bold transition flex items-center gap-1 border border-pink-500/30">
-                  <i class="fa-solid fa-pen-to-square"></i> 지표/전략 수정
-                </button>
-              </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <!-- LinkedIn Direct Link Button -->
+        <a href="https://www.linkedin.com/in/%EB%82%A8%ED%98%84-%EA%B9%80-4a62b5340/" target="_blank" rel="noopener noreferrer" class="glass-panel p-5 rounded-2xl border border-blue-500/30 hover:border-blue-400 bg-slate-900/60 flex items-center justify-between group transition shadow-lg hover:shadow-blue-500/10 cursor-pointer">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/40 flex items-center justify-center text-2xl shadow-md group-hover:scale-110 transition">
+              <i class="fa-brands fa-linkedin"></i>
             </div>
-          `;
-        }).join('')}
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-base font-bold text-white group-hover:text-blue-300 transition">김남현 (LinkedIn)</h3>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 font-bold border border-blue-500/30">직통 연결</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">삼성전자 반도체/안전 TF 및 에너지·위험물 엔지니어링 네트워킹</p>
+            </div>
+          </div>
+          <div class="px-4 py-2 bg-blue-600 group-hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md flex-shrink-0">
+            <span>프로필 바로가기</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+          </div>
+        </a>
+
+        <!-- Instagram Direct Link Button -->
+        <a href="https://www.instagram.com/namhyeon_kim_/" target="_blank" rel="noopener noreferrer" class="glass-panel p-5 rounded-2xl border border-pink-500/30 hover:border-pink-400 bg-slate-900/60 flex items-center justify-between group transition shadow-lg hover:shadow-pink-500/10 cursor-pointer">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-pink-600/20 text-pink-400 border border-pink-500/40 flex items-center justify-center text-2xl shadow-md group-hover:scale-110 transition">
+              <i class="fa-brands fa-instagram"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-base font-bold text-white group-hover:text-pink-300 transition">@namhyeon_kim_ (Instagram)</h3>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-pink-500/20 text-pink-300 font-bold border border-pink-500/30">직통 연결</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">홍대 밴드 합주(Eve-제제로감) & 11월 산티아고 순례길 라이프 아카이빙</p>
+            </div>
+          </div>
+          <div class="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 group-hover:from-purple-500 group-hover:to-pink-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md flex-shrink-0">
+            <span>피드 바로가기</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+          </div>
+        </a>
+
       </div>
     </div>
 
-    <!-- 3. Content Pipeline & Tracker -->
-    <div class="glass-panel rounded-2xl p-6 sm:p-8 mb-8 border border-slate-700/60">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
-        <div>
-          <h2 class="text-lg font-bold text-white flex items-center gap-2">
-            <i class="fa-solid fa-calendar-check text-pink-400"></i>
-            콘텐츠 발행 파이프라인 & 성과 트래커
-          </h2>
-          <p class="text-xs text-slate-400 mt-1">아이디어 구상부터 작성, 발행 완료 및 조회수·반응수 성과를 체계적으로 기록합니다.</p>
+    <!-- 2. 브런치스토리 12시간 동기화 집중 대시보드 (주력 플랫폼) -->
+    <div class="glass-panel rounded-2xl p-6 sm:p-7 mb-8 border border-emerald-500/30 bg-slate-900/60 shadow-xl">
+      
+      <!-- Brunch Header & 12h Sync Indicator -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 border-b border-slate-800 pb-5">
+        <div class="flex items-center gap-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-600/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center text-2xl shadow-lg shadow-emerald-500/10">
+            <i class="fa-solid fa-feather-pointed"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="text-xl font-black text-white">Brunch Story (아론의 브런치)</h2>
+              <span class="text-xs text-slate-400 font-mono">@musimtook</span>
+            </div>
+            <p class="text-xs text-emerald-400 mt-0.5 font-medium">
+              "글쓰듯 말하고 싶습니다. 당신의 마음에 닿기를 바라며 연재" · 아론 작가 멤버십
+            </p>
+          </div>
         </div>
 
-        <button onclick="window.app.openAddSnsPostModal()" class="py-2 px-4 bg-pink-600 hover:bg-pink-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md">
-          <i class="fa-solid fa-plus"></i> 새 포스트 등록
-        </button>
-      </div>
-
-      <!-- Filter Buttons -->
-      <div class="flex items-center gap-2 overflow-x-auto pb-3 mb-6 text-xs border-b border-slate-800">
-        <button onclick="window.app.setSnsFilter('all')" class="px-3 py-1.5 rounded-lg font-medium transition ${state.snsFilter === 'all' ? 'bg-pink-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">
-          전체 (${posts.length})
-        </button>
-        <button onclick="window.app.setSnsFilter('linkedin')" class="px-3 py-1.5 rounded-lg font-medium transition flex items-center gap-1.5 ${state.snsFilter === 'linkedin' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">
-          <i class="fa-brands fa-linkedin"></i> LinkedIn (${posts.filter(p => p.platform === 'linkedin').length})
-        </button>
-        <button onclick="window.app.setSnsFilter('instagram')" class="px-3 py-1.5 rounded-lg font-medium transition flex items-center gap-1.5 ${state.snsFilter === 'instagram' ? 'bg-pink-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">
-          <i class="fa-brands fa-instagram"></i> Instagram (${posts.filter(p => p.platform === 'instagram').length})
-        </button>
-        <button onclick="window.app.setSnsFilter('brunch')" class="px-3 py-1.5 rounded-lg font-medium transition flex items-center gap-1.5 ${state.snsFilter === 'brunch' ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">
-          <i class="fa-solid fa-feather-pointed"></i> Brunch Story (${posts.filter(p => p.platform === 'brunch').length})
-        </button>
-      </div>
-
-      <!-- Posts List -->
-      <div class="space-y-3">
-        ${filteredPosts.length === 0 ? `
-          <div class="text-center py-10 bg-slate-900/40 rounded-xl border border-slate-800/60">
-            <p class="text-slate-400 text-xs mb-2">등록된 콘텐츠가 없습니다.</p>
-            <button onclick="window.app.openAddSnsPostModal()" class="text-pink-400 text-xs font-bold hover:underline">
-              + 첫 번째 콘텐츠 아이디어를 등록해 보세요
-            </button>
-          </div>
-        ` : filteredPosts.map(p => {
-          const platformLabel = p.platform === 'linkedin' ? 'LinkedIn' : p.platform === 'instagram' ? 'Instagram' : 'Brunch';
-          const platformColor = p.platform === 'linkedin' ? 'bg-blue-500/20 text-blue-400 border-blue-500/30' : p.platform === 'instagram' ? 'bg-pink-500/20 text-pink-400 border-pink-500/30' : 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30';
-          const statusBadge = p.status === 'published' ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' : p.status === 'writing' ? 'bg-blue-500/20 text-blue-300 border-blue-500/30' : 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30';
-          const statusText = p.status === 'published' ? '✅ 발행 완료' : p.status === 'writing' ? '✍️ 작성 중' : '💡 아이디어';
-
-          return `
-            <div class="p-4 rounded-xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 transition flex flex-col md:flex-row md:items-center justify-between gap-3">
-              <div class="flex-1 min-w-0">
-                <div class="flex flex-wrap items-center gap-2 mb-1.5">
-                  <span class="text-[10px] px-2 py-0.5 rounded font-bold border ${platformColor}">
-                    ${platformLabel}
-                  </span>
-                  <button onclick="window.app.toggleSnsPostStatus('${p.id}')" class="text-[10px] px-2 py-0.5 rounded font-bold border ${statusBadge} hover:opacity-80 transition" title="클릭하여 상태 변경">
-                    ${statusText}
-                  </button>
-                  <span class="text-xs text-slate-400 font-mono"><i class="fa-regular fa-calendar mr-1"></i>${p.date || '날짜 미정'}</span>
-                </div>
-
-                <h3 class="text-sm font-bold text-white mb-1 leading-snug">${p.title}</h3>
-
-                ${p.notes ? `
-                  <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed">${p.notes}</p>
-                ` : ''}
-
-                ${p.url ? `
-                  <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="text-[11px] text-sky-400 hover:text-sky-300 inline-flex items-center gap-1 mt-1 truncate max-w-md">
-                    <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i> ${p.url}
-                  </a>
-                ` : ''}
-              </div>
-
-              <!-- Performance & Actions -->
-              <div class="flex items-center justify-between md:justify-end gap-3 pt-2 md:pt-0 border-t md:border-t-0 border-slate-700/60 flex-shrink-0">
-                <div class="flex items-center gap-3 text-xs bg-slate-900/60 px-3 py-1.5 rounded-lg border border-slate-800 text-slate-300">
-                  <span title="조회수"><i class="fa-solid fa-eye text-sky-400 mr-1"></i>${(p.views || 0).toLocaleString()}</span>
-                  <span title="좋아요/반응"><i class="fa-solid fa-heart text-pink-400 mr-1"></i>${(p.likes || 0).toLocaleString()}</span>
-                </div>
-
-                <div class="flex items-center gap-1.5">
-                  <button onclick="window.app.openEditSnsPostModal('${p.id}')" class="text-xs text-pink-400 hover:text-pink-300 px-2.5 py-1 rounded bg-pink-500/10 hover:bg-pink-500/20 transition flex items-center gap-1">
-                    <i class="fa-solid fa-pen-to-square"></i> 수정
-                  </button>
-                  <button onclick="window.app.deleteSnsPost('${p.id}')" class="text-xs text-red-400 hover:text-red-300 px-2 py-1 transition">
-                    <i class="fa-regular fa-trash-can"></i> 삭제
-                  </button>
-                </div>
-              </div>
+        <!-- 12-Hour Sync Badge -->
+        <div class="bg-slate-800/90 border border-emerald-500/30 rounded-xl px-4 py-2.5 text-right flex items-center gap-3">
+          <div class="text-left">
+            <div class="text-[10px] text-slate-400 uppercase font-bold">12시간 주기 동기화 상태</div>
+            <div class="text-xs font-bold text-emerald-300 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              최근 갱신: ${lastSyncTime}
             </div>
-          `;
-        }).join('')}
+          </div>
+          <button onclick="window.app.refreshBrunchData()" class="p-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 rounded-lg text-xs font-bold transition" title="12시간 주기 새로고침">
+            <i class="fa-solid fa-rotate"></i>
+          </button>
+        </div>
       </div>
+
+      <!-- Brunch Core 4-Stats Grid -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="p-4 rounded-xl bg-slate-800/60 border border-emerald-500/20">
+          <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
+            <span>구독자 수</span>
+            <i class="fa-solid fa-user-check text-emerald-400"></i>
+          </div>
+          <div class="text-2xl font-black text-white">${(brunchChannel.followers || 223).toLocaleString()}<span class="text-xs text-slate-400 font-normal"> 명</span></div>
+          <div class="mt-2 text-[11px] text-emerald-400 font-bold">목표 500명 대비 45% 달성</div>
+          <div class="w-full bg-slate-800 h-1.5 rounded-full mt-1 overflow-hidden">
+            <div class="bg-emerald-500 h-full rounded-full" style="width: 45%"></div>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-800/60 border border-emerald-500/20">
+          <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
+            <span>발행된 글</span>
+            <i class="fa-solid fa-file-pen text-sky-400"></i>
+          </div>
+          <div class="text-2xl font-black text-white">${(brunchChannel.postsCount || 741).toLocaleString()}<span class="text-xs text-slate-400 font-normal"> 편</span></div>
+          <div class="mt-2 text-[11px] text-slate-400">에세이 및 사색 기록 집대성</div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-800/60 border border-emerald-500/20">
+          <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
+            <span>브런치북 / 매거진</span>
+            <i class="fa-solid fa-book-bookmark text-amber-400"></i>
+          </div>
+          <div class="text-2xl font-black text-amber-300">18<span class="text-xs text-slate-400 font-normal"> 개 작품집</span></div>
+          <div class="mt-2 text-[11px] text-slate-400">테마별 연재 작품 컬렉션</div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-800/60 border border-emerald-500/20">
+          <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
+            <span>서평 & 독서노트</span>
+            <i class="fa-solid fa-glasses text-purple-400"></i>
+          </div>
+          <div class="text-2xl font-black text-purple-300">75<span class="text-xs text-slate-400 font-normal"> 편</span></div>
+          <div class="mt-2 text-[11px] text-slate-400">인문·철학·성장 독서 기록</div>
+        </div>
+      </div>
+
+      <!-- Brunch Featured Writing Showcase -->
+      <div class="p-4 rounded-xl bg-slate-800/40 border border-slate-700/60 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-pen-nib"></i>
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-white">아론의 브런치 연재 작품 아카이브</h4>
+            <p class="text-xs text-slate-400 mt-0.5">삼성전자 반도체 엔지니어의 일상, 국회 국방위원장상 대상 수상 작가의 내면 이야기</p>
+          </div>
+        </div>
+        <a href="https://brunch.co.kr/@musimtook" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 flex-shrink-0">
+          <span>브런치스토리 글 읽기</span>
+          <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+        </a>
+      </div>
+
     </div>
 
-    <!-- 4. Personal Branding Strategy Note (OSMU) -->
-    <div class="glass-panel rounded-2xl p-6 sm:p-8 border border-slate-700/60">
-      <div class="flex items-center justify-between mb-3">
-        <h3 class="text-base font-bold text-white flex items-center gap-2">
-          <i class="fa-solid fa-lightbulb text-amber-400"></i>
-          원소스 멀티유즈(OSMU) 퍼스널 브랜딩 전략 노트
-        </h3>
-        <button onclick="window.app.saveSnsStrategyMemo()" class="px-4 py-1.5 bg-pink-600 hover:bg-pink-500 text-white rounded-lg text-xs font-bold transition">
-          전략 저장
-        </button>
+    <!-- 3. ⭐ [신규 제안] 브런치 중심 퍼스널 브랜딩 향후 운영 방안 추천 리포트 ⭐ -->
+    <div class="glass-panel rounded-2xl p-6 sm:p-8 mb-8 border border-amber-500/40 bg-gradient-to-br from-slate-900 via-slate-900 to-amber-950/20 shadow-2xl relative overflow-hidden">
+      <div class="absolute right-0 top-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Section Header -->
+      <div class="flex items-center gap-3 mb-6 border-b border-slate-800 pb-4 relative z-10">
+        <div class="w-11 h-11 rounded-xl bg-amber-500/20 border border-amber-500/30 text-amber-400 flex items-center justify-center text-xl shadow-lg">
+          <i class="fa-solid fa-lightbulb"></i>
+        </div>
+        <div>
+          <h2 class="text-lg font-black text-white flex items-center gap-2">
+            <span>브런치 플랫폼 중심 퍼스널 브랜딩 향후 운영 전략 & 추천 리포트</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold">맞춤형 전략</span>
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">
+            구독자 223명, 누적 741편의 막강한 아카이브를 갖춘 브런치를 코어로 활용하여 독자 신뢰도를 높이고 브랜드를 확장하는 3단계 로드맵입니다.
+          </p>
+        </div>
       </div>
-      <textarea id="sns-strategy-memo-input" rows="4" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-xs text-white leading-relaxed focus:outline-none focus:border-pink-400">${snsData.strategyMemo || ''}</textarea>
-      <p class="text-[11px] text-slate-400 mt-2">
-        💡 <b>채널 연계 팁</b>: 브런치에 작성한 깊이 있는 글의 핵심 결론 3가지를 카드뉴스로 만들어 링크드인에 공유하고, 작성 과정의 비하인드 컷을 인스타그램 스토리에 올려 채널 간 유입을 극대화하세요.
-      </p>
+
+      <div class="space-y-6 relative z-10">
+        
+        <!-- 전략 1: 3대 킬러 기획 시리즈 추천 -->
+        <div>
+          <h3 class="text-sm font-bold text-amber-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+            <i class="fa-solid fa-book-open-reader"></i>
+            1. 브런치 3대 킬러 기획 연재 시리즈 추천
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            
+            <div class="p-4 rounded-xl bg-slate-800/80 border border-amber-500/20 flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 font-bold">시리즈 1 · 기술 & 커리어</span>
+                <h4 class="text-sm font-bold text-white mt-2 mb-1.5">"비전공 엔지니어의 자격증 정복기"</h4>
+                <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                  위험물기능장 취득 노하우와 2026 에너지관리기사 실기 합격 도전기를 담아, 기술 직군 취준생 및 현직 직장인들에게 실질적인 영감과 공식 암기법 제공.
+                </p>
+              </div>
+              <div class="text-[11px] text-amber-400 font-medium pt-2 border-t border-slate-700/60">
+                타깃: 자격증 수험생, 엔지니어, 자기계발 직장인
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-800/80 border border-amber-500/20 flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">시리즈 2 · 순례 & 성찰</span>
+                <h4 class="text-sm font-bold text-white mt-2 mb-1.5">"포르투갈 길을 걷는 시간 (21일의 기록)"</h4>
+                <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                  11월 9일부터 3주간 떠나는 까미노 드 포르투 순례길 현장에서 매일 1편씩 기록하는 사색 에세이. 대서양 바람과 알베르게의 대화를 통해 삶의 본질 탐색.
+                </p>
+              </div>
+              <div class="text-[11px] text-amber-400 font-medium pt-2 border-t border-slate-700/60">
+                타깃: 쉼과 회복을 찾는 독자, 여행 에세이 애독자
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-800/80 border border-amber-500/20 flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-bold">시리즈 3 · 문화 & 라이프</span>
+                <h4 class="text-sm font-bold text-white mt-2 mb-1.5">"퇴근 후 베이스를 잡는 사람들"</h4>
+                <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                  홍대 호랑이 합주실에서의 Eve(제제로감) 합주 도전기, 베이스 기타를 조율하며 일상의 긴장을 내려놓는 직장인 밴드 활동과 창작의 즐거움 조명.
+                </p>
+              </div>
+              <div class="text-[11px] text-amber-400 font-medium pt-2 border-t border-slate-700/60">
+                타깃: 취미 음악인, 서브컬처 팬, 일상 균형을 추구하는 세대
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 전략 2: 발행 주기 및 12시간 루틴 제안 -->
+        <div>
+          <h3 class="text-sm font-bold text-amber-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            2. 주 2회 고정 연재 루틴 & 12시간 주기 퇴고 시스템
+          </h3>
+          <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700/60 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div>
+              <h4 class="font-bold text-white mb-1.5 flex items-center gap-2">
+                <i class="fa-solid fa-calendar-days text-emerald-400"></i>
+                화요일 & 토요일 주 2회 고정 발행
+              </h4>
+              <p class="text-slate-300 leading-relaxed">
+                • <b>화요일 저녁 8시</b>: 전문 기술/엔지니어링/자기계발 칼럼 (출퇴근 직장인 유입 최적화)<br>
+                • <b>토요일 오전 9시</b>: 순례길/음악/인문학 성찰 에세이 (주말 아침 감성적인 독서 타깃)
+              </p>
+            </div>
+            <div>
+              <h4 class="font-bold text-white mb-1.5 flex items-center gap-2">
+                <i class="fa-solid fa-arrows-rotate text-sky-400"></i>
+                12시간 주기 퇴고 & 예약 발행 프로세스
+              </h4>
+              <p class="text-slate-300 leading-relaxed">
+                초고 작성 후 <b>12시간의 숙성 시간</b>을 두고 아침/저녁 교차 퇴고를 거친 후 예약 발행함으로써 글의 완성도와 독자 피드백 흡수율을 극대화합니다.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 전략 3: 원소스 멀티유즈(OSMU) 연계 전략 -->
+        <div>
+          <h3 class="text-sm font-bold text-amber-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+            <i class="fa-solid fa-diagram-project"></i>
+            3. 브런치 본진 중심의 원소스 멀티유즈(OSMU) 크로스 채널 확장
+          </h3>
+          <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700/60 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg flex-shrink-0">
+                <i class="fa-solid fa-feather"></i>
+              </div>
+              <div>
+                <span class="text-white font-bold block">브런치 장문 에세이 (본진)</span>
+                <span class="text-slate-400">2,000자 내외의 깊이 있는 에세이 완결 발행</span>
+              </div>
+            </div>
+            <i class="fa-solid fa-arrow-right text-slate-500 hidden md:block"></i>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-lg flex-shrink-0">
+                <i class="fa-brands fa-linkedin"></i>
+              </div>
+              <div>
+                <span class="text-white font-bold block">링크드인 3줄 요약</span>
+                <span class="text-slate-400">커리어 인사이트 요약 + 브런치 직통 링크</span>
+              </div>
+            </div>
+            <i class="fa-solid fa-arrow-right text-slate-500 hidden md:block"></i>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-pink-500/20 text-pink-400 flex items-center justify-center text-lg flex-shrink-0">
+                <i class="fa-brands fa-instagram"></i>
+              </div>
+              <div>
+                <span class="text-white font-bold block">인스타그램 감성 카드</span>
+                <span class="text-slate-400">핵심 문구 1장 + 합주/순례 사진 릴스 유입</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   `;
 }
 
-// ==========================================================================
-// 5-C. 수상 내역(23건) & 주요 경력(15건) 포트폴리오 탭 (⭐ 신규 추가)
+
 // ==========================================================================
 function renderPortfolioTab() {
   const container = document.getElementById('tab-content-portfolio');
@@ -3756,12 +4439,51 @@ function showToast(msg) {
 window.app = {
   // Camino Handlers (⭐)
   toggleCaminoPacking: (idx) => {
-    if (state.camino && state.camino.packingList[idx]) {
+    if (state.camino && state.camino.packingList && state.camino.packingList[idx]) {
       state.camino.packingList[idx].done = !state.camino.packingList[idx].done;
       persistState();
       renderCaminoTab();
       if (state.activeTab === 'overview') renderOverviewTab();
     }
+  },
+  openEditCaminoItineraryModal: (idx) => {
+    const item = state.camino && state.camino.itinerary ? state.camino.itinerary[idx] : null;
+    if (!item) return;
+    const newHighlight = prompt(`[${item.day}] 주요 일정 및 하이라이트를 수정하세요:`, item.highlight || '');
+    if (newHighlight !== null && newHighlight.trim()) {
+      item.highlight = newHighlight.trim();
+      persistState();
+      renderCaminoTab();
+      showToast(`${item.day} 일정이 수정되었습니다.`);
+    }
+  },
+  // Energy Study Plan Handlers (⭐)
+  toggleEnergyPlanItem: (id) => {
+    if (!state.energyPlan) state.energyPlan = INITIAL_ENERGY_STUDY_PLAN;
+    const item = state.energyPlan.find(p => p.id === id);
+    if (item) {
+      item.done = !item.done;
+      persistState();
+      renderEnergyTab();
+      showToast(item.done ? `[${item.dday}] 학습 완료 처리되었습니다.` : `[${item.dday}] 미완료 처리되었습니다.`);
+    }
+  },
+  setEnergyPlanPhaseFilter: (phase) => {
+    state.energyPlanPhaseFilter = phase;
+    renderEnergyTab();
+  },
+  // Brunch 12h Sync Handler (⭐)
+  refreshBrunchData: () => {
+    const now = new Date();
+    const formatted = now.getFullYear() + '-' + 
+      String(now.getMonth() + 1).padStart(2, '0') + '-' + 
+      String(now.getDate()).padStart(2, '0') + ' ' + 
+      String(now.getHours()).padStart(2, '0') + ':' + 
+      String(now.getMinutes()).padStart(2, '0');
+    state.brunchLastSync = formatted;
+    persistState();
+    renderSnsTab();
+    showToast('브런치스토리 12시간 주기 최신 데이터가 성공적으로 갱신되었습니다.');
   },
   addCaminoPackingItem: () => {
     const input = document.getElementById('new-camino-packing-input');
