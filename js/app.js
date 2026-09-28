@@ -6100,6 +6100,65 @@ function updateAdminState() {
   }
 
   renderAuthWidget();
+  renderNavigation();
+
+  // 게스트 상태에서 잠긴 탭에 머물러 있는 경우 종합 대시보드로 자동 리다이렉트
+  if (!isAdmin && state.activeTab && state.activeTab !== 'overview') {
+    switchTab('overview');
+  }
+}
+
+function openTabLockedModal(tabId) {
+  const tabDef = TAB_REGISTRY.find(t => t.id === tabId) || { name: '선택한 기능', icon: 'fa-lock' };
+
+  const titleEl = document.getElementById('locked-tab-title');
+  const iconEl = document.getElementById('locked-tab-icon');
+  const descEl = document.getElementById('locked-tab-desc');
+
+  if (titleEl) titleEl.innerText = `'${tabDef.name}' 탭`;
+  if (iconEl) iconEl.innerHTML = `<i class="fa-solid ${tabDef.icon} text-amber-400"></i>`;
+  if (descEl) {
+    descEl.innerHTML = `
+      현재 <b>[읽기 전용 게스트 모드]</b>로 접속 중입니다.<br>
+      <b>'${tabDef.name}'</b> 세부 데이터 및 기능은 보안과 개인정보 보호를 위해 <b>관리자 로그인을 완료해야 사용</b>할 수 있습니다.<br>
+      읽기 전용 모드에서는 <b>종합 대시보드(Overview)</b>만 자유롭게 이용 가능합니다.
+    `;
+  }
+
+  const modal = document.getElementById('modal-tab-locked');
+  if (modal) {
+    modal.classList.remove('hidden');
+  } else {
+    alert(`🔒 [사용 불가] '${tabDef.name}' 탭은 관리자 전용 기능입니다.\n관리자 로그인을 해야만 모든 기능을 사용할 수 있습니다.`);
+    openAdminAuthModal();
+  }
+}
+
+function handlePinLogin(e) {
+  if (e) e.preventDefault();
+  const pinInput = document.getElementById('input-admin-pin');
+  const enteredPin = pinInput ? pinInput.value.trim() : '';
+
+  const validPins = ['6363', 'carlos6363', '1234'];
+  const savedPin = localStorage.getItem('career_admin_pin');
+  if (savedPin) validPins.push(savedPin);
+
+  if (validPins.includes(enteredPin)) {
+    const authUser = {
+      uid: 'admin_carlosnam',
+      email: ADMIN_EMAIL,
+      displayName: 'Carlos Nam (관리자)',
+      photoURL: null
+    };
+    state.currentUser = authUser;
+    saveAuthUser(authUser);
+    updateAdminState();
+    window.app.closeAllModals();
+    if (pinInput) pinInput.value = '';
+    showToast(`👑 ${ADMIN_EMAIL} 관리자 인증 완료! 모든 기능이 활성화되었습니다.`);
+  } else {
+    showToast('⚠️ 관리자 PIN이 올바르지 않습니다. (기본: 6363)');
+  }
 }
 
 function checkAdminPermission(actionName = '데이터 수정') {
@@ -6301,7 +6360,8 @@ function handleLogout() {
   state.currentUser = null;
   saveAuthUser(null);
   updateAdminState();
-  showToast('로그아웃되었습니다. 읽기 전용 게스트 모드로 전환되었습니다.');
+  switchTab('overview');
+  showToast('로그아웃되었습니다. 종합 대시보드(읽기 전용 게스트) 모드로 전환되었습니다.');
 }
 
 let state = {
@@ -6395,24 +6455,39 @@ function renderNavigation() {
 
       if (catTabs.length === 0) return '';
 
+      const isGuest = !state.isAdmin;
       const tabsHtml = catTabs.map(tabDef => {
         const isActive = currentTab === tabDef.id;
+        const isLocked = isGuest && tabDef.id !== 'overview';
+
         const activeClass = isActive
           ? 'nav-tab-active text-sky-400 bg-sky-500/15 font-bold border border-sky-500/30 shadow-sm'
-          : 'text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium';
+          : (isLocked
+              ? 'text-slate-400 hover:text-amber-200 hover:bg-slate-800/40 font-medium'
+              : 'text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium');
         
-        const badgeHtml = tabDef.badge
-          ? `<span class="text-[9px] px-1.5 py-0.5 rounded font-bold ${tabDef.badgeClass || 'bg-slate-800 text-slate-300'}">${tabDef.badge}</span>`
-          : '';
+        let badgeHtml = '';
+        if (isLocked) {
+          badgeHtml = `<span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30 flex items-center gap-1 flex-shrink-0" title="관리자 전용 잠금 (클릭 시 안내)"><i class="fa-solid fa-lock text-[8px]"></i> 잠김</span>`;
+        } else if (tabDef.badge) {
+          badgeHtml = `<span class="text-[9px] px-1.5 py-0.5 rounded font-bold ${tabDef.badgeClass || 'bg-slate-800 text-slate-300'}">${tabDef.badge}</span>`;
+        }
 
         const clickHandler = tabDef.isPortfolio
           ? `window.app.openPortfolioTab('${tabDef.id}')`
           : `window.app.switchTab('${tabDef.id}')`;
 
+        const lockIconHtml = isLocked
+          ? `<i class="fa-solid fa-lock text-[10px] text-amber-400/80 mr-1 flex-shrink-0" title="관리자 전용"></i>`
+          : '';
+
         return `
           <button data-nav-tab="${tabDef.id}" onclick="${clickHandler}" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs transition ${activeClass}">
-            <i class="fa-solid ${tabDef.icon} w-4 text-center ${tabDef.color}"></i>
-            <span class="flex-1 text-left truncate">${tabDef.name}</span>
+            <i class="fa-solid ${tabDef.icon} w-4 text-center ${isLocked ? 'text-slate-400' : tabDef.color}"></i>
+            <span class="flex-1 text-left truncate flex items-center gap-1.5">
+              <span class="truncate">${tabDef.name}</span>
+              ${lockIconHtml}
+            </span>
             ${badgeHtml}
           </button>
         `;
@@ -6442,13 +6517,16 @@ function renderNavigation() {
   // 2. Mobile Bottom Navigation
   const mobileContainer = document.getElementById('mobile-bottom-nav');
   if (mobileContainer) {
+    const isGuest = !state.isAdmin;
     mobileContainer.innerHTML = order.map((tabId) => {
       const tabDef = TAB_REGISTRY.find(t => t.id === tabId);
       if (!tabDef) return '';
       const isActive = currentTab === tabDef.id;
+      const isLocked = isGuest && tabDef.id !== 'overview';
+
       const activeClass = isActive
         ? 'mobile-tab-active text-sky-400 font-bold bg-sky-500/20 border border-sky-500/30'
-        : 'text-slate-400 font-medium hover:text-slate-200';
+        : (isLocked ? 'text-slate-400 font-medium hover:text-slate-300' : 'text-slate-400 font-medium hover:text-slate-200');
 
       const clickHandler = tabDef.isPortfolio
         ? `window.app.openPortfolioTab('${tabDef.id}')`
@@ -6457,10 +6535,14 @@ function renderNavigation() {
       const catDef = TAB_CATEGORIES.find(c => c.id === tabDef.category);
       const dotColor = catDef ? (catDef.id === 'career' ? 'bg-amber-400' : catDef.id === 'hobby' ? 'bg-rose-400' : 'bg-slate-400') : 'bg-slate-500';
 
+      const lockBadge = isLocked
+        ? `<span class="w-3.5 h-3.5 rounded-full bg-amber-500 text-slate-950 font-black text-[8px] flex items-center justify-center absolute top-0.5 right-1 shadow"><i class="fa-solid fa-lock text-[7px]"></i></span>`
+        : `<span class="w-1.5 h-1.5 rounded-full ${dotColor} absolute top-1 right-2"></span>`;
+
       return `
         <button data-mobile-tab="${tabDef.id}" onclick="${clickHandler}" class="flex flex-col items-center justify-center gap-1 text-[10px] px-2.5 py-1.5 rounded-xl flex-shrink-0 min-w-[52px] transition relative ${activeClass}">
-          <span class="w-1.5 h-1.5 rounded-full ${dotColor} absolute top-1 right-2"></span>
-          <i class="fa-solid ${tabDef.icon} text-sm ${tabDef.color}"></i>
+          ${lockBadge}
+          <i class="fa-solid ${tabDef.icon} text-sm ${isLocked ? 'text-slate-400' : tabDef.color}"></i>
           <span class="truncate max-w-[56px]">${tabDef.shortName}</span>
         </button>
       `;
@@ -6594,7 +6676,9 @@ function initApp() {
   initNavigation();
   initModals();
   initKaTeX();
-
+  if (!state.isAdmin) {
+    state.activeTab = 'overview';
+  }
   switchTab(state.activeTab);
   setInterval(updateDDayDisplay, 60000);
 
@@ -6646,6 +6730,12 @@ function initNavigation() {
 }
 
 function switchTab(tabName) {
+  // 읽기 전용 게스트 모드 제한: 종합 대시보드(overview)만 열람 허용
+  if (!state.isAdmin && tabName !== 'overview') {
+    openTabLockedModal(tabName);
+    return;
+  }
+
   if (tabName === 'awards') {
     state.portfolioMode = 'awards';
   } else if (tabName === 'careers') {
@@ -10813,6 +10903,8 @@ window.app = {
   openAuthModal: () => openAdminAuthModal(),
   handleGoogleLogin: () => handleGoogleLogin(),
   handleLogout: () => handleLogout(),
+  handlePinLogin: (e) => handlePinLogin(e),
+  openTabLockedModal: (tabId) => openTabLockedModal(tabId),
   checkAdminPermission: (action) => checkAdminPermission(action),
   renderAuthWidget: () => renderAuthWidget(),
   // Energy Flashcard Handlers (암기카드)
