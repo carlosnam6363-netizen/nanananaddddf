@@ -143,16 +143,3 @@ body {
   text-decoration: line-through;
   opacity: 0.55;
 }
-
-/* ==========================================================================
-   Admin Permission & Access Control (.admin-only / .guest-only)
-   - Only carlosnam6363@gmail.com has edit permissions!
-   ========================================================================== */
-body:not(.is-admin) .admin-only {
-  display: none !important;
-}
-
-body.is-admin .guest-only {
-  display: none !important;
-}
-
