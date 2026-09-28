@@ -10227,9 +10227,6 @@ function renderSnsTab() {
     </div>
   `;
 }
-    </div>
-  `;
-}
 
 function renderPortfolioTab() {
   const container = document.getElementById('tab-content-portfolio');
