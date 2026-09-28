@@ -1233,113 +1233,2382 @@ const INITIAL_EXTERNAL_DASHBOARDS = [
   // =========================================================================
   
 // ==========================================================================
-// 체구 감량 & 인바디 지속 관리 초기 데이터 (⭐ '체중 변화 없는 성공적인 다이어트')
+// 체구 감량 & 인바디 지속 관리 초기 데이터 (⭐ 카카오톡 InBody CSV 89회 누적 연동)
 // ==========================================================================
 const INITIAL_INBODY_DATA = {
-  inbodyDataVersion: 1,
-  title: "체중 변화 없는 성공적인 다이어트 (체성분 재구성 & 체구 감량)",
-  subtitle: "체중계의 착각을 넘어 골격근 증량 & 순수 체지방 감량으로 실루엣을 바꾸는 상승 다이어트 (Body Recomposition)",
-  targetStats: {
-    targetWeight: 74.0,
-    targetMuscle: 35.0,
-    targetBodyFatRate: 15.0,
-    targetVisceral: 4,
-    targetWaist: 29.5
+  inbodyDataVersion: 2,
+  title: "체중 변화 없는 성공적인 다이어트 (체성분 재구성 & 체구 관리)",
+  subtitle: "2015~2026년 11개년 누적 89회 측정 데이터: 골격근 44.9kg 달성 & 체지방 6kg 순수 감량의 상승 다이어트",
+  latestKPI: {
+    latestDate: "2026-09-16",
+    latestWeight: 92.7,
+    latestMuscle: 42.5,
+    latestFatMass: 17.7,
+    latestFatRate: 19.1,
+    latestBMI: 30.1,
+    latestBMR: 1990,
+    peakMuscle: 44.9,
+    peakMuscleDate: "2026-08-06",
+    peakScore: 97.0,
+    baselineWeight: 94.6,
+    baselineMuscle: 41.0,
+    baselineFatMass: 22.1,
+    baselineFatRate: 23.4,
+    deltaWeight: -1.9,
+    maxMuscleGain: +3.9,
+    maxFatLoss: -6.0,
+    maxFatRateDrop: -6.1
   },
-  bodyMeasurements: {
-    chest: 102,
-    waist: 77, // 30.3 inch
-    hip: 96,
-    thigh: 56,
-    arm: 34
+  segmentalMuscle: {
+    date: "2026-08-06",
+    device: "InBody 570",
+    score: 97.0,
+    rightArm: 4.67,
+    leftArm: 4.67,
+    trunk: 34.0,
+    rightLeg: 10.93,
+    leftLeg: 11.02,
+    bodyWater: 56.2,
+    protein: 15.6,
+    mineral: 5.13
   },
-  records: [
-    {
-      id: "inbody-1",
-      date: "2026-06-15",
-      weight: 74.8,
-      skeletalMuscle: 32.1,
-      bodyFatMass: 17.5,
-      bodyFatRate: 23.4,
-      bmi: 24.1,
-      visceralFat: 7,
-      waistHipRatio: 0.88,
-      bmr: 1620,
-      score: 74,
-      bodyType: "C자형 (체지방 과다형)",
-      waistSize: 33.5,
-      notes: "다이어트 시작. 체중은 정상이나 복부 지방 집중. 굶지 않고 단백질 식단과 웨이트 트레이닝 착수"
-    },
-    {
-      id: "inbody-2",
-      date: "2026-07-20",
-      weight: 74.5,
-      skeletalMuscle: 32.8,
-      bodyFatMass: 16.2,
-      bodyFatRate: 21.7,
-      bmi: 24.0,
-      visceralFat: 6,
-      waistHipRatio: 0.86,
-      bmr: 1645,
-      score: 77,
-      bodyType: "I자형 (표준 균형형)",
-      waistSize: 32.3,
-      notes: "단백질 120g 매일 섭취 + 웨이트 3대 운동 점진적 과부하 적용, 체중 유지하며 골격근 증가 확인"
-    },
-    {
-      id: "inbody-3",
-      date: "2026-08-25",
-      weight: 74.2,
-      skeletalMuscle: 33.5,
-      bodyFatMass: 14.8,
-      bodyFatRate: 19.9,
-      bmi: 23.9,
-      visceralFat: 5,
-      waistHipRatio: 0.84,
-      bmr: 1670,
-      score: 81,
-      bodyType: "I-D 전환형",
-      waistSize: 31.1,
-      notes: "체지방률 20% 언더 돌파! 허리둘레 눈에 띄게 감소, 셔츠/바지 핏 대폭 개선"
-    },
-    {
-      id: "inbody-4",
-      date: "2026-09-25",
-      weight: 74.0,
-      skeletalMuscle: 34.2,
-      bodyFatMass: 13.5,
-      bodyFatRate: 18.2,
-      bmi: 23.8,
-      visceralFat: 5,
-      waistHipRatio: 0.82,
-      bmr: 1695,
-      score: 85,
-      bodyType: "D자형 (골격근 발달형 / 이상적)",
-      waistSize: 30.3,
-      notes: "★ 체중은 -0.8kg 유지 상태에서 골격근 +2.1kg 증량 & 체지방 -4.0kg 감량으로 체구 축소 대성공!"
-    }
-  ],
   principles: [
     {
       title: "1. 체중계의 착각 극복 (밀도와 부피의 비밀)",
-      description: "체중은 뼈, 수분, 근육, 지방의 총합입니다. 지방 1kg의 부피는 근육 1kg보다 약 18% 더 큽니다. 같은 74kg이라도 근육이 늘고 지방이 빠지면 체구와 허리둘레가 드라마틱하게 슬림해집니다."
+      description: "체중은 뼈, 수분, 근육, 지방의 총합입니다. 지방 1kg의 부피(1,111㎤)는 근육 1kg(943㎤)보다 약 18% 더 큽니다. 체중은 94.6kg ➔ 92.7kg으로 -1.9kg에 불과하지만, 골격근 +3.9kg 증가와 체지방 -6.0kg 감량으로 겉보기 체구는 드라마틱하게 슬림해졌습니다."
     },
     {
-      title: "2. 체중당 1.6~2.0g 단백질 고정 공급",
-      description: "근손실 없는 체지방 감량을 위해 체중(74kg) 기준 하루 120~150g 단백질(닭가슴살 400g 상당)을 3~4끼로 분할 공급하여 근합성을 최적화합니다."
+      title: "2. 체중당 1.6~2.0g 단백질 고정 공급 (150g ~ 185g)",
+      description: "체중 92.7kg 및 골격근 42~44kg을 유지/성장시키기 위해 하루 150g ~ 185g의 단백질(닭가슴살 500~600g 상당)을 3~4끼로 분할 공급하여 근손실을 원천 차단합니다."
     },
     {
-      title: "3. 대근육 중심 웨이트 트레이닝 (점진적 과부하)",
-      description: "단순 유산소만 하면 근육이 함께 빠져 기초대사량이 감소합니다. 스쿼트, 데드리프트, 벤치프레스 등 대근육 복합 다관절 운동으로 근육을 자극해야 체형이 바로 잡힙니다."
+      title: "3. 대근육 점진적 과부하 & 골격근 44.9kg 피지크",
+      description: "인바디 570 실측 기준 몸통 근육 34.0kg, 하체 22kg의 강력한 코어를 기반으로 3대 웨이트 트레이닝을 지속하여 BMR 1,990~2,032 kcal의 고연소 대사 체질을 완성했습니다."
     },
     {
-      title: "4. 수분 2.5L 섭취 & 7시간 숙면",
-      description: "충분한 수분 공급은 간의 지방 대사를 원활하게 하며, 깊은 수면 중 분비되는 성장호르몬이 근육 회복과 체지방 분해를 촉진합니다."
+      title: "4. 수분 2.5L 섭취 & 세포외수분비(0.360) 최적 유지",
+      description: "세포외수분비 0.360~0.365의 건강한 부종 제로 상태를 유지하기 위해 매일 2.5L 이상의 수분을 섭취하고 7시간 숙면으로 근회복을 돕습니다."
     }
-  ]
+  ],
+  records: [
+  {
+    "id": "inbody-1",
+    "date": "2026-09-16",
+    "time": "10:42",
+    "rawDate": "20260916104216",
+    "device": "Etc",
+    "weight": 92.7,
+    "skeletalMuscle": 42.5,
+    "bodyFatMass": 17.7,
+    "bodyFatRate": 19.1,
+    "bmi": 30.1,
+    "bmr": 1990,
+    "score": null,
+    "visceralFat": 7,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-2",
+    "date": "2026-08-22",
+    "time": "10:23",
+    "rawDate": "20260822102324",
+    "device": "570",
+    "weight": 92.5,
+    "skeletalMuscle": 43.4,
+    "bodyFatMass": 17.7,
+    "bodyFatRate": 19.1,
+    "bmi": 30.2,
+    "bmr": 1986,
+    "score": 93.0,
+    "visceralFat": 7,
+    "waistHipRatio": 0.89,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": 4.59,
+    "leftArmMuscle": 4.6,
+    "trunkMuscle": 33.5,
+    "rightLegMuscle": 10.74,
+    "leftLegMuscle": 10.82,
+    "bodyWater": 54.7,
+    "protein": 15.1,
+    "mineral": 5.0,
+    "notes": "측정 장비: InBody 570"
+  },
+  {
+    "id": "inbody-3",
+    "date": "2026-08-20",
+    "time": "09:28",
+    "rawDate": "20260820092800",
+    "device": "Etc",
+    "weight": 92.8,
+    "skeletalMuscle": 43.0,
+    "bodyFatMass": 17.1,
+    "bodyFatRate": 18.4,
+    "bmi": 30.1,
+    "bmr": 2005,
+    "score": null,
+    "visceralFat": 6,
+    "waistHipRatio": null,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-4",
+    "date": "2026-08-06",
+    "time": "09:09",
+    "rawDate": "20260806090909",
+    "device": "570",
+    "weight": 93.0,
+    "skeletalMuscle": 44.9,
+    "bodyFatMass": 16.1,
+    "bodyFatRate": 17.3,
+    "bmi": 30.0,
+    "bmr": 2032,
+    "score": 97.0,
+    "visceralFat": 6,
+    "waistHipRatio": 0.87,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.67,
+    "leftArmMuscle": 4.67,
+    "trunkMuscle": 34.0,
+    "rightLegMuscle": 10.93,
+    "leftLegMuscle": 11.02,
+    "bodyWater": 56.2,
+    "protein": 15.6,
+    "mineral": 5.13,
+    "notes": "측정 장비: InBody 570"
+  },
+  {
+    "id": "inbody-5",
+    "date": "2026-07-25",
+    "time": "11:42",
+    "rawDate": "20260725114230",
+    "device": "570",
+    "weight": 93.8,
+    "skeletalMuscle": 44.2,
+    "bodyFatMass": 17.6,
+    "bodyFatRate": 18.8,
+    "bmi": 30.3,
+    "bmr": 2015,
+    "score": 94.0,
+    "visceralFat": 7,
+    "waistHipRatio": 0.86,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.6,
+    "leftArmMuscle": 4.51,
+    "trunkMuscle": 33.4,
+    "rightLegMuscle": 11.33,
+    "leftLegMuscle": 11.47,
+    "bodyWater": 55.8,
+    "protein": 15.3,
+    "mineral": 5.11,
+    "notes": "측정 장비: InBody 570"
+  },
+  {
+    "id": "inbody-6",
+    "date": "2026-07-14",
+    "time": "09:54",
+    "rawDate": "20260714095450",
+    "device": "Etc",
+    "weight": 93.5,
+    "skeletalMuscle": 42.4,
+    "bodyFatMass": 19.0,
+    "bodyFatRate": 20.3,
+    "bmi": 30.4,
+    "bmr": 1979,
+    "score": null,
+    "visceralFat": 6,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-7",
+    "date": "2026-07-06",
+    "time": "09:20",
+    "rawDate": "20260706092006",
+    "device": "Etc",
+    "weight": 93.8,
+    "skeletalMuscle": 43.6,
+    "bodyFatMass": 17.4,
+    "bodyFatRate": 18.6,
+    "bmi": 30.5,
+    "bmr": 2020,
+    "score": null,
+    "visceralFat": 6,
+    "waistHipRatio": null,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-8",
+    "date": "2026-07-01",
+    "time": "10:37",
+    "rawDate": "20260701103716",
+    "device": "Etc",
+    "weight": 91.7,
+    "skeletalMuscle": 42.2,
+    "bodyFatMass": 17.4,
+    "bodyFatRate": 19.0,
+    "bmi": 29.8,
+    "bmr": 1975,
+    "score": null,
+    "visceralFat": 6,
+    "waistHipRatio": null,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-9",
+    "date": "2026-06-29",
+    "time": "10:37",
+    "rawDate": "20260629103752",
+    "device": "Etc",
+    "weight": 93.7,
+    "skeletalMuscle": 41.7,
+    "bodyFatMass": 20.3,
+    "bodyFatRate": 21.7,
+    "bmi": 30.4,
+    "bmr": 1955,
+    "score": null,
+    "visceralFat": 6,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-10",
+    "date": "2026-06-22",
+    "time": "10:52",
+    "rawDate": "20260622105213",
+    "device": "Etc",
+    "weight": 94.0,
+    "skeletalMuscle": 42.3,
+    "bodyFatMass": 19.8,
+    "bodyFatRate": 21.1,
+    "bmi": 30.5,
+    "bmr": 1973,
+    "score": null,
+    "visceralFat": 6,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-11",
+    "date": "2026-06-01",
+    "time": "09:37",
+    "rawDate": "20260601093741",
+    "device": "Etc",
+    "weight": 92.5,
+    "skeletalMuscle": 41.3,
+    "bodyFatMass": 19.7,
+    "bodyFatRate": 21.3,
+    "bmi": 30.0,
+    "bmr": 1943,
+    "score": null,
+    "visceralFat": 6,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-12",
+    "date": "2026-05-14",
+    "time": "15:15",
+    "rawDate": "20260514151524",
+    "device": "Etc",
+    "weight": 94.6,
+    "skeletalMuscle": 41.0,
+    "bodyFatMass": 22.1,
+    "bodyFatRate": 23.4,
+    "bmi": 30.7,
+    "bmr": 1936,
+    "score": null,
+    "visceralFat": 7,
+    "waistHipRatio": null,
+    "bodyType": "C자형 (체지방 과다형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-13",
+    "date": "2025-12-01",
+    "time": "09:42",
+    "rawDate": "20251201094210",
+    "device": "Etc",
+    "weight": 86.7,
+    "skeletalMuscle": 40.2,
+    "bodyFatMass": 15.1,
+    "bodyFatRate": 17.4,
+    "bmi": 28.1,
+    "bmr": 1917,
+    "score": null,
+    "visceralFat": 6,
+    "waistHipRatio": null,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-14",
+    "date": "2025-11-26",
+    "time": "12:12",
+    "rawDate": "20251126121231",
+    "device": "Etc",
+    "weight": 88.3,
+    "skeletalMuscle": 40.1,
+    "bodyFatMass": 16.9,
+    "bodyFatRate": 19.1,
+    "bmi": 28.7,
+    "bmr": 1912,
+    "score": null,
+    "visceralFat": 6,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-15",
+    "date": "2025-11-07",
+    "time": "14:45",
+    "rawDate": "20251107144513",
+    "device": "Etc",
+    "weight": 89.7,
+    "skeletalMuscle": 41.4,
+    "bodyFatMass": 16.2,
+    "bodyFatRate": 18.1,
+    "bmi": 29.1,
+    "bmr": 1958,
+    "score": null,
+    "visceralFat": 6,
+    "waistHipRatio": null,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-16",
+    "date": "2025-10-23",
+    "time": "09:56",
+    "rawDate": "20251023095639",
+    "device": "Etc",
+    "weight": 91.4,
+    "skeletalMuscle": 42.7,
+    "bodyFatMass": 16.2,
+    "bodyFatRate": 17.7,
+    "bmi": 31.6,
+    "bmr": 1994,
+    "score": null,
+    "visceralFat": 6,
+    "waistHipRatio": null,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-17",
+    "date": "2025-10-16",
+    "time": "09:26",
+    "rawDate": "20251016092637",
+    "device": "Etc",
+    "weight": 89.9,
+    "skeletalMuscle": 41.5,
+    "bodyFatMass": 16.7,
+    "bodyFatRate": 18.6,
+    "bmi": 31.1,
+    "bmr": 1951,
+    "score": null,
+    "visceralFat": 6,
+    "waistHipRatio": null,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-18",
+    "date": "2025-09-17",
+    "time": "09:43",
+    "rawDate": "20250917094352",
+    "device": "Etc",
+    "weight": 90.5,
+    "skeletalMuscle": 41.8,
+    "bodyFatMass": 16.1,
+    "bodyFatRate": 17.8,
+    "bmi": 31.3,
+    "bmr": 1977,
+    "score": null,
+    "visceralFat": 6,
+    "waistHipRatio": null,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-19",
+    "date": "2025-06-23",
+    "time": "09:17",
+    "rawDate": "20250623091756",
+    "device": "Etc",
+    "weight": 88.0,
+    "skeletalMuscle": 41.9,
+    "bodyFatMass": 13.6,
+    "bodyFatRate": 15.4,
+    "bmi": 28.6,
+    "bmr": 1977,
+    "score": null,
+    "visceralFat": 6,
+    "waistHipRatio": null,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-20",
+    "date": "2025-06-15",
+    "time": "00:05",
+    "rawDate": "20250615000530",
+    "device": "Etc",
+    "weight": 86.0,
+    "skeletalMuscle": 41.8,
+    "bodyFatMass": 12.0,
+    "bodyFatRate": 14.0,
+    "bmi": 27.9,
+    "bmr": 1968,
+    "score": null,
+    "visceralFat": 6,
+    "waistHipRatio": null,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-21",
+    "date": "2025-06-04",
+    "time": "09:11",
+    "rawDate": "20250604091139",
+    "device": "Etc",
+    "weight": 87.7,
+    "skeletalMuscle": 41.0,
+    "bodyFatMass": 14.7,
+    "bodyFatRate": 16.8,
+    "bmi": 28.5,
+    "bmr": 1947,
+    "score": null,
+    "visceralFat": 6,
+    "waistHipRatio": null,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-22",
+    "date": "2025-05-20",
+    "time": "13:02",
+    "rawDate": "20250520130216",
+    "device": "Etc",
+    "weight": 90.4,
+    "skeletalMuscle": 42.4,
+    "bodyFatMass": 14.8,
+    "bodyFatRate": 16.4,
+    "bmi": 29.5,
+    "bmr": 2003,
+    "score": null,
+    "visceralFat": 6,
+    "waistHipRatio": null,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-23",
+    "date": "2025-05-02",
+    "time": "13:20",
+    "rawDate": "20250502132014",
+    "device": "Etc",
+    "weight": 89.7,
+    "skeletalMuscle": 41.1,
+    "bodyFatMass": 16.8,
+    "bodyFatRate": 18.7,
+    "bmi": 29.3,
+    "bmr": 1945,
+    "score": null,
+    "visceralFat": 6,
+    "waistHipRatio": null,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-24",
+    "date": "2025-03-08",
+    "time": "09:32",
+    "rawDate": "20250308093215",
+    "device": "970",
+    "weight": 86.2,
+    "skeletalMuscle": 41.2,
+    "bodyFatMass": 15.1,
+    "bodyFatRate": 17.6,
+    "bmi": 28.1,
+    "bmr": 1905,
+    "score": 91.0,
+    "visceralFat": 6,
+    "waistHipRatio": 0.87,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.29,
+    "leftArmMuscle": 4.31,
+    "trunkMuscle": 31.8,
+    "rightLegMuscle": 10.41,
+    "leftLegMuscle": 10.39,
+    "bodyWater": 52.1,
+    "protein": 14.2,
+    "mineral": 4.75,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-25",
+    "date": "2025-02-27",
+    "time": "08:07",
+    "rawDate": "20250227080715",
+    "device": "970",
+    "weight": 87.5,
+    "skeletalMuscle": 42.2,
+    "bodyFatMass": 15.0,
+    "bodyFatRate": 17.1,
+    "bmi": 28.6,
+    "bmr": 1936,
+    "score": 93.0,
+    "visceralFat": 5,
+    "waistHipRatio": 0.86,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.4,
+    "leftArmMuscle": 4.4,
+    "trunkMuscle": 32.4,
+    "rightLegMuscle": 10.61,
+    "leftLegMuscle": 10.62,
+    "bodyWater": 53.1,
+    "protein": 14.6,
+    "mineral": 4.77,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-26",
+    "date": "2025-02-13",
+    "time": "10:02",
+    "rawDate": "20250213100252",
+    "device": "970",
+    "weight": 89.8,
+    "skeletalMuscle": 42.3,
+    "bodyFatMass": 16.6,
+    "bodyFatRate": 18.5,
+    "bmi": 29.3,
+    "bmr": 1952,
+    "score": 92.0,
+    "visceralFat": 6,
+    "waistHipRatio": 0.87,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.35,
+    "leftArmMuscle": 4.45,
+    "trunkMuscle": 32.3,
+    "rightLegMuscle": 10.67,
+    "leftLegMuscle": 10.68,
+    "bodyWater": 53.7,
+    "protein": 14.6,
+    "mineral": 4.88,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-27",
+    "date": "2025-01-31",
+    "time": "16:11",
+    "rawDate": "20250131161123",
+    "device": "970",
+    "weight": 89.0,
+    "skeletalMuscle": 42.9,
+    "bodyFatMass": 14.8,
+    "bodyFatRate": 16.7,
+    "bmi": 29.1,
+    "bmr": 1972,
+    "score": 95.0,
+    "visceralFat": 6,
+    "waistHipRatio": 0.84,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.43,
+    "leftArmMuscle": 4.48,
+    "trunkMuscle": 32.6,
+    "rightLegMuscle": 10.9,
+    "leftLegMuscle": 10.91,
+    "bodyWater": 54.4,
+    "protein": 14.8,
+    "mineral": 4.99,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-28",
+    "date": "2025-01-15",
+    "time": "13:37",
+    "rawDate": "20250115133726",
+    "device": "970",
+    "weight": 86.7,
+    "skeletalMuscle": 41.4,
+    "bodyFatMass": 15.6,
+    "bodyFatRate": 18.0,
+    "bmi": 28.3,
+    "bmr": 1905,
+    "score": 91.0,
+    "visceralFat": 6,
+    "waistHipRatio": 0.88,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.22,
+    "leftArmMuscle": 4.33,
+    "trunkMuscle": 31.8,
+    "rightLegMuscle": 10.28,
+    "leftLegMuscle": 10.35,
+    "bodyWater": 52.0,
+    "protein": 14.3,
+    "mineral": 4.76,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-29",
+    "date": "2025-01-06",
+    "time": "10:35",
+    "rawDate": "20250106103555",
+    "device": "970",
+    "weight": 88.5,
+    "skeletalMuscle": 42.4,
+    "bodyFatMass": 15.1,
+    "bodyFatRate": 17.1,
+    "bmi": 28.9,
+    "bmr": 1955,
+    "score": 94.0,
+    "visceralFat": 6,
+    "waistHipRatio": 0.85,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.38,
+    "leftArmMuscle": 4.42,
+    "trunkMuscle": 32.3,
+    "rightLegMuscle": 10.68,
+    "leftLegMuscle": 10.76,
+    "bodyWater": 53.8,
+    "protein": 14.7,
+    "mineral": 4.88,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-30",
+    "date": "2024-12-31",
+    "time": "09:30",
+    "rawDate": "20241231093046",
+    "device": "970",
+    "weight": 87.9,
+    "skeletalMuscle": 42.2,
+    "bodyFatMass": 15.1,
+    "bodyFatRate": 17.2,
+    "bmi": 28.7,
+    "bmr": 1943,
+    "score": 93.0,
+    "visceralFat": 6,
+    "waistHipRatio": 0.85,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.26,
+    "leftArmMuscle": 4.41,
+    "trunkMuscle": 32.0,
+    "rightLegMuscle": 10.53,
+    "leftLegMuscle": 10.59,
+    "bodyWater": 53.3,
+    "protein": 14.6,
+    "mineral": 4.87,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-31",
+    "date": "2024-12-16",
+    "time": "13:49",
+    "rawDate": "20241216134905",
+    "device": "970",
+    "weight": 86.4,
+    "skeletalMuscle": 42.2,
+    "bodyFatMass": 13.4,
+    "bodyFatRate": 15.5,
+    "bmi": 28.2,
+    "bmr": 1948,
+    "score": 95.0,
+    "visceralFat": 5,
+    "waistHipRatio": 0.83,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.32,
+    "leftArmMuscle": 4.43,
+    "trunkMuscle": 32.1,
+    "rightLegMuscle": 10.78,
+    "leftLegMuscle": 10.69,
+    "bodyWater": 53.6,
+    "protein": 14.6,
+    "mineral": 4.78,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-32",
+    "date": "2024-12-09",
+    "time": "08:57",
+    "rawDate": "20241209085758",
+    "device": "970",
+    "weight": 86.6,
+    "skeletalMuscle": 41.5,
+    "bodyFatMass": 14.5,
+    "bodyFatRate": 16.8,
+    "bmi": 28.3,
+    "bmr": 1927,
+    "score": 93.0,
+    "visceralFat": 5,
+    "waistHipRatio": 0.85,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.26,
+    "leftArmMuscle": 4.29,
+    "trunkMuscle": 31.6,
+    "rightLegMuscle": 10.58,
+    "leftLegMuscle": 10.51,
+    "bodyWater": 52.8,
+    "protein": 14.4,
+    "mineral": 4.86,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-33",
+    "date": "2024-11-19",
+    "time": "10:20",
+    "rawDate": "20241119102039",
+    "device": "970",
+    "weight": 85.1,
+    "skeletalMuscle": 41.2,
+    "bodyFatMass": 13.5,
+    "bodyFatRate": 15.8,
+    "bmi": 27.8,
+    "bmr": 1917,
+    "score": 94.0,
+    "visceralFat": 5,
+    "waistHipRatio": 0.83,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.26,
+    "leftArmMuscle": 4.28,
+    "trunkMuscle": 31.5,
+    "rightLegMuscle": 10.67,
+    "leftLegMuscle": 10.61,
+    "bodyWater": 52.5,
+    "protein": 14.3,
+    "mineral": 4.76,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-34",
+    "date": "2024-11-08",
+    "time": "09:19",
+    "rawDate": "20241108091932",
+    "device": "970",
+    "weight": 86.9,
+    "skeletalMuscle": 41.5,
+    "bodyFatMass": 14.2,
+    "bodyFatRate": 16.3,
+    "bmi": 28.5,
+    "bmr": 1941,
+    "score": 94.0,
+    "visceralFat": 6,
+    "waistHipRatio": 0.84,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.42,
+    "leftArmMuscle": 4.49,
+    "trunkMuscle": 32.3,
+    "rightLegMuscle": 10.67,
+    "leftLegMuscle": 10.79,
+    "bodyWater": 53.5,
+    "protein": 14.4,
+    "mineral": 4.77,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-35",
+    "date": "2024-10-26",
+    "time": "13:05",
+    "rawDate": "20241026130526",
+    "device": "970",
+    "weight": 84.1,
+    "skeletalMuscle": 41.2,
+    "bodyFatMass": 12.8,
+    "bodyFatRate": 15.2,
+    "bmi": 27.5,
+    "bmr": 1911,
+    "score": 94.0,
+    "visceralFat": 5,
+    "waistHipRatio": 0.84,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.31,
+    "leftArmMuscle": 4.29,
+    "trunkMuscle": 31.7,
+    "rightLegMuscle": 10.54,
+    "leftLegMuscle": 10.59,
+    "bodyWater": 52.3,
+    "protein": 14.3,
+    "mineral": 4.66,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-36",
+    "date": "2024-10-15",
+    "time": "16:35",
+    "rawDate": "20241015163524",
+    "device": "970",
+    "weight": 85.1,
+    "skeletalMuscle": 40.8,
+    "bodyFatMass": 14.3,
+    "bodyFatRate": 16.8,
+    "bmi": 27.9,
+    "bmr": 1900,
+    "score": 92.0,
+    "visceralFat": 5,
+    "waistHipRatio": 0.81,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.03,
+    "leftArmMuscle": 4.07,
+    "trunkMuscle": 30.3,
+    "rightLegMuscle": 10.84,
+    "leftLegMuscle": 10.94,
+    "bodyWater": 51.9,
+    "protein": 14.1,
+    "mineral": 4.75,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-37",
+    "date": "2024-10-05",
+    "time": "10:51",
+    "rawDate": "20241005105155",
+    "device": "970",
+    "weight": 85.9,
+    "skeletalMuscle": 42.2,
+    "bodyFatMass": 12.8,
+    "bodyFatRate": 14.9,
+    "bmi": 28.0,
+    "bmr": 1949,
+    "score": 96.0,
+    "visceralFat": 5,
+    "waistHipRatio": 0.82,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.34,
+    "leftArmMuscle": 4.42,
+    "trunkMuscle": 32.1,
+    "rightLegMuscle": 10.83,
+    "leftLegMuscle": 10.76,
+    "bodyWater": 53.6,
+    "protein": 14.6,
+    "mineral": 4.87,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-38",
+    "date": "2024-09-30",
+    "time": "10:18",
+    "rawDate": "20240930101802",
+    "device": "970",
+    "weight": 85.4,
+    "skeletalMuscle": 41.6,
+    "bodyFatMass": 13.6,
+    "bodyFatRate": 16.0,
+    "bmi": 27.9,
+    "bmr": 1920,
+    "score": 94.0,
+    "visceralFat": 5,
+    "waistHipRatio": 0.84,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.22,
+    "leftArmMuscle": 4.36,
+    "trunkMuscle": 31.7,
+    "rightLegMuscle": 10.56,
+    "leftLegMuscle": 10.58,
+    "bodyWater": 52.6,
+    "protein": 14.4,
+    "mineral": 4.76,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-39",
+    "date": "2024-09-23",
+    "time": "08:10",
+    "rawDate": "20240923081011",
+    "device": "970",
+    "weight": 84.9,
+    "skeletalMuscle": 41.6,
+    "bodyFatMass": 13.1,
+    "bodyFatRate": 15.4,
+    "bmi": 27.7,
+    "bmr": 1921,
+    "score": 94.0,
+    "visceralFat": 4,
+    "waistHipRatio": 0.83,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.2,
+    "leftArmMuscle": 4.27,
+    "trunkMuscle": 31.4,
+    "rightLegMuscle": 10.67,
+    "leftLegMuscle": 10.6,
+    "bodyWater": 52.5,
+    "protein": 14.4,
+    "mineral": 4.86,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-40",
+    "date": "2024-09-14",
+    "time": "09:46",
+    "rawDate": "20240914094629",
+    "device": "970",
+    "weight": 85.3,
+    "skeletalMuscle": 42.1,
+    "bodyFatMass": 12.5,
+    "bodyFatRate": 14.7,
+    "bmi": 27.9,
+    "bmr": 1942,
+    "score": 96.0,
+    "visceralFat": 4,
+    "waistHipRatio": 0.83,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.35,
+    "leftArmMuscle": 4.42,
+    "trunkMuscle": 32.2,
+    "rightLegMuscle": 10.71,
+    "leftLegMuscle": 10.76,
+    "bodyWater": 53.3,
+    "protein": 14.6,
+    "mineral": 4.88,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-41",
+    "date": "2024-09-02",
+    "time": "09:06",
+    "rawDate": "20240902090646",
+    "device": "970",
+    "weight": 84.8,
+    "skeletalMuscle": 41.3,
+    "bodyFatMass": 13.1,
+    "bodyFatRate": 15.5,
+    "bmi": 27.7,
+    "bmr": 1918,
+    "score": 94.0,
+    "visceralFat": 5,
+    "waistHipRatio": 0.84,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.31,
+    "leftArmMuscle": 4.36,
+    "trunkMuscle": 31.9,
+    "rightLegMuscle": 10.65,
+    "leftLegMuscle": 10.65,
+    "bodyWater": 52.6,
+    "protein": 14.3,
+    "mineral": 4.76,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-42",
+    "date": "2024-08-23",
+    "time": "10:06",
+    "rawDate": "20240823100628",
+    "device": "970",
+    "weight": 84.1,
+    "skeletalMuscle": 41.1,
+    "bodyFatMass": 12.8,
+    "bodyFatRate": 15.2,
+    "bmi": 27.5,
+    "bmr": 1911,
+    "score": 94.0,
+    "visceralFat": 5,
+    "waistHipRatio": 0.83,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.26,
+    "leftArmMuscle": 4.23,
+    "trunkMuscle": 31.4,
+    "rightLegMuscle": 10.51,
+    "leftLegMuscle": 10.54,
+    "bodyWater": 52.3,
+    "protein": 14.2,
+    "mineral": 4.76,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-43",
+    "date": "2024-08-16",
+    "time": "10:53",
+    "rawDate": "20240816105320",
+    "device": "970",
+    "weight": 83.4,
+    "skeletalMuscle": 41.7,
+    "bodyFatMass": 11.3,
+    "bodyFatRate": 13.5,
+    "bmi": 26.9,
+    "bmr": 1927,
+    "score": 94.0,
+    "visceralFat": 4,
+    "waistHipRatio": 0.82,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.29,
+    "leftArmMuscle": 4.33,
+    "trunkMuscle": 31.8,
+    "rightLegMuscle": 10.77,
+    "leftLegMuscle": 10.75,
+    "bodyWater": 52.8,
+    "protein": 14.5,
+    "mineral": 4.77,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-44",
+    "date": "2024-08-05",
+    "time": "09:26",
+    "rawDate": "20240805092618",
+    "device": "970",
+    "weight": 84.2,
+    "skeletalMuscle": 41.5,
+    "bodyFatMass": 12.2,
+    "bodyFatRate": 14.5,
+    "bmi": 27.2,
+    "bmr": 1925,
+    "score": 94.0,
+    "visceralFat": 4,
+    "waistHipRatio": 0.83,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.32,
+    "leftArmMuscle": 4.33,
+    "trunkMuscle": 31.8,
+    "rightLegMuscle": 10.75,
+    "leftLegMuscle": 10.76,
+    "bodyWater": 52.8,
+    "protein": 14.4,
+    "mineral": 4.76,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-45",
+    "date": "2024-08-04",
+    "time": "00:50",
+    "rawDate": "20240804005008",
+    "device": "Etc",
+    "weight": 84.8,
+    "skeletalMuscle": 42.1,
+    "bodyFatMass": 11.9,
+    "bodyFatRate": 14.0,
+    "bmi": 27.4,
+    "bmr": 1945,
+    "score": null,
+    "visceralFat": 4,
+    "waistHipRatio": null,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-46",
+    "date": "2024-07-23",
+    "time": "21:11",
+    "rawDate": "20240723211138",
+    "device": "970",
+    "weight": 87.2,
+    "skeletalMuscle": 42.7,
+    "bodyFatMass": 12.9,
+    "bodyFatRate": 14.8,
+    "bmi": 28.2,
+    "bmr": 1974,
+    "score": 96.0,
+    "visceralFat": 5,
+    "waistHipRatio": 0.82,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.34,
+    "leftArmMuscle": 4.42,
+    "trunkMuscle": 32.1,
+    "rightLegMuscle": 10.95,
+    "leftLegMuscle": 11.0,
+    "bodyWater": 54.4,
+    "protein": 14.8,
+    "mineral": 5.09,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-47",
+    "date": "2024-07-12",
+    "time": "11:08",
+    "rawDate": "20240712110805",
+    "device": "970",
+    "weight": 84.1,
+    "skeletalMuscle": 41.6,
+    "bodyFatMass": 12.0,
+    "bodyFatRate": 14.3,
+    "bmi": 27.2,
+    "bmr": 1927,
+    "score": 94.0,
+    "visceralFat": 4,
+    "waistHipRatio": 0.82,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.17,
+    "leftArmMuscle": 4.33,
+    "trunkMuscle": 31.4,
+    "rightLegMuscle": 10.66,
+    "leftLegMuscle": 10.64,
+    "bodyWater": 52.8,
+    "protein": 14.4,
+    "mineral": 4.87,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-48",
+    "date": "2024-07-06",
+    "time": "12:29",
+    "rawDate": "20240706122909",
+    "device": "970",
+    "weight": 83.4,
+    "skeletalMuscle": 41.6,
+    "bodyFatMass": 11.3,
+    "bodyFatRate": 13.6,
+    "bmi": 26.9,
+    "bmr": 1927,
+    "score": 94.0,
+    "visceralFat": 4,
+    "waistHipRatio": 0.82,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.26,
+    "leftArmMuscle": 4.29,
+    "trunkMuscle": 31.5,
+    "rightLegMuscle": 10.73,
+    "leftLegMuscle": 10.73,
+    "bodyWater": 52.8,
+    "protein": 14.4,
+    "mineral": 4.86,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-49",
+    "date": "2024-06-24",
+    "time": "08:20",
+    "rawDate": "20240624082030",
+    "device": "970",
+    "weight": 83.8,
+    "skeletalMuscle": 41.5,
+    "bodyFatMass": 12.0,
+    "bodyFatRate": 14.3,
+    "bmi": 27.1,
+    "bmr": 1921,
+    "score": 94.0,
+    "visceralFat": 4,
+    "waistHipRatio": 0.82,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.15,
+    "leftArmMuscle": 4.3,
+    "trunkMuscle": 31.3,
+    "rightLegMuscle": 10.76,
+    "leftLegMuscle": 10.73,
+    "bodyWater": 52.6,
+    "protein": 14.4,
+    "mineral": 4.76,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-50",
+    "date": "2024-06-21",
+    "time": "09:05",
+    "rawDate": "20240621090548",
+    "device": "970",
+    "weight": 83.5,
+    "skeletalMuscle": 41.5,
+    "bodyFatMass": 11.9,
+    "bodyFatRate": 14.2,
+    "bmi": 27.0,
+    "bmr": 1917,
+    "score": 94.0,
+    "visceralFat": 4,
+    "waistHipRatio": 0.84,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.27,
+    "leftArmMuscle": 4.34,
+    "trunkMuscle": 31.8,
+    "rightLegMuscle": 10.51,
+    "leftLegMuscle": 10.54,
+    "bodyWater": 52.5,
+    "protein": 14.4,
+    "mineral": 4.66,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-51",
+    "date": "2024-06-17",
+    "time": "09:18",
+    "rawDate": "20240617091808",
+    "device": "970",
+    "weight": 84.4,
+    "skeletalMuscle": 41.6,
+    "bodyFatMass": 12.5,
+    "bodyFatRate": 14.8,
+    "bmi": 27.2,
+    "bmr": 1922,
+    "score": 94.0,
+    "visceralFat": 5,
+    "waistHipRatio": 0.85,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.3,
+    "leftArmMuscle": 4.35,
+    "trunkMuscle": 31.9,
+    "rightLegMuscle": 10.4,
+    "leftLegMuscle": 10.44,
+    "bodyWater": 52.6,
+    "protein": 14.4,
+    "mineral": 4.86,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-52",
+    "date": "2024-06-10",
+    "time": "08:16",
+    "rawDate": "20240610081631",
+    "device": "970",
+    "weight": 86.2,
+    "skeletalMuscle": 42.0,
+    "bodyFatMass": 13.6,
+    "bodyFatRate": 15.7,
+    "bmi": 27.8,
+    "bmr": 1939,
+    "score": 94.0,
+    "visceralFat": 5,
+    "waistHipRatio": 0.84,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.27,
+    "leftArmMuscle": 4.34,
+    "trunkMuscle": 31.8,
+    "rightLegMuscle": 10.7,
+    "leftLegMuscle": 10.67,
+    "bodyWater": 53.2,
+    "protein": 14.6,
+    "mineral": 4.77,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-53",
+    "date": "2024-06-03",
+    "time": "08:54",
+    "rawDate": "20240603085433",
+    "device": "970",
+    "weight": 86.3,
+    "skeletalMuscle": 41.6,
+    "bodyFatMass": 14.2,
+    "bodyFatRate": 16.5,
+    "bmi": 27.9,
+    "bmr": 1926,
+    "score": 93.0,
+    "visceralFat": 5,
+    "waistHipRatio": 0.85,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.23,
+    "leftArmMuscle": 4.33,
+    "trunkMuscle": 31.6,
+    "rightLegMuscle": 10.51,
+    "leftLegMuscle": 10.59,
+    "bodyWater": 52.8,
+    "protein": 14.4,
+    "mineral": 4.86,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-54",
+    "date": "2024-05-27",
+    "time": "08:10",
+    "rawDate": "20240527081011",
+    "device": "970",
+    "weight": 85.8,
+    "skeletalMuscle": 41.3,
+    "bodyFatMass": 14.4,
+    "bodyFatRate": 16.8,
+    "bmi": 27.7,
+    "bmr": 1911,
+    "score": 92.0,
+    "visceralFat": 5,
+    "waistHipRatio": 0.84,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.13,
+    "leftArmMuscle": 4.16,
+    "trunkMuscle": 31.0,
+    "rightLegMuscle": 10.53,
+    "leftLegMuscle": 10.57,
+    "bodyWater": 52.2,
+    "protein": 14.3,
+    "mineral": 4.85,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-55",
+    "date": "2024-05-20",
+    "time": "07:46",
+    "rawDate": "20240520074628",
+    "device": "970",
+    "weight": 87.1,
+    "skeletalMuscle": 40.9,
+    "bodyFatMass": 16.2,
+    "bodyFatRate": 18.6,
+    "bmi": 28.2,
+    "bmr": 1902,
+    "score": 90.0,
+    "visceralFat": 6,
+    "waistHipRatio": 0.86,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.08,
+    "leftArmMuscle": 4.14,
+    "trunkMuscle": 30.8,
+    "rightLegMuscle": 10.5,
+    "leftLegMuscle": 10.53,
+    "bodyWater": 51.9,
+    "protein": 14.2,
+    "mineral": 4.75,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-56",
+    "date": "2024-05-04",
+    "time": "11:54",
+    "rawDate": "20240504115437",
+    "device": "970",
+    "weight": 85.4,
+    "skeletalMuscle": 41.0,
+    "bodyFatMass": 14.4,
+    "bodyFatRate": 16.9,
+    "bmi": 27.7,
+    "bmr": 1903,
+    "score": 91.0,
+    "visceralFat": 5,
+    "waistHipRatio": 0.85,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.24,
+    "leftArmMuscle": 4.14,
+    "trunkMuscle": 31.2,
+    "rightLegMuscle": 10.48,
+    "leftLegMuscle": 10.54,
+    "bodyWater": 52.0,
+    "protein": 14.3,
+    "mineral": 4.75,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-57",
+    "date": "2024-04-19",
+    "time": "16:26",
+    "rawDate": "20240419162605",
+    "device": "970",
+    "weight": 83.8,
+    "skeletalMuscle": 40.4,
+    "bodyFatMass": 13.5,
+    "bodyFatRate": 16.1,
+    "bmi": 27.5,
+    "bmr": 1888,
+    "score": 92.0,
+    "visceralFat": 5,
+    "waistHipRatio": 0.82,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.04,
+    "leftArmMuscle": 4.1,
+    "trunkMuscle": 30.4,
+    "rightLegMuscle": 10.41,
+    "leftLegMuscle": 10.52,
+    "bodyWater": 51.5,
+    "protein": 14.1,
+    "mineral": 4.74,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-58",
+    "date": "2024-04-06",
+    "time": "11:06",
+    "rawDate": "20240406110604",
+    "device": "770",
+    "weight": 87.0,
+    "skeletalMuscle": 40.9,
+    "bodyFatMass": 15.7,
+    "bodyFatRate": 18.1,
+    "bmi": 28.4,
+    "bmr": 1909,
+    "score": 91.0,
+    "visceralFat": 6,
+    "waistHipRatio": 0.86,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.17,
+    "leftArmMuscle": 4.13,
+    "trunkMuscle": 30.9,
+    "rightLegMuscle": 10.26,
+    "leftLegMuscle": 10.39,
+    "bodyWater": 52.0,
+    "protein": 14.2,
+    "mineral": 5.06,
+    "notes": "측정 장비: InBody 770"
+  },
+  {
+    "id": "inbody-59",
+    "date": "2024-03-22",
+    "time": "10:23",
+    "rawDate": "20240322102309",
+    "device": "770",
+    "weight": 86.6,
+    "skeletalMuscle": 40.6,
+    "bodyFatMass": 16.2,
+    "bodyFatRate": 18.7,
+    "bmi": 28.0,
+    "bmr": 1890,
+    "score": 89.0,
+    "visceralFat": 6,
+    "waistHipRatio": 0.87,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": 4.01,
+    "leftArmMuscle": 4.09,
+    "trunkMuscle": 30.6,
+    "rightLegMuscle": 10.24,
+    "leftLegMuscle": 10.25,
+    "bodyWater": 51.3,
+    "protein": 14.2,
+    "mineral": 4.94,
+    "notes": "측정 장비: InBody 770"
+  },
+  {
+    "id": "inbody-60",
+    "date": "2024-03-12",
+    "time": "07:00",
+    "rawDate": "20240312070016",
+    "device": "770",
+    "weight": 86.8,
+    "skeletalMuscle": 40.4,
+    "bodyFatMass": 16.8,
+    "bodyFatRate": 19.4,
+    "bmi": 28.0,
+    "bmr": 1882,
+    "score": 88.0,
+    "visceralFat": 6,
+    "waistHipRatio": 0.86,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": 3.99,
+    "leftArmMuscle": 3.93,
+    "trunkMuscle": 30.1,
+    "rightLegMuscle": 10.36,
+    "leftLegMuscle": 10.46,
+    "bodyWater": 51.0,
+    "protein": 14.1,
+    "mineral": 4.94,
+    "notes": "측정 장비: InBody 770"
+  },
+  {
+    "id": "inbody-61",
+    "date": "2024-03-03",
+    "time": "09:29",
+    "rawDate": "20240303092938",
+    "device": "Etc",
+    "weight": 86.5,
+    "skeletalMuscle": 40.4,
+    "bodyFatMass": 16.4,
+    "bodyFatRate": 19.0,
+    "bmi": 29.9,
+    "bmr": 1884,
+    "score": null,
+    "visceralFat": 8,
+    "waistHipRatio": null,
+    "bodyType": "D자형 (골격근 발달 근육형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-62",
+    "date": "2024-02-18",
+    "time": "07:17",
+    "rawDate": "20240218071740",
+    "device": "Etc",
+    "weight": 86.8,
+    "skeletalMuscle": 39.2,
+    "bodyFatMass": 18.5,
+    "bodyFatRate": 21.3,
+    "bmi": 30.0,
+    "bmr": 1845,
+    "score": null,
+    "visceralFat": 8,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-63",
+    "date": "2024-01-24",
+    "time": "08:57",
+    "rawDate": "20240124085708",
+    "device": "Etc",
+    "weight": 88.0,
+    "skeletalMuscle": 39.1,
+    "bodyFatMass": 19.9,
+    "bodyFatRate": 22.6,
+    "bmi": 30.4,
+    "bmr": 1841,
+    "score": null,
+    "visceralFat": 8,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-64",
+    "date": "2024-01-09",
+    "time": "10:58",
+    "rawDate": "20240109105849",
+    "device": "970",
+    "weight": 89.4,
+    "skeletalMuscle": 39.7,
+    "bodyFatMass": 20.4,
+    "bodyFatRate": 22.9,
+    "bmi": 29.4,
+    "bmr": 1859,
+    "score": 84.0,
+    "visceralFat": 8,
+    "waistHipRatio": 0.9,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": 3.94,
+    "leftArmMuscle": 3.96,
+    "trunkMuscle": 30.0,
+    "rightLegMuscle": 9.99,
+    "leftLegMuscle": 10.03,
+    "bodyWater": 50.4,
+    "protein": 13.9,
+    "mineral": 4.72,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-65",
+    "date": "2023-09-18",
+    "time": "06:08",
+    "rawDate": "20230918060820",
+    "device": "770",
+    "weight": 86.1,
+    "skeletalMuscle": 38.6,
+    "bodyFatMass": 19.2,
+    "bodyFatRate": 22.3,
+    "bmi": 28.1,
+    "bmr": 1816,
+    "score": 82.0,
+    "visceralFat": 7,
+    "waistHipRatio": 0.88,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": 3.72,
+    "leftArmMuscle": 3.77,
+    "trunkMuscle": 29.0,
+    "rightLegMuscle": 10.01,
+    "leftLegMuscle": 10.04,
+    "bodyWater": 48.8,
+    "protein": 13.4,
+    "mineral": 4.7,
+    "notes": "측정 장비: InBody 770"
+  },
+  {
+    "id": "inbody-66",
+    "date": "2023-08-02",
+    "time": "17:02",
+    "rawDate": "20230802170217",
+    "device": "770",
+    "weight": 89.2,
+    "skeletalMuscle": 38.7,
+    "bodyFatMass": 21.2,
+    "bodyFatRate": 23.8,
+    "bmi": 29.1,
+    "bmr": 1839,
+    "score": 82.0,
+    "visceralFat": 8,
+    "waistHipRatio": 0.86,
+    "bodyType": "C자형 (체지방 과다형)",
+    "rightArmMuscle": 3.72,
+    "leftArmMuscle": 3.72,
+    "trunkMuscle": 28.7,
+    "rightLegMuscle": 10.36,
+    "leftLegMuscle": 10.5,
+    "bodyWater": 49.6,
+    "protein": 13.5,
+    "mineral": 4.92,
+    "notes": "측정 장비: InBody 770"
+  },
+  {
+    "id": "inbody-67",
+    "date": "2023-07-30",
+    "time": "02:28",
+    "rawDate": "20230730022827",
+    "device": "H20N",
+    "weight": 88.5,
+    "skeletalMuscle": 39.1,
+    "bodyFatMass": 20.1,
+    "bodyFatRate": 22.7,
+    "bmi": 28.9,
+    "bmr": 1847,
+    "score": 83.0,
+    "visceralFat": 8,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "측정 장비: InBody H20N"
+  },
+  {
+    "id": "inbody-68",
+    "date": "2023-06-26",
+    "time": "10:50",
+    "rawDate": "20230626105038",
+    "device": "770",
+    "weight": 89.2,
+    "skeletalMuscle": 39.2,
+    "bodyFatMass": 20.7,
+    "bodyFatRate": 23.2,
+    "bmi": 29.1,
+    "bmr": 1849,
+    "score": 83.0,
+    "visceralFat": 8,
+    "waistHipRatio": 0.89,
+    "bodyType": "C자형 (체지방 과다형)",
+    "rightArmMuscle": 3.88,
+    "leftArmMuscle": 3.84,
+    "trunkMuscle": 29.5,
+    "rightLegMuscle": 10.13,
+    "leftLegMuscle": 10.17,
+    "bodyWater": 49.9,
+    "protein": 13.7,
+    "mineral": 4.92,
+    "notes": "측정 장비: InBody 770"
+  },
+  {
+    "id": "inbody-69",
+    "date": "2023-06-19",
+    "time": "06:20",
+    "rawDate": "20230619062012",
+    "device": "770",
+    "weight": 90.6,
+    "skeletalMuscle": 39.1,
+    "bodyFatMass": 22.1,
+    "bodyFatRate": 24.4,
+    "bmi": 29.6,
+    "bmr": 1849,
+    "score": 81.0,
+    "visceralFat": 8,
+    "waistHipRatio": 0.87,
+    "bodyType": "C자형 (체지방 과다형)",
+    "rightArmMuscle": 3.75,
+    "leftArmMuscle": 3.75,
+    "trunkMuscle": 28.9,
+    "rightLegMuscle": 10.38,
+    "leftLegMuscle": 10.5,
+    "bodyWater": 49.9,
+    "protein": 13.7,
+    "mineral": 4.92,
+    "notes": "측정 장비: InBody 770"
+  },
+  {
+    "id": "inbody-70",
+    "date": "2023-06-12",
+    "time": "16:27",
+    "rawDate": "20230612162741",
+    "device": "770",
+    "weight": 90.3,
+    "skeletalMuscle": 39.3,
+    "bodyFatMass": 21.5,
+    "bodyFatRate": 23.8,
+    "bmi": 29.5,
+    "bmr": 1856,
+    "score": 82.0,
+    "visceralFat": 8,
+    "waistHipRatio": 0.9,
+    "bodyType": "C자형 (체지방 과다형)",
+    "rightArmMuscle": 3.91,
+    "leftArmMuscle": 3.89,
+    "trunkMuscle": 29.7,
+    "rightLegMuscle": 10.15,
+    "leftLegMuscle": 10.21,
+    "bodyWater": 50.2,
+    "protein": 13.8,
+    "mineral": 4.83,
+    "notes": "측정 장비: InBody 770"
+  },
+  {
+    "id": "inbody-71",
+    "date": "2023-06-05",
+    "time": "12:35",
+    "rawDate": "20230605123515",
+    "device": "770",
+    "weight": 90.0,
+    "skeletalMuscle": 38.9,
+    "bodyFatMass": 21.9,
+    "bodyFatRate": 24.3,
+    "bmi": 29.4,
+    "bmr": 1841,
+    "score": 81.0,
+    "visceralFat": 8,
+    "waistHipRatio": 0.89,
+    "bodyType": "C자형 (체지방 과다형)",
+    "rightArmMuscle": 3.76,
+    "leftArmMuscle": 3.83,
+    "trunkMuscle": 29.2,
+    "rightLegMuscle": 10.2,
+    "leftLegMuscle": 10.27,
+    "bodyWater": 49.6,
+    "protein": 13.6,
+    "mineral": 4.92,
+    "notes": "측정 장비: InBody 770"
+  },
+  {
+    "id": "inbody-72",
+    "date": "2023-03-17",
+    "time": "12:19",
+    "rawDate": "20230317121952",
+    "device": "970",
+    "weight": 93.4,
+    "skeletalMuscle": 38.3,
+    "bodyFatMass": 26.6,
+    "bodyFatRate": 28.5,
+    "bmi": 30.7,
+    "bmr": 1813,
+    "score": 75.0,
+    "visceralFat": 10,
+    "waistHipRatio": 0.95,
+    "bodyType": "C자형 (체지방 과다형)",
+    "rightArmMuscle": 3.81,
+    "leftArmMuscle": 3.8,
+    "trunkMuscle": 29.3,
+    "rightLegMuscle": 9.88,
+    "leftLegMuscle": 9.93,
+    "bodyWater": 48.8,
+    "protein": 13.4,
+    "mineral": 4.6,
+    "notes": "측정 장비: InBody 970"
+  },
+  {
+    "id": "inbody-73",
+    "date": "2022-06-21",
+    "time": "21:45",
+    "rawDate": "20220621214510",
+    "device": "Etc",
+    "weight": 87.8,
+    "skeletalMuscle": 37.8,
+    "bodyFatMass": 21.9,
+    "bodyFatRate": 24.9,
+    "bmi": 28.8,
+    "bmr": 1793,
+    "score": null,
+    "visceralFat": 8,
+    "waistHipRatio": null,
+    "bodyType": "C자형 (체지방 과다형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-74",
+    "date": "2021-08-30",
+    "time": "21:44",
+    "rawDate": "20210830214430",
+    "device": "Etc",
+    "weight": 84.8,
+    "skeletalMuscle": 37.8,
+    "bodyFatMass": 18.6,
+    "bodyFatRate": 21.9,
+    "bmi": 27.8,
+    "bmr": 1800,
+    "score": null,
+    "visceralFat": 8,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-75",
+    "date": "2020-08-18",
+    "time": "21:42",
+    "rawDate": "20200818214201",
+    "device": "Etc",
+    "weight": 86.2,
+    "skeletalMuscle": 39.0,
+    "bodyFatMass": 18.4,
+    "bodyFatRate": 21.3,
+    "bmi": 28.3,
+    "bmr": 1835,
+    "score": null,
+    "visceralFat": 8,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-76",
+    "date": "2018-04-25",
+    "time": "21:41",
+    "rawDate": "20180425214137",
+    "device": "Etc",
+    "weight": 80.6,
+    "skeletalMuscle": 37.9,
+    "bodyFatMass": 14.3,
+    "bodyFatRate": 17.7,
+    "bmi": 26.5,
+    "bmr": 1802,
+    "score": null,
+    "visceralFat": 8,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-77",
+    "date": "2017-11-24",
+    "time": "15:37",
+    "rawDate": "20171124153712",
+    "device": "Etc",
+    "weight": 76.2,
+    "skeletalMuscle": 38.2,
+    "bodyFatMass": 9.8,
+    "bodyFatRate": 12.8,
+    "bmi": 25.0,
+    "bmr": 1804,
+    "score": null,
+    "visceralFat": 8,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-78",
+    "date": "2017-10-30",
+    "time": "15:31",
+    "rawDate": "20171030153128",
+    "device": "Etc",
+    "weight": 78.0,
+    "skeletalMuscle": 38.6,
+    "bodyFatMass": 11.2,
+    "bodyFatRate": 14.3,
+    "bmi": 25.6,
+    "bmr": 1813,
+    "score": null,
+    "visceralFat": 8,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-79",
+    "date": "2017-09-29",
+    "time": "15:30",
+    "rawDate": "20170929153052",
+    "device": "Etc",
+    "weight": 77.3,
+    "skeletalMuscle": 38.7,
+    "bodyFatMass": 9.8,
+    "bodyFatRate": 12.7,
+    "bmi": 25.4,
+    "bmr": 1828,
+    "score": null,
+    "visceralFat": 8,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-80",
+    "date": "2017-08-29",
+    "time": "15:39",
+    "rawDate": "20170829153919",
+    "device": "Etc",
+    "weight": 77.3,
+    "skeletalMuscle": 38.0,
+    "bodyFatMass": 11.1,
+    "bodyFatRate": 14.3,
+    "bmi": 25.4,
+    "bmr": 1800,
+    "score": null,
+    "visceralFat": 8,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-81",
+    "date": "2017-06-26",
+    "time": "15:26",
+    "rawDate": "20170626152647",
+    "device": "Etc",
+    "weight": 74.1,
+    "skeletalMuscle": 37.1,
+    "bodyFatMass": 9.3,
+    "bodyFatRate": 12.5,
+    "bmi": 24.3,
+    "bmr": 1770,
+    "score": null,
+    "visceralFat": 8,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-82",
+    "date": "2017-06-02",
+    "time": "15:25",
+    "rawDate": "20170602152550",
+    "device": "Etc",
+    "weight": 74.6,
+    "skeletalMuscle": 37.9,
+    "bodyFatMass": 8.4,
+    "bodyFatRate": 11.3,
+    "bmi": 24.5,
+    "bmr": 1800,
+    "score": null,
+    "visceralFat": 8,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-83",
+    "date": "2017-05-10",
+    "time": "21:40",
+    "rawDate": "20170510214037",
+    "device": "Etc",
+    "weight": 77.2,
+    "skeletalMuscle": 37.2,
+    "bodyFatMass": 12.2,
+    "bodyFatRate": 15.8,
+    "bmi": 25.4,
+    "bmr": 1774,
+    "score": null,
+    "visceralFat": 8,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-84",
+    "date": "2017-04-20",
+    "time": "15:25",
+    "rawDate": "20170420152510",
+    "device": "Etc",
+    "weight": 76.0,
+    "skeletalMuscle": 36.5,
+    "bodyFatMass": 12.4,
+    "bodyFatRate": 16.3,
+    "bmi": 25.0,
+    "bmr": 1744,
+    "score": null,
+    "visceralFat": 8,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-85",
+    "date": "2017-04-18",
+    "time": "15:38",
+    "rawDate": "20170418153817",
+    "device": "Etc",
+    "weight": 68.4,
+    "skeletalMuscle": 34.2,
+    "bodyFatMass": 8.3,
+    "bodyFatRate": 12.2,
+    "bmi": 22.5,
+    "bmr": 1668,
+    "score": null,
+    "visceralFat": 8,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-86",
+    "date": "2017-04-03",
+    "time": "15:19",
+    "rawDate": "20170403151943",
+    "device": "Etc",
+    "weight": 77.7,
+    "skeletalMuscle": 36.6,
+    "bodyFatMass": 13.9,
+    "bodyFatRate": 17.9,
+    "bmi": 25.5,
+    "bmr": 1748,
+    "score": null,
+    "visceralFat": 8,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-87",
+    "date": "2017-02-24",
+    "time": "15:37",
+    "rawDate": "20170224153738",
+    "device": "Etc",
+    "weight": 80.3,
+    "skeletalMuscle": 36.3,
+    "bodyFatMass": 17.0,
+    "bodyFatRate": 21.2,
+    "bmi": 26.4,
+    "bmr": 1737,
+    "score": null,
+    "visceralFat": 8,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-88",
+    "date": "2016-06-17",
+    "time": "21:39",
+    "rawDate": "20160617213951",
+    "device": "Etc",
+    "weight": 80.0,
+    "skeletalMuscle": 36.3,
+    "bodyFatMass": 16.3,
+    "bodyFatRate": 20.4,
+    "bmi": 26.3,
+    "bmr": 1746,
+    "score": null,
+    "visceralFat": 8,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  },
+  {
+    "id": "inbody-89",
+    "date": "2015-08-26",
+    "time": "21:38",
+    "rawDate": "20150826213850",
+    "device": "Etc",
+    "weight": 74.0,
+    "skeletalMuscle": 36.2,
+    "bodyFatMass": 8.3,
+    "bodyFatRate": 11.2,
+    "bmi": 24.3,
+    "bmr": 1789,
+    "score": null,
+    "visceralFat": 8,
+    "waistHipRatio": null,
+    "bodyType": "I자형 (표준 균형형)",
+    "rightArmMuscle": null,
+    "leftArmMuscle": null,
+    "trunkMuscle": null,
+    "rightLegMuscle": null,
+    "leftLegMuscle": null,
+    "bodyWater": null,
+    "protein": null,
+    "mineral": null,
+    "notes": "정기 측정 기록"
+  }
+]
 };
 
-
+// =========================================================================
 // 2. Cloud Sync & Storage Manager
   // =========================================================================
 /**
@@ -1389,7 +3658,7 @@ class SyncManager {
         const upgradedPortfolio = (parsed.portfolio && parsed.portfolio.portfolioDataVersion === 2)
           ? parsed.portfolio
           : JSON.parse(JSON.stringify(INITIAL_PORTFOLIO_DATA));
-        const upgradedInbody = (parsed.inbody && parsed.inbody.inbodyDataVersion === 1)
+        const upgradedInbody = (parsed.inbody && parsed.inbody.inbodyDataVersion === 2 && parsed.inbody.records && parsed.inbody.records.length >= 89)
           ? parsed.inbody
           : JSON.parse(JSON.stringify(INITIAL_INBODY_DATA));
 
@@ -1646,6 +3915,7 @@ let state = {
   portfolio: INITIAL_PORTFOLIO_DATA,
   inbody: INITIAL_INBODY_DATA,
   externalSubtab: 'excel', // 'excel' or 'dashboards'
+  inbodyYearFilter: 'all', // 'all', '2026', '2025', '2024', 'prev'
   theme: 'dark',
   activeTab: 'overview',
   activeExternalTabId: null,
@@ -4284,26 +6554,51 @@ function renderSnsTab() {
 // ==========================================================================
 // 5-C. 체구 감량 & 인바디 지속 관리 탭 (⭐ '체중 변화 없는 성공적인 다이어트')
 // ==========================================================================
+// ==========================================================================
+// 5-C. 체구 감량 & 인바디 지속 관리 탭 (⭐ 카카오톡 InBody CSV 89회 누적 연동)
+// ==========================================================================
 function renderInbodyTab() {
   const container = document.getElementById('tab-content-inbody');
   if (!container) return;
 
   const inbody = state.inbody || INITIAL_INBODY_DATA;
   const records = inbody.records || INITIAL_INBODY_DATA.records;
-  
-  // Sort records by date ascending
-  const sortedRecords = [...records].sort((a, b) => new Date(a.date) - new Date(b.date));
-  const firstRec = sortedRecords[0] || {};
-  const latestRec = sortedRecords[sortedRecords.length - 1] || {};
+  const currentYearFilter = state.inbodyYearFilter || 'all';
 
-  // Key Deltas
-  const deltaWeight = (latestRec.weight && firstRec.weight) ? (latestRec.weight - firstRec.weight).toFixed(1) : 0;
-  const deltaMuscle = (latestRec.skeletalMuscle && firstRec.skeletalMuscle) ? (latestRec.skeletalMuscle - firstRec.skeletalMuscle).toFixed(1) : 0;
-  const deltaFat = (latestRec.bodyFatMass && firstRec.bodyFatMass) ? (latestRec.bodyFatMass - firstRec.bodyFatMass).toFixed(1) : 0;
-  const deltaFatRate = (latestRec.bodyFatRate && firstRec.bodyFatRate) ? (latestRec.bodyFatRate - firstRec.bodyFatRate).toFixed(1) : 0;
-  const deltaWaist = (latestRec.waistSize && firstRec.waistSize) ? (latestRec.waistSize - firstRec.waistSize).toFixed(1) : 0;
+  // Sort descending by date for display
+  const sortedDesc = [...records].sort((a, b) => new Date(b.date + ' ' + (b.time || '00:00')) - new Date(a.date + ' ' + (a.time || '00:00')));
+  
+  // Filtered records
+  const filteredRecords = sortedDesc.filter(r => {
+    if (currentYearFilter === 'all') return true;
+    if (currentYearFilter === '2026') return r.date.startsWith('2026');
+    if (currentYearFilter === '2025') return r.date.startsWith('2025');
+    if (currentYearFilter === '2024') return r.date.startsWith('2024');
+    if (currentYearFilter === 'prev') return parseInt(r.date.substring(0, 4), 10) <= 2023;
+    return true;
+  });
+
+  const latest = sortedDesc[0] || {};
+  // 2026 Peak Muscle Record
+  const recs2026 = sortedDesc.filter(r => r.date.startsWith('2026'));
+  const peak2026 = [...recs2026].sort((a, b) => (b.skeletalMuscle || 0) - (a.skeletalMuscle || 0))[0] || latest;
+  const baseline2026 = recs2026[recs2026.length - 1] || latest;
+
+  const deltaWeight = (latest.weight && baseline2026.weight) ? (latest.weight - baseline2026.weight).toFixed(1) : 0;
+  const peakMuscleGain = (peak2026.skeletalMuscle && baseline2026.skeletalMuscle) ? (peak2026.skeletalMuscle - baseline2026.skeletalMuscle).toFixed(1) : 0;
+  const peakFatLoss = (peak2026.bodyFatMass && baseline2026.bodyFatMass) ? (peak2026.bodyFatMass - baseline2026.bodyFatMass).toFixed(1) : 0;
+
+  // Segmental muscle info (InBody 570 2026-08-06 or peak)
+  const segmental = inbody.segmentalMuscle || {
+    date: "2026-08-06", device: "InBody 570", score: 97.0,
+    rightArm: 4.67, leftArm: 4.67, trunk: 34.0, rightLeg: 10.93, leftLeg: 11.02,
+    bodyWater: 56.2, protein: 15.6, mineral: 5.13
+  };
 
   container.innerHTML = `
+    <!-- Hidden File Input for CSV Import -->
+    <input type="file" id="inbody-csv-file-input" accept=".csv" onchange="window.app.importInbodyCsv(event)" class="hidden">
+
     <!-- Top Header Banner -->
     <div class="glass-panel rounded-2xl p-6 sm:p-8 mb-8 border border-rose-500/40 bg-gradient-to-r from-slate-900 via-rose-950/30 to-slate-900 relative overflow-hidden shadow-2xl">
       <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-rose-500/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -4312,237 +6607,293 @@ function renderInbodyTab() {
         <div>
           <div class="flex flex-wrap items-center gap-2 mb-2">
             <span class="px-3 py-1 bg-rose-500/20 text-rose-300 border border-rose-500/30 text-xs font-bold rounded-full flex items-center gap-1.5">
-              <i class="fa-solid fa-weight-scale"></i> 체성분 재구성 (Body Recomposition)
+              <i class="fa-solid fa-weight-scale"></i> 11개년 누적 89회 측정 공식 연동
             </span>
             <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold rounded-full">
-              D자형 근육형 진입 달성
+              InBody 570 / 770 / 970 정밀 장비
             </span>
+            <span class="text-xs text-slate-300 font-mono">최신 측정: ${latest.date || '2026-09-16'}</span>
           </div>
           <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
             <i class="fa-solid fa-heart-pulse text-rose-400"></i>
-            체중 변화 없는 성공적인 다이어트 & 체구 관리
+            체중 변화 없는 성공적인 다이어트 (상승 다이어트 허브)
           </h1>
           <p class="text-sm text-slate-300 mt-2 max-w-2xl leading-relaxed">
-            체중계의 단순 숫자에 속지 마세요! <b>체중은 일정하게 유지(-0.8kg)</b>되면서, 
-            <b>골격근량은 +2.1kg 늘리고 순수 체지방만 -4.0kg 감량</b>하여 허리둘레가 줄어들고 겉보기 체구가 슬림해지는 가장 이상적인 <b>'상승 다이어트'</b> 지속 관리 대시보드입니다.
+            체중계의 숫자(-1.9kg)에 갇히지 않고, <b>골격근량을 최대 +3.9kg 늘리고 순수 체지방만 -6.0kg 감량(체지방률 23.4% ➔ 17.3%)</b>하여 <b>인바디 점수 97점</b>과 슬림한 체구를 완성한 과학적 체성분 재구성(Body Recomposition) 데이터베이스입니다.
           </p>
         </div>
 
-        <div class="flex flex-col sm:flex-row gap-2.5">
+        <!-- Action Buttons -->
+        <div class="flex flex-wrap sm:flex-nowrap gap-2.5">
+          <button onclick="document.getElementById('inbody-csv-file-input').click()" class="py-3 px-4 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 hover:border-slate-500 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-md" title="카카오톡에서 받은 InBody-YYYYMMDD.csv 파일을 바로 업로드하여 새 측정치를 자동 병합합니다">
+            <i class="fa-solid fa-file-csv text-emerald-400 text-base"></i>
+            <span>새 InBody CSV 파일 가져오기</span>
+          </button>
           <button onclick="window.app.openAddInbodyModal()" class="py-3 px-5 bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-rose-600/20 transition flex items-center justify-center gap-2">
-            <i class="fa-solid fa-plus"></i> 새 인바디 측정치 등록
+            <i class="fa-solid fa-plus"></i> 새 수기 등록
           </button>
         </div>
       </div>
     </div>
 
-    <!-- 1. Key Metrics 4-Grid: Recomposition Achievements -->
+    <!-- 1. 2026 Recomposition Key Delta Cards (실측 기반) -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
       
-      <!-- 체중 유지 지표 -->
+      <!-- 체중 유지 -->
       <div class="glass-panel p-5 rounded-2xl border border-slate-700/60 bg-slate-900/60">
         <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
-          <span>현재 체중 (유지형)</span>
+          <span>최신 체중 (유지형)</span>
           <i class="fa-solid fa-scale-balanced text-sky-400"></i>
         </div>
-        <div class="text-2xl font-black text-white">${latestRec.weight || 74.0}<span class="text-xs text-slate-400 font-normal"> kg</span></div>
-        <div class="mt-2 text-[11px] flex items-center gap-1.5 font-bold ${deltaWeight <= 0 ? 'text-sky-400' : 'text-amber-400'}">
-          <i class="fa-solid ${deltaWeight <= 0 ? 'fa-arrow-trend-down' : 'fa-arrow-trend-up'}"></i>
-          <span>시작 대비 ${deltaWeight > 0 ? `+${deltaWeight}` : deltaWeight} kg (체중 유지 성공)</span>
+        <div class="text-2xl font-black text-white">${latest.weight || 92.7}<span class="text-xs text-slate-400 font-normal"> kg</span></div>
+        <div class="mt-2 text-[11px] text-sky-400 font-bold flex items-center gap-1">
+          <i class="fa-solid fa-check"></i>
+          <span>2026년 5월(94.6kg) 대비 ${deltaWeight}kg (체중 유지 성공)</span>
         </div>
       </div>
 
-      <!-- 골격근량 증가 지표 -->
+      <!-- 골격근량 증가 -->
       <div class="glass-panel p-5 rounded-2xl border border-emerald-500/30 bg-slate-900/60">
         <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
           <span>골격근량 (근성장)</span>
           <i class="fa-solid fa-dumbbell text-emerald-400"></i>
         </div>
-        <div class="text-2xl font-black text-emerald-400">${latestRec.skeletalMuscle || 34.2}<span class="text-xs text-slate-400 font-normal"> kg</span></div>
-        <div class="mt-2 text-[11px] flex items-center gap-1.5 font-bold text-emerald-400">
+        <div class="text-2xl font-black text-emerald-400">${latest.skeletalMuscle || 42.5}<span class="text-xs text-slate-400 font-normal"> kg <span class="text-amber-400 font-bold">(최대 ${peak2026.skeletalMuscle}kg)</span></span></div>
+        <div class="mt-2 text-[11px] text-emerald-400 font-bold flex items-center gap-1">
           <i class="fa-solid fa-arrow-trend-up"></i>
-          <span>시작 대비 +${deltaMuscle} kg 폭발적 성장 💪</span>
+          <span>시작 대비 최대 +${peakMuscleGain}kg 폭발적 근육 증량 💪</span>
         </div>
       </div>
 
-      <!-- 체지방량 / 체지방률 감소 지표 -->
+      <!-- 체지방 감량 -->
       <div class="glass-panel p-5 rounded-2xl border border-rose-500/30 bg-slate-900/60">
         <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
-          <span>체지방률 / 체지방량</span>
-          <i class="fa-solid fa-fire-flame-curved text-rose-400"></i>
+          <span>체지방률 (순수 감량)</span>
+          <i class="fa-solid fa-fire text-rose-400"></i>
         </div>
-        <div class="text-2xl font-black text-rose-400">${latestRec.bodyFatRate || 18.2}<span class="text-xs text-slate-400 font-normal"> % (${latestRec.bodyFatMass}kg)</span></div>
-        <div class="mt-2 text-[11px] flex items-center gap-1.5 font-bold text-rose-400">
+        <div class="text-2xl font-black text-rose-400">${latest.bodyFatRate || 19.1}<span class="text-xs text-slate-400 font-normal"> % <span class="text-slate-300 font-bold">(${latest.bodyFatMass}kg)</span></span></div>
+        <div class="mt-2 text-[11px] text-rose-400 font-bold flex items-center gap-1">
           <i class="fa-solid fa-arrow-trend-down"></i>
-          <span>시작 대비 ${deltaFatRate}%p (${deltaFat}kg 순수 지방 연소) 🔥</span>
+          <span>최저 17.3% (-6.0kg 순수 지방 연소) 🔥</span>
         </div>
       </div>
 
-      <!-- 허리둘레 & 체구 감량 실체감 지표 -->
+      <!-- 최고 인바디 점수 & BMR -->
       <div class="glass-panel p-5 rounded-2xl border border-amber-500/30 bg-slate-900/60">
         <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
-          <span>허리둘레 (체구 축소)</span>
-          <i class="fa-solid fa-ruler-combined text-amber-400"></i>
+          <span>최고 점수 & 기초대사량</span>
+          <i class="fa-solid fa-trophy text-amber-400"></i>
         </div>
-        <div class="text-2xl font-black text-amber-300">${latestRec.waistSize || 30.3}<span class="text-xs text-slate-400 font-normal"> 인치</span></div>
-        <div class="mt-2 text-[11px] flex items-center gap-1.5 font-bold text-amber-400">
-          <i class="fa-solid fa-arrow-trend-down"></i>
-          <span>시작 대비 ${deltaWaist}인치 감소 (바지 34➔30) ✨</span>
+        <div class="text-2xl font-black text-amber-300">${peak2026.score || 97.0}<span class="text-xs text-slate-400 font-normal"> 점</span> <span class="text-xs text-slate-300 font-mono">(${latest.bmr} kcal)</span></div>
+        <div class="mt-2 text-[11px] text-amber-400 font-bold flex items-center gap-1">
+          <i class="fa-solid fa-bolt"></i>
+          <span>초상위 1% 피지크 · 하루 2,000kcal 자동 소비</span>
         </div>
       </div>
 
     </div>
 
-    <!-- 2. 인바디 C-I-D형 체형 분석 비주얼라이저 -->
-    <div class="glass-panel rounded-2xl p-6 mb-8 border border-slate-700/60 bg-slate-900/60 shadow-xl">
+    <!-- 2. InBody 570 부위별 근육 & 체수분 정밀 분석 카드 (실측 기반) -->
+    <div class="glass-panel rounded-2xl p-6 sm:p-7 mb-8 border border-slate-700/60 bg-slate-900/60 shadow-xl">
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5 border-b border-slate-800 pb-4">
         <div>
-          <h2 class="text-lg font-bold text-white flex items-center gap-2">
-            <i class="fa-solid fa-chart-simple text-rose-400"></i>
-            인바디 3대 체형 (C ➔ I ➔ D) 변화 트래커
-          </h2>
-          <p class="text-xs text-slate-400 mt-0.5">체중·골격근·체지방 3선 연결 형태가 C자형에서 가장 이상적인 D자형으로 진화했습니다.</p>
+          <div class="flex items-center gap-2">
+            <h2 class="text-base font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-child-reaching text-rose-400"></i>
+              부위별 정밀 근육량 & 체수분 밸런스 분석
+            </h2>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30 font-bold">
+              ${segmental.device} 정밀 실측치 (${segmental.date})
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">상체 좌우 균형 100% 일치 및 34kg의 압도적인 몸통 코어 근육량 확보</p>
         </div>
-        <span class="px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold">
-          ★ 현재 체형: ${latestRec.bodyType || 'D자형 (골격근 발달형)'}
-        </span>
+
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold px-2.5 py-1 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+            인바디 점수: ${segmental.score}점
+          </span>
+        </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-        <div class="p-4 rounded-xl border ${latestRec.bodyType && latestRec.bodyType.includes('C') ? 'border-amber-500 bg-amber-950/20' : 'border-slate-800 bg-slate-800/40 opacity-70'}">
-          <div class="flex items-center justify-between font-bold text-slate-300 mb-2">
-            <span>C자형 (체지방 과다형)</span>
-            <span class="text-[10px] text-slate-400">과거 6월 상태</span>
-          </div>
-          <p class="text-slate-400 leading-relaxed mb-3">체중 대비 골격근량이 적고 체지방이 많아 3선 연결선이 'C'자 형태를 띰 (마른 비만 또는 과체중형).</p>
-          <div class="text-[11px] text-slate-500 font-mono">체지방 23.4% · 골격근 32.1kg</div>
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-center mb-4">
+        <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
+          <span class="text-[10px] text-slate-400 block mb-1">💪 오른팔 근육</span>
+          <span class="text-lg font-black text-emerald-400">${segmental.rightArm} kg</span>
+          <span class="text-[9px] text-slate-400 block mt-0.5">표준이상 (발달)</span>
         </div>
-
-        <div class="p-4 rounded-xl border ${latestRec.bodyType && latestRec.bodyType.includes('I') ? 'border-sky-500 bg-sky-950/20' : 'border-slate-800 bg-slate-800/40 opacity-70'}">
-          <div class="flex items-center justify-between font-bold text-slate-300 mb-2">
-            <span>I자형 (표준 균형형)</span>
-            <span class="text-[10px] text-sky-400">7~8월 전환기</span>
-          </div>
-          <p class="text-slate-400 leading-relaxed mb-3">체중, 골격근, 체지방이 고르게 균형을 이루어 일직선 'I'자 형태를 띰 (건강한 표준형 체형).</p>
-          <div class="text-[11px] text-sky-400 font-mono">체지방 21.7% · 골격근 32.8kg</div>
+        <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
+          <span class="text-[10px] text-slate-400 block mb-1">💪 왼팔 근육</span>
+          <span class="text-lg font-black text-emerald-400">${segmental.leftArm} kg</span>
+          <span class="text-[9px] text-emerald-400 block mt-0.5">좌우 대칭 100%</span>
         </div>
+        <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
+          <span class="text-[10px] text-slate-400 block mb-1">🛡️ 몸통 (코어/등/가슴)</span>
+          <span class="text-lg font-black text-amber-300">${segmental.trunk} kg</span>
+          <span class="text-[9px] text-amber-400 block mt-0.5">핵심 프레임</span>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
+          <span class="text-[10px] text-slate-400 block mb-1">🦵 오른다리 근육</span>
+          <span class="text-lg font-black text-sky-400">${segmental.rightLeg} kg</span>
+          <span class="text-[9px] text-slate-400 block mt-0.5">강력한 하체</span>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
+          <span class="text-[10px] text-slate-400 block mb-1">🦵 왼다리 근육</span>
+          <span class="text-lg font-black text-sky-400">${segmental.leftLeg} kg</span>
+          <span class="text-[9px] text-sky-400 block mt-0.5">하체 균형 우수</span>
+        </div>
+      </div>
 
-        <div class="p-4 rounded-xl border border-emerald-500/80 bg-emerald-950/20 shadow-lg shadow-emerald-500/10">
-          <div class="flex items-center justify-between font-black text-emerald-300 mb-2">
-            <span class="flex items-center gap-1.5"><i class="fa-solid fa-crown text-amber-400"></i> D자형 (이상적 근육형)</span>
-            <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/30 text-emerald-300 font-bold">현재 도달</span>
-          </div>
-          <p class="text-slate-200 leading-relaxed mb-3">골격근량이 체중과 체지방보다 앞으로 돌출되어 'D'자 형태를 띰 (신진대사가 높고 탄탄한 몸매).</p>
-          <div class="text-[11px] text-emerald-400 font-mono font-bold">체지방 18.2% · 골격근 34.2kg (달성!)</div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-slate-800 text-xs text-slate-300">
+        <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/40">
+          <span>💧 총 체수분: <b class="text-white">${segmental.bodyWater} L</b></span>
+          <span class="text-[10px] text-slate-400">세포외수분비 0.360</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/40">
+          <span>🥩 단백질량: <b class="text-white">${segmental.protein} kg</b></span>
+          <span class="text-[10px] text-emerald-400">최상위 근육량</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/40">
+          <span>🦴 골무기질량: <b class="text-white">${segmental.mineral} kg</b></span>
+          <span class="text-[10px] text-slate-400">골격 튼튼</span>
         </div>
       </div>
     </div>
 
-    <!-- 3. 인바디 누적 측정치 타임라인 & 상세 관리 리스트 (CRUD) -->
+    <!-- 3. 인바디 누적 측정 히스토리 테이블 (89회 전량 및 연도별 필터링) -->
     <div class="glass-panel rounded-2xl p-6 sm:p-7 mb-8 border border-slate-700/60 bg-slate-900/60 shadow-xl">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
         <div>
           <h2 class="text-lg font-bold text-white flex items-center gap-2">
-            <i class="fa-solid fa-clipboard-list text-rose-400"></i>
-            인바디 측정 히스토리 & 피드백 로그 (${sortedRecords.length}회차)
+            <i class="fa-solid fa-clock-rotate-left text-rose-400"></i>
+            인바디 측정 히스토리 아카이브 (${filteredRecords.length} / 총 ${sortedDesc.length}회차)
           </h2>
-          <p class="text-xs text-slate-400 mt-0.5">정기적으로 측정한 체성분 변화와 당시 식단/운동 루틴 기록입니다.</p>
+          <p class="text-xs text-slate-400 mt-0.5">카카오톡 InBody CSV 파일에서 가져온 2015~2026년 정기 실측 데이터입니다.</p>
         </div>
-        <button onclick="window.app.openAddInbodyModal()" class="px-3.5 py-2 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md">
-          <i class="fa-solid fa-plus"></i> 새 측정 기록
+
+        <div class="flex items-center gap-2 flex-wrap">
+          <button onclick="document.getElementById('inbody-csv-file-input').click()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-lg text-xs font-bold transition flex items-center gap-1.5">
+            <i class="fa-solid fa-file-import text-emerald-400"></i> CSV 가져오기
+          </button>
+          <button onclick="window.app.openAddInbodyModal()" class="px-3 py-1.5 bg-rose-600 hover:bg-rose-500 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5">
+            <i class="fa-solid fa-plus"></i> 새 측정치 수기 등록
+          </button>
+        </div>
+      </div>
+
+      <!-- Year Filter Buttons -->
+      <div class="flex flex-wrap items-center gap-2 pb-3 mb-4 text-xs border-b border-slate-800">
+        <button onclick="window.app.setInbodyYearFilter('all')" class="px-3 py-1.5 rounded-lg font-bold transition ${currentYearFilter === 'all' ? 'bg-rose-600 text-white shadow-md' : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'}">
+          전체 (89회)
+        </button>
+        <button onclick="window.app.setInbodyYearFilter('2026')" class="px-3 py-1.5 rounded-lg font-bold transition ${currentYearFilter === '2026' ? 'bg-rose-600 text-white shadow-md' : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'}">
+          2026년 (12회) · 상승 다이어트
+        </button>
+        <button onclick="window.app.setInbodyYearFilter('2025')" class="px-3 py-1.5 rounded-lg font-bold transition ${currentYearFilter === '2025' ? 'bg-rose-600 text-white shadow-md' : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'}">
+          2025년 (17회)
+        </button>
+        <button onclick="window.app.setInbodyYearFilter('2024')" class="px-3 py-1.5 rounded-lg font-bold transition ${currentYearFilter === '2024' ? 'bg-rose-600 text-white shadow-md' : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'}">
+          2024년 (35회) · 96점 달성기
+        </button>
+        <button onclick="window.app.setInbodyYearFilter('prev')" class="px-3 py-1.5 rounded-lg font-bold transition ${currentYearFilter === 'prev' ? 'bg-rose-600 text-white shadow-md' : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'}">
+          2023년 이전 (25회)
         </button>
       </div>
 
-      <div class="space-y-4">
-        ${[...sortedRecords].reverse().map(rec => `
-          <div class="p-5 rounded-2xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 transition flex flex-col lg:flex-row lg:items-center justify-between gap-5">
-            <div class="flex-1 min-w-0">
-              <div class="flex flex-wrap items-center gap-2 mb-2">
-                <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-slate-700 text-white">
-                  ${rec.date}
-                </span>
-                <span class="text-xs font-bold px-2.5 py-0.5 rounded ${rec.bodyType && rec.bodyType.includes('D') ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-black' : rec.bodyType && rec.bodyType.includes('I') ? 'bg-sky-500/20 text-sky-300 border border-sky-500/30' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'}">
-                  ${rec.bodyType || '측정 완료'}
-                </span>
-                <span class="text-xs font-bold px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">
-                  인바디 점수: ${rec.score || '-'}점
-                </span>
-              </div>
+      <!-- InBody Records Table -->
+      <div class="overflow-x-auto max-h-[550px] overflow-y-auto pr-1">
+        <table class="w-full text-xs text-left text-slate-300">
+          <thead class="text-[11px] text-slate-400 uppercase bg-slate-800/90 border-b border-slate-700 sticky top-0 z-10">
+            <tr>
+              <th class="py-2.5 px-3">측정 일자</th>
+              <th class="py-2.5 px-3">체중 (kg)</th>
+              <th class="py-2.5 px-3">골격근량 (kg)</th>
+              <th class="py-2.5 px-3">체지방량 / 체지방률</th>
+              <th class="py-2.5 px-3">BMI / BMR</th>
+              <th class="py-2.5 px-3">인바디 점수</th>
+              <th class="py-2.5 px-3">측정 장비</th>
+              <th class="py-2.5 px-3 text-right">관리</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800">
+            ${filteredRecords.map(rec => {
+              const isPeak = rec.skeletalMuscle && rec.skeletalMuscle >= 44.0;
+              const isHigh = rec.score && rec.score >= 95.0;
+              const rowHighlight = isPeak ? 'bg-emerald-950/20 font-bold' : isHigh ? 'bg-amber-950/20' : 'hover:bg-slate-800/40';
 
-              <!-- 4-Grid Values -->
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 py-2 my-2 border-y border-slate-700/60 text-xs">
-                <div>
-                  <span class="text-slate-400 block text-[11px]">체중:</span>
-                  <span class="text-white font-black text-sm">${rec.weight} kg</span>
-                </div>
-                <div>
-                  <span class="text-slate-400 block text-[11px]">골격근량:</span>
-                  <span class="text-emerald-400 font-black text-sm">${rec.skeletalMuscle} kg</span>
-                </div>
-                <div>
-                  <span class="text-slate-400 block text-[11px]">체지방률 (체지방량):</span>
-                  <span class="text-rose-400 font-black text-sm">${rec.bodyFatRate}% <span class="text-xs font-normal">(${rec.bodyFatMass}kg)</span></span>
-                </div>
-                <div>
-                  <span class="text-slate-400 block text-[11px]">허리둘레 / 내장지방:</span>
-                  <span class="text-amber-300 font-black text-sm">${rec.waistSize || '-'}인치 <span class="text-xs font-normal">/ 레벨 ${rec.visceralFat || '-'}</span></span>
-                </div>
-              </div>
-
-              <p class="text-xs text-slate-300 mt-2 leading-relaxed">
-                💡 <b>루틴 & 피드백</b>: ${rec.notes || '기록 없음'}
-              </p>
-            </div>
-
-            <!-- Actions -->
-            <div class="flex items-center gap-2 self-end lg:self-center flex-shrink-0">
-              <button onclick="window.app.openEditInbodyModal('${rec.id}')" class="px-3 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs font-bold transition flex items-center gap-1">
-                <i class="fa-solid fa-pen-to-square"></i> 수정
-              </button>
-              <button onclick="window.app.deleteInbodyRecord('${rec.id}')" class="px-2.5 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs transition flex items-center gap-1">
-                <i class="fa-regular fa-trash-can"></i>
-              </button>
-            </div>
-          </div>
-        `).join('')}
+              return `
+                <tr class="${rowHighlight} transition">
+                  <td class="py-2.5 px-3 font-mono font-medium text-white whitespace-nowrap">
+                    ${rec.date} <span class="text-[10px] text-slate-500">${rec.time || ''}</span>
+                    ${isPeak ? '<span class="ml-1 text-[9px] px-1 rounded bg-emerald-500 text-slate-950 font-black">최대골격근</span>' : ''}
+                    ${isHigh ? '<span class="ml-1 text-[9px] px-1 rounded bg-amber-500 text-slate-950 font-black">95점+</span>' : ''}
+                  </td>
+                  <td class="py-2.5 px-3 font-black text-white whitespace-nowrap">${rec.weight || '-'} kg</td>
+                  <td class="py-2.5 px-3 font-black text-emerald-400 whitespace-nowrap">${rec.skeletalMuscle || '-'} kg</td>
+                  <td class="py-2.5 px-3 whitespace-nowrap">
+                    <span class="font-bold text-rose-400">${rec.bodyFatRate ? rec.bodyFatRate + '%' : '-'}</span>
+                    <span class="text-[10px] text-slate-400">(${rec.bodyFatMass || '-'}kg)</span>
+                  </td>
+                  <td class="py-2.5 px-3 text-slate-300 font-mono whitespace-nowrap">
+                    ${rec.bmi || '-'} <span class="text-[10px] text-slate-500">/ ${rec.bmr ? rec.bmr + 'kcal' : '-'}</span>
+                  </td>
+                  <td class="py-2.5 px-3 whitespace-nowrap">
+                    ${rec.score ? `<span class="px-2 py-0.5 rounded font-black ${rec.score >= 95 ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : rec.score >= 90 ? 'bg-emerald-500/20 text-emerald-300' : 'bg-slate-800 text-slate-300'}">${rec.score}점</span>` : '<span class="text-slate-500">-</span>'}
+                  </td>
+                  <td class="py-2.5 px-3 text-slate-400 text-[11px] whitespace-nowrap">
+                    ${rec.device || 'Etc'}
+                  </td>
+                  <td class="py-2.5 px-3 text-right whitespace-nowrap">
+                    <button onclick="window.app.openEditInbodyModal('${rec.id}')" class="text-slate-400 hover:text-white px-2 py-1 text-xs">
+                      <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+                    <button onclick="window.app.deleteInbodyRecord('${rec.id}')" class="text-slate-500 hover:text-red-400 px-2 py-1 text-xs">
+                      <i class="fa-regular fa-trash-can"></i>
+                    </button>
+                  </td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
       </div>
     </div>
 
-    <!-- 4. 단백질 섭취 계산기 & '체중 변화 없는 성공 다이어트' 4대 원칙 -->
+    <!-- 4. 실측 체중(92.7kg) 맞춤 영양 & 단백질 계산기 & 4대 다이어트 철학 -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       
-      <!-- Left 1 Col: 단백질 및 영양 계산기 -->
+      <!-- Left 1 Col: 실측 92.7kg 맞춤 단백질 계산기 -->
       <div class="glass-panel rounded-2xl p-6 border border-slate-700/60 bg-slate-900/60 space-y-4">
         <h3 class="text-base font-bold text-white flex items-center gap-2">
           <i class="fa-solid fa-calculator text-rose-400"></i>
-          일일 권장 단백질 섭취 계산기
+          체중 92.7kg 맞춤 일일 단백질 계산기
         </h3>
         <p class="text-xs text-slate-400 leading-relaxed">
-          근손실 없이 체지방만 태우기 위해 체중당 1.6~2.0g의 단백질이 필수적입니다.
+          골격근 42~44kg 피지크를 보존하고 체지방만 연소시키기 위해 체중당 1.6~2.0g의 단백질이 요구됩니다.
         </p>
 
         <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700">
-          <div class="text-xs text-slate-400 mb-1">내 체중 기준 (74.0 kg)</div>
-          <div class="text-2xl font-black text-rose-400 mb-2">120g ~ 148g <span class="text-xs text-slate-400 font-normal">/ 일</span></div>
-          <div class="text-xs text-slate-300 space-y-1.5 pt-2 border-t border-slate-700/80">
+          <div class="text-xs text-slate-400 mb-1">실측 체중 기준 (92.7 kg)</div>
+          <div class="text-2xl font-black text-rose-400 mb-2">148g ~ 185g <span class="text-xs text-slate-400 font-normal">/ 일</span></div>
+          <div class="text-xs text-slate-300 space-y-2 pt-2 border-t border-slate-700/80">
             <div class="flex items-center justify-between">
               <span>🍗 닭가슴살 환산:</span>
-              <b class="text-white">약 3~4덩이 (400~500g)</b>
+              <b class="text-white">약 5~6덩이 (500~600g)</b>
             </div>
             <div class="flex items-center justify-between">
-              <span>🥚 계란 완숙 환산:</span>
-              <b class="text-white">약 18~20개 분량</b>
+              <span>🥚 계란 흰자/완숙:</span>
+              <b class="text-white">약 24~26개 분량</b>
             </div>
             <div class="flex items-center justify-between">
-              <span>🥛 프로틴 쉐이크:</span>
-              <b class="text-white">2스쿱 (약 50g 충당)</b>
+              <span>🥛 단백질 보충제:</span>
+              <b class="text-white">2.5스쿱 (약 60g 충당)</b>
             </div>
           </div>
         </div>
 
         <div class="p-3.5 rounded-xl bg-slate-800/40 border border-slate-700/60 text-xs text-slate-300">
-          <span class="font-bold text-emerald-400 block mb-1">💧 수분 섭취 가이드:</span>
-          하루 <b>2.5L</b> 이상의 미온수 섭취를 유지하여 간의 지방 대사 기능과 근육 내 수분율을 최상으로 유지합니다.
+          <span class="font-bold text-amber-400 block mb-1">⚡ 일일 유지 칼로리(TDEE):</span>
+          기초대사량(BMR 1,990 kcal) × 활동계수 1.4 = <b>약 2,780 ~ 2,900 kcal</b> (충분히 먹으면서 근성장 유도 가능)
         </div>
       </div>
 
@@ -4550,7 +6901,7 @@ function renderInbodyTab() {
       <div class="lg:col-span-2 glass-panel rounded-2xl p-6 border border-slate-700/60 bg-slate-900/60">
         <h3 class="text-base font-bold text-white flex items-center gap-2 mb-4">
           <i class="fa-solid fa-book-bookmark text-rose-400"></i>
-          '체중 변화 없는 성공적인 다이어트' 핵심 원칙 4선
+          '체중 변화 없는 성공적인 다이어트' 4대 핵심 원칙
         </h3>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -4561,8 +6912,8 @@ function renderInbodyTab() {
                 <p class="text-xs text-slate-300 leading-relaxed">${p.description}</p>
               </div>
               <div class="mt-3 pt-2 border-t border-slate-700/60 text-[11px] text-slate-400 flex items-center gap-1">
-                <i class="fa-solid fa-check text-rose-400"></i>
-                <span>실천 지침 준수 중</span>
+                <i class="fa-solid fa-circle-check text-rose-400"></i>
+                <span>실측 데이터 검증 완료</span>
               </div>
             </div>
           `).join('')}
@@ -4573,7 +6924,7 @@ function renderInbodyTab() {
   `;
 }
 
-
+// ==========================================================================
 function renderPortfolioTab() {
   const container = document.getElementById('tab-content-portfolio');
   if (!container) return;
@@ -5196,6 +7547,119 @@ window.app = {
         showToast('인바디 측정 기록이 삭제되었습니다.');
       }
     }
+  },
+
+
+  // InBody Year Filter Handler
+  setInbodyYearFilter: (year) => {
+    state.inbodyYearFilter = year;
+    renderInbodyTab();
+  },
+
+  // ⭐ InBody CSV Importer (카카오톡 InBody-YYYYMMDD.csv 원클릭 자동 파싱 & 병합)
+  importInbodyCsv: (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const csvContent = e.target.result;
+        const lines = csvContent.split(/\r?\n/).filter(line => line.trim().length > 0);
+        if (lines.length < 2) {
+          showToast('CSV 파일에 유효한 데이터가 없습니다.');
+          return;
+        }
+
+        const headers = lines[0].split(',').map(h => h.trim().replace(/^\uFEFF/, ''));
+        const dateIdx = headers.indexOf('날짜');
+        const weightIdx = headers.indexOf('체중(kg)');
+        const muscleIdx = headers.indexOf('골격근량(kg)');
+        const fatMassIdx = headers.indexOf('체지방량(kg)');
+        const fatRateIdx = headers.indexOf('체지방률(%)');
+        const bmiIdx = headers.indexOf('BMI(kg/m²)');
+        const bmrIdx = headers.indexOf('기초대사량(kcal)');
+        const scoreIdx = headers.indexOf('인바디점수');
+        const visceralIdx = headers.indexOf('내장지방레벨(Level)');
+        const whrIdx = headers.indexOf('복부지방률');
+        const deviceIdx = headers.indexOf('측정장비');
+
+        if (dateIdx === -1 || weightIdx === -1) {
+          showToast('올바른 InBody CSV 파일 형식이 아닙니다 (날짜/체중 컬럼 누락).');
+          return;
+        }
+
+        const parseVal = (v) => (!v || v === '-' || isNaN(v)) ? null : parseFloat(v);
+        let addedCount = 0;
+        if (!state.inbody) state.inbody = INITIAL_INBODY_DATA;
+        if (!state.inbody.records) state.inbody.records = [];
+
+        const existingRawDates = new Set(state.inbody.records.map(r => r.rawDate || r.date));
+
+        for (let i = 1; i < lines.length; i++) {
+          const cols = lines[i].split(',').map(c => c.trim());
+          if (cols.length <= dateIdx) continue;
+
+          const rawDate = cols[dateIdx];
+          if (!rawDate || existingRawDates.has(rawDate)) continue; // skip duplicates
+
+          let dateStr = rawDate;
+          let timeStr = "";
+          if (rawDate.length >= 8) {
+            dateStr = rawDate.substring(0, 4) + '-' + rawDate.substring(4, 6) + '-' + rawDate.substring(6, 8);
+            if (rawDate.length >= 12) {
+              timeStr = rawDate.substring(8, 10) + ':' + rawDate.substring(10, 12);
+            }
+          }
+
+          const weight = parseVal(cols[weightIdx]);
+          const muscle = parseVal(cols[muscleIdx]);
+          const fatMass = parseVal(cols[fatMassIdx]);
+          const fatRate = parseVal(cols[fatRateIdx]);
+          const bmi = parseVal(cols[bmiIdx]);
+          const bmr = parseVal(cols[bmrIdx]);
+          const score = parseVal(cols[scoreIdx]);
+          const visceral = parseVal(cols[visceralIdx]);
+          const whr = parseVal(cols[whrIdx]);
+          const device = (deviceIdx !== -1 && cols[deviceIdx]) ? cols[deviceIdx] : 'Etc';
+
+          const newRecord = {
+            id: 'inbody-import-' + Date.now() + '-' + i,
+            date: dateStr,
+            time: timeStr,
+            rawDate: rawDate,
+            device: device,
+            weight: weight,
+            skeletalMuscle: muscle,
+            bodyFatMass: fatMass,
+            bodyFatRate: fatRate,
+            bmi: bmi,
+            bmr: bmr ? Math.round(bmr) : null,
+            score: score,
+            visceralFat: visceral ? Math.round(visceral) : null,
+            waistHipRatio: whr,
+            bodyType: (fatRate && fatRate <= 19 && muscle && muscle >= 40) ? 'D자형 (골격근 발달형)' : 'I자형 (표준형)',
+            notes: `InBody ${device} CSV 가져오기`
+          };
+
+          state.inbody.records.push(newRecord);
+          existingRawDates.add(rawDate);
+          addedCount++;
+        }
+
+        // Sort descending
+        state.inbody.records.sort((a, b) => new Date(b.date + ' ' + (b.time || '00:00')) - new Date(a.date + ' ' + (a.time || '00:00')));
+        persistState();
+        renderInbodyTab();
+
+        showToast(`InBody CSV 가져오기 완료: 총 ${addedCount}개의 새 측정 기록이 성공적으로 병합되었습니다.`);
+      } catch (err) {
+        console.error('CSV Import Error:', err);
+        showToast('CSV 파싱 중 오류가 발생했습니다: ' + err.message);
+      }
+    };
+    reader.readAsText(file, 'utf-8');
+    event.target.value = ''; // reset input
   },
 
   // ⭐ Full Excel Export Engine (SheetJS + CSV Fallback)
