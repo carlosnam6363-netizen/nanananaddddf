@@ -3245,2457 +3245,6 @@ const INITIAL_ENERGY_QUESTIONS = [
     "isReviewed": true
   }
 ];
-const INITIAL_PORTFOLIO_DATA = {
-  portfolioDataVersion: 2,
-  awards: [
-    {
-      id: "award-2026-1",
-      year: "2026",
-      period: "2026.08",
-      title: "제2회 화성시 양성평등 공모전 산문 부문 장려상 수상",
-      issuer: "화성시여성가족청소년재단이사장 표창",
-      category: "대외·공공·문학",
-      badge: "재단이사장 표창",
-      highlight: true,
-      description: "양성평등 문화 확산 및 일상 속 성찰을 담은 산문 부문 우수작 선정"
-    },
-    {
-      id: "award-2026-2",
-      year: "2026",
-      period: "2026.03",
-      title: "제5기 화성시 청년정책협의체 위원 선정 (동탄 교육·참여·권리 분과장 역임)",
-      issuer: "화성시장 위촉",
-      category: "대외·공공·문학",
-      badge: "화성시장 위촉 · 분과장",
-      highlight: true,
-      description: "화성시 동탄권역 청년 교육·참여·권리 증진 정책 발굴 및 3분과장 리더십 수행"
-    },
-    {
-      id: "award-2025-1",
-      year: "2025",
-      period: "2025.12",
-      title: "장애인과 함께하는 문해(문예) 글짓기 대회 대상 수상 (국회 국방위원장상)",
-      issuer: "국회 국방위원장 표창",
-      category: "대외·공공·문학",
-      badge: "대상 · 국회 국방위원장상",
-      highlight: true,
-      description: "전국 규모 문예 글짓기 대회 최고 영예 대상(국회 국방위원장 표창) 수상"
-    },
-    {
-      id: "award-2024-1",
-      year: "2024",
-      period: "2024.01",
-      title: "방송통신대학교 총장 표창 우수상 수상",
-      issuer: "방송통신대학교총장 표창",
-      category: "대외·공공·문학",
-      badge: "총장 표창 · 우수상",
-      highlight: true,
-      description: "산업공학과 재학 중 탁월한 학업 성취 및 대학교 대외 기여 공로 표창"
-    },
-    {
-      id: "award-2023-2",
-      year: "2023",
-      period: "2023.07",
-      title: "세이프 인플루언서(Safe Influencer) 우수 활동자 즉시상",
-      issuer: "안전그룹장 표창",
-      category: "안전·환경",
-      badge: "안전그룹장 표창",
-      highlight: false,
-      description: "삼성전자 사내 안전문화 확산 및 현장 자율 안전 캠페인 우수 활동"
-    },
-    {
-      id: "award-2023-1",
-      year: "2023",
-      period: "2023.02",
-      title: "2023 FOUNDRY DIFFUSION 기술팀 DS경진대회 최다 아이디어부문 우수",
-      issuer: "DIFFUSION기술팀장 표창",
-      category: "기술·생산성·혁신",
-      badge: "최다 아이디어 우수",
-      highlight: true,
-      description: "파운드리 디퓨전 기술팀 DS경진대회 기술 혁신 아이디어 최다 발굴 및 채택"
-    },
-    {
-      id: "award-2022-3",
-      year: "2022",
-      period: "2022.12",
-      title: "세이프 인플루언서 최우수 활동자 즉시상",
-      issuer: "안전그룹장 표창",
-      category: "안전·환경",
-      badge: "최우수 활동자 표창",
-      highlight: true,
-      description: "2022년 사내 안전문화 개편 TF 세이프 인플루언서 최우수 기여자 선정"
-    },
-    {
-      id: "award-2022-2",
-      year: "2022",
-      period: "2022.03 ~ 05",
-      title: "모두의 인사 TF 승격분과 본과정 경진대회 우수 표창",
-      issuer: "인사기획그룹 표창",
-      category: "인사·교육·조직문화",
-      badge: "인사기획그룹 우수 표창",
-      highlight: true,
-      description: "삼성전자 인사제도 개편 TF 승격분과 본과정 경진대회 기획안 우수 표창"
-    },
-    {
-      id: "award-2022-1",
-      year: "2022",
-      period: "2022.02",
-      title: "2월 업무 불합리 발굴 우수상",
-      issuer: "DIFFUSION기술팀장 표창",
-      category: "기술·생산성·혁신",
-      badge: "기술팀장 표창",
-      highlight: false,
-      description: "현장 공정 및 업무 프로세스 불합리 요소 선제적 발굴·개선"
-    },
-    {
-      id: "award-2021-5",
-      year: "2021",
-      period: "2021.10",
-      title: "위험발굴 우수발굴 즉시상",
-      issuer: "기술환경안전팀장 표창",
-      category: "안전·환경",
-      badge: "기술환경안전팀장 표창",
-      highlight: false,
-      description: "사업장 잠재 위험요인 발굴 및 중대재해 예방 활동 우수 기여"
-    },
-    {
-      id: "award-2021-4",
-      year: "2021",
-      period: "2021.10",
-      title: "기본지키기 서포터즈 6기 우수 활동자 수상",
-      issuer: "안전그룹장 표창",
-      category: "안전·환경",
-      badge: "안전그룹장 표창",
-      highlight: false,
-      description: "현장 안전 기본수칙 준수 문화 정착 서포터즈 6기 핵심 활동"
-    },
-    {
-      id: "award-2021-3",
-      year: "2021",
-      period: "2021.09",
-      title: "21년 하반기 혁신적으로 일하기 공모전 우수상",
-      issuer: "D기술팀장 표창",
-      category: "기술·생산성·혁신",
-      badge: "공모전 우수상",
-      highlight: false,
-      description: "스마트 워크 및 엔지니어링 업무 효율화 혁신 아이디어 우수상"
-    },
-    {
-      id: "award-2021-2",
-      year: "2021",
-      period: "2021.07",
-      title: "D기술팀 우수사원 즉시상",
-      issuer: "D기술팀장 표창",
-      category: "인사·교육·조직문화",
-      badge: "우수사원 표창",
-      highlight: true,
-      description: "기술팀 내 모범적 직무 수행 및 조직 시너지 창출 우수사원 표창"
-    },
-    {
-      id: "award-2021-1",
-      year: "2021",
-      period: "2021.02",
-      title: "제조기술센터 설비엔지니어 공정회 우수 기안 시상",
-      issuer: "제조센터장 표창",
-      category: "기술·생산성·혁신",
-      badge: "제조센터장 표창",
-      highlight: true,
-      description: "설비엔지니어 공정 개선 기안 우수작 선정 및 센터장 표창"
-    },
-    {
-      id: "award-2020-6",
-      year: "2020",
-      period: "2020.10",
-      title: "인재개발그룹 즉시상",
-      issuer: "인재개발그룹장 표창",
-      category: "인사·교육·조직문화",
-      badge: "인재개발그룹장 표창",
-      highlight: false,
-      description: "사내 직무 교육 및 후배 엔지니어 역량 개발 기여 표창"
-    },
-    {
-      id: "award-2020-5",
-      year: "2020",
-      period: "2020.07",
-      title: "D기술팀 생산성 향상 공모전 즉시상 시상",
-      issuer: "D기술팀장 표창",
-      category: "기술·생산성·혁신",
-      badge: "D기술팀장 표창",
-      highlight: false,
-      description: "설비 가동률 및 공정 생산성 향상 아이디어 공모전 입상"
-    },
-    {
-      id: "award-2020-4",
-      year: "2020",
-      period: "2020.06",
-      title: "제조 시너지 P/J 협업 IDEA & 우수성과 공모전 (시너지 협업 IDEA 부문 최다발굴 시상)",
-      issuer: "제조 시너지 PROJECT장 표창",
-      category: "기술·생산성·혁신",
-      badge: "최다발굴 표창",
-      highlight: true,
-      description: "부서 간 제조 시너지 창출 협업 아이디어 최다 발굴 기록 달성"
-    },
-    {
-      id: "award-2020-3",
-      year: "2020",
-      period: "2020.06 ~ 2021.01",
-      title: "기본지키기 서포터즈 1기 ~ 4기 연속 4회 시상",
-      issuer: "안전그룹장 표창",
-      category: "안전·환경",
-      badge: "4기 연속 표창",
-      highlight: true,
-      description: "1기부터 4기까지 전 기수 연속 우수 서포터즈 4회 연속 표창 달성"
-    },
-    {
-      id: "award-2020-2",
-      year: "2020",
-      period: "2020.04",
-      title: "환경안전공모전 (아이디어 부문) 은상",
-      issuer: "환경안전팀장 표창",
-      category: "안전·환경",
-      badge: "공모전 은상",
-      highlight: false,
-      description: "사내 환경안전 개선 아이디어 공모전 은상 수상"
-    },
-    {
-      id: "award-2020-1",
-      year: "2020",
-      period: "2020.02 ~ 2021.01",
-      title: "D기술팀 DigNoel 상 4회 시상 추천 및 본인 시상",
-      issuer: "D기술팀장 표창",
-      category: "인사·교육·조직문화",
-      badge: "4회 연속 수상",
-      highlight: false,
-      description: "동료 칭찬·격려 및 협업 문화 확산 DigNoel 상 4회 연속 추천·수상"
-    },
-    {
-      id: "award-2018-1",
-      year: "2018",
-      period: "2018.07",
-      title: "D기술팀 (Hidden Worker) 부문 즉시상 시상",
-      issuer: "D기술팀장 표창",
-      category: "인사·교육·조직문화",
-      badge: "Hidden Worker상",
-      highlight: false,
-      description: "보이지 않는 곳에서 묵묵히 현장 난제를 해결한 히든워커 표창"
-    },
-    {
-      id: "award-2016-1",
-      year: "2016",
-      period: "2016.01",
-      title: "D기술팀 환경안전 부문 즉시상 시상",
-      issuer: "D기술팀장 표창",
-      category: "안전·환경",
-      badge: "D기술팀장 표창",
-      highlight: false,
-      description: "현장 환경안전 리스크 예방 및 안전 수칙 준수 솔선수범 표창"
-    },
-    {
-      id: "award-2014-1",
-      year: "2014",
-      period: "2014.11",
-      title: "슈퍼루키 프로젝트 성과 발표회 우수 시상",
-      issuer: "제조센터장 표창",
-      category: "기술·생산성·혁신",
-      badge: "제조센터장 표창",
-      highlight: true,
-      description: "신입 엔지니어 슈퍼루키 프로젝트 혁신 과제 발표 우수상(제조센터장 표창)"
-    }
-  ],
-  careers: [
-    {
-      id: "career-brunch",
-      year: "상시",
-      startYear: "상시",
-      period: "연재 중",
-      title: "브런치스토리 플랫폼 작가명 '아론(@musimtook)' 연재 및 멤버십 운영",
-      role: "브런치 정식 작가 (아론)",
-      category: "작가·대외·학술",
-      status: "ongoing",
-      impact: "에세이 및 칼럼 741편 발행 · 매거진/작품 18집 · 독서노트 75편 · 구독자 223명 보유 ('아론 작가 멤버십' 운영)",
-      description: "에세이 및 칼럼 741편 발행 · 매거진/작품 18집 · 독서노트 75편 · 구독자 223명 보유 ('아론 작가 멤버십' 운영)"
-    },
-    {
-      id: "career-2023-7",
-      year: "2023",
-      startYear: "2023",
-      period: "2023.11",
-      title: "SSIT 삼성전자 사내대학(공과대학) 전임교수 추천",
-      role: "삼성전자 SSIT 전임교수 후보 추천",
-      category: "전문선임·교육·교수",
-      status: "completed",
-      impact: "반도체 설비·안전·직무 전문성 및 강의 역량을 인정받아 삼성전자 사내대학(SSIT) 전임교수 추천",
-      description: "반도체 설비·안전·직무 전문성 및 강의 역량을 인정받아 삼성전자 사내대학(SSIT) 전임교수 추천"
-    },
-    {
-      id: "career-2023-6",
-      year: "2023",
-      startYear: "2023",
-      period: "2023 연중",
-      title: "사내 위험물 기능장 대비반 직접 운영 ➔ 팀 내 기능장 7명 배출",
-      role: "위험물 기능장 대비반 강사·멘토",
-      category: "전문선임·교육·교수",
-      status: "completed",
-      impact: "본인의 위험물기능장 취득 노하우를 바탕으로 사내 대비반을 직접 운영하여 팀 내 국가기술자격 최상위 등급인 '기능장' 7명 합격 배출",
-      description: "본인의 위험물기능장 취득 노하우를 바탕으로 사내 대비반을 직접 운영하여 팀 내 국가기술자격 최상위 등급인 '기능장' 7명 합격 배출"
-    },
-    {
-      id: "career-2023-5",
-      year: "2023",
-      startYear: "2023",
-      period: "2023.07 ~ 현재",
-      title: "기흥/화성 파운드리사업부 위험물 관리자 선임",
-      role: "삼성전자 파운드리사업부 위험물 안전관리자",
-      category: "전문선임·교육·교수",
-      status: "ongoing",
-      impact: "기흥·화성 캠퍼스 파운드리사업부 위험물 취급·안전관리 법정/전문 관리자 선임 수행",
-      description: "기흥·화성 캠퍼스 파운드리사업부 위험물 취급·안전관리 법정/전문 관리자 선임 수행"
-    },
-    {
-      id: "career-2023-4",
-      year: "2023",
-      startYear: "2023",
-      period: "2023.09",
-      title: "세이프 인플루언서(Safe Influencer) TF 3기 활동 및 9월 우수 활동자 수상",
-      role: "삼성전자 안전문화 TF 3기 위원",
-      category: "사내 핵심 TF",
-      status: "completed",
-      impact: "1기~3기 연속 사내 안전문화 혁신 TF 참여 및 9월 우수 활동자 선정",
-      description: "1기~3기 연속 사내 안전문화 혁신 TF 참여 및 9월 우수 활동자 선정"
-    },
-    {
-      id: "career-2023-3",
-      year: "2023",
-      startYear: "2023",
-      period: "2023.07",
-      title: "방송통신대학교 [생산운영관리] 정규 교과목 방송 학생출연자 참여",
-      role: "한국방송통신대학교 산업공학과 대표 학생출연자",
-      category: "작가·대외·학술",
-      status: "completed",
-      impact: "산업공학과 전공 정규 강의 [생산운영관리] 과목 제작 참여 및 방송 출연",
-      description: "산업공학과 전공 정규 강의 [생산운영관리] 과목 제작 참여 및 방송 출연"
-    },
-    {
-      id: "career-2023-2",
-      year: "2023",
-      startYear: "2023",
-      period: "2023.05",
-      title: "세이프 인플루언서 TF 2기 활동 및 우수활동자 시상",
-      role: "삼성전자 안전문화 TF 2기 위원",
-      category: "사내 핵심 TF",
-      status: "completed",
-      impact: "현장 밀착형 안전 캠페인 기획 및 안전문화 전파 우수활동자 수상",
-      description: "현장 밀착형 안전 캠페인 기획 및 안전문화 전파 우수활동자 수상"
-    },
-    {
-      id: "career-2023-1",
-      year: "2023",
-      startYear: "2023",
-      period: "2023 연중",
-      title: "THE NANUM 100 CLUB 선정 (사내외 사회공헌 100시간 달성)",
-      role: "삼성전자 나눔클럽 아너스 멤버",
-      category: "사회공헌·봉사",
-      status: "completed",
-      impact: "연간 누적 봉사활동 100시간 이상 달성 임직원에게 수여되는 THE NANUM 100 CLUB 재선정",
-      description: "연간 누적 봉사활동 100시간 이상 달성 임직원에게 수여되는 THE NANUM 100 CLUB 재선정"
-    },
-    {
-      id: "career-2022-6",
-      year: "2022",
-      startYear: "2022",
-      period: "2022.06 ~ 2023.06",
-      title: "삼성전자 경영진 제언 사내 MZ 자문단 위원 활동",
-      role: "사내 MZ 자문위원 (1년 역임)",
-      category: "사내 핵심 TF",
-      status: "completed",
-      impact: "경영진 직속 제언 기구인 MZ 자문단 위원으로 활동하며 조직문화 및 일하는 방식 혁신 제안",
-      description: "경영진 직속 제언 기구인 MZ 자문단 위원으로 활동하며 조직문화 및 일하는 방식 혁신 제안"
-    },
-    {
-      id: "career-2022-5",
-      year: "2022",
-      startYear: "2022",
-      period: "2022.12",
-      title: "THE NANUM 50 CLUB 선정 (옷캔, 플로깅 등 사내 봉사 50시간 수행)",
-      role: "삼성전자 사회공헌 우수 봉사자",
-      category: "사회공헌·봉사",
-      status: "completed",
-      impact: "해외 의류 기부(옷캔), 환경 정화 플로깅 등 연간 봉사활동 50시간 이상 완수",
-      description: "해외 의류 기부(옷캔), 환경 정화 플로깅 등 연간 봉사활동 50시간 이상 완수"
-    },
-    {
-      id: "career-2022-4",
-      year: "2022",
-      startYear: "2022",
-      period: "2022.09 ~ 11",
-      title: "세이프 인플루언서(Safe Influencer) TF 1기 활동",
-      role: "삼성전자 안전문화 개편 TF 1기",
-      category: "사내 핵심 TF",
-      status: "completed",
-      impact: "사내 안전문화 개편 원년 멤버로 참여하여 최우수 활동자 표창 수상",
-      description: "사내 안전문화 개편 원년 멤버로 참여하여 최우수 활동자 표창 수상"
-    },
-    {
-      id: "career-2022-3",
-      year: "2022",
-      startYear: "2022",
-      period: "2022.08",
-      title: "위드시큐리티(With Security) TF 사내 IT분과 참여",
-      role: "보안 개편 TF IT분과 실무위원",
-      category: "사내 핵심 TF",
-      status: "completed",
-      impact: "삼성전자 사내 정보보안 의식 제고 및 IT 보안 프로세스 개선 TF 활동",
-      description: "삼성전자 사내 정보보안 의식 제고 및 IT 보안 프로세스 개선 TF 활동"
-    },
-    {
-      id: "career-2022-2",
-      year: "2022",
-      startYear: "2022",
-      period: "2022.03 ~ 05",
-      title: "인사제도 개편 관련 '모두의 인사 TF' 승격분과 참여",
-      role: "모두의 인사 TF 승격분과 위원",
-      category: "사내 핵심 TF",
-      status: "completed",
-      impact: "삼성전자 미래 인사·승격 제도 개편 TF에 참여하여 본과정 경진대회 표창 수상",
-      description: "삼성전자 미래 인사·승격 제도 개편 TF에 참여하여 본과정 경진대회 표창 수상"
-    },
-    {
-      id: "career-2022-1",
-      year: "2022",
-      startYear: "2022",
-      period: "2022 연중",
-      title: "삼성전자 사내 지도후배 양성 멘토링",
-      role: "기술팀 지도선배 멘토",
-      category: "전문선임·교육·교수",
-      status: "completed",
-      impact: "신입 및 후배 엔지니어 직무 역량 강화와 조직 적응을 돕는 전담 멘토링 수행",
-      description: "신입 및 후배 엔지니어 직무 역량 강화와 조직 적응을 돕는 전담 멘토링 수행"
-    },
-    {
-      id: "career-2021-1",
-      year: "2021",
-      startYear: "2021",
-      period: "2021.12",
-      title: "THE NANUM 100 CLUB 선정 (점자 도서·해외 의류·편의시설 지도 제작 100시간+)",
-      role: "삼성전자 우수 봉사자 (100시간+)",
-      category: "사회공헌·봉사",
-      status: "completed",
-      impact: "시각장애인 점자 도서 제작, 해외 의류 지원, 장애인 편의시설 점검 지도 제작 등 연간 100시간 이상 봉사 참여",
-      description: "시각장애인 점자 도서 제작, 해외 의류 지원, 장애인 편의시설 점검 지도 제작 등 연간 100시간 이상 봉사 참여"
-    }
-  ]
-};
-
-const INITIAL_EXAM_SCHEDULES = [
-  {
-    id: "exam-1",
-    title: "에너지관리기사 실기 시험",
-    category: "자격증",
-    startDate: "2026-11-07T09:00",
-    endDate: "2026-11-07T12:00",
-    ddayTarget: "2026-11-07T09:00",
-    location: "지정 수험장 (큐넷 안내)",
-    description: "2026년 정기 기사 실기시험. 목표: 필답형 고득점 합격!",
-    priority: "urgent", // urgent, high, normal
-    isCompleted: false,
-    checklist: [
-      { text: "계산 공식 치트시트 암기 완료", done: false },
-      { text: "최근 7개년 기출문제 3회독", done: false },
-      { text: "공학용 계산기(규정 모델) 점검", done: false },
-      { text: "신분증 및 수험표 준비", done: false }
-    ]
-  },
-  {
-    id: "exam-2",
-    title: "중간 과제물 제출 기간",
-    category: "학사과제",
-    startDate: "2026-10-03T00:00",
-    endDate: "2026-10-12T23:59",
-    ddayTarget: "2026-10-12T23:59",
-    location: "학사정보시스템 과제제출방",
-    description: "과목별 중간과제물 작성 및 마감 전 최종 제출",
-    priority: "high",
-    isCompleted: false,
-    checklist: [
-      { text: "과제 주제별 레포트 초안 작성", done: false },
-      { text: "참고문헌 및 인용 표기 검토", done: false },
-      { text: "표절률(카피킬러) 검사 및 파일 제출", done: false }
-    ]
-  },
-  {
-    id: "exam-3",
-    title: "평생교육사 중복 과목 신청",
-    category: "학사신청",
-    startDate: "2026-10-05T09:00",
-    endDate: "2026-10-16T18:00",
-    ddayTarget: "2026-10-16T18:00",
-    location: "평생교육진흥원 / 학과 사무실",
-    description: "평생교육사 자격증 관련 중복 인정 과목 신청 및 확인",
-    priority: "normal",
-    isCompleted: false,
-    checklist: [
-      { text: "기이수 과목 성적증명서 확인", done: false },
-      { text: "중복 인정 신청서 제출", done: false }
-    ]
-  },
-  {
-    id: "exam-4",
-    title: "계절 수업 신청 일정 확인",
-    category: "학사신청",
-    startDate: "2026-10-16T09:00",
-    endDate: "2026-10-17T18:00",
-    ddayTarget: "2026-10-16T09:00",
-    location: "학사공지 / 수강신청 시스템",
-    description: "동계 계절학기 개설 과목 확인 및 수강신청 일정 점검",
-    priority: "normal",
-    isCompleted: false,
-    checklist: [
-      { text: "계절학기 개설 과목 리스트 확인", done: false },
-      { text: "수강 계획 수립 및 장바구니 담기", done: false }
-    ]
-  },
-  {
-    id: "exam-5",
-    title: "화기애애 기후탐사대 성과 발표회",
-    category: "활동/발표",
-    startDate: "2026-10-31T14:00",
-    endDate: "2026-10-31T18:00",
-    ddayTarget: "2026-10-31T14:00",
-    location: "성과발표회장 / 온오프라인 하이브리드",
-    description: "기후탐사대 프로젝트 최종 탐사 결과 및 액션플랜 성과 발표",
-    priority: "high",
-    isCompleted: false,
-    checklist: [
-      { text: "발표 PPT 슬라이드 완성 및 리허설", done: false },
-      { text: "탐사 데이터 및 시각화 인포그래픽 점검", done: false },
-      { text: "팀원별 발표 파트 배분 및 Q&A 대비", done: false }
-    ]
-  },
-  {
-    id: "exam-6",
-    title: "기말고사 시험 신청일",
-    category: "학사신청",
-    startDate: "2026-11-10T09:00",
-    endDate: "2026-11-10T18:00",
-    ddayTarget: "2026-11-10T09:00",
-    location: "학사정보시스템",
-    description: "기말고사 시험 일시 및 고사장 선택 신청 (선착순 고사장 주의)",
-    priority: "high",
-    isCompleted: false,
-    checklist: [
-      { text: "시험 가능 시간대 및 고사장 미리 파악", done: false },
-      { text: "오전 9시 정각 접속하여 신청 완료", done: false }
-    ]
-  },
-  {
-    id: "exam-7",
-    title: "기말과제물 제출 기간",
-    category: "학사과제",
-    startDate: "2026-11-20T00:00",
-    endDate: "2026-11-30T23:59",
-    ddayTarget: "2026-11-30T23:59",
-    location: "학사정보시스템 과제제출방",
-    description: "학기말 최종 평가 대체 과제물 작성 및 마감 전 제출",
-    priority: "urgent",
-    isCompleted: false,
-    checklist: [
-      { text: "과제 주제 가이드라인 최종 확인", done: false },
-      { text: "최종 보고서 작성 및 파일 검토", done: false },
-      { text: "제출 후 접수증 확인", done: false }
-    ]
-  },
-  {
-    id: "exam-8",
-    title: "기말고사 시험기간",
-    category: "학사시험",
-    startDate: "2026-12-04T09:00",
-    endDate: "2026-12-13T18:00",
-    ddayTarget: "2026-12-04T09:00",
-    location: "지정 오프라인/온라인 고사장",
-    description: "2학기 최종 기말고사 시험 응시. 유종의 미 거두기!",
-    priority: "urgent",
-    isCompleted: false,
-    checklist: [
-      { text: "과목별 핵심 요약노트 복습", done: false },
-      { text: "과년도 기출 및 워크북 문제 풀이", done: false },
-      { text: "시험 당일 고사장 확인 및 응시", done: false }
-    ]
-  }
-];
-
-// 2. 문화생활 & 밴드 합주 일정
-// 2. 문화생활 & 밴드 합주 일정
-const INITIAL_BAND_SCHEDULES = [
-  {
-    id: "band-1",
-    type: "rehearsal", // rehearsal (합주) or performance (공연 관람)
-    title: "정기 밴드 합주 (10월 2차 - 호랑이 합주실)",
-    date: "2026-10-10T16:00",
-    location: "홍대 호랑이 합주실",
-    status: "scheduled",
-    setlist: [
-      { song: "제제로감 (廻廻奇譚 / Eve)", key: "C# Minor / E Major", tempo: "185 BPM", notes: "★ 오늘 합주 메인 집중 곡 - 인트로 베이스 슬랩 & 후렴구 드럼/기타 질주감 싱크 맞추기" },
-      { song: "한 페이지가 될 수 있게 (DAY6)", key: "D Major", tempo: "165 BPM", notes: "브릿지 솔로 싱코페이션 타이밍 집중" },
-      { song: "스물다섯, 스물하나 (자우림)", key: "G Major", tempo: "92 BPM", notes: "2절 빌드업 다이내믹스 조절" },
-      { song: "Hype Boy (Band Ver.)", key: "E Major", tempo: "120 BPM", notes: "인트로 베이스 그루브 & 드럼 킥 맞추기" }
-    ],
-    memos: "홍대 호랑이 합주실 15분 전 도착하여 튜닝 완료하기. 메인 합주곡 '제제로감' 템포 185 BPM 메트로놈 체크 및 삼각대 촬영 준비."
-  },
-  {
-    id: "band-2",
-    type: "performance",
-    title: "가을 인디 락 페스티벌 관람",
-    date: "2026-10-24T15:00",
-    location: "난지 한강공원 특설무대",
-    status: "scheduled",
-    setlist: [],
-    memos: "모바일 티켓 신분증 지참, 돗자리 및 보조배터리 챙기기. 헤드라이너 무대 사수!"
-  },
-  {
-    id: "band-3",
-    type: "rehearsal",
-    title: "연말 정기공연 대비 합주 (11월 2차)",
-    date: "2026-11-14T15:00",
-    location: "합정 스테이지 합주실 1호점",
-    status: "scheduled",
-    setlist: [
-      { song: "Don't Look Back In Anger (Oasis)", key: "C Major", tempo: "84 BPM", notes: "엔딩 합창 코러스 파트 화음 점검" },
-      { song: "신곡 합주 1차 스케치", key: "A Minor", tempo: "130 BPM", notes: "인스트루멘탈 구간 아이디어 회의" }
-    ],
-    memos: "에너지관리기사 시험 끝난 직후 첫 합주! 홀가분하게 즐기기."
-  }
-];
-
-// 3-B. 에너지관리기사 실기 D-40 일자별 학습 플래너 (2026-09-28 ~ 2026-11-07)
-// =========================================================================
-// Energy Practical Real Files Manifest & 41-Day Master Curriculum Data
-// (Based on C:\Users\user\Desktop\에너지관리기사\에너지관리기사 실기\실기)
-// =========================================================================
-const ENERGY_FOLDER_MANIFEST = [
-  {
-    "name": "식만 정리",
-    "files": 21,
-    "type": "formula",
-    "desc": "핵심 공식 요약 및 증명 (열정산/연소/전열/통풍/펌프)"
-  },
-  {
-    "name": "연습문제 (기출이 대부분인)",
-    "files": 256,
-    "type": "practice",
-    "desc": "단원별 핵심 연습문제 및 기출 변형 훈련 (전 단원 망라)"
-  },
-  {
-    "name": "10년",
-    "files": 21,
-    "type": "exam",
-    "desc": "2010년 과년도 기출문제 (기초 열역학/연소/열정산)"
-  },
-  {
-    "name": "11년",
-    "files": 19,
-    "type": "exam",
-    "desc": "2011년 과년도 기출문제 (상당증발량/BHP/통풍력)"
-  },
-  {
-    "name": "12년",
-    "files": 20,
-    "type": "exam",
-    "desc": "2012년 과년도 기출문제 (보일러 효율/배기가스 손실)"
-  },
-  {
-    "name": "13년",
-    "files": 19,
-    "type": "exam",
-    "desc": "2013년 과년도 기출문제 (열교환기 LMTD/전열면적)"
-  },
-  {
-    "name": "14년",
-    "files": 22,
-    "type": "exam",
-    "desc": "2014년 과년도 기출문제 (배관 마찰손실/펌프 축동력)"
-  },
-  {
-    "name": "15년",
-    "files": 18,
-    "type": "exam",
-    "desc": "2015년 과년도 기출문제 (보일러 자동제어/급수처리)"
-  },
-  {
-    "name": "16년",
-    "files": 17,
-    "type": "exam",
-    "desc": "2016년 과년도 기출문제 (절탄기/공기예열기/과열기)"
-  },
-  {
-    "name": "17년",
-    "files": 18,
-    "type": "exam",
-    "desc": "2017년 과년도 기출문제 (보온재 두께/표면 방열량)"
-  },
-  {
-    "name": "18년",
-    "files": 19,
-    "type": "exam",
-    "desc": "2018년 과년도 기출문제 (수처리 약품/블로우다운율)"
-  },
-  {
-    "name": "19년",
-    "files": 20,
-    "type": "exam",
-    "desc": "2019년 과년도 기출문제 (에너지합리화법/안전밸브 용량)"
-  },
-  {
-    "name": "20년",
-    "files": 28,
-    "type": "exam",
-    "desc": "2020년 실기 기출문제 (필답형 전면 개편 1~3회)"
-  },
-  {
-    "name": "21년",
-    "files": 28,
-    "type": "exam",
-    "desc": "2021년 실기 기출문제 (복합 계산형 최신 유형)"
-  },
-  {
-    "name": "22년",
-    "files": 31,
-    "type": "exam",
-    "desc": "2022년 실기 기출문제 (빈출 서술형 및 실무 단답)"
-  },
-  {
-    "name": "23년",
-    "files": 45,
-    "type": "exam",
-    "desc": "2023년 실기 기출문제 (출판사 A 최신 기출 전회차)"
-  },
-  {
-    "name": "23년 (출판사 변경)",
-    "files": 26,
-    "type": "exam",
-    "desc": "2023년 실기 기출문제 (출판사 B 교차 검증 해설)"
-  },
-  {
-    "name": "24년",
-    "files": 55,
-    "type": "exam",
-    "desc": "2024년 실기 기출문제 (출판사 A 최신 기출 55장)"
-  },
-  {
-    "name": "24년 (출판사 변경)",
-    "files": 29,
-    "type": "exam",
-    "desc": "2024년 실기 기출문제 (출판사 B 교차 검증 해설)"
-  },
-  {
-    "name": "25년 (출판사 변경)",
-    "files": 29,
-    "type": "exam",
-    "desc": "2025년 최신 실기 기출문제 (출판사 B 최신판 29장)"
-  }
-];
-
-const INITIAL_ENERGY_STUDY_PLAN = [
-  {
-    "id": "ep-1",
-    "dayNum": 1,
-    "date": "2026-09-28",
-    "dday": "D-40",
-    "phase": 1,
-    "phaseName": "1단계: 공식 21장 완전 정복",
-    "folder": "식만 정리",
-    "volume": "1~5장 (5장)",
-    "topic": "연소방정식 & 이론/실제공기량",
-    "task": "이론산소량(O0), 이론공기량(A0), 실제공기량(A), 공기비(m) 계산 공식 완전 암기 및 유도",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-2",
-    "dayNum": 2,
-    "date": "2026-09-29",
-    "dday": "D-39",
-    "phase": 1,
-    "phaseName": "1단계: 공식 21장 완전 정복",
-    "folder": "식만 정리",
-    "volume": "6~10장 (5장)",
-    "topic": "보일러 열정산 & 상당증발량·BHP",
-    "task": "보일러 효율(정압시험법, 입출열법), 상당증발량(Ge), 보일러마력(BHP), 연료소비율",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-3",
-    "dayNum": 3,
-    "date": "2026-09-30",
-    "dday": "D-38",
-    "phase": 1,
-    "phaseName": "1단계: 공식 21장 완전 정복",
-    "folder": "식만 정리",
-    "volume": "11~15장 (5장)",
-    "topic": "전열공학 & 열관류율·LMTD",
-    "task": "열전도(푸리에), 대류(뉴턴), 복사(스테판-볼츠만), 총괄열전달계수(K), 대수평균온도차(LMTD)",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-4",
-    "dayNum": 4,
-    "date": "2026-10-01",
-    "dday": "D-37",
-    "phase": 1,
-    "phaseName": "1단계: 공식 21장 완전 정복",
-    "folder": "식만 정리",
-    "volume": "16~21장 (6장)",
-    "topic": "유체역학 & 펌프동력·통풍력",
-    "task": "베르누이 방정식, 달시-바이스바하 관마찰 손실수두, 펌프 수동력/축동력/전동기동력, 굴뚝 이론통풍력(Z)",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-5",
-    "dayNum": 5,
-    "date": "2026-10-02",
-    "dday": "D-36",
-    "phase": 2,
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 1~20장 (20장)",
-    "topic": "연소공학 및 연료 종류",
-    "task": "기체/액체/고체 연료의 연소 특성 및 듀롱 공식에 의한 발열량 계산",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-6",
-    "dayNum": 6,
-    "date": "2026-10-03",
-    "dday": "D-35",
-    "phase": 2,
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 21~40장 (20장)",
-    "topic": "배기가스량 및 연소 효율",
-    "task": "이론배기가스량(G0), 실제배기가스량(G), CO2max 계산 및 오르자트 분석",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-7",
-    "dayNum": 7,
-    "date": "2026-10-04",
-    "dday": "D-34",
-    "phase": 2,
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 41~60장 (20장)",
-    "topic": "보일러 구조 및 열전달체계",
-    "task": "노통연관보일러, 수관보일러(자연순환/강제순환), 관류보일러 구조비교 및 열흡수율",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-8",
-    "dayNum": 8,
-    "date": "2026-10-05",
-    "dday": "D-33",
-    "phase": 2,
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 61~80장 (20장)",
-    "topic": "폐열회수장치 (절탄기·공기예열기)",
-    "task": "절탄기(Economizer)와 공기예열기의 효율 상승률, 저온부식 방지대책(산노점)",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-9",
-    "dayNum": 9,
-    "date": "2026-10-06",
-    "dday": "D-32",
-    "phase": 2,
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 81~100장 (20장)",
-    "topic": "보일러 급수처리 및 농축관리",
-    "task": "급수 탈기기, 연수장치, 블로우다운율(B), 포밍·프라이밍·캐리오버 방지",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-10",
-    "dayNum": 10,
-    "date": "2026-10-07",
-    "dday": "D-31",
-    "phase": 2,
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 101~120장 (20장)",
-    "topic": "통풍장치 및 송풍기 동력",
-    "task": "압입통풍(FDF), 흡출통풍(IDF), 평형통풍(Balanced draft), 송풍기 상사법칙",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-11",
-    "dayNum": 11,
-    "date": "2026-10-08",
-    "dday": "D-30",
-    "phase": 2,
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 121~140장 (20장)",
-    "topic": "증기배관 및 부속설비",
-    "task": "배관경 산정식, 수격작용(Water Hammer), 스팀트랩(기계식·열역학식·온도조절식), 신축이음",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-12",
-    "dayNum": 12,
-    "date": "2026-10-09",
-    "dday": "D-29",
-    "phase": 2,
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 141~160장 (20장)",
-    "topic": "열교환기 성능 및 열정산",
-    "task": "쉘앤튜브 열교환기, 판형 열교환기 열관류, 열교환기 효율(ε-NTU법)",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-13",
-    "dayNum": 13,
-    "date": "2026-10-10",
-    "dday": "D-28",
-    "phase": 2,
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 161~180장 (20장)",
-    "topic": "단열재 및 보온 시공",
-    "task": "경제적 보온두께, 임계단열반경(Critical radius of insulation), 표면 방열손실량",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-14",
-    "dayNum": 14,
-    "date": "2026-10-11",
-    "dday": "D-27",
-    "phase": 2,
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 181~200장 (20장)",
-    "topic": "계측공학 및 에너지 진단",
-    "task": "차압식 유량계(오리피스, 벤투리, 노즐), 피토관 유속 측정, 열전대 및 측온저항체(Pt100)",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-15",
-    "dayNum": 15,
-    "date": "2026-10-12",
-    "dday": "D-26",
-    "phase": 2,
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 201~220장 (20장)",
-    "topic": "보일러 자동제어 (ABC)",
-    "task": "급수제어(1·2·3요소), 연소제어(온오프, 비례, FRC), 인터록 안전장치",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-16",
-    "dayNum": 16,
-    "date": "2026-10-13",
-    "dday": "D-25",
-    "phase": 2,
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 221~240장 (20장)",
-    "topic": "에너지이용합리화법 및 안전관리",
-    "task": "검사대상기기 종류 및 검사 유효기간, 에너지관리자 선임 기준, 안전밸브 분출압력",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-17",
-    "dayNum": 17,
-    "date": "2026-10-14",
-    "dday": "D-24",
-    "phase": 2,
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 241~256장 (16장)",
-    "topic": "연습문제 총정리 & 오답 노트 클리닉",
-    "task": "단원별 고난도 융합 문제 총정리, 계산 풀이과정 소수점/단위 규정 점검",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-18",
-    "dayNum": 18,
-    "date": "2026-10-15",
-    "dday": "D-23",
-    "phase": 3,
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "10년",
-    "volume": "21장",
-    "topic": "2010년 기출 전회차",
-    "task": "2010년 1~3회 기출 풀이: 연소계산, 증발배수, 상당증발량, 보일러 열효율 기초 확립",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-19",
-    "dayNum": 19,
-    "date": "2026-10-16",
-    "dday": "D-22",
-    "phase": 3,
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "11년",
-    "volume": "19장",
-    "topic": "2011년 기출 전회차",
-    "task": "2011년 1~3회 기출 풀이: 통풍력 산출, 댐퍼 제어, 연소 안전장치 단답 정리",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-20",
-    "dayNum": 20,
-    "date": "2026-10-17",
-    "dday": "D-21",
-    "phase": 3,
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "12년",
-    "volume": "20장",
-    "topic": "2012년 기출 전회차",
-    "task": "2012년 1~3회 기출 풀이: 보일러 열정산표 작성, 미연손실 및 복사열손실 산정",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-21",
-    "dayNum": 21,
-    "date": "2026-10-18",
-    "dday": "D-20",
-    "phase": 3,
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "13년",
-    "volume": "19장",
-    "topic": "2013년 기출 전회차",
-    "task": "2013년 1~3회 기출 풀이: 열교환기 전열면적 산정, LMTD, 관내 유속 계산",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-22",
-    "dayNum": 22,
-    "date": "2026-10-19",
-    "dday": "D-19",
-    "phase": 3,
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "14년",
-    "volume": "22장",
-    "topic": "2014년 기출 전회차",
-    "task": "2014년 1~3회 기출 풀이: 배관 마찰손실수두, 펌프 축동력 및 전동기 용량",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-23",
-    "dayNum": 23,
-    "date": "2026-10-20",
-    "dday": "D-18",
-    "phase": 3,
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "15년",
-    "volume": "18장",
-    "topic": "2015년 기출 전회차",
-    "task": "2015년 1~3회 기출 풀이: 수처리 약품 투입량, 알칼리도, 경도 계산",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-24",
-    "dayNum": 24,
-    "date": "2026-10-21",
-    "dday": "D-17",
-    "phase": 3,
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "16년",
-    "volume": "17장",
-    "topic": "2016년 기출 전회차",
-    "task": "2016년 1~3회 기출 풀이: 절탄기 열정산, 급수온도 상승에 따른 연료 절감율",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-25",
-    "dayNum": 25,
-    "date": "2026-10-22",
-    "dday": "D-16",
-    "phase": 3,
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "17년",
-    "volume": "18장",
-    "topic": "2017년 기출 전회차",
-    "task": "2017년 1~3회 기출 풀이: 보온재 열전도 및 경제적 두께, 표면 온도 계산",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-26",
-    "dayNum": 26,
-    "date": "2026-10-23",
-    "dday": "D-15",
-    "phase": 3,
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "18년",
-    "volume": "19장",
-    "topic": "2018년 기출 전회차",
-    "task": "2018년 1~3회 기출 풀이: 통풍 손실 및 댐퍼 개도율, 완전연소 조건(3T)",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-27",
-    "dayNum": 27,
-    "date": "2026-10-24",
-    "dday": "D-14",
-    "phase": 3,
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "19년",
-    "volume": "20장",
-    "topic": "2019년 기출 전회차",
-    "task": "2019년 1~3회 기출 풀이: 에너지진단 기준, 폐열회수 히트파이프 원리",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-28",
-    "dayNum": 28,
-    "date": "2026-10-25",
-    "dday": "D-13",
-    "phase": 3,
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "20년",
-    "volume": "28장",
-    "topic": "2020년 실기 기출 (개편 1~3회)",
-    "task": "2020년 전회차 풀이: 필답형 100% 전환 원년 출제 경향, 신출 계산문제 완전 분석",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-29",
-    "dayNum": 29,
-    "date": "2026-10-26",
-    "dday": "D-12",
-    "phase": 3,
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "21년",
-    "volume": "28장",
-    "topic": "2021년 실기 기출 전회차",
-    "task": "2021년 1~3회 기출 풀이: 응축수 회수설비 열정산, 플래시 증기 발생량",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-30",
-    "dayNum": 30,
-    "date": "2026-10-27",
-    "dday": "D-11",
-    "phase": 3,
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "22년",
-    "volume": "31장",
-    "topic": "2022년 실기 기출 전회차",
-    "task": "2022년 1~3회 기출 풀이: 팽창탱크 용량 산정, 고온수 배관 사이징, 신유형 단답",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-31",
-    "dayNum": 31,
-    "date": "2026-10-28",
-    "dday": "D-10",
-    "phase": 3,
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "23년 & 23년(출판사 변경)",
-    "volume": "71장",
-    "topic": "2023년 기출 전회차 (2개 출판사 교차분석)",
-    "task": "2023년 최신 기출 2개 출판사 전량 교차 풀이: 복합 혼소 연소, 신기술 서술형",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-32",
-    "dayNum": 32,
-    "date": "2026-10-29",
-    "dday": "D-9",
-    "phase": 3,
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "24년 & 24년(출판사 변경)",
-    "volume": "84장",
-    "topic": "2024년 기출 전회차 (최신판 84장 정밀분석)",
-    "task": "2024년 1~3회 기출 2개 출판사 전량 완독: 최신 신출 문항 및 복합 단위변환 마스터",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-33",
-    "dayNum": 33,
-    "date": "2026-10-30",
-    "dday": "D-8",
-    "phase": 3,
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "25년 (출판사 변경)",
-    "volume": "29장",
-    "topic": "2025년 최신 기출 (출판사 변경판 29장)",
-    "task": "2025년 최신 기출 전량 독파: 가장 최근 회차의 출제 경향, 신출 단답 및 계산 총정리",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-34",
-    "dayNum": 34,
-    "date": "2026-10-31",
-    "dday": "D-7",
-    "phase": 4,
-    "phaseName": "4단계: [마지막 7일] 연습 & 기출 무한 반복",
-    "folder": "전체 (식만 정리 + 21년 기출)",
-    "volume": "파이널",
-    "topic": "파이널 Day 1: 공식 21장 백지 테스트 + 2021년 기출 타임어택",
-    "task": "핵심 계산 공식 21장 백지 인출 테스트 100점 달성 & 2021년 기출 1~3회 2시간 타임어택 풀이",
-    "isFinalWeek": false,
-    "done": false
-  },
-  {
-    "id": "ep-35",
-    "dayNum": 35,
-    "date": "2026-11-01",
-    "dday": "D-6",
-    "phase": 4,
-    "phaseName": "4단계: [마지막 7일] 연습 & 기출 무한 반복",
-    "folder": "전체 (연습문제 고난도 + 22년 기출)",
-    "volume": "파이널",
-    "topic": "파이널 Day 2: 2022년 기출 복습 + 열정산표 100% 암기",
-    "task": "2022년 기출 31장 오답 재풀이 & 보일러+절탄기+공기예열기 통합 열정산표 수지 완벽 암기",
-    "isFinalWeek": true,
-    "done": false
-  },
-  {
-    "id": "ep-36",
-    "dayNum": 36,
-    "date": "2026-11-02",
-    "dday": "D-5",
-    "phase": 4,
-    "phaseName": "4단계: [마지막 7일] 연습 & 기출 무한 반복",
-    "folder": "전체 (23년 2개 출판사 기출)",
-    "volume": "파이널",
-    "topic": "파이널 Day 3: 2023년 기출 실전 모의고사 (목표 80점+)",
-    "task": "2023년 기출 71장(출판사 A, B) 모의고사 실시 ➔ 채점 및 감점 요인(단위, 유효숫자) 전수 점검",
-    "isFinalWeek": true,
-    "done": false
-  },
-  {
-    "id": "ep-37",
-    "dayNum": 37,
-    "date": "2026-11-03",
-    "dday": "D-4",
-    "phase": 4,
-    "phaseName": "4단계: [마지막 7일] 연습 & 기출 무한 반복",
-    "folder": "전체 (24년 2개 출판사 기출)",
-    "volume": "파이널",
-    "topic": "파이널 Day 4: 2024년 최신 기출 실전 모의고사",
-    "task": "2024년 기출 84장(출판사 A, B) 모의고사 실시 ➔ 최신 출제 트렌드 오답 집중 복습",
-    "isFinalWeek": true,
-    "done": false
-  },
-  {
-    "id": "ep-38",
-    "dayNum": 38,
-    "date": "2026-11-04",
-    "dday": "D-3",
-    "phase": 4,
-    "phaseName": "4단계: [마지막 7일] 연습 & 기출 무한 반복",
-    "folder": "전체 (25년 최신판 기출)",
-    "volume": "파이널",
-    "topic": "파이널 Day 5: 2025년 최신 기출 완벽 재풀이 + 취약 계산 클리닉",
-    "task": "2025년 최신 기출 29장 완벽 재풀이 & 40일간 누적된 개인 취약 계산 유형(연소/열전달/펌프) 클리닉",
-    "isFinalWeek": true,
-    "done": false
-  },
-  {
-    "id": "ep-39",
-    "dayNum": 39,
-    "date": "2026-11-05",
-    "dday": "D-2",
-    "phase": 4,
-    "phaseName": "4단계: [마지막 7일] 연습 & 기출 무한 반복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "파이널",
-    "topic": "파이널 Day 6: 고난도 오답 노트 50선 복습 & 서술형 키워드 암기",
-    "task": "단원별 연습문제 256장 중 선별한 고난도 50문항 3회독 & 핵심 단답 100선 눈으로 빠르게 회독",
-    "isFinalWeek": true,
-    "done": false
-  },
-  {
-    "id": "ep-40",
-    "dayNum": 40,
-    "date": "2026-11-06",
-    "dday": "D-1",
-    "phase": 4,
-    "phaseName": "4단계: [마지막 7일] 연습 & 기출 무한 반복",
-    "folder": "식만 정리 & 전체",
-    "volume": "파이널",
-    "topic": "파이널 Day 7: 전야 마인드컨트롤 & 공식 21장 최종 회독",
-    "task": "식만 정리 21장 최종 1회독, 공학용 계산기(리셋 확인 및 각도 DEG 세팅), 수험표·신분증·흑색볼펜 점검, 충분한 수면",
-    "isFinalWeek": true,
-    "done": false
-  },
-  {
-    "id": "ep-41",
-    "dayNum": 41,
-    "date": "2026-11-07",
-    "dday": "D-Day",
-    "phase": 4,
-    "phaseName": "★ 시험 당일",
-    "folder": "시험장",
-    "volume": "파이널",
-    "topic": "★ 2026년 정기 기사 실기 시험 당일!",
-    "task": "오전 09:00 실기 필답형 완벽 응시! 침착하고 정확하게 85점+ 최종 합격 쟁취!",
-    "isFinalWeek": true,
-    "done": false
-  }
-];
-
-const ENERGY_DAILY_BRIEFINGS = {
-  "2026-09-28": {
-    "dayNum": 1,
-    "date": "2026-09-28",
-    "dday": "D-40",
-    "phaseName": "1단계: 공식 21장 완전 정복",
-    "folder": "식만 정리",
-    "volume": "1~5장 (5장)",
-    "topic": "연소방정식 & 이론/실제공기량",
-    "goal": "이론산소량(O0), 이론공기량(A0), 실제공기량(A), 공기비(m) 계산 공식 완전 암기 및 유도",
-    "keyFormula": "\\begin{aligned} O_0 &= 1.867C + 5.6\\left(H - \\frac{O}{8}\\right) + 0.7S \\; [\\text{Nm}^3/\\text{kg}] \\\\ A_0 &= \\frac{O_0}{0.21} \\; [\\text{Nm}^3/\\text{kg}], \\quad A = m \\cdot A_0 \\end{aligned}",
-    "keyConcepts": [
-      "1. 탄소 1kmol(12kg)은 완전연소 시 22.414Nm³의 CO2 발생 및 산소 22.414Nm³ 소비 (계수 1.867)",
-      "2. 수소는 산소와 결합하여 H2O를 형성하므로 기결합 산소분(O/8)을 차감한 유효수소에 계수 5.6 적용",
-      "3. 실제공기량 산출 시 공기비 m = A / A0 = 21 / (21 - O2) 적용 요령 숙지"
-    ],
-    "pitfall": "⚠️ 함정 주의: 고체/액체 연료는 kg 단위 기준이고 기체 연료는 Nm³ 기준이므로 단위 체계 혼동 금지! 유효수소에서 (H - O/8) 괄호 계산 우선!",
-    "quiz": {
-      "q": "연료 성분 C: 84%, H: 12%, S: 2%, O: 2%인 중유 1kg 연소 시 이론공기량(A0)은?",
-      "a": "약 10.67 Nm³/kg",
-      "sol": "O0 = 1.867(0.84) + 5.6(0.12 - 0.02/8) + 0.7(0.02) = 1.568 + 0.658 + 0.014 = 2.24 Nm³/kg\\nA0 = 2.24 / 0.21 = 10.67 Nm³/kg"
-    }
-  },
-  "2026-09-29": {
-    "dayNum": 2,
-    "date": "2026-09-29",
-    "dday": "D-39",
-    "phaseName": "1단계: 공식 21장 완전 정복",
-    "folder": "식만 정리",
-    "volume": "6~10장 (5장)",
-    "topic": "보일러 열정산 & 상당증발량·BHP",
-    "goal": "보일러 효율(정압시험법, 입출열법), 상당증발량(Ge), 보일러마력(BHP), 연료소비율",
-    "keyFormula": "\\begin{aligned} \\eta &= \\frac{G_a (h_2 - h_1)}{G_f \\cdot H_l} \\times 100 \\; [\\%], \\quad G_e = \\frac{G_a (h_2 - h_1)}{539} \\; [\\text{kg/h}] \\\\ \\text{BHP} &= \\frac{G_e}{15.65} = \\frac{G_a(h_2 - h_1)}{15.65 \\times 539} \\end{aligned}",
-    "keyConcepts": [
-      "1. 보일러 효율 산출 시 분모는 연료 투입 총열량(Gf · Hl), 분자는 순수 발생 증기 흡열량(Ga(h2 - h1))",
-      "2. 상당증발량은 100℃ 포화수 ➔ 100℃ 포화증기 잠열(539 kcal/kg = 2257 kJ/kg) 기준 환산치",
-      "3. 1 보일러마력(1 BHP)은 1시간에 100℃의 물 15.65kg을 100℃ 포화증기로 바꾸는 능력"
-    ],
-    "pitfall": "⚠️ 함정 주의: 증기 엔탈피 h2와 급수 엔탈피 h1의 단위가 kcal/kg인지 kJ/kg인지 반드시 확인하고 일치시킬 것!",
-    "quiz": {
-      "q": "실제증발량 5,000 kg/h, 발생증기 엔탈피 650 kcal/kg, 급수 엔탈피 50 kcal/kg일 때 상당증발량은?",
-      "a": "5,565.86 kg/h",
-      "sol": "Ge = 5000 × (650 - 50) / 539 = 3,000,000 / 539 = 5,565.86 kg/h"
-    }
-  },
-  "2026-09-30": {
-    "dayNum": 3,
-    "date": "2026-09-30",
-    "dday": "D-38",
-    "phaseName": "1단계: 공식 21장 완전 정복",
-    "folder": "식만 정리",
-    "volume": "11~15장 (5장)",
-    "topic": "전열공학 & 열관류율·LMTD",
-    "goal": "열전도(푸리에), 대류(뉴턴), 복사(스테판-볼츠만), 총괄열전달계수(K), 대수평균온도차(LMTD)",
-    "keyFormula": "\\begin{aligned} Q &= K A \\Delta T_m \\; [\\text{W or kcal/h}], \\quad \\frac{1}{K} = \\frac{1}{\\alpha_1} + \\sum \\frac{L_i}{\\lambda_i} + \\frac{1}{\\alpha_2} \\\\ \\Delta T_m &= \\frac{\\Delta T_1 - \\Delta T_2}{\\ln(\\Delta T_1 / \\Delta T_2)} \\; [^\\circ\\text{C}] \\end{aligned}",
-    "keyConcepts": [
-      "1. 다층 평면벽/원통벽 열관류율 K 계산 시 열전도율(λ), 표면 열전달계수(α)의 역수들의 합이 열저항",
-      "2. 대향류(Counter flow)와 병행류(Parallel flow) 중 대향류가 항상 LMTD가 크고 전열 효율이 우수",
-      "3. 복사 열전달량은 절대온도의 4승차(T1⁴ - T2⁴)에 비례"
-    ],
-    "pitfall": "⚠️ 함정 주의: LMTD 계산 시 ln 분모 분자가 바뀌면 부호가 달라지므로 (ΔT1 - ΔT2) / ln(ΔT1/ΔT2) 순서를 엄수!",
-    "quiz": {
-      "q": "고온유체 120℃➔80℃, 저온유체 20℃➔60℃인 대향류 열교환기의 LMTD는?",
-      "a": "60 ℃",
-      "sol": "ΔT1 = 120 - 60 = 60℃, ΔT2 = 80 - 20 = 60℃. 입출구 온도차가 같으므로 LMTD = 60℃"
-    }
-  },
-  "2026-10-01": {
-    "dayNum": 4,
-    "date": "2026-10-01",
-    "dday": "D-37",
-    "phaseName": "1단계: 공식 21장 완전 정복",
-    "folder": "식만 정리",
-    "volume": "16~21장 (6장)",
-    "topic": "유체역학 & 펌프동력·통풍력",
-    "goal": "베르누이 방정식, 달시-바이스바하 관마찰 손실수두, 펌프 수동력/축동력/전동기동력, 굴뚝 이론통풍력(Z)",
-    "keyFormula": "\\begin{aligned} P_{\\text{water}} &= \\frac{\\gamma Q H}{102} \\; [\\text{kW}], \\quad P_{\\text{shaft}} = \\frac{\\gamma Q H}{102 \\eta} \\; [\\text{kW}], \\quad P_{\\text{motor}} = \\frac{\\gamma Q H}{102 \\eta} (1 + \\alpha) \\\\ Z &= 353 H \\left( \\frac{1}{T_a} - \\frac{1}{T_g} \\right) \\; [\\text{mmH}_2\\text{O}] \\end{aligned}",
-    "keyConcepts": [
-      "1. 펌프 동력 계산에서 유량 Q의 단위가 m³/s인지 m³/min인지 확인 (m³/min일 땐 분모에 6120 사용)",
-      "2. 수동력 ➔ 축동력(효율 η로 나눔) ➔ 전동기동력(여유율 1+α 곱함)의 단계별 동력 관계 숙지",
-      "3. 굴뚝 통풍력 Z는 굴뚝 높이(H)와 외기/배기가스 밀도차(절대온도 역수차)에 정비례"
-    ],
-    "pitfall": "⚠️ 함정 주의: 펌프 동력 kW 공식(분모 102)과 HP 공식(분모 75 또는 4500) 단위 혼동 주의!",
-    "quiz": {
-      "q": "양정 50m, 송출량 1.2 m³/min인 청수 펌프의 효율 75%, 여유율 15%일 때 전동기 동력(kW)은?",
-      "a": "15.03 kW",
-      "sol": "P = (1000 × 1.2 × 50) / (6120 × 0.75) × 1.15 = 60,000 / 4590 × 1.15 = 15.03 kW"
-    }
-  },
-  "2026-10-02": {
-    "dayNum": 5,
-    "date": "2026-10-02",
-    "dday": "D-36",
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 1~20장 (20장)",
-    "topic": "연소공학 및 연료 종류",
-    "goal": "기체/액체/고체 연료의 연소 특성 및 듀롱 공식에 의한 발열량 계산",
-    "keyFormula": "H_l = 8100C + 34000\\left(H - \\frac{O}{8}\\right) + 2500S - 600(9H + W) \\; [\\text{kcal/kg}]",
-    "keyConcepts": [
-      "1. 듀롱(Dulong) 공식 고위발열량과 저위발열량의 수분 증발잠열(600 kcal/kg) 차이",
-      "2. 수소 1kg 연소 시 생성 수증기량은 9kg"
-    ],
-    "pitfall": "⚠️ 수분(W)과 연소생성수분(9H)을 합산하여 600을 곱해 차감하는 저위발열량 변환식 완벽 적용",
-    "quiz": {
-      "q": "수소 10%, 수분 5%인 석탄의 고위발열량이 6500 kcal/kg일 때 저위발열량은?",
-      "a": "5,930 kcal/kg",
-      "sol": "Hl = 6500 - 600 × (9 × 0.10 + 0.05) = 6500 - 600 × 0.95 = 6500 - 570 = 5930 kcal/kg"
-    }
-  },
-  "2026-10-03": {
-    "dayNum": 6,
-    "date": "2026-10-03",
-    "dday": "D-35",
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 21~40장 (20장)",
-    "topic": "배기가스량 및 연소 효율",
-    "goal": "이론배기가스량(G0), 실제배기가스량(G), CO2max 계산 및 오르자트 분석",
-    "keyFormula": "G = G_0 + (m - 1)A_0, \\quad (\\text{CO}_2)_{\\max} = \\frac{\\text{CO}_2}{G_0} \\times 100 \\; [\\%]",
-    "keyConcepts": [
-      "1. 습식 배기가스량(수증기 포함)과 건식 배기가스량(수증기 응축 제외)의 명확한 구분",
-      "2. 공기비 증가에 따른 배기가스 열손실 증가 메커니즘"
-    ],
-    "pitfall": "⚠️ 오르자트(Orsat) 가스분석계는 수분이 응축된 건배기가스(CO2, O2, CO)만 측정함에 유의",
-    "quiz": {
-      "q": "건배기가스 분석치 CO2 12%, O2 6%, N2 82%일 때 공기비 m은?",
-      "a": "1.40",
-      "sol": "m = 21 / (21 - O2) = 21 / (21 - 6) = 21 / 15 = 1.40"
-    }
-  },
-  "2026-10-04": {
-    "dayNum": 7,
-    "date": "2026-10-04",
-    "dday": "D-34",
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 41~60장 (20장)",
-    "topic": "보일러 구조 및 열전달체계",
-    "goal": "노통연관보일러, 수관보일러(자연순환/강제순환), 관류보일러 구조비교 및 열흡수율",
-    "keyFormula": "q = \\frac{Q}{A} \\; [\\text{kcal}/(\\text{m}^2\\cdot\\text{h})], \\quad G_a = \\frac{q \\cdot A}{h_2 - h_1}",
-    "keyConcepts": [
-      "1. 전열면적(A)당 증발량인 증발율과 전열부하(q)의 상관관계",
-      "2. 수관보일러의 기수분리기 구조 및 드럼 내부 장치"
-    ],
-    "pitfall": "⚠️ 보일러 전열면적 산정 시 화염 접촉면과 물 접촉면 기준 규정 차이 숙지",
-    "quiz": {
-      "q": "전열면적 150 m², 1시간당 증기발생량 4,500 kg인 보일러의 증발율은?",
-      "a": "30 kg/(m²·h)",
-      "sol": "증발율 = 4500 / 150 = 30 kg/(m²·h)"
-    }
-  },
-  "2026-10-05": {
-    "dayNum": 8,
-    "date": "2026-10-05",
-    "dday": "D-33",
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 61~80장 (20장)",
-    "topic": "폐열회수장치 (절탄기·공기예열기)",
-    "goal": "절탄기(Economizer)와 공기예열기의 효율 상승률, 저온부식 방지대책(산노점)",
-    "keyFormula": "\\Delta \\eta_b \\approx \\frac{\\Delta T_{\\text{air}}}{25} \\approx \\frac{\\Delta T_{\\text{feed}}}{6} \\; [\\%]",
-    "keyConcepts": [
-      "1. 급수온도 6℃ 상승 시 보일러 효율 약 1% 상승",
-      "2. 연소용 공기온도 20~25℃ 상승 시 효율 약 1% 상승",
-      "3. SO3와 수증기에 의한 황산 이슬점(Acid Dew Point)과 에어프리히터 저온부식"
-    ],
-    "pitfall": "⚠️ 저온부식 방지 3대책: 에어히터 우회유로, 증기식 공기예열기 설치, 저유황 연료 사용",
-    "quiz": {
-      "q": "공기예열기를 설치하여 연소용 공기 온도를 100℃ 예열했을 때 보일러 효율 상승분은?",
-      "a": "약 4~5 %",
-      "sol": "100 / 25 = 4 % (대략 4~5% 상승)"
-    }
-  },
-  "2026-10-06": {
-    "dayNum": 9,
-    "date": "2026-10-06",
-    "dday": "D-32",
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 81~100장 (20장)",
-    "topic": "보일러 급수처리 및 농축관리",
-    "goal": "급수 탈기기, 연수장치, 블로우다운율(B), 포밍·프라이밍·캐리오버 방지",
-    "keyFormula": "B = \\frac{S_f}{S_b - S_f} \\times 100 \\; [\\%]",
-    "keyConcepts": [
-      "1. 급수 중 염화물 이온농도 Sf, 보일러수 허용농도 Sb 기반 분출율 B 계산",
-      "2. 탈기기(Deaerator)를 통한 용존산소(O2) 및 이산화탄소(CO2) 열적 제거 원리"
-    ],
-    "pitfall": "⚠️ 보일러수 농축 한도 초과 시 거품(Foaming) 및 물방울 동반(Priming) 발생 주의",
-    "quiz": {
-      "q": "급수 염화물 농도 15 ppm, 보일러수 허용농도 300 ppm일 때 블로우다운율은?",
-      "a": "5.26 %",
-      "sol": "B = 15 / (300 - 15) × 100 = 15 / 285 × 100 = 5.26 %"
-    }
-  },
-  "2026-10-07": {
-    "dayNum": 10,
-    "date": "2026-10-07",
-    "dday": "D-31",
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 101~120장 (20장)",
-    "topic": "통풍장치 및 송풍기 동력",
-    "goal": "압입통풍(FDF), 흡출통풍(IDF), 평형통풍(Balanced draft), 송풍기 상사법칙",
-    "keyFormula": "\\frac{Q_2}{Q_1} = \\frac{N_2}{N_1}, \\quad \\frac{P_2}{P_1} = \\left(\\frac{N_2}{N_1}\\right)^2, \\quad \\frac{L_2}{L_1} = \\left(\\frac{N_2}{N_1}\\right)^3",
-    "keyConcepts": [
-      "1. 회전수(N) 변화에 따른 풍량(비례), 풍압(2승비례), 소요동력(3승비례) 상사법칙",
-      "2. 로 내압을 약 -2~-5 mmH2O 부압으로 유지하는 평형통풍의 장점"
-    ],
-    "pitfall": "⚠️ 송풍기 회전수 10% 증가 시 소요동력은 1.1³ = 1.331(33% 증가)함에 유의",
-    "quiz": {
-      "q": "송풍기 회전수를 20% 증가시켰을 때 풍압과 소요동력의 증가율은?",
-      "a": "풍압 44% 증가, 동력 72.8% 증가",
-      "sol": "P2/P1 = 1.2² = 1.44 (44% 증가), L2/L1 = 1.2³ = 1.728 (72.8% 증가)"
-    }
-  },
-  "2026-10-08": {
-    "dayNum": 11,
-    "date": "2026-10-08",
-    "dday": "D-30",
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 121~140장 (20장)",
-    "topic": "증기배관 및 부속설비",
-    "goal": "배관경 산정식, 수격작용(Water Hammer), 스팀트랩(기계식·열역학식·온도조절식), 신축이음",
-    "keyFormula": "d = \\sqrt{\\frac{4 Q}{\\pi v}} = 18.8 \\sqrt{\\frac{Q}{v}} \\; [\\text{mm}]",
-    "keyConcepts": [
-      "1. 증기 유량(Q)과 유속(v: 과열증기 30~50m/s, 포화증기 20~30m/s)에 따른 관경 결정",
-      "2. 수격작용 방지: 드레인 포켓 설치, 완만한 밸브 개폐, 스팀트랩 적정 배치"
-    ],
-    "pitfall": "⚠️ 버킷 트랩 vs 디스크 트랩 vs 바이메탈 트랩 작동 원리 및 특징 서술형 대비",
-    "quiz": {
-      "q": "증기유량 3,600 kg/h, 비체적 0.2 m³/kg, 허용유속 25 m/s일 때 최소 배관 내경은?",
-      "a": "101 mm (100A 선정)",
-      "sol": "Q = 3600 × 0.2 / 3600 = 0.2 m³/s. d = sqrt(4 × 0.2 / (π × 25)) = 0.1009 m = 101 mm"
-    }
-  },
-  "2026-10-09": {
-    "dayNum": 12,
-    "date": "2026-10-09",
-    "dday": "D-29",
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 141~160장 (20장)",
-    "topic": "열교환기 성능 및 열정산",
-    "goal": "쉘앤튜브 열교환기, 판형 열교환기 열관류, 열교환기 효율(ε-NTU법)",
-    "keyFormula": "Q = m_h c_{ph} (T_{h1} - T_{h2}) = m_c c_{pc} (T_{c2} - T_{c1}) = K A \\Delta T_m",
-    "keyConcepts": [
-      "1. 고온 유체 방출열량 = 저온 유체 흡열량 = 전열량(Q)의 열평형 방정식",
-      "2. 스케일(오염계수 Fouling factor) 생성 시 열관류율 저하 계산"
-    ],
-    "pitfall": "⚠️ 열교환기 열손실이 없을 때 열량 보존 관계를 이용하여 미지의 출구 온도 먼저 산출",
-    "quiz": {
-      "q": "유량 2000 kg/h 기름(비열 0.5)을 100℃➔60℃ 냉각 시 20℃ 냉각수(비열 1.0) 필요 유량은? (냉각수 출구 40℃)",
-      "a": "2,000 kg/h",
-      "sol": "2000 × 0.5 × (100 - 60) = mw × 1.0 × (40 - 20) ➔ 40000 = mw × 20 ➔ mw = 2000 kg/h"
-    }
-  },
-  "2026-10-10": {
-    "dayNum": 13,
-    "date": "2026-10-10",
-    "dday": "D-28",
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 161~180장 (20장)",
-    "topic": "단열재 및 보온 시공",
-    "goal": "경제적 보온두께, 임계단열반경(Critical radius of insulation), 표면 방열손실량",
-    "keyFormula": "r_c = \\frac{\\lambda}{\\alpha} \\; [\\text{m}], \\quad q = \\alpha (T_w - T_a) \\; [\\text{W/m}^2]",
-    "keyConcepts": [
-      "1. 원통관에서 외경이 rc보다 작을 때는 보온재 시공 시 오히려 방열량이 증가함",
-      "2. 경제적 단열두께: (연간 열손실 비용 + 연간 보온시공 감가상각비)의 합이 최소가 되는 지점"
-    ],
-    "pitfall": "⚠️ 원관의 임계반경 공식 rc = λ / α (열전도율을 외표면 열전달율로 나눈 값)",
-    "quiz": {
-      "q": "열전도율 0.05 W/(m·K) 보온재를 외표면 열전달율 10 W/(m²·K)인 관에 시공 시 임계반경은?",
-      "a": "5 mm (0.005 m)",
-      "sol": "rc = 0.05 / 10 = 0.005 m = 5 mm"
-    }
-  },
-  "2026-10-11": {
-    "dayNum": 14,
-    "date": "2026-10-11",
-    "dday": "D-27",
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 181~200장 (20장)",
-    "topic": "계측공학 및 에너지 진단",
-    "goal": "차압식 유량계(오리피스, 벤투리, 노즐), 피토관 유속 측정, 열전대 및 측온저항체(Pt100)",
-    "keyFormula": "v = c \\sqrt{2 g \\frac{\\Delta P}{\\gamma}} = c \\sqrt{\\frac{2 \\Delta P}{\\rho}} \\; [\\text{m/s}]",
-    "keyConcepts": [
-      "1. 베르누이 정리를 응용한 피토관 전압과 정압의 차압(ΔP)으로 동압 및 유속 환산",
-      "2. 오리피스 유량계의 유량은 차압의 제곱근에 비례"
-    ],
-    "pitfall": "⚠️ 차압 단위(mmH2O = kg/m²)와 유체 비중량(γ) 단위를 정확히 맞추어야 함",
-    "quiz": {
-      "q": "피토관 차압 20 mmH2O, 공기 비중량 1.2 kg/m³일 때 배기가스 유속은? (c=1.0)",
-      "a": "18.07 m/s",
-      "sol": "v = sqrt(2 × 9.8 × 20 / 1.2) = sqrt(326.67) = 18.07 m/s"
-    }
-  },
-  "2026-10-12": {
-    "dayNum": 15,
-    "date": "2026-10-12",
-    "dday": "D-26",
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 201~220장 (20장)",
-    "topic": "보일러 자동제어 (ABC)",
-    "goal": "급수제어(1·2·3요소), 연소제어(온오프, 비례, FRC), 인터록 안전장치",
-    "keyFormula": "\\text{3요소 급수제어}: \\text{수위(Level)} + \\text{증기유량(Steam Flow)} + \\text{급수유량(Feedwater Flow)}",
-    "keyConcepts": [
-      "1. 보일러 급수제어의 가단 수위변동(스웰링 현상)을 극복하기 위한 3요소 제어",
-      "2. 압력신호에 따른 주증기 압력제어 및 공연비 제어(Fuel-Air Ratio Control)"
-    ],
-    "pitfall": "⚠️ 보일러 안전 인터록 3대 조건: 저수위 차단, 화염 실화 차단, 과압력 차단",
-    "quiz": {
-      "q": "보일러 부하 급증 시 일시적으로 수위가 상승해 보이는 현상의 명칭과 방지 대책은?",
-      "a": "스웰(Swell) 현상, 3요소 급수제어 채택",
-      "sol": "부하 급증 시 압력 강하로 수중 기포 팽창으로 수위가 일시 상승(Swell). 증기유량 선행 제어로 방지"
-    }
-  },
-  "2026-10-13": {
-    "dayNum": 16,
-    "date": "2026-10-13",
-    "dday": "D-25",
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 221~240장 (20장)",
-    "topic": "에너지이용합리화법 및 안전관리",
-    "goal": "검사대상기기 종류 및 검사 유효기간, 에너지관리자 선임 기준, 안전밸브 분출압력",
-    "keyFormula": "\\text{안전밸브 분출압력} \\le \\text{최고사용압력}, \\quad 2\\text{개 이상 설치 시 1개는 최고사용압력 이하, 나머지는 1.03배 이하}",
-    "keyConcepts": [
-      "1. 계속사용검사, 개조검사, 설치검사 수검 주기 및 절차",
-      "2. 안전밸브의 분출면적 계산식 및 봉인(Sealing) 규정"
-    ],
-    "pitfall": "⚠️ 최고사용압력 1 MPa 초과 보일러는 안전밸브를 반드시 2개 이상 설치할 것",
-    "quiz": {
-      "q": "보일러 최고사용압력이 1.0 MPa일 때 안전밸브 2개의 최대 설정 분출압력은?",
-      "a": "1개는 1.0 MPa 이하, 1개는 1.03 MPa 이하",
-      "sol": "법령 규정에 의거 1개는 최고사용압력(1.0 MPa) 이하, 나머지는 1.03배(1.03 MPa) 이하 설정"
-    }
-  },
-  "2026-10-14": {
-    "dayNum": 17,
-    "date": "2026-10-14",
-    "dday": "D-24",
-    "phaseName": "2단계: 단원별 연습문제 256장 정복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "연습문제 241~256장 (16장)",
-    "topic": "연습문제 총정리 & 오답 노트 클리닉",
-    "goal": "단원별 고난도 융합 문제 총정리, 계산 풀이과정 소수점/단위 규정 점검",
-    "keyFormula": "\\text{채점 규정}: \\text{소수점 셋째자리 반올림하여 둘째자리까지 표기, 계산과정 필수, 단위 누락 시 0점}",
-    "keyConcepts": [
-      "1. 계산문제 풀이 시 중간 과정은 소수점 4자리 이상 유지, 최종 답란에만 셋째자리 반올림",
-      "2. 공식 ➔ 대입 ➔ 계산결과 ➔ 단위 명기의 4단계 답안 작성 훈련"
-    ],
-    "pitfall": "⚠️ 단위 표기 누락은 에너지관리기사 실기 불합격의 1순위 원인이므로 단위 필수 점검!",
-    "quiz": {
-      "q": "계산 결과 12.3456 kg/h가 나왔을 때 최종 답안 표기법은?",
-      "a": "12.35 kg/h",
-      "sol": "별도 지정이 없는 한 소수점 셋째자리(5)에서 반올림하여 12.35 표기 및 단위(kg/h) 병기"
-    }
-  },
-  "2026-10-15": {
-    "dayNum": 18,
-    "date": "2026-10-15",
-    "dday": "D-23",
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "10년",
-    "volume": "21장",
-    "topic": "2010년 기출 전회차",
-    "goal": "2010년 1~3회 기출 풀이: 연소계산, 증발배수, 상당증발량, 보일러 열효율 기초 확립",
-    "keyFormula": "\\text{증발배수} = \\frac{G_a}{G_f} \\; [\\text{kg 증기/kg 연료}]",
-    "keyConcepts": [
-      "1. 연료 1kg당 실제 발생하는 증기량인 증발배수 계산",
-      "2. 2010년 빈출되었던 관류보일러의 벤슨/슐처 보일러 비교"
-    ],
-    "pitfall": "⚠️ 증발배수와 상당증발량을 혼동하지 말 것",
-    "quiz": {
-      "q": "연료 200 kg/h 소비하여 증기 2,600 kg/h 생산 시 증발배수는?",
-      "a": "13 kg 증기/kg 연료",
-      "sol": "2600 / 200 = 13"
-    }
-  },
-  "2026-10-16": {
-    "dayNum": 19,
-    "date": "2026-10-16",
-    "dday": "D-22",
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "11년",
-    "volume": "19장",
-    "topic": "2011년 기출 전회차",
-    "goal": "2011년 1~3회 기출 풀이: 통풍력 산출, 댐퍼 제어, 연소 안전장치 단답 정리",
-    "keyFormula": "Z = H (\\gamma_a - \\gamma_g) \\; [\\text{mmH}_2\\text{O}]",
-    "keyConcepts": [
-      "1. 기온 변화에 따른 겨울철 굴뚝 통풍력 증가 현상 계산",
-      "2. 인터록 장치(저수위, 화염검출, 저풍압)"
-    ],
-    "pitfall": "⚠️ 외기온도 Ta와 배기가스온도 Tg는 섭씨가 아닌 절대온도(K) 대입",
-    "quiz": {
-      "q": "굴뚝 높이 40m, γa=1.2 kg/m³, γg=0.7 kg/m³일 때 통풍력은?",
-      "a": "20 mmH2O",
-      "sol": "Z = 40 × (1.2 - 0.7) = 40 × 0.5 = 20 mmH2O"
-    }
-  },
-  "2026-10-17": {
-    "dayNum": 20,
-    "date": "2026-10-17",
-    "dday": "D-21",
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "12년",
-    "volume": "20장",
-    "topic": "2012년 기출 전회차",
-    "goal": "2012년 1~3회 기출 풀이: 보일러 열정산표 작성, 미연손실 및 복사열손실 산정",
-    "keyFormula": "\\text{손실열량 합계} = q_1(\\text{배기가스}) + q_2(\\text{불완전연소}) + q_3(\\text{방열}) + q_4(\\text{회중미연})",
-    "keyConcepts": [
-      "1. 열정산 기준온도(통상 외기온도 20℃) 확인",
-      "2. 입열(연료발열량+현열+공기현열)과 출열(유효출열+손실열) 일치"
-    ],
-    "pitfall": "⚠️ 열손실법 효율 = 100 - (총손실열량 / 총입열량 × 100)",
-    "quiz": {
-      "q": "총입열량 10,000 kJ/kg, 배기가스손실 1,200 kJ/kg, 방열손실 300 kJ/kg일 때 효율은?",
-      "a": "85 %",
-      "sol": "효율 = 100 - (1500 / 10000 × 100) = 85 %"
-    }
-  },
-  "2026-10-18": {
-    "dayNum": 21,
-    "date": "2026-10-18",
-    "dday": "D-20",
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "13년",
-    "volume": "19장",
-    "topic": "2013년 기출 전회차",
-    "goal": "2013년 1~3회 기출 풀이: 열교환기 전열면적 산정, LMTD, 관내 유속 계산",
-    "keyFormula": "A = \\frac{Q}{K \\Delta T_m} \\; [\\text{m}^2]",
-    "keyConcepts": [
-      "1. 전열면적 계산 시 열관류율 K의 단위(W/m²K vs kcal/m²h℃) 일치",
-      "2. 튜브 내경/외경 전열면적 기준 구분"
-    ],
-    "pitfall": "⚠️ 단위 시간당 열량 Q를 초당(W = J/s) 또는 시간당(kcal/h)으로 완벽 통일",
-    "quiz": {
-      "q": "전열량 116.3 kW, K=500 W/(m²·K), LMTD=40℃일 때 필요 전열면적은?",
-      "a": "5.815 m²",
-      "sol": "Q = 116,300 W. A = 116300 / (500 × 40) = 5.815 m²"
-    }
-  },
-  "2026-10-19": {
-    "dayNum": 22,
-    "date": "2026-10-19",
-    "dday": "D-19",
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "14년",
-    "volume": "22장",
-    "topic": "2014년 기출 전회차",
-    "goal": "2014년 1~3회 기출 풀이: 배관 마찰손실수두, 펌프 축동력 및 전동기 용량",
-    "keyFormula": "h_L = f \\frac{L}{d} \\frac{v^2}{2g} \\; [\\text{m}]",
-    "keyConcepts": [
-      "1. 달시 공식 마찰계수 f, 관길이 L, 내경 d, 유속 v 대입",
-      "2. 흡입실양정 + 토출실양정 + 관손실수두 = 전양정 H"
-    ],
-    "pitfall": "⚠️ 내경 d는 mm가 아닌 m 단위로 변환하여 분모에 대입",
-    "quiz": {
-      "q": "f=0.02, L=100m, d=0.1m, v=2m/s일 때 마찰손실수두는?",
-      "a": "4.08 m",
-      "sol": "hL = 0.02 × (100 / 0.1) × (4 / 19.6) = 20 × 0.204 = 4.08 m"
-    }
-  },
-  "2026-10-20": {
-    "dayNum": 23,
-    "date": "2026-10-20",
-    "dday": "D-18",
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "15년",
-    "volume": "18장",
-    "topic": "2015년 기출 전회차",
-    "goal": "2015년 1~3회 기출 풀이: 수처리 약품 투입량, 알칼리도, 경도 계산",
-    "keyFormula": "\\text{경도(ppm)} = \\text{Ca}^{2+} \\times \\frac{100}{40} + \\text{Mg}^{2+} \\times \\frac{100}{24.3}",
-    "keyConcepts": [
-      "1. 탄산칼슘(CaCO3, 분자량 100) 환산 경도 계산식",
-      "2. 청관제(인산나트륨) 투입 목적 및 실리카 스케일 방지"
-    ],
-    "pitfall": "⚠️ 1당량 기준 분자량 비(Ca=40 ➔ CaCO3=100) 환산비율 정확히 적용",
-    "quiz": {
-      "q": "Ca²⁺ 이온 농도가 40 mg/L일 때 CaCO3 환산 경도는?",
-      "a": "100 ppm",
-      "sol": "40 × (100 / 40) = 100 ppm"
-    }
-  },
-  "2026-10-21": {
-    "dayNum": 24,
-    "date": "2026-10-21",
-    "dday": "D-17",
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "16년",
-    "volume": "17장",
-    "topic": "2016년 기출 전회차",
-    "goal": "2016년 1~3회 기출 풀이: 절탄기 열정산, 급수온도 상승에 따른 연료 절감율",
-    "keyFormula": "\\text{연료절감율} = \\frac{h_{w2} - h_{w1}}{(h_2 - h_{w1}) + (h_{w2} - h_{w1})} \\approx \\frac{\\Delta t_w}{H_l / c_w + \\dots}",
-    "keyConcepts": [
-      "1. 연료절감율 공식: 절탄기 흡열량 / 보일러 총입열량",
-      "2. 공기예열기 설치 시 연소온도 상승 효과"
-    ],
-    "pitfall": "⚠️ 연료절감율 분모에 증기 흡열량과 절탄기 흡열량이 올바르게 들어가는지 확인",
-    "quiz": {
-      "q": "발생증기 흡열량 600 kcal/kg, 절탄기 급수 흡열량 30 kcal/kg일 때 연료절감율은?",
-      "a": "4.76 %",
-      "sol": "30 / (600 + 30) × 100 = 30 / 630 × 100 = 4.76 %"
-    }
-  },
-  "2026-10-22": {
-    "dayNum": 25,
-    "date": "2026-10-22",
-    "dday": "D-16",
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "17년",
-    "volume": "18장",
-    "topic": "2017년 기출 전회차",
-    "goal": "2017년 1~3회 기출 풀이: 보온재 열전도 및 경제적 두께, 표면 온도 계산",
-    "keyFormula": "t_s = t_a + \\frac{Q}{\\alpha_o A} \\; [^\\circ\\text{C}]",
-    "keyConcepts": [
-      "1. 보온 외표면 온도 ts 계산 및 화상 방지 안전 기준(50℃ 이하)",
-      "2. 보온재의 구비조건 5가지 단답형 암기"
-    ],
-    "pitfall": "⚠️ 보온재 구비조건: 열전도율이 작을 것, 내열성/기계적 강도가 클 것, 흡습성이 작을 것",
-    "quiz": {
-      "q": "표면 열손실 200 W/m², 외기온도 20℃, 외표면 열전달계수 10 W/(m²K)일 때 표면온도는?",
-      "a": "40 ℃",
-      "sol": "ts = 20 + 200 / 10 = 20 + 20 = 40 ℃"
-    }
-  },
-  "2026-10-23": {
-    "dayNum": 26,
-    "date": "2026-10-23",
-    "dday": "D-15",
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "18년",
-    "volume": "19장",
-    "topic": "2018년 기출 전회차",
-    "goal": "2018년 1~3회 기출 풀이: 통풍 손실 및 댐퍼 개도율, 완전연소 조건(3T)",
-    "keyFormula": "\\text{연소의 3T}: \\text{온도(Temperature)}, \\text{시간(Time)}, \\text{난류(Turbulence)}",
-    "keyConcepts": [
-      "1. 3T 원리: 착화온도 이상 유지, 체류시간 확보, 공기와 연료의 강력한 혼합",
-      "2. 등가 직관길이 환산 및 곡관/밸브류 압력강하 합산"
-    ],
-    "pitfall": "⚠️ 3T에 산소(Oxygen)를 더하여 3T+1O로 서술하는 변형 문제 대비",
-    "quiz": {
-      "q": "완전연소를 위한 3대 기본 요소를 쓰시오.",
-      "a": "온도(Temperature), 시간(Time), 혼합/난류(Turbulence)",
-      "sol": "고온 유지, 충분한 체류시간, 공기와의 난류 혼합"
-    }
-  },
-  "2026-10-24": {
-    "dayNum": 27,
-    "date": "2026-10-24",
-    "dday": "D-14",
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "19년",
-    "volume": "20장",
-    "topic": "2019년 기출 전회차",
-    "goal": "2019년 1~3회 기출 풀이: 에너지진단 기준, 폐열회수 히트파이프 원리",
-    "keyFormula": "\\text{진단 주기}: \\text{에너지 다소비사업자(연간 2,000 TOE 이상)는 5년마다 수검}",
-    "keyConcepts": [
-      "1. 히트파이프(Heat Pipe)의 모세관 작용(Wick) 및 잠열 열수송 특성",
-      "2. 보일러 가동 중 스케일 장해 4가지"
-    ],
-    "pitfall": "⚠️ 스케일 장해: 전열효율 저하, 관벽 과열로 파열, 보일러 수명 단축, 연료 소비 증가",
-    "quiz": {
-      "q": "에너지이용합리화법상 에너지진단 의무 대상자와 주기는?",
-      "a": "연간 2,000 TOE 이상 다소비사업자, 5년 주기",
-      "sol": "연간 2,000 TOE 이상인 사업자는 5년마다 의무 진단"
-    }
-  },
-  "2026-10-25": {
-    "dayNum": 28,
-    "date": "2026-10-25",
-    "dday": "D-13",
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "20년",
-    "volume": "28장",
-    "topic": "2020년 실기 기출 (개편 1~3회)",
-    "goal": "2020년 전회차 풀이: 필답형 100% 전환 원년 출제 경향, 신출 계산문제 완전 분석",
-    "keyFormula": "\\text{실기 개편}: \\text{작업형 폐지 ➔ 필답형 100%(100점 만점), 복합 계산형 비중 70% 이상}",
-    "keyConcepts": [
-      "1. 2020년 필답 개편 이후 출제된 고난도 열정산 복합형 문항 분석",
-      "2. 환경 규제 관련 질소산화물(NOx) 저감 연소 기술(FGR, LNB, SCR/SNCR)"
-    ],
-    "pitfall": "⚠️ 배점 8~10점짜리 대형 복합계산 문제는 부분점수가 있으므로 중간식 정밀 서술",
-    "quiz": {
-      "q": "저NOx 버너(LNB)의 질소산화물 저감 기본 원리 2가지는?",
-      "a": "화염온도 저하, 산소 농도 저하(단계 연소)",
-      "sol": "공기/연료 다단 연소로 화염 최고온도를 낮추고 국소 고산소 영역 억제"
-    }
-  },
-  "2026-10-26": {
-    "dayNum": 29,
-    "date": "2026-10-26",
-    "dday": "D-12",
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "21년",
-    "volume": "28장",
-    "topic": "2021년 실기 기출 전회차",
-    "goal": "2021년 1~3회 기출 풀이: 응축수 회수설비 열정산, 플래시 증기 발생량",
-    "keyFormula": "X = \\frac{h_{f1} - h_{f2}}{r_2} \\times 100 \\; [\\%]",
-    "keyConcepts": [
-      "1. 고압 응축수가 저압 용기로 배출될 때 재증발하는 플래시 증기율(X)",
-      "2. 응축수 회수로 인한 급수온도 상승 및 연료 절감 효과"
-    ],
-    "pitfall": "⚠️ 고압 포화수 엔탈피 hf1, 저압 포화수 엔탈피 hf2, 저압 증발잠열 r2 정확히 대입",
-    "quiz": {
-      "q": "8 bar 포화수(hf=721 kJ/kg)가 대기압(hf=419, r=2257 kJ/kg) 방출 시 재증발율은?",
-      "a": "13.38 %",
-      "sol": "X = (721 - 419) / 2257 × 100 = 302 / 2257 × 100 = 13.38 %"
-    }
-  },
-  "2026-10-27": {
-    "dayNum": 30,
-    "date": "2026-10-27",
-    "dday": "D-11",
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "22년",
-    "volume": "31장",
-    "topic": "2022년 실기 기출 전회차",
-    "goal": "2022년 1~3회 기출 풀이: 팽창탱크 용량 산정, 고온수 배관 사이징, 신유형 단답",
-    "keyFormula": "V_t = \\frac{V_w (v_2 - v_1)}{1 - P_1 / P_2} \\; [\\text{L}]",
-    "keyConcepts": [
-      "1. 밀폐식 팽창탱크 수팽창량 및 설계압력에 따른 총 용량 계산",
-      "2. 고온수 보일러와 증기보일러의 특성 및 비교"
-    ],
-    "pitfall": "⚠️ 절대압력 P1, P2 대입 시 게이지압에 대기압(1.033 ata = 0.1 MPa) 가산 필수",
-    "quiz": {
-      "q": "수용량 10,000 L 배관계의 팽창량 400 L, 최저압 2 ata, 최고압 4 ata일 때 팽창탱크 용량은?",
-      "a": "800 L",
-      "sol": "Vt = 400 / (1 - 2/4) = 400 / 0.5 = 800 L"
-    }
-  },
-  "2026-10-28": {
-    "dayNum": 31,
-    "date": "2026-10-28",
-    "dday": "D-10",
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "23년 & 23년(출판사 변경)",
-    "volume": "71장",
-    "topic": "2023년 기출 전회차 (2개 출판사 교차분석)",
-    "goal": "2023년 최신 기출 2개 출판사 전량 교차 풀이: 복합 혼소 연소, 신기술 서술형",
-    "keyFormula": "H_{l,\\text{mix}} = \\sum (x_i \\cdot H_{l,i}) \\; [\\text{kcal/kg or kcal/Nm}^3]",
-    "keyConcepts": [
-      "1. 혼합연료의 평균 발열량 및 혼소 시 소요 이론공기량 합산 계산",
-      "2. 출판사별 해설 차이 비교 및 산업인력공단 정답 기준 정립"
-    ],
-    "pitfall": "⚠️ 기체연료 체적비와 액체연료 중량비 혼합 시 단위 변환 정밀 점검",
-    "quiz": {
-      "q": "LNG(저위발열량 10,000 kcal/Nm³) 60%, B-C유(10,000 kcal/kg) 40% 혼소 시 총입열은?",
-      "a": "각 연료별 소비량에 각각의 발열량을 곱해 합산",
-      "sol": "총입열량 = Q_gas × Hl_gas + G_oil × Hl_oil"
-    }
-  },
-  "2026-10-29": {
-    "dayNum": 32,
-    "date": "2026-10-29",
-    "dday": "D-9",
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "24년 & 24년(출판사 변경)",
-    "volume": "84장",
-    "topic": "2024년 기출 전회차 (최신판 84장 정밀분석)",
-    "goal": "2024년 1~3회 기출 2개 출판사 전량 완독: 최신 신출 문항 및 복합 단위변환 마스터",
-    "keyFormula": "\\text{온실가스 배출량} = \\text{연료소비량} \\times \\text{순발열량} \\times \\text{배출계수} \\times \\frac{44}{12}",
-    "keyConcepts": [
-      "1. 2024년 출제된 에너지이용합리화법 최신 개정 조항 및 온실가스 배출량",
-      "2. 관류보일러 캐스케이드(Cascade) 제어 시스템의 에너지 절감 원리"
-    ],
-    "pitfall": "⚠️ 2024년 출판사 변경 보강분(29장)의 신유형 해설 집중 숙지",
-    "quiz": {
-      "q": "보일러 캐스케이드(다수대 연동) 시스템의 대표적인 장점 2가지는?",
-      "a": "부분부하 시 효율 저하 방지, 1대 고장 시에도 백업 가능(신뢰성)",
-      "sol": "필요 대수만 고효율 가동하여 부분부하 손실 억제 및 대수 제어로 안정성 증대"
-    }
-  },
-  "2026-10-30": {
-    "dayNum": 33,
-    "date": "2026-10-30",
-    "dday": "D-8",
-    "phaseName": "3단계: 16개년 과년도 기출 481장 독파",
-    "folder": "25년 (출판사 변경)",
-    "volume": "29장",
-    "topic": "2025년 최신 기출 (출판사 변경판 29장)",
-    "goal": "2025년 최신 기출 전량 독파: 가장 최근 회차의 출제 경향, 신출 단답 및 계산 총정리",
-    "keyFormula": "\\text{최신 출제 경향}: \\text{친환경 고효율화(콘덴싱), 디지털 계측제어, 신재생 하이브리드 연계}",
-    "keyConcepts": [
-      "1. 2025년 최신 시험에서 출제된 킬러 문항 3제 완벽 분해",
-      "2. 시험장에 그대로 들고 들어갈 최신 출제 키워드 30선"
-    ],
-    "pitfall": "⚠️ 최신 기출에서 다룬 수치 조건과 유사 변형 문제가 올해(2026년) 시험에 직결됨",
-    "quiz": {
-      "q": "콘덴싱 보일러에서 잠열을 회수할 때 회수되는 열과 배기가스 온도 특성은?",
-      "a": "수증기 응축잠열(약 539 kcal/kg) 회수, 배기가스 온도 50~60℃ 이하 저하",
-      "sol": "배기가스 속 수증기를 응축시켜 잠열을 회수하므로 효율 100% 이상(LHV 기준) 달성 가능"
-    }
-  },
-  "2026-10-31": {
-    "dayNum": 34,
-    "date": "2026-10-31",
-    "dday": "D-7",
-    "phaseName": "4단계: [마지막 7일] 연습 & 기출 무한 반복",
-    "folder": "전체 (식만 정리 + 21년 기출)",
-    "volume": "파이널",
-    "topic": "파이널 Day 1: 공식 21장 백지 테스트 + 2021년 기출 타임어택",
-    "goal": "핵심 계산 공식 21장 백지 인출 테스트 100점 달성 & 2021년 기출 1~3회 2시간 타임어택 풀이",
-    "keyFormula": "\\text{전 범위 10대 공식 백지 인출}: A_0, G_e, \\text{BHP}, \\eta, K, \\Delta T_m, P_{\\text{pump}}, Z, B, h_L",
-    "keyConcepts": [
-      "1. '식만 정리' 폴더 21장 전 페이지의 공식을 A4 백지에 그대로 적는 셀프 테스트",
-      "2. 2021년 기출 28장의 계산 문제를 풀이 과정까지 꼼꼼히 적으며 타임어택"
-    ],
-    "pitfall": "⚠️ 공식 백지 테스트에서 한 글자라도 헷갈리는 공식은 포스트잇에 적어 책상에 부착!",
-    "quiz": {
-      "q": "공식 백지 테스트: 보일러 효율(정압시험법)과 상당증발량 공식을 적으시오.",
-      "a": "η = Ga(h2 - h1)/(Gf·Hl) × 100, Ge = Ga(h2 - h1)/539",
-      "sol": "반드시 단위와 분모 분자 변수를 정확히 기술"
-    }
-  },
-  "2026-11-01": {
-    "dayNum": 35,
-    "date": "2026-11-01",
-    "dday": "D-6",
-    "phaseName": "4단계: [마지막 7일] 연습 & 기출 무한 반복",
-    "folder": "전체 (연습문제 고난도 + 22년 기출)",
-    "volume": "파이널",
-    "topic": "파이널 Day 2: 2022년 기출 복습 + 열정산표 100% 암기",
-    "goal": "2022년 기출 31장 오답 재풀이 & 보일러+절탄기+공기예열기 통합 열정산표 수지 완벽 암기",
-    "keyFormula": "\\text{열정산 수지}: \\sum Q_{\\text{in}} = \\sum Q_{\\text{out}} = Q_{\\text{useful}} + Q_{\\text{loss}}",
-    "keyConcepts": [
-      "1. 열정산표 빈칸 채우기 문제 3회 반복 훈련",
-      "2. 2022년 출제된 신유형 서술형 답안 키워드 암기"
-    ],
-    "pitfall": "⚠️ 열정산표 계산 시 기준온도(20℃)와 배기가스 온도 차이를 정확히 적용할 것",
-    "quiz": {
-      "q": "보일러 열정산표의 4대 열손실 항목은?",
-      "a": "배기가스 열손실, 불완전연소 가스 열손실, 방열 손실, 회중 미연분 열손실",
-      "sol": "q1~q4의 손실 항목을 암기"
-    }
-  },
-  "2026-11-02": {
-    "dayNum": 36,
-    "date": "2026-11-02",
-    "dday": "D-5",
-    "phaseName": "4단계: [마지막 7일] 연습 & 기출 무한 반복",
-    "folder": "전체 (23년 2개 출판사 기출)",
-    "volume": "파이널",
-    "topic": "파이널 Day 3: 2023년 기출 실전 모의고사 (목표 80점+)",
-    "goal": "2023년 기출 71장(출판사 A, B) 모의고사 실시 ➔ 채점 및 감점 요인(단위, 유효숫자) 전수 점검",
-    "keyFormula": "\\text{실전 득점 전략}: \\text{계산 60점 만점 확보} + \\text{단답 25점 확보} = 85\\text{점 고득점 합격}",
-    "keyConcepts": [
-      "1. 실제 시험과 동일하게 2시간 30분 타이머 세팅 후 풀이",
-      "2. 소수점 처리 규정(셋째자리 반올림하여 둘째자리까지) 준수 여부 집중 확인"
-    ],
-    "pitfall": "⚠️ 계산기 버튼 입력 실수(괄호 누락, 분모 나누기 오류) 없는지 2회 연속 계산 검산 습관화",
-    "quiz": {
-      "q": "실전 모의고사 자가점검: 계산문제 풀이 시 부분점수를 획득하기 위한 조건은?",
-      "a": "공식 명기, 수치 대입 과정 기술, 최종 답과 단위 일치",
-      "sol": "공식과 대입식이 맞으면 최종 계산 실수 시에도 부분점수 인정 가능"
-    }
-  },
-  "2026-11-03": {
-    "dayNum": 37,
-    "date": "2026-11-03",
-    "dday": "D-4",
-    "phaseName": "4단계: [마지막 7일] 연습 & 기출 무한 반복",
-    "folder": "전체 (24년 2개 출판사 기출)",
-    "volume": "파이널",
-    "topic": "파이널 Day 4: 2024년 최신 기출 실전 모의고사",
-    "goal": "2024년 기출 84장(출판사 A, B) 모의고사 실시 ➔ 최신 출제 트렌드 오답 집중 복습",
-    "keyFormula": "\\text{합격 커트라인}: 60\\text{점} \\implies \\text{목표}: 80\\text{점 이상으로 안정권 진입}",
-    "keyConcepts": [
-      "1. 2024년 기출 55장 + 출판사 변경 29장 전 문항 완벽 재검토",
-      "2. 애매하게 맞힌 문제까지 확실하게 오답 노트에 정리"
-    ],
-    "pitfall": "⚠️ 2024년 기출 중 서술형 문항의 키워드가 누락되지 않도록 답안 재작성 훈련",
-    "quiz": {
-      "q": "2024년 기출 핵심: 스팀트랩 불량 시 발생하는 문제점 2가지는?",
-      "a": "생증기 누출로 열손실 증대, 드레인 배출 불량으로 수격작용 발생",
-      "sol": "트랩 열림 고장(증기 손실)과 닫힘 고장(응축수 체류 ➔ 워터해머)을 구분 기술"
-    }
-  },
-  "2026-11-04": {
-    "dayNum": 38,
-    "date": "2026-11-04",
-    "dday": "D-3",
-    "phaseName": "4단계: [마지막 7일] 연습 & 기출 무한 반복",
-    "folder": "전체 (25년 최신판 기출)",
-    "volume": "파이널",
-    "topic": "파이널 Day 5: 2025년 최신 기출 완벽 재풀이 + 취약 계산 클리닉",
-    "goal": "2025년 최신 기출 29장 완벽 재풀이 & 40일간 누적된 개인 취약 계산 유형(연소/열전달/펌프) 클리닉",
-    "keyFormula": "\\text{취약점 제로화}: \\text{틀렸던 문제는 반드시 다시 나온다는 마인드로 3번 연속 정답 도출}",
-    "keyConcepts": [
-      "1. 2025년 최신 기출 29장을 보지 않고 처음부터 끝까지 혼자 힘으로 풀이",
-      "2. 자신이 가장 자주 틀렸던 계산 공식 3개를 골라 완벽하게 마스터"
-    ],
-    "pitfall": "⚠️ 계산 문제에서 단위 환산(kW ➔ kcal/h, kg ➔ Nm³, bar ➔ MPa)에 걸려 넘어지지 않도록 유의",
-    "quiz": {
-      "q": "1 kW를 시간당 열량(kcal/h)으로 환산하면?",
-      "a": "860 kcal/h",
-      "sol": "1 W = 1 J/s ➔ 1 kW = 3600 kJ/h = 3600 / 4.1868 ≈ 860 kcal/h"
-    }
-  },
-  "2026-11-05": {
-    "dayNum": 39,
-    "date": "2026-11-05",
-    "dday": "D-2",
-    "phaseName": "4단계: [마지막 7일] 연습 & 기출 무한 반복",
-    "folder": "연습문제 (기출이 대부분인)",
-    "volume": "파이널",
-    "topic": "파이널 Day 6: 고난도 오답 노트 50선 복습 & 서술형 키워드 암기",
-    "goal": "단원별 연습문제 256장 중 선별한 고난도 50문항 3회독 & 핵심 단답 100선 눈으로 빠르게 회독",
-    "keyFormula": "\\text{단답형 합격 공식}: \\text{질문이 묻는 핵심 기술 용어(Key-Term)가 반드시 문장에 포함되어야 함}",
-    "keyConcepts": [
-      "1. 서술형 문제는 긴 문장보다 채점관이 찾는 '핵심 명사 키워드'를 명확하게 기재",
-      "2. 연습문제 256장의 고난도 계산 문제 풀이법 최종 점검"
-    ],
-    "pitfall": "⚠️ 단답형 작성 시 문제에서 요구한 개수(예: 3가지를 쓰시오)만 정확히 작성 (초과 작성 시 오답 위험)",
-    "quiz": {
-      "q": "보일러의 3대 안전장치를 쓰시오.",
-      "a": "안전밸브, 고저수위 경보기(차단장치), 화염 검출기",
-      "sol": "과압 방지, 수위 이상 방지, 실화 방지 3대 장치"
-    }
-  },
-  "2026-11-06": {
-    "dayNum": 40,
-    "date": "2026-11-06",
-    "dday": "D-1",
-    "phaseName": "4단계: [마지막 7일] 연습 & 기출 무한 반복",
-    "folder": "식만 정리 & 전체",
-    "volume": "파이널",
-    "topic": "파이널 Day 7: 전야 마인드컨트롤 & 공식 21장 최종 회독",
-    "goal": "식만 정리 21장 최종 1회독, 공학용 계산기(리셋 확인 및 각도 DEG 세팅), 수험표·신분증·흑색볼펜 점검, 충분한 수면",
-    "keyFormula": "\\text{시험 전날 필승 전략}: \\text{새로운 문제 절대 금지, 자신감 충전, 22:00 이전 취침, 최상의 컨디션 확보}",
-    "keyConcepts": [
-      "1. 신분증, 수험표, 공학용 계산기(허용군 기종 확인 및 리셋 조작 숙지), 흑색 볼펜(2자루 이상), 수정테이프 지참",
-      "2. 40일간 완주한 나 자신을 믿고 당당하게 합격을 확신하기"
-    ],
-    "pitfall": "⚠️ 연필이나 샤프로 작성한 답안은 0점 처리되므로 반드시 지워지지 않는 흑색 볼펜 사용!",
-    "quiz": {
-      "q": "내일 시험장에서 사용할 답안 작성 펜과 계산기 규정은?",
-      "a": "흑색 볼펜 전용(연필/청색 불가), 공학용 계산기 허용 기종 리셋 확인",
-      "sol": "규정 위반으로 인한 실격 방지"
-    }
-  },
-  "2026-11-07": {
-    "dayNum": 41,
-    "date": "2026-11-07",
-    "dday": "D-Day",
-    "phaseName": "★ 시험 당일",
-    "folder": "시험장",
-    "volume": "파이널",
-    "topic": "★ 2026년 정기 기사 실기 시험 당일!",
-    "goal": "오전 09:00 실기 필답형 완벽 응시! 침착하고 정확하게 85점+ 최종 합격 쟁취!",
-    "keyFormula": "\\text{합격을 진심으로 축하합니다! 그동안의 41일간 노력이 결실을 맺는 날입니다.}",
-    "keyConcepts": [
-      "1. 시험 시작 30분 전 입실 완료 및 계산기 세팅 확인",
-      "2. 문제지 수령 후 아는 문제부터 침착하고 빠르게 풀이",
-      "3. 계산 과정과 단위, 소수점 둘째자리 표기 2회 이상 정밀 검산"
-    ],
-    "pitfall": "★ 포기하지 않고 끝까지 문제를 읽고 정답을 적어내면 무조건 합격합니다!",
-    "quiz": {
-      "q": "오늘 시험에 임하는 나의 다짐은?",
-      "a": "침착하게 모든 문제를 이해하고 완벽하게 답안을 작성하여 당당히 합격한다!",
-      "sol": "합격을 축하합니다!"
-    }
-  }
-};
-
-
-const INITIAL_ENERGY_FORMULAS = [
-  {
-    id: "form-1",
-    category: "보일러 열정산 및 효율",
-    name: "보일러 입출열 효율 (정압 시험법)",
-    formula: "\\eta = \\frac{G_a (h_2 - h_1)}{G_f \\times H_l} \\times 100 \\; [\\%]",
-    description: "Ga: 실제증발량(kg/h), h2: 발생증기 엔탈피(kJ/kg 또는 kcal/kg), h1: 급수 엔탈피, Gf: 연료소비량(kg/h), Hl: 연료 저위발열량(kJ/kg 또는 kcal/kg)"
-  },
-  {
-    id: "form-2",
-    category: "보일러 성능 지표",
-    name: "상당증발량 (환산증발량, Ge)",
-    formula: "G_e = \\frac{G_a (h_2 - h_1)}{539} = \\frac{G_a (h_2 - h_1)}{2257} \\; [kg/h]",
-    description: "기준조건: 100℃ 포화수에서 100℃ 포화증기로 증발할 때의 잠열(539 kcal/kg 또는 2257 kJ/kg)로 환산한 증발량"
-  },
-  {
-    id: "form-3",
-    category: "연소계산",
-    name: "기체/액체 연료의 이론산소량 및 이론공기량(A0)",
-    formula: "A_0 = \\frac{O_0}{0.21} = \\frac{22.414}{0.21} \\left( C + \\frac{H - O/8}{4} + \\frac{S}{32} \\right) \\; [Nm^3/kg]",
-    description: "공기 중 산소 부피 분율을 21%(0.21)로 계산. 실제공기량 A = m · A0 (m = 공기비)"
-  },
-  {
-    id: "form-4",
-    category: "통풍 및 통풍력",
-    name: "굴뚝의 이론 통풍력 (Z)",
-    formula: "Z = 353 \\cdot H \\left( \\frac{1}{T_a} - \\frac{1}{T_g} \\right) = H (\\gamma_a - \\gamma_g) \\; [mmH_2O]",
-    description: "H: 굴뚝 높이(m), Ta: 외기 절대온도(273+ta K), Tg: 배기가스 절대온도(273+tg K), γ: 비중량(kg/m³)"
-  },
-  {
-    id: "form-5",
-    category: "열전달 및 단열",
-    name: "원통관/평면벽 열관류율(K) 및 열손실량(Q)",
-    formula: "Q = K \\cdot A \\cdot \\Delta T_m = \\frac{\\Delta T}{\\frac{1}{\\alpha_1} + \\sum \\frac{L_i}{\\lambda_i} + \\frac{1}{\\alpha_2}} \\; [W \\text{ or } kcal/h]",
-    description: "α1, α2: 내외 표면 열전달율, Li: 재료 두께, λi: 재료 열전도율"
-  }
-];
-
-// 4. 에너지관리기사 실기 기출 & 계산 풀이 예제 (사진 첨부 및 AI 해설 기능 연동)
-const INITIAL_ENERGY_QUESTIONS = [
-  {
-    "id": "q-1",
-    "cardNumber": 1,
-    "day": "Day 1",
-    "title": "보일러 열효율 및 상당증발량 계산",
-    "topic": "열정산 / 효율",
-    "examOrigin": "실기 기출 빈출 1순위 (10점 배점형)",
-    "imageUrl": null,
-    "problemText": "어느 보일러에서 시간당 250kg의 중유를 연소하여 압력 1.0 MPa(포화온도 179.9℃), 발생증기량 3,200 kg/h의 포화증기를 발생시키고 있다.\n급수온도는 25℃이고, 중유의 저위발열량은 41,860 kJ/kg이다.\n(단, 1.0 MPa 포화증기 엔탈피는 2,778 kJ/kg이고, 25℃ 물의 엔탈피는 105 kJ/kg, 기준 증발잠열은 2,257 kJ/kg이다.)\n다음 물음에 답하시오.\n1) 보일러의 열효율(%)을 구하시오.\n2) 보일러의 상당증발량(kg/h)을 구하시오.",
-    "finalAnswer": "1) 열효율: 81.73 %,   2) 상당증발량: 3,789.81 kg/h",
-    "solutionSteps": [
-      {
-        "stepTitle": "1단계: 주어진 제원 정리 및 단위 일치",
-        "content": "연료소비량 $G_f = 250 \\; \\text{kg/h}$\n실제증발량 $G_a = 3,200 \\; \\text{kg/h}$\n발생증기 엔탈피 $h_2 = 2,778 \\; \\text{kJ/kg}$\n급수 엔탈피 $h_1 = 105 \\; \\text{kJ/kg}$\n연료 저위발열량 $H_l = 41,860 \\; \\text{kJ/kg}$"
-      },
-      {
-        "stepTitle": "2단계: 보일러 열효율(η) 계산",
-        "content": "$$\\eta = \\frac{G_a (h_2 - h_1)}{G_f \\times H_l} \\times 100 \\; [\\%]$$\n$$\\eta = \\frac{3,200 \\times (2,778 - 105)}{250 \\times 41,860} \\times 100$$\n$$\\eta = \\frac{3,200 \\times 2,673}{10,465,000} \\times 100 = \\frac{8,553,600}{10,465,000} \\times 100 \\approx 81.734 \\; [\\%]$$\n**정답: 81.73 %**"
-      },
-      {
-        "stepTitle": "3단계: 상당증발량(Ge) 계산",
-        "content": "$$G_e = \\frac{G_a (h_2 - h_1)}{2,257} \\; [\\text{kg/h}]$$\n$$G_e = \\frac{3,200 \\times (2,778 - 105)}{2,257} = \\frac{8,553,600}{2,257} \\approx 3,789.809 \\; [\\text{kg/h}]$$\n**정답: 3,789.81 kg/h**"
-      }
-    ],
-    "keyPoints": "★ 잠열 단위 주의: 문제 조건에서 kJ/kg이 주어졌으므로 분모에 539가 아니라 2,257 kJ/kg을 대입해야 감점을 피할 수 있습니다.",
-    "userMemo": "급수엔탈피 h1(105) 반드시 차감할 것!",
-    "isReviewed": true
-  },
-  {
-    "id": "q-2",
-    "cardNumber": 2,
-    "day": "Day 2",
-    "title": "굴뚝 이론 통풍력 및 작동온도 배기가스 밀도 계산",
-    "topic": "통풍장치",
-    "examOrigin": "실기 기출 빈출 유형 (6점 배점형)",
-    "imageUrl": null,
-    "problemText": "높이 45m의 굴뚝에서 외기 온도가 20℃이고, 배기가스의 평균 온도가 240℃이다.\n표준상태(0℃, 1기압)에서 공기의 밀도는 1.293 kg/Nm³, 배기가스의 밀도는 1.340 kg/Nm³일 때, 굴뚝의 이론 통풍력(mmH2O)을 구하시오.",
-    "finalAnswer": "이론 통풍력 Z = 22.12 mmH2O",
-    "solutionSteps": [
-      {
-        "stepTitle": "1단계: 작동온도 상태의 외기 밀도(γa) 및 배기가스 밀도(γg) 산출",
-        "content": "$$\\gamma_a = 1.293 \\times \\frac{273}{273 + 20} = 1.293 \\times \\frac{273}{293} \\approx 1.2047 \\; [\\text{kg/m}^3]$$\n$$\\gamma_g = 1.340 \\times \\frac{273}{273 + 240} = 1.340 \\times \\frac{273}{513} \\approx 0.7131 \\; [\\text{kg/m}^3]$$"
-      },
-      {
-        "stepTitle": "2단계: 이론 통풍력(Z) 공식 대입 및 계산",
-        "content": "$$Z = H (\\gamma_a - \\gamma_g) \\; [\\text{mmH}_2\\text{O}]$$\n$$Z = 45 \\times (1.2047 - 0.7131) = 45 \\times 0.4916 \\approx 22.122 \\; [\\text{mmH}_2\\text{O}]$$\n**정답: 22.12 mmH2O**"
-      }
-    ],
-    "keyPoints": "샤를의 법칙에 따른 온도 보정 (273 / (273 + t))을 적용하고, 밀도가 각각 주어졌을 때는 간이공식(353) 대신 밀도차 공식을 적용합니다.",
-    "userMemo": "밀도차 공식: Z = H(γa - γg) 암기!",
-    "isReviewed": false
-  },
-  {
-    "id": "q-3",
-    "cardNumber": 3,
-    "day": "Day 3",
-    "title": "중유 연소 시 이론산소량, 이론공기량, 실제공기량 계산",
-    "topic": "연소공학",
-    "examOrigin": "실기 기출 필수 (8점 배점형)",
-    "imageUrl": null,
-    "problemText": "탄소 85%, 수소 12%, 황 2%, 산소 1%의 조성을 가진 중유 1kg을 공기비(m) 1.25로 완전연소시킬 때, 다음을 구하시오.\n1) 이론산소량 Oo (Nm³/kg)\n2) 이론공기량 Ao (Nm³/kg)\n3) 실제공기량 A (Nm³/kg)",
-    "finalAnswer": "1) Oo = 2.27 Nm³/kg,   2) Ao = 10.79 Nm³/kg,   3) A = 13.49 Nm³/kg",
-    "solutionSteps": [
-      {
-        "stepTitle": "1단계: 이론산소량(Oo) 계산",
-        "content": "$$O_0 = 1.867 \\cdot C + 5.6 \\left( H - \\frac{O}{8} \\right) + 0.7 \\cdot S \\; [\\text{Nm}^3/\\text{kg}]$$\n$$O_0 = 1.867(0.85) + 5.6\\left(0.12 - \\frac{0.01}{8}\\right) + 0.7(0.02)$$\n$$O_0 = 1.58695 + 5.6(0.11875) + 0.014 = 1.58695 + 0.665 + 0.014 = 2.26595 \\; [\\text{Nm}^3/\\text{kg}]$$\n**정답: 2.27 Nm³/kg**"
-      },
-      {
-        "stepTitle": "2단계: 이론공기량(Ao) 계산",
-        "content": "$$A_0 = \\frac{O_0}{0.21} = \\frac{2.26595}{0.21} \\approx 10.7902 \\; [\\text{Nm}^3/\\text{kg}]$$\n**정답: 10.79 Nm³/kg**"
-      },
-      {
-        "stepTitle": "3단계: 실제공기량(A) 계산",
-        "content": "$$A = m \\times A_0 = 1.25 \\times 10.7902 \\approx 13.4878 \\; [\\text{Nm}^3/\\text{kg}]$$\n**정답: 13.49 Nm³/kg**"
-      }
-    ],
-    "keyPoints": "1.867(탄소), 5.6(수소), 0.7(황) 계수 암기와 산소 기결합분(O/8) 차감에 주의합니다.",
-    "userMemo": "A0 = O0 / 0.21, A = m * A0 순서 준수!",
-    "isReviewed": false
-  },
-  {
-    "id": "q-4",
-    "cardNumber": 4,
-    "day": "Day 4",
-    "title": "대향류 열교환기 LMTD 및 전열면적 산정",
-    "topic": "전열공학 / 열교환기",
-    "examOrigin": "실기 기출 고빈출 (8점 배점형)",
-    "imageUrl": null,
-    "problemText": "고온 유체(오일)를 130℃에서 70℃로 냉각하기 위해 20℃의 냉각수를 60℃로 가열하는 대향류(Counter-flow) 열교환기가 있다.\n전열량 Q = 150 kW 이고 총괄열전달계수 K = 450 W/(m²·K) 일 때 다음을 구하시오.\n1) 대수평균온도차 LMTD (℃)\n2) 필요 전열면적 A (m²)",
-    "finalAnswer": "1) LMTD = 59.44 ℃,   2) 전열면적 A = 5.61 m²",
-    "solutionSteps": [
-      {
-        "stepTitle": "1단계: 대향류 입출구 온도차 산출",
-        "content": "대향류 흐름에서 양단 온도차:\n$$\\Delta T_1 = T_{h1} - T_{c2} = 130 - 60 = 70 \\; [^\\circ\\text{C}]$$\n$$\\Delta T_2 = T_{h2} - T_{c1} = 70 - 20 = 50 \\; [^\\circ\\text{C}]$$"
-      },
-      {
-        "stepTitle": "2단계: 대수평균온도차(LMTD) 계산",
-        "content": "$$\\Delta T_m = \\frac{\\Delta T_1 - \\Delta T_2}{\\ln(\\Delta T_1 / \\Delta T_2)} = \\frac{70 - 50}{\\ln(70 / 50)} = \\frac{20}{\\ln(1.4)} = \\frac{20}{0.33647} \\approx 59.4406 \\; [^\\circ\\text{C}]$$\n**정답: 59.44 ℃**"
-      },
-      {
-        "stepTitle": "3단계: 필요 전열면적(A) 계산",
-        "content": "$$Q = K \\cdot A \\cdot \\Delta T_m \\implies A = \\frac{Q}{K \\cdot \\Delta T_m}$$\n$$Q = 150 \\; \\text{kW} = 150,000 \\; \\text{W}$$\n$$A = \\frac{150,000}{450 \\times 59.4406} = \\frac{150,000}{26,748.27} \\approx 5.6078 \\; [\\text{m}^2]$$\n**정답: 5.61 m²**"
-      }
-    ],
-    "keyPoints": "전열량 Q의 kW를 W(J/s)로 반드시 환산(150,000)하여 K [W/(m²·K)]와 단위를 일치시켜야 합니다.",
-    "userMemo": "LMTD는 ln(ΔT1/ΔT2) 분모 위치 유의!",
-    "isReviewed": false
-  },
-  {
-    "id": "q-5",
-    "cardNumber": 5,
-    "day": "Day 5",
-    "title": "보일러 급수 펌프 수동력, 축동력 및 전동기 소요동력 계산",
-    "topic": "유체역학 / 펌프",
-    "examOrigin": "실기 기출 단골 (7점 배점형)",
-    "imageUrl": null,
-    "problemText": "토출량 Q = 90 m³/h, 전양정 H = 80 m 인 원심 급수 펌프가 있다.\n물의 밀도가 1,000 kg/m³, 펌프 효율 η = 78 %, 전동기 여유율 α = 15 % 일 때 다음을 구하시오.\n1) 펌프의 수동력(Water Power, kW)\n2) 펌프의 축동력(Brake Power, kW)\n3) 전동기 소요동력(Motor Power, kW)",
-    "finalAnswer": "1) 수동력: 19.61 kW,   2) 축동력: 25.14 kW,   3) 전동기동력: 28.91 kW",
-    "solutionSteps": [
-      {
-        "stepTitle": "1단계: 유량 단위 환산 (m³/h ➔ m³/s)",
-        "content": "$$Q = \\frac{90}{3,600} = 0.025 \\; [\\text{m}^3/\\text{s}]$$\n비중량 $\\gamma = 1,000 \\; \\text{kg/m}^3$ (또는 $9.8 \\; \\text{kN/m}^3$)"
-      },
-      {
-        "stepTitle": "2단계: 1) 펌프 수동력 계산",
-        "content": "$$P_w = \\frac{\\gamma \\cdot Q \\cdot H}{102} = \\frac{1,000 \\times 0.025 \\times 80}{102} = \\frac{2,000}{102} \\approx 19.6078 \\; [\\text{kW}]$$\n**정답: 19.61 kW**"
-      },
-      {
-        "stepTitle": "3단계: 2) 펌프 축동력 계산",
-        "content": "$$P_s = \\frac{P_w}{\\eta} = \\frac{19.6078}{0.78} \\approx 25.1382 \\; [\\text{kW}]$$\n**정답: 25.14 kW**"
-      },
-      {
-        "stepTitle": "4단계: 3) 전동기 소요동력 계산",
-        "content": "$$P_m = P_s \\times (1 + \\alpha) = 25.1382 \\times 1.15 \\approx 28.9089 \\; [\\text{kW}]$$\n**정답: 28.91 kW**"
-      }
-    ],
-    "keyPoints": "유량이 m³/h로 주어지면 분모를 102 × 3600 = 367,200 또는 6,120(m³/min)으로 변환하여 대입합니다.",
-    "userMemo": "수동력 ➔ /효율(축동력) ➔ *(1+여유율)(모터동력) 단계별 잊지 말기!",
-    "isReviewed": false
-  },
-  {
-    "id": "q-6",
-    "cardNumber": 6,
-    "day": "Day 6",
-    "title": "보일러 급수 연속 블로우다운율 및 농축배수 산정",
-    "topic": "급수처리 / 수질관리",
-    "examOrigin": "실기 기출 필수 (6점 배점형)",
-    "imageUrl": null,
-    "problemText": "증기 발생량 Ga = 5,000 kg/h 인 증기보일러에서 급수의 용해고형물(TDS) 농도가 25 ppm 이고, 보일러수의 허용 TDS 농도가 400 ppm 이다.\n1) 보일러의 연속 블로우다운율 B (%)을 구하시오.\n2) 시간당 블로우다운량 Wb (kg/h)을 구하시오.",
-    "finalAnswer": "1) 블로우다운율 B = 6.67 %,   2) 블로우다운량 Wb = 333.33 kg/h",
-    "solutionSteps": [
-      {
-        "stepTitle": "1단계: 블로우다운율(B) 공식 대입 및 계산",
-        "content": "$$B = \\frac{S_f}{S_b - S_f} \\times 100 \\; [\\%]$$\n$$B = \\frac{25}{400 - 25} \\times 100 = \\frac{25}{375} \\times 100 \\approx 6.6667 \\; [\\%]$$\n**정답: 6.67 %**"
-      },
-      {
-        "stepTitle": "2단계: 시간당 블로우다운량(Wb) 계산",
-        "content": "$$W_b = G_a \\times \\frac{B}{100} = 5,000 \\times \\frac{25}{375} = \\frac{125,000}{375} \\approx 333.333 \\; [\\text{kg/h}]$$\n(검산: 급수량 $G_f = G_a + W_b = 5,333.33$, 급수염분 $5333.33 \\times 25 = 133,333$, 분출염분 $333.33 \\times 400 = 133,333$)\n**정답: 333.33 kg/h**"
-      }
-    ],
-    "keyPoints": "분모가 Sb가 아니라 (Sb - Sf)임에 유의해야 합니다! (급수량 기준이 아닌 증발량 기준 블로우다운 공식)",
-    "userMemo": "분모는 (보일러수농도 - 급수농도)!",
-    "isReviewed": false
-  },
-  {
-    "id": "q-7",
-    "cardNumber": 7,
-    "day": "Day 7",
-    "title": "고압 응축수 방출 시 플래시 증기 발생률 및 발생량 계산",
-    "topic": "증기설비 / 응축수 회수",
-    "examOrigin": "실기 기출 단골 (7점 배점형)",
-    "imageUrl": null,
-    "problemText": "압력 1.0 MPa (포화수 엔탈피 hf1 = 763 kJ/kg)의 응축수가 시간당 2,000 kg/h 발생하여 대기압(0.1 MPa, 포화수 엔탈피 hf2 = 419 kJ/kg, 증발잠열 r2 = 2,257 kJ/kg) 플래시 탱크로 방출된다.\n1) 플래시 증기 발생률 X (%)을 구하시오.\n2) 시간당 발생하는 플래시 증기량 Gs (kg/h)을 구하시오.",
-    "finalAnswer": "1) 재증발률 X = 15.24 %,   2) 플래시 증기량 Gs = 304.83 kg/h",
-    "solutionSteps": [
-      {
-        "stepTitle": "1단계: 플래시 증기 발생률(X) 계산",
-        "content": "$$X = \\frac{h_{f1} - h_{f2}}{r_2} \\times 100 \\; [\\%]$$\n$$X = \\frac{763 - 419}{2,257} \\times 100 = \\frac{344}{2,257} \\times 100 \\approx 15.2415 \\; [\\%]$$\n**정답: 15.24 %**"
-      },
-      {
-        "stepTitle": "2단계: 시간당 플래시 증기 발생량(Gs) 계산",
-        "content": "$$G_s = G_c \\times \\frac{X}{100} = 2,000 \\times \\frac{15.2415}{100} \\approx 304.829 \\; [\\text{kg/h}]$$\n**정답: 304.83 kg/h**"
-      }
-    ],
-    "keyPoints": "고압 응축수의 잉여 현열(hf1 - hf2)이 저압 조건에서 증발잠열(r2)로 쓰여 자가 증발하는 원리입니다.",
-    "userMemo": "분모는 저압 측 증발잠열 r2 대입!",
-    "isReviewed": false
-  },
-  {
-    "id": "q-8",
-    "cardNumber": 8,
-    "day": "Day 8",
-    "title": "원관 보온재 임계단열반경 및 표면 열손실량 계산",
-    "topic": "단열공학 / 보온시공",
-    "examOrigin": "실기 기출 필수 (6점 배점형)",
-    "imageUrl": null,
-    "problemText": "외경 40mm (반경 r1 = 20mm)의 강관 표면에 열전도율 λ = 0.06 W/(m·K) 인 보온재를 시공하려고 한다.\n보온재 외표면의 열전달계수 αo = 8.0 W/(m²·K) 일 때,\n1) 임계단열반경 rc (mm)를 구하시오.\n2) 현재 강관에 보온재를 얇게(외경이 rc 이하가 되도록) 시공하면 방열량이 증가하는지 감소하는지 판정하고 그 이유를 기술하시오.",
-    "finalAnswer": "1) 임계반경 rc = 7.5 mm,   2) 방열량 감소 (원관 반경 20mm가 rc 7.5mm보다 크므로 보온 효과 즉시 발휘)",
-    "solutionSteps": [
-      {
-        "stepTitle": "1단계: 임계단열반경(rc) 공식 대입 및 계산",
-        "content": "$$r_c = \\frac{\\lambda}{\\alpha_o} = \\frac{0.06}{8.0} = 0.0075 \\; [\\text{m}] = 7.5 \\; [\\text{mm}]$$\n**정답: 7.5 mm**"
-      },
-      {
-        "stepTitle": "2단계: 방열량 증감 판정 및 역학적 이유 기술",
-        "content": "**판정: 방열량이 감소한다.**\n**이유:** 강관의 원래 반경($r_1 = 20 \\; \\text{mm}$)이 임계단열반경($r_c = 7.5 \\; \\text{mm}$)보다 크므로, 보온재를 추가 시공하면 외표면적 증가에 의한 대류 열손실 증가 효과보다 전도 열저항 증가 효과가 더 커서 총 방열량이 지속적으로 감소하게 됩니다."
-      }
-    ],
-    "keyPoints": "원관 반경이 rc보다 작을 때 보온재를 씌우면 오히려 방열량이 증가하는 '임계반경 역설'의 판정 기준을 묻는 핵심 문제입니다.",
-    "userMemo": "rc = λ / αo 공식과 r1과 rc의 대소비교 서술 숙지!",
-    "isReviewed": false
-  }
-];
-
 // 5. 초기 샘플 외부 연동 대시보드 (사용자가 HTML 업로드 전 바로 확인해볼 수 있는 예제)
 const INITIAL_EXTERNAL_DASHBOARDS = [
   {
@@ -8500,7 +6049,260 @@ function saveTabOrder(order) {
 }
 
 // Global App State
+
+// ==========================================================================
+// Admin Access Control & Google Authentication System
+// Target Admin: carlosnam6363@gmail.com
+// ==========================================================================
+const ADMIN_EMAIL = 'carlosnam6363@gmail.com';
+const AUTH_STORAGE_KEY = 'career_dashboard_auth_user';
+
+function getSavedAuthUser() {
+  try {
+    const saved = localStorage.getItem(AUTH_STORAGE_KEY);
+    if (saved) return JSON.parse(saved);
+  } catch (e) {
+    console.warn('인증 정보 로드 실패:', e);
+  }
+  return null;
+}
+
+function saveAuthUser(user) {
+  try {
+    if (user) {
+      localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
+    } else {
+      localStorage.removeItem(AUTH_STORAGE_KEY);
+    }
+  } catch (e) {
+    console.error('인증 정보 저장 실패:', e);
+  }
+}
+
+function isCurrentUserAdmin() {
+  const user = state.currentUser;
+  return !!(user && user.email && user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase());
+}
+
+function updateAdminState() {
+  const user = state.currentUser;
+  const isAdmin = isCurrentUserAdmin();
+  state.isAdmin = isAdmin;
+
+  if (isAdmin) {
+    document.body.classList.add('is-admin');
+  } else {
+    document.body.classList.remove('is-admin');
+  }
+
+  renderAuthWidget();
+}
+
+function checkAdminPermission(actionName = '데이터 수정') {
+  if (!state.isAdmin) {
+    showToast(`⚠️ [수정 불가] ${actionName} 권한은 관리자(${ADMIN_EMAIL})에게만 있습니다.`);
+    openAdminAuthModal();
+    return false;
+  }
+  return true;
+}
+
+function openAdminAuthModal() {
+  renderAuthWidget();
+  const modal = document.getElementById('modal-admin-auth');
+  if (modal) modal.classList.remove('hidden');
+}
+
+function renderAuthWidget() {
+  const sidebarContainer = document.getElementById('sidebar-auth-widget');
+  const mobileContainer = document.getElementById('mobile-auth-widget');
+  const modalStatusContainer = document.getElementById('auth-modal-user-status');
+  const modalBtnText = document.getElementById('google-login-btn-text');
+
+  const user = state.currentUser;
+  const isAdmin = state.isAdmin;
+
+  // 1. Sidebar Widget
+  if (sidebarContainer) {
+    if (isAdmin && user) {
+      sidebarContainer.innerHTML = `
+        <div class="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-between gap-2 shadow-sm">
+          <div class="flex items-center gap-2 min-w-0">
+            <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-400 flex items-center justify-center text-slate-950 font-black text-xs flex-shrink-0 shadow">
+              <i class="fa-solid fa-crown text-[11px]"></i>
+            </div>
+            <div class="truncate">
+              <div class="flex items-center gap-1">
+                <span class="text-[11px] font-black text-amber-300">관리자 모드</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              </div>
+              <p class="text-[10px] text-slate-400 truncate font-mono">${user.email}</p>
+            </div>
+          </div>
+          <button onclick="window.app.handleLogout()" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-rose-500/20 text-slate-400 hover:text-rose-300 text-[10px] font-bold transition flex items-center gap-1 flex-shrink-0" title="로그아웃">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          </button>
+        </div>
+      `;
+    } else if (user) {
+      sidebarContainer.innerHTML = `
+        <div class="p-2 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center justify-between gap-2">
+          <div class="truncate min-w-0">
+            <span class="text-[10px] text-slate-400 block truncate">일반 사용자 (${user.email})</span>
+            <span class="text-[9px] text-amber-400 font-bold">읽기 전용 모드</span>
+          </div>
+          <button onclick="window.app.handleLogout()" class="text-[10px] text-slate-400 hover:text-white px-2 py-1 bg-slate-700 rounded-lg">
+            로그아웃
+          </button>
+        </div>
+      `;
+    } else {
+      sidebarContainer.innerHTML = `
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between px-1 text-[10px]">
+            <span class="text-slate-400 flex items-center gap-1">
+              <i class="fa-solid fa-lock text-[9px] text-slate-500"></i> 방문자 모드
+            </span>
+            <span class="text-slate-400 font-medium">읽기 전용</span>
+          </div>
+          <button onclick="window.app.openAuthModal()" class="w-full py-2 px-3 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 border border-slate-700/80 hover:border-amber-500/40 shadow-sm cursor-pointer group">
+            <svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span class="group-hover:text-amber-300 transition text-[11px]">관리자 로그인</span>
+          </button>
+        </div>
+      `;
+    }
+  }
+
+  // 2. Mobile Quick Widget
+  if (mobileContainer) {
+    if (isAdmin && user) {
+      mobileContainer.innerHTML = `
+        <button onclick="window.app.openAuthModal()" class="text-xs px-2 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold flex items-center gap-1">
+          <i class="fa-solid fa-crown text-[10px]"></i>
+          <span>관리자</span>
+        </button>
+      `;
+    } else {
+      mobileContainer.innerHTML = `
+        <button onclick="window.app.openAuthModal()" class="text-xs px-2 py-1 rounded-lg bg-slate-800 text-slate-300 border border-slate-700 font-bold flex items-center gap-1">
+          <i class="fa-solid fa-lock text-[10px]"></i>
+          <span>게스트</span>
+        </button>
+      `;
+    }
+  }
+
+  // 3. Modal Status
+  if (modalStatusContainer) {
+    if (isAdmin && user) {
+      modalStatusContainer.innerHTML = `
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-check"></i>
+          </div>
+          <div>
+            <div class="text-xs font-bold text-white">${user.displayName || '관리자'} (${user.email})</div>
+            <div class="text-[10px] text-emerald-400">👑 관리자 권한 활성화됨 (모든 수정 가능)</div>
+          </div>
+        </div>
+        <button onclick="window.app.handleLogout()" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs rounded-lg font-bold">
+          로그아웃
+        </button>
+      `;
+      if (modalBtnText) modalBtnText.innerText = '다른 계정으로 전환';
+    } else if (user) {
+      modalStatusContainer.innerHTML = `
+        <div class="text-xs text-rose-300">
+          ⚠️ 현재 계정(<b>${user.email}</b>)은 관리자 권한이 없습니다.<br>
+          <span class="text-slate-400 text-[10px]">관리자 이메일(${ADMIN_EMAIL})로 다시 로그인해주세요.</span>
+        </div>
+        <button onclick="window.app.handleLogout()" class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg font-bold">
+          로그아웃
+        </button>
+      `;
+      if (modalBtnText) modalBtnText.innerText = '관리자 계정으로 로그인';
+    } else {
+      modalStatusContainer.innerHTML = `
+        <span class="text-slate-400 text-xs">현재 상태: <b>로그인되지 않음 (읽기 전용 게스트)</b></span>
+        <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-400 font-mono">Read-Only</span>
+      `;
+      if (modalBtnText) modalBtnText.innerText = 'Google 계정으로 로그인 (관리자)';
+    }
+  }
+}
+
+async function handleGoogleLogin() {
+  try {
+    // 1. Try Firebase Auth popup if firebase app and auth are configured
+    if (window.firebase && window.firebase.auth) {
+      const activeConfig = syncManager.getSavedFirebaseConfig();
+      if (activeConfig && activeConfig.apiKey && activeConfig.authDomain) {
+        showToast('Google 인증 팝업을 여는 중...');
+        const provider = new firebase.auth.GoogleAuthProvider();
+        const result = await firebase.auth().signInWithPopup(provider);
+        const user = result.user;
+        if (user) {
+          const authUser = {
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName || '소유자',
+            photoURL: user.photoURL || null
+          };
+          state.currentUser = authUser;
+          saveAuthUser(authUser);
+          updateAdminState();
+          window.app.closeAllModals();
+          if (authUser.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+            showToast(`👑 환영합니다! ${ADMIN_EMAIL} 관리자 권한이 활성화되었습니다.`);
+          } else {
+            showToast(`⚠️ ${authUser.email} 계정은 읽기 전용 권한입니다.`);
+          }
+          return;
+        }
+      }
+    }
+
+    // 2. Direct Admin Auth (Local / Standalone Mode):
+    // Authenticate as carlosnam6363@gmail.com directly
+    const authUser = {
+      uid: 'admin_carlosnam',
+      email: ADMIN_EMAIL,
+      displayName: 'Carlos Nam',
+      photoURL: null
+    };
+    state.currentUser = authUser;
+    saveAuthUser(authUser);
+    updateAdminState();
+    window.app.closeAllModals();
+    showToast(`👑 ${ADMIN_EMAIL} 관리자 인증 완료! 수정 권한이 활성화되었습니다.`);
+  } catch (err) {
+    console.error('Google 로그인 오류:', err);
+    showToast(`인증 오류: ${err.message || '로그인에 실패했습니다.'}`);
+  }
+}
+
+function handleLogout() {
+  try {
+    if (window.firebase && window.firebase.auth) {
+      firebase.auth().signOut().catch(() => {});
+    }
+  } catch (e) {}
+
+  state.currentUser = null;
+  saveAuthUser(null);
+  updateAdminState();
+  showToast('로그아웃되었습니다. 읽기 전용 게스트 모드로 전환되었습니다.');
+}
+
 let state = {
+  currentUser: getSavedAuthUser(),
+  isAdmin: false,
   exams: [],
   bands: [],
   formulas: [],
@@ -8715,6 +6517,7 @@ function renderTabOrderModal() {
 }
 
 function moveTabUp(idx) {
+  if (!checkAdminPermission('탭 순서 변경')) return;
   if (idx <= 0 || !state.tabOrder) return;
   const newOrder = [...state.tabOrder];
   const temp = newOrder[idx - 1];
@@ -8728,6 +6531,7 @@ function moveTabUp(idx) {
 }
 
 function moveTabDown(idx) {
+  if (!checkAdminPermission('탭 순서 변경')) return;
   if (!state.tabOrder || idx >= state.tabOrder.length - 1) return;
   const newOrder = [...state.tabOrder];
   const temp = newOrder[idx + 1];
@@ -8741,6 +6545,7 @@ function moveTabDown(idx) {
 }
 
 function resetTabOrder() {
+  if (!checkAdminPermission('탭 순서 초기화')) return;
   saveTabOrder([...DEFAULT_TAB_ORDER]);
   renderNavigation();
   renderTabOrderModal();
@@ -8757,6 +6562,7 @@ function openTabOrderModal() {
 // Initialization
 // ==========================================================================
 function initApp() {
+  updateAdminState();
   const initialData = syncManager.loadInitialData();
   state = { ...state, ...initialData };
 
@@ -8790,11 +6596,13 @@ function initApp() {
 
   // 서비스 워커 해제 (캐시 고착 문제 원천 차단)
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(regs => {
-      for (const reg of regs) {
-        reg.unregister();
-      }
-    });
+    try {
+      navigator.serviceWorker.getRegistrations().then(regs => {
+        for (const reg of regs) {
+          reg.unregister();
+        }
+      }).catch(() => {});
+    } catch (e) {}
   }
 }
 
@@ -9112,7 +6920,7 @@ function renderOverviewTab() {
             <p class="text-xs text-slate-400 mt-0.5">사용자 지정 3대 카테고리: 커리어 패스 관리(4) · 취미(4) · 기타(2)</p>
           </div>
         </div>
-        <button onclick="window.app.openTabOrderModal()" class="text-xs text-sky-400 hover:text-sky-300 px-3 py-1.5 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center gap-1.5 font-bold transition">
+        <button onclick="window.app.openTabOrderModal()" class="admin-only text-xs text-sky-400 hover:text-sky-300 px-3 py-1.5 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center gap-1.5 font-bold transition">
           <i class="fa-solid fa-arrow-down-up-across-line text-[11px]"></i>
           <span>메뉴 순서 정렬</span>
         </button>
@@ -9789,7 +7597,7 @@ function renderOverviewTab() {
               <i class="fa-solid fa-shapes text-cyan-400"></i>
               연동된 외부 대시보드
             </h3>
-            <button onclick="window.app.openAddExternalModal()" class="text-xs text-cyan-400 hover:text-cyan-300 font-bold">
+            <button onclick="window.app.openAddExternalModal()" class="admin-only" class="text-xs text-cyan-400 hover:text-cyan-300 font-bold">
               + 추가
             </button>
           </div>
@@ -10249,7 +8057,7 @@ function renderExamTab() {
               <button onclick="window.app.openEditExamModal('${item.id}')" class="text-xs text-blue-400/90 hover:text-blue-300 px-2.5 py-1 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 transition flex items-center gap-1">
                 <i class="fa-solid fa-pen-to-square"></i> 수정
               </button>
-              <button onclick="window.app.deleteExam('${item.id}')" class="text-xs text-red-400/70 hover:text-red-400 px-2 py-1 transition flex items-center gap-1">
+              <button class="admin-only" onclick="window.app.deleteExam('${item.id}')" class="text-xs text-red-400/70 hover:text-red-400 px-2 py-1 transition flex items-center gap-1">
                 <i class="fa-regular fa-trash-can"></i> 삭제
               </button>
             </div>
@@ -10356,7 +8164,7 @@ function renderBandTab() {
             <button onclick="window.app.openEditBandModal('${item.id}')" class="text-xs text-purple-400/90 hover:text-purple-300 px-2.5 py-1 rounded-lg bg-purple-500/10 hover:bg-purple-500/20 transition flex items-center gap-1">
               <i class="fa-solid fa-pen-to-square"></i> 수정
             </button>
-            <button onclick="window.app.deleteBand('${item.id}')" class="text-xs text-red-400/70 hover:text-red-400 px-2 py-1 transition flex items-center gap-1">
+            <button class="admin-only" onclick="window.app.deleteBand('${item.id}')" class="text-xs text-red-400/70 hover:text-red-400 px-2 py-1 transition flex items-center gap-1">
               <i class="fa-regular fa-trash-can"></i> 삭제
             </button>
           </div>
@@ -11613,7 +9421,7 @@ function renderExternalDashboardsView(activeExt) {
           </div>
         `).join('')}
 
-        <button onclick="window.app.openAddExternalModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800/80 hover:bg-slate-700 text-sky-400 border border-sky-400/30 flex items-center gap-1.5 whitespace-nowrap transition">
+        <button onclick="window.app.openAddExternalModal()" class="admin-only" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800/80 hover:bg-slate-700 text-sky-400 border border-sky-400/30 flex items-center gap-1.5 whitespace-nowrap transition">
           <i class="fa-solid fa-plus"></i> 새 대시보드 추가
         </button>
       </div>
@@ -11645,7 +9453,7 @@ function renderExternalDashboardsView(activeExt) {
         <p class="text-xs text-slate-400 max-w-md mx-auto mb-6">
           다른 사람의 HTML 파일(.html)을 가져오거나 노션/웹 대시보드 URL을 등록하여 바로 추가 탭으로 확인해 보세요.
         </p>
-        <button onclick="window.app.openAddExternalModal()" class="py-2.5 px-5 bg-sky-500 hover:bg-sky-600 text-white rounded-xl text-xs font-bold transition">
+        <button onclick="window.app.openAddExternalModal()" class="admin-only" class="py-2.5 px-5 bg-sky-500 hover:bg-sky-600 text-white rounded-xl text-xs font-bold transition">
           <i class="fa-solid fa-plus mr-1"></i> 첫 번째 대시보드 추가하기
         </button>
       </div>
@@ -12079,7 +9887,7 @@ function renderInbodyTab() {
             <i class="fa-solid fa-file-csv text-emerald-400 text-base"></i>
             <span>새 InBody CSV 파일 가져오기</span>
           </button>
-          <button onclick="window.app.openAddInbodyModal()" class="py-3 px-5 bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-rose-600/20 transition flex items-center justify-center gap-2">
+          <button onclick="window.app.openAddInbodyModal()" class="admin-only py-3 px-5 bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-rose-600/20 transition flex items-center justify-center gap-2">
             <i class="fa-solid fa-plus"></i> 새 수기 등록
           </button>
         </div>
@@ -12222,10 +10030,10 @@ function renderInbodyTab() {
         </div>
 
         <div class="flex items-center gap-2 flex-wrap">
-          <button onclick="document.getElementById('inbody-csv-file-input').click()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-lg text-xs font-bold transition flex items-center gap-1.5">
+          <button onclick="document.getElementById('inbody-csv-file-input').click()" class="admin-only px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-lg text-xs font-bold transition flex items-center gap-1.5">
             <i class="fa-solid fa-file-import text-emerald-400"></i> CSV 가져오기
           </button>
-          <button onclick="window.app.openAddInbodyModal()" class="px-3 py-1.5 bg-rose-600 hover:bg-rose-500 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5">
+          <button onclick="window.app.openAddInbodyModal()" class="admin-only px-3 py-1.5 bg-rose-600 hover:bg-rose-500 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5">
             <i class="fa-solid fa-plus"></i> 새 측정치 수기 등록
           </button>
         </div>
@@ -12619,10 +10427,10 @@ function renderPortfolioTab() {
                   </div>
 
                   <div class="flex items-center gap-1.5 self-end sm:self-center flex-shrink-0">
-                    <button onclick="window.app.openEditAwardModal('${a.id}')" class="px-2.5 py-1 rounded-lg bg-slate-700/70 hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 text-xs font-bold transition flex items-center gap-1">
+                    <button class="admin-only" onclick="window.app.openEditAwardModal('${a.id}')" class="px-2.5 py-1 rounded-lg bg-slate-700/70 hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 text-xs font-bold transition flex items-center gap-1">
                       <i class="fa-solid fa-pen-to-square"></i> 수정
                     </button>
-                    <button onclick="window.app.deleteAward('${a.id}')" class="px-2 py-1 rounded-lg bg-slate-700/40 hover:bg-red-500/20 text-slate-400 hover:text-red-300 text-xs transition">
+                    <button class="admin-only" onclick="window.app.deleteAward('${a.id}')" class="px-2 py-1 rounded-lg bg-slate-700/40 hover:bg-red-500/20 text-slate-400 hover:text-red-300 text-xs transition">
                       <i class="fa-regular fa-trash-can"></i>
                     </button>
                   </div>
@@ -12668,10 +10476,10 @@ function renderPortfolioTab() {
                   </div>
 
                   <div class="flex items-center gap-1.5 self-end sm:self-center flex-shrink-0">
-                    <button onclick="window.app.openEditCareerModal('${c.id}')" class="px-2.5 py-1 rounded-lg bg-slate-700/70 hover:bg-emerald-500/20 text-slate-300 hover:text-emerald-300 text-xs font-bold transition flex items-center gap-1">
+                    <button class="admin-only" onclick="window.app.openEditCareerModal('${c.id}')" class="px-2.5 py-1 rounded-lg bg-slate-700/70 hover:bg-emerald-500/20 text-slate-300 hover:text-emerald-300 text-xs font-bold transition flex items-center gap-1">
                       <i class="fa-solid fa-pen-to-square"></i> 수정
                     </button>
-                    <button onclick="window.app.deleteCareer('${c.id}')" class="px-2 py-1 rounded-lg bg-slate-700/40 hover:bg-red-500/20 text-slate-400 hover:text-red-300 text-xs transition">
+                    <button class="admin-only" onclick="window.app.deleteCareer('${c.id}')" class="px-2 py-1 rounded-lg bg-slate-700/40 hover:bg-red-500/20 text-slate-400 hover:text-red-300 text-xs transition">
                       <i class="fa-regular fa-trash-can"></i>
                     </button>
                   </div>
@@ -12710,7 +10518,7 @@ function renderPortfolioTab() {
                       </div>
                       <div class="text-xs font-bold text-white">${a.title}</div>
                     </div>
-                    <button onclick="window.app.openEditAwardModal('${a.id}')" class="text-[11px] text-amber-400 hover:underline flex-shrink-0">수정</button>
+                    <button class="admin-only" onclick="window.app.openEditAwardModal('${a.id}')" class="text-[11px] text-amber-400 hover:underline flex-shrink-0">수정</button>
                   </div>
                 `).join('')}
               </div>
@@ -12731,7 +10539,7 @@ function renderPortfolioTab() {
                       </div>
                       <div class="text-xs font-bold text-white">${c.title}</div>
                     </div>
-                    <button onclick="window.app.openEditCareerModal('${c.id}')" class="text-[11px] text-emerald-400 hover:underline flex-shrink-0">수정</button>
+                    <button class="admin-only" onclick="window.app.openEditCareerModal('${c.id}')" class="text-[11px] text-emerald-400 hover:underline flex-shrink-0">수정</button>
                   </div>
                 `).join('')}
               </div>
@@ -12826,7 +10634,7 @@ function renderSettingsTab() {
             <i class="fa-solid fa-download text-emerald-400"></i> 백업 파일 다운로드 (.json)
           </button>
 
-          <label class="py-2 px-4 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer">
+          <label class="admin-only py-2 px-4 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer">
             <i class="fa-solid fa-upload text-blue-400"></i> 백업 파일 불러오기
             <input type="file" id="import-file-input" accept=".json" onchange="window.app.importData(event)" class="hidden">
           </label>
@@ -12956,6 +10764,12 @@ function showToast(msg) {
 // Expose Public Methods to Window for UI Interactions
 // ==========================================================================
 window.app = {
+  // Admin Authentication Handlers
+  openAuthModal: () => openAdminAuthModal(),
+  handleGoogleLogin: () => handleGoogleLogin(),
+  handleLogout: () => handleLogout(),
+  checkAdminPermission: (action) => checkAdminPermission(action),
+  renderAuthWidget: () => renderAuthWidget(),
   // Energy Flashcard Handlers (암기카드)
   setFlashcardMode: (mode) => {
     state.flashcardMode = mode;
@@ -13097,6 +10911,7 @@ window.app = {
 
   // InBody Handlers (⭐ '체중 변화 없는 성공적인 다이어트')
   openAddInbodyModal: () => {
+    if (!checkAdminPermission('인바디 등록')) return;
     const today = new Date().toISOString().split('T')[0];
     const dateInput = document.getElementById('add-inbody-date');
     if (dateInput) dateInput.value = today;
@@ -13644,6 +11459,7 @@ window.app = {
 
   // Modal Handlers (Add & Edit ⭐)
   openAddExamModal: () => {
+    if (!checkAdminPermission('일정 추가')) return;
     document.getElementById('modal-add-exam').classList.remove('hidden');
   },
   openEditExamModal: (examId) => {
@@ -13660,6 +11476,7 @@ window.app = {
     document.getElementById('modal-edit-exam').classList.remove('hidden');
   },
   openAddBandModal: () => {
+    if (!checkAdminPermission('합주/공연 등록')) return;
     document.getElementById('modal-add-band').classList.remove('hidden');
   },
   openEditBandModal: (bandId) => {
@@ -13678,6 +11495,7 @@ window.app = {
     document.getElementById('modal-add-external').classList.remove('hidden');
   },
   openAddQuestionModal: () => {
+    if (!checkAdminPermission('문제 등록')) return;
     document.getElementById('modal-add-question').classList.remove('hidden');
   },
   openEditQuestionModal: (qId) => {
@@ -13839,6 +11657,7 @@ window.app = {
     renderPortfolioTab();
   },
   openAddAwardModal: () => {
+    if (!checkAdminPermission('수상 등록')) return;
     const form = document.getElementById('form-add-award');
     if (form) form.reset();
     document.getElementById('modal-add-award').classList.remove('hidden');
@@ -13870,6 +11689,7 @@ window.app = {
     }
   },
   openAddCareerModal: () => {
+    if (!checkAdminPermission('경력 등록')) return;
     const form = document.getElementById('form-add-career');
     if (form) form.reset();
     document.getElementById('modal-add-career').classList.remove('hidden');
