@@ -10,7 +10,7 @@
   <title>개인 업무 및 커리어 대시보드</title>
   
   <!-- PWA & Mobile Meta Tags -->
-  <link rel="manifest" href="manifest.json?v=20260927_v5">
+  <link rel="manifest" href="manifest.json?v=20260929_v2">
   <meta name="theme-color" content="#0f172a">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -42,7 +42,7 @@
         });
       }
       // 3. 빌드 버전 검사를 통한 자동 1회 새로고침
-      var APP_VER = '20260927_v5';
+      var APP_VER = '20260929_v2';
       if (localStorage.getItem('career_app_build') !== APP_VER) {
         localStorage.setItem('career_app_build', APP_VER);
         if (!sessionStorage.getItem('build_updated')) {
@@ -92,7 +92,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
   <!-- Custom CSS (Cache-Busted) -->
-  <link rel="stylesheet" href="css/style.css?v=20260927_v5">
+  <link rel="stylesheet" href="css/style.css?v=20260929_v2">
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col md:flex-row antialiased selection:bg-sky-500 selection:text-white pb-20 md:pb-0">
 
@@ -1613,7 +1613,8 @@
     </div>
   </div>
 
-  <!-- Main Application Script (Safe for file:// and http://) -->
+  <!-- Static Seed Datasets & Core Application Script (Safe for file:// and http://) -->
+  <script src="js/data.js?v=20260929_v2"></script>
   <script src="js/app.js?v=20260929_v2"></script>
 </body>
 </html>
