@@ -46,14 +46,16 @@ career-dashboard/
    * `INITIAL_INBODY_DATA`: 11년간 89회 누적 인바디 신체 측정 기록
     * `INITIAL_KNOU_DATA`: 국립 방송통신대학교 사회복지학과 2026-2학기 9개 과목 수강률(형성평가 20%), 과제물(30%), 기말고사(50%) 평가 및 평생교육사실습 데이터
     * `INITIAL_ENGLISH_DATA`: 카카오톡 1:1 회화 수업 409개 원어민 교정 데이터(You said vs Better say), 6대 취약 문법 유형(관사·수일치, 구어체·뉘앙스, 전치사·연어, 동명사·부정사, 시제, 분사), 튜터 추천 16대 핵심 이디엄(Idioms of the Day)
+    * `INITIAL_CONTEST_DATA`: 다양한 문학(산문·수필·소설) 및 기획·아이디어 공모전 출품 이력(국회 표창 대상작, 화성시 재단이사장상 등 6건), 창작 아이디어 뱅크, 공모전 5단계 논리 프레임워크 템플릿
 
 2. **`js/app.js` (비즈니스 로직 & UI 렌더러 전담)**
    * `SyncManager`: LocalStorage 오프라인 저장 및 Firebase Firestore 양방향 동기화
    * `Google Admin Auth & GIS`: Google Identity Services SDK 연동, 오직 `carlosnam6363@gmail.com`만 수정/작성 권한 활성화
    * `Tab Order & Category Navigation`: 탭 순서 커스텀 정렬 및 카테고리 필터링(취미 / 커리어 패스 / 기타)
    * `Guest Mode Restriction`: 비로그인/게스트 상태에서는 종합 대시보드(overview)만 열람 허용되며, 다른 탭 클릭 시 자물쇠 잠금 팝업(`modal-tab-locked`) 호출
-   * `Tab Renderers`: 12개 탭 동적 렌더링 (`renderOverviewTab`, `renderEnglishTab`, `renderKnouTab`, `renderEnergyTab`, `renderBandTab`, `renderSnsTab` 등)
-   * `English Features`: 5~10분 데일리 팟캐스트 오디오 플레이어(대본 타임라인·배속·15초 스킵), Daily Focus 5선, 플립 퀴즈 모드 & 전체 리스트 모드, Web Speech API 기반 원어민 TTS 음성 코칭, 한글 자모 및 영문 입력 포커스가 100% 유지되는 실시간 IME 검색 최적화 (부담 없는 학습을 위해 '외웠어요' 버튼 제거 완료)
+   * `Tab Renderers`: 13개 탭 동적 렌더링 (`renderOverviewTab`, `renderContestTab`, `renderEnglishTab`, `renderKnouTab`, `renderEnergyTab`, `renderBandTab`, `renderSnsTab` 등)
+   * `Contest Features`: 문학·아이디어 공모전 출품작 아카이브, 상세 보기 및 원문 텍스트 뷰어 모달, 파일 공유 연동 준비, 3대 서브탭(출품 이력 / 아이디어 뱅크 / 템플릿 가이드), 관리자 출품작 등록·수정, IME 안전 실시간 검색
+   * `English Features`: 5~10분 데일리 팟캐스트 오디오 플레이어(대본 타임라인·배속·15초 스킵), Daily Focus 5선, 플립 퀴즈 모드 & 전체 리스트 모드, Web Speech API 기반 원어민 TTS 음성 코칭, 한글 자모 및 영문 입력 포커스가 100% 유지되는 실시간 IME 검색 최적화
    * `window.app`: 전역 이벤트 핸들러 및 모달 제어 API
 
 ---

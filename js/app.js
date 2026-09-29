@@ -28,7 +28,8 @@
     INITIAL_EXTERNAL_DASHBOARDS,
     INITIAL_INBODY_DATA,
     INITIAL_KNOU_DATA,
-    INITIAL_ENGLISH_DATA
+    INITIAL_ENGLISH_DATA,
+    INITIAL_CONTEST_DATA
   } = window;
 
 // =========================================================================
@@ -97,9 +98,13 @@ class SyncManager {
         const upgradedEnglish = (parsed.english && parsed.english.englishDataVersion === 1)
           ? parsed.english
           : JSON.parse(JSON.stringify(INITIAL_ENGLISH_DATA));
+        const upgradedContest = (parsed.contest && parsed.contest.contestDataVersion === 1)
+          ? parsed.contest
+          : JSON.parse(JSON.stringify(INITIAL_CONTEST_DATA));
         parsed.inbody = upgradedInbody;
         parsed.knou = upgradedKnou;
         parsed.english = upgradedEnglish;
+        parsed.contest = upgradedContest;
         localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
 
         return {
@@ -116,6 +121,7 @@ class SyncManager {
           inbody: upgradedInbody,
           knou: upgradedKnou,
           english: upgradedEnglish,
+          contest: upgradedContest,
           theme: parsed.theme || 'dark'
         };
       }
@@ -137,6 +143,7 @@ class SyncManager {
       inbody: INITIAL_INBODY_DATA,
       knou: INITIAL_KNOU_DATA,
       english: INITIAL_ENGLISH_DATA,
+      contest: INITIAL_CONTEST_DATA,
       theme: 'dark'
     };
   }
@@ -372,9 +379,10 @@ const TAB_CATEGORIES = [
 ];
 
 const TAB_REGISTRY = [
-  // 1. 커리어 패스 관리 (6개)
+  // 1. 커리어 패스 관리 (7개)
   { id: 'english', name: '데일리 영문법 브리핑', shortName: '영문법', icon: 'fa-language', color: 'text-teal-400', badge: '409교정', badgeClass: 'bg-teal-500/20 text-teal-300', category: 'career', categoryName: '커리어 패스 관리' },
   { id: 'knou', name: '방통대 사회복지 학점', shortName: '방통대 학점', icon: 'fa-user-graduate', color: 'text-indigo-400', badge: '9과목', badgeClass: 'bg-indigo-500/20 text-indigo-300', category: 'career', categoryName: '커리어 패스 관리' },
+  { id: 'contest', name: '공모전 & 아이디어', shortName: '공모전', icon: 'fa-lightbulb', color: 'text-amber-400', badge: '문학·기획', badgeClass: 'bg-amber-500/20 text-amber-300', category: 'career', categoryName: '커리어 패스 관리' },
   { id: 'energy', name: '에너지관리기사', shortName: '에너지', icon: 'fa-graduation-cap', color: 'text-amber-300', badge: 'D-40', badgeClass: 'bg-sky-500/20 text-sky-300', category: 'career', categoryName: '커리어 패스 관리' },
   { id: 'exam', name: '시험 및 학사 일정', shortName: '일정', icon: 'fa-calendar-days', color: 'text-blue-400', badge: null, badgeClass: '', category: 'career', categoryName: '커리어 패스 관리' },
   { id: 'careers', name: '주요 경력 & TF', shortName: '경력', icon: 'fa-briefcase', color: 'text-emerald-400', badge: '15건', badgeClass: 'bg-emerald-500/20 text-emerald-400', isPortfolio: true, category: 'career', categoryName: '커리어 패스 관리' },
@@ -943,6 +951,12 @@ let state = {
   knouFilter: 'all', // 'all', 'in_progress', 'completed'
   knouSimScores: {}, // { [courseId]: { midterm: number, final: number } }
   english: INITIAL_ENGLISH_DATA,
+  contest: INITIAL_CONTEST_DATA,
+  contestCategoryFilter: 'all',
+  contestStatusFilter: 'all',
+  contestSearch: '',
+  contestActiveSubtab: 'archive', // 'archive' | 'ideabank' | 'templates'
+  selectedContestId: null,
   englishFilter: 'all', // 'all', 'noun', 'phrasing', 'prep', 'infinitive', 'tense', 'participle'
   englishMode: 'quiz', // 'quiz' | 'list'
   englishDailyOffset: 0,
@@ -1271,6 +1285,7 @@ function persistState() {
     portfolio: state.portfolio,
     knou: state.knou,
     english: state.english,
+    contest: state.contest,
     theme: state.theme
   });
 }
@@ -1339,6 +1354,9 @@ function renderCurrentTab() {
       break;
     case 'knou':
       renderKnouTab();
+      break;
+    case 'contest':
+      renderContestTab();
       break;
     case 'exam':
       renderExamTab();
@@ -3695,6 +3713,773 @@ function handlePodcastSeekClick(e) {
     seekPodcast(ratio);
   }
 }
+
+// ==========================================================================
+// 5-CONTEST. 공모전 출품 이력 & 문학·아이디어 창작 아카이브 탭 (신규 ⭐)
+// ==========================================================================
+function renderContestTab() {
+  const container = document.getElementById('tab-content-contest');
+  if (!container) return;
+
+  const cData = state.contest || INITIAL_CONTEST_DATA;
+  const entries = cData.entries || [];
+  const subtab = state.contestActiveSubtab || 'archive';
+
+  // Statistics calculation
+  const totalEntries = entries.length;
+  const litCount = entries.filter(e => e.category === 'literature').length;
+  const ideaCount = entries.filter(e => e.category === 'idea' || e.category === 'policy' || e.category === 'naming').length;
+  const awardedCount = entries.filter(e => e.status === 'awarded').length;
+
+  container.innerHTML = `
+    <div class="space-y-6">
+
+      <!-- 1. Header Hero Banner -->
+      <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-amber-500/30 bg-gradient-to-br from-slate-900 via-amber-950/20 to-slate-900 shadow-2xl relative overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 relative z-10">
+          <div>
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-black border border-amber-500/30 flex items-center gap-1.5 shadow-sm">
+                <i class="fa-solid fa-trophy"></i> 공모전 출품 & 문학·아이디어 아카이브
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700">
+                총 ${totalEntries}건 누적 관리
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-black border border-emerald-500/30">
+                수상 ${awardedCount}건 달성
+              </span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-3">
+              <i class="fa-solid fa-lightbulb text-amber-400"></i>
+              공모전 출품 & 문학·아이디어 아카이브
+            </h1>
+            <p class="text-xs sm:text-sm text-slate-300 mt-2 max-w-3xl leading-relaxed">
+              다양한 <b>문학(산문·수필·소설)</b> 및 <b>아이디어·기획 제안 공모전</b>의 출품 이력을 체계적으로 관리하고, 핵심 시놉시스와 원문을 축적하여 추후 공모전 작성 및 파일 공유 시 즉시 활용할 수 있는 통합 창작 허브입니다.
+            </p>
+          </div>
+
+          <!-- Action Buttons (Add Contest / Quick Notes) -->
+          <div class="flex flex-wrap items-center gap-2.5 self-start lg:self-auto">
+            <button onclick="window.app.openAddContestModal()" class="admin-only px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs transition cursor-pointer flex items-center gap-2 shadow-lg shadow-amber-500/20">
+              <i class="fa-solid fa-plus"></i>
+              <span>새 출품작 등록</span>
+            </button>
+            <button onclick="window.app.openAddIdeaModal()" class="admin-only px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition cursor-pointer flex items-center gap-1.5 border border-slate-700">
+              <i class="fa-solid fa-pen-nib text-amber-400"></i>
+              <span>아이디어 메모</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. KPI Summary Cards (4 Grid) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="glass-panel rounded-2xl p-5 border border-amber-500/30 bg-gradient-to-br from-slate-900 to-amber-950/20 shadow-lg">
+          <div class="flex items-center justify-between text-slate-400 text-xs mb-2">
+            <span class="font-bold">총 공모전 출품 이력</span>
+            <span class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm">
+              <i class="fa-solid fa-folder-open"></i>
+            </span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-black text-white font-mono">${totalEntries}</span>
+            <span class="text-sm font-bold text-slate-400">건 등록</span>
+          </div>
+          <div class="mt-2 text-[11px] text-slate-400 flex items-center justify-between border-t border-slate-800/80 pt-2">
+            <span>원문 및 파일 연동</span>
+            <span class="text-amber-300 font-bold">100% 아카이빙</span>
+          </div>
+        </div>
+
+        <div class="glass-panel rounded-2xl p-5 border border-purple-500/30 bg-gradient-to-br from-slate-900 to-purple-950/20 shadow-lg">
+          <div class="flex items-center justify-between text-slate-400 text-xs mb-2">
+            <span class="font-bold">문학·문예 공모전</span>
+            <span class="w-8 h-8 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-sm">
+              <i class="fa-solid fa-book-open"></i>
+            </span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-black text-purple-300 font-mono">${litCount}</span>
+            <span class="text-xs text-purple-400 font-bold">건 (산문·수필·소설)</span>
+          </div>
+          <div class="mt-2 text-[11px] text-slate-400 flex items-center justify-between border-t border-slate-800/80 pt-2">
+            <span>최고 실적</span>
+            <span class="text-slate-300 font-bold">국회 국방위원장상 대상</span>
+          </div>
+        </div>
+
+        <div class="glass-panel rounded-2xl p-5 border border-sky-500/30 bg-gradient-to-br from-slate-900 to-sky-950/20 shadow-lg">
+          <div class="flex items-center justify-between text-slate-400 text-xs mb-2">
+            <span class="font-bold">아이디어·기획 제안</span>
+            <span class="w-8 h-8 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-sm">
+              <i class="fa-solid fa-lightbulb"></i>
+            </span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-black text-sky-300 font-mono">${ideaCount}</span>
+            <span class="text-xs text-sky-400 font-bold">건 (정책·공공·기술)</span>
+          </div>
+          <div class="mt-2 text-[11px] text-slate-400 flex items-center justify-between border-t border-slate-800/80 pt-2">
+            <span>주요 성과</span>
+            <span class="text-slate-300 font-bold">화성시 청년분과장 위촉</span>
+          </div>
+        </div>
+
+        <div class="glass-panel rounded-2xl p-5 border border-emerald-500/30 bg-gradient-to-br from-slate-900 to-emerald-950/20 shadow-lg">
+          <div class="flex items-center justify-between text-slate-400 text-xs mb-2">
+            <span class="font-bold">수상 및 우수 채택</span>
+            <span class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm">
+              <i class="fa-solid fa-award"></i>
+            </span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-black text-emerald-300 font-mono">${awardedCount}</span>
+            <span class="text-xs text-emerald-400 font-bold">건 선정</span>
+          </div>
+          <div class="mt-2 text-[11px] text-slate-400 flex items-center justify-between border-t border-slate-800/80 pt-2">
+            <span>수상률</span>
+            <span class="text-emerald-300 font-bold">${totalEntries > 0 ? Math.round((awardedCount / totalEntries) * 100) : 0}% 성취</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Subtab Navigation Buttons (Archive / Idea Bank / Templates) -->
+      <div class="flex flex-wrap items-center gap-2 border-b border-slate-800 pb-3">
+        <button onclick="window.app.setContestSubtab('archive')" class="px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-2 ${subtab === 'archive' ? 'bg-amber-500 text-slate-950 shadow-md font-black' : 'bg-slate-800 text-slate-400 hover:text-white'}">
+          <i class="fa-solid fa-box-archive"></i>
+          <span>출품 이력 & 아카이브 (${totalEntries})</span>
+        </button>
+        <button onclick="window.app.setContestSubtab('ideabank')" class="px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-2 ${subtab === 'ideabank' ? 'bg-amber-500 text-slate-950 shadow-md font-black' : 'bg-slate-800 text-slate-400 hover:text-white'}">
+          <i class="fa-solid fa-lightbulb"></i>
+          <span>창작 아이디어 뱅크 & 영감 노트</span>
+        </button>
+        <button onclick="window.app.setContestSubtab('templates')" class="px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-2 ${subtab === 'templates' ? 'bg-amber-500 text-slate-950 shadow-md font-black' : 'bg-slate-800 text-slate-400 hover:text-white'}">
+          <i class="fa-solid fa-file-pen"></i>
+          <span>공모전 작성 가이드 & 템플릿</span>
+        </button>
+      </div>
+
+      <!-- 4. Subtab Main Content Container -->
+      <div id="contest-subtab-container"></div>
+
+    </div>
+  `;
+
+  renderContestSubtabContent();
+}
+
+// --------------------------------------------------------------------------
+// Subtab Content Switcher
+// --------------------------------------------------------------------------
+function renderContestSubtabContent() {
+  const container = document.getElementById('contest-subtab-container');
+  if (!container) return;
+
+  const subtab = state.contestActiveSubtab || 'archive';
+
+  if (subtab === 'archive') {
+    container.innerHTML = `
+      <div class="space-y-4">
+        <!-- Toolbar: Category chips, Status pills, and Search Bar -->
+        <div id="contest-toolbar-container"></div>
+
+        <!-- Cards Content Area (IME-Safe Partial Rendering) -->
+        <div id="contest-content-area"></div>
+      </div>
+    `;
+    renderContestToolbar();
+    renderContestCardsArea();
+  } else if (subtab === 'ideabank') {
+    renderContestIdeaBank();
+  } else if (subtab === 'templates') {
+    renderContestTemplates();
+  }
+}
+
+// --------------------------------------------------------------------------
+// Sub-Renderer: Toolbar (Categories, Statuses, Search)
+// --------------------------------------------------------------------------
+function renderContestToolbar() {
+  const container = document.getElementById('contest-toolbar-container');
+  if (!container) return;
+
+  const cData = state.contest || INITIAL_CONTEST_DATA;
+  const catFilter = state.contestCategoryFilter || 'all';
+  const statusFilter = state.contestStatusFilter || 'all';
+
+  container.innerHTML = `
+    <div class="glass-panel rounded-2xl p-5 border border-slate-800 bg-slate-900/70 space-y-4">
+      <!-- Top Row: Status Pills & Search Bar -->
+      <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+        <!-- Status Filter Pills -->
+        <div class="flex flex-wrap items-center gap-1.5 bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs">
+          ${cData.statuses.map(st => {
+            const isActive = statusFilter === st.id;
+            return `
+              <button onclick="window.app.setContestStatusFilter('${st.id}')" class="status-pill px-3 py-1.5 rounded-lg font-bold transition cursor-pointer ${isActive ? 'bg-amber-500 text-slate-950 shadow-sm font-black' : 'text-slate-400 hover:text-white'}">
+                ${st.name}
+              </button>
+            `;
+          }).join('')}
+        </div>
+
+        <!-- Instant Search Bar (IME Safe, Focus Preserved) -->
+        <div class="relative w-full md:w-80">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+          <input type="text" id="input-contest-search" placeholder="공모전명, 작품 제목, 기관, 키워드 검색..." value="${state.contestSearch || ''}" oninput="window.app.handleContestSearchInput(this.value)" class="w-full bg-slate-950 border border-slate-700 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:border-amber-400 outline-none">
+        </div>
+      </div>
+
+      <!-- Bottom Row: Category Chips -->
+      <div id="contest-category-chips" class="flex flex-wrap items-center gap-1.5 text-xs pt-1 border-t border-slate-800/80">
+        ${cData.categories.map(cat => {
+          const isActive = catFilter === cat.id;
+          return `
+            <button onclick="window.app.setContestCategoryFilter('${cat.id}')" data-cat-id="${cat.id}" class="cat-chip px-3 py-1.5 rounded-xl font-bold transition cursor-pointer flex items-center gap-1.5 ${isActive ? 'bg-amber-500 text-slate-950 shadow-md font-black' : 'bg-slate-800/80 text-slate-400 hover:text-white hover:bg-slate-800'}">
+              <i class="fa-solid ${cat.icon} text-[10px]"></i>
+              <span>${cat.name}</span>
+            </button>
+          `;
+        }).join('')}
+      </div>
+    </div>
+  `;
+}
+
+// --------------------------------------------------------------------------
+// Sub-Renderer: Contest Cards Grid (IME-Safe Partial Rendering)
+// --------------------------------------------------------------------------
+function renderContestCardsArea() {
+  const container = document.getElementById('contest-content-area');
+  if (!container) return;
+
+  const cData = state.contest || INITIAL_CONTEST_DATA;
+  const entries = cData.entries || [];
+  const catFilter = state.contestCategoryFilter || 'all';
+  const statusFilter = state.contestStatusFilter || 'all';
+  const query = (state.contestSearch || '').trim().toLowerCase();
+
+  const filtered = entries.filter(item => {
+    const matchCat = catFilter === 'all' || item.category === catFilter;
+    const matchStatus = statusFilter === 'all' || item.status === statusFilter;
+    const matchQ = !query || 
+      (item.title && item.title.toLowerCase().includes(query)) ||
+      (item.pieceTitle && item.pieceTitle.toLowerCase().includes(query)) ||
+      (item.organization && item.organization.toLowerCase().includes(query)) ||
+      (item.synopsis && item.synopsis.toLowerCase().includes(query)) ||
+      (item.tags && item.tags.some(t => t.toLowerCase().includes(query)));
+    return matchCat && matchStatus && matchQ;
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div class="glass-panel rounded-2xl p-12 text-center border border-slate-800 bg-slate-900/40">
+        <i class="fa-solid fa-magnifying-glass text-3xl text-slate-600 mb-3"></i>
+        <h3 class="text-sm font-bold text-slate-300 mb-1">검색 조건에 맞는 공모전 출품작이 없습니다</h3>
+        <p class="text-xs text-slate-500">다른 검색어를 입력하시거나 카테고리/상태 필터를 변경해 보세요.</p>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = `
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      ${filtered.map(item => {
+        const isAwarded = item.status === 'awarded';
+        const isReviewing = item.status === 'reviewing';
+        const isDraft = item.status === 'draft';
+
+        return `
+          <div class="glass-panel rounded-2xl p-5 border ${isAwarded ? 'border-amber-500/40 hover:border-amber-400' : 'border-slate-800 hover:border-slate-700'} bg-slate-900/80 flex flex-col justify-between transition shadow-md group">
+            <div>
+              <!-- Top Badges -->
+              <div class="flex items-center justify-between gap-2 mb-3">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-amber-300 border border-amber-500/30">
+                    ${item.categoryName || '공모전'}
+                  </span>
+                  <span class="text-[10px] font-mono text-slate-400 px-2 py-0.5 rounded-full bg-slate-950 border border-slate-800">
+                    ${item.submissionDate || '-'}
+                  </span>
+                </div>
+                <span class="text-xs font-bold px-2.5 py-0.5 rounded-full ${item.badgeClass || 'bg-slate-800 text-slate-300'}">
+                  ${item.badge || item.result || '출품 완료'}
+                </span>
+              </div>
+
+              <!-- Contest Title & Piece Title -->
+              <div class="mb-3">
+                <span class="text-xs text-slate-400 font-medium block">
+                  ${item.organization} · ${item.title}
+                </span>
+                <h3 class="text-base font-black text-white mt-1 group-hover:text-amber-300 transition leading-snug">
+                  ${item.pieceTitle}
+                </h3>
+              </div>
+
+              <!-- Synopsis -->
+              <p class="text-xs text-slate-300 line-clamp-3 leading-relaxed mb-3 bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                ${item.synopsis || '상세 시놉시스가 등록되지 않았습니다.'}
+              </p>
+
+              <!-- Core Concept / Highlights -->
+              ${item.coreConcept ? `
+                <div class="text-[11px] text-amber-200/90 mb-3 flex items-start gap-1.5">
+                  <i class="fa-solid fa-star text-amber-400 text-xs mt-0.5 flex-shrink-0"></i>
+                  <span><b>핵심 콘셉트:</b> ${item.coreConcept}</span>
+                </div>
+              ` : ''}
+
+              <!-- Tags -->
+              ${item.tags && item.tags.length > 0 ? `
+                <div class="flex flex-wrap gap-1 mb-3">
+                  ${item.tags.map(t => `<span class="text-[10px] text-slate-400 bg-slate-800/70 px-2 py-0.5 rounded-md font-mono">${t}</span>`).join('')}
+                </div>
+              ` : ''}
+
+              <!-- File Indicator -->
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                  <i class="fa-solid fa-file-lines text-amber-400 text-sm"></i>
+                  <div>
+                    <span class="text-slate-200 font-medium text-[11px] block truncate max-w-[180px] sm:max-w-xs">
+                      ${item.fileName || '출품원문 및 기획서 파일'}
+                    </span>
+                    <span class="text-[10px] text-slate-500 font-mono">
+                      ${item.fileSize || '파일 연결 대기중'} · 추후 원문 즉시 열람 지원
+                    </span>
+                  </div>
+                </div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 font-bold border border-amber-500/20">
+                  아카이빙 완료
+                </span>
+              </div>
+            </div>
+
+            <!-- Card Bottom Action Toolbar -->
+            <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
+              <button onclick="window.app.openContestDetailModal('${item.id}')" class="px-3 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 font-bold transition cursor-pointer flex items-center gap-1.5 border border-amber-500/30">
+                <i class="fa-solid fa-book-open-reader"></i>
+                <span>상세 보기 & 원문 열람</span>
+              </button>
+
+              <div class="flex items-center gap-1.5 admin-only">
+                <button onclick="window.app.openEditContestModal('${item.id}')" class="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition" title="수정">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                <button onclick="window.app.deleteContest('${item.id}')" class="p-1.5 text-slate-400 hover:text-rose-400 rounded-lg hover:bg-slate-800 transition" title="삭제">
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+}
+
+// --------------------------------------------------------------------------
+// Sub-Renderer: Idea Bank & Inspiration Notes
+// --------------------------------------------------------------------------
+function renderContestIdeaBank() {
+  const container = document.getElementById('contest-subtab-container');
+  if (!container) return;
+
+  const cData = state.contest || INITIAL_CONTEST_DATA;
+  const guide = cData.writingGuide || {};
+  const notes = guide.ideaNotes || [];
+
+  container.innerHTML = `
+    <div class="space-y-6 animate-fade-in">
+      <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-slate-800 bg-slate-900/60">
+        <div class="flex items-center justify-between mb-4 border-b border-slate-800 pb-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-brain"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-white text-base">
+                창작 아이디어 뱅크 & 영감 노트 (Inspiration Vault)
+              </h3>
+              <p class="text-xs text-slate-400 mt-0.5">
+                일상, 전공(산업공학·사회복지), 밴드 음악 활동에서 떠오른 기획 아이디어 및 문학 소재 메모장
+              </p>
+            </div>
+          </div>
+          <button onclick="window.app.openAddIdeaModal()" class="admin-only px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition cursor-pointer flex items-center gap-1.5">
+            <i class="fa-solid fa-plus"></i>
+            <span>새 아이디어 기록</span>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          ${notes.map((n, idx) => `
+            <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 hover:border-amber-500/40 transition flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-800 text-amber-300">
+                    ${n.category === 'literature' ? '문학 소재' : '기획 아이디어'}
+                  </span>
+                  <span class="text-[10px] text-slate-500 font-mono">${n.date || '2026'}</span>
+                </div>
+                <h4 class="text-xs sm:text-sm font-bold text-white mb-2 leading-snug">
+                  ${n.title}
+                </h4>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  ${n.note}
+                </p>
+              </div>
+              <div class="mt-3 pt-2.5 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+                <span>차기 공모전 연계 가능</span>
+                <button onclick="window.app.copyContestContent('${n.title} - ${n.note.replace(/'/g, "\'")}')" class="hover:text-amber-300 transition cursor-pointer flex items-center gap-1">
+                  <i class="fa-solid fa-copy"></i> 복사
+                </button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// --------------------------------------------------------------------------
+// Sub-Renderer: Templates & Writing Guide
+// --------------------------------------------------------------------------
+function renderContestTemplates() {
+  const container = document.getElementById('contest-subtab-container');
+  if (!container) return;
+
+  const cData = state.contest || INITIAL_CONTEST_DATA;
+  const guide = cData.writingGuide || {};
+  const litTips = guide.literatureTips || [];
+  const framework = guide.ideaFramework || [];
+
+  container.innerHTML = `
+    <div class="space-y-6 animate-fade-in">
+      <!-- 1. Literature Writing Guide -->
+      <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-slate-800 bg-slate-900/60 space-y-4">
+        <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+          <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-feather-pointed"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-white text-base">
+              문학(산문·수필·소설) 공모전 당선 가이드 & 심사 포인트
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">
+              독자의 마음을 울리는 진정성 있는 문장 구성과 심사위원 관점의 체크포인트
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          ${litTips.map(tip => `
+            <div class="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 text-xs">
+              <h4 class="font-black text-purple-300 text-sm mb-1.5">
+                ${tip.title}
+              </h4>
+              <p class="text-slate-300 leading-relaxed text-[11px]">
+                ${tip.desc}
+              </p>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <!-- 2. Idea Proposal 5-Step Logic Framework -->
+      <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-slate-800 bg-slate-900/60 space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-sitemap"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-white text-base">
+                기획·아이디어 공모전 표준 5단계 논리 프레임워크
+              </h3>
+              <p class="text-xs text-slate-400 mt-0.5">
+                심사위원을 설득하는 문제 정의부터 기대 효과까지의 완결형 구조
+              </p>
+            </div>
+          </div>
+          <button onclick="window.app.copyContestFrameworkTemplate()" class="px-3.5 py-1.5 rounded-xl bg-sky-500/10 hover:bg-sky-500/20 text-sky-300 border border-sky-500/30 text-xs font-bold transition cursor-pointer flex items-center gap-1.5">
+            <i class="fa-solid fa-copy"></i>
+            <span>5단계 템플릿 복사</span>
+          </button>
+        </div>
+
+        <div class="space-y-3">
+          ${framework.map((f, i) => `
+            <div class="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+              <div class="flex items-start sm:items-center gap-3">
+                <span class="w-8 h-8 rounded-xl bg-sky-500/20 text-sky-300 font-mono font-black flex items-center justify-center text-xs flex-shrink-0">
+                  ${i + 1}
+                </span>
+                <div>
+                  <h4 class="font-bold text-white text-xs sm:text-sm">
+                    ${f.title}
+                  </h4>
+                  <p class="text-[11px] text-slate-300 mt-0.5 leading-relaxed">
+                    ${f.desc}
+                  </p>
+                </div>
+              </div>
+              <span class="text-[10px] font-mono text-slate-500 uppercase px-2 py-0.5 rounded bg-slate-900 border border-slate-800 whitespace-nowrap">
+                ${f.step}
+              </span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// --------------------------------------------------------------------------
+// Contest Handlers & Modal Controllers
+// --------------------------------------------------------------------------
+function setContestSubtab(subtab) {
+  state.contestActiveSubtab = subtab;
+  renderContestTab();
+}
+
+function setContestCategoryFilter(catId) {
+  state.contestCategoryFilter = catId;
+  const chips = document.querySelectorAll('#contest-category-chips .cat-chip');
+  chips.forEach(chip => {
+    const id = chip.getAttribute('data-cat-id');
+    if (id === catId) {
+      chip.className = 'cat-chip px-3 py-1.5 rounded-xl font-bold transition cursor-pointer flex items-center gap-1.5 bg-amber-500 text-slate-950 shadow-md font-black';
+    } else {
+      chip.className = 'cat-chip px-3 py-1.5 rounded-xl font-bold transition cursor-pointer flex items-center gap-1.5 bg-slate-800/80 text-slate-400 hover:text-white hover:bg-slate-800';
+    }
+  });
+  renderContestCardsArea();
+}
+
+function setContestStatusFilter(statusId) {
+  state.contestStatusFilter = statusId;
+  renderContestToolbar();
+  renderContestCardsArea();
+}
+
+function handleContestSearchInput(val) {
+  state.contestSearch = val;
+  renderContestCardsArea();
+}
+
+function openContestDetailModal(id) {
+  const cData = state.contest || INITIAL_CONTEST_DATA;
+  const entries = cData.entries || [];
+  const item = entries.find(e => e.id === id);
+  if (!item) return;
+
+  const modal = document.getElementById('modal-contest-detail');
+  if (!modal) return;
+
+  document.getElementById('contest-detail-title').innerText = item.pieceTitle || item.title;
+  document.getElementById('contest-detail-org').innerText = `${item.organization} · ${item.title}`;
+  document.getElementById('contest-detail-date').innerText = item.submissionDate || '-';
+  document.getElementById('contest-detail-badge').innerText = item.badge || item.result || '출품 완료';
+  document.getElementById('contest-detail-category').innerText = item.categoryName || '공모전';
+  document.getElementById('contest-detail-synopsis').innerText = item.synopsis || '-';
+  document.getElementById('contest-detail-concept').innerText = item.coreConcept || '-';
+  document.getElementById('contest-detail-future').innerText = item.futureUsage || '-';
+  document.getElementById('contest-detail-filename').innerText = item.fileName || '출품원문_파일.pdf';
+  document.getElementById('contest-detail-filesize').innerText = item.fileSize || '-';
+  
+  const contentEl = document.getElementById('contest-detail-content');
+  if (contentEl) {
+    contentEl.value = item.fullContent || '등록된 원문 내용이 없습니다.';
+  }
+
+  modal.classList.remove('hidden');
+}
+
+function openAddContestModal() {
+  if (!checkAdminPermission('새 공모전 출품작 등록')) return;
+  const form = document.getElementById('form-contest-edit');
+  if (form) form.reset();
+  document.getElementById('contest-edit-id').value = '';
+  document.getElementById('modal-contest-edit-title').innerText = '새 공모전 출품작 등록';
+  const modal = document.getElementById('modal-contest-edit');
+  if (modal) modal.classList.remove('hidden');
+}
+
+function openEditContestModal(id) {
+  if (!checkAdminPermission('공모전 출품작 수정')) return;
+  const cData = state.contest || INITIAL_CONTEST_DATA;
+  const entries = cData.entries || [];
+  const item = entries.find(e => e.id === id);
+  if (!item) return;
+
+  document.getElementById('contest-edit-id').value = item.id;
+  document.getElementById('contest-edit-title').value = item.title || '';
+  document.getElementById('contest-edit-piecetitle').value = item.pieceTitle || '';
+  document.getElementById('contest-edit-category').value = item.category || 'literature';
+  document.getElementById('contest-edit-org').value = item.organization || '';
+  document.getElementById('contest-edit-date').value = item.submissionDate || '';
+  document.getElementById('contest-edit-status').value = item.status || 'submitted';
+  document.getElementById('contest-edit-result').value = item.result || '';
+  document.getElementById('contest-edit-synopsis').value = item.synopsis || '';
+  document.getElementById('contest-edit-concept').value = item.coreConcept || '';
+  document.getElementById('contest-edit-content').value = item.fullContent || '';
+  document.getElementById('contest-edit-future').value = item.futureUsage || '';
+  document.getElementById('contest-edit-filename').value = item.fileName || '';
+  document.getElementById('contest-edit-tags').value = (item.tags || []).join(', ');
+
+  document.getElementById('modal-contest-edit-title').innerText = '공모전 출품작 정보 수정';
+  const modal = document.getElementById('modal-contest-edit');
+  if (modal) modal.classList.remove('hidden');
+}
+
+function saveContest(e) {
+  if (e) e.preventDefault();
+  if (!checkAdminPermission('공모전 출품작 저장')) return;
+
+  const id = document.getElementById('contest-edit-id').value || `contest-${Date.now()}`;
+  const title = document.getElementById('contest-edit-title').value.trim();
+  const pieceTitle = document.getElementById('contest-edit-piecetitle').value.trim();
+  const category = document.getElementById('contest-edit-category').value;
+  const organization = document.getElementById('contest-edit-org').value.trim();
+  const submissionDate = document.getElementById('contest-edit-date').value.trim();
+  const status = document.getElementById('contest-edit-status').value;
+  const result = document.getElementById('contest-edit-result').value.trim();
+  const synopsis = document.getElementById('contest-edit-synopsis').value.trim();
+  const coreConcept = document.getElementById('contest-edit-concept').value.trim();
+  const fullContent = document.getElementById('contest-edit-content').value.trim();
+  const futureUsage = document.getElementById('contest-edit-future').value.trim();
+  const fileName = document.getElementById('contest-edit-filename').value.trim();
+  const tagsStr = document.getElementById('contest-edit-tags').value.trim();
+  const tags = tagsStr ? tagsStr.split(',').map(t => t.trim().startsWith('#') ? t.trim() : `#${t.trim()}`) : [];
+
+  const categoryNames = {
+    literature: '문학·산문/수필',
+    idea: '아이디어·혁신기획',
+    policy: '정책·공공제안',
+    naming: '슬로건·네이밍'
+  };
+
+  const badgeClasses = {
+    awarded: 'bg-amber-500/20 text-amber-300 border border-amber-500/30',
+    reviewing: 'bg-blue-500/20 text-blue-300 border border-blue-500/30',
+    submitted: 'bg-slate-800 text-slate-300 border border-slate-700',
+    draft: 'bg-purple-500/20 text-purple-300 border border-purple-500/30'
+  };
+
+  const newEntry = {
+    id,
+    title,
+    pieceTitle: pieceTitle || title,
+    category,
+    categoryName: categoryNames[category] || '공모전',
+    organization,
+    submissionDate,
+    status,
+    result: result || (status === 'awarded' ? '우수상' : status === 'reviewing' ? '심사 진행 중' : '출품 완료'),
+    badge: result || (status === 'awarded' ? '🏆 수상작' : status === 'reviewing' ? '⏳ 심사 중' : '📤 출품 완료'),
+    badgeClass: badgeClasses[status] || 'bg-slate-800 text-slate-300',
+    synopsis,
+    coreConcept,
+    fullContent,
+    futureUsage,
+    tags,
+    fileName: fileName || '공모전_출품서_원문.pdf',
+    fileSize: '500 KB'
+  };
+
+  if (!state.contest) state.contest = JSON.parse(JSON.stringify(INITIAL_CONTEST_DATA));
+  if (!state.contest.entries) state.contest.entries = [];
+
+  const existingIdx = state.contest.entries.findIndex(it => it.id === id);
+  if (existingIdx >= 0) {
+    state.contest.entries[existingIdx] = newEntry;
+    showToast('✅ 공모전 출품작 정보가 수정되었습니다.');
+  } else {
+    state.contest.entries.unshift(newEntry);
+    showToast('🎉 새 공모전 출품작이 등록되었습니다!');
+  }
+
+  persistState();
+  window.app.closeAllModals();
+  renderContestTab();
+}
+
+function deleteContest(id) {
+  if (!checkAdminPermission('공모전 출품작 삭제')) return;
+  if (!confirm('정말 이 공모전 출품작을 삭제하시겠습니까?')) return;
+
+  if (state.contest && state.contest.entries) {
+    state.contest.entries = state.contest.entries.filter(e => e.id !== id);
+    persistState();
+    renderContestTab();
+    showToast('공모전 출품작이 삭제되었습니다.');
+  }
+}
+
+function copyContestContent(text) {
+  if (!text) {
+    const el = document.getElementById('contest-detail-content');
+    if (el) text = el.value;
+  }
+  if (navigator.clipboard && text) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('📋 내용이 클립보드에 복사되었습니다!');
+    }).catch(() => {
+      showToast('내용 복사에 실패했습니다.');
+    });
+  } else {
+    showToast('클립보드 API를 지원하지 않습니다.');
+  }
+}
+
+function copyContestFrameworkTemplate() {
+  const tmpl = `[공모전 기획서 표준 5단계 프레임워크]
+1. 제안 배경 및 문제 정의 (Problem):
+- 현장의 명확한 페인포인트 및 정량적 근거 제시
+
+2. 핵심 착안점 및 인사이트 (Insight):
+- 기존 방식과의 차별점 및 발상의 전환
+
+3. 세부 실행 솔루션 (Solution):
+- 핵심 기능 3가지 및 서비스 프로세스 설계
+
+4. 추진 일정 및 실현 가능성 (Feasibility):
+- 예산 조달 및 단계별 3개년 로드맵
+
+5. 기대 효과 및 파급력 (Impact):
+- 정량적 성과 및 ESG/사회적 가치 창출 방안`;
+  copyContestContent(tmpl);
+}
+
+function openAddIdeaModal() {
+  if (!checkAdminPermission('새 아이디어 기록')) return;
+  const title = prompt('떠오른 아이디어 또는 문학적 소재 제목을 입력하세요:');
+  if (!title) return;
+  const note = prompt('아이디어 세부 메모 또는 줄거리를 입력하세요:');
+  if (!note) return;
+
+  if (!state.contest) state.contest = JSON.parse(JSON.stringify(INITIAL_CONTEST_DATA));
+  if (!state.contest.writingGuide) state.contest.writingGuide = {};
+  if (!state.contest.writingGuide.ideaNotes) state.contest.writingGuide.ideaNotes = [];
+
+  state.contest.writingGuide.ideaNotes.unshift({
+    title,
+    category: 'idea',
+    note,
+    date: new Date().toISOString().slice(0, 7).replace('-', '.')
+  });
+
+  persistState();
+  renderContestTab();
+  showToast('💡 새 아이디어 메모가 저장되었습니다!');
+}
+
 // ==========================================================================
 // 5-KNOU. 방송통신대학교 사회복지학과 학점 & 수강 관리 탭
 // ==========================================================================
@@ -7175,6 +7960,19 @@ window.app = {
   randomEnglishDaily: () => randomEnglishDaily(),
   toggleEnglishFlip: (id) => toggleEnglishFlip(id),
   speakEnglish: (txt) => speakEnglish(txt),
+  // Contest & Creative Archive Handlers (공모전)
+  setContestSubtab: (s) => setContestSubtab(s),
+  setContestCategoryFilter: (c) => setContestCategoryFilter(c),
+  setContestStatusFilter: (st) => setContestStatusFilter(st),
+  handleContestSearchInput: (q) => handleContestSearchInput(q),
+  openContestDetailModal: (id) => openContestDetailModal(id),
+  openAddContestModal: () => openAddContestModal(),
+  openEditContestModal: (id) => openEditContestModal(id),
+  saveContest: (e) => saveContest(e),
+  deleteContest: (id) => deleteContest(id),
+  copyContestContent: (txt) => copyContestContent(txt),
+  copyContestFrameworkTemplate: () => copyContestFrameworkTemplate(),
+  openAddIdeaModal: () => openAddIdeaModal(),
   // Podcast Audio Engine Handlers
   togglePodcastPlay: () => togglePodcastPlay(),
   pausePodcast: () => pausePodcast(),
