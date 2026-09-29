@@ -5984,6 +5984,3826 @@ const INITIAL_KNOU_DATA = {
   ]
 };
 
+
+// =========================================================================
+// 15. 1:1 회화 교정 기반 데일리 영문법 브리핑 데이터 (409개 교정 & 16대 이디엄)
+// =========================================================================
+const INITIAL_ENGLISH_DATA = {
+  "englishDataVersion": 1,
+  "title": "1:1 회화 교정 기반 데일리 영문법 & 표현 브리핑",
+  "tutor": "P25★Report Aaron",
+  "totalCount": 409,
+  "categories": [
+    {
+      "id": "all",
+      "name": "전체 교정 (409)",
+      "count": 409,
+      "icon": "fa-list-check"
+    },
+    {
+      "id": "noun",
+      "name": "관사 & 명사 수일치",
+      "count": 152,
+      "icon": "fa-box-archive"
+    },
+    {
+      "id": "phrasing",
+      "name": "원어민 구어체 & 뉘앙스",
+      "count": 103,
+      "icon": "fa-comments"
+    },
+    {
+      "id": "prep",
+      "name": "전치사 & 연어",
+      "count": 84,
+      "icon": "fa-bullseye"
+    },
+    {
+      "id": "infinitive",
+      "name": "동명사 vs 부정사",
+      "count": 52,
+      "icon": "fa-arrows-rotate"
+    },
+    {
+      "id": "tense",
+      "name": "시제 & 조동사",
+      "count": 11,
+      "icon": "fa-clock"
+    },
+    {
+      "id": "participle",
+      "name": "감정 분사 & 수동태",
+      "count": 7,
+      "icon": "fa-masks-theater"
+    }
+  ],
+  "idioms": [
+    {
+      "id": "idiom-1",
+      "expression": "catch napping",
+      "meaning": "- getting someone to deal with a situation since you put them in it suddenly and they were unprepared and not paying attention. - to surprise someone. - take someone unawares. - to capitalize on or exploit someone when they are not attentive. - the realization that one is sleeping when one should not be. - to catch someone at a disadvantaged."
+    },
+    {
+      "id": "idiom-2",
+      "expression": "bring to the table",
+      "meaning": "- making a valuable contribution to a group, company, or individual. - raising an issue for further discussion. - to offer something that will be an advantage."
+    },
+    {
+      "id": "idiom-3",
+      "expression": "spitting image",
+      "meaning": "spitting image Meaning: - look exactly like someone else - precise resemblance - person who strongly resembles another - look extremely similar to someone"
+    },
+    {
+      "id": "idiom-4",
+      "expression": "can't hold a candle to..",
+      "meaning": "- shows inferiority by comparison; used when one thing is considered much less impressive or competent than another. - denotes that someone or something is far below the standard or quality of another. - highlights a significant difference in capability, quality, or performance between two entities, where one falls short. - implies that a person or thing lacks the skill, talent, or quality to be on par with another. - suggests that, in direct comparison, one individual or item is not nearly as effective, accomplished, or admirable as another."
+    },
+    {
+      "id": "idiom-5",
+      "expression": "You bet",
+      "meaning": "- for sure - most certainly - without any doubt - to agree completely - to express agreement - yes, of course"
+    },
+    {
+      "id": "idiom-6",
+      "expression": "walk on eggshell",
+      "meaning": "- to be careful about one’s words or actions around another person - to be cautious of offending someone through your words or actions - to be overly careful around someone because they are sensitive"
+    },
+    {
+      "id": "idiom-7",
+      "expression": "cut the cord",
+      "meaning": "- to end a connection with someone - to stop relying on someone or something - to do something that makes one independent - stop needing somebody else to look after you and start acting independently"
+    },
+    {
+      "id": "idiom-8",
+      "expression": "also, a fast buck",
+      "meaning": "- to make money quickly. - to make money in a dishonest manner. - to earn money quickly and fast, usually in an unethical way. - to earn an amount of money by completing a favour for another individual. - an offer to help someone make money quickly for taking on a job."
+    },
+    {
+      "id": "idiom-9",
+      "expression": "when pigs fly",
+      "meaning": "- Impossible or highly unlikely to happen. - “When pigs fly” means that something will never happen. It expresses the impossibility of an event or situation occurring. - The phrase is used humorously to denote skepticism or disbelief in the likelihood of a particular event taking place. - It can also imply that something is extremely unlikely or improbable, to the point of being impossible. - The idiom serves as a sarcastic response to overly optimistic or unrealistic expectations. - It is typically used in informal settings to emphasize the sheer impossibility of an event."
+    },
+    {
+      "id": "idiom-10",
+      "expression": "long in the tooth",
+      "meaning": "- aging; elderly - old or past one’s prime - becoming outdated or obsolete - no longer young - to get too old for something"
+    },
+    {
+      "id": "idiom-11",
+      "expression": "there's no such thing as free lunch",
+      "meaning": "- to be aware of something that seems free of cost but may have a charge levied in another form - - to get deceived in any form by initially getting lured through offers, discounts and free gifts - to know that nobody gives out anything for free even if they say that at the onset"
+    },
+    {
+      "id": "idiom-12",
+      "expression": "as clear as mud",
+      "meaning": "- extremely unclear or confusing. - something that is hard to comprehend or follow. - information or explanations that fail to be straightforward. - used when something is explained in a way that leaves out key details, making it hard to grasp. - situations where the explanation or communication makes no sense, leaving the listener bewildered. E"
+    },
+    {
+      "id": "idiom-13",
+      "expression": "come up",
+      "meaning": "- to move toward someone. - to come closer in time or space. - to be mentioned or talked about. - to find a new thought - something unexpectedly happens."
+    },
+    {
+      "id": "idiom-14",
+      "expression": "rest assured",
+      "meaning": "- emphasizing that there is no need to worry - stressing determination to do something - confidence that something will happen"
+    },
+    {
+      "id": "idiom-15",
+      "expression": "one stop shop",
+      "meaning": "a store that fulfills various requirements which is preferable by customers it is usually a place of business that offers many services and products which are related"
+    },
+    {
+      "id": "idiom-16",
+      "expression": "waiting in the wings",
+      "meaning": "be ready to step into a job or position when you have the chance. not yet active or important but ready or likely to be so soon. to be in a state of readiness, expecting to take over a role or position soon. to stay out of sight or in the background, anticipating the right moment to emerge or become involved. to be ready to take an opportunity, especially one created by someone else leaving. to be on standby, prepared to participate or intervene when necessary."
+    }
+  ],
+  "corrections": [
+    {
+      "id": "eng-1",
+      "num": 1,
+      "youSaid": "After this class, I'm planning about that project.",
+      "betterSay": "After this class, I plan to focus on the project.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-2",
+      "num": 2,
+      "youSaid": "I prepare resume whole this weekend.",
+      "betterSay": "I'm going to prepare my resume this whole weekend.",
+      "category": "tense",
+      "categoryName": "⏳ 시제 & 조동사",
+      "explanation": "단순 현재 시제 대신 계획된 미래 행동을 명확히 전달하기 위해 be going to 또는 plan to를 사용합니다."
+    },
+    {
+      "id": "eng-3",
+      "num": 3,
+      "youSaid": "In Korea our older adults mired in poverty than OECD member countries' figures, so we have to thinking about our roles and benefits.",
+      "betterSay": "Since South Korea's elderly poverty rate is higher than other OECD countries, we need to think about how we can help.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-4",
+      "num": 4,
+      "youSaid": "I'm planning to my retire plans, actually I'm planning to volunteer, sharing my knowledges, know-how to people.",
+      "betterSay": "I am planning to share my knowledge and expertise with others after my retirement.",
+      "category": "participle",
+      "categoryName": "🎭 감정 분사 & 수동태",
+      "explanation": "감정을 유발하는 원인(-ing)과 주체가 느끼는 상태(-ed), 능동/수동의 구분을 바로잡은 문장입니다."
+    },
+    {
+      "id": "eng-5",
+      "num": 5,
+      "youSaid": "Actually, I always thinking about what is the goal of my life.",
+      "betterSay": "Actually, I always think about the purpose of my life.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "항상 일어나는 습관적이고 지속적인 생각은 현재진행형 대신 단순 현재형(always think about)을 씁니다."
+    },
+    {
+      "id": "eng-6",
+      "num": 6,
+      "youSaid": "This ordinance have power someone have to do.",
+      "betterSay": "This ordinance empowers someone to do something.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-7",
+      "num": 7,
+      "youSaid": "It is about ordinance Seoul station square.",
+      "betterSay": "This article is about the Seoul Station Square ordinance.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-8",
+      "num": 8,
+      "youSaid": "Sometimes I wants to go other city such as Seoul station.",
+      "betterSay": "Sometimes I want to visit other cities, like Seoul.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-9",
+      "num": 9,
+      "youSaid": "Because Seoul City Station is one of the huge station.",
+      "betterSay": "Seoul Station is one of the largest train stations.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-10",
+      "num": 10,
+      "youSaid": "Actually, I am bother about that.",
+      "betterSay": "Actually, I am bothered about that.",
+      "category": "participle",
+      "categoryName": "🎭 감정 분사 & 수동태",
+      "explanation": "수동적 감정 상태(~때문에 신경쓰이다/성가시다)는 수동태 be bothered by/about으로 나타냅니다."
+    },
+    {
+      "id": "eng-11",
+      "num": 11,
+      "youSaid": "A lot of technologies changed people spend their free time.",
+      "betterSay": "A lot of technologies have changed the way people spend their free time.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-12",
+      "num": 12,
+      "youSaid": "Ten years ago, we can just used cell phone at our house.",
+      "betterSay": "Ten years ago, we only had cell phones at home.",
+      "category": "tense",
+      "categoryName": "⏳ 시제 & 조동사",
+      "explanation": "사건이 발생한 시점(과거/현재/미래)에 맞추어 시제를 정확하게 일치시킨 표현입니다."
+    },
+    {
+      "id": "eng-13",
+      "num": 13,
+      "youSaid": "At that time, my father bought desktop. It was pretty expensive.",
+      "betterSay": "Back then, my dad bought a desktop computer. It was pretty expensive.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-14",
+      "num": 14,
+      "youSaid": "Some people wants to getting better jobs and positions.",
+      "betterSay": "Some people want to get better jobs and positions.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-15",
+      "num": 15,
+      "youSaid": "I think outdoor activities are much more healthier than indoor activities.",
+      "betterSay": "I think outdoor activities are much healthier than indoor activities.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-16",
+      "num": 16,
+      "youSaid": "We used to running around park near my studio.",
+      "betterSay": "We used to run around the park near my flat.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "과거의 규칙적 습관(used to + 동사원형)과 현재 익숙한 상태(be used to -ing)의 구분을 명확히 합니다."
+    },
+    {
+      "id": "eng-17",
+      "num": 17,
+      "youSaid": "Now I'm in cafeteria.",
+      "betterSay": "I am now in a cafeteria.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-18",
+      "num": 18,
+      "youSaid": "When I had a meals.",
+      "betterSay": "When I had a meal.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-19",
+      "num": 19,
+      "youSaid": "She has tried eat raw beef salad in Korean.",
+      "betterSay": "She has tried the Korean dish of raw beef salad. OR She has tried eating Korean raw beef salad.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-20",
+      "num": 20,
+      "youSaid": "Sometimes I conversation with other people or friends, I cannot imagine.",
+      "betterSay": "I cannot come",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-21",
+      "num": 21,
+      "youSaid": "I've decided to resign my job.",
+      "betterSay": "I've decided to resign.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-22",
+      "num": 22,
+      "youSaid": "I've decided to work out every morning for my daily routine.",
+      "betterSay": "I've decided to work out every morning as a part of my daily routines.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-23",
+      "num": 23,
+      "youSaid": "It's kind of ban list about some people.",
+      "betterSay": "This is a list of banned individuals.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-24",
+      "num": 24,
+      "youSaid": "Every people can use this system.",
+      "betterSay": "Everyone can use this system.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-25",
+      "num": 25,
+      "youSaid": "It is quite passive preventation because it's not only way prevent their violent or sexual harassment.",
+      "betterSay": "This is a passive prevention method, as it's not the only way to prevent violent or sexual harassment.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-26",
+      "num": 26,
+      "youSaid": "They can't control their work and they can manage their self-esteam.",
+      "betterSay": "They can't control their work, and their self-esteem suffers.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-27",
+      "num": 27,
+      "youSaid": "Just like something is not addiction, I think.",
+      "betterSay": "Liking something is not an addiction.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-28",
+      "num": 28,
+      "youSaid": "Sometimes I addicted something such as workout, computer game or Instagram.",
+      "betterSay": "I'm addicted to working out, playing computer games and Instagram.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-29",
+      "num": 29,
+      "youSaid": "I had personal computer, so I used to use YouTube platform.",
+      "betterSay": "Since I had a personal computer, I often used the YouTube platform.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "과거의 규칙적 습관(used to + 동사원형)과 현재 익숙한 상태(be used to -ing)의 구분을 명확히 합니다."
+    },
+    {
+      "id": "eng-30",
+      "num": 30,
+      "youSaid": "I can't memorize about that.",
+      "betterSay": "I can't memorize that.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-31",
+      "num": 31,
+      "youSaid": "Sometimes I affected my smartphone.",
+      "betterSay": "Sometimes I am affected by my smartphone.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-32",
+      "num": 32,
+      "youSaid": "I decided to working out in the gym.",
+      "betterSay": "I decided to start working out at the gym",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-33",
+      "num": 33,
+      "youSaid": "I decide to go for gym for rock climbing.",
+      "betterSay": "I decided to go to the gym to rock climb.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-34",
+      "num": 34,
+      "youSaid": "I try to broke that bad habit.",
+      "betterSay": "I tried to break that bad habit of mine.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-35",
+      "num": 35,
+      "youSaid": "I really love drink alcohol but not alcohol.",
+      "betterSay": "I really love drinking alcohol but not alcohol.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-36",
+      "num": 36,
+      "youSaid": "I think it's just politic issue.",
+      "betterSay": "I believe this is primarily a political issue.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-37",
+      "num": 37,
+      "youSaid": "We know about our before situation.",
+      "betterSay": "We are aware of our previous situation.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-38",
+      "num": 38,
+      "youSaid": "What kind of color do you favorite?",
+      "betterSay": "What kind of color do you like most? OR What is your favorite color?",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-39",
+      "num": 39,
+      "youSaid": "So, I asked to them prefer.",
+      "betterSay": "So, I asked their preference.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-40",
+      "num": 40,
+      "youSaid": "What's wrong with fried chicken delivery man?",
+      "betterSay": "What's wrong with the fried chicken delivery man?",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-41",
+      "num": 41,
+      "youSaid": "What's wrong with baker?",
+      "betterSay": "What's wrong with the baker?",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-42",
+      "num": 42,
+      "youSaid": "After a month, I asked to her about that.",
+      "betterSay": "After a month, I asked her about that.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-43",
+      "num": 43,
+      "youSaid": "How come didn't you drive to my home?",
+      "betterSay": "How come you didn't drive to my home?",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-44",
+      "num": 44,
+      "youSaid": "I think I have to waiting to real new news",
+      "betterSay": "I think I'd better wait for real news.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-45",
+      "num": 45,
+      "youSaid": "I had to met the doctor.",
+      "betterSay": "I had to mee the doctor.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-46",
+      "num": 46,
+      "youSaid": "I didn't know about that my bosses saying.",
+      "betterSay": "I didn't know what my boss was talking about.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-47",
+      "num": 47,
+      "youSaid": "My bosses already say to me about that report.",
+      "betterSay": "My boss already told me about the report.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-48",
+      "num": 48,
+      "youSaid": "I have been to travel Thailand.",
+      "betterSay": "I have been to Thailand.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-49",
+      "num": 49,
+      "youSaid": "They visited to Korea once or twice before.",
+      "betterSay": "They have visited Korea once or twice previously.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-50",
+      "num": 50,
+      "youSaid": "I should have searched that word meaning.",
+      "betterSay": "I should have searched the meaning of that word.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-51",
+      "num": 51,
+      "youSaid": "It was really embarrassed.",
+      "betterSay": "It was really embarrassing.",
+      "category": "participle",
+      "categoryName": "🎭 감정 분사 & 수동태",
+      "explanation": "상황이나 경험이 주는 느낌은 -ing(embarrassing), 사람이 그 감정을 느낄 때는 -ed(embarrassed)를 사용합니다."
+    },
+    {
+      "id": "eng-52",
+      "num": 52,
+      "youSaid": "I think some newses have politic their own ways so they can't talk their opinion what they want.",
+      "betterSay": "I believe some news outlets may be politically influenced, limiting their ability to express their desired opinions freely.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "news는 항상 단수 취급하는 불가산 명사이므로, 개별 기사나 방송국을 지칭할 때는 news outlets 또는 news stories를 사용합니다."
+    },
+    {
+      "id": "eng-53",
+      "num": 53,
+      "youSaid": "1 in 3 Korean workers believe generative AI can change their job.",
+      "betterSay": "1 in 3 Korean workers believe generative AI could replace them.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-54",
+      "num": 54,
+      "youSaid": "They have to looking for what is the next chance and what is the most important thing of generative AI.",
+      "betterSay": "They need to identify the next opportunities and the most critical aspects of generative AI.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-55",
+      "num": 55,
+      "youSaid": "It was pretty bad weekend.",
+      "betterSay": "It was a pretty bad weekend.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-56",
+      "num": 56,
+      "youSaid": "Today my grandmother, she met doctor.",
+      "betterSay": "My grandmother had a consultation with the doctor today.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-57",
+      "num": 57,
+      "youSaid": "My mother waiting for her hospital.",
+      "betterSay": "My mother is waiting for her at the hospital.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-58",
+      "num": 58,
+      "youSaid": "It is unconvenient.",
+      "betterSay": "It is inconvenient.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-59",
+      "num": 59,
+      "youSaid": "A lot of foreign tourists complain to Korean taxi drivers and sellers about illegal exorbitant charges and hygiene services.",
+      "betterSay": "Many foreign tourists complain to Korean taxi drivers and vendors about excessive charges and poor hygiene.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-60",
+      "num": 60,
+      "youSaid": "At that time, I want to go home rapidly.",
+      "betterSay": "At that time, I wanted to go home rapidly.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-61",
+      "num": 61,
+      "youSaid": "He say to me, he want 2,000 won for that location, but it was too short distance.",
+      "betterSay": "He told me he wanted 2,000 won for such a short distance.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-62",
+      "num": 62,
+      "youSaid": "My work almost finished. I think after this I can prepare go home.",
+      "betterSay": "I am almost finished working. I think after class, I can prepare going home.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-63",
+      "num": 63,
+      "youSaid": "I'm planning to something.",
+      "betterSay": "I'm planning to do something.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-64",
+      "num": 64,
+      "youSaid": "I think it's different with other one.",
+      "betterSay": "I think it's different from the other one.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-65",
+      "num": 65,
+      "youSaid": "I concerned about how can I use this sentence with free talking with other foreigners.",
+      "betterSay": "I’m concerned about how I can use this sentence during casual conversations with other foreigners.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-66",
+      "num": 66,
+      "youSaid": "The last thing I want to do is lost my smartphone.",
+      "betterSay": "Losing my smartphone is the last thing I want.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-67",
+      "num": 67,
+      "youSaid": "It is about caffeine and sleep corellationship.",
+      "betterSay": "It's about the correlation between caffeine and sleep.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-68",
+      "num": 68,
+      "youSaid": "I couldn't summary about this article.",
+      "betterSay": "I couldn't summarize this article.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-69",
+      "num": 69,
+      "youSaid": "But this article said, some of studies related about the correlationship that it's not equal to common belief.",
+      "betterSay": "But, according to this article, some studies indicate a correlation contrary to popular belief.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-70",
+      "num": 70,
+      "youSaid": "I have allergy for caffeine in late time.",
+      "betterSay": "I have a caffeine sensitivity later in the day.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-71",
+      "num": 71,
+      "youSaid": "If I sleep late time, I have to wake up late time.",
+      "betterSay": "If I go to bed late, I wake up late.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-72",
+      "num": 72,
+      "youSaid": "My mother really love 3-in-1 coffee because it has sweety taste.",
+      "betterSay": "My mother really loves 3-in-1 coffee because of its sweet taste.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-73",
+      "num": 73,
+      "youSaid": "When I'm planning to something.",
+      "betterSay": "When I'm planning to do something.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-74",
+      "num": 74,
+      "youSaid": "I have to dinner with salad because I want to lose weight.",
+      "betterSay": "I have to eat salad for dinner because I want to lose weight.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-75",
+      "num": 75,
+      "youSaid": "I have to cleaning my flat because it's dirty.",
+      "betterSay": "I have to clean my flat because it's dirty.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-76",
+      "num": 76,
+      "youSaid": "I'm not a rich.",
+      "betterSay": "I'm not rich.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-77",
+      "num": 77,
+      "youSaid": "I gotta go home early because my mom wait for me for dinner.",
+      "betterSay": "I gotta go home early because my mom is waiting for me for dinner.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-78",
+      "num": 78,
+      "youSaid": "It's not obligation.",
+      "betterSay": "It's not an obligation.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-79",
+      "num": 79,
+      "youSaid": "I want to tell you by myself for me.",
+      "betterSay": "I want to tell you something about me.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-80",
+      "num": 80,
+      "youSaid": "Let me know if you have any problems in our department.",
+      "betterSay": "Let me know if you have any problems in our department. OR Let me know if you have any concerns within our department.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-81",
+      "num": 81,
+      "youSaid": "Let me think about it to right way.",
+      "betterSay": "Let me think about it the right way. OR Let me think about it properly.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-82",
+      "num": 82,
+      "youSaid": "Sometimes my co-workers said to me about wrong decision or information.",
+      "betterSay": "Sometimes my co-workers tell me about wrong decisions or information.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-83",
+      "num": 83,
+      "youSaid": "Let me think about it better way for our vacation.",
+      "betterSay": "Let me think about a better way for our vacation.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-84",
+      "num": 84,
+      "youSaid": "It's one of the court of government.",
+      "betterSay": "It's one of the government's courts.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-85",
+      "num": 85,
+      "youSaid": "I need your help this word too.",
+      "betterSay": "I need your help with this word too.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-86",
+      "num": 86,
+      "youSaid": "He delayed confirmation that document.",
+      "betterSay": "He delayed receiving confirmation of the document.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-87",
+      "num": 87,
+      "youSaid": "I think he don't have any kinds of reasons of that delayed.",
+      "betterSay": "I don't think he has any reason for the delay.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-88",
+      "num": 88,
+      "youSaid": "I want impeachment soon.",
+      "betterSay": "I want him to be impeached soon.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-89",
+      "num": 89,
+      "youSaid": "That's touchable gift for me.",
+      "betterSay": "Receiving his gift for me was very touching.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-90",
+      "num": 90,
+      "youSaid": "I don't know about this word is means.",
+      "betterSay": "I don't know about the meaning of this word.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-91",
+      "num": 91,
+      "youSaid": "The accident of Muan International Airport Jeju airplane crash result 179 people is dead.",
+      "betterSay": "The plane crash at Muan International Airport resulted in the deaths of 179 people.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-92",
+      "num": 92,
+      "youSaid": "They check that bodies parts and DNA analysis.",
+      "betterSay": "They are checking body parts and conducting DNA analysis for identification.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-93",
+      "num": 93,
+      "youSaid": "Also they checked evidence of that accident reason.",
+      "betterSay": "They also checked for evidence of the cause of the accident.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-94",
+      "num": 94,
+      "youSaid": "Filler product is not a main item.",
+      "betterSay": "Filler products are not core items.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "all of item 대신 all (the) items처럼 복수 명사를 사용하여 수일치를 정확히 맞춰줍니다."
+    },
+    {
+      "id": "eng-95",
+      "num": 95,
+      "youSaid": "A lot of protester they made blanket by foil like Hershey kisses.",
+      "betterSay": "Many protesters wrapped themselves in foil blankets, resembling giant Hershey's Kisses.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-96",
+      "num": 96,
+      "youSaid": "It was just unexpected and just short term revenue.",
+      "betterSay": "The revenue was unexpected and short-term.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-97",
+      "num": 97,
+      "youSaid": "They have to keep going their new marketing event.",
+      "betterSay": "They have to maintain their new marketing event",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-98",
+      "num": 98,
+      "youSaid": "It's too sweety for me.",
+      "betterSay": "They are too sweet for me.(chocolates)",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-99",
+      "num": 99,
+      "youSaid": "I will go party with my colleagues.",
+      "betterSay": "I am going to a party with my colleagues.",
+      "category": "tense",
+      "categoryName": "⏳ 시제 & 조동사",
+      "explanation": "단순 현재 시제 대신 계획된 미래 행동을 명확히 전달하기 위해 be going to 또는 plan to를 사용합니다."
+    },
+    {
+      "id": "eng-100",
+      "num": 100,
+      "youSaid": "I can use this expression If I already say to someone and I want to quit my mean.",
+      "betterSay": "I can use this expression to clarify what I said before.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-101",
+      "num": 101,
+      "youSaid": "Today morning, I went to grocery store.",
+      "betterSay": "This morning, I went to a grocery store.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "today morning은 콩글리시 직역이며, 오늘 아침은 항상 관용적으로 this morning을 사용합니다."
+    },
+    {
+      "id": "eng-102",
+      "num": 102,
+      "youSaid": "I didn't mean to buy all of item in my budget.",
+      "betterSay": "I didn't mean to buy all the items in my cart because my budget was not enough.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "all of item 대신 all (the) items처럼 복수 명사를 사용하여 수일치를 정확히 맞춰줍니다."
+    },
+    {
+      "id": "eng-103",
+      "num": 103,
+      "youSaid": "I didn't mean to too much aggressive.",
+      "betterSay": "I didn't mean to be very aggressive.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-104",
+      "num": 104,
+      "youSaid": "It doesn't mean we are going to same way about our all of opinion.",
+      "betterSay": "This does not mean we are going share the same opinions on every matter.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-105",
+      "num": 105,
+      "youSaid": "They can't go to movie theater.",
+      "betterSay": "They can't go to the movie theater.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-106",
+      "num": 106,
+      "youSaid": "I feel sorry for your leg broken.",
+      "betterSay": "I feel sorry for your broken leg.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-107",
+      "num": 107,
+      "youSaid": "Before this class, I just one meaning.",
+      "betterSay": "I just knew one meaning of this pattern before this class.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-108",
+      "num": 108,
+      "youSaid": "It's a shame that you can't pass the test.",
+      "betterSay": "It's a shame that you can't pass the test.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-109",
+      "num": 109,
+      "youSaid": "It's a shame that you woke up late in this morning.",
+      "betterSay": "It's a shame that you woke up late this morning.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-110",
+      "num": 110,
+      "youSaid": "I want to sympathy to them.",
+      "betterSay": "I want to express my sympathy to them.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-111",
+      "num": 111,
+      "youSaid": "I think lament is expressed of Mr. Yoon blue and his sadness to every people.",
+      "betterSay": "I believe the lament conveys Mr. Yoon's profound sadness to the public.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-112",
+      "num": 112,
+      "youSaid": "Today's every word is difficult for me.",
+      "betterSay": "I find every word tonight difficult.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-113",
+      "num": 113,
+      "youSaid": "This article is about Mr. Yoon's finally arrested.",
+      "betterSay": "This article discusses the recent arrest of Mr. Yoon.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-114",
+      "num": 114,
+      "youSaid": "We have to waiting for the court's decision.",
+      "betterSay": "We have to wait for the court's decision.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-115",
+      "num": 115,
+      "youSaid": "If I have to make a decision, and after that made decision, I think I can express this pattern to someone.",
+      "betterSay": "If I have to make a decision, I think I can use this pattern to let someone know that I've made my decision.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-116",
+      "num": 116,
+      "youSaid": "If I talk to my colleagues about today workout in the gym, I can say to my colleague, 'I've decided to work out afternoon.'",
+      "betterSay": "If I talk to my colleagues about today's workout in the gym, I can tell my colleague, 'I've decided to work out in the afternoon.'",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-117",
+      "num": 117,
+      "youSaid": "I think I have to use if I want to ask to or suggest to someone.",
+      "betterSay": "I think I have to use this if I want to ask or suggest something to someone.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-118",
+      "num": 118,
+      "youSaid": "Do you decided to something?",
+      "betterSay": "Did you decide to do something? / Have you decided to do something?",
+      "category": "tense",
+      "categoryName": "⏳ 시제 & 조동사",
+      "explanation": "사건이 발생한 시점(과거/현재/미래)에 맞추어 시제를 정확하게 일치시킨 표현입니다."
+    },
+    {
+      "id": "eng-119",
+      "num": 119,
+      "youSaid": "I've decided to go to the rock climbing gym indoor with my climbing crew member.",
+      "betterSay": "I've decided to go to the indoor rock climbing gym with my climbing crew member.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-120",
+      "num": 120,
+      "youSaid": "It is my favorite hobbies nowadays.",
+      "betterSay": "It is one of my favorite hobbies nowadays.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-121",
+      "num": 121,
+      "youSaid": "But sometimes, it contained a lot of pain.",
+      "betterSay": "But sometimes, it involves a lot of pain.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-122",
+      "num": 122,
+      "youSaid": "I think I've been rock climbing indoor almost two years.",
+      "betterSay": "I think I've been rock climbing indoors for almost two years.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-123",
+      "num": 123,
+      "youSaid": "It is sports about our body balance and our strength.",
+      "betterSay": "It is a sport that involves our body balance and strength.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-124",
+      "num": 124,
+      "youSaid": "I haven't decided to planning anything.",
+      "betterSay": "I haven't decided to do anything yet. / I haven't decided what to do yet.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-125",
+      "num": 125,
+      "youSaid": "Actually, I really love to do work out in gym such as bodybuilding.",
+      "betterSay": "Actually, I really love working out at the gym, especially bodybuilding.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-126",
+      "num": 126,
+      "youSaid": "So sometimes I try to this therapy when I get a lot of finger sore and neck sore.",
+      "betterSay": "Sometimes, I try this therapy when I have a lot of soreness in my fingers and neck.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-127",
+      "num": 127,
+      "youSaid": "I think I agree almost 90% because another 10% is it's really cold.",
+      "betterSay": "I think I agree about 90%, but the other 10% is because it's really cold.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-128",
+      "num": 128,
+      "youSaid": "As you know, every people has just 24 hours.",
+      "betterSay": "As you know, everyone has only 24 hours.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-129",
+      "num": 129,
+      "youSaid": "I just difficult to fall asleep late time after midnight.",
+      "betterSay": "I just find it difficult to fall asleep late, especially after/before midnight.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-130",
+      "num": 130,
+      "youSaid": "That is my only difficult for me.",
+      "betterSay": "That's the only difficulty I have.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-131",
+      "num": 131,
+      "youSaid": "It is not good for gain a lot of muscle because cold water is not good for blood pressure.",
+      "betterSay": "It’s not good for gaining a lot of muscle because cold water isn’t good for blood pressure.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-132",
+      "num": 132,
+      "youSaid": "It contain less speed blood pressure.",
+      "betterSay": "It lowers blood pressure.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-133",
+      "num": 133,
+      "youSaid": "It is just take care of pain.",
+      "betterSay": "It just helps take care of the pain.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-134",
+      "num": 134,
+      "youSaid": "I think benefit and how to do this therapy to great way for our pain and sore care.",
+      "betterSay": "I think the main point is the benefits and how to do this therapy, which is a great way to care for our pain and soreness.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-135",
+      "num": 135,
+      "youSaid": "I think it is tradition of my old ages people in public saunas.",
+      "betterSay": "I think it’s a tradition among older people in public saunas.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-136",
+      "num": 136,
+      "youSaid": "We have similar tradition because it means we want to New Year's great effect from cleaning my whole bodies.",
+      "betterSay": "We have a similar tradition because it means we want to start the New Year feeling refreshed after cleaning our bodies.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-137",
+      "num": 137,
+      "youSaid": "I think it is great for our take care of our pain and sore.",
+      "betterSay": "I think it’s great for taking care of our pain and soreness.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-138",
+      "num": 138,
+      "youSaid": "I heard about that from that studies almost 9 minutes hot water therapy and then 1 minute cold water therapy.",
+      "betterSay": "I heard that studies suggest 9 minutes of hot water therapy followed by 1 minute of cold water therapy.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-139",
+      "num": 139,
+      "youSaid": "I'm really familiar about that because every New Year's season, I try to make New Year plans.",
+      "betterSay": "I'm really familiar with that because every New Year's season, I try to make New Year plans.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-140",
+      "num": 140,
+      "youSaid": "I also planning to enter the master degree process in university.",
+      "betterSay": "I am also planning to pursue a master's degree at university.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-141",
+      "num": 141,
+      "youSaid": "Last of all, I have to do military service duty.",
+      "betterSay": "Last of all, I have to do my military service. / Lastly, I have to do my military service.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-142",
+      "num": 142,
+      "youSaid": "I think I always thinking about my career at first.",
+      "betterSay": "I think I always think about my career first.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "항상 일어나는 습관적이고 지속적인 생각은 현재진행형 대신 단순 현재형(always think about)을 씁니다."
+    },
+    {
+      "id": "eng-143",
+      "num": 143,
+      "youSaid": "So most of all, I just concerned about what I have to do this year for my career improving.",
+      "betterSay": "Most of all, I'm just concerned about what I need to do this year to improve my career.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-144",
+      "num": 144,
+      "youSaid": "And also I have to concerned my health condition.",
+      "betterSay": "And I also have to be concerned about my health condition.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-145",
+      "num": 145,
+      "youSaid": "So, I have to take care about that.",
+      "betterSay": "So, I have to take care of that.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-146",
+      "num": 146,
+      "youSaid": "But if I can't do that on time, it makes really, really nervous and makes me overthinking.",
+      "betterSay": "But if I can't do that on time, it makes me really, really nervous and causes me to overthink.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-147",
+      "num": 147,
+      "youSaid": "But these two tests' schedule is same so I can't attend all of the tests.",
+      "betterSay": "But the schedules for these two tests are the same, so I can't take both of them.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-148",
+      "num": 148,
+      "youSaid": "In my case, if I planning to over to choices, dream or career or goal, it just following me to bad result.",
+      "betterSay": "In my case, if I keep planning to choose between my dream, career, or goals, it will just lead me to a bad result.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-149",
+      "num": 149,
+      "youSaid": "When I planning to my career goals, almost everything I can know I can follow this curriculum's schedule.",
+      "betterSay": "When I plan my career goals, I know that I can follow the schedule of this curriculum.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-150",
+      "num": 150,
+      "youSaid": "And it feels daunting for me about that plan.",
+      "betterSay": "And that plan feels daunting to me.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-151",
+      "num": 151,
+      "youSaid": "So I have to change the plans to be realistic.",
+      "betterSay": "So, I have to adjust/change the plans to make them more realistic.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-152",
+      "num": 152,
+      "youSaid": "So at that time, I thought it is unrealistic for my career.",
+      "betterSay": "So at that time, I thought it was unrealistic for my career.",
+      "category": "tense",
+      "categoryName": "⏳ 시제 & 조동사",
+      "explanation": "과거 시점의 생각(thought)이나 행동에 맞추어 주절과 종속절의 시제를 과거형으로 일치시켜 줍니다."
+    },
+    {
+      "id": "eng-153",
+      "num": 153,
+      "youSaid": "Actually, I'm really overthinking person and I have a lot of nervous about my career.",
+      "betterSay": "Actually, I'm a really overthinking person, and I feel a lot of nervousness about my career. / Actually, I'm a person who tends to overthink, and I feel a lot of nervousness about my career.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-154",
+      "num": 154,
+      "youSaid": "When I write my essay or write report, overthinking is really good method for that.",
+      "betterSay": "When I write my essay or report, overthinking is actually a good method for that.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-155",
+      "num": 155,
+      "youSaid": "I think I'm not familiar about this.",
+      "betterSay": "I think I'm not familiar with this.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-156",
+      "num": 156,
+      "youSaid": "If I want to talk about something with someone, but I just thinking about that topic without mood or his or her feeling and his or her knowledge and ages or any kinds of other culture differences.",
+      "betterSay": "I want to talk about something with someone, but I'm just thinking about the topic without considering their mood, feelings, knowledge, age, or any cultural differences.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-157",
+      "num": 157,
+      "youSaid": "I agree that because I really love read books.",
+      "betterSay": "I agree with that because I really love reading books.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-158",
+      "num": 158,
+      "youSaid": "So I think reading makes me thinking deeply about some topic.",
+      "betterSay": "So I think reading makes me think deeply about some topics.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-159",
+      "num": 159,
+      "youSaid": "I'm overthink person but I can every time think first and talk later.",
+      "betterSay": "I'm an overthinker, but I can always think first and talk later.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-160",
+      "num": 160,
+      "youSaid": "So sometimes I feeling I make mistake about some missed words.",
+      "betterSay": "So sometimes I feel like I've made mistakes with some missing words.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-161",
+      "num": 161,
+      "youSaid": "When I first saw this word 'knee jerk', I can't understand quickly.",
+      "betterSay": "When I first saw the word 'knee jerk,' I couldn't understand it quickly.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-162",
+      "num": 162,
+      "youSaid": "If I know this 'knee jerk' mean before saw this word, I can understand.",
+      "betterSay": "If I knew what 'knee jerk' meant before seeing it, I would have understood it.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-163",
+      "num": 163,
+      "youSaid": "Gut reactions is about our body conditions.",
+      "betterSay": "Gut reactions are about our body conditions.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-164",
+      "num": 164,
+      "youSaid": "So, if I have good feeling and good condition, I can express my gut reactions to other.",
+      "betterSay": "So, if I have good feelings and am in good condition, I can express my gut reactions to others.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-165",
+      "num": 165,
+      "youSaid": "If I have some just knee jerk reactions, I can just short and simple and not friendly words expression to other person.",
+      "betterSay": "If I have knee-jerk reactions, I might express myself with short, simple, and unfriendly words to another person.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-166",
+      "num": 166,
+      "youSaid": "I think it's little bit similar to first one.",
+      "betterSay": "I think it's a little bit similar to the first one.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-167",
+      "num": 167,
+      "youSaid": "I think 'catch up' to knowledges, knowledge level.",
+      "betterSay": "I think 'catch up' refers to improving knowledge or reaching a certain knowledge level.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-168",
+      "num": 168,
+      "youSaid": "So second one is catch up to our memorize level.",
+      "betterSay": "So the second one is about catching up to our knowledge level.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-169",
+      "num": 169,
+      "youSaid": "If I get new tasks at that day, I can't do that on my day off.",
+      "betterSay": "If I got new tasks that day, I couldn't do them on my day off.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-170",
+      "num": 170,
+      "youSaid": "So I have to follow up much more after back to my office.",
+      "betterSay": "So I have to follow up a lot more after I return to my office.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-171",
+      "num": 171,
+      "youSaid": "Nowadays, my new job is common tasks.",
+      "betterSay": "Nowadays, my new job involves common tasks.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-172",
+      "num": 172,
+      "youSaid": "But almost three years ago, at that time, my last job position is team leader.",
+      "betterSay": "But almost three years ago, at that time, my last job position was team leader.",
+      "category": "tense",
+      "categoryName": "⏳ 시제 & 조동사",
+      "explanation": "과거 시점의 생각(thought)이나 행동에 맞추어 주절과 종속절의 시제를 과거형으로 일치시켜 줍니다."
+    },
+    {
+      "id": "eng-173",
+      "num": 173,
+      "youSaid": "So if I took a day off, I have to do a lot of tasks after back to the office.",
+      "betterSay": "So if I took a day off, I had to do a lot of tasks after I returned to the office.",
+      "category": "tense",
+      "categoryName": "⏳ 시제 & 조동사",
+      "explanation": "사건이 발생한 시점(과거/현재/미래)에 맞추어 시제를 정확하게 일치시킨 표현입니다."
+    },
+    {
+      "id": "eng-174",
+      "num": 174,
+      "youSaid": "Anyone can't replace my vacant position.",
+      "betterSay": "No one can replace my vacant position.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-175",
+      "num": 175,
+      "youSaid": "So when I'm on vacation, I always thinking about my team members.",
+      "betterSay": "So when I'm on vacation, I always think about my team members.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "항상 일어나는 습관적이고 지속적인 생각은 현재진행형 대신 단순 현재형(always think about)을 씁니다."
+    },
+    {
+      "id": "eng-176",
+      "num": 176,
+      "youSaid": "If I want to catch up with my friends or family members, I think we have to meet first at café or restaurant or bar.",
+      "betterSay": "If I want to catch up with my friends or family members, I think we should meet at a café, restaurant, or bar first.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-177",
+      "num": 177,
+      "youSaid": "If we want to catch up our memories, jazz bar is the best place for that.",
+      "betterSay": "If we want to catch up on our memories, a jazz bar is the best place for that.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-178",
+      "num": 178,
+      "youSaid": "After two weeks, one of my best friend go to the American university for PHD after PHD class.",
+      "betterSay": "In two weeks, one of my best friends will go to an American university for a PhD program after finishing their PhD classes.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-179",
+      "num": 179,
+      "youSaid": "In my case, I'm overthinker so sometimes I'm really nervous about whenever I miss some newses.",
+      "betterSay": "In my case, I'm an overthinker, so sometimes I get really nervous about missing some news.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "news는 항상 단수 취급하는 불가산 명사이므로, 개별 기사나 방송국을 지칭할 때는 news outlets 또는 news stories를 사용합니다."
+    },
+    {
+      "id": "eng-180",
+      "num": 180,
+      "youSaid": "And then, nowadays I just watch news in the cafeteria or on lunchtime or dinner.",
+      "betterSay": "Nowadays, I just watch the news in the cafeteria or during lunchtime or dinner.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-181",
+      "num": 181,
+      "youSaid": "Almost minus four degree in afternoon and then lowest degree is almost minus ten degree.",
+      "betterSay": "In the afternoon, it's almost minus four degrees, and the lowest temperature is around minus ten degrees.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-182",
+      "num": 182,
+      "youSaid": "Cough is I think some noise of nose or our mouth because I have sick.",
+      "betterSay": "I think a cough is a noise from our nose or mouth when someone is sick.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-183",
+      "num": 183,
+      "youSaid": "I think every time I saw that kind of person in public transportations.",
+      "betterSay": "I think I see this kind of person every time on public transportation.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-184",
+      "num": 184,
+      "youSaid": "And I also agree about this first paragraph's main topic.",
+      "betterSay": "I also agree with the main topic of the first paragraph.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-185",
+      "num": 185,
+      "youSaid": "I also annoyed about some coughs and sneezing behavior.",
+      "betterSay": "I'm also annoyed by some people's coughing and sneezing behavior.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-186",
+      "num": 186,
+      "youSaid": "If I can avoid that people, I just replace my position in public transportation.",
+      "betterSay": "If I can avoid those people, I just move to a different spot on public transportation.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-187",
+      "num": 187,
+      "youSaid": "But if I can't move to other position, I just try to find some mask in my backpack.",
+      "betterSay": "But if I can't move to another position, I try to find a mask in my backpack.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-188",
+      "num": 188,
+      "youSaid": "Nowadays, not every person use masks but after Covid-19 coronavirus, many people use mask when they have sick or they protect/prevent their coughing or sneezing.",
+      "betterSay": "Nowadays, not everyone uses masks, but after the Covid-19 pandemic, many people wear masks when they are sick or to prevent coughing or sneezing.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-189",
+      "num": 189,
+      "youSaid": "As you know, most of people use mask when they have really, really having sick or cold.",
+      "betterSay": "As you know, most people wear masks when they are really sick or have a cold.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-190",
+      "num": 190,
+      "youSaid": "I also thinking about, if someone use mask and he is really sick person, so I have to avoid to him, from him or her.",
+      "betterSay": "I also think that if someone is wearing a mask and is really sick, I should avoid him or her.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-191",
+      "num": 191,
+      "youSaid": "Because too much perfume makes their nose can't activated.",
+      "betterSay": "Because too much perfume makes their nose stop working.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-192",
+      "num": 192,
+      "youSaid": "Actually during Covid-19, we must use mask in every public transportations and everywhere.",
+      "betterSay": "Actually, during Covid-19, we had to wear masks on all public transportation and everywhere.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-193",
+      "num": 193,
+      "youSaid": "I think strong perfumer is really one of the most annoyed me behavior.",
+      "betterSay": "I think strong perfume is really one of the most annoying behaviors for me.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-194",
+      "num": 194,
+      "youSaid": "In my country, we have seat for pregnant but it is allowed to any person because it has no guard.",
+      "betterSay": "In my country, there are seats reserved for pregnant women, but anyone can sit in them because there are no restrictions.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-195",
+      "num": 195,
+      "youSaid": "So every person use this seat but we have to keep vacant seat for every pregnant.",
+      "betterSay": "So, everyone can use these seats, but we should keep one vacant for pregnant women.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-196",
+      "num": 196,
+      "youSaid": "We don't have any kinds of punishment.",
+      "betterSay": "We don't have any kind of punishment.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-197",
+      "num": 197,
+      "youSaid": "…if he or she doesn't move to other seat.",
+      "betterSay": "...if he or she doesn't move to another seat.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-198",
+      "num": 198,
+      "youSaid": "I always ready for this seat for pregnant woman.",
+      "betterSay": "I am always ready to give up a seat for a pregnant woman.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-199",
+      "num": 199,
+      "youSaid": "Actually, one of my best friend, he will go to abroad in United States after finish his class.",
+      "betterSay": "Actually, one of my best friends is going abroad to the United States after he finishes his classes.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-200",
+      "num": 200,
+      "youSaid": "So it is celebration party.",
+      "betterSay": "So it's a celebration. / So it's a party.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-201",
+      "num": 201,
+      "youSaid": "So I heard about other news that is AI stock market was dropped low at the time.",
+      "betterSay": "So I heard other news, and it said that the AI stock market dropped significantly at that time.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-202",
+      "num": 202,
+      "youSaid": "In my case, I can't think about this decision is right for China and United States market.",
+      "betterSay": "In my case, I don't think this decision is right for China’s and the United States’ markets.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-203",
+      "num": 203,
+      "youSaid": "And as you know, Instagram and Facebook service, they collected my data from my cellphone mic.",
+      "betterSay": "And as you know, Instagram and Facebook services collected my data from my cellphone mic.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-204",
+      "num": 204,
+      "youSaid": "I don't think so it's right and fair decision.",
+      "betterSay": "I don't think it's the right and fair decision.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-205",
+      "num": 205,
+      "youSaid": "And second of all, I think it is active protection way for United States or their governments, agencies, ministries, and companies' revenue.",
+      "betterSay": "And second of all, I think it is an active protection method for the United States, its government, agencies, ministries, and companies' revenues.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-206",
+      "num": 206,
+      "youSaid": "As you know, China has really strong power of other countries.",
+      "betterSay": "As you know, China has a lot of power over other countries.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-207",
+      "num": 207,
+      "youSaid": "Eight to ten per day.",
+      "betterSay": "I think around eight to ten times per day.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-208",
+      "num": 208,
+      "youSaid": "We can just know our common knowledges, and common moral rules.",
+      "betterSay": "We can only know our common knowledge and common moral rules.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "knowledge는 대표적인 불가산 명사(셀 수 없는 명사)이므로 복수형 knowledges 대신 항상 단수형 knowledge로 표현해야 합니다."
+    },
+    {
+      "id": "eng-209",
+      "num": 209,
+      "youSaid": "So I think we have to take carefully about this rule.",
+      "betterSay": "So I think we have to be careful about this rule.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-210",
+      "num": 210,
+      "youSaid": "At first, just banned from all of people has a protection, I think.",
+      "betterSay": "At first, I think just banning it from everyone offers some protection.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-211",
+      "num": 211,
+      "youSaid": "And then, just make new rules of prevent user data leak.",
+      "betterSay": "And then, just make new rules to prevent user data leaks.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-212",
+      "num": 212,
+      "youSaid": "In my opinion, I think it's just delay the time of new generations.",
+      "betterSay": "In my opinion, I think it just delays the progress of new generations.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-213",
+      "num": 213,
+      "youSaid": "They must do prepare their bankruptcy.",
+      "betterSay": "They must prepare for their bankruptcy.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-214",
+      "num": 214,
+      "youSaid": "As you know, our data's already spread all of internet.",
+      "betterSay": "As you know, our data has already spread all over the internet.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-215",
+      "num": 215,
+      "youSaid": "If I don't use internet, I can't protect my all of data.",
+      "betterSay": "If I don't use the internet, I can't protect all of my data.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-216",
+      "num": 216,
+      "youSaid": "I think this word is really happy and little bit nervous when I attend to participants of concert.",
+      "betterSay": "I think this word makes me really happy and a little bit nervous when I join the participants at the concert.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-217",
+      "num": 217,
+      "youSaid": "Every festival makes feel great for every attenders, so I think it's great word.",
+      "betterSay": "Every festival makes attendees feel great, so I think it's a great word.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-218",
+      "num": 218,
+      "youSaid": "And I really love attend to specific singer's concert.",
+      "betterSay": "And I really love attending a specific singer's concert.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-219",
+      "num": 219,
+      "youSaid": "But sometimes in my country has some festival has like live band festival or a lot of anonymous artists' festival.",
+      "betterSay": "But sometimes in my country, there are festivals with live bands or festivals featuring many anonymous artists.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-220",
+      "num": 220,
+      "youSaid": "It's pretty great mood and feeling for me.",
+      "betterSay": "It's a pretty great mood and feeling for me.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-221",
+      "num": 221,
+      "youSaid": "It contain every adults use their own water gun with each other.",
+      "betterSay": "It involves every adult using their own water gun with each other.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-222",
+      "num": 222,
+      "youSaid": "I think in winter season after Covid-19, I think I dislike winter season every concert and festival because it has more size concert hall or auditorium.",
+      "betterSay": "I think, after Covid-19, I dislike attending concerts and festivals in the winter season because they tend to be held in larger concert halls or auditoriums.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-223",
+      "num": 223,
+      "youSaid": "So I really love to his music when I'm studying or walking.",
+      "betterSay": "I really love listening to his music when I'm studying or walking.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-224",
+      "num": 224,
+      "youSaid": "In my country, I think we don't have any kinds of greatest jazz music festival.",
+      "betterSay": "In my country, I don't think we have any great jazz music festivals.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-225",
+      "num": 225,
+      "youSaid": "Most popular festival is I think, in my country, as you know, we have a huge size K-pop artists industry.",
+      "betterSay": "I think the most popular festival in my country is related to K-pop, as we have a huge K-pop industry.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-226",
+      "num": 226,
+      "youSaid": "And other festivals such as our Korean traditional festival, has always contained K-pop artists stages.",
+      "betterSay": "And other festivals, such as our Korean traditional festivals, always include K-pop artists' performances.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-227",
+      "num": 227,
+      "youSaid": "And then when I have free time during those seasons, I use for my hobbies, make YouTube video clips or do working out in the gym with my crew members or have a party with my friends.",
+      "betterSay": "When I have free time during those seasons, I use it for my hobbies, like making YouTube videos, working out at the gym with my crew members, or having a party with my friends.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-228",
+      "num": 228,
+      "youSaid": "Me and my one of best friend went to Japan's traditional city.",
+      "betterSay": "My best friend and I went to a traditional city in Japan.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-229",
+      "num": 229,
+      "youSaid": "So at the time, we can see everywhere because it has great weather and we have great health condition.",
+      "betterSay": "So at that time, we could see everything because the weather was great and we were in good health.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-230",
+      "num": 230,
+      "youSaid": "It has little bit differences with my high school festival.",
+      "betterSay": "It has a few differences from my high school festival.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-231",
+      "num": 231,
+      "youSaid": "As you know, we can use a lot of Netflix or Disney+ like these kinds of OTT services.",
+      "betterSay": "As you know, we can use a lot of OTT/streaming services like Netflix or Disney+.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-232",
+      "num": 232,
+      "youSaid": "If we want to feeling that festival's moods, we can go there.",
+      "betterSay": "If we want to feel the mood of the festival, we can go there.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-233",
+      "num": 233,
+      "youSaid": "But during that season, all hotels and all services' cost is really expensive than other days.",
+      "betterSay": "But during that season, the cost of all hotels and services is much higher than on other days.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-234",
+      "num": 234,
+      "youSaid": "Sometimes, I think almost every day morning is great.",
+      "betterSay": "Sometimes, I think every morning is great.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-235",
+      "num": 235,
+      "youSaid": "But sometimes, when I have some important interview or I have to take exam afternoon, I think at that day I think not agree about this paragraph.",
+      "betterSay": "But sometimes, when I have an important interview or an exam in the afternoon, I don’t agree with this paragraph on those days.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-236",
+      "num": 236,
+      "youSaid": "I think bluest has blue feeling has various types of another mood.",
+      "betterSay": "I think the feeling of blueness has various types of moods.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-237",
+      "num": 237,
+      "youSaid": "When I'm on during midnight time, I can write better than morning sometimes because it is little bit calm and relaxed.",
+      "betterSay": "Sometimes, when I'm awake during midnight, I can write better than in the morning because it's a bit calmer and more relaxed.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-238",
+      "num": 238,
+      "youSaid": "Serotonin make happy feeling but it awake to me.",
+      "betterSay": "Serotonin creates a feeling of happiness, but it also keeps me awake.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-239",
+      "num": 239,
+      "youSaid": "But melatonin hormone make little blue than before.",
+      "betterSay": "But the melatonin hormone makes someone feel a little bluer than before.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-240",
+      "num": 240,
+      "youSaid": "Our feeling and moods depends on time.",
+      "betterSay": "Our feelings and moods depend on time.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-241",
+      "num": 241,
+      "youSaid": "I think I'm really energetic person so sometimes when I took a really tough day, tough afternoon and evening, I can go to sleep earlier.",
+      "betterSay": "I think I'm a really energetic person, so sometimes when I have a tough day, tough afternoon, or evening, I can go to sleep earlier.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-242",
+      "num": 242,
+      "youSaid": "But I think one of my important thing is smartphone because if I use smartphone in midnight, I can't sleep early.",
+      "betterSay": "But I think one of the most important things for me is my smartphone, because if I use it at midnight, I can't sleep early.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-243",
+      "num": 243,
+      "youSaid": "If I have to prepare until Monday about some very important report or presentation, I also anxiety and nervous on Sunday.",
+      "betterSay": "If I have to prepare for an important report or presentation by Monday, I also feel anxious and nervous on Sunday.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-244",
+      "num": 244,
+      "youSaid": "I always thinking about my health condition and well-being always concerned about.",
+      "betterSay": "I’m always thinking about my health and well-being, and I'm always concerned about them",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "항상 일어나는 습관적이고 지속적인 생각은 현재진행형 대신 단순 현재형(always think about)을 씁니다."
+    },
+    {
+      "id": "eng-245",
+      "num": 245,
+      "youSaid": "But I think spring and summer season is better than other season.",
+      "betterSay": "But I think the spring and summer seasons are better than the others.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-246",
+      "num": 246,
+      "youSaid": "And so I always use humidity purifier.",
+      "betterSay": "So, I always use a humidity purifier/humidifier.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-247",
+      "num": 247,
+      "youSaid": "And it also great for after drink.",
+      "betterSay": "And it's also great after drinking.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-248",
+      "num": 248,
+      "youSaid": "Because after drink, my throat is really dry.",
+      "betterSay": "Because after drinking, my throat gets really dry.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-249",
+      "num": 249,
+      "youSaid": "If I use humidity purifier, it makes really better condition.",
+      "betterSay": "If I use a humidity purifier/humidifier, it improves the condition a lot.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-250",
+      "num": 250,
+      "youSaid": "Actually, if I feel very blue and gloomy, I can try to some medicine and I consult a doctor about that.",
+      "betterSay": "Actually, if I feel very blue and gloomy, I try some medicine and consult a doctor about it.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-251",
+      "num": 251,
+      "youSaid": "I think if I say inside of some structures such as building or office or house, I think I have to use 'in' preposition.",
+      "betterSay": "I think that when I talk about being inside structures like a building, office, or house, I have to use the preposition 'in'.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-252",
+      "num": 252,
+      "youSaid": "And if I put on something such as put on the desk something such as laptop and then I have to use 'on' preposition.",
+      "betterSay": "And if I place something on something, like putting a laptop on the desk, I have to use the preposition 'on'.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-253",
+      "num": 253,
+      "youSaid": "And if I use stay at something such as 'at the bus stop' or I think I have to use 'at' preposition.",
+      "betterSay": "And if I talk about staying at a specific place, like 'at the bus stop,' I think I have to use the preposition 'at'.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-254",
+      "num": 254,
+      "youSaid": "I think if I use specific time such as in the morning or in the afternoon or in the evening, I think I have to use 'in' preposition.",
+      "betterSay": "I think that if I refer to specific times, like in the morning, in the afternoon, or in the evening, I have to use the preposition 'in'.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-255",
+      "num": 255,
+      "youSaid": "And if I want to express week such as Monday, Tuesday, Saturday, I have to use 'on' Saturday or 'on' Monday.",
+      "betterSay": "And if I want to express a specific day, like Monday, Tuesday, or Saturday, I have to use 'on,' such as 'on Monday' or 'on Saturday.'",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-256",
+      "num": 256,
+      "youSaid": "Nowadays, I prepare my military season.",
+      "betterSay": "Nowadays, I am preparing for my military service.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-257",
+      "num": 257,
+      "youSaid": "So I interviewed with my employee relationship officer and leader.",
+      "betterSay": "So, I had an interview with my employee relations officer and leader. / So, I was interviewed by my employee relations officer and leader.",
+      "category": "tense",
+      "categoryName": "⏳ 시제 & 조동사",
+      "explanation": "사건이 발생한 시점(과거/현재/미래)에 맞추어 시제를 정확하게 일치시킨 표현입니다."
+    },
+    {
+      "id": "eng-258",
+      "num": 258,
+      "youSaid": "Because I must do break my all of jobs during month.",
+      "betterSay": "Because I must take a break from all of my jobs (during this month).",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-259",
+      "num": 259,
+      "youSaid": "I have to stay little bit time my office.",
+      "betterSay": "I have to stay in my office for a little while.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-260",
+      "num": 260,
+      "youSaid": "I think it is depends on 'a' and 'an' these words next word.",
+      "betterSay": "I think it depends on the word that comes after 'a' and 'an'.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-261",
+      "num": 261,
+      "youSaid": "If this 'a' and 'an' articles next words is word pronunciation and voice is similar to a, e, I, o, u, I think I have to use 'an'.",
+      "betterSay": "If the word following 'a' or 'an' begins with a vowel sound, I think I should use 'an'.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-262",
+      "num": 262,
+      "youSaid": "But if I want to and if I should do speak each other words and single word, I think I have to just 'a' article.",
+      "betterSay": "But if I want to say each word separately or talk about a single word, I think I should just use the article 'a'.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-263",
+      "num": 263,
+      "youSaid": "I think if I want speak specific university such as Harvard or some of university, I think I have to use 'the'.",
+      "betterSay": "I think if I want to speak about a specific university, such as Harvard or any other university, I should use 'the'.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-264",
+      "num": 264,
+      "youSaid": "But if I want to just speak one university, I think I have to use 'a'.",
+      "betterSay": "But if I want to refer to just any one university, I think I should use 'a'.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-265",
+      "num": 265,
+      "youSaid": "I think I always confused about countable and uncountable nouns.",
+      "betterSay": "I think I am always confused about countable and uncountable nouns.",
+      "category": "participle",
+      "categoryName": "🎭 감정 분사 & 수동태",
+      "explanation": "감정을 유발하는 원인(-ing)과 주체가 느끼는 상태(-ed), 능동/수동의 구분을 바로잡은 문장입니다."
+    },
+    {
+      "id": "eng-266",
+      "num": 266,
+      "youSaid": "So other pronunciation and nouns are a little bit confused for me.",
+      "betterSay": "So other pronunciations and nouns are a little bit confusing for me.",
+      "category": "participle",
+      "categoryName": "🎭 감정 분사 & 수동태",
+      "explanation": "감정을 유발하는 원인(-ing)과 주체가 느끼는 상태(-ed), 능동/수동의 구분을 바로잡은 문장입니다."
+    },
+    {
+      "id": "eng-267",
+      "num": 267,
+      "youSaid": "Actually, next Monday, I'm planning to vacation in my country island name is Jeju Island.",
+      "betterSay": "Actually, next Monday, I'm planning to vacation on my country's island, which is called Jeju Island.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-268",
+      "num": 268,
+      "youSaid": "I didn't understand 100% about this article's main story.",
+      "betterSay": "I didn't understand 100% of the main story in this article.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-269",
+      "num": 269,
+      "youSaid": "I think I understand about one man going to whale's body and that whale emerged him to ocean.",
+      "betterSay": "I think I understand that one man goes into a whale's body, and the whale spits him out into the ocean.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-270",
+      "num": 270,
+      "youSaid": "I understand about that.",
+      "betterSay": "I understand that.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-271",
+      "num": 271,
+      "youSaid": "But why the whale emerged him to ocean?",
+      "betterSay": "But why did the whale spit him out into the ocean?",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-272",
+      "num": 272,
+      "youSaid": "But maybe dangerous situation because if that whale wants to dive into deep ocean, it can spit its mouth.",
+      "betterSay": "But it could be a dangerous situation because if the whale wants to dive into the deep ocean, it might spit him out.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-273",
+      "num": 273,
+      "youSaid": "If the whale want to bite or swallow some of whales food, like plankton or some of fishes, I think he couldn’t spit its mouth.",
+      "betterSay": "If the whale wants to bite or swallow some of its food, like plankton or fish, I think it couldn't spit him out.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-274",
+      "num": 274,
+      "youSaid": "So sometimes, my climbing crew members or with my friends, we can planning to kayaking tour.",
+      "betterSay": "Sometimes, my climbing crew members or my friends and I plan kayaking tours.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-275",
+      "num": 275,
+      "youSaid": "But some of point was really dangerous because there are a lot of kinds of rock.",
+      "betterSay": "But some points were really dangerous because there were many kinds of rocks.",
+      "category": "tense",
+      "categoryName": "⏳ 시제 & 조동사",
+      "explanation": "사건이 발생한 시점(과거/현재/미래)에 맞추어 시제를 정확하게 일치시킨 표현입니다."
+    },
+    {
+      "id": "eng-276",
+      "num": 276,
+      "youSaid": "So if we going through that way, our boat could broken or our paddling pad broken.",
+      "betterSay": "So if we went that way, our boat and paddles could break. / So if we had gone that way, our boat and paddles could have broken.",
+      "category": "tense",
+      "categoryName": "⏳ 시제 & 조동사",
+      "explanation": "사건이 발생한 시점(과거/현재/미래)에 맞추어 시제를 정확하게 일치시킨 표현입니다."
+    },
+    {
+      "id": "eng-277",
+      "num": 277,
+      "youSaid": "But it's heavy rain.",
+      "betterSay": "But it's raining heavily.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-278",
+      "num": 278,
+      "youSaid": "I didn't expect this weather it's too heavy rain so I can't go any kinds of beach or sea.",
+      "betterSay": "I didn't expect this weather, and it's raining heavily, so I can't go to the beach or the sea.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-279",
+      "num": 279,
+      "youSaid": "It's really beautiful island in my country.",
+      "betterSay": "It's a really beautiful island in my country.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-280",
+      "num": 280,
+      "youSaid": "She is my 8 years old friend.",
+      "betterSay": "She is my friend of 8 years.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-281",
+      "num": 281,
+      "youSaid": "I think yesterday was not good day for us because we met some happening.",
+      "betterSay": "I think yesterday was not a good day for us because we experienced some things.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-282",
+      "num": 282,
+      "youSaid": "I think now my vacation partner is given the cold shoulder to me.",
+      "betterSay": "I think my vacation partner is giving me the cold shoulder now.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-283",
+      "num": 283,
+      "youSaid": "But we have little bit serious happening in our room.",
+      "betterSay": "But we had a bit of a serious situation in our room.",
+      "category": "tense",
+      "categoryName": "⏳ 시제 & 조동사",
+      "explanation": "사건이 발생한 시점(과거/현재/미래)에 맞추어 시제를 정확하게 일치시킨 표현입니다."
+    },
+    {
+      "id": "eng-284",
+      "num": 284,
+      "youSaid": "And she embarrassed and surprised to me.",
+      "betterSay": "And she was embarrassed and surprised by me.",
+      "category": "participle",
+      "categoryName": "🎭 감정 분사 & 수동태",
+      "explanation": "상황이나 경험이 주는 느낌은 -ing(embarrassing), 사람이 그 감정을 느낄 때는 -ed(embarrassed)를 사용합니다."
+    },
+    {
+      "id": "eng-285",
+      "num": 285,
+      "youSaid": "If I say to her about my apologize, she would be better or I just ignored her mind.",
+      "betterSay": "If I apologized to her, she would feel better, or I could just ignore how she feels.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-286",
+      "num": 286,
+      "youSaid": "So if I stay this situation to every time, I think it's not good than alone vacation.",
+      "betterSay": "If I stay in this situation all the time, I think it's worse than being on a solo vacation.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-287",
+      "num": 287,
+      "youSaid": "I think it is really different situation by situation because it is not good way to resolve that situations.",
+      "betterSay": "I think it's really different from situation to situation, because it's not a good way to resolve those situations.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-288",
+      "num": 288,
+      "youSaid": "I think that is just talk about this as soon as possible.",
+      "betterSay": "I think we should just talk about this as soon as possible.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-289",
+      "num": 289,
+      "youSaid": "And she or he need more time about that because we have to consider and thinking about deeply.",
+      "betterSay": "And she or he needs more time for that because we have to consider and think about it deeply.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-290",
+      "num": 290,
+      "youSaid": "If I do wrong actions or wrong directions or talkings, I apologize about that.",
+      "betterSay": "If I take/do the wrong actions, go in the wrong directions, or say the wrong things, I apologize for that.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-291",
+      "num": 291,
+      "youSaid": "So I think this word is same means.",
+      "betterSay": "So I think this word has the same meaning (as that).",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-292",
+      "num": 292,
+      "youSaid": "So it is not hard for me about ice breaking or break the ice.",
+      "betterSay": "So, it's not hard for me to break the ice.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-293",
+      "num": 293,
+      "youSaid": "I always try to say to other attenders as soon as possible.",
+      "betterSay": "I always try to speak to the other attendees as soon as possible.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-294",
+      "num": 294,
+      "youSaid": "I think I always try to looking for our common issues or common events or common things.",
+      "betterSay": "I think I always try to look for our common issues, events, or things. / I think I always try to find our similarities.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-295",
+      "num": 295,
+      "youSaid": "It is really good for make new ideas.",
+      "betterSay": "It is really good for making new ideas.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-296",
+      "num": 296,
+      "youSaid": "But she already hurted by me and I also hurted my mind.",
+      "betterSay": "But she was already hurt by me, and I also hurt my own mind/myself.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-297",
+      "num": 297,
+      "youSaid": "She's gone to Seoul in this morning.",
+      "betterSay": "She went to Seoul this morning.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-298",
+      "num": 298,
+      "youSaid": "That is last night, my vacation partner, she doesn't want to eat dinner.",
+      "betterSay": "Last night, my vacation partner didn't want to eat dinner.",
+      "category": "tense",
+      "categoryName": "⏳ 시제 & 조동사",
+      "explanation": "사건이 발생한 시점(과거/현재/미래)에 맞추어 시제를 정확하게 일치시킨 표현입니다."
+    },
+    {
+      "id": "eng-299",
+      "num": 299,
+      "youSaid": "So I just take out some fried chicken and I tried to have dinner alone.",
+      "betterSay": "So I just took out some fried chicken and tried to have dinner alone.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-300",
+      "num": 300,
+      "youSaid": "But one of the guests, he is Netherland architecture.",
+      "betterSay": "But one of the guests is a Dutch architect.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-301",
+      "num": 301,
+      "youSaid": "So today, in this afternoon, I'm planning to a party in guesthouse.",
+      "betterSay": "So today, this afternoon, I'm planning a party at the guesthouse.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-302",
+      "num": 302,
+      "youSaid": "If I want to express a singular one, I have to use 'a' or 'an'.",
+      "betterSay": "If I want to refer to a singular noun, I have to use 'a' or 'an.'",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-303",
+      "num": 303,
+      "youSaid": "But it is depends on next word.",
+      "betterSay": "But it depends on the next word.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-304",
+      "num": 304,
+      "youSaid": "So if I want to use some 'cat' or 'strawberry', I have to use 'a.'",
+      "betterSay": "So, if I want to use words like 'cat' or 'strawberry,' I have to use 'a.'",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-305",
+      "num": 305,
+      "youSaid": "But if I want to speak 'olive' or those kind of 'o' or 'a' sound, I have to use 'an'.",
+      "betterSay": "But if I want to say 'olive' or words with an 'o' or 'a' sound, I have to use 'an.'",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-306",
+      "num": 306,
+      "youSaid": "If I want to express and introduce something at first, I have to use how many things are there.",
+      "betterSay": "If I want to introduce something for the first time, I have to say how many there are.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-307",
+      "num": 307,
+      "youSaid": "English language doesn't want to speak many times same things.",
+      "betterSay": "People usually avoid repeating the same thing too often in the English language.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-308",
+      "num": 308,
+      "youSaid": "It's too bored and it's not good efficiency.",
+      "betterSay": "It's too boring, and it's not efficient.",
+      "category": "participle",
+      "categoryName": "🎭 감정 분사 & 수동태",
+      "explanation": "감정을 유발하는 원인(-ing)과 주체가 느끼는 상태(-ed), 능동/수동의 구분을 바로잡은 문장입니다."
+    },
+    {
+      "id": "eng-309",
+      "num": 309,
+      "youSaid": "But if I read some serious news articles or like philosophy articles, I have to know that correctly means.",
+      "betterSay": "But if I read serious news articles or philosophy articles, I have to understand the meaning correctly.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-310",
+      "num": 310,
+      "youSaid": "I heard about some saying from other my English teacher that is 'a' and 'an' and 'the', these articles are really important.",
+      "betterSay": "I heard from one of my English teachers that 'a,' 'an,' and 'the' are really important articles.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-311",
+      "num": 311,
+      "youSaid": "And it's too easy to use wrong way even if they are native speakers.",
+      "betterSay": "And it's easy to use them incorrectly, even for native speakers.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-312",
+      "num": 312,
+      "youSaid": "I think it's also like first one.",
+      "betterSay": "I think it's also like the first one.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-313",
+      "num": 313,
+      "youSaid": "But I just wonder what is the reasons about that hearing problems.",
+      "betterSay": "But I just wonder what the reasons are for those hearing problems.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-314",
+      "num": 314,
+      "youSaid": "So, we didn't know, and we didn't aware of the noise-cancelling earphones cause those items can make problems for our safety or our conditions.",
+      "betterSay": "So, we didn't know, and we weren't aware that noise-cancelling earphones could cause problems for our safety or health.",
+      "category": "tense",
+      "categoryName": "⏳ 시제 & 조동사",
+      "explanation": "사건이 발생한 시점(과거/현재/미래)에 맞추어 시제를 정확하게 일치시킨 표현입니다."
+    },
+    {
+      "id": "eng-315",
+      "num": 315,
+      "youSaid": "Actually, I'm a little bit sensitive person so I always carry my noise-cancelling earbuds everywhere.",
+      "betterSay": "Actually, I'm a bit of a sensitive person, so I always carry my noise-cancelling earbuds everywhere.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-316",
+      "num": 316,
+      "youSaid": "Because I really dislike every kinds of noises, siren sounds, those kind of makes me surprised sound.",
+      "betterSay": "Because I really dislike all kinds of noises, like sirens, and sounds that surprise me.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-317",
+      "num": 317,
+      "youSaid": "When I'm stay in my flat, I use to noise-cancelling earphones and if I go to outside, I always use noise-cancelling earbuds almost 6 to 8 hours a day.",
+      "betterSay": "When I'm staying in my flat, I use noise-cancelling earphones, and when I go outside, I always wear them for almost 6 to 8 hours a day.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-318",
+      "num": 318,
+      "youSaid": "First one is, it's a little bit uncomfortable for my ear conditions.",
+      "betterSay": "The first reason is that it's a little uncomfortable for my ear conditions/ears.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-319",
+      "num": 319,
+      "youSaid": "And second of all, that is after use earbuds, I feel little bit much more sensitive about any kinds of sounds because I use noise-cancelling earphones.",
+      "betterSay": "Second of all, after using earbuds, I feel a bit more sensitive to all kinds of sounds because I use noise-cancelling earphones.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-320",
+      "num": 320,
+      "youSaid": "So, I can feel much more sensitive about every kinds of sounds.",
+      "betterSay": "So, I become much more sensitive to all kinds of sounds.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-321",
+      "num": 321,
+      "youSaid": "But I guess these two words' difference is one is include understanding.",
+      "betterSay": "But I guess the difference between these two words is that one includes (the concept of) understanding.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-322",
+      "num": 322,
+      "youSaid": "But the other one word is not include understanding and make sense something.",
+      "betterSay": "But the other word doesn't involve understanding and just makes sense in a different way.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-323",
+      "num": 323,
+      "youSaid": "If I want to conversation or trying to start talk about something with people, I think I have to feel sympathy about his or her minds.",
+      "betterSay": "If I want to have a conversation or try to start talking about something with people, I think I need to be empathetic towards their feelings.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-324",
+      "num": 324,
+      "youSaid": "Because accidents don't make predictable things.",
+      "betterSay": "Because accidents are unpredictable.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-325",
+      "num": 325,
+      "youSaid": "It's little bit too much dangerous.",
+      "betterSay": "It's a little too dangerous.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-326",
+      "num": 326,
+      "youSaid": "At that time, they just focus on professor's or teacher's saying and feelings about just informations.",
+      "betterSay": "At that time, they only focus on the professor's or teacher's words and feelings about the information.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-327",
+      "num": 327,
+      "youSaid": "In real interaction and real lectures, we need to focus on his or her minds and feelings and what is the hidden meanings of their lectures.",
+      "betterSay": "In real interactions and lectures, we need to focus on their thoughts and feelings, as well as the hidden meanings behind their lectures.",
+      "category": "tense",
+      "categoryName": "⏳ 시제 & 조동사",
+      "explanation": "사건이 발생한 시점(과거/현재/미래)에 맞추어 시제를 정확하게 일치시킨 표현입니다."
+    },
+    {
+      "id": "eng-328",
+      "num": 328,
+      "youSaid": "Because we can see professor's or teacher's faces moving.",
+      "betterSay": "Because we can see the professor's or teacher's facial expressions.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-329",
+      "num": 329,
+      "youSaid": "But the other side, it is the negative side, those kind of wild animals, they have some bad illness such as crazy dog illness.",
+      "betterSay": "On the other hand, the negative side is that wild animals can carry dangerous diseases, such as rabies.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-330",
+      "num": 330,
+      "youSaid": "We need to know what is the main animal from that illness.",
+      "betterSay": "We need to know which animal is primarily responsible for that illness.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-331",
+      "num": 331,
+      "youSaid": "Because we need to use right cure medicine.",
+      "betterSay": "Because we need to use the right medicine to cure it.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-332",
+      "num": 332,
+      "youSaid": "Almost 9 years ago, I've seen raccoons in café with my girlfriend.",
+      "betterSay": "Almost 9 years ago, I saw raccoons in a café with my girlfriend.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-333",
+      "num": 333,
+      "youSaid": "In my country, it has some various types of café such as raccoon café or cat café or dogs café.",
+      "betterSay": "In my country, there are various types of cafés, such as raccoon cafés, cat cafés, and dog cafés.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-334",
+      "num": 334,
+      "youSaid": "I think the interview, they had some different sides between me because I always thinking about animals are really, it has really lovely and cute sides.",
+      "betterSay": "I think during the interview, there were some differences between us because I always think of animals as being really lovely and cute.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "항상 일어나는 습관적이고 지속적인 생각은 현재진행형 대신 단순 현재형(always think about)을 씁니다."
+    },
+    {
+      "id": "eng-335",
+      "num": 335,
+      "youSaid": "Some of interviewee, they said from this article Korea Herald, they said they were really scared.",
+      "betterSay": "Some of the interviewees mentioned in this article from the Korea Herald that they were really scared.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-336",
+      "num": 336,
+      "youSaid": "Every raccoon doesn't has same emotions and same personalities.",
+      "betterSay": "Not every raccoon has the same emotions and personality.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-337",
+      "num": 337,
+      "youSaid": "Because if zoo or those kind of café can't take care their animals, not every companies or zoo or management, managers.",
+      "betterSay": "Because if zoos or cafés like that can't take care of their animals, not every company or manager is responsible.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-338",
+      "num": 338,
+      "youSaid": "But some of that people, they can't take a decision that is just emerged their animals to just wild areas such as park or forest nearby our society.",
+      "betterSay": "But some of those people can't make the decision to release their animals into the wild, such as a park or forest near our society.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-339",
+      "num": 339,
+      "youSaid": "It is about citizen activities when they face to raccoons.",
+      "betterSay": "It is about citizens' activities when they encounter/face raccoons.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-340",
+      "num": 340,
+      "youSaid": "I guess it means 'go to bed' for sleep.",
+      "betterSay": "I guess it means 'go to bed' to sleep.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-341",
+      "num": 341,
+      "youSaid": "And I used to finish my all of physical trainings until 10 p.m.",
+      "betterSay": "And I used to finish all my physical training by 10 p.m.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "과거의 규칙적 습관(used to + 동사원형)과 현재 익숙한 상태(be used to -ing)의 구분을 명확히 합니다."
+    },
+    {
+      "id": "eng-342",
+      "num": 342,
+      "youSaid": "So, almost every day, I can take a sleep immediately.",
+      "betterSay": "So, almost every day, I can fall asleep immediately.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-343",
+      "num": 343,
+      "youSaid": "I don't this word's real mean but I guess this word that it means depressed from something.",
+      "betterSay": "I don't know the real meaning of this word, but I guess it means being depressed about something.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-344",
+      "num": 344,
+      "youSaid": "When I first saw her, at that time was 8 years before, so we had really long memories.",
+      "betterSay": "When I first saw her, it was 8 years ago, so we have many memories together.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-345",
+      "num": 345,
+      "youSaid": "So I just guess she and I had same thoughts about this vacation.",
+      "betterSay": "So I just guess that she and I had the same thoughts about this vacation.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-346",
+      "num": 346,
+      "youSaid": "So I faced really serious and terrible situations at last weekdays.",
+      "betterSay": "So I faced some really serious and terrible situations last week (during the weekdays).",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-347",
+      "num": 347,
+      "youSaid": "After that vacation, I sent to direct message to him, \"When do you leave this country?\"",
+      "betterSay": "After that vacation, I sent him a direct message asking, 'When are you leaving this country?'",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-348",
+      "num": 348,
+      "youSaid": "Before left that bus, I gave that single red rose to her.",
+      "betterSay": "Before the bus left, I gave her that single red rose.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-349",
+      "num": 349,
+      "youSaid": "I'm always preparing that proposement it's really important for that.",
+      "betterSay": "I'm always preparing for that proposal because it's really important.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-350",
+      "num": 350,
+      "youSaid": "And I said to him or her, said to my friends if you want to keep that secret and if they said to me 'yes' and I just keep the secrets to under the graveyard.",
+      "betterSay": "And I ask my friends, 'Do you want to keep this a secret?' and if they say 'yes,' I will keep those secrets and take them to the grave.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-351",
+      "num": 351,
+      "youSaid": "But if that secrets leak is the best way for resolution, I think I consider about that deeply.",
+      "betterSay": "But if leaking those secrets is the best way to resolve the issue, I think I would consider it deeply.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-352",
+      "num": 352,
+      "youSaid": "She is most beautiful woman in this office.",
+      "betterSay": "She is the most beautiful woman in this office.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-353",
+      "num": 353,
+      "youSaid": "It is just one of topic for conversation, I think.",
+      "betterSay": "It is just one of the topics for conversation, I think.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-354",
+      "num": 354,
+      "youSaid": "Because those kinds of grammar rules is I heard about some doctor's degree person.",
+      "betterSay": "Because those kinds of grammar rules are what I heard about from someone with a doctorate degree.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-355",
+      "num": 355,
+      "youSaid": "He said to auditorium people that thing was almost every native speakers, they just learned from their parents.",
+      "betterSay": "He told the people in the auditorium that this thing was something almost every native speaker just learned from their parents.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-356",
+      "num": 356,
+      "youSaid": "And just they use just for conversations, express their feelings or wants.",
+      "betterSay": "And they use it just for conversations, to express their feelings or wants.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-357",
+      "num": 357,
+      "youSaid": "And he said to use those kind of grammar rules we can learn in university or bachelor's or master's degree curriculum.",
+      "betterSay": "And he said that we can learn those kinds of grammar rules in university, as part of a bachelor's or master's degree curriculum.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-358",
+      "num": 358,
+      "youSaid": "I think nowadays I really want to conversation skills level up.",
+      "betterSay": "I think nowadays I really want to level up my conversation skills.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-359",
+      "num": 359,
+      "youSaid": "So I just conversate with many people such as foreigners.",
+      "betterSay": "So I just converse with many people, such as foreigners.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-360",
+      "num": 360,
+      "youSaid": "So I really worried about if I talk with foreigners without correct grammar skills.",
+      "betterSay": "So I'm really worried about talking with foreigners without proper grammar skills.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-361",
+      "num": 361,
+      "youSaid": "I think it's little bit they can feel little bit rude.",
+      "betterSay": "I think it's a little bit rude, and they might feel that way.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-362",
+      "num": 362,
+      "youSaid": "So I need your advices and a little bit more coachings about this.",
+      "betterSay": "So I need your advice and a little bit more coaching on this.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-363",
+      "num": 363,
+      "youSaid": "I heard about some rude voice tone from other En 2025년 4월 15일 오후 5:01 2025년 4월 15일 오후 5:01, P25★Report : 💎Student's Name: NAHM HYUN KIM 💎Date: April 15, 2025 _____________________________________ 📝 TODAY'S LESSON: Course: FREE TALKING Title/Page: FREE TIME _____________________________________ 🎧 PRONUNCIATION PRACTICE ▶ special [ spesh-uhl ] ▶ people [ pee-puhl] _____________________________________ 🔍 VOCABULARY WORDS 📌 income - money that is earned from doing work or received from investments: EXAMPLE: Average incomes have risen by 4.5 percent over the past year. ________________________ 2025년 4월 16일 오후 4:55 2025년 4월 16일 오후 4:55, P25★Report : 💎Student's Name: NAHM HYUN KIM 💎Date: April 16, 2025 _____________________________________ 📝 TODAY'S LESSON: Course: PATTERN SPEAKING Title/Page: I think … I don’t think … I’m thinking about … I was thinking about … I’ve been thinking about … _____________________________________ 🔍 VOCABULARY WORDS 📌 1. \"I think...\" - You use this to give your opinion or belief. EXAMPLE: I think it’s going to rain soon. 📌 \"I don’t think...\" - You use this to say you don’t believe or don’t agree with 2025년 4월 17일 오후 2:05 2025년 4월 17일 오후 2:05, P25★Report : 💎Student's Name: Nahm hyun Kim (Aaron) 💎Date: April 17, 2025 Thursday _____________________________________ 📝 TODAY'S LESSON: Course: Pattern Speaking -Would you mind if I~? -Would you mind~ing? -I hope~ _____________________________________ 🎧 PRONUNCIATION PRACTICE ▶ adjust [ uh-JUHST ] ▶ handling [ HAND-ling ] _____________________________________ 🔍 VOCABULARY WORDS 📌 Would you mind if I~? (pattern) - a polite way of asking for permission to do something or making a request Ex. Woul 2025년 4월 18일 오후 1:57 2025년 4월 18일 오후 1:57, P25★Report : 💎Student's Name: Nahm hyun Kim (Aaron) 💎Date: April 18, 2025 Friday _____________________________________ 📝 TODAY'S LESSON: Course: Article English Book/Website: https://breakingnewsenglish.com/2504/250403-career-apocalypse.html Title/Page: Generation Z is facing a 'career apocalypse' _____________________________________ 🎧 PRONUNCIATION PRACTICE ▶ Gen Zer / ˌdʒen ˈziːər / ▶ correspondent [ kawr-uh-SPON-duhnt, kor- ] ▶ apocalypse [ uh-POK-uh-lips ] ▶ uncertainty [ uhn-SUR-tn-tee ] ▶ plumbe 2025년 4월 21일 오후 2:06 2025년 4월 21일 오후 2:06, P25★Report : 💎Student's Name: Nahm hyun Kim (Aaron) 💎Date: April 21, 2025 Monday _____________________________________ 📝 TODAY'S LESSON: Course: Article English Book/Website: https://learningenglish.voanews.com/a/saying-no-at-work-can-be-good-for-your-health/7945653.html Title/Page: Saying ‘No’ at Work Can Be Good for Your Health _____________________________________ 🎧 PRONUNCIATION PRACTICE ▶ experts [ noun verb EK-spurts ] ▶ past [ past ] or / pæst / ▶ effort [ EF-ert ] ▶ reports [ ri-PAWRTS, -POHRTS 2025년 4월 22일 오후 3:39 2025년 4월 22일 오후 3:39, P25★Report : 💎Student's Name: Nahm hyun Kim (Aaron) 💎Date: April 22, 2025 Tuesday _____________________________________ 📝 TODAY'S LESSON: Course: Free Talking Book/Website: https://eslconversationtopics.com/questions/early-birds/ Title/Page: Early Birds _____________________________________ 🎧 PRONUNCIATION PRACTICE ▶ disciplined [ DIS-uh-plind ] ▶ owl [ oul ] or / aʊl / _____________________________________ 🔍 VOCABULARY WORDS 📌 disciplined (adjective) - behaving in a very controlled way; able to car 2025년 4월 23일 오후 1:59 2025년 4월 23일 오후 1:59, P25★Report : 💎Student's Name: Nahm hyun Kim (Aaron) 💎Date: April 23, 2025 Wednesday _____________________________________ 📝 TODAY'S LESSON: Course: Pattern Speaking -I hope~ (continuation) -I wish~ _____________________________________ 🎧 PRONUNCIATION PRACTICE ▶ exam [ ig-ZAM ] ▶ possibilities [ pos-uh-BIL-i-teez ] ▶ astronaut [ AS-truh-nawt, -not ] _____________________________________ 🔍 VOCABULARY WORDS 📌 I hope~ (pattern) - used to express a desire or expectation for something to happen in the future Ex. I hope the project gets completed on time. 📌 I wish~ (pattern) - used to express a desire for something that is not true or a regret about a situation Ex. I wish I could fly to work every day. 📌 subjunctive mood (noun) - used to express wishes, suggestions, demands, or situations that are not real or are hypothetical ● Structure: I wish + subject + verb (past tense) Examples: I wish I were rich. ⤷ (But I'm not rich, and I can't suddenly become rich.) I wish I could fly. ⤷ (But flying is impossible for humans without a plane.) I wish I hadn’t said that to her. ⤷ (But I did say it, and it’s impossible to change the past.) 📍 Important Note: We use \"were\" even for I/he/she (even though \"was\" is common in everyday speech, \"were\" is the correct form in the subjunctive mood). 📌 I wish I was… - used to express a desire or regret about a situation that is not true or impossible in the present (for informal speech) Example: I wish I was on vacation. ⤷ (But I am not on vacation, and I wish I were.) 📍 Important Note: In formal English, \"I wish I were\" is preferred, but \"I wish I was\" is commonly used in everyday conversation, especially in informal speech. _____________________________________ 🛠️ SENTENCE CONSTRUCTION ✖You said: If I want to or if I wish to something, I think I need to use 'I hope~' pattern in conversation.",
+      "betterSay": "If I want something or if I wish for something, I think I need to use the 'I hope~' pattern in conversation.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "과거의 규칙적 습관(used to + 동사원형)과 현재 익숙한 상태(be used to -ing)의 구분을 명확히 합니다."
+    },
+    {
+      "id": "eng-364",
+      "num": 364,
+      "youSaid": "What is the difference about those two patterns?",
+      "betterSay": "What is the difference between these two patterns?",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-365",
+      "num": 365,
+      "youSaid": "I think if I want to something is okay and it is really possible situation, so I know it is 50% over possibilities.",
+      "betterSay": "I think if I want something and it's a possible situation, then it has a 50% chance of happening.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-366",
+      "num": 366,
+      "youSaid": "So I hope that is will be okay.",
+      "betterSay": "So I hope it will be okay.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-367",
+      "num": 367,
+      "youSaid": "I hope this morning is will be okay.",
+      "betterSay": "I hope this morning will be okay.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-368",
+      "num": 368,
+      "youSaid": "…because sometimes in the morning, it's really busy than other days.",
+      "betterSay": "...because sometimes in the morning, it's busier than on other days.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-369",
+      "num": 369,
+      "youSaid": "And those patterns means I want to use 'I wish I~', I need to use past patterns.",
+      "betterSay": "And those patterns mean/show that if I want to use 'I wish I~', I need to use the past tense.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-370",
+      "num": 370,
+      "youSaid": "I wish I can speak Italian.",
+      "betterSay": "I wish I could speak Italian. *When using \"I wish\" to talk about something you can't do or don't have, you use \"could\" instead of \"can\" (since \"could\" is the past tense of \"can\" in the subjunctive mood).",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-371",
+      "num": 371,
+      "youSaid": "I hadn't breakfast not yet.",
+      "betterSay": "I haven’t had breakfast yet.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-372",
+      "num": 372,
+      "youSaid": "…maybe when I arrive my workplace.",
+      "betterSay": "…maybe when I arrive at my workplace.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-373",
+      "num": 373,
+      "youSaid": "Actually, almost a year ago, I learned playing the violin in violin academy.",
+      "betterSay": "Actually, about a year ago, I learned to play the violin at a violin academy.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-374",
+      "num": 374,
+      "youSaid": "So nowadays, I'm work at school, so I can use one of the space in my school.",
+      "betterSay": "Nowadays, I work at a school, so I can use one of the spaces in my school.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-375",
+      "num": 375,
+      "youSaid": "That song sounds sad for me.",
+      "betterSay": "That song sounds sad to me.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-376",
+      "num": 376,
+      "youSaid": "So I think this blank is need to use talk about time.",
+      "betterSay": "So I think the preposition in this blank is used to talk about time.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "과거의 규칙적 습관(used to + 동사원형)과 현재 익숙한 상태(be used to -ing)의 구분을 명확히 합니다."
+    },
+    {
+      "id": "eng-377",
+      "num": 377,
+      "youSaid": "This tool is used to cutting vegetables.",
+      "betterSay": "This tool is used for cutting vegetables.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "과거의 규칙적 습관(used to + 동사원형)과 현재 익숙한 상태(be used to -ing)의 구분을 명확히 합니다."
+    },
+    {
+      "id": "eng-378",
+      "num": 378,
+      "youSaid": "I think talk about something object so I think I need to use 'to' in this blank.",
+      "betterSay": "I think it's talking about something or someone, so I need to use 'to' in this blank.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-379",
+      "num": 379,
+      "youSaid": "Nowadays, I used to take medicine in the morning because I have too much high blood pressure.",
+      "betterSay": "Nowadays, I take medicine in the morning because I have high blood pressure.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "과거의 규칙적 습관(used to + 동사원형)과 현재 익숙한 상태(be used to -ing)의 구분을 명확히 합니다."
+    },
+    {
+      "id": "eng-380",
+      "num": 380,
+      "youSaid": "Since 1996, I can use chopsticks.",
+      "betterSay": "Since 1996, I have been able to use chopsticks.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-381",
+      "num": 381,
+      "youSaid": "I think I'm planning to indoor rock climbing also.",
+      "betterSay": "I think I'm planning t",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-382",
+      "num": 382,
+      "youSaid": "I think I'm planning to prepare my next certification test for a whole day.",
+      "betterSay": "I'm planning to prepare for my next certification test for the whole day.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-383",
+      "num": 383,
+      "youSaid": "It means just check out outfit something.",
+      "betterSay": "It means to just check out the outfit.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-384",
+      "num": 384,
+      "youSaid": "It has meaning that's emphasis something specific detail or number.",
+      "betterSay": "It has a meaning that emphasizes a specific detail or number.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-385",
+      "num": 385,
+      "youSaid": "Such as when I use 'a' or 'an', it means I want to express something that is just one.",
+      "betterSay": "For example, when I use 'a' or 'an', it means I want to express that something is just one.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-386",
+      "num": 386,
+      "youSaid": "It has the detail of something specific structure.",
+      "betterSay": "It has the detail of a specific structure.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-387",
+      "num": 387,
+      "youSaid": "This context means it meaning that is read the specific book.",
+      "betterSay": "In this context, it means to read the specific book.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-388",
+      "num": 388,
+      "youSaid": "I think I can use some expression of specific structure or something.",
+      "betterSay": "I think I can use an expression with a specific structure or something like that.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-389",
+      "num": 389,
+      "youSaid": "That is really great university, but around the town is really dangerous.",
+      "betterSay": "That is a really great university, but the are",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "셀 수 있는 단수 가산 명사 앞에는 반드시 부정관사 a/an을 빠뜨리지 않고 붙여주어야 합니다."
+    },
+    {
+      "id": "eng-390",
+      "num": 390,
+      "youSaid": "I think this week is just for my, check my health condition.",
+      "betterSay": "I think this week is just for me to check my health condition.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-391",
+      "num": 391,
+      "youSaid": "It has same meanings about next word is just one or just one things, such as 'it's an apple' or 'it's a banana', 'it's cup of orange juice'.",
+      "betterSay": "It means the next word refers to just one thing, such as 'it's an apple,' 'it's a banana,' or 'it's a cup of orange juice.'",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-392",
+      "num": 392,
+      "youSaid": "But it is different by next word's first spelling because if it has a, e, i, o, u, these sounds of English spelling, we need to use 'an'.",
+      "betterSay": "But it depends on the first sound of the next word because if it starts with a vowel sound, like a, e, i, o, or u, we need to use 'an'.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-393",
+      "num": 393,
+      "youSaid": "But if I want to speak to something specific one thing, I just use 'a' article.",
+      "betterSay": "But if I want to talk about a specific single thing, I use the article 'a'.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-394",
+      "num": 394,
+      "youSaid": "The article 'the' is, if I want to speak something specific one thing, that is 'I need the key for open the door', like that.",
+      "betterSay": "The article 'the' is used when I want to talk about a specific thing. For example, 'I need the key to open the door.'",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-395",
+      "num": 395,
+      "youSaid": "…because this sentence means about I borrowed just one pencil because 'pencil' has just no 's' sounds.",
+      "betterSay": "…because this sentence means I borrowed only one pencil, and 'pencil' doesn’t have an 's' at the end.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-396",
+      "num": 396,
+      "youSaid": "I think this sentence is no article needed.",
+      "betterSay": "I think no article is needed in this sentence. / I think this sentence doesn’t need an article.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-397",
+      "num": 397,
+      "youSaid": "So this is I think waste of grammar.",
+      "betterSay": "I think that’s just unnecessary grammar.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-398",
+      "num": 398,
+      "youSaid": "It's not like sentence American, I think.",
+      "betterSay": "I don’t think that sentence sounds American.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-399",
+      "num": 399,
+      "youSaid": "In this afternoon, I'm planning to go to rock climbing gym.",
+      "betterSay": "This afternoon, I'm planning to go to the rock climbing gym.",
+      "category": "infinitive",
+      "categoryName": "🔄 동명사 vs 부정사",
+      "explanation": "동사의 목적어로 to부정사를 취하는지 동명사(-ing)를 취하는지 문맥에 맞게 구별한 교정입니다."
+    },
+    {
+      "id": "eng-400",
+      "num": 400,
+      "youSaid": "Nowadays, I started a new semetry(?) in my university, so I think during a work, if I have free time, I'll watching some lecture.",
+      "betterSay": "Nowadays, I’ve started a new semester at my university, so I think if I have free time during work, I’ll watch some lectures.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-401",
+      "num": 401,
+      "youSaid": "After that, the sentence want to express once more smartphone but it is repeated.",
+      "betterSay": "After that, the sentence tries to mention the smartphone again, but it’s already repeated.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-402",
+      "num": 402,
+      "youSaid": "I'd like to make a plan about my new travel.",
+      "betterSay": "I'd like to make a plan for my new travel.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-403",
+      "num": 403,
+      "youSaid": "I need a map for my travel.",
+      "betterSay": "I need a map for my trip.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-404",
+      "num": 404,
+      "youSaid": "I need to a smartphone that is newest one.",
+      "betterSay": "I need the newest smartphone.",
+      "category": "noun",
+      "categoryName": "📦 관사 & 명사 수일치",
+      "explanation": "특정한 대상이나 대화 상대방과 공유하고 있는 맥락을 가리킬 때는 정관사 the를 명확히 지정합니다."
+    },
+    {
+      "id": "eng-405",
+      "num": 405,
+      "youSaid": "When I wake up in every morning, I love to eat an apple.",
+      "betterSay": "When I wake up every morning, I love to eat an apple.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-406",
+      "num": 406,
+      "youSaid": "I can't make a perfect plan because I have an issue about my health condition.",
+      "betterSay": "I can't make a perfect plan because I have an issue with my health condition.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-407",
+      "num": 407,
+      "youSaid": "I really love to cook an egg in my omelet.",
+      "betterSay": "I really love to cook an omelet.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    },
+    {
+      "id": "eng-408",
+      "num": 408,
+      "youSaid": "The United Kingdom is my next plan of travel.",
+      "betterSay": "The United Kingdom is my next travel destination.",
+      "category": "phrasing",
+      "categoryName": "💬 원어민 구어체 & 뉘앙스",
+      "explanation": "한국어식 직역에서 벗어나, 원어민 튜터가 일상 대화에서 가장 많이 사용하는 자연스러운 구어체 뉘앙스로 다듬은 문장입니다."
+    },
+    {
+      "id": "eng-409",
+      "num": 409,
+      "youSaid": "I used this fork last night, and the fork make a sore of my fingers.",
+      "betterSay": "I used this fork last night, and it caused a sore on my finger.",
+      "category": "prep",
+      "categoryName": "🎯 전치사 & 연어",
+      "explanation": "동사나 명사와 자연스럽게 호응하는 전치사(Collocation)를 바르게 교정한 문장입니다."
+    }
+  ]
+};
+
   // 전역 window 객체에 초기 시드 데이터 바인딩
   global.INITIAL_DISCHARGE_DATE = INITIAL_DISCHARGE_DATE;
   global.INITIAL_CAMINO_DATA = INITIAL_CAMINO_DATA;
@@ -5999,5 +9819,6 @@ const INITIAL_KNOU_DATA = {
   global.INITIAL_EXTERNAL_DASHBOARDS = INITIAL_EXTERNAL_DASHBOARDS;
   global.INITIAL_INBODY_DATA = INITIAL_INBODY_DATA;
   global.INITIAL_KNOU_DATA = INITIAL_KNOU_DATA;
+  global.INITIAL_ENGLISH_DATA = INITIAL_ENGLISH_DATA;
 
 })(typeof window !== 'undefined' ? window : this);

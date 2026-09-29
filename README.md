@@ -44,14 +44,16 @@ career-dashboard/
    * `INITIAL_ENERGY_QUESTIONS`: 25선 실기 연습 & 기출 암기카드 데이터
    * `INITIAL_EXTERNAL_DASHBOARDS`: 외부 노션, 시트 연동 대시보드 목록
    * `INITIAL_INBODY_DATA`: 11년간 89회 누적 인바디 신체 측정 기록
-   * `INITIAL_KNOU_DATA`: 국립 방송통신대학교 사회복지학과 2026-2학기 9개 과목 수강률(형성평가 20%), 과제물(30%), 기말고사(50%) 평가 및 평생교육사실습 데이터
+    * `INITIAL_KNOU_DATA`: 국립 방송통신대학교 사회복지학과 2026-2학기 9개 과목 수강률(형성평가 20%), 과제물(30%), 기말고사(50%) 평가 및 평생교육사실습 데이터
+    * `INITIAL_ENGLISH_DATA`: 카카오톡 1:1 회화 수업 409개 원어민 교정 데이터(You said vs Better say), 6대 취약 문법 유형(관사·수일치, 구어체·뉘앙스, 전치사·연어, 동명사·부정사, 시제, 분사), 튜터 추천 16대 핵심 이디엄(Idioms of the Day)
 
 2. **`js/app.js` (비즈니스 로직 & UI 렌더러 전담)**
    * `SyncManager`: LocalStorage 오프라인 저장 및 Firebase Firestore 양방향 동기화
    * `Google Admin Auth & GIS`: Google Identity Services SDK 연동, 오직 `carlosnam6363@gmail.com`만 수정/작성 권한 활성화
    * `Tab Order & Category Navigation`: 탭 순서 커스텀 정렬 및 카테고리 필터링(취미 / 커리어 패스 / 기타)
    * `Guest Mode Restriction`: 비로그인/게스트 상태에서는 종합 대시보드(overview)만 열람 허용되며, 다른 탭 클릭 시 자물쇠 잠금 팝업(`modal-tab-locked`) 호출
-   * `Tab Renderers`: 11개 탭 동적 렌더링 (`renderOverviewTab`, `renderKnouTab`, `renderEnergyTab`, `renderBandTab`, `renderSnsTab` 등)
+   * `Tab Renderers`: 12개 탭 동적 렌더링 (`renderOverviewTab`, `renderEnglishTab`, `renderKnouTab`, `renderEnergyTab`, `renderBandTab`, `renderSnsTab` 등)
+   * `English Features`: Daily Focus 5선, 플립 퀴즈 모드 & 전체 리스트 테이블 모드, Web Speech API 기반 원어민 TTS 발음 듣기, 마스터 체크, 6대 문법 카테고리 필터 및 실시간 검색
    * `window.app`: 전역 이벤트 핸들러 및 모달 제어 API
 
 ---
