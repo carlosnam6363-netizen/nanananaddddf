@@ -2606,47 +2606,305 @@ function renderCaminoTab() {
 
 
 // ==========================================================================
-// 5-ENG. 1:1 회화 교정 기반 데일리 영문법 & 표현 브리핑 탭
+// 5-ENG. 1:1 회화 교정 기반 데일리 영문법 & 데일리 팟캐스트 브리핑 탭
 // ==========================================================================
-function renderEnglishTab() {
-  const container = document.getElementById('tab-content-english');
-  if (!container) return;
 
+// --------------------------------------------------------------------------
+// Podcast Audio Engine & State
+// --------------------------------------------------------------------------
+const englishPodcastState = {
+  isPlaying: false,
+  currentTrackIndex: 0,
+  rate: 1.0,
+  elapsedSeconds: 0,
+  totalDuration: 435, // 약 7분 15초
+  timerInterval: null,
+  showScript: false
+};
+
+function formatPodcastTime(sec) {
+  const m = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60);
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
+
+function getPodcastTracks(items, idiom, setNum) {
+  const safeIdiom = idiom || { expression: 'bring something to the table', meaning: '유용한 가치나 아이디어를 기여하다' };
+  const safeItems = (items && items.length >= 5) ? items.slice(0, 5) : [
+    { num: 1, categoryName: '명사/관사', youSaid: 'I got many knowledges', betterSay: 'I gained a lot of knowledge', explanation: 'knowledge는 불가산 명사이므로 s를 붙이지 않습니다.' },
+    { num: 2, categoryName: '전치사', youSaid: 'I am planning about study', betterSay: 'I am planning to study', explanation: 'plan to 동사원형 구조를 사용합니다.' },
+    { num: 3, categoryName: '구어체', youSaid: 'I calculate my future', betterSay: 'I am planning for my future', explanation: '자연스러운 원어민 미래 계획 표현입니다.' },
+    { num: 4, categoryName: '동명사', youSaid: 'I suggest to go', betterSay: 'I suggest going', explanation: 'suggest는 목적어로 동명사(-ing)를 취합니다.' },
+    { num: 5, categoryName: '시제', youSaid: 'I did not eat yet', betterSay: "I haven't eaten yet", explanation: 'yet과 함께 현재완료 시제를 씁니다.' }
+  ];
+
+  return [
+    {
+      id: 0,
+      title: "🎙️ 오프닝 & 오늘의 1:1 회화 브리핑 소개",
+      speaker: "Tutor Aaron",
+      durationSec: 45,
+      timeLabel: "00:00",
+      speechText: `Hello Carlos! Welcome to Episode ${setNum} of your Daily Grammar Briefing Podcast. Today, we are reviewing 5 crucial sentences from your recent 1-on-1 tutoring sessions, plus an essential idiom of the day. Put on your headphones, relax, and let's polish your speaking confidence together!`,
+      summaryKo: "1:1 회화 수업 교정 팟캐스트 에피소드 오프닝 및 오늘의 학습 목표 안내",
+      fullScriptHtml: `
+        <div class="space-y-1 text-xs">
+          <p class="text-teal-300 font-bold">🎙️ Tutor Aaron:</p>
+          <p class="text-slate-200 leading-relaxed font-sans">"Hello Carlos! Welcome to Episode ${setNum} of your Daily Grammar Briefing Podcast. Today, we are reviewing 5 crucial sentences from your recent 1-on-1 tutoring sessions, plus an essential idiom of the day. Put on your headphones, relax, and let's polish your speaking confidence together!"</p>
+          <p class="text-[11px] text-slate-400 mt-1 pt-1 border-t border-slate-800 leading-relaxed">
+            카카오톡 1:1 수업에서 실제로 다루었던 핵심 문장 5선과 원어민 뉘앙스 포인트를 편안하게 들으며 마스터하는 데일리 오디오 세션입니다.
+          </p>
+        </div>
+      `
+    },
+    ...safeItems.map((item, idx) => ({
+      id: idx + 1,
+      title: `💬 Focus ${idx + 1}: ${item.categoryName} 교정 클리닉 (#${item.num})`,
+      speaker: "Tutor Aaron",
+      durationSec: 55,
+      timeLabel: formatPodcastTime(45 + idx * 55),
+      speechText: `Sentence number ${idx + 1}. In our conversation, you said: "${item.youSaid}". A native speaker would naturally say: "${item.betterSay}". Notice that ${item.explanation}. Let's practice saying it together: "${item.betterSay}".`,
+      summaryKo: `내가 말한 "${item.youSaid}" ➔ 교정문 "${item.betterSay}" 어감 및 문법 포인트 해설`,
+      fullScriptHtml: `
+        <div class="space-y-1.5 text-xs">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 text-[10px] font-bold">${item.categoryName}</span>
+            <span class="text-slate-400 text-xs font-mono font-bold">#${item.num}</span>
+          </div>
+          <p class="text-rose-300 font-medium">❌ <b class="text-rose-400">You said:</b> "${item.youSaid}"</p>
+          <p class="text-emerald-300 font-bold">✅ <b class="text-emerald-400">Better say:</b> "${item.betterSay}"</p>
+          <p class="text-slate-300 text-[11px] leading-relaxed pt-1 border-t border-slate-800">
+            <b class="text-teal-300">💡 튜터 코칭:</b> ${item.explanation}
+          </p>
+        </div>
+      `
+    })),
+    {
+      id: 6,
+      title: `💡 Idiom of the Day: "${safeIdiom.expression}"`,
+      speaker: "Tutor Aaron",
+      durationSec: 65,
+      timeLabel: formatPodcastTime(45 + 5 * 55),
+      speechText: `Now, let's explore our Idiom of the Day: "${safeIdiom.expression}". In Korean, this means ${safeIdiom.meaning}. It is widely used in both daily chats and professional business discussions. Remember to use "${safeIdiom.expression}" when the right situation comes up!`,
+      summaryKo: `오늘의 핵심 관용구 "${safeIdiom.expression}" 유래 및 실전 활용법`,
+      fullScriptHtml: `
+        <div class="space-y-1 text-xs">
+          <p class="text-amber-300 font-black text-sm">✨ "${safeIdiom.expression}"</p>
+          <p class="text-slate-200 text-xs"><b class="text-slate-400">한국어 의미:</b> ${safeIdiom.meaning}</p>
+          <p class="text-slate-400 text-[11px] pt-1 border-t border-slate-800 leading-relaxed">
+            비즈니스 회화와 일상 대화에서 어휘력을 한 단계 끌어올려 주는 원어민 필수 이디엄입니다.
+          </p>
+        </div>
+      `
+    },
+    {
+      id: 7,
+      title: "🎧 Wrap-up & 5문장 원어민 연속 쉐도잉",
+      speaker: "Tutor Aaron",
+      durationSec: 50,
+      timeLabel: formatPodcastTime(45 + 5 * 55 + 65),
+      speechText: `Excellent work today! Before we finish, let's do a quick shadowing drill. Listen to each sentence and repeat after me. ${safeItems.map((it, i) => `Sentence ${i + 1}: ${it.betterSay}.`).join(' ')} Outstanding effort, Carlos! Keep listening every day, and see you tomorrow!`,
+      summaryKo: "오늘 배운 5문장 원어민 속도로 연속 쉐도잉 복습 및 마무리",
+      fullScriptHtml: `
+        <div class="space-y-1.5 text-xs">
+          <p class="text-teal-300 font-bold">🎧 5-Sentence Shadowing Drill:</p>
+          <ol class="list-decimal list-inside space-y-1 text-slate-200">
+            ${safeItems.map(it => `<li><span class="text-emerald-300 font-bold">"${it.betterSay}"</span></li>`).join('')}
+          </ol>
+          <p class="text-[11px] text-slate-400 mt-2 border-t border-slate-800 pt-1.5 leading-relaxed">
+            귀로 듣고 입으로 따라 말하는 쉐도잉을 통해 원어민의 자연스러운 호흡과 억양을 체화해 보세요.
+          </p>
+        </div>
+      `
+    }
+  ];
+}
+
+// --------------------------------------------------------------------------
+// Podcast Audio Controller Functions
+// --------------------------------------------------------------------------
+function stopPodcastAudio() {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+  }
+  if (englishPodcastState.timerInterval) {
+    clearInterval(englishPodcastState.timerInterval);
+    englishPodcastState.timerInterval = null;
+  }
+  englishPodcastState.isPlaying = false;
+}
+
+function playPodcastTrack(trackIdx) {
   const engData = state.english || INITIAL_ENGLISH_DATA;
   const corrections = engData.corrections || [];
   const idioms = engData.idioms || [];
-
-  const filter = state.englishFilter || 'all';
-  const mode = state.englishMode || 'quiz';
-  const query = (state.englishSearch || '').trim().toLowerCase();
   const offset = state.englishDailyOffset || 0;
-
-  // Filter corrections
-  const filtered = corrections.filter(item => {
-    const matchCat = filter === 'all' || item.category === filter;
-    const matchQ = !query || 
-      item.youSaid.toLowerCase().includes(query) || 
-      item.betterSay.toLowerCase().includes(query) || 
-      item.explanation.toLowerCase().includes(query);
-    return matchCat && matchQ;
-  });
-
-  // Daily 5 Focus Set (wraps around)
   const pageSize = 5;
-  const totalSets = Math.ceil(corrections.length / pageSize);
+  const totalSets = Math.ceil(corrections.length / pageSize) || 1;
   const currentSetNum = (Math.floor(offset / pageSize) % totalSets) + 1;
   const dailyFocusItems = corrections.slice(offset, offset + pageSize);
   if (dailyFocusItems.length < pageSize && corrections.length >= pageSize) {
     dailyFocusItems.push(...corrections.slice(0, pageSize - dailyFocusItems.length));
   }
+  const currentIdiom = idioms[(currentSetNum - 1) % (idioms.length || 1)];
+  const tracks = getPodcastTracks(dailyFocusItems, currentIdiom, currentSetNum);
 
-  // Mastered stats
-  const masteredCount = Object.keys(state.englishMastered || {}).filter(k => state.englishMastered[k]).length;
+  if (trackIdx < 0 || trackIdx >= tracks.length) {
+    stopPodcastAudio();
+    englishPodcastState.elapsedSeconds = 0;
+    renderEnglishPodcastPlayer();
+    return;
+  }
+
+  stopPodcastAudio();
+  englishPodcastState.currentTrackIndex = trackIdx;
+  englishPodcastState.isPlaying = true;
+
+  // Calculate approximate elapsed seconds up to this track
+  let trackOffsetSec = 0;
+  for (let i = 0; i < trackIdx; i++) {
+    trackOffsetSec += tracks[i].durationSec;
+  }
+  englishPodcastState.elapsedSeconds = trackOffsetSec;
+
+  if ('speechSynthesis' in window) {
+    const track = tracks[trackIdx];
+    const u = new SpeechSynthesisUtterance(track.speechText);
+    u.lang = 'en-US';
+    u.rate = englishPodcastState.rate || 1.0;
+
+    u.onend = () => {
+      if (englishPodcastState.isPlaying) {
+        if (trackIdx + 1 < tracks.length) {
+          playPodcastTrack(trackIdx + 1);
+        } else {
+          stopPodcastAudio();
+          englishPodcastState.elapsedSeconds = englishPodcastState.totalDuration;
+          renderEnglishPodcastPlayer();
+          showToast('🎧 오늘의 데일리 팟캐스트 청취를 완료했습니다!');
+        }
+      }
+    };
+
+    u.onerror = (err) => {
+      console.warn('Podcast speech synthesis error:', err);
+      stopPodcastAudio();
+      renderEnglishPodcastPlayer();
+    };
+
+    window.speechSynthesis.speak(u);
+  }
+
+  // Timer interval for smooth seekbar updates
+  englishPodcastState.timerInterval = setInterval(() => {
+    if (!englishPodcastState.isPlaying) return;
+    englishPodcastState.elapsedSeconds += 1;
+    if (englishPodcastState.elapsedSeconds > englishPodcastState.totalDuration) {
+      englishPodcastState.elapsedSeconds = englishPodcastState.totalDuration;
+    }
+    updatePodcastProgressUI();
+  }, 1000);
+
+  renderEnglishPodcastPlayer();
+}
+
+function togglePodcastPlay() {
+  if (englishPodcastState.isPlaying) {
+    stopPodcastAudio();
+    renderEnglishPodcastPlayer();
+  } else {
+    playPodcastTrack(englishPodcastState.currentTrackIndex || 0);
+  }
+}
+
+function pausePodcast() {
+  stopPodcastAudio();
+  renderEnglishPodcastPlayer();
+}
+
+function skipPodcast(seconds) {
+  const engData = state.english || INITIAL_ENGLISH_DATA;
+  const corrections = engData.corrections || [];
+  const idioms = engData.idioms || [];
+  const offset = state.englishDailyOffset || 0;
+  const pageSize = 5;
+  const totalSets = Math.ceil(corrections.length / pageSize) || 1;
+  const currentSetNum = (Math.floor(offset / pageSize) % totalSets) + 1;
+  const dailyFocusItems = corrections.slice(offset, offset + pageSize);
+  if (dailyFocusItems.length < pageSize && corrections.length >= pageSize) {
+    dailyFocusItems.push(...corrections.slice(0, pageSize - dailyFocusItems.length));
+  }
+  const currentIdiom = idioms[(currentSetNum - 1) % (idioms.length || 1)];
+  const tracks = getPodcastTracks(dailyFocusItems, currentIdiom, currentSetNum);
+
+  let newElapsed = Math.max(0, Math.min(englishPodcastState.totalDuration, englishPodcastState.elapsedSeconds + seconds));
+  englishPodcastState.elapsedSeconds = newElapsed;
+
+  // Find track corresponding to newElapsed
+  let accum = 0;
+  let targetIdx = 0;
+  for (let i = 0; i < tracks.length; i++) {
+    if (newElapsed >= accum && newElapsed < accum + tracks[i].durationSec) {
+      targetIdx = i;
+      break;
+    }
+    accum += tracks[i].durationSec;
+  }
+
+  if (englishPodcastState.isPlaying) {
+    playPodcastTrack(targetIdx);
+  } else {
+    englishPodcastState.currentTrackIndex = targetIdx;
+    renderEnglishPodcastPlayer();
+  }
+}
+
+function seekPodcast(ratio) {
+  const targetSec = Math.floor(ratio * englishPodcastState.totalDuration);
+  englishPodcastState.elapsedSeconds = targetSec;
+  skipPodcast(0);
+}
+
+function setPodcastRate(rate) {
+  englishPodcastState.rate = rate;
+  if (englishPodcastState.isPlaying) {
+    playPodcastTrack(englishPodcastState.currentTrackIndex);
+  } else {
+    renderEnglishPodcastPlayer();
+  }
+  showToast(`팟캐스트 재생 배속: ${rate}x`);
+}
+
+function togglePodcastScript() {
+  englishPodcastState.showScript = !englishPodcastState.showScript;
+  renderEnglishPodcastPlayer();
+}
+
+function updatePodcastProgressUI() {
+  const progressEl = document.getElementById('podcast-progress-bar');
+  const timeCurrentEl = document.getElementById('podcast-time-current');
+  if (progressEl) {
+    const pct = Math.min(100, (englishPodcastState.elapsedSeconds / englishPodcastState.totalDuration) * 100);
+    progressEl.style.width = `${pct}%`;
+  }
+  if (timeCurrentEl) {
+    timeCurrentEl.innerText = formatPodcastTime(englishPodcastState.elapsedSeconds);
+  }
+}
+
+// --------------------------------------------------------------------------
+// Main English Tab Renderers
+// --------------------------------------------------------------------------
+function renderEnglishTab() {
+  const container = document.getElementById('tab-content-english');
+  if (!container) return;
+
+  const engData = state.english || INITIAL_ENGLISH_DATA;
 
   container.innerHTML = `
     <div class="space-y-6">
 
-      <!-- 1. Header Banner -->
+      <!-- 1. Header Banner (No Master Stress, Podcast Ready) -->
       <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-teal-500/30 bg-gradient-to-br from-slate-900 via-teal-950/20 to-slate-900 shadow-2xl relative overflow-hidden">
         <div class="absolute -right-10 -bottom-10 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -2669,24 +2927,23 @@ function renderEnglishTab() {
               데일리 영문법 & 1:1 회화 교정 브리핑
             </h1>
             <p class="text-xs sm:text-sm text-slate-300 mt-2 max-w-2xl leading-relaxed">
-              카카오톡 수업에서 <b>실제 내가 틀렸던 표현(You said)</b>과 <b>튜터의 원어민 교정(Better say)</b>을 빅데이터로 분석하여 매일 5문장씩 집중 복습하는 영문법 브리핑 시스템입니다.
+              카카오톡 수업에서 <b>실제 내가 틀렸던 표현(You said)</b>과 <b>튜터의 원어민 교정(Better say)</b>을 바탕으로, 매일 5문장 집중 복습 및 <b>5~10분 데일리 팟캐스트</b>를 편안하게 청취할 수 있습니다.
             </p>
           </div>
 
-          <!-- Quick Audio / Stats Indicator -->
           <div class="flex flex-col items-end gap-2 self-start lg:self-auto text-xs">
             <span class="text-teal-300 font-bold bg-teal-500/10 px-3.5 py-1.5 rounded-xl border border-teal-500/20 shadow-sm flex items-center gap-1.5">
-              <i class="fa-solid fa-volume-high text-teal-400"></i>
-              원어민 TTS 발음 듣기 지원
+              <i class="fa-solid fa-headphones text-teal-400"></i>
+              5~10분 데일리 팟캐스트 청취 지원
             </span>
-            <span class="text-slate-400 text-[11px]">
-              복습 마스터: <b class="text-emerald-400 font-mono">${masteredCount}</b> / 409개 완료
+            <span class="text-slate-400 text-[11px] flex items-center gap-1">
+              <i class="fa-solid fa-volume-high text-teal-400"></i> 미국식 원어민 TTS 음성 코칭
             </span>
           </div>
         </div>
       </div>
 
-      <!-- 2. KPI Cards (4 Grid) -->
+      <!-- 2. KPI Summary Cards -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="glass-panel rounded-2xl p-5 border border-teal-500/30 bg-gradient-to-br from-slate-900 to-teal-950/20 shadow-lg">
           <div class="flex items-center justify-between text-slate-400 text-xs mb-2">
@@ -2757,309 +3014,590 @@ function renderEnglishTab() {
         </div>
       </div>
 
-      <!-- 3. Daily Focus 5 Card Carousel (오늘의 집중 복습 5선 ⭐) -->
-      <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-teal-500/40 bg-gradient-to-br from-slate-900 via-slate-900 to-teal-950/20 shadow-2xl relative overflow-hidden">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 border-b border-slate-800 pb-4">
-          <div class="flex items-center gap-3.5">
-            <div class="w-12 h-12 rounded-2xl bg-teal-500/20 border border-teal-500/40 text-teal-400 flex items-center justify-center text-2xl shadow-lg">
-              <i class="fa-solid fa-star"></i>
-            </div>
-            <div>
-              <div class="flex items-center gap-2">
-                <h2 class="text-lg sm:text-xl font-black text-white">
-                  오늘 꼭 알고 넘어가야 할 튜터 1:1 집중 교정 (5선)
-                </h2>
-                <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-teal-500 text-slate-950 font-black">Daily Focus</span>
-              </div>
-              <p class="text-xs text-slate-400 mt-1">
-                세트 ${currentSetNum} / ${totalSets} · 튜터와 나눈 대화 중 가장 교정 효과가 뛰어난 핵심 5문장을 엄선했습니다.
-              </p>
-            </div>
-          </div>
+      <!-- 3. Daily Podcast Player Component (5~10분 브리핑 🎧) -->
+      <div id="english-podcast-container"></div>
 
-          <!-- Controls -->
-          <div class="flex items-center gap-2">
-            <button onclick="window.app.randomEnglishDaily()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold transition cursor-pointer flex items-center gap-1.5 border border-slate-700">
-              <i class="fa-solid fa-shuffle text-teal-400"></i>
-              <span>랜덤 5선</span>
-            </button>
-            <button onclick="window.app.prevEnglishDaily()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold transition cursor-pointer flex items-center gap-1 border border-slate-700" title="이전 세트">
-              <i class="fa-solid fa-chevron-left"></i>
-            </button>
-            <span class="text-xs font-mono font-bold text-teal-300 px-2">
-              ${currentSetNum} / ${totalSets}
+      <!-- 4. Daily Focus 5 Card Carousel (오늘의 집중 복습 5선) -->
+      <div id="english-daily-focus-container"></div>
+
+      <!-- 5. Mode Selection, Category Filter & Search Bar -->
+      <div id="english-toolbar-container"></div>
+
+      <!-- 6. Content Area (Quiz Mode or Full List Mode) -->
+      <div id="english-content-area"></div>
+
+      <!-- 7. Tutor's 16 Idioms Collection -->
+      <div id="english-idioms-container"></div>
+
+    </div>
+  `;
+
+  // Render sub-components
+  renderEnglishPodcastPlayer();
+  renderEnglishDailyFocus();
+  renderEnglishToolbar();
+  renderEnglishContentArea();
+  renderEnglishIdioms();
+}
+
+// --------------------------------------------------------------------------
+// Sub-Renderer: Daily Podcast Player
+// --------------------------------------------------------------------------
+function renderEnglishPodcastPlayer() {
+  const container = document.getElementById('english-podcast-container');
+  if (!container) return;
+
+  const engData = state.english || INITIAL_ENGLISH_DATA;
+  const corrections = engData.corrections || [];
+  const idioms = engData.idioms || [];
+  const offset = state.englishDailyOffset || 0;
+  const pageSize = 5;
+  const totalSets = Math.ceil(corrections.length / pageSize) || 1;
+  const currentSetNum = (Math.floor(offset / pageSize) % totalSets) + 1;
+  const dailyFocusItems = corrections.slice(offset, offset + pageSize);
+  if (dailyFocusItems.length < pageSize && corrections.length >= pageSize) {
+    dailyFocusItems.push(...corrections.slice(0, pageSize - dailyFocusItems.length));
+  }
+  const currentIdiom = idioms[(currentSetNum - 1) % (idioms.length || 1)];
+  const tracks = getPodcastTracks(dailyFocusItems, currentIdiom, currentSetNum);
+
+  const isPlaying = englishPodcastState.isPlaying;
+  const currentIdx = englishPodcastState.currentTrackIndex || 0;
+  const currentTrack = tracks[currentIdx] || tracks[0];
+  const elapsed = englishPodcastState.elapsedSeconds || 0;
+  const total = englishPodcastState.totalDuration || 435;
+  const progressPct = Math.min(100, (elapsed / total) * 100);
+
+  container.innerHTML = `
+    <div class="glass-panel rounded-3xl p-6 sm:p-7 border border-teal-500/40 bg-gradient-to-br from-slate-900 via-teal-950/20 to-slate-900 shadow-2xl relative overflow-hidden">
+      <!-- Background Glow -->
+      <div class="absolute -left-12 -top-12 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Player Header -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-5 border-b border-slate-800 pb-4 relative z-10">
+        <div class="flex items-center gap-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-teal-500 to-emerald-400 text-slate-950 flex items-center justify-center text-xl font-bold shadow-lg shadow-teal-500/20 flex-shrink-0">
+            <i class="fa-solid fa-podcast"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/40">
+                DAILY PODCAST · EPISODE ${currentSetNum}
+              </span>
+              ${isPlaying ? `
+                <span class="flex items-center gap-1 text-[10px] text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/30 animate-pulse">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> 재생 중
+                </span>
+              ` : ''}
+            </div>
+            <h2 class="text-lg sm:text-xl font-black text-white mt-1">
+              튜터 Aaron의 1:1 회화 데일리 클리닉 (러닝타임 약 7분 15초)
+            </h2>
+            <p class="text-xs text-slate-400 mt-0.5">
+              오늘의 5대 핵심 교정 문장과 이디엄을 원어민 튜터의 생생한 해설과 쉐도잉으로 듣는 팟캐스트입니다.
+            </p>
+          </div>
+        </div>
+
+        <!-- Script Toggle Button -->
+        <button onclick="window.app.togglePodcastScript()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition cursor-pointer flex items-center gap-1.5 border border-slate-700">
+          <i class="fa-solid fa-file-lines text-teal-400"></i>
+          <span>${englishPodcastState.showScript ? '대본 접기' : '대본 전문 보기'}</span>
+          <i class="fa-solid ${englishPodcastState.showScript ? 'fa-chevron-up' : 'fa-chevron-down'} text-[10px] text-slate-400"></i>
+        </button>
+      </div>
+
+      <!-- Active Track Banner -->
+      <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800 flex items-center justify-between mb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-xl bg-teal-500/10 text-teal-300 flex items-center justify-center text-xs font-bold border border-teal-500/20">
+            ${currentIdx + 1}
+          </div>
+          <div>
+            <span class="text-[10px] text-slate-400 block font-mono">현재 오디오 트랙 (${currentIdx + 1}/8)</span>
+            <span class="text-xs sm:text-sm font-bold text-teal-300">
+              ${currentTrack.title}
             </span>
-            <button onclick="window.app.nextEnglishDaily()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold transition cursor-pointer flex items-center gap-1 border border-slate-700" title="다음 세트">
-              <i class="fa-solid fa-chevron-right"></i>
-            </button>
           </div>
         </div>
+        <span class="text-xs text-slate-400 font-mono hidden sm:inline-block">
+          ${currentTrack.speaker}
+        </span>
+      </div>
 
-        <!-- 5 Cards in Daily Focus -->
-        <div class="space-y-4">
-          ${dailyFocusItems.map((item, idx) => {
-            const isFlipped = state.englishFlipped[item.id];
-            const isMastered = state.englishMastered[item.id];
-
-            return `
-              <div class="p-5 rounded-2xl bg-slate-900/90 border ${isMastered ? 'border-emerald-500/40' : 'border-slate-800 hover:border-teal-500/40'} transition shadow-md">
-                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 mb-3">
-                  <div class="flex items-center gap-2">
-                    <span class="w-6 h-6 rounded-full bg-teal-500/20 text-teal-300 font-mono font-black flex items-center justify-center text-xs">
-                      ${idx + 1}
-                    </span>
-                    <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
-                      ${item.categoryName}
-                    </span>
-                    <span class="text-[10px] font-mono text-slate-500">
-                      #${item.num}
-                    </span>
-                  </div>
-
-                  <div class="flex items-center gap-2">
-                    <button onclick="window.app.speakEnglish('${item.betterSay.replace(/'/g, "\\'")}')" class="px-2.5 py-1 rounded-lg bg-teal-500/10 hover:bg-teal-500/20 text-teal-300 text-xs font-medium transition cursor-pointer flex items-center gap-1 border border-teal-500/20" title="원어민 발음 듣기">
-                      <i class="fa-solid fa-volume-high"></i>
-                      <span>발음 듣기</span>
-                    </button>
-                    <button onclick="window.app.toggleEnglishMastered('${item.id}')" class="px-2.5 py-1 rounded-lg ${isMastered ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40 font-bold' : 'bg-slate-800 text-slate-400 hover:text-white border-slate-700'} text-xs transition cursor-pointer flex items-center gap-1 border">
-                      <i class="fa-solid ${isMastered ? 'fa-circle-check text-emerald-400' : 'fa-circle'}"></i>
-                      <span>${isMastered ? '마스터 완료' : '외웠어요'}</span>
-                    </button>
-                  </div>
-                </div>
-
-                <!-- Comparison Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
-                  <!-- You Said -->
-                  <div class="p-3.5 rounded-xl bg-rose-950/20 border border-rose-500/30 text-xs">
-                    <div class="text-[10px] font-black uppercase text-rose-400 flex items-center gap-1 mb-1">
-                      <i class="fa-solid fa-xmark"></i> You said (내가 말한 표현)
-                    </div>
-                    <div class="text-rose-200 font-medium leading-relaxed">
-                      "${item.youSaid}"
-                    </div>
-                  </div>
-
-                  <!-- Better Say -->
-                  <div class="p-3.5 rounded-xl bg-emerald-950/20 border border-emerald-500/30 text-xs">
-                    <div class="text-[10px] font-black uppercase text-emerald-400 flex items-center gap-1 mb-1">
-                      <i class="fa-solid fa-check"></i> Better say (원어민 튜터 추천)
-                    </div>
-                    <div class="text-emerald-200 font-bold leading-relaxed">
-                      "${item.betterSay}"
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Explanation Box -->
-                <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-slate-300 flex items-start gap-2.5">
-                  <i class="fa-solid fa-lightbulb text-amber-400 text-sm mt-0.5 flex-shrink-0"></i>
-                  <div class="leading-relaxed">
-                    <b class="text-white">교정 포인트:</b> ${item.explanation}
-                  </div>
-                </div>
-              </div>
-            `;
-          }).join('')}
+      <!-- Seekbar & Timestamps -->
+      <div class="space-y-1.5 mb-5">
+        <div onclick="window.app.handlePodcastSeekClick(event)" class="w-full h-2.5 bg-slate-800 rounded-full cursor-pointer relative overflow-hidden group">
+          <div id="podcast-progress-bar" class="h-full bg-gradient-to-r from-teal-500 to-emerald-400 rounded-full transition-all duration-300" style="width: ${progressPct}%"></div>
+        </div>
+        <div class="flex items-center justify-between text-[11px] font-mono text-slate-400">
+          <span id="podcast-time-current">${formatPodcastTime(elapsed)}</span>
+          <span class="text-slate-500">총 07:15</span>
         </div>
       </div>
 
-      <!-- 4. Mode Selection, Category Filter & Search Bar -->
-      <div class="glass-panel rounded-2xl p-5 border border-slate-800 bg-slate-900/70 space-y-4">
-        <!-- Top bar: Mode switch & Search -->
-        <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
-          <!-- View Mode Toggle -->
-          <div class="flex items-center gap-1.5 bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs self-start">
-            <button onclick="window.app.setEnglishMode('quiz')" class="px-3.5 py-1.5 rounded-lg font-bold transition cursor-pointer flex items-center gap-1.5 ${mode === 'quiz' ? 'bg-teal-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'}">
-              <i class="fa-solid fa-lightbulb"></i>
-              <span>플립 퀴즈 모드</span>
+      <!-- Audio Player Controls -->
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <!-- Main Play Controls -->
+        <div class="flex items-center gap-2.5">
+          <!-- Skip -15s -->
+          <button onclick="window.app.skipPodcast(-15)" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition cursor-pointer flex items-center justify-center text-xs border border-slate-700" title="15초 뒤로">
+            <i class="fa-solid fa-rotate-left"></i>
+          </button>
+
+          <!-- Play / Pause Main Button -->
+          <button onclick="window.app.togglePodcastPlay()" class="px-5 py-2.5 rounded-2xl ${isPlaying ? 'bg-amber-500 hover:bg-amber-400 text-slate-950' : 'bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-400 hover:to-emerald-400 text-slate-950'} font-black text-xs transition cursor-pointer flex items-center gap-2 shadow-lg shadow-teal-500/25">
+            <i class="fa-solid ${isPlaying ? 'fa-pause' : 'fa-play'} text-sm"></i>
+            <span>${isPlaying ? '일시정지 (Pause)' : '팟캐스트 청취 시작 (Play)'}</span>
+          </button>
+
+          <!-- Skip +15s -->
+          <button onclick="window.app.skipPodcast(15)" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition cursor-pointer flex items-center justify-center text-xs border border-slate-700" title="15초 앞으로">
+            <i class="fa-solid fa-rotate-right"></i>
+          </button>
+        </div>
+
+        <!-- Playback Speed Controls -->
+        <div class="flex items-center gap-1.5 bg-slate-950/80 p-1 rounded-xl border border-slate-800 text-xs">
+          <span class="text-[10px] font-bold text-slate-500 px-2 uppercase">배속</span>
+          ${[0.8, 1.0, 1.2, 1.5].map(r => `
+            <button onclick="window.app.setPodcastRate(${r})" class="px-2 py-1 rounded-lg text-xs font-bold transition cursor-pointer ${englishPodcastState.rate === r ? 'bg-teal-500 text-slate-950' : 'text-slate-400 hover:text-white'}">
+              ${r}x
             </button>
-            <button onclick="window.app.setEnglishMode('list')" class="px-3.5 py-1.5 rounded-lg font-bold transition cursor-pointer flex items-center gap-1.5 ${mode === 'list' ? 'bg-teal-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'}">
-              <i class="fa-solid fa-table-list"></i>
-              <span>전체 목록 (${filtered.length})</span>
-            </button>
-          </div>
-
-          <!-- Instant Search Bar -->
-          <div class="relative w-full md:w-80">
-            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
-            <input type="text" placeholder="단어, 표현, 문법 검색 (예: knowledge, plan, attend)" value="${state.englishSearch || ''}" oninput="window.app.setEnglishSearch(this.value)" class="w-full bg-slate-950 border border-slate-700 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:border-teal-500 outline-none">
-          </div>
-        </div>
-
-        <!-- Category Chips -->
-        <div class="flex flex-wrap items-center gap-1.5 text-xs pt-1 border-t border-slate-800/80">
-          ${engData.categories.map(cat => {
-            const isActive = filter === cat.id;
-            return `
-              <button onclick="window.app.setEnglishFilter('${cat.id}')" class="px-3 py-1.5 rounded-xl font-bold transition cursor-pointer flex items-center gap-1.5 ${isActive ? 'bg-teal-500 text-slate-950 shadow-md font-black' : 'bg-slate-800/80 text-slate-400 hover:text-white hover:bg-slate-800'}">
-                <i class="fa-solid ${cat.icon} text-[10px]"></i>
-                <span>${cat.name}</span>
-              </button>
-            `;
-          }).join('')}
-        </div>
-      </div>
-
-      <!-- 5. Content Area (Quiz Mode or Full List Mode) -->
-      ${mode === 'quiz' ? `
-        <!-- Quiz Cards Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          ${filtered.slice(0, 20).map(item => {
-            const isFlipped = state.englishFlipped[item.id];
-            const isMastered = state.englishMastered[item.id];
-
-            return `
-              <div class="glass-panel rounded-2xl p-5 border ${isMastered ? 'border-emerald-500/40' : 'border-slate-800 hover:border-teal-500/40'} bg-slate-900/80 flex flex-col justify-between transition shadow-md group">
-                <div>
-                  <div class="flex items-center justify-between mb-3">
-                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-teal-300 border border-teal-500/30">
-                      ${item.categoryName}
-                    </span>
-                    <span class="text-xs font-mono text-slate-500 font-bold">#${item.num}</span>
-                  </div>
-
-                  <!-- Prompt: You said -->
-                  <div class="mb-3">
-                    <span class="text-[10px] font-black uppercase text-rose-400 tracking-wider block mb-1">
-                      ❌ 내가 말했던 문장 (You said)
-                    </span>
-                    <p class="text-sm font-bold text-white leading-relaxed">
-                      "${item.youSaid}"
-                    </p>
-                  </div>
-
-                  <!-- Flipped or Hidden Answer -->
-                  ${isFlipped ? `
-                    <div class="p-3.5 rounded-xl bg-emerald-950/30 border border-emerald-500/40 text-xs mb-3 animate-fade-in">
-                      <div class="text-[10px] font-black uppercase text-emerald-400 mb-1 flex items-center justify-between">
-                        <span>💡 원어민 교정 (Better say)</span>
-                        <button onclick="window.app.speakEnglish('${item.betterSay.replace(/'/g, "\\'")}')" class="text-teal-300 hover:text-white" title="발음 듣기">
-                          <i class="fa-solid fa-volume-high"></i>
-                        </button>
-                      </div>
-                      <div class="text-emerald-200 font-bold leading-relaxed mb-2">
-                        "${item.betterSay}"
-                      </div>
-                      <div class="text-[11px] text-slate-300 border-t border-emerald-500/20 pt-2 leading-relaxed">
-                        <b class="text-teal-300">문법 포인트:</b> ${item.explanation}
-                      </div>
-                    </div>
-                  ` : `
-                    <button onclick="window.app.toggleEnglishFlip('${item.id}')" class="w-full py-3 px-4 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 hover:border-teal-500/40 text-teal-300 font-bold text-xs transition cursor-pointer flex items-center justify-center gap-2 mb-3 group-hover:scale-[1.01]">
-                      <i class="fa-solid fa-lightbulb text-amber-400"></i>
-                      <span>어떻게 고쳐야 할까요? 교정 문장 확인하기</span>
-                    </button>
-                  `}
-                </div>
-
-                <!-- Bottom Actions -->
-                <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
-                  <button onclick="window.app.toggleEnglishFlip('${item.id}')" class="text-slate-400 hover:text-teal-300 text-[11px] transition cursor-pointer">
-                    <i class="fa-solid ${isFlipped ? 'fa-eye-slash' : 'fa-eye'}"></i> ${isFlipped ? '답 가리기' : '정답 보기'}
-                  </button>
-
-                  <button onclick="window.app.toggleEnglishMastered('${item.id}')" class="px-2.5 py-1 rounded-lg ${isMastered ? 'bg-emerald-500/20 text-emerald-300 font-bold' : 'text-slate-400 hover:text-white'} text-[11px] transition cursor-pointer flex items-center gap-1">
-                    <i class="fa-solid ${isMastered ? 'fa-circle-check text-emerald-400' : 'fa-circle'}"></i>
-                    <span>${isMastered ? '마스터 완료' : '외웠어요'}</span>
-                  </button>
-                </div>
-              </div>
-            `;
-          }).join('')}
-        </div>
-      ` : `
-        <!-- Full List Mode Table -->
-        <div class="glass-panel rounded-2xl overflow-hidden border border-slate-800">
-          <div class="overflow-x-auto custom-scrollbar">
-            <table class="w-full text-left text-xs">
-              <thead class="bg-slate-900/90 border-b border-slate-800 text-slate-400 text-[11px]">
-                <tr>
-                  <th class="py-3 px-3 text-center w-12">#</th>
-                  <th class="py-3 px-3 w-32">분류</th>
-                  <th class="py-3 px-3">내가 말한 표현 (You said)</th>
-                  <th class="py-3 px-3">원어민 교정 (Better say)</th>
-                  <th class="py-3 px-3">문법 해설</th>
-                  <th class="py-3 px-3 text-center w-20">듣기</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-800/60 font-medium">
-                ${filtered.map(item => `
-                  <tr class="hover:bg-slate-800/40 transition">
-                    <td class="py-3 px-3 text-center font-mono text-slate-500">${item.num}</td>
-                    <td class="py-3 px-3">
-                      <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-teal-300 whitespace-nowrap">
-                        ${item.categoryName}
-                      </span>
-                    </td>
-                    <td class="py-3 px-3 text-rose-300 font-medium">
-                      "${item.youSaid}"
-                    </td>
-                    <td class="py-3 px-3 text-emerald-300 font-bold">
-                      "${item.betterSay}"
-                    </td>
-                    <td class="py-3 px-3 text-[11px] text-slate-300 leading-relaxed">
-                      ${item.explanation}
-                    </td>
-                    <td class="py-3 px-3 text-center">
-                      <button onclick="window.app.speakEnglish('${item.betterSay.replace(/'/g, "\\'")}')" class="w-7 h-7 rounded-lg bg-teal-500/10 hover:bg-teal-500/20 text-teal-300 transition cursor-pointer inline-flex items-center justify-center text-xs" title="발음 듣기">
-                        <i class="fa-solid fa-volume-high"></i>
-                      </button>
-                    </td>
-                  </tr>
-                `).join('')}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      `}
-
-      <!-- 6. Tutor's 16 Idioms Collection -->
-      <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-slate-800 bg-slate-900/60 space-y-4">
-        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg">
-              <i class="fa-solid fa-quote-left"></i>
-            </div>
-            <div>
-              <h3 class="font-bold text-white text-base">
-                튜터가 추천한 수업별 실전 관용구 (Idioms of the Day)
-              </h3>
-              <p class="text-xs text-slate-400 mt-0.5">
-                대화에서 자연스럽게 써먹을 수 있는 원어민 16대 관용구 컬렉션
-              </p>
-            </div>
-          </div>
-          <span class="text-xs text-amber-400 font-bold bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
-            총 16개 관용구
-          </span>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
-          ${idioms.map((idm, i) => `
-            <div class="p-4 rounded-xl bg-slate-800/60 border border-slate-700/60 hover:border-amber-500/40 transition">
-              <div class="flex items-center justify-between mb-1.5">
-                <h4 class="font-black text-amber-300 text-sm">
-                  ${idm.expression}
-                </h4>
-                <button onclick="window.app.speakEnglish('${idm.expression.replace(/'/g, "\\'")}')" class="text-slate-400 hover:text-amber-300 text-xs">
-                  <i class="fa-solid fa-volume-high"></i>
-                </button>
-              </div>
-              <p class="text-slate-300 text-[11px] leading-relaxed">
-                ${idm.meaning}
-              </p>
-            </div>
           `).join('')}
         </div>
       </div>
+
+      <!-- Collapsible Transcript / Script Viewer -->
+      ${englishPodcastState.showScript ? `
+        <div class="mt-6 pt-5 border-t border-slate-800 animate-fade-in space-y-3">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+              <i class="fa-solid fa-scroll text-teal-400"></i>
+              에피소드 ${currentSetNum} 대본 타임라인 (클릭하여 해당 구간 청취)
+            </h3>
+            <span class="text-[11px] text-slate-400">원하는 파트를 클릭하면 즉시 해당 위치부터 재생됩니다.</span>
+          </div>
+
+          <div class="space-y-2.5 max-h-96 overflow-y-auto pr-1 custom-scrollbar">
+            ${tracks.map((t, idx) => {
+              const isCurrent = currentIdx === idx;
+              return `
+                <div class="p-4 rounded-2xl ${isCurrent ? 'bg-teal-950/30 border border-teal-500/50 shadow-md ring-1 ring-teal-500/30' : 'bg-slate-950/60 border border-slate-800/80 hover:border-slate-700'} transition cursor-pointer group" onclick="window.app.playPodcastTrack(${idx})">
+                  <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-2">
+                      <span class="text-xs font-mono font-bold ${isCurrent ? 'text-teal-300' : 'text-slate-500'}">
+                        ${t.timeLabel}
+                      </span>
+                      <h4 class="text-xs font-bold ${isCurrent ? 'text-teal-200' : 'text-slate-200 group-hover:text-white'}">
+                        ${t.title}
+                      </h4>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      ${isCurrent && isPlaying ? `
+                        <span class="text-[10px] text-emerald-400 font-bold flex items-center gap-1">
+                          <i class="fa-solid fa-volume-high animate-pulse"></i> 재생 중
+                        </span>
+                      ` : `
+                        <span class="text-[11px] text-slate-400 group-hover:text-teal-300 transition flex items-center gap-1">
+                          <i class="fa-solid fa-play text-[9px]"></i> 재생
+                        </span>
+                      `}
+                    </div>
+                  </div>
+                  ${t.fullScriptHtml}
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      ` : ''}
 
     </div>
   `;
 }
 
 // --------------------------------------------------------------------------
-// English Tab Handlers
+// Sub-Renderer: Daily Focus 5 Carousel (No Master Button)
+// --------------------------------------------------------------------------
+function renderEnglishDailyFocus() {
+  const container = document.getElementById('english-daily-focus-container');
+  if (!container) return;
+
+  const engData = state.english || INITIAL_ENGLISH_DATA;
+  const corrections = engData.corrections || [];
+  const offset = state.englishDailyOffset || 0;
+  const pageSize = 5;
+  const totalSets = Math.ceil(corrections.length / pageSize) || 1;
+  const currentSetNum = (Math.floor(offset / pageSize) % totalSets) + 1;
+  const dailyFocusItems = corrections.slice(offset, offset + pageSize);
+  if (dailyFocusItems.length < pageSize && corrections.length >= pageSize) {
+    dailyFocusItems.push(...corrections.slice(0, pageSize - dailyFocusItems.length));
+  }
+
+  container.innerHTML = `
+    <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-teal-500/30 bg-gradient-to-br from-slate-900 via-slate-900 to-teal-950/20 shadow-2xl relative overflow-hidden">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 border-b border-slate-800 pb-4">
+        <div class="flex items-center gap-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-teal-500/20 border border-teal-500/40 text-teal-400 flex items-center justify-center text-2xl shadow-lg">
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="text-lg sm:text-xl font-black text-white">
+                오늘 꼭 알고 넘어가야 할 튜터 1:1 집중 교정 (5선)
+              </h2>
+              <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-teal-500 text-slate-950 font-black">Daily Focus</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">
+              세트 ${currentSetNum} / ${totalSets} · 튜터와 나눈 대화 중 가장 교정 효과가 뛰어난 핵심 5문장을 엄선했습니다.
+            </p>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="flex items-center gap-2">
+          <button onclick="window.app.randomEnglishDaily()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold transition cursor-pointer flex items-center gap-1.5 border border-slate-700">
+            <i class="fa-solid fa-shuffle text-teal-400"></i>
+            <span>랜덤 5선</span>
+          </button>
+          <button onclick="window.app.prevEnglishDaily()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold transition cursor-pointer flex items-center gap-1 border border-slate-700" title="이전 세트">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <span class="text-xs font-mono font-bold text-teal-300 px-2">
+            ${currentSetNum} / ${totalSets}
+          </span>
+          <button onclick="window.app.nextEnglishDaily()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold transition cursor-pointer flex items-center gap-1 border border-slate-700" title="다음 세트">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- 5 Cards in Daily Focus (No stressful '외웠어요' button) -->
+      <div class="space-y-4">
+        ${dailyFocusItems.map((item, idx) => `
+          <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-teal-500/40 transition shadow-md">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 mb-3">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-teal-500/20 text-teal-300 font-mono font-black flex items-center justify-center text-xs">
+                  ${idx + 1}
+                </span>
+                <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
+                  ${item.categoryName}
+                </span>
+                <span class="text-[10px] font-mono text-slate-500">
+                  #${item.num}
+                </span>
+              </div>
+
+              <!-- Pronunciation Listen Button -->
+              <button onclick="window.app.speakEnglish('${item.betterSay.replace(/'/g, "\'")}')" class="px-3 py-1.5 rounded-xl bg-teal-500/10 hover:bg-teal-500/20 text-teal-300 text-xs font-bold transition cursor-pointer flex items-center gap-1.5 border border-teal-500/20" title="원어민 발음 듣기">
+                <i class="fa-solid fa-volume-high"></i>
+                <span>원어민 발음 듣기</span>
+              </button>
+            </div>
+
+            <!-- Comparison Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+              <!-- You Said -->
+              <div class="p-3.5 rounded-xl bg-rose-950/20 border border-rose-500/30 text-xs">
+                <div class="text-[10px] font-black uppercase text-rose-400 flex items-center gap-1 mb-1">
+                  <i class="fa-solid fa-xmark"></i> You said (내가 말한 표현)
+                </div>
+                <div class="text-rose-200 font-medium leading-relaxed">
+                  "${item.youSaid}"
+                </div>
+              </div>
+
+              <!-- Better Say -->
+              <div class="p-3.5 rounded-xl bg-emerald-950/20 border border-emerald-500/30 text-xs">
+                <div class="text-[10px] font-black uppercase text-emerald-400 flex items-center gap-1 mb-1">
+                  <i class="fa-solid fa-check"></i> Better say (원어민 튜터 추천)
+                </div>
+                <div class="text-emerald-200 font-bold leading-relaxed">
+                  "${item.betterSay}"
+                </div>
+              </div>
+            </div>
+
+            <!-- Explanation Box -->
+            <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-slate-300 flex items-start gap-2.5">
+              <i class="fa-solid fa-lightbulb text-amber-400 text-sm mt-0.5 flex-shrink-0"></i>
+              <div class="leading-relaxed">
+                <b class="text-white">교정 포인트:</b> ${item.explanation}
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+// --------------------------------------------------------------------------
+// Sub-Renderer: Toolbar (Search & Category Chips)
+// --------------------------------------------------------------------------
+function renderEnglishToolbar() {
+  const container = document.getElementById('english-toolbar-container');
+  if (!container) return;
+
+  const engData = state.english || INITIAL_ENGLISH_DATA;
+  const mode = state.englishMode || 'quiz';
+  const filter = state.englishFilter || 'all';
+
+  container.innerHTML = `
+    <div class="glass-panel rounded-2xl p-5 border border-slate-800 bg-slate-900/70 space-y-4">
+      <!-- Top bar: Mode switch & Persistent Search Input -->
+      <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+        <!-- View Mode Toggle -->
+        <div class="flex items-center gap-1.5 bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs self-start">
+          <button id="btn-english-mode-quiz" onclick="window.app.setEnglishMode('quiz')" class="px-3.5 py-1.5 rounded-lg font-bold transition cursor-pointer flex items-center gap-1.5 ${mode === 'quiz' ? 'bg-teal-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'}">
+            <i class="fa-solid fa-lightbulb"></i>
+            <span>플립 퀴즈 모드</span>
+          </button>
+          <button id="btn-english-mode-list" onclick="window.app.setEnglishMode('list')" class="px-3.5 py-1.5 rounded-lg font-bold transition cursor-pointer flex items-center gap-1.5 ${mode === 'list' ? 'bg-teal-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'}">
+            <i class="fa-solid fa-table-list"></i>
+            <span>전체 목록 <span id="english-list-count-badge"></span></span>
+          </button>
+        </div>
+
+        <!-- Instant Search Bar (Focus Preserved, IME Safe) -->
+        <div class="relative w-full md:w-80">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+          <input type="text" id="input-english-search" placeholder="단어, 표현, 문법 검색 (예: knowledge, plan, attend)" value="${state.englishSearch || ''}" oninput="window.app.handleEnglishSearchInput(this.value)" class="w-full bg-slate-950 border border-slate-700 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:border-teal-500 outline-none">
+        </div>
+      </div>
+
+      <!-- Category Chips -->
+      <div id="english-category-chips" class="flex flex-wrap items-center gap-1.5 text-xs pt-1 border-t border-slate-800/80">
+        ${engData.categories.map(cat => {
+          const isActive = filter === cat.id;
+          return `
+            <button onclick="window.app.setEnglishFilter('${cat.id}')" data-cat-id="${cat.id}" class="cat-chip px-3 py-1.5 rounded-xl font-bold transition cursor-pointer flex items-center gap-1.5 ${isActive ? 'bg-teal-500 text-slate-950 shadow-md font-black' : 'bg-slate-800/80 text-slate-400 hover:text-white hover:bg-slate-800'}">
+              <i class="fa-solid ${cat.icon} text-[10px]"></i>
+              <span>${cat.name}</span>
+            </button>
+          `;
+        }).join('')}
+      </div>
+    </div>
+  `;
+}
+
+// --------------------------------------------------------------------------
+// Sub-Renderer: Content Area (Cards or Table)
+// --------------------------------------------------------------------------
+function renderEnglishContentArea() {
+  const container = document.getElementById('english-content-area');
+  if (!container) return;
+
+  const engData = state.english || INITIAL_ENGLISH_DATA;
+  const corrections = engData.corrections || [];
+  const filter = state.englishFilter || 'all';
+  const mode = state.englishMode || 'quiz';
+  const query = (state.englishSearch || '').trim().toLowerCase();
+
+  // Filter corrections
+  const filtered = corrections.filter(item => {
+    const matchCat = filter === 'all' || item.category === filter;
+    const matchQ = !query || 
+      item.youSaid.toLowerCase().includes(query) || 
+      item.betterSay.toLowerCase().includes(query) || 
+      item.explanation.toLowerCase().includes(query);
+    return matchCat && matchQ;
+  });
+
+  // Update count badge
+  const countBadge = document.getElementById('english-list-count-badge');
+  if (countBadge) {
+    countBadge.innerText = `(${filtered.length})`;
+  }
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div class="glass-panel rounded-2xl p-12 text-center border border-slate-800 bg-slate-900/40">
+        <i class="fa-solid fa-magnifying-glass text-3xl text-slate-600 mb-3"></i>
+        <h3 class="text-sm font-bold text-slate-300 mb-1">검색 결과가 없습니다</h3>
+        <p class="text-xs text-slate-500">다른 검색어를 입력하시거나 카테고리 필터를 변경해 보세요.</p>
+      </div>
+    `;
+    return;
+  }
+
+  if (mode === 'quiz') {
+    container.innerHTML = `
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        ${filtered.slice(0, 30).map(item => {
+          const isFlipped = state.englishFlipped[item.id];
+
+          return `
+            <div class="glass-panel rounded-2xl p-5 border border-slate-800 hover:border-teal-500/40 bg-slate-900/80 flex flex-col justify-between transition shadow-md group">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-teal-300 border border-teal-500/30">
+                    ${item.categoryName}
+                  </span>
+                  <span class="text-xs font-mono text-slate-500 font-bold">#${item.num}</span>
+                </div>
+
+                <!-- Prompt: You said -->
+                <div class="mb-3">
+                  <span class="text-[10px] font-black uppercase text-rose-400 tracking-wider block mb-1">
+                    ❌ 내가 말했던 문장 (You said)
+                  </span>
+                  <p class="text-sm font-bold text-white leading-relaxed">
+                    "${item.youSaid}"
+                  </p>
+                </div>
+
+                <!-- Flipped or Hidden Answer -->
+                ${isFlipped ? `
+                  <div class="p-3.5 rounded-xl bg-emerald-950/30 border border-emerald-500/40 text-xs mb-3 animate-fade-in">
+                    <div class="text-[10px] font-black uppercase text-emerald-400 mb-1 flex items-center justify-between">
+                      <span>💡 원어민 교정 (Better say)</span>
+                      <button onclick="window.app.speakEnglish('${item.betterSay.replace(/'/g, "\'")}')" class="text-teal-300 hover:text-white" title="발음 듣기">
+                        <i class="fa-solid fa-volume-high"></i>
+                      </button>
+                    </div>
+                    <div class="text-emerald-200 font-bold leading-relaxed mb-2">
+                      "${item.betterSay}"
+                    </div>
+                    <div class="text-[11px] text-slate-300 border-t border-emerald-500/20 pt-2 leading-relaxed">
+                      <b class="text-teal-300">문법 포인트:</b> ${item.explanation}
+                    </div>
+                  </div>
+                ` : `
+                  <button onclick="window.app.toggleEnglishFlip('${item.id}')" class="w-full py-3 px-4 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 hover:border-teal-500/40 text-teal-300 font-bold text-xs transition cursor-pointer flex items-center justify-center gap-2 mb-3 group-hover:scale-[1.01]">
+                    <i class="fa-solid fa-lightbulb text-amber-400"></i>
+                    <span>어떻게 고쳐야 할까요? 교정 문장 확인하기</span>
+                  </button>
+                `}
+              </div>
+
+              <!-- Bottom Actions (Stress-free, No '외웠어요') -->
+              <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
+                <button onclick="window.app.toggleEnglishFlip('${item.id}')" class="text-slate-400 hover:text-teal-300 text-[11px] transition cursor-pointer flex items-center gap-1.5">
+                  <i class="fa-solid ${isFlipped ? 'fa-eye-slash' : 'fa-eye'}"></i>
+                  <span>${isFlipped ? '정답 가리기' : '정답 보기'}</span>
+                </button>
+
+                <button onclick="window.app.speakEnglish('${item.betterSay.replace(/'/g, "\'")}')" class="px-2.5 py-1 rounded-lg bg-teal-500/10 hover:bg-teal-500/20 text-teal-300 text-[11px] font-bold transition cursor-pointer flex items-center gap-1 border border-teal-500/20">
+                  <i class="fa-solid fa-volume-high"></i>
+                  <span>발음 듣기</span>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+      ${filtered.length > 30 ? `
+        <div class="text-center py-4 text-xs text-slate-400 font-medium">
+          30개 문장 미리보기를 표시 중입니다. 전체 문장은 상단의 <b>[전체 목록 (${filtered.length})]</b> 탭에서 확인하세요.
+        </div>
+      ` : ''}
+    `;
+  } else {
+    container.innerHTML = `
+      <div class="glass-panel rounded-2xl overflow-hidden border border-slate-800">
+        <div class="overflow-x-auto custom-scrollbar">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-900/90 border-b border-slate-800 text-slate-400 text-[11px]">
+              <tr>
+                <th class="py-3 px-3 text-center w-12">#</th>
+                <th class="py-3 px-3 w-32">분류</th>
+                <th class="py-3 px-3">내가 말한 표현 (You said)</th>
+                <th class="py-3 px-3">원어민 교정 (Better say)</th>
+                <th class="py-3 px-3">문법 해설</th>
+                <th class="py-3 px-3 text-center w-20">듣기</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60 font-medium">
+              ${filtered.map(item => `
+                <tr class="hover:bg-slate-800/40 transition">
+                  <td class="py-3 px-3 text-center font-mono text-slate-500">${item.num}</td>
+                  <td class="py-3 px-3">
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-teal-300 whitespace-nowrap">
+                      ${item.categoryName}
+                    </span>
+                  </td>
+                  <td class="py-3 px-3 text-rose-300 font-medium">
+                    "${item.youSaid}"
+                  </td>
+                  <td class="py-3 px-3 text-emerald-300 font-bold">
+                    "${item.betterSay}"
+                  </td>
+                  <td class="py-3 px-3 text-[11px] text-slate-300 leading-relaxed">
+                    ${item.explanation}
+                  </td>
+                  <td class="py-3 px-3 text-center">
+                    <button onclick="window.app.speakEnglish('${item.betterSay.replace(/'/g, "\'")}')" class="w-7 h-7 rounded-lg bg-teal-500/10 hover:bg-teal-500/20 text-teal-300 transition cursor-pointer inline-flex items-center justify-center text-xs" title="발음 듣기">
+                      <i class="fa-solid fa-volume-high"></i>
+                    </button>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+  }
+}
+
+// --------------------------------------------------------------------------
+// Sub-Renderer: Idioms Section
+// --------------------------------------------------------------------------
+function renderEnglishIdioms() {
+  const container = document.getElementById('english-idioms-container');
+  if (!container) return;
+
+  const engData = state.english || INITIAL_ENGLISH_DATA;
+  const idioms = engData.idioms || [];
+
+  container.innerHTML = `
+    <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-slate-800 bg-slate-900/60 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-quote-left"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-white text-base">
+              튜터가 추천한 수업별 실전 관용구 (Idioms of the Day)
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">
+              대화에서 자연스럽게 써먹을 수 있는 원어민 16대 관용구 컬렉션
+            </p>
+          </div>
+        </div>
+        <span class="text-xs text-amber-400 font-bold bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
+          총 16개 관용구
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+        ${idioms.map(idm => `
+          <div class="p-4 rounded-xl bg-slate-800/60 border border-slate-700/60 hover:border-amber-500/40 transition">
+            <div class="flex items-center justify-between mb-1.5">
+              <h4 class="font-black text-amber-300 text-sm">
+                ${idm.expression}
+              </h4>
+              <button onclick="window.app.speakEnglish('${idm.expression.replace(/'/g, "\'")}')" class="text-slate-400 hover:text-amber-300 text-xs transition cursor-pointer" title="발음 듣기">
+                <i class="fa-solid fa-volume-high"></i>
+              </button>
+            </div>
+            <p class="text-slate-300 text-[11px] leading-relaxed">
+              ${idm.meaning}
+            </p>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+// --------------------------------------------------------------------------
+// English Tab Handlers (IME Safe & Smooth)
 // --------------------------------------------------------------------------
 function speakEnglish(text) {
   if ('speechSynthesis' in window) {
@@ -3073,42 +3611,90 @@ function speakEnglish(text) {
   }
 }
 
+function handleEnglishSearchInput(val) {
+  state.englishSearch = val;
+  renderEnglishContentArea();
+}
+
+function setEnglishFilter(f) {
+  state.englishFilter = f;
+  // Update visual state of category chips without touching search input
+  const chips = document.querySelectorAll('#english-category-chips .cat-chip');
+  chips.forEach(chip => {
+    const catId = chip.getAttribute('data-cat-id');
+    if (catId === f) {
+      chip.className = 'cat-chip px-3 py-1.5 rounded-xl font-bold transition cursor-pointer flex items-center gap-1.5 bg-teal-500 text-slate-950 shadow-md font-black';
+    } else {
+      chip.className = 'cat-chip px-3 py-1.5 rounded-xl font-bold transition cursor-pointer flex items-center gap-1.5 bg-slate-800/80 text-slate-400 hover:text-white hover:bg-slate-800';
+    }
+  });
+  renderEnglishContentArea();
+}
+
+function setEnglishMode(m) {
+  state.englishMode = m;
+  const btnQuiz = document.getElementById('btn-english-mode-quiz');
+  const btnList = document.getElementById('btn-english-mode-list');
+  if (btnQuiz && btnList) {
+    if (m === 'quiz') {
+      btnQuiz.className = 'px-3.5 py-1.5 rounded-lg font-bold transition cursor-pointer flex items-center gap-1.5 bg-teal-600 text-white shadow-sm';
+      btnList.className = 'px-3.5 py-1.5 rounded-lg font-bold transition cursor-pointer flex items-center gap-1.5 text-slate-400 hover:text-white';
+    } else {
+      btnQuiz.className = 'px-3.5 py-1.5 rounded-lg font-bold transition cursor-pointer flex items-center gap-1.5 text-slate-400 hover:text-white';
+      btnList.className = 'px-3.5 py-1.5 rounded-lg font-bold transition cursor-pointer flex items-center gap-1.5 bg-teal-600 text-white shadow-sm';
+    }
+  }
+  renderEnglishContentArea();
+}
+
 function nextEnglishDaily() {
   const engData = state.english || INITIAL_ENGLISH_DATA;
   const total = (engData.corrections || []).length;
   state.englishDailyOffset = (state.englishDailyOffset + 5) % total;
-  renderEnglishTab();
+  stopPodcastAudio();
+  englishPodcastState.currentTrackIndex = 0;
+  englishPodcastState.elapsedSeconds = 0;
+  renderEnglishPodcastPlayer();
+  renderEnglishDailyFocus();
 }
 
 function prevEnglishDaily() {
   const engData = state.english || INITIAL_ENGLISH_DATA;
   const total = (engData.corrections || []).length;
   state.englishDailyOffset = (state.englishDailyOffset - 5 + total) % total;
-  renderEnglishTab();
+  stopPodcastAudio();
+  englishPodcastState.currentTrackIndex = 0;
+  englishPodcastState.elapsedSeconds = 0;
+  renderEnglishPodcastPlayer();
+  renderEnglishDailyFocus();
 }
 
 function randomEnglishDaily() {
   const engData = state.english || INITIAL_ENGLISH_DATA;
   const total = (engData.corrections || []).length;
   state.englishDailyOffset = Math.floor(Math.random() * Math.max(1, total - 5));
-  renderEnglishTab();
+  stopPodcastAudio();
+  englishPodcastState.currentTrackIndex = 0;
+  englishPodcastState.elapsedSeconds = 0;
+  renderEnglishPodcastPlayer();
+  renderEnglishDailyFocus();
 }
 
 function toggleEnglishFlip(id) {
   if (!state.englishFlipped) state.englishFlipped = {};
   state.englishFlipped[id] = !state.englishFlipped[id];
-  renderEnglishTab();
+  renderEnglishContentArea();
 }
 
-function toggleEnglishMastered(id) {
-  if (!state.englishMastered) state.englishMastered = {};
-  state.englishMastered[id] = !state.englishMastered[id];
-  const isM = state.englishMastered[id];
-  showToast(isM ? '문장을 마스터했습니다! 🎉' : '마스터를 취소했습니다.');
-  persistState();
-  renderEnglishTab();
+function handlePodcastSeekClick(e) {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const clickX = e.clientX - rect.left;
+  const width = rect.width;
+  if (width > 0) {
+    const ratio = Math.max(0, Math.min(1, clickX / width));
+    seekPodcast(ratio);
+  }
 }
-
 // ==========================================================================
 // 5-KNOU. 방송통신대학교 사회복지학과 학점 & 수강 관리 탭
 // ==========================================================================
@@ -6579,25 +7165,25 @@ function showToast(msg) {
 // Expose Public Methods to Window for UI Interactions
 // ==========================================================================
 window.app = {
-  // English Grammar & Speaking Handlers
-  setEnglishFilter: (f) => {
-    state.englishFilter = f;
-    renderEnglishTab();
-  },
-  setEnglishMode: (m) => {
-    state.englishMode = m;
-    renderEnglishTab();
-  },
-  setEnglishSearch: (q) => {
-    state.englishSearch = q;
-    renderEnglishTab();
-  },
+  // English Grammar & Daily Podcast Handlers
+  setEnglishFilter: (f) => setEnglishFilter(f),
+  setEnglishMode: (m) => setEnglishMode(m),
+  setEnglishSearch: (q) => handleEnglishSearchInput(q),
+  handleEnglishSearchInput: (q) => handleEnglishSearchInput(q),
   prevEnglishDaily: () => prevEnglishDaily(),
   nextEnglishDaily: () => nextEnglishDaily(),
   randomEnglishDaily: () => randomEnglishDaily(),
   toggleEnglishFlip: (id) => toggleEnglishFlip(id),
-  toggleEnglishMastered: (id) => toggleEnglishMastered(id),
   speakEnglish: (txt) => speakEnglish(txt),
+  // Podcast Audio Engine Handlers
+  togglePodcastPlay: () => togglePodcastPlay(),
+  pausePodcast: () => pausePodcast(),
+  skipPodcast: (sec) => skipPodcast(sec),
+  seekPodcast: (ratio) => seekPodcast(ratio),
+  setPodcastRate: (rate) => setPodcastRate(rate),
+  playPodcastTrack: (idx) => playPodcastTrack(idx),
+  togglePodcastScript: () => togglePodcastScript(),
+  handlePodcastSeekClick: (e) => handlePodcastSeekClick(e),
   // KNOU Social Welfare Handlers
   setKnouFilter: (f) => {
     state.knouFilter = f;

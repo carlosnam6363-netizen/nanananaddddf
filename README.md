@@ -53,7 +53,7 @@ career-dashboard/
    * `Tab Order & Category Navigation`: 탭 순서 커스텀 정렬 및 카테고리 필터링(취미 / 커리어 패스 / 기타)
    * `Guest Mode Restriction`: 비로그인/게스트 상태에서는 종합 대시보드(overview)만 열람 허용되며, 다른 탭 클릭 시 자물쇠 잠금 팝업(`modal-tab-locked`) 호출
    * `Tab Renderers`: 12개 탭 동적 렌더링 (`renderOverviewTab`, `renderEnglishTab`, `renderKnouTab`, `renderEnergyTab`, `renderBandTab`, `renderSnsTab` 등)
-   * `English Features`: Daily Focus 5선, 플립 퀴즈 모드 & 전체 리스트 테이블 모드, Web Speech API 기반 원어민 TTS 발음 듣기, 마스터 체크, 6대 문법 카테고리 필터 및 실시간 검색
+   * `English Features`: 5~10분 데일리 팟캐스트 오디오 플레이어(대본 타임라인·배속·15초 스킵), Daily Focus 5선, 플립 퀴즈 모드 & 전체 리스트 모드, Web Speech API 기반 원어민 TTS 음성 코칭, 한글 자모 및 영문 입력 포커스가 100% 유지되는 실시간 IME 검색 최적화 (부담 없는 학습을 위해 '외웠어요' 버튼 제거 완료)
    * `window.app`: 전역 이벤트 핸들러 및 모달 제어 API
 
 ---
