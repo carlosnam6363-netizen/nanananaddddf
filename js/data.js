@@ -5749,6 +5749,241 @@ const INITIAL_INBODY_DATA = {
 ]
 };
 
+
+// =========================================================================
+// 14. 국립 한국방송통신대학교 (KNOU) 사회복지학과 학점 및 수강 관리 데이터
+// 2026학년도 2학기 (형성평가 20% + 중간과제물 30% + 기말고사 50%)
+// =========================================================================
+const INITIAL_KNOU_DATA = {
+  knouDataVersion: 1,
+  university: '국립 한국방송통신대학교 (KNOU)',
+  department: '사회복지학과',
+  currentSemester: '2026학년도 2학기',
+  semesterDDay: 'D-75',
+  formativePeriod: {
+    startDate: '2026-08-17',
+    endDate: '2026-12-13',
+    remainingDays: 75,
+    memo: '형성평가(강의 수강) 인정 기간: 2026.08.17 ~ 2026.12.13 (기한 내 100% 수강 시 20점 만점 인정)'
+  },
+  evaluationPolicy: {
+    formativeRate: 20, // 형성평가(수강률) 20%
+    midtermRate: 30,   // 중간과제물 or 출석과제물 30%
+    finalExamRate: 50, // 기말고사 50%
+    totalScore: 100
+  },
+  summary: {
+    totalCredits: 25,     // 9개 과목 총 25학점
+    confirmedCredits: 4,  // AI기초소양 1학점(100% 달성) + 평생교육사실습 3학점(이수완료·검증진행)
+    inProgressCredits: 21 // 7개 3학점 전공/교양 과목
+  },
+  courses: [
+    {
+      id: 'knou-ai-native',
+      code: 'GE-101',
+      name: 'AI네이티브가되기위한기초소양',
+      credits: 1,
+      category: '교양/마이크로디그리',
+      categoryBadge: '교양 1학점',
+      progress: 100.0,
+      status: 'completed', // completed | in_progress | verified_pending
+      statusBadge: '이수완료 100%',
+      badgeClass: 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30',
+      ruleType: 'pass_only',
+      specialRule: '수강률 100% 달성 완료 시 1학점 부여 (Pass 과목)',
+      formativeScore: 20.0, // 20점 만점 환산
+      midtermType: '해당없음',
+      midtermStatus: 'none',
+      finalType: '해당없음',
+      finalStatus: 'none',
+      isConfirmed: true,
+      memo: '수강률 100% 충족 완료! 1학점 취득 확정 과목입니다. 🎉'
+    },
+    {
+      id: 'knou-practice-theory',
+      code: 'SW-201',
+      name: '사회복지실천론',
+      credits: 3,
+      category: '전공필수',
+      categoryBadge: '전공필수 3학점',
+      progress: 46.67,
+      status: 'in_progress',
+      statusBadge: '형성평가 46.67%',
+      badgeClass: 'bg-blue-500/20 text-blue-300 border border-blue-500/30',
+      ruleType: 'standard',
+      specialRule: '형성평가(20%) + 중간과제물(30%) + 기말고사(50%)',
+      formativeScore: 9.33,
+      midtermType: '중간과제물',
+      midtermStatus: 'pending', // pending | in_progress | submitted
+      midtermDueDate: '2026-10-25',
+      finalType: '기말고사 (객관식)',
+      finalStatus: 'scheduled',
+      finalExamDate: '2026-12-06',
+      isConfirmed: false,
+      memo: '사회복지실천의 통합적 접근 방법론 및 사회복지사 관계형성 기술 학습'
+    },
+    {
+      id: 'knou-diversity',
+      code: 'SW-202',
+      name: '사회복지와문화다양성',
+      credits: 3,
+      category: '전공선택',
+      categoryBadge: '전공선택 3학점',
+      progress: 26.67,
+      status: 'in_progress',
+      statusBadge: '형성평가 26.67%',
+      badgeClass: 'bg-sky-500/20 text-sky-300 border border-sky-500/30',
+      ruleType: 'standard',
+      specialRule: '형성평가(20%) + 중간과제물(30%) + 기말고사(50%)',
+      formativeScore: 5.33,
+      midtermType: '중간과제물',
+      midtermStatus: 'pending',
+      midtermDueDate: '2026-10-25',
+      finalType: '기말고사 (객관식)',
+      finalStatus: 'scheduled',
+      finalExamDate: '2026-12-06',
+      isConfirmed: false,
+      memo: '다문화사회 진입에 따른 문화다양성 이해 및 소수자 인권과 복지 지원 체계'
+    },
+    {
+      id: 'knou-policy',
+      code: 'SW-203',
+      name: '사회복지정책론',
+      credits: 3,
+      category: '전공필수',
+      categoryBadge: '전공필수 3학점',
+      progress: 6.67,
+      status: 'in_progress',
+      statusBadge: '형성평가 6.67%',
+      badgeClass: 'bg-amber-500/20 text-amber-300 border border-amber-500/30',
+      ruleType: 'standard',
+      specialRule: '형성평가(20%) + 중간과제물(30%) + 기말고사(50%)',
+      formativeScore: 1.33,
+      midtermType: '중간과제물',
+      midtermStatus: 'pending',
+      midtermDueDate: '2026-10-27',
+      finalType: '기말고사 (객관식)',
+      finalStatus: 'scheduled',
+      finalExamDate: '2026-12-13',
+      isConfirmed: false,
+      memo: '복지국가 발달사, 정책 형성 및 분석 모델, 소득보장 및 사회보험 체계 분석'
+    },
+    {
+      id: 'knou-research',
+      code: 'SW-204',
+      name: '사회복지조사론',
+      credits: 3,
+      category: '전공필수',
+      categoryBadge: '전공필수 3학점',
+      progress: 0.0,
+      status: 'in_progress',
+      statusBadge: '형성평가 0%',
+      badgeClass: 'bg-rose-500/20 text-rose-300 border border-rose-500/30',
+      ruleType: 'standard',
+      specialRule: '형성평가(20%) + 출석수업과제물(30%) + 기말고사(50%)',
+      formativeScore: 0.0,
+      midtermType: '출석수업 과제물',
+      midtermStatus: 'pending',
+      midtermDueDate: '2026-11-05',
+      finalType: '기말고사 (객관식)',
+      finalStatus: 'scheduled',
+      finalExamDate: '2026-12-13',
+      isConfirmed: false,
+      memo: '과학적 조사 연구 과정, 가설 검증, 설문지 작성 및 양적/질적 데이터 분석 기초'
+    },
+    {
+      id: 'knou-social-problems',
+      code: 'SW-205',
+      name: '사회문제론',
+      credits: 3,
+      category: '전공선택',
+      categoryBadge: '전공선택 3학점',
+      progress: 26.67,
+      status: 'in_progress',
+      statusBadge: '형성평가 26.67%',
+      badgeClass: 'bg-sky-500/20 text-sky-300 border border-sky-500/30',
+      ruleType: 'standard',
+      specialRule: '형성평가(20%) + 중간과제물(30%) + 기말고사(50%)',
+      formativeScore: 5.33,
+      midtermType: '중간과제물',
+      midtermStatus: 'pending',
+      midtermDueDate: '2026-10-25',
+      finalType: '기말고사 (객관식)',
+      finalStatus: 'scheduled',
+      finalExamDate: '2026-12-06',
+      isConfirmed: false,
+      memo: '빈곤, 불평등, 고령화 등 한국 현대 사회의 주요 구조적 쟁점과 대안적 해결책'
+    },
+    {
+      id: 'knou-human-behavior',
+      code: 'SW-206',
+      name: '인간행동과사회환경',
+      credits: 3,
+      category: '전공필수',
+      categoryBadge: '전공필수 3학점',
+      progress: 0.0,
+      status: 'in_progress',
+      statusBadge: '형성평가 0%',
+      badgeClass: 'bg-rose-500/20 text-rose-300 border border-rose-500/30',
+      ruleType: 'standard',
+      specialRule: '형성평가(20%) + 중간과제물(30%) + 기말고사(50%)',
+      formativeScore: 0.0,
+      midtermType: '중간과제물',
+      midtermStatus: 'pending',
+      midtermDueDate: '2026-10-27',
+      finalType: '기말고사 (객관식)',
+      finalStatus: 'scheduled',
+      finalExamDate: '2026-12-13',
+      isConfirmed: false,
+      memo: '생애주기별 인간 발달 단계(태아기~노년기)와 성격이론, 사회환경 체계의 영향 분석'
+    },
+    {
+      id: 'knou-edu-sociology',
+      code: 'SW-207',
+      name: '교육사회학',
+      credits: 3,
+      category: '전공선택/교육',
+      categoryBadge: '전공선택 3학점',
+      progress: 46.67,
+      status: 'in_progress',
+      statusBadge: '형성평가 46.67%',
+      badgeClass: 'bg-blue-500/20 text-blue-300 border border-blue-500/30',
+      ruleType: 'standard',
+      specialRule: '형성평가(20%) + 중간과제물(30%) + 기말고사(50%)',
+      formativeScore: 9.33,
+      midtermType: '중간과제물',
+      midtermStatus: 'pending',
+      midtermDueDate: '2026-10-25',
+      finalType: '기말고사 (객관식)',
+      finalStatus: 'scheduled',
+      finalExamDate: '2026-12-06',
+      isConfirmed: false,
+      memo: '교육의 사회적 기능, 학력주의와 교육격차, 사회계층 이동과 학교 교육의 사회구조적 분석'
+    },
+    {
+      id: 'knou-lifelong-practicum',
+      code: 'LL-301',
+      name: '평생교육사실습',
+      credits: 3,
+      category: '자격실습',
+      categoryBadge: '실습 3학점',
+      progress: 100.0,
+      status: 'verified_pending',
+      statusBadge: '이수 완료 (포트폴리오 검증 중)',
+      badgeClass: 'bg-purple-500/20 text-purple-300 border border-purple-500/30',
+      ruleType: 'practicum_verified',
+      specialRule: '별도 지정 기관 160시간 현장실습 이수 완료 · 현재 최종 포트폴리오 심사/검증 진행 중',
+      formativeScore: 20.0,
+      midtermType: '실습일지 및 기관평가서',
+      midtermStatus: 'submitted',
+      finalType: '최종 실습 포트폴리오',
+      finalStatus: 'reviewing',
+      isConfirmed: true,
+      memo: '별도 인가 교육기관에서 160시간 현장실습 공식 이수 완료. 현재 대학 및 국가평생교육진흥원 최종 포트폴리오 자격 검증 진행 중입니다. 🏛️'
+    }
+  ]
+};
+
   // 전역 window 객체에 초기 시드 데이터 바인딩
   global.INITIAL_DISCHARGE_DATE = INITIAL_DISCHARGE_DATE;
   global.INITIAL_CAMINO_DATA = INITIAL_CAMINO_DATA;
@@ -5763,5 +5998,6 @@ const INITIAL_INBODY_DATA = {
   global.INITIAL_ENERGY_QUESTIONS = INITIAL_ENERGY_QUESTIONS;
   global.INITIAL_EXTERNAL_DASHBOARDS = INITIAL_EXTERNAL_DASHBOARDS;
   global.INITIAL_INBODY_DATA = INITIAL_INBODY_DATA;
+  global.INITIAL_KNOU_DATA = INITIAL_KNOU_DATA;
 
 })(typeof window !== 'undefined' ? window : this);

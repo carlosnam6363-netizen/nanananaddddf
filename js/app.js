@@ -26,7 +26,8 @@
     INITIAL_ENERGY_FORMULAS,
     INITIAL_ENERGY_QUESTIONS,
     INITIAL_EXTERNAL_DASHBOARDS,
-    INITIAL_INBODY_DATA
+    INITIAL_INBODY_DATA,
+    INITIAL_KNOU_DATA
   } = window;
 
 // =========================================================================
@@ -89,7 +90,11 @@ class SyncManager {
         parsed.energyPlan = upgradedEnergyPlan;
         parsed.sns = upgradedSns;
         parsed.portfolio = upgradedPortfolio;
+        const upgradedKnou = (parsed.knou && parsed.knou.knouDataVersion === 1)
+          ? parsed.knou
+          : JSON.parse(JSON.stringify(INITIAL_KNOU_DATA));
         parsed.inbody = upgradedInbody;
+        parsed.knou = upgradedKnou;
         localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
 
         return {
@@ -104,6 +109,7 @@ class SyncManager {
           sns: upgradedSns,
           portfolio: upgradedPortfolio,
           inbody: upgradedInbody,
+          knou: upgradedKnou,
           theme: parsed.theme || 'dark'
         };
       }
@@ -123,6 +129,7 @@ class SyncManager {
       sns: INITIAL_SNS_DATA,
       portfolio: INITIAL_PORTFOLIO_DATA,
       inbody: INITIAL_INBODY_DATA,
+      knou: INITIAL_KNOU_DATA,
       theme: 'dark'
     };
   }
@@ -358,7 +365,8 @@ const TAB_CATEGORIES = [
 ];
 
 const TAB_REGISTRY = [
-  // 1. 커리어 패스 관리 (4개)
+  // 1. 커리어 패스 관리 (5개)
+  { id: 'knou', name: '방통대 사회복지 학점', shortName: '방통대 학점', icon: 'fa-user-graduate', color: 'text-indigo-400', badge: '9과목', badgeClass: 'bg-indigo-500/20 text-indigo-300', category: 'career', categoryName: '커리어 패스 관리' },
   { id: 'energy', name: '에너지관리기사', shortName: '에너지', icon: 'fa-graduation-cap', color: 'text-amber-300', badge: 'D-40', badgeClass: 'bg-sky-500/20 text-sky-300', category: 'career', categoryName: '커리어 패스 관리' },
   { id: 'exam', name: '시험 및 학사 일정', shortName: '일정', icon: 'fa-calendar-days', color: 'text-blue-400', badge: null, badgeClass: '', category: 'career', categoryName: '커리어 패스 관리' },
   { id: 'careers', name: '주요 경력 & TF', shortName: '경력', icon: 'fa-briefcase', color: 'text-emerald-400', badge: '15건', badgeClass: 'bg-emerald-500/20 text-emerald-400', isPortfolio: true, category: 'career', categoryName: '커리어 패스 관리' },
@@ -923,6 +931,9 @@ let state = {
   sns: INITIAL_SNS_DATA,
   portfolio: INITIAL_PORTFOLIO_DATA,
   inbody: INITIAL_INBODY_DATA,
+  knou: INITIAL_KNOU_DATA,
+  knouFilter: 'all', // 'all', 'in_progress', 'completed'
+  knouSimScores: {}, // { [courseId]: { midterm: number, final: number } }
   externalSubtab: 'excel', // 'excel' or 'dashboards'
   inbodyYearFilter: 'all', // 'all', '2026', '2025', '2024', 'prev'
   theme: 'dark',
@@ -1243,6 +1254,7 @@ function persistState() {
     camino: state.camino,
     sns: state.sns,
     portfolio: state.portfolio,
+    knou: state.knou,
     theme: state.theme
   });
 }
@@ -1305,6 +1317,9 @@ function renderCurrentTab() {
   switch (state.activeTab) {
     case 'overview':
       renderOverviewTab();
+      break;
+    case 'knou':
+      renderKnouTab();
       break;
     case 'exam':
       renderExamTab();
@@ -2567,6 +2582,593 @@ function renderCaminoTab() {
 
     </div>
   `;
+}
+
+
+// ==========================================================================
+// 5-KNOU. 방송통신대학교 사회복지학과 학점 & 수강 관리 탭
+// ==========================================================================
+function renderKnouTab() {
+  const container = document.getElementById('tab-content-knou');
+  if (!container) return;
+
+  const kData = state.knou || INITIAL_KNOU_DATA;
+  const courses = kData.courses || [];
+  const filter = state.knouFilter || 'all';
+
+  // Calculate statistics
+  const totalCourses = courses.length;
+  const totalCredits = courses.reduce((acc, c) => acc + (c.credits || 0), 0);
+  const confirmedCredits = courses.filter(c => c.isConfirmed).reduce((acc, c) => acc + (c.credits || 0), 0);
+  const inProgressCredits = totalCredits - confirmedCredits;
+
+  const totalProgressSum = courses.reduce((acc, c) => acc + (c.progress || 0), 0);
+  const avgProgress = totalCourses > 0 ? (totalProgressSum / totalCourses).toFixed(1) : 0;
+
+  // Formative average score out of 20
+  const avgFormativeScore = (avgProgress * 0.20).toFixed(2);
+
+  // Filter courses
+  const filteredCourses = courses.filter(c => {
+    if (filter === 'all') return true;
+    if (filter === 'in_progress') return c.status === 'in_progress';
+    if (filter === 'completed') return c.status === 'completed' || c.status === 'verified_pending';
+    return true;
+  });
+
+  // Calculate elapsed vs remaining days for formative period (2026.08.17 ~ 2026.12.13)
+  const totalPeriodDays = 118;
+  const remainingDays = 75;
+  const elapsedDays = Math.max(0, totalPeriodDays - remainingDays);
+  const semesterProgressPct = ((elapsedDays / totalPeriodDays) * 100).toFixed(1);
+
+  // Grade helper function for simulator
+  function calculateCourseGrade(formativeScore, midtermScore, finalScore) {
+    const total = Math.min(100, Math.max(0, (formativeScore || 0) + (midtermScore || 0) + (finalScore || 0)));
+    let grade = 'F';
+    let gpa = 0.0;
+    if (total >= 95) { grade = 'A+'; gpa = 4.5; }
+    else if (total >= 90) { grade = 'A0'; gpa = 4.0; }
+    else if (total >= 85) { grade = 'B+'; gpa = 3.5; }
+    else if (total >= 80) { grade = 'B0'; gpa = 3.0; }
+    else if (total >= 75) { grade = 'C+'; gpa = 2.5; }
+    else if (total >= 70) { grade = 'C0'; gpa = 2.0; }
+    else if (total >= 60) { grade = 'D'; gpa = 1.0; }
+    else { grade = 'F'; gpa = 0.0; }
+    return { total: total.toFixed(1), grade, gpa };
+  }
+
+  container.innerHTML = `
+    <div class="space-y-6">
+
+      <!-- 1. Header Banner -->
+      <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-indigo-500/30 bg-gradient-to-br from-slate-900 via-indigo-950/20 to-slate-900 shadow-2xl relative overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 relative z-10">
+          <div>
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span class="px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-black border border-indigo-500/30 flex items-center gap-1.5 shadow-sm">
+                <i class="fa-solid fa-building-columns"></i> ${kData.university || '국립 한국방송통신대학교'}
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700">
+                ${kData.department || '사회복지학과'} · ${kData.currentSemester || '2026학년도 2학기'}
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-black border border-amber-500/30">
+                총 9개 과목 · 25학점
+              </span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-3">
+              <i class="fa-solid fa-user-graduate text-indigo-400"></i>
+              방송대 사회복지학과 학점 및 수강 관리
+            </h1>
+            <p class="text-xs sm:text-sm text-slate-300 mt-2 max-w-2xl leading-relaxed">
+              이번 학기 9개 수강 강의의 실시간 강의 진도율(수강률), 과제물 제출 여부, 기말시험 일정을 추적하고 최종 취득 학점(GPA)을 시뮬레이션합니다.
+            </p>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="flex items-center gap-2 self-start lg:self-auto">
+            <a href="https://ep.knou.ac.kr" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition flex items-center gap-1.5 border border-slate-700/80 shadow-sm cursor-pointer">
+              <i class="fa-solid fa-arrow-up-right-from-square text-indigo-400"></i>
+              <span>방송대 맞춤정보 바로가기</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Formative Evaluation Timeline Banner (From user's screenshot) -->
+        <div class="mt-6 pt-5 border-t border-slate-800/80 relative z-10">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-2.5 text-xs">
+            <div class="flex items-center gap-2 font-bold text-slate-200">
+              <span class="text-rose-400">▶</span>
+              <span>형성평가(강의 수강) 인정 기간:</span>
+              <span class="font-mono text-indigo-300 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">
+                ${kData.formativePeriod?.startDate || '2026.08.17'} ~ ${kData.formativePeriod?.endDate || '2026.12.13'}
+              </span>
+              <span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 font-extrabold text-[11px] border border-rose-500/30">
+                ${kData.formativePeriod?.remainingDays || 75}일 남음
+              </span>
+            </div>
+            <div class="text-[11px] text-slate-400 font-medium">
+              학기 경과율: <span class="font-mono text-white font-bold">${semesterProgressPct}%</span> (${elapsedDays}/${totalPeriodDays}일)
+            </div>
+          </div>
+
+          <!-- Semester Time Progress Bar -->
+          <div class="w-full bg-slate-800/80 rounded-full h-2.5 overflow-hidden border border-slate-700/60 p-0.5">
+            <div class="bg-gradient-to-r from-indigo-500 via-sky-400 to-rose-400 h-full rounded-full transition-all duration-500 shadow-sm" style="width: ${semesterProgressPct}%"></div>
+          </div>
+
+          <!-- Evaluation Policy Callout -->
+          <div class="mt-3.5 flex flex-wrap items-center gap-3 text-xs bg-slate-900/80 p-3 rounded-2xl border border-slate-800">
+            <span class="font-bold text-amber-400 flex items-center gap-1.5">
+              <i class="fa-solid fa-calculator"></i> 학점 평가 배점 기준:
+            </span>
+            <div class="flex flex-wrap items-center gap-2 text-[11px]">
+              <span class="px-2 py-0.5 rounded-lg bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 font-bold">
+                1. 형성평가(수강률) 20%
+              </span>
+              <span class="text-slate-600">+</span>
+              <span class="px-2 py-0.5 rounded-lg bg-amber-500/15 text-amber-300 border border-amber-500/30 font-bold">
+                2. 중간과제물 or 출석과제물 30%
+              </span>
+              <span class="text-slate-600">+</span>
+              <span class="px-2 py-0.5 rounded-lg bg-sky-500/15 text-sky-300 border border-sky-500/30 font-bold">
+                3. 기말고사 50%
+              </span>
+              <span class="text-slate-600">=</span>
+              <span class="px-2.5 py-0.5 rounded-lg bg-emerald-500/20 text-emerald-300 font-black border border-emerald-500/30">
+                총점 100점 만점
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. KPI Cards (4 Grid) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- KPI 1 -->
+        <div class="glass-panel rounded-2xl p-5 border border-indigo-500/30 bg-gradient-to-br from-slate-900 to-indigo-950/20 shadow-lg">
+          <div class="flex items-center justify-between text-slate-400 text-xs mb-2">
+            <span class="font-bold">총 신청 학점</span>
+            <span class="w-8 h-8 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-sm">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-black text-white font-mono">${totalCredits}</span>
+            <span class="text-sm font-bold text-slate-400">학점</span>
+          </div>
+          <div class="mt-2 text-[11px] text-slate-400 flex items-center justify-between border-t border-slate-800/80 pt-2">
+            <span>이수 확정: <b class="text-emerald-400">${confirmedCredits}학점</b></span>
+            <span>진행 중: <b class="text-indigo-300">${inProgressCredits}학점</b></span>
+          </div>
+        </div>
+
+        <!-- KPI 2 -->
+        <div class="glass-panel rounded-2xl p-5 border border-blue-500/30 bg-gradient-to-br from-slate-900 to-blue-950/20 shadow-lg">
+          <div class="flex items-center justify-between text-slate-400 text-xs mb-2">
+            <span class="font-bold">평균 강의 진도율</span>
+            <span class="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-sm">
+              <i class="fa-solid fa-chart-line"></i>
+            </span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-black text-white font-mono">${avgProgress}%</span>
+            <span class="text-xs text-blue-400 font-bold">전체 9과목</span>
+          </div>
+          <div class="mt-2 text-[11px] text-slate-400 flex items-center justify-between border-t border-slate-800/80 pt-2">
+            <span>형성평가 평균 환산:</span>
+            <span class="font-bold text-blue-300 font-mono">${avgFormativeScore} / 20.0점</span>
+          </div>
+        </div>
+
+        <!-- KPI 3 -->
+        <div class="glass-panel rounded-2xl p-5 border border-emerald-500/30 bg-gradient-to-br from-slate-900 to-emerald-950/20 shadow-lg">
+          <div class="flex items-center justify-between text-slate-400 text-xs mb-2">
+            <span class="font-bold">이수 및 검증 완료</span>
+            <span class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm">
+              <i class="fa-solid fa-award"></i>
+            </span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-black text-emerald-400 font-mono">2</span>
+            <span class="text-sm font-bold text-slate-400">/ 9과목</span>
+          </div>
+          <div class="mt-2 text-[11px] text-slate-400 flex items-center justify-between border-t border-slate-800/80 pt-2">
+            <span>AI기초소양(100%)</span>
+            <span class="text-purple-300 font-medium">평생교육사실습(검증중)</span>
+          </div>
+        </div>
+
+        <!-- KPI 4 -->
+        <div class="glass-panel rounded-2xl p-5 border border-amber-500/30 bg-gradient-to-br from-slate-900 to-amber-950/20 shadow-lg">
+          <div class="flex items-center justify-between text-slate-400 text-xs mb-2">
+            <span class="font-bold">중간과제물 마감 D-Day</span>
+            <span class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm">
+              <i class="fa-solid fa-calendar-check"></i>
+            </span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-black text-amber-400 font-mono">D-26</span>
+            <span class="text-xs text-slate-400">10.25 ~ 10.27</span>
+          </div>
+          <div class="mt-2 text-[11px] text-slate-400 flex items-center justify-between border-t border-slate-800/80 pt-2">
+            <span>형성평가 마감: <b class="text-rose-400 font-mono">D-75</b></span>
+            <span>기말시험: <b class="text-sky-300 font-mono">12월</b></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Course List Header & Filter Chips -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-layer-group text-indigo-400"></i>
+            2026-2학기 수강 과목 진도율 & 평가 현황
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">
+            제공해주신 방송대 수강 포털 데이터가 100% 동기화되었습니다. (수강률 20% + 과제물 30% + 기말 50%)
+          </p>
+        </div>
+
+        <div class="flex items-center gap-1.5 bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs">
+          <button onclick="window.app.setKnouFilter('all')" class="px-3 py-1.5 rounded-lg font-bold transition cursor-pointer ${filter === 'all' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'}">
+            전체 과목 (${totalCourses})
+          </button>
+          <button onclick="window.app.setKnouFilter('in_progress')" class="px-3 py-1.5 rounded-lg font-bold transition cursor-pointer ${filter === 'in_progress' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'}">
+            수강 중 (7)
+          </button>
+          <button onclick="window.app.setKnouFilter('completed')" class="px-3 py-1.5 rounded-lg font-bold transition cursor-pointer ${filter === 'completed' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'}">
+            이수완료·검증 (2)
+          </button>
+        </div>
+      </div>
+
+      <!-- 4. Course Cards Grid (Matching user's screenshot) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        ${filteredCourses.map(c => {
+          const isDone = c.progress >= 100;
+          const formativeScore = (c.progress * 0.20).toFixed(2);
+          const isAiNative = c.id === 'knou-ai-native';
+          const isPracticum = c.id === 'knou-lifelong-practicum';
+
+          return `
+            <div class="glass-panel rounded-2xl p-5 border ${isDone ? 'border-emerald-500/40 bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950/20' : isPracticum ? 'border-purple-500/40 bg-gradient-to-br from-slate-900 via-slate-900 to-purple-950/20' : 'border-slate-800 hover:border-indigo-500/40 bg-slate-900/70'} transition shadow-md flex flex-col justify-between group">
+              <div>
+                <!-- Card Header -->
+                <div class="flex items-start justify-between gap-2 mb-3">
+                  <div>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${c.badgeClass || 'bg-slate-800 text-slate-300'}">
+                      ${c.categoryBadge || c.category}
+                    </span>
+                    <h3 class="text-base font-bold text-white mt-1.5 group-hover:text-indigo-300 transition">
+                      ${c.name}
+                    </h3>
+                  </div>
+
+                  <!-- Right Progress / Status Badge (Matching user's screenshot exactly!) -->
+                  <div class="text-right flex-shrink-0">
+                    ${isDone && isAiNative ? `
+                      <span class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-100 text-xs font-black border border-emerald-500/50 shadow-sm flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                        <span>이수완료 100%</span>
+                      </span>
+                    ` : isPracticum ? `
+                      <span class="px-2.5 py-1 rounded-full bg-purple-950/80 text-purple-300 text-xs font-black border border-purple-500/50 shadow-sm flex items-center gap-1.5">
+                        <i class="fa-solid fa-clock-rotate-left text-purple-400"></i>
+                        <span>이수 완료 (검증 중)</span>
+                      </span>
+                    ` : `
+                      <span class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700 flex items-center gap-1.5">
+                        <span>형성평가</span>
+                        <b class="font-mono ${c.progress > 0 ? 'text-indigo-300' : 'text-slate-400'}">${c.progress}%</b>
+                      </span>
+                    `}
+                  </div>
+                </div>
+
+                <!-- Progress Bar (Visual representation matching LMS) -->
+                <div class="mb-4">
+                  <div class="flex justify-between items-center text-[11px] mb-1.5 font-medium">
+                    <span class="text-slate-400">수강 진도율</span>
+                    <span class="font-mono font-bold ${isDone ? 'text-emerald-400' : 'text-indigo-300'}">
+                      ${c.progress}%
+                    </span>
+                  </div>
+                  <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden border border-slate-700/60 p-0.5">
+                    <div class="${isDone ? 'bg-emerald-500 shadow-emerald-500/50' : isPracticum ? 'bg-purple-500' : 'bg-indigo-500'} h-full rounded-full transition-all duration-500" style="width: ${c.progress}%"></div>
+                  </div>
+                </div>
+
+                <!-- 3-Pillar Grade Structure breakdown -->
+                ${!isAiNative && !isPracticum ? `
+                <div class="grid grid-cols-3 gap-2 p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 text-[10px] mb-3.5">
+                  <div class="text-center border-r border-slate-800 pr-1">
+                    <span class="text-slate-400 block font-medium">형성평가(20%)</span>
+                    <span class="font-mono font-bold text-indigo-300 mt-0.5 block">${formativeScore} / 20점</span>
+                  </div>
+                  <div class="text-center border-r border-slate-800 px-1">
+                    <span class="text-slate-400 block font-medium">중간(30%)</span>
+                    <span class="font-bold ${c.midtermStatus === 'submitted' ? 'text-emerald-400' : 'text-amber-400'} mt-0.5 block truncate">
+                      ${c.midtermStatus === 'submitted' ? '제출 완료' : c.midtermType === '출석수업 과제물' ? '출석과제' : '과제물'}
+                    </span>
+                  </div>
+                  <div class="text-center pl-1">
+                    <span class="text-slate-400 block font-medium">기말(50%)</span>
+                    <span class="font-bold text-sky-400 mt-0.5 block truncate">객관식 시험</span>
+                  </div>
+                </div>
+                ` : ''}
+
+                <!-- Special Rule Highlight -->
+                ${isAiNative ? `
+                  <div class="p-3 rounded-xl bg-emerald-950/30 border border-emerald-500/30 text-xs mb-3.5 flex items-start gap-2.5">
+                    <i class="fa-solid fa-circle-check text-emerald-400 text-sm mt-0.5"></i>
+                    <div>
+                      <div class="font-bold text-emerald-300">1학점 취득 확정 (수강률 100% 충족)</div>
+                      <p class="text-[11px] text-slate-300 mt-0.5 leading-relaxed">
+                        별도 시험이나 과제물 없이 강의 진도율 100% 달성으로 1학점을 취득했습니다.
+                      </p>
+                    </div>
+                  </div>
+                ` : isPracticum ? `
+                  <div class="p-3 rounded-xl bg-purple-950/30 border border-purple-500/30 text-xs mb-3.5 flex items-start gap-2.5">
+                    <i class="fa-solid fa-certificate text-purple-400 text-sm mt-0.5"></i>
+                    <div>
+                      <div class="font-bold text-purple-300">별도 기관 이수 완료 · 포트폴리오 검증 중</div>
+                      <p class="text-[11px] text-slate-300 mt-0.5 leading-relaxed">
+                        인가 교육기관 현장실습 160시간 이수 완료. 최종 포트폴리오 심사 중입니다 (3학점).
+                      </p>
+                    </div>
+                  </div>
+                ` : `
+                  <p class="text-[11px] text-slate-400 mb-3.5 line-clamp-2 leading-relaxed">
+                    ${c.memo || c.specialRule}
+                  </p>
+                `}
+              </div>
+
+              <!-- Card Bottom Actions -->
+              <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
+                <div class="text-[11px] text-slate-400">
+                  ${!isAiNative && !isPracticum ? `
+                    <button onclick="window.app.toggleKnouAssignment('${c.id}', 'midterm')" class="hover:text-amber-300 transition cursor-pointer flex items-center gap-1 font-medium" title="과제물 제출 상태 토글">
+                      <i class="fa-regular ${c.midtermStatus === 'submitted' ? 'fa-square-check text-emerald-400' : 'fa-square text-slate-500'}"></i>
+                      <span>중간과제 ${c.midtermStatus === 'submitted' ? '제출완료' : '미제출'}</span>
+                    </button>
+                  ` : `
+                    <span class="text-emerald-400 font-bold flex items-center gap-1">
+                      <i class="fa-solid fa-check"></i> ${isAiNative ? '1학점 반영' : '3학점 반영 대기'}
+                    </span>
+                  `}
+                </div>
+
+                <button onclick="window.app.openKnouEditModal('${c.id}')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white font-medium text-[11px] transition cursor-pointer flex items-center gap-1 border border-slate-700">
+                  <i class="fa-solid fa-pen-to-square text-[10px]"></i>
+                  <span>편집</span>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+
+      <!-- 5. Interactive Grade & GPA Simulator (학점 시뮬레이터 ⭐) -->
+      <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-indigo-500/30 bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950/20 shadow-2xl relative overflow-hidden">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6 border-b border-slate-800 pb-5">
+          <div class="flex items-center gap-3.5">
+            <div class="w-12 h-12 rounded-2xl bg-indigo-500/20 border border-indigo-500/40 text-indigo-400 flex items-center justify-center text-2xl shadow-lg">
+              <i class="fa-solid fa-calculator"></i>
+            </div>
+            <div>
+              <h2 class="text-lg sm:text-xl font-black text-white flex items-center gap-2">
+                2026-2학기 예상 학점(GPA) 시뮬레이터
+              </h2>
+              <p class="text-xs text-slate-400 mt-1">
+                형성평가(20%) 현재 진도율에 중간과제물(30%) 및 기말고사(50%) 예상 점수를 조합하여 예상 등급과 평점을 실시간 계산합니다.
+              </p>
+            </div>
+          </div>
+          <div class="text-right flex-shrink-0">
+            <span class="text-[11px] text-indigo-300 font-bold bg-indigo-500/10 px-3 py-1.5 rounded-xl border border-indigo-500/20">
+              4.5 만점 기준 환산
+            </span>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto custom-scrollbar">
+          <table class="w-full text-left text-xs">
+            <thead>
+              <tr class="border-b border-slate-800 text-slate-400 text-[11px]">
+                <th class="py-2.5 px-3">과목명</th>
+                <th class="py-2.5 px-3 text-center">학점</th>
+                <th class="py-2.5 px-3 text-center">형성평가 (20점)</th>
+                <th class="py-2.5 px-3 text-center">중간과제 (30점)</th>
+                <th class="py-2.5 px-3 text-center">기말고사 (50점)</th>
+                <th class="py-2.5 px-3 text-center">예상 총점</th>
+                <th class="py-2.5 px-3 text-center">예상 등급</th>
+                <th class="py-2.5 px-3 text-center">평점 (4.5)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60 font-medium">
+              ${courses.map(c => {
+                const isPassOnly = c.ruleType === 'pass_only';
+                const isPracticum = c.ruleType === 'practicum_verified';
+                const fScore = (c.progress * 0.20);
+                const sim = state.knouSimScores[c.id] || { midterm: 28, final: 45 };
+                const mScore = (isPassOnly || isPracticum) ? 0 : sim.midterm;
+                const fnScore = (isPassOnly || isPracticum) ? 0 : sim.final;
+
+                const result = (isPassOnly || isPracticum)
+                  ? { total: 'P', grade: 'Pass', gpa: 4.5 }
+                  : calculateCourseGrade(fScore, mScore, fnScore);
+
+                return `
+                  <tr class="hover:bg-slate-800/40 transition">
+                    <td class="py-3 px-3">
+                      <div class="font-bold text-white">${c.name}</div>
+                      <div class="text-[10px] text-slate-400">${c.category}</div>
+                    </td>
+                    <td class="py-3 px-3 text-center font-mono font-bold text-indigo-300">
+                      ${c.credits}학점
+                    </td>
+                    <td class="py-3 px-3 text-center font-mono">
+                      <span class="${c.progress >= 100 ? 'text-emerald-400 font-bold' : 'text-slate-300'}">
+                        ${fScore.toFixed(2)}점
+                      </span>
+                      <span class="text-[10px] text-slate-500 block">(${c.progress}%)</span>
+                    </td>
+                    <td class="py-3 px-3 text-center">
+                      ${isPassOnly || isPracticum ? `
+                        <span class="text-slate-500 font-mono">-</span>
+                      ` : `
+                        <input type="number" min="0" max="30" value="${mScore}" onchange="window.app.updateKnouSimulator('${c.id}', 'midterm', this.value)" class="w-16 bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-center text-white font-mono focus:border-indigo-500 outline-none">
+                      `}
+                    </td>
+                    <td class="py-3 px-3 text-center">
+                      ${isPassOnly || isPracticum ? `
+                        <span class="text-slate-500 font-mono">-</span>
+                      ` : `
+                        <input type="number" min="0" max="50" value="${fnScore}" onchange="window.app.updateKnouSimulator('${c.id}', 'final', this.value)" class="w-16 bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-center text-white font-mono focus:border-indigo-500 outline-none">
+                      `}
+                    </td>
+                    <td class="py-3 px-3 text-center font-mono font-bold text-white">
+                      ${result.total}
+                    </td>
+                    <td class="py-3 px-3 text-center">
+                      <span class="px-2 py-0.5 rounded font-black text-xs ${result.grade.startsWith('A') ? 'bg-emerald-500/20 text-emerald-300' : result.grade.startsWith('B') ? 'bg-blue-500/20 text-blue-300' : result.grade === 'Pass' ? 'bg-purple-500/20 text-purple-300' : 'bg-amber-500/20 text-amber-300'}">
+                        ${result.grade}
+                      </span>
+                    </td>
+                    <td class="py-3 px-3 text-center font-mono font-bold text-indigo-300">
+                      ${result.gpa.toFixed(1)}
+                    </td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 6. Academic Timeline & Strategy Guide -->
+      <div class="glass-panel rounded-2xl p-6 border border-slate-800 bg-slate-900/60 text-xs">
+        <h3 class="font-bold text-white text-sm mb-3 flex items-center gap-2">
+          <i class="fa-solid fa-list-check text-indigo-400"></i>
+          2026학년도 2학기 방송대 사회복지학과 성공 수강 전략
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-slate-300">
+          <div class="p-4 rounded-xl bg-slate-800/60 border border-slate-700/60">
+            <div class="font-bold text-indigo-300 mb-1 flex items-center gap-1.5">
+              <i class="fa-solid fa-1"></i> 형성평가 100% 수강 완주
+            </div>
+            <p class="text-[11px] text-slate-400 leading-relaxed">
+              12월 13일까지 매주 1~2개 강좌씩 꾸준히 수강하여 기본 점수 20점 만점을 확보합니다. 기한 경과 시 재수강이 불가하므로 선제 완료가 핵심입니다.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-800/60 border border-slate-700/60">
+            <div class="font-bold text-amber-300 mb-1 flex items-center gap-1.5">
+              <i class="fa-solid fa-2"></i> 중간과제물(30점) 사전 작성
+            </div>
+            <p class="text-[11px] text-slate-400 leading-relaxed">
+              10월 25~27일 마감되는 5대 과목(실천론, 문화다양성, 정책론, 문제론, 인행사) 리포트는 논문 및 학술자료를 미리 취합하여 표절률 15% 미만으로 작성합니다.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-800/60 border border-slate-700/60">
+            <div class="font-bold text-sky-300 mb-1 flex items-center gap-1.5">
+              <i class="fa-solid fa-3"></i> 기말고사(50점) 워크북 복기
+            </div>
+            <p class="text-[11px] text-slate-400 leading-relaxed">
+              12월 초~중순 태블릿 PC로 시행되는 기말시험은 방송대 교재 워크북과 5개년 기출문제를 반복하여 객관식 정답률을 극대화합니다.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  `;
+}
+
+// --------------------------------------------------------------------------
+// KNOU Tab Event Handlers & Modal
+// --------------------------------------------------------------------------
+function openKnouEditModal(courseId) {
+  if (!checkAdminPermission('방통대 수강 과목 수정')) return;
+
+  const kData = state.knou || INITIAL_KNOU_DATA;
+  const course = (kData.courses || []).find(c => c.id === courseId);
+  if (!course) return;
+
+  const modal = document.getElementById('modal-knou-edit');
+  if (!modal) return;
+
+  document.getElementById('knou-edit-id').value = course.id;
+  document.getElementById('knou-edit-name').value = course.name;
+  document.getElementById('knou-edit-category').value = `${course.category} (${course.credits}학점)`;
+  document.getElementById('knou-edit-progress').value = course.progress;
+  document.getElementById('knou-edit-midterm-status').value = course.midtermStatus || 'pending';
+  document.getElementById('knou-edit-memo').value = course.memo || '';
+
+  modal.classList.remove('hidden');
+}
+
+function saveKnouCourse(event) {
+  if (event) event.preventDefault();
+  if (!checkAdminPermission('방통대 수강 과목 저장')) return;
+
+  const cId = document.getElementById('knou-edit-id').value;
+  const progress = parseFloat(document.getElementById('knou-edit-progress').value) || 0;
+  const midtermStatus = document.getElementById('knou-edit-midterm-status').value;
+  const memo = document.getElementById('knou-edit-memo').value.trim();
+
+  if (!state.knou) state.knou = JSON.parse(JSON.stringify(INITIAL_KNOU_DATA));
+  const courses = state.knou.courses || [];
+  const target = courses.find(c => c.id === cId);
+  if (target) {
+    target.progress = Math.min(100, Math.max(0, progress));
+    target.midtermStatus = midtermStatus;
+    target.memo = memo;
+    if (target.progress >= 100) {
+      target.statusBadge = target.id === 'knou-ai-native' ? '이수완료 100%' : '형성평가 100%';
+    } else {
+      target.statusBadge = `형성평가 ${target.progress}%`;
+    }
+    target.formativeScore = parseFloat((target.progress * 0.20).toFixed(2));
+  }
+
+  persistState();
+  closeAllModals();
+  renderKnouTab();
+  showToast('과목 정보가 성공적으로 저장되었습니다! ✅');
+}
+
+function toggleKnouAssignment(courseId, field) {
+  if (!checkAdminPermission('과제물 상태 변경')) return;
+
+  if (!state.knou) state.knou = JSON.parse(JSON.stringify(INITIAL_KNOU_DATA));
+  const target = (state.knou.courses || []).find(c => c.id === courseId);
+  if (!target) return;
+
+  if (field === 'midterm') {
+    target.midtermStatus = target.midtermStatus === 'submitted' ? 'pending' : 'submitted';
+    showToast(target.midtermStatus === 'submitted' ? '중간과제물 제출 완료로 변경되었습니다. 📝' : '중간과제물 미제출로 변경되었습니다.');
+  }
+
+  persistState();
+  renderKnouTab();
+}
+
+function updateKnouSimulator(courseId, scoreType, val) {
+  if (!state.knouSimScores) state.knouSimScores = {};
+  if (!state.knouSimScores[courseId]) state.knouSimScores[courseId] = { midterm: 28, final: 45 };
+
+  const num = Math.max(0, parseFloat(val) || 0);
+  state.knouSimScores[courseId][scoreType] = num;
+  renderKnouTab();
 }
 
 // ==========================================================================
@@ -5453,6 +6055,15 @@ function showToast(msg) {
 // Expose Public Methods to Window for UI Interactions
 // ==========================================================================
 window.app = {
+  // KNOU Social Welfare Handlers
+  setKnouFilter: (f) => {
+    state.knouFilter = f;
+    renderKnouTab();
+  },
+  openKnouEditModal: (cId) => openKnouEditModal(cId),
+  saveKnouCourse: (e) => saveKnouCourse(e),
+  toggleKnouAssignment: (cId, type) => toggleKnouAssignment(cId, type),
+  updateKnouSimulator: (cId, scoreType, val) => updateKnouSimulator(cId, scoreType, val),
   // Admin Authentication Handlers
   openAuthModal: () => openAdminAuthModal(),
   checkLoginStatus: () => checkLoginStatus(),

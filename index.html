@@ -42,7 +42,7 @@
         });
       }
       // 3. 빌드 버전 검사를 통한 자동 1회 새로고침
-      var APP_VER = '20260929_v2';
+      var APP_VER = '20260929_v3';
       if (localStorage.getItem('career_app_build') !== APP_VER) {
         localStorage.setItem('career_app_build', APP_VER);
         if (!sessionStorage.getItem('build_updated')) {
@@ -177,6 +177,9 @@
     
     <!-- Tab Section 1: 종합 대시보드 -->
     <section id="tab-content-overview" class="tab-section"></section>
+
+    <!-- Tab Section: 방송통신대학교 사회복지학과 학점 관리 (신규 ⭐) -->
+    <section id="tab-content-knou" class="tab-section hidden"></section>
 
     <!-- Tab Section 2: 시험 및 학사 일정 -->
     <section id="tab-content-exam" class="tab-section hidden"></section>
@@ -1613,8 +1616,72 @@
     </div>
   </div>
 
+  <!-- 19. KNOU Course Progress & Grade Edit Modal -->
+  <div id="modal-knou-edit" class="app-modal fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 rounded-3xl w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div class="flex items-center justify-between mb-4 border-b border-slate-800 pb-3">
+        <h3 class="font-bold text-white text-base flex items-center gap-2">
+          <i class="fa-solid fa-pen-to-square text-indigo-400"></i> 과목 진도율 및 과제물 정보 수정
+        </h3>
+        <button type="button" onclick="window.app.closeAllModals()" class="text-slate-400 hover:text-white transition cursor-pointer">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="form-knou-edit" onsubmit="window.app.saveKnouCourse(event)" class="space-y-4 text-xs">
+        <input type="hidden" id="knou-edit-id">
+
+        <div>
+          <label class="block text-slate-300 font-bold mb-1">과목명</label>
+          <input type="text" id="knou-edit-name" readonly class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-slate-300 font-bold cursor-not-allowed">
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-bold mb-1">구분 및 학점</label>
+          <input type="text" id="knou-edit-category" readonly class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-slate-400 font-medium cursor-not-allowed">
+        </div>
+
+        <div class="p-3.5 rounded-2xl bg-indigo-950/20 border border-indigo-500/30">
+          <label class="block text-indigo-300 font-black mb-1 flex items-center justify-between">
+            <span>형성평가 강의 수강률 (%) *</span>
+            <span class="text-[10px] text-indigo-400 font-medium">수강률 × 0.20 = 20점 만점 환산</span>
+          </label>
+          <div class="flex items-center gap-3">
+            <input type="number" id="knou-edit-progress" required min="0" max="100" step="0.01" class="w-full bg-slate-900 border border-indigo-500/50 rounded-xl px-3 py-2 text-white font-mono font-bold text-base focus:border-indigo-400 outline-none">
+            <span class="text-white font-bold text-sm">%</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-bold mb-1">중간과제물 / 출석과제물 상태</label>
+          <select id="knou-edit-midterm-status" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-indigo-500 outline-none">
+            <option value="pending">미제출 (작성 대기)</option>
+            <option value="drafting">작성 중 (초안 완료)</option>
+            <option value="submitted">제출 완료 (30점 만점 채점 대기)</option>
+            <option value="none">해당 없음 (수강률 100% Pass 과목 등)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-bold mb-1">메모 및 학습 참고사항</label>
+          <textarea id="knou-edit-memo" rows="3" placeholder="과제물 주제나 기말고사 준비 메모를 입력하세요." class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-indigo-500 outline-none resize-none"></textarea>
+        </div>
+
+        <div class="pt-3 border-t border-slate-800 flex justify-end gap-2.5">
+          <button type="button" onclick="window.app.closeAllModals()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold transition cursor-pointer">
+            취소
+          </button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition shadow-lg shadow-indigo-600/25 cursor-pointer flex items-center gap-1.5">
+            <i class="fa-solid fa-check"></i>
+            <span>저장하기</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Static Seed Datasets & Core Application Script (Safe for file:// and http://) -->
-  <script src="js/data.js?v=20260929_v2"></script>
-  <script src="js/app.js?v=20260929_v2"></script>
+  <script src="js/data.js?v=20260929_v3"></script>
+  <script src="js/app.js?v=20260929_v3"></script>
 </body>
 </html>
