@@ -98,7 +98,7 @@ class SyncManager {
         const upgradedEnglish = (parsed.english && parsed.english.englishDataVersion === 1)
           ? parsed.english
           : JSON.parse(JSON.stringify(INITIAL_ENGLISH_DATA));
-        const upgradedContest = (parsed.contest && parsed.contest.contestDataVersion === 1)
+        const upgradedContest = (parsed.contest && parsed.contest.contestDataVersion === 2)
           ? parsed.contest
           : JSON.parse(JSON.stringify(INITIAL_CONTEST_DATA));
         parsed.inbody = upgradedInbody;
@@ -382,7 +382,7 @@ const TAB_REGISTRY = [
   // 1. 커리어 패스 관리 (7개)
   { id: 'english', name: '데일리 영문법 브리핑', shortName: '영문법', icon: 'fa-language', color: 'text-teal-400', badge: '409교정', badgeClass: 'bg-teal-500/20 text-teal-300', category: 'career', categoryName: '커리어 패스 관리' },
   { id: 'knou', name: '방통대 사회복지 학점', shortName: '방통대 학점', icon: 'fa-user-graduate', color: 'text-indigo-400', badge: '9과목', badgeClass: 'bg-indigo-500/20 text-indigo-300', category: 'career', categoryName: '커리어 패스 관리' },
-  { id: 'contest', name: '공모전 & 아이디어', shortName: '공모전', icon: 'fa-lightbulb', color: 'text-amber-400', badge: '문학·기획', badgeClass: 'bg-amber-500/20 text-amber-300', category: 'career', categoryName: '커리어 패스 관리' },
+  { id: 'contest', name: '공모전 & 아이디어', shortName: '공모전', icon: 'fa-lightbulb', color: 'text-amber-400', badge: '29건', badgeClass: 'bg-amber-500/20 text-amber-300', category: 'career', categoryName: '커리어 패스 관리' },
   { id: 'energy', name: '에너지관리기사', shortName: '에너지', icon: 'fa-graduation-cap', color: 'text-amber-300', badge: 'D-40', badgeClass: 'bg-sky-500/20 text-sky-300', category: 'career', categoryName: '커리어 패스 관리' },
   { id: 'exam', name: '시험 및 학사 일정', shortName: '일정', icon: 'fa-calendar-days', color: 'text-blue-400', badge: null, badgeClass: '', category: 'career', categoryName: '커리어 패스 관리' },
   { id: 'careers', name: '주요 경력 & TF', shortName: '경력', icon: 'fa-briefcase', color: 'text-emerald-400', badge: '15건', badgeClass: 'bg-emerald-500/20 text-emerald-400', isPortfolio: true, category: 'career', categoryName: '커리어 패스 관리' },
