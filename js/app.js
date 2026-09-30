@@ -2669,7 +2669,7 @@ const englishPodcastState = {
   currentTrackIndex: 0,
   rate: 1.0,
   elapsedSeconds: 0,
-  totalDuration: 435, // 약 7분 15초
+  totalDuration: 210, // 약 3분 30초 (스크립트 전용 리딩)
   timerInterval: null,
   showScript: false,
   sessionId: 0
@@ -2793,34 +2793,24 @@ function getPodcastTracks(items, idiom, setNum) {
   return [
     {
       id: 0,
-      title: `🎙️ Track 1. 오픽 오프닝 & Eva의 기출 출제 (${opic.theme})`,
-      speaker: "Interviewer Eva, Host Aaron & 한국어 아나운서",
-      durationSec: 50,
+      title: `🎙️ Track 1. 오픽 기출 질문 리딩 (${opic.theme})`,
+      speaker: "Interviewer Eva & Host Aaron",
+      durationSec: 30,
       timeLabel: "00:00",
-      speechText: `Hello Carlos, welcome to the OPIc test. Here is your question: ${opic.evaPrompt}. Welcome back Carlos to Episode ${setNum} of your Daily OPIc Grammar Clinic. Today, we are transforming 5 real mistakes into AL-level native responses.`,
+      speechText: `Hello Carlos, here is your question: ${opic.evaPrompt}. Welcome to Episode ${setNum}. Today Carlos is answering Eva's question about ${opic.theme.split('(')[0].trim()}. Let's listen to Carlos's responses and the upgraded native expressions!`,
       speechSegments: [
         {
-          text: `Hello Carlos, welcome to the OPIc test. Here is your question: ${opic.evaPrompt}`,
+          text: `Hello Carlos, here is your question: ${opic.evaPrompt}`,
           lang: 'en-US',
-          speakerLabel: 'Interviewer Eva (오픽 질문 출제)'
+          speakerLabel: 'Interviewer Eva (질문 출제)'
         },
         {
-          text: `Thank you, Eva! Welcome everyone to Episode ${setNum} of our Daily OPIc Grammar Podcast. Today, Carlos is answering Eva's question about ${opic.theme}. We are going to upgrade 5 real mistakes Carlos made during 1-on-1 tutoring sessions into fluent, AL-level native responses.`,
+          text: `Welcome to Episode ${setNum}. Today Carlos is answering Eva's question about ${opic.theme.split('(')[0].trim()}. Let's listen to Carlos's responses and the upgraded native expressions!`,
           lang: 'en-US',
-          speakerLabel: 'Host Aaron (원어민 코치)'
-        },
-        {
-          text: `안녕하세요 카를로스님! 오늘의 오픽 AL 도전 기출문제는 [${opic.koreanTitle}] 입니다. 에바의 질문에 답변할 때 카를로스님이 실제 회화 수업에서 자주 헷갈렸던 표현들을 AL 고득점 원어민 표현으로 업그레이드해 보겠습니다.`,
-          lang: 'ko-KR',
-          speakerLabel: '한국어 아나운서 (오픽 전략 분석)'
-        },
-        {
-          text: `Let's listen to Carlos's first answer and sharpen his speaking confidence together!`,
-          lang: 'en-US',
-          speakerLabel: 'Host Aaron (원어민 코치)'
+          speakerLabel: 'Host Aaron (호스트)'
         }
       ],
-      summaryKo: `오픽 기출문제 출제: [${opic.koreanTitle}] 및 실전 답변 대화형 클리닉 소개`,
+      summaryKo: `오픽 기출 질문 원문 리딩: [${opic.koreanTitle}]`,
       fullScriptHtml: `
         <div class="space-y-2 text-xs">
           <div class="flex items-center gap-2">
@@ -2831,7 +2821,7 @@ function getPodcastTracks(items, idiom, setNum) {
           <div class="p-3 rounded-xl bg-indigo-950/40 border border-indigo-500/30">
             <p class="text-indigo-300 font-bold mb-1 flex items-center gap-1.5">
               <i class="fa-solid fa-circle-question"></i>
-              <span>👩‍💼 Interviewer Eva (오픽 면접관 기출 질문):</span>
+              <span>👩‍💼 Interviewer Eva (오픽 면접 질문):</span>
             </p>
             <p class="text-slate-100 font-sans italic leading-relaxed pl-2 border-l-2 border-indigo-400">
               "${opic.evaPrompt}"
@@ -2839,71 +2829,51 @@ function getPodcastTracks(items, idiom, setNum) {
           </div>
 
           <div class="space-y-1.5 pt-1">
-            <p class="text-teal-300 font-bold">👨‍🏫 Host Aaron (원어민 팟캐스트 코치):</p>
+            <p class="text-teal-300 font-bold">👨‍🏫 Host Aaron:</p>
             <p class="text-slate-300 font-sans pl-2 border-l-2 border-teal-500/50 leading-relaxed">
-              "Welcome to Episode ${setNum}! Today, Carlos is answering Eva's question about ${opic.theme}. We are going to upgrade 5 real mistakes into fluent, AL-level native responses!"
+              "Welcome to Episode ${setNum}! Today Carlos is answering Eva's question about ${opic.theme}. Let's listen to Carlos's responses and the upgraded native expressions!"
             </p>
-
-            <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-700/60 mt-2">
-              <p class="text-indigo-300 font-bold mb-1 flex items-center gap-1.5">
-                <i class="fa-solid fa-microphone-lines text-xs"></i>
-                <span>🎙️ 한국어 아나운서 오픽 전략 브리핑:</span>
-              </p>
-              <p class="text-slate-300 text-xs leading-relaxed">
-                "오늘의 오픽 기출문제는 [${opic.koreanTitle}] 입니다. 에바의 질문에 자연스럽게 답하면서, 내가 자주 틀렸던 표현을 원어민식 AL 문장으로 교정하는 실전 대화 훈련을 시작합니다."
-              </p>
-            </div>
           </div>
         </div>
       `
     },
     ...safeItems.map((item, idx) => ({
       id: idx + 1,
-      title: `💬 Track ${idx + 2}. 오픽 실전 답변 #${idx + 1}: ${item.categoryName} (#${item.num})`,
-      speaker: "Carlos, Tutor Aaron & 한국어 아나운서",
-      durationSec: 55,
-      timeLabel: formatPodcastTime(50 + idx * 55),
-      speechText: `Well Eva, answering your question: ${item.youSaid}. Good try, Carlos! But in an OPIc interview, saying "${item.youSaid}" sounds awkward. You should say: "${item.betterSay}". 튜터 코칭: ${item.explanation}. Let's practice saying it together: "${item.betterSay}".`,
+      title: `💬 Track ${idx + 2}. 실전 대화 #${idx + 1}: ${item.categoryName} (#${item.num})`,
+      speaker: "Carlos & Tutor Aaron",
+      durationSec: 25,
+      timeLabel: formatPodcastTime(30 + idx * 25),
+      speechText: `Well Eva, answering your question: "${item.youSaid}". Better say: "${item.betterSay}". "${item.betterSay}".`,
       speechSegments: [
         {
           text: `Well Eva, answering your question... "${item.youSaid}".`,
           lang: 'en-US',
-          speakerLabel: 'Carlos (응시자 초안 발화)'
+          speakerLabel: 'Carlos (You said)'
         },
         {
-          text: `Good try, Carlos! But in an OPIc interview, to score an AL instead of IH, saying "${item.youSaid}" sounds a bit awkward to native raters. You should upgrade it to: "${item.betterSay}".`,
+          text: `Better say: "${item.betterSay}".`,
           lang: 'en-US',
-          speakerLabel: 'Tutor Aaron (AL 고득점 교정 코칭)'
-        },
-        {
-          text: `💡 오픽 AL 튜터 코칭 해설입니다. ${item.explanation}. 오픽 채점관은 문맥에 꼭 맞는 자연스러운 어휘와 전치사 활용을 핵심 평가 요소로 봅니다.`,
-          lang: 'ko-KR',
-          speakerLabel: '한국어 아나운서 (오픽 채점 포인트)'
-        },
-        {
-          text: `Now, let's practice delivering the upgraded answer directly to Eva. Repeat after me: "${item.betterSay}".`,
-          lang: 'en-US',
-          speakerLabel: 'Tutor Aaron (원어민 영어)'
+          speakerLabel: 'Tutor Aaron (Better say)'
         },
         {
           text: `"${item.betterSay}".`,
           lang: 'en-US',
-          speakerLabel: 'Carlos (AL 쉐도잉 완성)'
+          speakerLabel: 'Carlos (Shadowing)'
         }
       ],
-      summaryKo: `에바의 질문에 대한 답변: "${item.youSaid}" ➔ 오픽 AL 고득점 교정 "${item.betterSay}"`,
+      summaryKo: `"${item.youSaid}" ➔ "${item.betterSay}"`,
       fullScriptHtml: `
         <div class="space-y-2 text-xs">
           <div class="flex items-center gap-2">
             <span class="px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 text-[10px] font-bold">${item.categoryName}</span>
             <span class="text-slate-400 text-xs font-mono font-bold">#${item.num}</span>
-            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">OPIc 대화 클리닉</span>
+            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">스크립트 리딩</span>
           </div>
 
-          <!-- Dialogue Flow: Carlos -> Aaron -> Announcer -> Practice -->
+          <!-- Dialogue Flow: Carlos -> Aaron -> Shadowing -->
           <div class="p-2.5 rounded-xl bg-slate-900/90 border border-rose-500/30">
             <p class="text-rose-300 font-bold mb-0.5 flex items-center gap-1.5">
-              <span>🙋‍♂️ Carlos (오픽 초안 답변 - You said):</span>
+              <span>🙋‍♂️ Carlos (You said):</span>
             </p>
             <p class="text-rose-200 font-medium pl-2 border-l-2 border-rose-500/60 font-sans">
               "Well Eva, answering your question... <b class="underline decoration-rose-400">${item.youSaid}</b>."
@@ -2912,27 +2882,22 @@ function getPodcastTracks(items, idiom, setNum) {
 
           <div class="p-2.5 rounded-xl bg-slate-900/90 border border-emerald-500/30">
             <p class="text-emerald-300 font-bold mb-0.5 flex items-center gap-1.5">
-              <span>👨‍🏫 Tutor Aaron (AL 고득점 솔루션 - Better say):</span>
+              <span>👨‍🏫 Tutor Aaron (Better say):</span>
             </p>
             <p class="text-emerald-200 font-bold pl-2 border-l-2 border-emerald-500/60 font-sans">
-              "To sound like a native AL speaker, upgrade it to: <b class="text-white bg-emerald-500/20 px-1.5 py-0.5 rounded">${item.betterSay}</b>!"
+              "Better say: <b class="text-white bg-emerald-500/20 px-1.5 py-0.5 rounded">${item.betterSay}</b>!"
             </p>
           </div>
           
-          <div class="p-2.5 rounded-xl bg-slate-900/90 border border-indigo-500/30">
-            <div class="flex items-center gap-1.5 text-indigo-300 font-bold mb-1">
-              <i class="fa-solid fa-volume-high text-xs"></i>
-              <span>🎙️ 한국어 아나운서 오픽 AL 튜터 코칭:</span>
-            </div>
-            <p class="text-slate-200 text-xs leading-relaxed">
-              ${item.explanation}
-            </p>
+          <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-[11px] text-slate-400">
+            <span class="text-slate-500 font-bold mr-1">[문법 팁 - 참고용 텍스트]</span>
+            <span>${item.explanation}</span>
           </div>
-          
+
           <div class="pt-1.5 flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-800">
-            <span>🎧 에바(Eva) 앞에서 쉐도잉 연습</span>
+            <span>🎧 쉐도잉 반복: "${item.betterSay}"</span>
             <button onclick="window.app.speakEnglish('${item.betterSay.replace(/'/g, "\\'")}')" class="text-teal-400 hover:text-teal-300 font-bold flex items-center gap-1">
-              <i class="fa-solid fa-volume-high"></i> AL 문장 개별 듣기
+              <i class="fa-solid fa-volume-high"></i> 개별 문장 듣기
             </button>
           </div>
         </div>
@@ -2940,49 +2905,44 @@ function getPodcastTracks(items, idiom, setNum) {
     })),
     {
       id: 6,
-      title: `✨ Track 7. 오픽 AL 만능 이디엄 & 필러 ("${safeIdiom.expression}")`,
-      speaker: "Tutor Aaron & 한국어 아나운서",
-      durationSec: 65,
-      timeLabel: formatPodcastTime(50 + 5 * 55),
-      speechText: `Now, let's learn our OPIc AL Secret Weapon Idiom: "${safeIdiom.expression}". In an OPIc interview, naturally using this idiom immediately demonstrates advanced fluency to Eva. In Korean, this means: ${safeIdiom.meaning}.`,
+      title: `✨ Track 7. 실전 이디엄 ("${safeIdiom.expression}")`,
+      speaker: "Tutor Aaron & Carlos",
+      durationSec: 25,
+      timeLabel: formatPodcastTime(30 + 5 * 25),
+      speechText: `Key expression: "${safeIdiom.expression}". Example sentence: "In any project or discussion, I always try to ${safeIdiom.expression}." "${safeIdiom.expression}".`,
       speechSegments: [
         {
-          text: `Now, let's learn our OPIc AL Secret Weapon Idiom: "${safeIdiom.expression}". In an OPIc interview, naturally dropping this idiom immediately demonstrates advanced fluency to Eva.`,
+          text: `Key expression: "${safeIdiom.expression}".`,
           lang: 'en-US',
-          speakerLabel: 'Tutor Aaron (원어민 영어)'
+          speakerLabel: 'Tutor Aaron'
         },
         {
-          text: `이 표현의 한국어 뜻은, "${safeIdiom.meaning}" 입니다. 오픽 롤플레이나 경험 묘사 시 나의 기여도와 설득력을 높여주는 강력한 고득점 관용구입니다.`,
-          lang: 'ko-KR',
-          speakerLabel: '한국어 아나운서 해설'
+          text: `Example sentence: "In any project or discussion, I always try to ${safeIdiom.expression}."`,
+          lang: 'en-US',
+          speakerLabel: 'Tutor Aaron'
         },
         {
-          text: `Here is how you use it in dialogue with Eva: "In any project or discussion, I always try to ${safeIdiom.expression}." Let's say it together: "${safeIdiom.expression}"!`,
+          text: `"${safeIdiom.expression}".`,
           lang: 'en-US',
-          speakerLabel: 'Tutor Aaron (원어민 영어)'
+          speakerLabel: 'Carlos (Shadowing)'
         }
       ],
-      summaryKo: `오픽 AL 비밀 병기 관용구 "${safeIdiom.expression}" 실전 시험 적용 대화`,
+      summaryKo: `이디엄: "${safeIdiom.expression}" 및 실전 활용 예문`,
       fullScriptHtml: `
         <div class="space-y-2 text-xs">
           <div class="flex items-center gap-2">
-            <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-bold">오픽 AL 치트키</span>
-            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">고득점 이디엄</span>
+            <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-bold">실전 이디엄</span>
+            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">스크립트 리딩</span>
           </div>
 
           <p class="text-amber-300 font-black text-sm">✨ "${safeIdiom.expression}"</p>
-          <div class="p-2.5 rounded-xl bg-slate-900/90 border border-amber-500/30">
-            <div class="flex items-center gap-1.5 text-amber-300 font-bold mb-1">
-              <i class="fa-solid fa-volume-high text-xs"></i>
-              <span>한국어 의미 (아나운서 음성):</span>
-            </div>
-            <p class="text-slate-200 text-xs leading-relaxed font-bold">
-              "${safeIdiom.meaning}"
-            </p>
+          <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-[11px] text-slate-400">
+            <span class="text-slate-500 font-bold mr-1">[한국어 의미 - 참고용 텍스트]</span>
+            <span class="text-slate-300">${safeIdiom.meaning}</span>
           </div>
 
           <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-700/60">
-            <span class="text-indigo-300 font-bold block mb-1">💬 오픽 실전 답변 적용 템플릿:</span>
+            <span class="text-indigo-300 font-bold block mb-1">💬 실전 예문:</span>
             <p class="text-slate-200 italic font-sans leading-relaxed">
               "In any project or discussion, I always try to <b class="text-amber-300 underline">${safeIdiom.expression}</b>."
             </p>
@@ -2992,42 +2952,37 @@ function getPodcastTracks(items, idiom, setNum) {
     },
     {
       id: 7,
-      title: "🎧 Track 8. 오픽 최종 2분 모의 답변 & 5문장 연속 쉐도잉",
-      speaker: "Carlos, Tutor Aaron & 한국어 아나운서",
-      durationSec: 60,
-      timeLabel: formatPodcastTime(50 + 5 * 55 + 65),
-      speechText: `Fantastic progress! Now, let's connect all 5 upgraded sentences into one fluent OPIc answer for Eva. Listen carefully and shadow each sentence. ${safeItems.map((it, i) => `Sentence ${i + 1}: ${it.betterSay}.`).join(' ')} Outstanding effort, Carlos!`,
+      title: "🎧 Track 8. 최종 5문장 연속 쉐도잉 (Full Script)",
+      speaker: "Carlos & Tutor Aaron",
+      durationSec: 30,
+      timeLabel: formatPodcastTime(30 + 5 * 25 + 25),
+      speechText: `Now let's review the five sentences. ${safeItems.map((it, i) => `Sentence ${i + 1}: "${it.betterSay}".`).join(' ')} Great job Carlos!`,
       speechSegments: [
         {
-          text: `Fantastic progress! Now, let's connect all 5 upgraded sentences into one fluent OPIc answer for Eva. Listen carefully and shadow each sentence.`,
+          text: `Now let's review the five sentences. Listen and repeat after me.`,
           lang: 'en-US',
-          speakerLabel: 'Tutor Aaron (원어민 영어)'
+          speakerLabel: 'Tutor Aaron'
         },
         ...safeItems.map((it, i) => ({
           text: `Sentence ${i + 1}: "${it.betterSay}".`,
           lang: 'en-US',
-          speakerLabel: `OPIc AL Shadowing #${i + 1}`
+          speakerLabel: `Sentence #${i + 1}`
         })),
         {
-          text: `오늘 에바의 오픽 기출 질문에 대해 5가지 고득점 교정 문장을 완벽히 완성하셨습니다! 매일 5분씩 실제 시험장처럼 소리 내어 말해보면 누구나 막힘없이 AL 등급을 달성할 수 있습니다. 수고하셨습니다!`,
-          lang: 'ko-KR',
-          speakerLabel: '한국어 아나운서 클로징'
-        },
-        {
-          text: `Outstanding effort today, Carlos! Keep answering with confidence, and see you in the next OPIc episode!`,
+          text: `Great job Carlos!`,
           lang: 'en-US',
-          speakerLabel: 'Tutor Aaron (원어민 영어)'
+          speakerLabel: 'Tutor Aaron'
         }
       ],
-      summaryKo: "에바의 질문에 대한 5문장 완벽 연결 OPIc AL 최종 모의 답변 쉐도잉",
+      summaryKo: "5개 교정 문장 연속 쉐도잉 리딩",
       fullScriptHtml: `
         <div class="space-y-2 text-xs">
           <div class="flex items-center justify-between">
             <p class="text-teal-300 font-bold flex items-center gap-1.5">
               <i class="fa-solid fa-headphones"></i>
-              <span>OPIc 2-Minute Full Response Shadowing Drill:</span>
+              <span>Full Script Shadowing Drill:</span>
             </p>
-            <span class="text-[10px] text-amber-300 font-mono font-bold">AL 완벽 대비</span>
+            <span class="text-[10px] text-amber-300 font-mono font-bold">연속 쉐도잉</span>
           </div>
 
           <ol class="list-decimal list-inside space-y-1.5 text-slate-200 bg-slate-900/90 p-3 rounded-xl border border-slate-800">
@@ -3037,16 +2992,6 @@ function getPodcastTracks(items, idiom, setNum) {
               </li>
             `).join('')}
           </ol>
-
-          <div class="mt-2 p-3 rounded-xl bg-gradient-to-r from-indigo-950/60 to-slate-900 border border-indigo-500/40">
-            <p class="text-indigo-300 font-bold text-xs mb-1 flex items-center gap-1.5">
-              <i class="fa-solid fa-trophy text-amber-400"></i>
-              <span>🎙️ 아나운서 오픽 마스터 격려 메시지:</span>
-            </p>
-            <p class="text-slate-300 text-xs leading-relaxed">
-              "오늘 에바의 오픽 기출 질문에 대한 5가지 교정 문장을 완전히 소화하셨습니다! 머리로만 아는 영어가 아닌, 입술 근육과 성대로 기억하는 5분 데일리 트레이닝이 AL 취득의 지름길입니다."
-            </p>
-          </div>
         </div>
       `
     }
@@ -3132,17 +3077,17 @@ function playPodcastTrack(trackIdx) {
       currentSegIdx++;
 
       const u = new SpeechSynthesisUtterance(seg.text);
-      const isKo = seg.lang === 'ko-KR' || seg.lang === 'ko' || /[\uac00-\ud7a3]/.test(seg.text);
-      u.lang = isKo ? 'ko-KR' : 'en-US';
+      // Strictly native English studio reading (No Korean announcer voice in podcast reading)
+      u.lang = 'en-US';
 
       // Pick announcer / studio voice
-      const voice = getAnnouncerVoice(u.lang);
+      const voice = getAnnouncerVoice('en-US');
       if (voice) u.voice = voice;
 
       // Rate & pitch tuned for crystal-clear broadcast diction
       const baseRate = englishPodcastState.rate || 1.0;
-      u.rate = isKo ? Math.max(0.7, Math.min(1.5, baseRate * 0.95)) : Math.max(0.7, Math.min(1.5, baseRate * 0.98));
-      u.pitch = isKo ? 1.02 : 1.0; // Crisp and confident announcer pitch
+      u.rate = Math.max(0.7, Math.min(1.5, baseRate * 0.98));
+      u.pitch = 1.0;
 
       u.onend = () => {
         if (!englishPodcastState.isPlaying || englishPodcastState.sessionId !== thisSessionId) return;
@@ -3310,10 +3255,10 @@ function renderEnglishTab() {
           <div class="flex flex-col items-end gap-2 self-start lg:self-auto text-xs">
             <span class="text-teal-300 font-bold bg-teal-500/10 px-3.5 py-1.5 rounded-xl border border-teal-500/20 shadow-sm flex items-center gap-1.5">
               <i class="fa-solid fa-headphones text-teal-400"></i>
-              5~10분 데일리 팟캐스트 청취 지원
+              데일리 팟캐스트 (스크립트 전용 리딩)
             </span>
             <span class="text-slate-400 text-[11px] flex items-center gap-1">
-              <i class="fa-solid fa-volume-high text-teal-400"></i> 한·영 아나운서 듀얼 TTS 코칭 (원어민 영어 + 아나운서 한국어)
+              <i class="fa-solid fa-volume-high text-teal-400"></i> 원어민 영어 TTS 전용 (팁·해설 제외)
             </span>
           </div>
         </div>
@@ -3471,10 +3416,10 @@ function renderEnglishPodcastPlayer() {
               ` : ''}
             </div>
             <h2 class="text-lg sm:text-xl font-black text-white mt-1">
-              튜터 Aaron & Eva의 OPIc 실전 대화 데일리 클리닉 (러닝타임 약 7분 15초)
+              튜터 Aaron & Eva의 OPIc 실전 대화 데일리 클리닉 (러닝타임 약 3분 30초)
             </h2>
             <p class="text-xs text-slate-400 mt-0.5">
-              오픽 빈출 기출문제에 맞춰 Carlos의 초기 발화, 튜터 Aaron의 원어민 AL 교정, 한국어 아나운서의 문법 해설 및 2분 완벽 답변 쉐도잉을 진행합니다.
+              오픽 기출 질문에 대해 Carlos의 답변과 Tutor의 교정 문장(Script)만을 원어민 영어 음성으로 깔끔하게 리딩합니다. (팁 제외, 스크립트 전용)
             </p>
           </div>
         </div>
@@ -3549,7 +3494,7 @@ function renderEnglishPodcastPlayer() {
         </div>
         <div class="flex items-center justify-between text-[11px] font-mono text-slate-400">
           <span id="podcast-time-current">${formatPodcastTime(elapsed)}</span>
-          <span class="text-slate-500">총 07:15</span>
+          <span class="text-slate-500">총 03:30</span>
         </div>
       </div>
 
