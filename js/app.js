@@ -67,9 +67,23 @@ class SyncManager {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
-        const upgradedCamino = (parsed.camino && parsed.camino.caminoDataVersion === 3)
+        const upgradedCamino = (parsed.camino && parsed.camino.caminoDataVersion === 4)
           ? parsed.camino
-          : JSON.parse(JSON.stringify(INITIAL_CAMINO_DATA));
+          : (() => {
+              const fresh = JSON.parse(JSON.stringify(INITIAL_CAMINO_DATA));
+              if (parsed.camino) {
+                if (parsed.camino.memos) fresh.memos = parsed.camino.memos;
+                if (Array.isArray(parsed.camino.packingList)) {
+                  parsed.camino.packingList.forEach(oldItem => {
+                    if (oldItem.done) {
+                      const match = fresh.packingList.find(f => f.text === oldItem.text || (oldItem.text && f.text.startsWith(oldItem.text.slice(0, 10))));
+                      if (match) match.done = true;
+                    }
+                  });
+                }
+              }
+              return fresh;
+            })();
         const upgradedBands = (parsed.bands && parsed.bands.length > 0 && parsed.bands[0].setlist && parsed.bands[0].setlist[0].notes.includes("보컬"))
           ? parsed.bands
           : JSON.parse(JSON.stringify(INITIAL_BAND_SCHEDULES));
@@ -939,6 +953,7 @@ let state = {
   externalDashboards: [],
   dischargeDate: INITIAL_DISCHARGE_DATE,
   camino: INITIAL_CAMINO_DATA,
+  caminoPackingFilter: 'all',
   sns: INITIAL_SNS_DATA,
   portfolio: INITIAL_PORTFOLIO_DATA,
   inbody: INITIAL_INBODY_DATA,
@@ -2464,16 +2479,16 @@ function renderCaminoTab() {
           <i class="fa-solid fa-backpack text-purple-400"></i>
         </div>
         <div class="text-lg font-bold text-white">${packPercent}% (${donePacking}/${totalPacking})</div>
-        <div class="text-[11px] text-slate-400 mt-1">12대 필수 품목 점검 중</div>
+        <div class="text-[11px] text-slate-400 mt-1">${totalPacking}대 실전 품목 점검 중</div>
       </div>
     </div>
 
-    <!-- Main Content 2-Column: Itinerary vs Packing List -->
+    <!-- Main Content 2-Column: Itinerary vs Packing List & Field Insights -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       
       <!-- Left 2 Cols: 일자별 트레킹 코스 계획 -->
       <div class="lg:col-span-2 space-y-6">
-        <div class="glass-panel rounded-2xl p-6 border border-slate-700/60">
+        <div class="glass-panel rounded-2xl p-6 border border-slate-700/60 shadow-xl">
           <div class="flex items-center justify-between mb-4">
             <div>
               <h2 class="text-lg font-bold text-white flex items-center gap-2">
@@ -2535,62 +2550,239 @@ function renderCaminoTab() {
         </div>
 
         <!-- 순례길 나만의 메모 & 성찰 노트 -->
-        <div class="glass-panel rounded-2xl p-6 border border-slate-700/60">
+        <div class="glass-panel rounded-2xl p-6 border border-slate-700/60 shadow-xl">
           <div class="flex items-center justify-between mb-3">
             <h3 class="text-base font-bold text-white flex items-center gap-2">
               <i class="fa-regular fa-compass text-amber-400"></i>
               순례자의 다짐 & 팁 메모
             </h3>
-            <button onclick="window.app.saveCaminoMemo()" class="px-3 py-1 bg-amber-500 hover:bg-amber-600 text-slate-950 rounded-lg text-xs font-bold transition">
+            <button onclick="window.app.saveCaminoMemo()" class="px-3.5 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-xl text-xs font-bold transition shadow cursor-pointer">
               메모 저장
             </button>
           </div>
-          <textarea id="camino-memos-input" rows="4" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-xs text-white leading-relaxed focus:outline-none focus:border-amber-400">${camino.memos || ''}</textarea>
+          <textarea id="camino-memos-input" rows="4" class="w-full bg-slate-800/90 border border-slate-700 rounded-xl p-3.5 text-xs text-white leading-relaxed focus:outline-none focus:border-amber-400 placeholder-slate-500" placeholder="순례길에 임하는 마음가짐, 준비 사항 등을 자유롭게 기록하세요...">${camino.memos || ''}</textarea>
         </div>
       </div>
 
-      <!-- Right 1 Col: 준비물 패킹리스트 (12대 품목) -->
+      <!-- Right 1 Col: 준비물 패킹리스트 & 실전 가이드 -->
       <div class="space-y-6">
-        <div class="glass-panel rounded-2xl p-6 border border-slate-700/60">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-base font-bold text-white flex items-center gap-2">
-              <i class="fa-solid fa-list-check text-amber-400"></i>
-              순례자 필수 패킹리스트
-            </h3>
-            <span class="text-xs font-bold text-amber-400">${donePacking}/${totalPacking}</span>
+
+        <!-- 1. 패킹리스트 체크리스트 카드 -->
+        <div class="glass-panel rounded-2xl p-6 border border-slate-700/60 shadow-xl">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-list-check text-amber-400"></i>
+                순례자 필수 패킹리스트
+              </h3>
+              <p class="text-[11px] text-slate-400 mt-0.5">배낭 무게 7~8kg 이내 목표 패킹 점검</p>
+            </div>
+            <span class="text-xs font-mono font-bold text-amber-300 bg-amber-500/10 border border-amber-500/30 px-2 py-1 rounded-lg">
+              ${donePacking}/${totalPacking} (${packPercent}%)
+            </span>
           </div>
 
           <!-- Progress Bar -->
-          <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden mb-4">
+          <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden mb-4">
             <div class="bg-gradient-to-r from-amber-500 to-yellow-400 h-full rounded-full transition-all duration-300" style="width: ${packPercent}%"></div>
           </div>
 
+          <!-- Category Filter Pills -->
+          <div class="flex flex-wrap gap-1.5 mb-3.5">
+            ${[
+              { id: 'all', label: '전체', count: (camino.packingList || []).length },
+              { id: '필수품', label: '필수품', count: (camino.packingList || []).filter(p => p.category === '필수품').length },
+              { id: '의류', label: '의류', count: (camino.packingList || []).filter(p => p.category === '의류').length },
+              { id: '신발/장비', label: '신발/장비', count: (camino.packingList || []).filter(p => p.category === '신발/장비').length },
+              { id: '기타', label: '기타/생활', count: (camino.packingList || []).filter(p => p.category === '기타').length }
+            ].map(c => {
+              const activeFilter = state.caminoPackingFilter || 'all';
+              const isAct = activeFilter === c.id;
+              return `
+                <button onclick="window.app.setCaminoPackingFilter('${c.id}')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold transition cursor-pointer ${isAct ? 'bg-amber-500 text-slate-950 shadow-md font-black' : 'bg-slate-800 text-slate-400 hover:text-slate-200'}">
+                  ${c.label} (${c.count})
+                </button>
+              `;
+            }).join('')}
+          </div>
+
           <!-- Add Item Input -->
-          <div class="flex gap-2 mb-4">
-            <input type="text" id="new-camino-packing-input" placeholder="새 준비물 입력..." class="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-400">
-            <button onclick="window.app.addCaminoPackingItem()" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold rounded-lg text-xs transition">
+          <div class="flex gap-2 mb-3.5">
+            <input type="text" id="new-camino-packing-input" placeholder="새 준비물 입력 (예: 바셀린)..." class="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-400">
+            <button onclick="window.app.addCaminoPackingItem()" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold rounded-lg text-xs transition cursor-pointer">
               추가
             </button>
           </div>
 
           <!-- Items Checklist -->
-          <div class="space-y-2 max-h-[500px] overflow-y-auto pr-1">
-            ${(camino.packingList || []).map((p, idx) => `
-              <div class="p-2.5 rounded-lg bg-slate-800/40 hover:bg-slate-800 border border-slate-700/40 flex items-center justify-between gap-3 text-xs">
-                <label class="flex items-center gap-2.5 cursor-pointer flex-1 min-w-0">
-                  <input type="checkbox" ${p.done ? 'checked' : ''} onchange="window.app.toggleCaminoPacking(${idx})" class="w-4 h-4 rounded text-amber-500 focus:ring-0 border-slate-600 bg-slate-700">
-                  <span class="${p.done ? 'line-through text-slate-500' : 'text-slate-200'} truncate">${p.text}</span>
-                </label>
-                <div class="flex items-center gap-1.5 flex-shrink-0">
-                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-700 text-slate-400">${p.category}</span>
-                  <button onclick="window.app.deleteCaminoPackingItem(${idx})" class="text-slate-500 hover:text-red-400 text-xs p-1">
-                    <i class="fa-regular fa-trash-can"></i>
-                  </button>
+          <div class="space-y-2 max-h-[460px] overflow-y-auto pr-1 custom-scrollbar">
+            ${(camino.packingList || [])
+              .filter(p => (!state.caminoPackingFilter || state.caminoPackingFilter === 'all') || p.category === state.caminoPackingFilter)
+              .map((p) => {
+                const realIdx = (camino.packingList || []).indexOf(p);
+                return `
+                  <div class="p-2.5 rounded-xl bg-slate-800/40 hover:bg-slate-800 border border-slate-700/50 transition">
+                    <div class="flex items-start justify-between gap-2.5 text-xs">
+                      <label class="flex items-start gap-2.5 cursor-pointer flex-1 min-w-0">
+                        <input type="checkbox" ${p.done ? 'checked' : ''} onchange="window.app.toggleCaminoPacking(${realIdx})" class="w-4 h-4 rounded text-amber-500 focus:ring-0 border-slate-600 bg-slate-700 mt-0.5 cursor-pointer">
+                        <div class="min-w-0 flex-1">
+                          <span class="${p.done ? 'line-through text-slate-500' : 'text-slate-200 font-medium'} text-xs leading-snug block">${p.text}</span>
+                          ${p.tip ? `<p class="text-[10px] text-slate-400 mt-0.5 leading-relaxed font-sans">${p.tip}</p>` : ''}
+                        </div>
+                      </label>
+                      <div class="flex items-center gap-1.5 flex-shrink-0 mt-0.5">
+                        <span class="text-[10px] px-1.5 py-0.5 rounded font-mono font-bold ${p.category === '필수품' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' : p.category === '의류' ? 'bg-sky-500/20 text-sky-300 border border-sky-500/30' : p.category === '신발/장비' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-slate-700 text-slate-300'}">
+                          ${p.category}
+                        </span>
+                        <button onclick="window.app.deleteCaminoPackingItem(${realIdx})" class="text-slate-500 hover:text-red-400 text-xs p-1" title="삭제">
+                          <i class="fa-regular fa-trash-can"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+          </div>
+        </div>
+
+        <!-- 2. 필수 순례 어플 & 정보 사이트 -->
+        <div class="glass-panel rounded-2xl p-5 border border-indigo-500/30 bg-gradient-to-br from-slate-900 to-indigo-950/20 shadow-lg">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-7 h-7 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xs font-bold">
+              <i class="fa-solid fa-mobile-screen"></i>
+            </span>
+            <div>
+              <h4 class="text-sm font-bold text-white">필수 어플 & 정보 사이트 (3선)</h4>
+              <p class="text-[11px] text-indigo-300/80">경로 확인, 오프라인 GPS, 알베르게 공실 예약 필수</p>
+            </div>
+          </div>
+          <div class="space-y-2.5">
+            ${((camino.packingInsights && camino.packingInsights.essentialApps) || INITIAL_CAMINO_DATA.packingInsights.essentialApps).map(app => `
+              <a href="${app.url}" target="_blank" rel="noopener noreferrer" class="block p-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-indigo-500/40 transition group">
+                <div class="flex items-center justify-between gap-2 mb-1">
+                  <span class="text-xs font-bold text-white group-hover:text-indigo-300 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-indigo-400"></i>
+                    ${app.name}
+                  </span>
+                  <span class="text-[9px] px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-bold">
+                    ${app.type}
+                  </span>
                 </div>
-              </div>
+                <p class="text-[11px] text-slate-400 leading-relaxed">${app.desc}</p>
+              </a>
             `).join('')}
           </div>
         </div>
+
+        <!-- 3. 실전 패킹 노하우 & 짐 다이어트 가이드 (4개 섹션) -->
+        <div class="space-y-4">
+
+          <!-- 3-1. 🚫 가져갔으나 필요 없었던 것 -->
+          <div class="glass-panel rounded-2xl p-5 border border-rose-500/30 bg-gradient-to-br from-slate-900 via-rose-950/15 to-slate-900 shadow-md">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-6 h-6 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center text-xs font-bold">
+                <i class="fa-solid fa-ban"></i>
+              </span>
+              <h4 class="text-sm font-bold text-rose-200">가져갔으나 필요 없었던 것 (짐 다이어트)</h4>
+            </div>
+            <div class="grid grid-cols-1 gap-2">
+              ${((camino.packingInsights && camino.packingInsights.unnecessary) || INITIAL_CAMINO_DATA.packingInsights.unnecessary).map(item => `
+                <div class="p-2.5 rounded-xl bg-slate-950/70 border border-rose-500/20 text-xs">
+                  <div class="font-bold text-rose-300 flex items-center gap-1.5 mb-0.5">
+                    <i class="fa-solid fa-xmark text-rose-400 text-[11px]"></i>
+                    <span>${item.name}</span>
+                  </div>
+                  <p class="text-[11px] text-slate-400 pl-4 leading-relaxed">${item.reason}</p>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- 3-2. ⚠️ 많은 이들이 추천하지만 제외한 물건 -->
+          <div class="glass-panel rounded-2xl p-5 border border-amber-500/30 bg-gradient-to-br from-slate-900 via-amber-950/15 to-slate-900 shadow-md">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs font-bold">
+                <i class="fa-solid fa-scale-unbalanced"></i>
+              </span>
+              <h4 class="text-sm font-bold text-amber-200">많은 이들이 추천하지만 제외한 물건</h4>
+            </div>
+            <div class="space-y-2">
+              ${((camino.packingInsights && camino.packingInsights.omitted) || INITIAL_CAMINO_DATA.packingInsights.omitted).map(item => `
+                <div class="p-2.5 rounded-xl bg-slate-950/70 border border-amber-500/20 text-xs">
+                  <div class="flex items-center justify-between gap-1 mb-0.5">
+                    <span class="font-bold text-amber-300">${item.name}</span>
+                    <span class="text-[10px] text-emerald-400 font-medium bg-emerald-500/10 px-1.5 py-0.2 rounded border border-emerald-500/20">
+                      ➜ ${item.alt}
+                    </span>
+                  </div>
+                  <p class="text-[11px] text-slate-400 leading-relaxed">${item.reason}</p>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- 3-3. 🛡️ 적극 권장 장비 & 복장 가이드 -->
+          <div class="glass-panel rounded-2xl p-5 border border-emerald-500/30 bg-gradient-to-br from-slate-900 via-emerald-950/15 to-slate-900 shadow-md">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold">
+                <i class="fa-solid fa-shield-halved"></i>
+              </span>
+              <h4 class="text-sm font-bold text-emerald-200">적극 권장 장비 & 복장 가이드</h4>
+            </div>
+            <div class="space-y-2 text-xs">
+              <div class="p-3 rounded-xl bg-slate-950/70 border border-emerald-500/20">
+                <div class="font-bold text-emerald-300 flex items-center gap-1.5 mb-1">
+                  <i class="fa-solid fa-person-hiking text-emerald-400"></i>
+                  <span>발목/무릎 보호대 & 스틱 (적극 권장)</span>
+                </div>
+                <p class="text-[11px] text-slate-300 leading-relaxed">
+                  하루 20~25km 장거리 보행 시 내리막길과 자갈길에서 체중이 무릎에 집중됩니다. 관절 부상 방지를 위해 <b>발목/무릎 보호대</b>와 <b>스틱 1쌍</b>을 꼭 준비하세요.
+                </p>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-950/70 border border-emerald-500/20">
+                <div class="font-bold text-emerald-300 flex items-center gap-1.5 mb-1">
+                  <i class="fa-solid fa-vest text-emerald-400"></i>
+                  <span>기능성 바람막이, 속건성 의류, 눈에 띄는 색상의 모자</span>
+                </div>
+                <p class="text-[11px] text-slate-300 leading-relaxed">
+                  매일 저녁 손빨래 후 다음 날 바로 입을 수 있는 <b>빠르게 마르는 소재의 옷</b>과 <b>기능성 바람막이</b>가 필수이며, 차도나 안갯길에서 안전을 확보해 주는 <b>눈에 띄는 밝은 색상의 모자</b>를 추천합니다.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3-4. 💡 기타 팁 & 마인드셋 -->
+          <div class="glass-panel rounded-2xl p-5 border border-sky-500/30 bg-gradient-to-br from-slate-900 via-sky-950/15 to-slate-900 shadow-md">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-6 h-6 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center text-xs font-bold">
+                <i class="fa-solid fa-lightbulb"></i>
+              </span>
+              <h4 class="text-sm font-bold text-sky-200">현지 실전 꿀팁 & 순례자 마인드셋</h4>
+            </div>
+            <div class="space-y-2 text-xs">
+              <div class="p-2.5 rounded-xl bg-slate-950/70 border border-sky-500/20">
+                <span class="font-bold text-sky-300 block mb-0.5">🐴 동키 서비스 (배낭 배송 이용)</span>
+                <p class="text-[11px] text-slate-400 leading-relaxed">
+                  몸 상태가 안 좋거나 관절 통증이 있을 때는 무리하지 말고 짐을 다음 숙소로 미리 보내주는 <b>동키 서비스(JacoTrans/Correos)</b>를 이용할 수 있습니다.
+                </p>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-950/70 border border-sky-500/20">
+                <span class="font-bold text-sky-300 block mb-0.5">🛒 가방 속 음식 공간 확보</span>
+                <p class="text-[11px] text-slate-400 leading-relaxed">
+                  도착 마을의 마트에서 저녁거리와 과일·간식을 장볼 것을 대비해 가방 상단에 <b>약 20%의 여유 공간</b>을 꼭 확보해 두는 것이 좋습니다.
+                </p>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-950/70 border border-sky-500/20">
+                <span class="font-bold text-sky-300 block mb-0.5">🧘 미니멀리즘 마인드셋</span>
+                <p class="text-[11px] text-slate-400 leading-relaxed">
+                  짐은 최소한으로 줄이세요. 정말 필요한 것은 현지 도시의 슈퍼나 약국에서 얼마든지 구할 수 있으니 너무 걱정하지 마세요.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
       </div>
 
     </div>
@@ -9484,6 +9676,10 @@ window.app = {
   setEnergyPlanPhaseFilter: (phase) => {
     state.energyPlanPhaseFilter = phase;
     renderEnergyTab();
+  },
+  setCaminoPackingFilter: (cat) => {
+    state.caminoPackingFilter = cat;
+    renderCaminoTab();
   },
   addCaminoPackingItem: () => {
     const input = document.getElementById('new-camino-packing-input');
