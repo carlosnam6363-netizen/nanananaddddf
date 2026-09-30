@@ -478,11 +478,6 @@ function updateAdminState() {
 
   renderAuthWidget();
   renderNavigation();
-
-  // 게스트 상태에서 잠긴 탭에 머물러 있는 경우 종합 대시보드로 자동 리다이렉트
-  if (!isAdmin && state.activeTab && state.activeTab !== 'overview') {
-    switchTab('overview');
-  }
 }
 
 function openTabLockedModal(tabId) {
@@ -1032,21 +1027,14 @@ function renderNavigation() {
 
       if (catTabs.length === 0) return '';
 
-      const isGuest = !state.isAdmin;
       const tabsHtml = catTabs.map(tabDef => {
         const isActive = currentTab === tabDef.id;
-        const isLocked = isGuest && tabDef.id !== 'overview';
-
         const activeClass = isActive
           ? 'nav-tab-active text-sky-400 bg-sky-500/15 font-bold border border-sky-500/30 shadow-sm'
-          : (isLocked
-              ? 'text-slate-400 hover:text-amber-200 hover:bg-slate-800/40 font-medium'
-              : 'text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium');
+          : 'text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium';
         
         let badgeHtml = '';
-        if (isLocked) {
-          badgeHtml = `<span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30 flex items-center gap-1 flex-shrink-0" title="관리자 전용 잠금 (클릭 시 안내)"><i class="fa-solid fa-lock text-[8px]"></i> 잠김</span>`;
-        } else if (tabDef.badge) {
+        if (tabDef.badge) {
           badgeHtml = `<span class="text-[9px] px-1.5 py-0.5 rounded font-bold ${tabDef.badgeClass || 'bg-slate-800 text-slate-300'}">${tabDef.badge}</span>`;
         }
 
@@ -1054,16 +1042,11 @@ function renderNavigation() {
           ? `window.app.openPortfolioTab('${tabDef.id}')`
           : `window.app.switchTab('${tabDef.id}')`;
 
-        const lockIconHtml = isLocked
-          ? `<i class="fa-solid fa-lock text-[10px] text-amber-400/80 mr-1 flex-shrink-0" title="관리자 전용"></i>`
-          : '';
-
         return `
           <button data-nav-tab="${tabDef.id}" onclick="${clickHandler}" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs transition ${activeClass}">
-            <i class="fa-solid ${tabDef.icon} w-4 text-center ${isLocked ? 'text-slate-400' : tabDef.color}"></i>
+            <i class="fa-solid ${tabDef.icon} w-4 text-center ${tabDef.color}"></i>
             <span class="flex-1 text-left truncate flex items-center gap-1.5">
               <span class="truncate">${tabDef.name}</span>
-              ${lockIconHtml}
             </span>
             ${badgeHtml}
           </button>
@@ -1094,16 +1077,14 @@ function renderNavigation() {
   // 2. Mobile Bottom Navigation
   const mobileContainer = document.getElementById('mobile-bottom-nav');
   if (mobileContainer) {
-    const isGuest = !state.isAdmin;
     mobileContainer.innerHTML = order.map((tabId) => {
       const tabDef = TAB_REGISTRY.find(t => t.id === tabId);
       if (!tabDef) return '';
       const isActive = currentTab === tabDef.id;
-      const isLocked = isGuest && tabDef.id !== 'overview';
 
       const activeClass = isActive
         ? 'mobile-tab-active text-sky-400 font-bold bg-sky-500/20 border border-sky-500/30'
-        : (isLocked ? 'text-slate-400 font-medium hover:text-slate-300' : 'text-slate-400 font-medium hover:text-slate-200');
+        : 'text-slate-400 font-medium hover:text-slate-200';
 
       const clickHandler = tabDef.isPortfolio
         ? `window.app.openPortfolioTab('${tabDef.id}')`
@@ -1112,14 +1093,12 @@ function renderNavigation() {
       const catDef = TAB_CATEGORIES.find(c => c.id === tabDef.category);
       const dotColor = catDef ? (catDef.id === 'career' ? 'bg-amber-400' : catDef.id === 'hobby' ? 'bg-rose-400' : 'bg-slate-400') : 'bg-slate-500';
 
-      const lockBadge = isLocked
-        ? `<span class="w-3.5 h-3.5 rounded-full bg-amber-500 text-slate-950 font-black text-[8px] flex items-center justify-center absolute top-0.5 right-1 shadow"><i class="fa-solid fa-lock text-[7px]"></i></span>`
-        : `<span class="w-1.5 h-1.5 rounded-full ${dotColor} absolute top-1 right-2"></span>`;
+      const indicatorBadge = `<span class="w-1.5 h-1.5 rounded-full ${dotColor} absolute top-1 right-2"></span>`;
 
       return `
         <button data-mobile-tab="${tabDef.id}" onclick="${clickHandler}" class="flex flex-col items-center justify-center gap-1 text-[10px] px-2.5 py-1.5 rounded-xl flex-shrink-0 min-w-[52px] transition relative ${activeClass}">
-          ${lockBadge}
-          <i class="fa-solid ${tabDef.icon} text-sm ${isLocked ? 'text-slate-400' : tabDef.color}"></i>
+          ${indicatorBadge}
+          <i class="fa-solid ${tabDef.icon} text-sm ${tabDef.color}"></i>
           <span class="truncate max-w-[56px]">${tabDef.shortName}</span>
         </button>
       `;
@@ -1311,12 +1290,6 @@ function initNavigation() {
 }
 
 function switchTab(tabName) {
-  // 읽기 전용 게스트 모드 제한: 종합 대시보드(overview)만 열람 허용
-  if (!state.isAdmin && tabName !== 'overview') {
-    openTabLockedModal(tabName);
-    return;
-  }
-
   if (tabName === 'awards') {
     state.portfolioMode = 'awards';
   } else if (tabName === 'careers') {
@@ -7374,6 +7347,297 @@ function renderSnsTab() {
   `;
 }
 
+function renderInbodyTab() {
+  const container = document.getElementById('tab-content-inbody');
+  if (!container) return;
+
+  const inbody = state.inbody || INITIAL_INBODY_DATA;
+  const records = inbody.records || INITIAL_INBODY_DATA.records;
+  
+  // Sort records by date ascending
+  const sortedRecords = [...records].sort((a, b) => new Date(a.date) - new Date(b.date));
+  const firstRec = sortedRecords[0] || {};
+  const latestRec = sortedRecords[sortedRecords.length - 1] || {};
+
+  // Key Deltas
+  const deltaWeight = (latestRec.weight && firstRec.weight) ? (latestRec.weight - firstRec.weight).toFixed(1) : 0;
+  const deltaMuscle = (latestRec.skeletalMuscle && firstRec.skeletalMuscle) ? (latestRec.skeletalMuscle - firstRec.skeletalMuscle).toFixed(1) : 0;
+  const deltaFat = (latestRec.bodyFatMass && firstRec.bodyFatMass) ? (latestRec.bodyFatMass - firstRec.bodyFatMass).toFixed(1) : 0;
+  const deltaFatRate = (latestRec.bodyFatRate && firstRec.bodyFatRate) ? (latestRec.bodyFatRate - firstRec.bodyFatRate).toFixed(1) : 0;
+  const deltaWaist = (latestRec.waistSize && firstRec.waistSize) ? (latestRec.waistSize - firstRec.waistSize).toFixed(1) : 0;
+
+  container.innerHTML = `
+    <!-- Top Header Banner -->
+    <div class="glass-panel rounded-2xl p-6 sm:p-8 mb-8 border border-rose-500/40 bg-gradient-to-r from-slate-900 via-rose-950/30 to-slate-900 relative overflow-hidden shadow-2xl">
+      <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-rose-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
+        <div>
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="px-3 py-1 bg-rose-500/20 text-rose-300 border border-rose-500/30 text-xs font-bold rounded-full flex items-center gap-1.5">
+              <i class="fa-solid fa-weight-scale"></i> 체성분 재구성 (Body Recomposition)
+            </span>
+            <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold rounded-full">
+              D자형 근육형 진입 달성
+            </span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
+            <i class="fa-solid fa-heart-pulse text-rose-400"></i>
+            체중 변화 없는 성공적인 다이어트 & 체구 관리
+          </h1>
+          <p class="text-sm text-slate-300 mt-2 max-w-2xl leading-relaxed">
+            체중계의 단순 숫자에 속지 마세요! <b>체중은 일정하게 유지(-0.8kg)</b>되면서, 
+            <b>골격근량은 +2.1kg 늘리고 순수 체지방만 -4.0kg 감량</b>하여 허리둘레가 줄어들고 겉보기 체구가 슬림해지는 가장 이상적인 <b>'상승 다이어트'</b> 지속 관리 대시보드입니다.
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-2.5">
+          <button onclick="window.app.openAddInbodyModal()" class="py-3 px-5 bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-rose-600/20 transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-plus"></i> 새 인바디 측정치 등록
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1. Key Metrics 4-Grid: Recomposition Achievements -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      
+      <!-- 체중 유지 지표 -->
+      <div class="glass-panel p-5 rounded-2xl border border-slate-700/60 bg-slate-900/60">
+        <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
+          <span>현재 체중 (유지형)</span>
+          <i class="fa-solid fa-scale-balanced text-sky-400"></i>
+        </div>
+        <div class="text-2xl font-black text-white">${latestRec.weight || 74.0}<span class="text-xs text-slate-400 font-normal"> kg</span></div>
+        <div class="mt-2 text-[11px] flex items-center gap-1.5 font-bold ${deltaWeight <= 0 ? 'text-sky-400' : 'text-amber-400'}">
+          <i class="fa-solid ${deltaWeight <= 0 ? 'fa-arrow-trend-down' : 'fa-arrow-trend-up'}"></i>
+          <span>시작 대비 ${deltaWeight > 0 ? `+${deltaWeight}` : deltaWeight} kg (체중 유지 성공)</span>
+        </div>
+      </div>
+
+      <!-- 골격근량 증가 지표 -->
+      <div class="glass-panel p-5 rounded-2xl border border-emerald-500/30 bg-slate-900/60">
+        <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
+          <span>골격근량 (근성장)</span>
+          <i class="fa-solid fa-dumbbell text-emerald-400"></i>
+        </div>
+        <div class="text-2xl font-black text-emerald-400">${latestRec.skeletalMuscle || 34.2}<span class="text-xs text-slate-400 font-normal"> kg</span></div>
+        <div class="mt-2 text-[11px] flex items-center gap-1.5 font-bold text-emerald-400">
+          <i class="fa-solid fa-arrow-trend-up"></i>
+          <span>시작 대비 +${deltaMuscle} kg 폭발적 성장 💪</span>
+        </div>
+      </div>
+
+      <!-- 체지방량 / 체지방률 감소 지표 -->
+      <div class="glass-panel p-5 rounded-2xl border border-rose-500/30 bg-slate-900/60">
+        <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
+          <span>체지방률 / 체지방량</span>
+          <i class="fa-solid fa-fire-flame-curved text-rose-400"></i>
+        </div>
+        <div class="text-2xl font-black text-rose-400">${latestRec.bodyFatRate || 18.2}<span class="text-xs text-slate-400 font-normal"> % (${latestRec.bodyFatMass}kg)</span></div>
+        <div class="mt-2 text-[11px] flex items-center gap-1.5 font-bold text-rose-400">
+          <i class="fa-solid fa-arrow-trend-down"></i>
+          <span>시작 대비 ${deltaFatRate}%p (${deltaFat}kg 순수 지방 연소) 🔥</span>
+        </div>
+      </div>
+
+      <!-- 허리둘레 & 체구 감량 실체감 지표 -->
+      <div class="glass-panel p-5 rounded-2xl border border-amber-500/30 bg-slate-900/60">
+        <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
+          <span>허리둘레 (체구 축소)</span>
+          <i class="fa-solid fa-ruler-combined text-amber-400"></i>
+        </div>
+        <div class="text-2xl font-black text-amber-300">${latestRec.waistSize || 30.3}<span class="text-xs text-slate-400 font-normal"> 인치</span></div>
+        <div class="mt-2 text-[11px] flex items-center gap-1.5 font-bold text-amber-400">
+          <i class="fa-solid fa-arrow-trend-down"></i>
+          <span>시작 대비 ${deltaWaist}인치 감소 (바지 34➔30) ✨</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 2. 인바디 C-I-D형 체형 분석 비주얼라이저 -->
+    <div class="glass-panel rounded-2xl p-6 mb-8 border border-slate-700/60 bg-slate-900/60 shadow-xl">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5 border-b border-slate-800 pb-4">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-chart-simple text-rose-400"></i>
+            인바디 3대 체형 (C ➔ I ➔ D) 변화 트래커
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">체중·골격근·체지방 3선 연결 형태가 C자형에서 가장 이상적인 D자형으로 진화했습니다.</p>
+        </div>
+        <span class="px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold">
+          ★ 현재 체형: ${latestRec.bodyType || 'D자형 (골격근 발달형)'}
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        <div class="p-4 rounded-xl border ${latestRec.bodyType && latestRec.bodyType.includes('C') ? 'border-amber-500 bg-amber-950/20' : 'border-slate-800 bg-slate-800/40 opacity-70'}">
+          <div class="flex items-center justify-between font-bold text-slate-300 mb-2">
+            <span>C자형 (체지방 과다형)</span>
+            <span class="text-[10px] text-slate-400">과거 6월 상태</span>
+          </div>
+          <p class="text-slate-400 leading-relaxed mb-3">체중 대비 골격근량이 적고 체지방이 많아 3선 연결선이 'C'자 형태를 띰 (마른 비만 또는 과체중형).</p>
+          <div class="text-[11px] text-slate-500 font-mono">체지방 23.4% · 골격근 32.1kg</div>
+        </div>
+
+        <div class="p-4 rounded-xl border ${latestRec.bodyType && latestRec.bodyType.includes('I') ? 'border-sky-500 bg-sky-950/20' : 'border-slate-800 bg-slate-800/40 opacity-70'}">
+          <div class="flex items-center justify-between font-bold text-slate-300 mb-2">
+            <span>I자형 (표준 균형형)</span>
+            <span class="text-[10px] text-sky-400">7~8월 전환기</span>
+          </div>
+          <p class="text-slate-400 leading-relaxed mb-3">체중, 골격근, 체지방이 고르게 균형을 이루어 일직선 'I'자 형태를 띰 (건강한 표준형 체형).</p>
+          <div class="text-[11px] text-sky-400 font-mono">체지방 21.7% · 골격근 32.8kg</div>
+        </div>
+
+        <div class="p-4 rounded-xl border border-emerald-500/80 bg-emerald-950/20 shadow-lg shadow-emerald-500/10">
+          <div class="flex items-center justify-between font-black text-emerald-300 mb-2">
+            <span class="flex items-center gap-1.5"><i class="fa-solid fa-crown text-amber-400"></i> D자형 (이상적 근육형)</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/30 text-emerald-300 font-bold">현재 도달</span>
+          </div>
+          <p class="text-slate-200 leading-relaxed mb-3">골격근량이 체중과 체지방보다 앞으로 돌출되어 'D'자 형태를 띰 (신진대사가 높고 탄탄한 몸매).</p>
+          <div class="text-[11px] text-emerald-400 font-mono font-bold">체지방 18.2% · 골격근 34.2kg (달성!)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. 인바디 누적 측정치 타임라인 & 상세 관리 리스트 (CRUD) -->
+    <div class="glass-panel rounded-2xl p-6 sm:p-7 mb-8 border border-slate-700/60 bg-slate-900/60 shadow-xl">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-clipboard-list text-rose-400"></i>
+            인바디 측정 히스토리 & 피드백 로그 (${sortedRecords.length}회차)
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">정기적으로 측정한 체성분 변화와 당시 식단/운동 루틴 기록입니다.</p>
+        </div>
+        <button onclick="window.app.openAddInbodyModal()" class="px-3.5 py-2 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md">
+          <i class="fa-solid fa-plus"></i> 새 측정 기록
+        </button>
+      </div>
+
+      <div class="space-y-4">
+        ${[...sortedRecords].reverse().map(rec => `
+          <div class="p-5 rounded-2xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 transition flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+            <div class="flex-1 min-w-0">
+              <div class="flex flex-wrap items-center gap-2 mb-2">
+                <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-slate-700 text-white">
+                  ${rec.date}
+                </span>
+                <span class="text-xs font-bold px-2.5 py-0.5 rounded ${rec.bodyType && rec.bodyType.includes('D') ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-black' : rec.bodyType && rec.bodyType.includes('I') ? 'bg-sky-500/20 text-sky-300 border border-sky-500/30' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'}">
+                  ${rec.bodyType || '측정 완료'}
+                </span>
+                <span class="text-xs font-bold px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                  인바디 점수: ${rec.score || '-'}점
+                </span>
+              </div>
+
+              <!-- 4-Grid Values -->
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 py-2 my-2 border-y border-slate-700/60 text-xs">
+                <div>
+                  <span class="text-slate-400 block text-[11px]">체중:</span>
+                  <span class="text-white font-black text-sm">${rec.weight} kg</span>
+                </div>
+                <div>
+                  <span class="text-slate-400 block text-[11px]">골격근량:</span>
+                  <span class="text-emerald-400 font-black text-sm">${rec.skeletalMuscle} kg</span>
+                </div>
+                <div>
+                  <span class="text-slate-400 block text-[11px]">체지방률 (체지방량):</span>
+                  <span class="text-rose-400 font-black text-sm">${rec.bodyFatRate}% <span class="text-xs font-normal">(${rec.bodyFatMass}kg)</span></span>
+                </div>
+                <div>
+                  <span class="text-slate-400 block text-[11px]">허리둘레 / 내장지방:</span>
+                  <span class="text-amber-300 font-black text-sm">${rec.waistSize || '-'}인치 <span class="text-xs font-normal">/ 레벨 ${rec.visceralFat || '-'}</span></span>
+                </div>
+              </div>
+
+              <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+                💡 <b>루틴 & 피드백</b>: ${rec.notes || '기록 없음'}
+              </p>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-2 self-end lg:self-center flex-shrink-0">
+              <button onclick="window.app.openEditInbodyModal('${rec.id}')" class="px-3 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs font-bold transition flex items-center gap-1">
+                <i class="fa-solid fa-pen-to-square"></i> 수정
+              </button>
+              <button onclick="window.app.deleteInbodyRecord('${rec.id}')" class="px-2.5 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs transition flex items-center gap-1">
+                <i class="fa-regular fa-trash-can"></i>
+              </button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <!-- 4. 단백질 섭취 계산기 & '체중 변화 없는 성공 다이어트' 4대 원칙 -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      
+      <!-- Left 1 Col: 단백질 및 영양 계산기 -->
+      <div class="glass-panel rounded-2xl p-6 border border-slate-700/60 bg-slate-900/60 space-y-4">
+        <h3 class="text-base font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-calculator text-rose-400"></i>
+          일일 권장 단백질 섭취 계산기
+        </h3>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          근손실 없이 체지방만 태우기 위해 체중당 1.6~2.0g의 단백질이 필수적입니다.
+        </p>
+
+        <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700">
+          <div class="text-xs text-slate-400 mb-1">내 체중 기준 (74.0 kg)</div>
+          <div class="text-2xl font-black text-rose-400 mb-2">120g ~ 148g <span class="text-xs text-slate-400 font-normal">/ 일</span></div>
+          <div class="text-xs text-slate-300 space-y-1.5 pt-2 border-t border-slate-700/80">
+            <div class="flex items-center justify-between">
+              <span>🍗 닭가슴살 환산:</span>
+              <b class="text-white">약 3~4덩이 (400~500g)</b>
+            </div>
+            <div class="flex items-center justify-between">
+              <span>🥚 계란 완숙 환산:</span>
+              <b class="text-white">약 18~20개 분량</b>
+            </div>
+            <div class="flex items-center justify-between">
+              <span>🥛 프로틴 쉐이크:</span>
+              <b class="text-white">2스쿱 (약 50g 충당)</b>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-800/40 border border-slate-700/60 text-xs text-slate-300">
+          <span class="font-bold text-emerald-400 block mb-1">💧 수분 섭취 가이드:</span>
+          하루 <b>2.5L</b> 이상의 미온수 섭취를 유지하여 간의 지방 대사 기능과 근육 내 수분율을 최상으로 유지합니다.
+        </div>
+      </div>
+
+      <!-- Right 2 Cols: 4대 성공 원칙 카드 -->
+      <div class="lg:col-span-2 glass-panel rounded-2xl p-6 border border-slate-700/60 bg-slate-900/60">
+        <h3 class="text-base font-bold text-white flex items-center gap-2 mb-4">
+          <i class="fa-solid fa-book-bookmark text-rose-400"></i>
+          '체중 변화 없는 성공적인 다이어트' 핵심 원칙 4선
+        </h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          ${(inbody.principles || INITIAL_INBODY_DATA.principles).map((p, idx) => `
+            <div class="p-4 rounded-xl bg-slate-800/70 border border-slate-700/60 flex flex-col justify-between">
+              <div>
+                <h4 class="text-sm font-bold text-rose-300 mb-2">${p.title}</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">${p.description}</p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-700/60 text-[11px] text-slate-400 flex items-center gap-1">
+                <i class="fa-solid fa-check text-rose-400"></i>
+                <span>실천 지침 준수 중</span>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+    </div>
+  `;
+}
+
+
+
 function renderPortfolioTab() {
   const container = document.getElementById('tab-content-portfolio');
   if (!container) return;
@@ -7961,6 +8225,7 @@ function showToast(msg) {
 // Expose Public Methods to Window for UI Interactions
 // ==========================================================================
 window.app = {
+  get state() { return state; },
   // English Grammar & Daily Podcast Handlers
   setEnglishFilter: (f) => setEnglishFilter(f),
   setEnglishMode: (m) => setEnglishMode(m),
@@ -8548,6 +8813,8 @@ window.app = {
       persistState();
       renderCaminoTab();
       if (state.activeTab === 'overview') renderOverviewTab();
+    }
+  },
   // Energy Study Plan Handlers (⭐)
   toggleEnergyPlanItem: (id) => {
     if (!state.energyPlan) state.energyPlan = INITIAL_ENERGY_STUDY_PLAN;
