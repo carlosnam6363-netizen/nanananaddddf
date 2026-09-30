@@ -958,6 +958,8 @@ let state = {
   englishSearch: '',
   englishMastered: {},
   englishFlipped: {},
+  englishSelectedTopTopicIdx: 0,
+  englishAnswererVoiceGender: 'female', // 'female' | 'male'
   externalSubtab: 'excel', // 'excel' or 'dashboards'
   inbodyYearFilter: 'all', // 'all', '2026', '2025', '2024', 'prev'
   theme: 'dark',
@@ -2603,23 +2605,99 @@ function renderCaminoTab() {
 
 // --------------------------------------------------------------------------
 // --------------------------------------------------------------------------
-// Crystal-Clear Dual Announcer TTS Engine (한·영 아나운서 고음질 보이스 셀렉터)
+// Crystal-Clear Dual Speaker TTS Engine (질문자 Eva vs 답변자 Carlos 보이스 분리)
 // --------------------------------------------------------------------------
-function getAnnouncerVoice(lang = 'en-US') {
+function getPodcastSpeakerVoice(role = 'carlos', answererPref = null) {
+  if (!('speechSynthesis' in window)) return null;
+  const voices = window.speechSynthesis.getVoices() || [];
+  if (!voices.length) return null;
+
+  const enVoices = voices.filter(v => v.lang && (v.lang.startsWith('en') || v.lang.includes('US') || v.lang.includes('GB') || v.lang.includes('UK')));
+  const pool = enVoices.length ? enVoices : voices;
+
+  const maleNames = /guy|christopher|eric|david|george|mark|alex|daniel|stefan|james|brian|michael|richard|oliver|steven|tom|reed|fred|paul|ryan/i;
+  const femaleVoices = pool.filter(v => !maleNames.test(v.name));
+  const maleVoices = pool.filter(v => maleNames.test(v.name));
+
+  const pref = answererPref || (state && state.englishAnswererVoiceGender) || 'female';
+
+  if (role === 'eva') {
+    // [질문자 Eva]: 또렷하고 세련된 OPIc 면접관 음성 (영국 여성 or 고급 내추럴 스튜디오 여성)
+    const evaPatterns = [
+      /google.*uk.*female/i,   // Google UK English Female (명확한 면접관 억양)
+      /jenny/i,                // Microsoft Jenny Online (Natural)
+      /victoria/i,             // Apple Victoria
+      /aria/i,                 // Microsoft Aria Online
+      /sonia/i,
+      /stephanie/i,
+      /samantha/i,
+      /karen/i,
+      /zira/i
+    ];
+    for (const regex of evaPatterns) {
+      const match = femaleVoices.find(v => regex.test(v.name));
+      if (match) return match;
+    }
+    return femaleVoices[0] || pool[0];
+  }
+
+  // [답변자 Carlos]:
+  if (pref === 'male') {
+    // 남성 모드
+    const carlosMalePatterns = [
+      /christopher/i,
+      /eric/i,
+      /guy/i,
+      /google.*(us|uk).*male/i,
+      /alex/i,
+      /daniel/i,
+      /david/i
+    ];
+    for (const regex of carlosMalePatterns) {
+      const match = maleVoices.find(v => regex.test(v.name));
+      if (match) return match;
+    }
+    return maleVoices[0] || pool[0];
+  }
+
+  // 여성 모드 (기본): Eva와 물리적으로 구별되는 부드러운 여성 보이스 우선 매칭
+  const evaVoice = getPodcastSpeakerVoice('eva');
+  const evaVoiceName = evaVoice ? evaVoice.name : '';
+
+  // Eva와 다른 음성 풀 우선 확보
+  const distinctFemaleVoices = femaleVoices.filter(v => v.name !== evaVoiceName);
+  const searchPool = distinctFemaleVoices.length > 0 ? distinctFemaleVoices : femaleVoices;
+
+  const carlosFemalePatterns = [
+    /aria/i,                 // Microsoft Aria Online (Natural) - 차분하고 부드러운 톤
+    /ava/i,                  // Microsoft Ava - 극도로 부드러운 자연 발화
+    /emma/i,                 // Microsoft Emma - 온화한 내레이션
+    /google.*us.*english/i,  // Google US English (기본 미국식 여성)
+    /samantha/i,             // Apple Samantha - 자연스러운 톤
+    /michelle/i,
+    /jenny/i,
+    /karen/i,
+    /zira/i
+  ];
+  for (const regex of carlosFemalePatterns) {
+    const match = searchPool.find(v => regex.test(v.name));
+    if (match) return match;
+  }
+
+  return searchPool[0] || femaleVoices[0] || pool[0];
+}
+
+function getAnnouncerVoice(lang = 'en-US', role = 'carlos') {
   if (!('speechSynthesis' in window)) return null;
   const voices = window.speechSynthesis.getVoices() || [];
   if (!voices.length) return null;
 
   const isKo = lang.startsWith('ko') || lang.includes('KR');
-  const targetVoices = voices.filter(v => isKo ? (v.lang && (v.lang.startsWith('ko') || v.lang.includes('KR'))) : (v.lang && v.lang.startsWith('en')));
-
-  if (!targetVoices.length) {
-    return voices.find(v => isKo ? v.lang.includes('ko') : v.lang.includes('en')) || null;
-  }
-
   if (isKo) {
+    const targetVoices = voices.filter(v => v.lang && (v.lang.startsWith('ko') || v.lang.includes('KR')));
+    if (!targetVoices.length) return voices.find(v => v.lang && v.lang.includes('ko')) || null;
     const koPatterns = [
-      /sunhi/i,          // Microsoft SunHi Online (Natural)
+      /sunhi/i,
       /injoon/i,
       /yunjae/i,
       /google.*한국/i,
@@ -2634,42 +2712,7 @@ function getAnnouncerVoice(lang = 'en-US') {
     return targetVoices.find(v => v.default) || targetVoices[0];
   }
 
-  // 영어(en-US): 부드러운 목소리의 여성(Soft Female) 음성 전용 필터링
-  // 남성 음성 키워드 철저 배제
-  const maleNames = /guy|christopher|eric|david|george|mark|alex|daniel|stefan|james|brian|michael|richard|oliver|steven|tom|reed|fred|paul/i;
-  const femaleOnlyVoices = targetVoices.filter(v => !maleNames.test(v.name));
-
-  // 최상위 선호: 부드럽고 차분하며 상냥한 여성 내레이터 음성
-  const softFemalePatterns = [
-    /jenny/i,               // Microsoft Jenny Online (Natural) - 가장 부드럽고 따뜻한 톤
-    /aria/i,                // Microsoft Aria Online (Natural) - 차분하고 상냥한 톤
-    /ava/i,                 // Microsoft Ava / Apple Ava - 극도로 부드러운 자연 발화
-    /emma/i,                // Microsoft Emma - 온화한 내레이션
-    /michelle/i,            // Microsoft Michelle
-    /google.*uk.*female/i,  // Google UK English Female - 부드럽고 정갈한 여성 톤
-    /google.*us.*english/i, // Google US English (기본 여성 톤)
-    /samantha/i,            // Apple Samantha - 자연스러운 여성 음성
-    /victoria/i,            // Apple Victoria - 차분한 여성 음성
-    /karen/i,               // Apple Karen
-    /zira/i                 // Microsoft Zira - Windows 기본 여성 음성
-  ];
-
-  for (const regex of softFemalePatterns) {
-    const match = femaleOnlyVoices.find(v => regex.test(v.name));
-    if (match) return match;
-  }
-
-  // 선호 패턴 외 여성 음성 목록에서 검색
-  if (femaleOnlyVoices.length > 0) {
-    return femaleOnlyVoices.find(v => v.default) || femaleOnlyVoices[0];
-  }
-
-  for (const regex of softFemalePatterns) {
-    const match = targetVoices.find(v => regex.test(v.name));
-    if (match) return match;
-  }
-
-  return targetVoices.find(v => v.default) || targetVoices[0];
+  return getPodcastSpeakerVoice(role, (state && state.englishAnswererVoiceGender) || 'female');
 }
 
 if ('speechSynthesis' in window) {
@@ -2922,11 +2965,13 @@ function getPodcastTracks(items, idiom, setNum, topicIndex) {
         {
           text: `Hello Carlos, here is your question: ${opic.evaPrompt}`,
           lang: 'en-US',
+          speakerRole: 'eva',
           speakerLabel: 'Interviewer Eva (질문 출제)'
         },
         {
           text: `Well Eva, thank you for asking about ${cleanTheme}. Let me share my personal story and perspectives with you.`,
           lang: 'en-US',
+          speakerRole: 'carlos',
           speakerLabel: 'Carlos (답변 오프닝)'
         }
       ],
@@ -2971,11 +3016,13 @@ function getPodcastTracks(items, idiom, setNum, topicIndex) {
           {
             text: partSentence,
             lang: 'en-US',
+            speakerRole: 'carlos',
             speakerLabel: `Carlos (AL 실전 답변 #${idx + 1})`
           },
           {
             text: `"${cleanSentence(item.betterSay)}"`,
             lang: 'en-US',
+            speakerRole: 'carlos',
             speakerLabel: 'Carlos (교정 문법 쉐도잉)'
           }
         ],
@@ -3035,11 +3082,13 @@ function getPodcastTracks(items, idiom, setNum, topicIndex) {
         {
           text: `In any project or discussion, I always try to ${safeIdiom.expression}.`,
           lang: 'en-US',
+          speakerRole: 'carlos',
           speakerLabel: 'Carlos (AL 이디엄 적용 답변)'
         },
         {
           text: `"${cleanSentence(safeIdiom.expression)}"`,
           lang: 'en-US',
+          speakerRole: 'carlos',
           speakerLabel: 'Carlos (이디엄 쉐도잉)'
         }
       ],
@@ -3077,11 +3126,13 @@ function getPodcastTracks(items, idiom, setNum, topicIndex) {
         {
           text: opic.evaPrompt,
           lang: 'en-US',
+          speakerRole: 'eva',
           speakerLabel: 'Interviewer Eva (질문 출제)'
         },
         {
           text: fullAlModelAnswer,
           lang: 'en-US',
+          speakerRole: 'carlos',
           speakerLabel: 'Carlos (AL 2분 완성형 통합 답변)'
         }
       ],
@@ -3208,21 +3259,31 @@ function playPodcastTrack(trackIdx) {
       // Strictly native English studio reading (No Korean announcer voice in podcast reading)
       u.lang = 'en-US';
 
-      // Pick announcer / studio voice
-      const voice = getAnnouncerVoice('en-US');
+      // Pick distinct announcer voice for questioner (Eva) vs answerer (Carlos)
+      const role = seg.speakerRole || (track.speaker && track.speaker.includes('Eva') && !track.speaker.includes('Carlos') ? 'eva' : 'carlos');
+      const answererGender = (state && state.englishAnswererVoiceGender) || 'female';
+      const voice = getPodcastSpeakerVoice(role, answererGender);
       if (voice) u.voice = voice;
 
-      // Rate & pitch tuned for a soft, gentle, and warm female conversational delivery
+      // Rate & pitch tuned distinctly for questioner vs answerer
       const baseRate = englishPodcastState.rate || 1.0;
-      u.rate = Math.max(0.7, Math.min(1.5, baseRate * 0.94));
-      u.pitch = 1.04;
+      if (role === 'eva') {
+        // [질문자 Interviewer Eva]: 또렷하고 격조 있는 질문 어조 (피치 1.08, 속도 0.96)
+        u.pitch = 1.08;
+        u.rate = Math.max(0.7, Math.min(1.5, baseRate * 0.96));
+      } else {
+        // [답변자 Carlos]: 부드럽고 차분한 AL 실전 발화 어조 (남성 0.90, 여성 0.93 / 속도 0.92)
+        u.pitch = (answererGender === 'male') ? 0.90 : 0.93;
+        u.rate = Math.max(0.7, Math.min(1.5, baseRate * 0.92));
+      }
 
       u.onend = () => {
         if (!englishPodcastState.isPlaying || englishPodcastState.sessionId !== thisSessionId) return;
-        // Brief natural breath pause (180ms) between segments
+        // Natural conversational pause (300ms when transitioning between speakers, 180ms within speaker)
+        const pauseMs = (role === 'eva' && currentSegIdx < segments.length) ? 300 : 180;
         setTimeout(() => {
           playNextSegment();
-        }, 180);
+        }, pauseMs);
       };
 
       u.onerror = (err) => {
@@ -3266,6 +3327,15 @@ function selectOpicTopic(idx) {
   renderEnglishPodcastPlayer();
   const top = TOP_5_OPIC_TOPICS[idx] || TOP_5_OPIC_TOPICS[0];
   showToast(`🎧 오픽 빈출 주제 [${top.shortName}]가 선택되었습니다.`);
+}
+
+function toggleAnswererVoiceGender() {
+  const current = (state && state.englishAnswererVoiceGender) || 'female';
+  state.englishAnswererVoiceGender = (current === 'male') ? 'female' : 'male';
+  persistState();
+  renderEnglishPodcastPlayer();
+  const genderLabel = (state.englishAnswererVoiceGender === 'male') ? '부드러운 남성' : '부드러운 여성';
+  showToast(`🎧 답변자(Carlos) 보이스가 [${genderLabel}] 톤으로 전환되었습니다.`);
 }
 
 function togglePodcastPlay() {
@@ -3549,9 +3619,13 @@ function renderEnglishPodcastPlayer() {
               <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
                 <i class="fa-solid fa-microphone mr-1"></i>OPIc AL 대비
               </span>
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/30 flex items-center gap-1">
-                <i class="fa-solid fa-heart text-[9px] text-pink-400"></i> 부드러운 여성 보이스
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 flex items-center gap-1" title="질문자와 답변자의 목소리가 다르게 재생됩니다">
+                <i class="fa-solid fa-users text-[9px] text-indigo-400"></i> 질문자(Eva)·답변자(Carlos) 보이스 분리
               </span>
+              <button type="button" onclick="window.app.toggleAnswererVoiceGender()" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-pink-500/20 hover:bg-pink-500/30 text-pink-300 border border-pink-500/30 flex items-center gap-1 transition cursor-pointer" title="답변자 Carlos 보이스 전환 (부드러운 여성 ⟷ 부드러운 남성)">
+                <i class="fa-solid fa-microphone text-[9px] text-pink-400"></i> 답변자: ${(state && state.englishAnswererVoiceGender === 'male') ? '부드러운 남성' : '부드러운 여성'}
+                <span class="text-[9px] opacity-75 underline ml-0.5 font-mono">전환</span>
+              </button>
               ${isPlaying ? `
                 <span class="flex items-center gap-1 text-[10px] text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/30 animate-pulse">
                   <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> 재생 중
@@ -3668,9 +3742,21 @@ function renderEnglishPodcastPlayer() {
             </span>
           </div>
         </div>
-        <span class="text-xs text-slate-400 font-mono hidden sm:inline-block">
-          ${currentTrack.speaker}
-        </span>
+        <div class="hidden sm:flex items-center gap-1.5 text-xs font-mono">
+          ${currentTrack.speaker.includes('Eva') && currentTrack.speaker.includes('Carlos') ? `
+            <span class="px-2.5 py-1 rounded-xl bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 flex items-center gap-1.5 font-bold shadow-sm">
+              <i class="fa-solid fa-comments text-indigo-400"></i> 듀얼 대화: Eva ➔ Carlos
+            </span>
+          ` : currentTrack.speaker.includes('Eva') ? `
+            <span class="px-2.5 py-1 rounded-xl bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 flex items-center gap-1.5 font-bold shadow-sm">
+              <i class="fa-solid fa-user-tie text-indigo-400"></i> 질문자: Eva (면접관)
+            </span>
+          ` : `
+            <span class="px-2.5 py-1 rounded-xl bg-teal-500/20 text-teal-300 border border-teal-500/30 flex items-center gap-1.5 font-bold shadow-sm">
+              <i class="fa-solid fa-microphone-lines text-teal-400"></i> 답변자: Carlos (${(state && state.englishAnswererVoiceGender) === 'male' ? '남성' : '여성'} 톤)
+            </span>
+          `}
+        </div>
       </div>
 
       <!-- Seekbar & Timestamps -->
@@ -8820,9 +8906,11 @@ window.app = {
   togglePodcastScript: () => togglePodcastScript(),
   handlePodcastSeekClick: (e) => handlePodcastSeekClick(e),
   getPodcastTracks: (items, idiom, setNum, topicIndex) => getPodcastTracks(items, idiom, setNum, topicIndex),
-  getAnnouncerVoice: (lang) => getAnnouncerVoice(lang),
+  getAnnouncerVoice: (lang, role) => getAnnouncerVoice(lang, role),
+  getPodcastSpeakerVoice: (role, pref) => getPodcastSpeakerVoice(role, pref),
   getPodcastState: () => englishPodcastState,
   selectOpicTopic: (idx) => selectOpicTopic(idx),
+  toggleAnswererVoiceGender: () => toggleAnswererVoiceGender(),
   top5OpicTopics: TOP_5_OPIC_TOPICS,
   opicQuestionBank: OPIC_QUESTION_BANK,
   // KNOU Social Welfare Handlers
