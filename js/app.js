@@ -2617,37 +2617,54 @@ function getAnnouncerVoice(lang = 'en-US') {
     return voices.find(v => isKo ? v.lang.includes('ko') : v.lang.includes('en')) || null;
   }
 
-  // 아나운서 및 스튜디오 내레이션에 최적화된 고음질 프리미엄 보이스 우선 매칭
-  const preferredPatterns = isKo
-    ? [
-        /sunhi/i,          // Microsoft SunHi Online (Natural) - 한국어 대표 뉴스 아나운서 톤
-        /injoon/i,         // Microsoft InJoon Online (Natural) - 또렷하고 신뢰감 높은 남성 아나운서 톤
-        /yunjae/i,         // Microsoft YunJae Online (Natural) - 안정적인 브리핑 톤
-        /natural.*korean/i,
-        /google.*한국/i,   // Google 한국의 (Chrome 고음질 신경망 보이스)
-        /google.*korean/i,
-        /yuna/i,           // Apple Yuna (정갈한 표준 한국어 톤)
-        /sora/i,           // Apple Sora
-        /heami/i,          // Microsoft Heami (윈도우 기본 또렷한 내레이션)
-        /sehyeon/i
-      ]
-    : [
-        /jenny/i,          // Microsoft Jenny Online (Natural) - 미국 대표 뉴스/팟캐스트 톤
-        /guy/i,            // Microsoft Guy Online (Natural) - 전문 팟캐스트 호스트 톤
-        /aria/i,           // Microsoft Aria Online (Natural)
-        /christopher/i,    // Microsoft Christopher Online (Natural)
-        /eric/i,
-        /natural.*english/i,
-        /google.*us.*english/i, // Google US English (Chrome 대표 원어민 보이스)
-        /google.*english/i,
-        /samantha/i,       // Apple Samantha
-        /alex/i,
-        /daniel/i,
-        /zira/i,
-        /david/i
-      ];
+  if (isKo) {
+    const koPatterns = [
+      /sunhi/i,          // Microsoft SunHi Online (Natural)
+      /injoon/i,
+      /yunjae/i,
+      /google.*한국/i,
+      /google.*korean/i,
+      /yuna/i,
+      /heami/i
+    ];
+    for (const regex of koPatterns) {
+      const match = targetVoices.find(v => regex.test(v.name));
+      if (match) return match;
+    }
+    return targetVoices.find(v => v.default) || targetVoices[0];
+  }
 
-  for (const regex of preferredPatterns) {
+  // 영어(en-US): 부드러운 목소리의 여성(Soft Female) 음성 전용 필터링
+  // 남성 음성 키워드 철저 배제
+  const maleNames = /guy|christopher|eric|david|george|mark|alex|daniel|stefan|james|brian|michael|richard|oliver|steven|tom|reed|fred|paul/i;
+  const femaleOnlyVoices = targetVoices.filter(v => !maleNames.test(v.name));
+
+  // 최상위 선호: 부드럽고 차분하며 상냥한 여성 내레이터 음성
+  const softFemalePatterns = [
+    /jenny/i,               // Microsoft Jenny Online (Natural) - 가장 부드럽고 따뜻한 톤
+    /aria/i,                // Microsoft Aria Online (Natural) - 차분하고 상냥한 톤
+    /ava/i,                 // Microsoft Ava / Apple Ava - 극도로 부드러운 자연 발화
+    /emma/i,                // Microsoft Emma - 온화한 내레이션
+    /michelle/i,            // Microsoft Michelle
+    /google.*uk.*female/i,  // Google UK English Female - 부드럽고 정갈한 여성 톤
+    /google.*us.*english/i, // Google US English (기본 여성 톤)
+    /samantha/i,            // Apple Samantha - 자연스러운 여성 음성
+    /victoria/i,            // Apple Victoria - 차분한 여성 음성
+    /karen/i,               // Apple Karen
+    /zira/i                 // Microsoft Zira - Windows 기본 여성 음성
+  ];
+
+  for (const regex of softFemalePatterns) {
+    const match = femaleOnlyVoices.find(v => regex.test(v.name));
+    if (match) return match;
+  }
+
+  // 선호 패턴 외 여성 음성 목록에서 검색
+  if (femaleOnlyVoices.length > 0) {
+    return femaleOnlyVoices.find(v => v.default) || femaleOnlyVoices[0];
+  }
+
+  for (const regex of softFemalePatterns) {
     const match = targetVoices.find(v => regex.test(v.name));
     if (match) return match;
   }
@@ -2680,6 +2697,73 @@ function formatPodcastTime(sec) {
   const s = Math.floor(sec % 60);
   return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
 }
+
+// --------------------------------------------------------------------------
+// OPIc (Oral Proficiency Interview - computer) Most Frequent TOP 5 Topics
+// (매일 5대 최다 빈출 주제 중 1개 선택 청취 전용 풀)
+// --------------------------------------------------------------------------
+const TOP_5_OPIC_TOPICS = [
+  {
+    id: "top-01",
+    shortName: "1. 일상 루틴 & 향후 계획",
+    engShort: "Routine & Plans",
+    tag: "빈출 1위 서베이",
+    theme: "Routine & Future Plans (일상 루틴 및 방과 후/퇴근 후 계획)",
+    category: "survey",
+    evaPrompt: "Let's start the interview now. Tell me a little bit about yourself, your typical daily routine, and what plans you are currently focusing on after your work or study.",
+    koreanTitle: "Q1. 일상 루틴 및 방과 후/퇴근 후 계획 묘사",
+    targetScore: "AL / IH",
+    keyTips: "단순 일정 나열을 피하고, 'plan to 동사원형'이나 'focus on'과 같은 세련된 연결어를 사용하여 자연스러운 시간 흐름을 구성하세요."
+  },
+  {
+    id: "top-02",
+    shortName: "2. 잊지 못할 여행 경험",
+    engShort: "Memorable Travel",
+    tag: "빈출 1위 돌발·경험",
+    theme: "Memorable Travel Experience (기억에 남는 여행 및 휴가 경험)",
+    category: "experience",
+    evaPrompt: "Can you tell me about a particularly memorable trip you took in the past? Where did you go, what happened, and why was that experience so unforgettable to you?",
+    koreanTitle: "Q2. 과거 잊지 못할 여행 경험과 돌발 상황 극복 스토리",
+    targetScore: "AL",
+    keyTips: "과거시제와 현재완료의 일관성을 유지하면서, 돌발 문제 상황(Surprise obstacle)을 해결한 결말을 맺으세요."
+  },
+  {
+    id: "top-03",
+    shortName: "3. 음악 감상 & 밴드",
+    engShort: "Music & Bands",
+    tag: "빈출 1위 취미·여가",
+    theme: "Music & Indie Bands (음악 감상 및 인디밴드 합주)",
+    category: "survey",
+    evaPrompt: "You indicated in the survey that you like listening to music. What kind of music do you usually listen to? Tell me about your favorite musicians or indie bands, and how you enjoy musical activities.",
+    koreanTitle: "Q3. 좋아하는 음악 장르, 인디밴드 합주 및 아티스트 묘사",
+    targetScore: "AL / IH",
+    keyTips: "좋아하는 악기 연주(신디사이저, 건반)나 밴드 합주 준비 경험을 곁들여 나만의 차별화된 경험으로 이끌어가세요."
+  },
+  {
+    id: "top-04",
+    shortName: "4. 건강 관리 & 헬스",
+    engShort: "Health & Fitness",
+    tag: "빈출 1위 건강·운동",
+    theme: "Health, Fitness & Workout (건강 관리, 체중 및 체구 관리)",
+    category: "survey",
+    evaPrompt: "Staying healthy and maintaining good physical shape is very important to many people. What do you do on a regular basis to keep fit, manage your body, and maintain a healthy lifestyle?",
+    koreanTitle: "Q4. 건강 유지, 헬스 트레이닝 및 체형 변화 묘사",
+    targetScore: "AL / IH",
+    keyTips: "체중계 숫자보다 '골격근량 증가와 순수 체지방 감량(Body Recomposition)'이라는 명확한 목표 지향적 스토리를 제시하세요."
+  },
+  {
+    id: "top-05",
+    shortName: "5. 롤플레이 문제 해결",
+    engShort: "Role-Play Alternatives",
+    tag: "빈출 1위 12번 롤플레이",
+    theme: "Role-Play: Problem Solving & Alternatives (롤플레이 12번 문제 해결 및 대안 제시)",
+    category: "roleplay",
+    evaPrompt: "I'm sorry, but an unexpected problem has occurred. You scheduled an important session, but an urgent matter came up. Call your partner, explain the problem, and suggest two alternatives.",
+    koreanTitle: "Q5. [롤플레이 12번] 긴급 일정 변경 통보 및 2가지 현실적 대안 제시",
+    targetScore: "AL",
+    keyTips: "당황하는 감정 표현과 함께 'How about we reschedule to...', 'Alternatively, I can...' 등 명확한 대안 2가지를 제시하세요."
+  }
+];
 
 // --------------------------------------------------------------------------
 // OPIc (Oral Proficiency Interview - computer) Authentic Exam Question Bank
@@ -2778,7 +2862,7 @@ const OPIC_QUESTION_BANK = [
   }
 ];
 
-function getPodcastTracks(items, idiom, setNum) {
+function getPodcastTracks(items, idiom, setNum, topicIndex) {
   const safeIdiom = idiom || { expression: 'bring something to the table', meaning: '유용한 가치나 아이디어를 기여하다' };
   const safeItems = (items && items.length >= 5) ? items.slice(0, 5) : [
     { num: 1, categoryName: '명사/관사', youSaid: 'I got many knowledges', betterSay: 'I gained a lot of knowledge', explanation: 'knowledge는 불가산 명사이므로 s를 붙이지 않습니다.' },
@@ -2788,7 +2872,13 @@ function getPodcastTracks(items, idiom, setNum) {
     { num: 5, categoryName: '시제', youSaid: 'I did not eat yet', betterSay: "I haven't eaten yet", explanation: 'yet과 함께 현재완료 시제를 씁니다.' }
   ];
 
-  const opic = OPIC_QUESTION_BANK[(setNum - 1) % OPIC_QUESTION_BANK.length];
+  const chosenTopicIdx = (typeof topicIndex === 'number')
+    ? topicIndex
+    : ((typeof state !== 'undefined' && typeof state.englishSelectedTopTopicIdx === 'number')
+        ? state.englishSelectedTopTopicIdx
+        : 0);
+
+  const opic = TOP_5_OPIC_TOPICS[chosenTopicIdx % TOP_5_OPIC_TOPICS.length];
   const cleanTheme = opic.theme.split('(')[0].trim();
 
   // Helper to format clean sentences
@@ -3063,7 +3153,8 @@ function playPodcastTrack(trackIdx) {
     dailyFocusItems.push(...corrections.slice(0, pageSize - dailyFocusItems.length));
   }
   const currentIdiom = idioms[(currentSetNum - 1) % (idioms.length || 1)];
-  const tracks = getPodcastTracks(dailyFocusItems, currentIdiom, currentSetNum);
+  const topicIdx = (typeof state.englishSelectedTopTopicIdx === 'number') ? state.englishSelectedTopTopicIdx : 0;
+  const tracks = getPodcastTracks(dailyFocusItems, currentIdiom, currentSetNum, topicIdx);
 
   if (trackIdx < 0 || trackIdx >= tracks.length) {
     stopPodcastAudio();
@@ -3121,10 +3212,10 @@ function playPodcastTrack(trackIdx) {
       const voice = getAnnouncerVoice('en-US');
       if (voice) u.voice = voice;
 
-      // Rate & pitch tuned for crystal-clear broadcast diction
+      // Rate & pitch tuned for a soft, gentle, and warm female conversational delivery
       const baseRate = englishPodcastState.rate || 1.0;
-      u.rate = Math.max(0.7, Math.min(1.5, baseRate * 0.98));
-      u.pitch = 1.0;
+      u.rate = Math.max(0.7, Math.min(1.5, baseRate * 0.94));
+      u.pitch = 1.04;
 
       u.onend = () => {
         if (!englishPodcastState.isPlaying || englishPodcastState.sessionId !== thisSessionId) return;
@@ -3164,6 +3255,17 @@ function playPodcastTrack(trackIdx) {
   }, 1000);
 
   renderEnglishPodcastPlayer();
+}
+
+function selectOpicTopic(idx) {
+  stopPodcastAudio();
+  state.englishSelectedTopTopicIdx = idx;
+  englishPodcastState.currentTrackIndex = 0;
+  englishPodcastState.elapsedSeconds = 0;
+  persistState();
+  renderEnglishPodcastPlayer();
+  const top = TOP_5_OPIC_TOPICS[idx] || TOP_5_OPIC_TOPICS[0];
+  showToast(`🎧 오픽 빈출 주제 [${top.shortName}]가 선택되었습니다.`);
 }
 
 function togglePodcastPlay() {
@@ -3417,14 +3519,15 @@ function renderEnglishPodcastPlayer() {
     dailyFocusItems.push(...corrections.slice(0, pageSize - dailyFocusItems.length));
   }
   const currentIdiom = idioms[(currentSetNum - 1) % (idioms.length || 1)];
-  const currentOpic = OPIC_QUESTION_BANK[(currentSetNum - 1) % OPIC_QUESTION_BANK.length];
-  const tracks = getPodcastTracks(dailyFocusItems, currentIdiom, currentSetNum);
+  const topicIdx = (typeof state.englishSelectedTopTopicIdx === 'number') ? state.englishSelectedTopTopicIdx : 0;
+  const currentOpic = TOP_5_OPIC_TOPICS[topicIdx % TOP_5_OPIC_TOPICS.length];
+  const tracks = getPodcastTracks(dailyFocusItems, currentIdiom, currentSetNum, topicIdx);
 
   const isPlaying = englishPodcastState.isPlaying;
   const currentIdx = englishPodcastState.currentTrackIndex || 0;
   const currentTrack = tracks[currentIdx] || tracks[0];
   const elapsed = englishPodcastState.elapsedSeconds || 0;
-  const total = englishPodcastState.totalDuration || 435;
+  const total = englishPodcastState.totalDuration || 245;
   const progressPct = Math.min(100, (elapsed / total) * 100);
 
   container.innerHTML = `
@@ -3439,12 +3542,15 @@ function renderEnglishPodcastPlayer() {
             <i class="fa-solid fa-podcast"></i>
           </div>
           <div>
-            <div class="flex items-center gap-2">
+            <div class="flex flex-wrap items-center gap-2">
               <span class="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/40">
                 DAILY PODCAST · EPISODE ${currentSetNum}
               </span>
               <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
                 <i class="fa-solid fa-microphone mr-1"></i>OPIc AL 대비
+              </span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/30 flex items-center gap-1">
+                <i class="fa-solid fa-heart text-[9px] text-pink-400"></i> 부드러운 여성 보이스
               </span>
               ${isPlaying ? `
                 <span class="flex items-center gap-1 text-[10px] text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/30 animate-pulse">
@@ -3467,6 +3573,49 @@ function renderEnglishPodcastPlayer() {
           <span>${englishPodcastState.showScript ? '대본 접기' : '대본 전문 보기'}</span>
           <i class="fa-solid ${englishPodcastState.showScript ? 'fa-chevron-up' : 'fa-chevron-down'} text-[10px] text-slate-400"></i>
         </button>
+      </div>
+
+      <!-- TOP 5 Most Frequent OPIc Topics Selector Bar (매일 5대 빈출 주제 중 1개 선택 청취) -->
+      <div class="mb-5 p-4 rounded-2xl bg-slate-950/70 border border-teal-500/30">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-lg bg-teal-500/20 text-teal-300 flex items-center justify-center text-xs font-black">
+              <i class="fa-solid fa-list-ol"></i>
+            </span>
+            <span class="text-xs font-bold text-teal-300 uppercase tracking-wide">
+              오픽 최다 빈출 TOP 5 핵심 주제 (매일 1개 선택 청취)
+            </span>
+          </div>
+          <span class="text-[11px] text-slate-400">
+            원하는 주제를 클릭하면 해당 기출 질문과 AL 실전 답변으로 즉시 전환됩니다.
+          </span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
+          ${TOP_5_OPIC_TOPICS.map((top, idx) => {
+            const isSelected = (topicIdx % TOP_5_OPIC_TOPICS.length) === idx;
+            return `
+              <button onclick="window.app.selectOpicTopic(${idx})" class="p-2.5 rounded-xl border transition text-left cursor-pointer flex flex-col justify-between group ${isSelected ? 'bg-gradient-to-br from-teal-500/25 to-emerald-500/15 border-teal-400 shadow-md ring-1 ring-teal-400/40 text-white' : 'bg-slate-900/80 border-slate-800 hover:border-slate-700 text-slate-400 hover:text-slate-200'}">
+                <div class="flex items-center justify-between gap-1 mb-1">
+                  <span class="text-[9px] font-bold px-1.5 py-0.2 rounded ${isSelected ? 'bg-teal-400 text-slate-950 font-black' : 'bg-slate-800 text-slate-400'}">
+                    ${top.tag}
+                  </span>
+                  ${isSelected ? `
+                    <span class="text-[9px] text-emerald-400 font-bold flex items-center gap-0.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> 선택됨
+                    </span>
+                  ` : ''}
+                </div>
+                <div class="text-xs font-bold line-clamp-1 ${isSelected ? 'text-teal-200' : 'text-slate-300 group-hover:text-white'}">
+                  ${top.shortName}
+                </div>
+                <div class="text-[10px] text-slate-500 font-mono mt-0.5 truncate">
+                  ${top.engShort}
+                </div>
+              </button>
+            `;
+          }).join('')}
+        </div>
       </div>
 
       <!-- Eva's Authentic OPIc Exam Question Prompt Card -->
@@ -8670,9 +8819,11 @@ window.app = {
   playPodcastTrack: (idx) => playPodcastTrack(idx),
   togglePodcastScript: () => togglePodcastScript(),
   handlePodcastSeekClick: (e) => handlePodcastSeekClick(e),
-  getPodcastTracks: (items, idiom, setNum) => getPodcastTracks(items, idiom, setNum),
+  getPodcastTracks: (items, idiom, setNum, topicIndex) => getPodcastTracks(items, idiom, setNum, topicIndex),
   getAnnouncerVoice: (lang) => getAnnouncerVoice(lang),
   getPodcastState: () => englishPodcastState,
+  selectOpicTopic: (idx) => selectOpicTopic(idx),
+  top5OpicTopics: TOP_5_OPIC_TOPICS,
   opicQuestionBank: OPIC_QUESTION_BANK,
   // KNOU Social Welfare Handlers
   setKnouFilter: (f) => {
