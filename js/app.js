@@ -2669,7 +2669,7 @@ const englishPodcastState = {
   currentTrackIndex: 0,
   rate: 1.0,
   elapsedSeconds: 0,
-  totalDuration: 210, // 약 3분 30초 (스크립트 전용 리딩)
+  totalDuration: 245, // 약 4분 05초 (OPIc AL 완성형 실전 답변)
   timerInterval: null,
   showScript: false,
   sessionId: 0
@@ -2789,15 +2789,45 @@ function getPodcastTracks(items, idiom, setNum) {
   ];
 
   const opic = OPIC_QUESTION_BANK[(setNum - 1) % OPIC_QUESTION_BANK.length];
+  const cleanTheme = opic.theme.split('(')[0].trim();
+
+  // Helper to format clean sentences
+  const cleanSentence = (str) => {
+    if (!str) return '';
+    let s = String(str).trim();
+    s = s.charAt(0).toUpperCase() + s.slice(1);
+    if (!/[.!?]$/.test(s)) s += '.';
+    return s;
+  };
+
+  // Structured AL Answer Discourse Connectors for each of the 5 points
+  const alPartConnectors = [
+    `Well Eva, answering your question about ${cleanTheme}, to begin with: `,
+    `Furthermore, regarding my daily routine: `,
+    `In fact, what really made an impact on me was that `,
+    `More importantly, through this whole journey, `,
+    `Looking ahead, as a core value in my life: `
+  ];
+
+  const alPartTitles = [
+    "서론 & 핵심 발화 (Opening & Direct Answer)",
+    "본론 1 & 구체적 일상 (Detail & Routine)",
+    "본론 2 & 심층 경험 (Core Narrative & Impact)",
+    "본론 3 & 교훈 및 인사이트 (Insight & Growth)",
+    "결론 & 미래 비전 (Outlook & Core Philosophy)"
+  ];
+
+  // Full Cohesive 2-Minute AL Model Answer Text
+  const fullAlModelAnswer = `Well Eva, thank you for that question about ${cleanTheme}. First of all, ${cleanSentence(safeItems[0].betterSay)} On top of that, ${cleanSentence(safeItems[1].betterSay)} In fact, ${cleanSentence(safeItems[2].betterSay)} More importantly, ${cleanSentence(safeItems[3].betterSay)} Looking ahead, ${cleanSentence(safeItems[4].betterSay)} Whenever I face new opportunities, I always try to ${safeIdiom.expression}. Overall, that truly reflects my thoughts and personal goals on this topic.`;
 
   return [
     {
       id: 0,
-      title: `🎙️ Track 1. 오픽 기출 질문 리딩 (${opic.theme})`,
-      speaker: "Interviewer Eva & Host Aaron",
+      title: `🎙️ Track 1. [OPIc 기출] Eva의 인터뷰 질문 출제 (${cleanTheme})`,
+      speaker: "Interviewer Eva & Carlos",
       durationSec: 30,
       timeLabel: "00:00",
-      speechText: `Hello Carlos, here is your question: ${opic.evaPrompt}. Welcome to Episode ${setNum}. Today Carlos is answering Eva's question about ${opic.theme.split('(')[0].trim()}. Let's listen to Carlos's responses and the upgraded native expressions!`,
+      speechText: `Hello Carlos, here is your question: ${opic.evaPrompt}. Well Eva, thank you for asking about ${cleanTheme}. Let me share my personal story and perspectives with you.`,
       speechSegments: [
         {
           text: `Hello Carlos, here is your question: ${opic.evaPrompt}`,
@@ -2805,12 +2835,12 @@ function getPodcastTracks(items, idiom, setNum) {
           speakerLabel: 'Interviewer Eva (질문 출제)'
         },
         {
-          text: `Welcome to Episode ${setNum}. Today Carlos is answering Eva's question about ${opic.theme.split('(')[0].trim()}. Let's listen to Carlos's responses and the upgraded native expressions!`,
+          text: `Well Eva, thank you for asking about ${cleanTheme}. Let me share my personal story and perspectives with you.`,
           lang: 'en-US',
-          speakerLabel: 'Host Aaron (호스트)'
+          speakerLabel: 'Carlos (답변 오프닝)'
         }
       ],
-      summaryKo: `오픽 기출 질문 원문 리딩: [${opic.koreanTitle}]`,
+      summaryKo: `오픽 기출 질문: [${opic.koreanTitle}]`,
       fullScriptHtml: `
         <div class="space-y-2 text-xs">
           <div class="flex items-center gap-2">
@@ -2818,180 +2848,187 @@ function getPodcastTracks(items, idiom, setNum) {
             <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">Target: AL</span>
           </div>
           
-          <div class="p-3 rounded-xl bg-indigo-950/40 border border-indigo-500/30">
-            <p class="text-indigo-300 font-bold mb-1 flex items-center gap-1.5">
-              <i class="fa-solid fa-circle-question"></i>
-              <span>👩‍💼 Interviewer Eva (오픽 면접 질문):</span>
+          <div class="p-3.5 rounded-2xl bg-indigo-950/40 border border-indigo-500/30">
+            <p class="text-indigo-300 font-bold mb-1.5 flex items-center gap-1.5">
+              <i class="fa-solid fa-circle-question text-sm"></i>
+              <span>👩‍💼 Interviewer Eva (오픽 공식 질문):</span>
             </p>
-            <p class="text-slate-100 font-sans italic leading-relaxed pl-2 border-l-2 border-indigo-400">
+            <p class="text-slate-100 font-sans italic leading-relaxed pl-2.5 border-l-2 border-indigo-400 text-xs sm:text-sm">
               "${opic.evaPrompt}"
             </p>
           </div>
 
-          <div class="space-y-1.5 pt-1">
-            <p class="text-teal-300 font-bold">👨‍🏫 Host Aaron:</p>
-            <p class="text-slate-300 font-sans pl-2 border-l-2 border-teal-500/50 leading-relaxed">
-              "Welcome to Episode ${setNum}! Today Carlos is answering Eva's question about ${opic.theme}. Let's listen to Carlos's responses and the upgraded native expressions!"
+          <div class="p-3 rounded-2xl bg-slate-900/80 border border-slate-800">
+            <p class="text-teal-300 font-bold mb-1">🙋‍♂️ Carlos (답변 오프닝):</p>
+            <p class="text-slate-200 font-sans pl-2 border-l-2 border-teal-500/50 leading-relaxed text-xs">
+              "Well Eva, thank you for asking about ${cleanTheme}. Let me share my personal story and perspectives with you."
             </p>
           </div>
         </div>
       `
     },
-    ...safeItems.map((item, idx) => ({
-      id: idx + 1,
-      title: `💬 Track ${idx + 2}. 실전 대화 #${idx + 1}: ${item.categoryName} (#${item.num})`,
-      speaker: "Carlos & Tutor Aaron",
-      durationSec: 25,
-      timeLabel: formatPodcastTime(30 + idx * 25),
-      speechText: `Well Eva, answering your question: "${item.youSaid}". Better say: "${item.betterSay}". "${item.betterSay}".`,
-      speechSegments: [
-        {
-          text: `Well Eva, answering your question... "${item.youSaid}".`,
-          lang: 'en-US',
-          speakerLabel: 'Carlos (You said)'
-        },
-        {
-          text: `Better say: "${item.betterSay}".`,
-          lang: 'en-US',
-          speakerLabel: 'Tutor Aaron (Better say)'
-        },
-        {
-          text: `"${item.betterSay}".`,
-          lang: 'en-US',
-          speakerLabel: 'Carlos (Shadowing)'
-        }
-      ],
-      summaryKo: `"${item.youSaid}" ➔ "${item.betterSay}"`,
-      fullScriptHtml: `
-        <div class="space-y-2 text-xs">
-          <div class="flex items-center gap-2">
-            <span class="px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 text-[10px] font-bold">${item.categoryName}</span>
-            <span class="text-slate-400 text-xs font-mono font-bold">#${item.num}</span>
-            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">스크립트 리딩</span>
-          </div>
+    ...safeItems.map((item, idx) => {
+      const connector = alPartConnectors[idx];
+      const partSentence = `${connector}${cleanSentence(item.betterSay)}`;
+      return {
+        id: idx + 1,
+        title: `💬 Track ${idx + 2}. [AL 답변 #${idx + 1}] ${alPartTitles[idx]} (${item.categoryName})`,
+        speaker: "Carlos",
+        durationSec: 25,
+        timeLabel: formatPodcastTime(30 + idx * 25),
+        speechText: `${partSentence} "${cleanSentence(item.betterSay)}"`,
+        speechSegments: [
+          {
+            text: partSentence,
+            lang: 'en-US',
+            speakerLabel: `Carlos (AL 실전 답변 #${idx + 1})`
+          },
+          {
+            text: `"${cleanSentence(item.betterSay)}"`,
+            lang: 'en-US',
+            speakerLabel: 'Carlos (교정 문법 쉐도잉)'
+          }
+        ],
+        summaryKo: `[AL 답변 파트 ${idx + 1}] 내가 틀렸던 문법 수정한 AL 문장 적용: "${item.betterSay}"`,
+        fullScriptHtml: `
+          <div class="space-y-2 text-xs">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 text-[10px] font-bold">${item.categoryName}</span>
+              <span class="text-slate-400 text-xs font-mono font-bold">#${item.num}</span>
+              <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">OPIc AL 실전 답변</span>
+            </div>
 
-          <!-- Dialogue Flow: Carlos -> Aaron -> Shadowing -->
-          <div class="p-2.5 rounded-xl bg-slate-900/90 border border-rose-500/30">
-            <p class="text-rose-300 font-bold mb-0.5 flex items-center gap-1.5">
-              <span>🙋‍♂️ Carlos (You said):</span>
-            </p>
-            <p class="text-rose-200 font-medium pl-2 border-l-2 border-rose-500/60 font-sans">
-              "Well Eva, answering your question... <b class="underline decoration-rose-400">${item.youSaid}</b>."
-            </p>
-          </div>
+            <!-- Carlos AL Answer Discourse -->
+            <div class="p-3.5 rounded-2xl bg-slate-900/90 border border-teal-500/40 shadow-sm">
+              <p class="text-teal-300 font-bold mb-1 flex items-center gap-1.5">
+                <i class="fa-solid fa-microphone-lines text-xs"></i>
+                <span>🙋‍♂️ Carlos (OPIc AL 답변 본문):</span>
+              </p>
+              <p class="text-slate-100 font-sans text-xs sm:text-sm font-semibold leading-relaxed pl-2.5 border-l-2 border-teal-400">
+                "${connector}<mark class="bg-teal-500/20 text-teal-200 font-bold px-1.5 py-0.5 rounded border border-teal-500/30">${cleanSentence(item.betterSay)}</mark>"
+              </p>
+            </div>
 
-          <div class="p-2.5 rounded-xl bg-slate-900/90 border border-emerald-500/30">
-            <p class="text-emerald-300 font-bold mb-0.5 flex items-center gap-1.5">
-              <span>👨‍🏫 Tutor Aaron (Better say):</span>
-            </p>
-            <p class="text-emerald-200 font-bold pl-2 border-l-2 border-emerald-500/60 font-sans">
-              "Better say: <b class="text-white bg-emerald-500/20 px-1.5 py-0.5 rounded">${item.betterSay}</b>!"
-            </p>
-          </div>
-          
-          <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-[11px] text-slate-400">
-            <span class="text-slate-500 font-bold mr-1">[문법 팁 - 참고용 텍스트]</span>
-            <span>${item.explanation}</span>
-          </div>
+            <!-- Before vs After Grammar Upgrade Comparison -->
+            <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-[11px] space-y-1.5">
+              <div class="flex items-start gap-2 text-rose-300">
+                <span class="font-bold text-[9px] uppercase px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 flex-shrink-0 mt-0.5">내가 틀렸던 표현</span>
+                <span class="line-through text-slate-400 font-sans">"${item.youSaid}"</span>
+              </div>
+              <div class="flex items-start gap-2 text-emerald-300">
+                <span class="font-bold text-[9px] uppercase px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 flex-shrink-0 mt-0.5">AL 교정 적용 표현</span>
+                <span class="font-bold text-emerald-200 font-sans">"${item.betterSay}"</span>
+              </div>
+              <div class="text-slate-400 pt-1 border-t border-slate-800/80 text-[10px]">
+                💡 문법 교정 포인트: ${item.explanation}
+              </div>
+            </div>
 
-          <div class="pt-1.5 flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-800">
-            <span>🎧 쉐도잉 반복: "${item.betterSay}"</span>
-            <button onclick="window.app.speakEnglish('${item.betterSay.replace(/'/g, "\\'")}')" class="text-teal-400 hover:text-teal-300 font-bold flex items-center gap-1">
-              <i class="fa-solid fa-volume-high"></i> 개별 문장 듣기
-            </button>
+            <div class="pt-1 flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-800">
+              <span>🎧 쉐도잉 반복: "${item.betterSay}"</span>
+              <button onclick="window.app.speakEnglish('${item.betterSay.replace(/'/g, "\\'")}')" class="text-teal-400 hover:text-teal-300 font-bold flex items-center gap-1">
+                <i class="fa-solid fa-volume-high"></i> 개별 문장 듣기
+              </button>
+            </div>
           </div>
-        </div>
-      `
-    })),
+        `
+      };
+    }),
     {
       id: 6,
-      title: `✨ Track 7. 실전 이디엄 ("${safeIdiom.expression}")`,
-      speaker: "Tutor Aaron & Carlos",
+      title: `✨ Track 7. [AL 이디엄] 원어민 관용구 실전 적용 ("${safeIdiom.expression}")`,
+      speaker: "Carlos",
       durationSec: 25,
       timeLabel: formatPodcastTime(30 + 5 * 25),
-      speechText: `Key expression: "${safeIdiom.expression}". Example sentence: "In any project or discussion, I always try to ${safeIdiom.expression}." "${safeIdiom.expression}".`,
+      speechText: `In any project or discussion, I always try to ${safeIdiom.expression}. "${cleanSentence(safeIdiom.expression)}"`,
       speechSegments: [
         {
-          text: `Key expression: "${safeIdiom.expression}".`,
+          text: `In any project or discussion, I always try to ${safeIdiom.expression}.`,
           lang: 'en-US',
-          speakerLabel: 'Tutor Aaron'
+          speakerLabel: 'Carlos (AL 이디엄 적용 답변)'
         },
         {
-          text: `Example sentence: "In any project or discussion, I always try to ${safeIdiom.expression}."`,
+          text: `"${cleanSentence(safeIdiom.expression)}"`,
           lang: 'en-US',
-          speakerLabel: 'Tutor Aaron'
-        },
-        {
-          text: `"${safeIdiom.expression}".`,
-          lang: 'en-US',
-          speakerLabel: 'Carlos (Shadowing)'
+          speakerLabel: 'Carlos (이디엄 쉐도잉)'
         }
       ],
-      summaryKo: `이디엄: "${safeIdiom.expression}" 및 실전 활용 예문`,
+      summaryKo: `오픽 AL 비밀 병기 이디엄: "${safeIdiom.expression}" 실전 답변 활용`,
       fullScriptHtml: `
         <div class="space-y-2 text-xs">
           <div class="flex items-center gap-2">
-            <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-bold">실전 이디엄</span>
-            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">스크립트 리딩</span>
+            <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-bold">오픽 AL 치트키</span>
+            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">고득점 이디엄</span>
           </div>
 
           <p class="text-amber-300 font-black text-sm">✨ "${safeIdiom.expression}"</p>
-          <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-[11px] text-slate-400">
-            <span class="text-slate-500 font-bold mr-1">[한국어 의미 - 참고용 텍스트]</span>
-            <span class="text-slate-300">${safeIdiom.meaning}</span>
-          </div>
-
-          <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-700/60">
-            <span class="text-indigo-300 font-bold block mb-1">💬 실전 예문:</span>
-            <p class="text-slate-200 italic font-sans leading-relaxed">
+          <div class="p-3 rounded-xl bg-slate-900/90 border border-amber-500/30">
+            <p class="text-amber-200 font-bold mb-1">💬 실전 답변 적용 템플릿:</p>
+            <p class="text-slate-100 italic font-sans leading-relaxed text-xs sm:text-sm pl-2 border-l-2 border-amber-400">
               "In any project or discussion, I always try to <b class="text-amber-300 underline">${safeIdiom.expression}</b>."
             </p>
+          </div>
+
+          <div class="p-2 rounded-xl bg-slate-900/60 border border-slate-800 text-[11px] text-slate-400">
+            <span class="text-slate-500 font-bold mr-1">[참고 의미]</span>
+            <span class="text-slate-300">${safeIdiom.meaning}</span>
           </div>
         </div>
       `
     },
     {
       id: 7,
-      title: "🎧 Track 8. 최종 5문장 연속 쉐도잉 (Full Script)",
-      speaker: "Carlos & Tutor Aaron",
-      durationSec: 30,
+      title: "🏆 Track 8. [AL 완벽 실전] Eva 기출 & Carlos 2분 완성형 통합 답변",
+      speaker: "Interviewer Eva & Carlos",
+      durationSec: 65,
       timeLabel: formatPodcastTime(30 + 5 * 25 + 25),
-      speechText: `Now let's review the five sentences. ${safeItems.map((it, i) => `Sentence ${i + 1}: "${it.betterSay}".`).join(' ')} Great job Carlos!`,
+      speechText: `${opic.evaPrompt}. ${fullAlModelAnswer}`,
       speechSegments: [
         {
-          text: `Now let's review the five sentences. Listen and repeat after me.`,
+          text: opic.evaPrompt,
           lang: 'en-US',
-          speakerLabel: 'Tutor Aaron'
+          speakerLabel: 'Interviewer Eva (질문 출제)'
         },
-        ...safeItems.map((it, i) => ({
-          text: `Sentence ${i + 1}: "${it.betterSay}".`,
-          lang: 'en-US',
-          speakerLabel: `Sentence #${i + 1}`
-        })),
         {
-          text: `Great job Carlos!`,
+          text: fullAlModelAnswer,
           lang: 'en-US',
-          speakerLabel: 'Tutor Aaron'
+          speakerLabel: 'Carlos (AL 2분 완성형 통합 답변)'
         }
       ],
-      summaryKo: "5개 교정 문장 연속 쉐도잉 리딩",
+      summaryKo: "Eva의 기출 질문 ➔ Carlos의 5대 교정 문법 통합 2분 AL 완벽 답변 리딩",
       fullScriptHtml: `
-        <div class="space-y-2 text-xs">
+        <div class="space-y-3 text-xs">
           <div class="flex items-center justify-between">
             <p class="text-teal-300 font-bold flex items-center gap-1.5">
-              <i class="fa-solid fa-headphones"></i>
-              <span>Full Script Shadowing Drill:</span>
+              <i class="fa-solid fa-trophy text-amber-400"></i>
+              <span>OPIc Full 2-Minute AL Master Response:</span>
             </p>
-            <span class="text-[10px] text-amber-300 font-mono font-bold">연속 쉐도잉</span>
+            <span class="text-[10px] text-amber-300 font-mono font-bold bg-amber-500/20 px-2 py-0.5 rounded border border-amber-500/30">Target: AL 완벽 답변</span>
           </div>
 
-          <ol class="list-decimal list-inside space-y-1.5 text-slate-200 bg-slate-900/90 p-3 rounded-xl border border-slate-800">
-            ${safeItems.map(it => `
-              <li class="leading-relaxed">
-                <span class="text-emerald-300 font-bold font-sans">"${it.betterSay}"</span>
-              </li>
-            `).join('')}
-          </ol>
+          <!-- Eva's Question Prompt -->
+          <div class="p-3 rounded-2xl bg-indigo-950/40 border border-indigo-500/30 text-[11px]">
+            <span class="text-indigo-300 font-bold block mb-1">👩‍💼 Interviewer Eva:</span>
+            <p class="text-slate-200 italic font-sans leading-relaxed">"${opic.evaPrompt}"</p>
+          </div>
+
+          <!-- Full Cohesive Model Answer -->
+          <div class="p-4 rounded-2xl bg-slate-900/95 border border-teal-500/40 shadow-lg space-y-2 text-xs leading-relaxed text-slate-100 font-sans">
+            <div class="flex items-center justify-between pb-2 border-b border-slate-800 text-[11px]">
+              <span class="text-teal-300 font-bold">🙋‍♂️ Carlos (완성형 AL 통합 답변 전문):</span>
+              <span class="text-slate-400 font-mono">5개 교정 문법 + 이디엄 자연 결합</span>
+            </div>
+            <p class="leading-relaxed">
+              Well Eva, thank you for that question about <b class="text-slate-200">${cleanTheme}</b>.
+              First of all, <mark class="bg-emerald-500/20 text-emerald-300 font-bold px-1 rounded border border-emerald-500/30">${cleanSentence(safeItems[0].betterSay)}</mark>
+              On top of that, <mark class="bg-emerald-500/20 text-emerald-300 font-bold px-1 rounded border border-emerald-500/30">${cleanSentence(safeItems[1].betterSay)}</mark>
+              In fact, <mark class="bg-emerald-500/20 text-emerald-300 font-bold px-1 rounded border border-emerald-500/30">${cleanSentence(safeItems[2].betterSay)}</mark>
+              More importantly, <mark class="bg-emerald-500/20 text-emerald-300 font-bold px-1 rounded border border-emerald-500/30">${cleanSentence(safeItems[3].betterSay)}</mark>
+              Looking ahead, <mark class="bg-emerald-500/20 text-emerald-300 font-bold px-1 rounded border border-emerald-500/30">${cleanSentence(safeItems[4].betterSay)}</mark>
+              Whenever I face new opportunities, I always try to <mark class="bg-amber-500/20 text-amber-300 font-bold px-1 rounded border border-amber-500/30">${safeIdiom.expression}</mark>.
+              Overall, that truly reflects my thoughts and personal goals on this topic.
+            </p>
+          </div>
         </div>
       `
     }
@@ -3416,10 +3453,10 @@ function renderEnglishPodcastPlayer() {
               ` : ''}
             </div>
             <h2 class="text-lg sm:text-xl font-black text-white mt-1">
-              튜터 Aaron & Eva의 OPIc 실전 대화 데일리 클리닉 (러닝타임 약 3분 30초)
+              Eva의 OPIc 기출 & Carlos의 고득점 AL 실전 답변 클리닉 (러닝타임 약 4분)
             </h2>
             <p class="text-xs text-slate-400 mt-0.5">
-              오픽 기출 질문에 대해 Carlos의 답변과 Tutor의 교정 문장(Script)만을 원어민 영어 음성으로 깔끔하게 리딩합니다. (팁 제외, 스크립트 전용)
+              Eva의 오픽 기출 질문에 맞춰, 내가 자주 틀리던 문법을 완벽히 수정한 고득점 AL 등급 답변으로 이어지는 실전 스피킹 팟캐스트입니다.
             </p>
           </div>
         </div>
@@ -3494,7 +3531,7 @@ function renderEnglishPodcastPlayer() {
         </div>
         <div class="flex items-center justify-between text-[11px] font-mono text-slate-400">
           <span id="podcast-time-current">${formatPodcastTime(elapsed)}</span>
-          <span class="text-slate-500">총 03:30</span>
+          <span class="text-slate-500">총 04:05</span>
         </div>
       </div>
 
