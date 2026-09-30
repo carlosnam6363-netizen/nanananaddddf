@@ -2602,6 +2602,66 @@ function renderCaminoTab() {
 // ==========================================================================
 
 // --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// Crystal-Clear Dual Announcer TTS Engine (한·영 아나운서 고음질 보이스 셀렉터)
+// --------------------------------------------------------------------------
+function getAnnouncerVoice(lang = 'en-US') {
+  if (!('speechSynthesis' in window)) return null;
+  const voices = window.speechSynthesis.getVoices() || [];
+  if (!voices.length) return null;
+
+  const isKo = lang.startsWith('ko') || lang.includes('KR');
+  const targetVoices = voices.filter(v => isKo ? (v.lang && (v.lang.startsWith('ko') || v.lang.includes('KR'))) : (v.lang && v.lang.startsWith('en')));
+
+  if (!targetVoices.length) {
+    return voices.find(v => isKo ? v.lang.includes('ko') : v.lang.includes('en')) || null;
+  }
+
+  // 아나운서 및 스튜디오 내레이션에 최적화된 고음질 프리미엄 보이스 우선 매칭
+  const preferredPatterns = isKo
+    ? [
+        /sunhi/i,          // Microsoft SunHi Online (Natural) - 한국어 대표 뉴스 아나운서 톤
+        /injoon/i,         // Microsoft InJoon Online (Natural) - 또렷하고 신뢰감 높은 남성 아나운서 톤
+        /yunjae/i,         // Microsoft YunJae Online (Natural) - 안정적인 브리핑 톤
+        /natural.*korean/i,
+        /google.*한국/i,   // Google 한국의 (Chrome 고음질 신경망 보이스)
+        /google.*korean/i,
+        /yuna/i,           // Apple Yuna (정갈한 표준 한국어 톤)
+        /sora/i,           // Apple Sora
+        /heami/i,          // Microsoft Heami (윈도우 기본 또렷한 내레이션)
+        /sehyeon/i
+      ]
+    : [
+        /jenny/i,          // Microsoft Jenny Online (Natural) - 미국 대표 뉴스/팟캐스트 톤
+        /guy/i,            // Microsoft Guy Online (Natural) - 전문 팟캐스트 호스트 톤
+        /aria/i,           // Microsoft Aria Online (Natural)
+        /christopher/i,    // Microsoft Christopher Online (Natural)
+        /eric/i,
+        /natural.*english/i,
+        /google.*us.*english/i, // Google US English (Chrome 대표 원어민 보이스)
+        /google.*english/i,
+        /samantha/i,       // Apple Samantha
+        /alex/i,
+        /daniel/i,
+        /zira/i,
+        /david/i
+      ];
+
+  for (const regex of preferredPatterns) {
+    const match = targetVoices.find(v => regex.test(v.name));
+    if (match) return match;
+  }
+
+  return targetVoices.find(v => v.default) || targetVoices[0];
+}
+
+if ('speechSynthesis' in window) {
+  window.speechSynthesis.onvoiceschanged = () => {
+    // 음성 목록 비동기 프리로드 완료
+  };
+}
+
+// --------------------------------------------------------------------------
 // Podcast Audio Engine & State
 // --------------------------------------------------------------------------
 const englishPodcastState = {
@@ -2611,7 +2671,8 @@ const englishPodcastState = {
   elapsedSeconds: 0,
   totalDuration: 435, // 약 7분 15초
   timerInterval: null,
-  showScript: false
+  showScript: false,
+  sessionId: 0
 };
 
 function formatPodcastTime(sec) {
@@ -2634,56 +2695,150 @@ function getPodcastTracks(items, idiom, setNum) {
     {
       id: 0,
       title: "🎙️ 오프닝 & 오늘의 1:1 회화 브리핑 소개",
-      speaker: "Tutor Aaron",
+      speaker: "Tutor Aaron & 한국어 아나운서",
       durationSec: 45,
       timeLabel: "00:00",
       speechText: `Hello Carlos! Welcome to Episode ${setNum} of your Daily Grammar Briefing Podcast. Today, we are reviewing 5 crucial sentences from your recent 1-on-1 tutoring sessions, plus an essential idiom of the day. Put on your headphones, relax, and let's polish your speaking confidence together!`,
+      speechSegments: [
+        {
+          text: `Hello Carlos! Welcome to Episode ${setNum} of your Daily Grammar Briefing Podcast. Today, we are reviewing 5 crucial sentences from your recent 1-on-1 tutoring sessions, plus an essential idiom of the day.`,
+          lang: 'en-US',
+          speakerLabel: 'Tutor Aaron (원어민 영어)'
+        },
+        {
+          text: `안녕하세요 카를로스님! 오늘의 데일리 영문법 브리핑입니다. 카카오톡 회화 수업에서 자주 헷갈렸던 핵심 문장 5선과 원어민 뉘앙스 포인트를 귀로 편안하게 들으며 마스터해 보세요.`,
+          lang: 'ko-KR',
+          speakerLabel: '한국어 아나운서 브리핑'
+        },
+        {
+          text: `Put on your headphones, relax, and let's polish your speaking confidence together!`,
+          lang: 'en-US',
+          speakerLabel: 'Tutor Aaron (원어민 영어)'
+        }
+      ],
       summaryKo: "1:1 회화 수업 교정 팟캐스트 에피소드 오프닝 및 오늘의 학습 목표 안내",
       fullScriptHtml: `
-        <div class="space-y-1 text-xs">
-          <p class="text-teal-300 font-bold">🎙️ Tutor Aaron:</p>
-          <p class="text-slate-200 leading-relaxed font-sans">"Hello Carlos! Welcome to Episode ${setNum} of your Daily Grammar Briefing Podcast. Today, we are reviewing 5 crucial sentences from your recent 1-on-1 tutoring sessions, plus an essential idiom of the day. Put on your headphones, relax, and let's polish your speaking confidence together!"</p>
-          <p class="text-[11px] text-slate-400 mt-1 pt-1 border-t border-slate-800 leading-relaxed">
-            카카오톡 1:1 수업에서 실제로 다루었던 핵심 문장 5선과 원어민 뉘앙스 포인트를 편안하게 들으며 마스터하는 데일리 오디오 세션입니다.
-          </p>
+        <div class="space-y-2 text-xs">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 text-[10px] font-bold">오프닝 세션</span>
+            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">한·영 듀얼 아나운서 TTS</span>
+          </div>
+          <p class="text-teal-300 font-bold">🎙️ Tutor Aaron (원어민 영어):</p>
+          <p class="text-slate-200 leading-relaxed font-sans pl-2 border-l-2 border-teal-500/50">"Hello Carlos! Welcome to Episode ${setNum} of your Daily Grammar Briefing Podcast. Today, we are reviewing 5 crucial sentences from your recent 1-on-1 tutoring sessions, plus an essential idiom of the day. Put on your headphones, relax, and let's polish your speaking confidence together!"</p>
+          
+          <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-700/60 mt-2">
+            <p class="text-indigo-300 font-bold mb-1 flex items-center gap-1.5">
+              <i class="fa-solid fa-microphone-lines text-xs"></i>
+              <span>🎙️ 한국어 아나운서 브리핑:</span>
+            </p>
+            <p class="text-slate-300 text-xs leading-relaxed">
+              "카카오톡 1:1 수업에서 실제로 다루었던 핵심 문장 5선과 원어민 뉘앙스 포인트를 편안하게 들으며 마스터하는 데일리 오디오 세션입니다."
+            </p>
+          </div>
         </div>
       `
     },
     ...safeItems.map((item, idx) => ({
       id: idx + 1,
       title: `💬 Focus ${idx + 1}: ${item.categoryName} 교정 클리닉 (#${item.num})`,
-      speaker: "Tutor Aaron",
+      speaker: "Tutor Aaron & 한국어 아나운서",
       durationSec: 55,
       timeLabel: formatPodcastTime(45 + idx * 55),
-      speechText: `Sentence number ${idx + 1}. In our conversation, you said: "${item.youSaid}". A native speaker would naturally say: "${item.betterSay}". Notice that ${item.explanation}. Let's practice saying it together: "${item.betterSay}".`,
+      speechText: `Sentence number ${idx + 1}. In our conversation, you said: "${item.youSaid}". A native speaker would naturally say: "${item.betterSay}". 튜터 코칭: ${item.explanation}. Let's practice saying it together: "${item.betterSay}".`,
+      speechSegments: [
+        {
+          text: `Sentence number ${idx + 1}. In our conversation, you said: "${item.youSaid}". A native speaker would naturally say: "${item.betterSay}".`,
+          lang: 'en-US',
+          speakerLabel: 'Tutor Aaron (원어민 영어)'
+        },
+        {
+          text: `튜터 코칭 해설입니다. ${item.explanation}`,
+          lang: 'ko-KR',
+          speakerLabel: '한국어 아나운서 튜터 코칭'
+        },
+        {
+          text: `Now, let's practice saying the correct sentence together. Repeat after me: "${item.betterSay}".`,
+          lang: 'en-US',
+          speakerLabel: 'Tutor Aaron (원어민 영어)'
+        },
+        {
+          text: `"${item.betterSay}".`,
+          lang: 'en-US',
+          speakerLabel: 'Tutor Aaron (쉐도잉 반복)'
+        }
+      ],
       summaryKo: `내가 말한 "${item.youSaid}" ➔ 교정문 "${item.betterSay}" 어감 및 문법 포인트 해설`,
       fullScriptHtml: `
         <div class="space-y-1.5 text-xs">
           <div class="flex items-center gap-2">
             <span class="px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 text-[10px] font-bold">${item.categoryName}</span>
             <span class="text-slate-400 text-xs font-mono font-bold">#${item.num}</span>
+            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">한·영 듀얼 TTS</span>
           </div>
           <p class="text-rose-300 font-medium">❌ <b class="text-rose-400">You said:</b> "${item.youSaid}"</p>
           <p class="text-emerald-300 font-bold">✅ <b class="text-emerald-400">Better say:</b> "${item.betterSay}"</p>
-          <p class="text-slate-300 text-[11px] leading-relaxed pt-1 border-t border-slate-800">
-            <b class="text-teal-300">💡 튜터 코칭:</b> ${item.explanation}
-          </p>
+          
+          <div class="p-2.5 rounded-xl bg-slate-900/90 border border-teal-500/30 mt-1.5">
+            <div class="flex items-center gap-1.5 text-teal-300 font-bold mb-1">
+              <i class="fa-solid fa-volume-high text-xs"></i>
+              <span>💡 튜터 한글 코칭 (한국어 아나운서 음성):</span>
+            </div>
+            <p class="text-slate-200 text-xs leading-relaxed">
+              ${item.explanation}
+            </p>
+          </div>
+          
+          <div class="pt-1.5 flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-800">
+            <span>🎧 원어민 1회 발음 후 쉐도잉 구간 제공</span>
+            <button onclick="window.app.speakEnglish('${item.betterSay.replace(/'/g, "\\'")}')" class="text-teal-400 hover:text-teal-300 font-bold flex items-center gap-1">
+              <i class="fa-solid fa-volume-high"></i> 개별 듣기
+            </button>
+          </div>
         </div>
       `
     })),
     {
       id: 6,
       title: `💡 Idiom of the Day: "${safeIdiom.expression}"`,
-      speaker: "Tutor Aaron",
+      speaker: "Tutor Aaron & 한국어 아나운서",
       durationSec: 65,
       timeLabel: formatPodcastTime(45 + 5 * 55),
       speechText: `Now, let's explore our Idiom of the Day: "${safeIdiom.expression}". In Korean, this means ${safeIdiom.meaning}. It is widely used in both daily chats and professional business discussions. Remember to use "${safeIdiom.expression}" when the right situation comes up!`,
+      speechSegments: [
+        {
+          text: `Now, let's explore our Idiom of the Day: "${safeIdiom.expression}".`,
+          lang: 'en-US',
+          speakerLabel: 'Tutor Aaron (원어민 영어)'
+        },
+        {
+          text: `이 표현의 한국어 의미는, "${safeIdiom.meaning}" 입니다. 일상 대화와 비즈니스 미팅에서 자주 쓰이는 유용한 핵심 관용구입니다.`,
+          lang: 'ko-KR',
+          speakerLabel: '한국어 아나운서 해설'
+        },
+        {
+          text: `It is widely used in both daily chats and professional business discussions. Remember to use "${safeIdiom.expression}" when the right situation comes up!`,
+          lang: 'en-US',
+          speakerLabel: 'Tutor Aaron (원어민 영어)'
+        }
+      ],
       summaryKo: `오늘의 핵심 관용구 "${safeIdiom.expression}" 유래 및 실전 활용법`,
       fullScriptHtml: `
-        <div class="space-y-1 text-xs">
+        <div class="space-y-1.5 text-xs">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-bold">오늘의 이디엄</span>
+            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">한·영 듀얼 TTS</span>
+          </div>
           <p class="text-amber-300 font-black text-sm">✨ "${safeIdiom.expression}"</p>
-          <p class="text-slate-200 text-xs"><b class="text-slate-400">한국어 의미:</b> ${safeIdiom.meaning}</p>
-          <p class="text-slate-400 text-[11px] pt-1 border-t border-slate-800 leading-relaxed">
+          <div class="p-2.5 rounded-xl bg-slate-900/90 border border-amber-500/30">
+            <div class="flex items-center gap-1.5 text-amber-300 font-bold mb-1">
+              <i class="fa-solid fa-volume-high text-xs"></i>
+              <span>한국어 의미 (아나운서 음성):</span>
+            </div>
+            <p class="text-slate-200 text-xs leading-relaxed">
+              "${safeIdiom.meaning}"
+            </p>
+          </div>
+          <p class="text-slate-400 text-[11px] pt-1 leading-relaxed">
             비즈니스 회화와 일상 대화에서 어휘력을 한 단계 끌어올려 주는 원어민 필수 이디엄입니다.
           </p>
         </div>
@@ -2692,10 +2847,32 @@ function getPodcastTracks(items, idiom, setNum) {
     {
       id: 7,
       title: "🎧 Wrap-up & 5문장 원어민 연속 쉐도잉",
-      speaker: "Tutor Aaron",
+      speaker: "Tutor Aaron & 한국어 아나운서",
       durationSec: 50,
       timeLabel: formatPodcastTime(45 + 5 * 55 + 65),
       speechText: `Excellent work today! Before we finish, let's do a quick shadowing drill. Listen to each sentence and repeat after me. ${safeItems.map((it, i) => `Sentence ${i + 1}: ${it.betterSay}.`).join(' ')} Outstanding effort, Carlos! Keep listening every day, and see you tomorrow!`,
+      speechSegments: [
+        {
+          text: `Excellent work today! Before we finish, let's do a quick shadowing drill. Listen to each sentence and repeat after me.`,
+          lang: 'en-US',
+          speakerLabel: 'Tutor Aaron (원어민 영어)'
+        },
+        ...safeItems.map((it, i) => ({
+          text: `Number ${i + 1}: "${it.betterSay}".`,
+          lang: 'en-US',
+          speakerLabel: `Shadowing Sentence #${i + 1}`
+        })),
+        {
+          text: `오늘도 수고 많으셨습니다, 카를로스님! 매일 5분씩 귀로 들으며 입으로 따라 말하는 습관이 자연스러운 영어 회화의 자신감을 만듭니다.`,
+          lang: 'ko-KR',
+          speakerLabel: '한국어 아나운서 클로징'
+        },
+        {
+          text: `Outstanding effort, Carlos! Keep listening every day, and see you tomorrow!`,
+          lang: 'en-US',
+          speakerLabel: 'Tutor Aaron (원어민 영어)'
+        }
+      ],
       summaryKo: "오늘 배운 5문장 원어민 속도로 연속 쉐도잉 복습 및 마무리",
       fullScriptHtml: `
         <div class="space-y-1.5 text-xs">
@@ -2703,9 +2880,10 @@ function getPodcastTracks(items, idiom, setNum) {
           <ol class="list-decimal list-inside space-y-1 text-slate-200">
             ${safeItems.map(it => `<li><span class="text-emerald-300 font-bold">"${it.betterSay}"</span></li>`).join('')}
           </ol>
-          <p class="text-[11px] text-slate-400 mt-2 border-t border-slate-800 pt-1.5 leading-relaxed">
-            귀로 듣고 입으로 따라 말하는 쉐도잉을 통해 원어민의 자연스러운 호흡과 억양을 체화해 보세요.
-          </p>
+          <div class="mt-2 p-2.5 rounded-xl bg-slate-900/90 border border-slate-700/60">
+            <p class="text-indigo-300 font-bold text-xs mb-1">🎙️ 아나운서 응원 클로징:</p>
+            <p class="text-slate-300 text-xs">"오늘도 수고 많으셨습니다, 카를로스님! 매일 5분씩 귀로 듣고 입으로 따라 말하는 쉐도잉이 가장 빠른 회화 지름길입니다."</p>
+          </div>
         </div>
       `
     }
@@ -2713,9 +2891,10 @@ function getPodcastTracks(items, idiom, setNum) {
 }
 
 // --------------------------------------------------------------------------
-// Podcast Audio Controller Functions
+// Podcast Audio Controller Functions (Seamless Dual Announcer Playback)
 // --------------------------------------------------------------------------
 function stopPodcastAudio() {
+  englishPodcastState.sessionId = (englishPodcastState.sessionId || 0) + 1;
   if ('speechSynthesis' in window) {
     window.speechSynthesis.cancel();
   }
@@ -2751,6 +2930,8 @@ function playPodcastTrack(trackIdx) {
   stopPodcastAudio();
   englishPodcastState.currentTrackIndex = trackIdx;
   englishPodcastState.isPlaying = true;
+  englishPodcastState.sessionId = (englishPodcastState.sessionId || 0) + 1;
+  const thisSessionId = englishPodcastState.sessionId;
 
   // Calculate approximate elapsed seconds up to this track
   let trackOffsetSec = 0;
@@ -2761,12 +2942,18 @@ function playPodcastTrack(trackIdx) {
 
   if ('speechSynthesis' in window) {
     const track = tracks[trackIdx];
-    const u = new SpeechSynthesisUtterance(track.speechText);
-    u.lang = 'en-US';
-    u.rate = englishPodcastState.rate || 1.0;
+    const segments = (track.speechSegments && track.speechSegments.length > 0)
+      ? track.speechSegments
+      : [{ text: track.speechText, lang: 'en-US' }];
 
-    u.onend = () => {
-      if (englishPodcastState.isPlaying) {
+    let currentSegIdx = 0;
+
+    const playNextSegment = () => {
+      if (!englishPodcastState.isPlaying || englishPodcastState.sessionId !== thisSessionId) {
+        return;
+      }
+      if (currentSegIdx >= segments.length) {
+        // Track finished! Advance to next track or finish
         if (trackIdx + 1 < tracks.length) {
           playPodcastTrack(trackIdx + 1);
         } else {
@@ -2775,16 +2962,50 @@ function playPodcastTrack(trackIdx) {
           renderEnglishPodcastPlayer();
           showToast('🎧 오늘의 데일리 팟캐스트 청취를 완료했습니다!');
         }
+        return;
       }
+
+      const seg = segments[currentSegIdx];
+      currentSegIdx++;
+
+      const u = new SpeechSynthesisUtterance(seg.text);
+      const isKo = seg.lang === 'ko-KR' || seg.lang === 'ko' || /[\uac00-\ud7a3]/.test(seg.text);
+      u.lang = isKo ? 'ko-KR' : 'en-US';
+
+      // Pick announcer / studio voice
+      const voice = getAnnouncerVoice(u.lang);
+      if (voice) u.voice = voice;
+
+      // Rate & pitch tuned for crystal-clear broadcast diction
+      const baseRate = englishPodcastState.rate || 1.0;
+      u.rate = isKo ? Math.max(0.7, Math.min(1.5, baseRate * 0.95)) : Math.max(0.7, Math.min(1.5, baseRate * 0.98));
+      u.pitch = isKo ? 1.02 : 1.0; // Crisp and confident announcer pitch
+
+      u.onend = () => {
+        if (!englishPodcastState.isPlaying || englishPodcastState.sessionId !== thisSessionId) return;
+        // Brief natural breath pause (180ms) between segments
+        setTimeout(() => {
+          playNextSegment();
+        }, 180);
+      };
+
+      u.onerror = (err) => {
+        if (err.error === 'interrupted' || err.error === 'canceled') return;
+        console.warn('Podcast speech synthesis segment error:', err.error || err);
+        if (err.error === 'not-allowed') {
+          stopPodcastAudio();
+          renderEnglishPodcastPlayer();
+          return;
+        }
+        if (englishPodcastState.isPlaying && englishPodcastState.sessionId === thisSessionId) {
+          playNextSegment();
+        }
+      };
+
+      window.speechSynthesis.speak(u);
     };
 
-    u.onerror = (err) => {
-      console.warn('Podcast speech synthesis error:', err);
-      stopPodcastAudio();
-      renderEnglishPodcastPlayer();
-    };
-
-    window.speechSynthesis.speak(u);
+    playNextSegment();
   }
 
   // Timer interval for smooth seekbar updates
@@ -2929,7 +3150,7 @@ function renderEnglishTab() {
               5~10분 데일리 팟캐스트 청취 지원
             </span>
             <span class="text-slate-400 text-[11px] flex items-center gap-1">
-              <i class="fa-solid fa-volume-high text-teal-400"></i> 미국식 원어민 TTS 음성 코칭
+              <i class="fa-solid fa-volume-high text-teal-400"></i> 한·영 아나운서 듀얼 TTS 코칭 (원어민 영어 + 아나운서 한국어)
             </span>
           </div>
         </div>
@@ -3595,8 +3816,13 @@ function speakEnglish(text) {
   if ('speechSynthesis' in window) {
     window.speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
-    u.lang = 'en-US';
+    const hasKorean = /[\uac00-\ud7a3]/.test(text);
+    const lang = hasKorean ? 'ko-KR' : 'en-US';
+    u.lang = lang;
+    const voice = getAnnouncerVoice(lang);
+    if (voice) u.voice = voice;
     u.rate = 0.95;
+    u.pitch = hasKorean ? 1.02 : 1.0;
     window.speechSynthesis.speak(u);
   } else {
     showToast('브라우저가 TTS 음성 출력을 지원하지 않습니다.');
@@ -8258,6 +8484,9 @@ window.app = {
   playPodcastTrack: (idx) => playPodcastTrack(idx),
   togglePodcastScript: () => togglePodcastScript(),
   handlePodcastSeekClick: (e) => handlePodcastSeekClick(e),
+  getPodcastTracks: (items, idiom, setNum) => getPodcastTracks(items, idiom, setNum),
+  getAnnouncerVoice: (lang) => getAnnouncerVoice(lang),
+  getPodcastState: () => englishPodcastState,
   // KNOU Social Welfare Handlers
   setKnouFilter: (f) => {
     state.knouFilter = f;
