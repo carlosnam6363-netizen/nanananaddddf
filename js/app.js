@@ -1283,6 +1283,7 @@ function persistState() {
     camino: state.camino,
     sns: state.sns,
     portfolio: state.portfolio,
+    inbody: state.inbody,
     knou: state.knou,
     english: state.english,
     contest: state.contest,
@@ -3629,9 +3630,13 @@ function speakEnglish(text) {
   }
 }
 
+let _englishSearchTimer = null;
 function handleEnglishSearchInput(val) {
   state.englishSearch = val;
-  renderEnglishContentArea();
+  if (_englishSearchTimer) clearTimeout(_englishSearchTimer);
+  _englishSearchTimer = setTimeout(() => {
+    renderEnglishContentArea();
+  }, 100);
 }
 
 function setEnglishFilter(f) {
@@ -4270,9 +4275,13 @@ function setContestStatusFilter(statusId) {
   renderContestCardsArea();
 }
 
+let _contestSearchTimer = null;
 function handleContestSearchInput(val) {
   state.contestSearch = val;
-  renderContestCardsArea();
+  if (_contestSearchTimer) clearTimeout(_contestSearchTimer);
+  _contestSearchTimer = setTimeout(() => {
+    renderContestCardsArea();
+  }, 100);
 }
 
 function openContestDetailModal(id) {
@@ -8031,7 +8040,10 @@ window.app = {
   setFlashcardSearch: (q) => {
     state.flashcardSearch = q;
     state.currentQuestionIndex = 0;
-    renderEnergyTab();
+    if (window._flashcardSearchTimer) clearTimeout(window._flashcardSearchTimer);
+    window._flashcardSearchTimer = setTimeout(() => {
+      renderEnergyTab();
+    }, 100);
   },
   selectQuestionIndex: (idx) => {
     state.currentQuestionIndex = idx;
@@ -8536,19 +8548,6 @@ window.app = {
       persistState();
       renderCaminoTab();
       if (state.activeTab === 'overview') renderOverviewTab();
-    }
-  },
-  openEditCaminoItineraryModal: (idx) => {
-    const item = state.camino && state.camino.itinerary ? state.camino.itinerary[idx] : null;
-    if (!item) return;
-    const newHighlight = prompt(`[${item.day}] 주요 일정 및 하이라이트를 수정하세요:`, item.highlight || '');
-    if (newHighlight !== null && newHighlight.trim()) {
-      item.highlight = newHighlight.trim();
-      persistState();
-      renderCaminoTab();
-      showToast(`${item.day} 일정이 수정되었습니다.`);
-    }
-  },
   // Energy Study Plan Handlers (⭐)
   toggleEnergyPlanItem: (id) => {
     if (!state.energyPlan) state.energyPlan = INITIAL_ENERGY_STUDY_PLAN;
@@ -8563,19 +8562,6 @@ window.app = {
   setEnergyPlanPhaseFilter: (phase) => {
     state.energyPlanPhaseFilter = phase;
     renderEnergyTab();
-  },
-  // Brunch 12h Sync Handler (⭐)
-  refreshBrunchData: () => {
-    const now = new Date();
-    const formatted = now.getFullYear() + '-' + 
-      String(now.getMonth() + 1).padStart(2, '0') + '-' + 
-      String(now.getDate()).padStart(2, '0') + ' ' + 
-      String(now.getHours()).padStart(2, '0') + ':' + 
-      String(now.getMinutes()).padStart(2, '0');
-    state.brunchLastSync = formatted;
-    persistState();
-    renderSnsTab();
-    showToast('브런치스토리 12시간 주기 최신 데이터가 성공적으로 갱신되었습니다.');
   },
   addCaminoPackingItem: () => {
     const input = document.getElementById('new-camino-packing-input');
@@ -8616,14 +8602,6 @@ window.app = {
   setBandFilter: (type) => {
     state.bandFilter = type;
     renderBandTab();
-  },
-  setEnergySubtab: (subtab) => {
-    state.energyStudySubtab = subtab;
-    renderEnergyTab();
-  },
-  selectQuestionIndex: (idx) => {
-    state.currentQuestionIndex = idx;
-    renderEnergyTab();
   },
   toggleQuestionReviewed: (qId) => {
     const q = state.questions.find(item => item.id === qId);
