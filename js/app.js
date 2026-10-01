@@ -399,6 +399,9 @@ const TAB_CATEGORIES = [
 ];
 
 const TAB_REGISTRY = [
+  // 🌟 항상 최상단에 고정되는 종합 대시보드 (HOME)
+  { id: 'overview', name: '종합 대시보드', shortName: '홈', icon: 'fa-house', color: 'text-sky-400', badge: 'HOME', badgeClass: 'bg-sky-500/20 text-sky-300', category: 'etc', categoryName: '기타' },
+
   // 1. 커리어 패스 관리 (7개)
   { id: 'english', name: '데일리 영문법 브리핑', shortName: '영문법', icon: 'fa-language', color: 'text-teal-400', badge: '409교정', badgeClass: 'bg-teal-500/20 text-teal-300', category: 'career', categoryName: '커리어 패스 관리' },
   { id: 'knou', name: '방통대 사회복지 학점', shortName: '방통대 학점', icon: 'fa-user-graduate', color: 'text-indigo-400', badge: '9과목', badgeClass: 'bg-indigo-500/20 text-indigo-300', category: 'career', categoryName: '커리어 패스 관리' },
@@ -414,15 +417,43 @@ const TAB_REGISTRY = [
   { id: 'band', name: '밴드 합주 & 문화', shortName: '밴드', icon: 'fa-guitar', color: 'text-purple-400', badge: '10/10', badgeClass: 'bg-purple-500/20 text-purple-300', category: 'hobby', categoryName: '취미' },
   { id: 'sns', name: 'SNS & 브랜딩', shortName: 'SNS', icon: 'fa-share-nodes', color: 'text-pink-400', badge: 'Brunch', badgeClass: 'bg-pink-500/20 text-pink-400', category: 'hobby', categoryName: '취미' },
 
-  // 3. 기타 (3개)
-  { id: 'overview', name: '종합 대시보드', shortName: '홈', icon: 'fa-house', color: 'text-sky-400', badge: null, badgeClass: '', category: 'etc', categoryName: '기타' },
+  // 3. 기타 (2개, overview는 최상단 고정)
   { id: 'calendar', name: '갤럭시 캘린더 모바일 연동', shortName: '갤럭시 캘린더', icon: 'fa-calendar-check', color: 'text-indigo-400', badge: 'Galaxy Sync', badgeClass: 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30', category: 'etc', categoryName: '기타' },
   { id: 'external', name: '외부 연동 & 엑셀', shortName: '연동·엑셀', icon: 'fa-window-restore', color: 'text-emerald-400', badge: 'Excel', badgeClass: 'bg-emerald-500/20 text-emerald-400', category: 'etc', categoryName: '기타' }
 ];
 
 const DEFAULT_TAB_ORDER = TAB_REGISTRY.map(t => t.id);
+const HIDDEN_TABS_STORAGE_KEY = 'career_dashboard_hidden_tabs';
+
+function getHiddenTabs() {
+  try {
+    const saved = localStorage.getItem(HIDDEN_TABS_STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed)) {
+        return parsed.filter(id => id !== 'overview' && TAB_REGISTRY.some(t => t.id === id));
+      }
+    }
+  } catch (e) {
+    console.warn('숨김 탭 로드 실패:', e);
+  }
+  return [];
+}
+
+function saveHiddenTabs(hiddenList) {
+  try {
+    const sanitized = Array.isArray(hiddenList) ? hiddenList.filter(id => id !== 'overview') : [];
+    localStorage.setItem(HIDDEN_TABS_STORAGE_KEY, JSON.stringify(sanitized));
+    if (typeof state !== 'undefined') {
+      state.hiddenTabs = sanitized;
+    }
+  } catch (e) {
+    console.error('숨김 탭 저장 실패:', e);
+  }
+}
 
 function getTabOrder() {
+  let order = [...DEFAULT_TAB_ORDER];
   try {
     const saved = localStorage.getItem('career_dashboard_tab_order');
     if (saved) {
@@ -432,19 +463,24 @@ function getTabOrder() {
         DEFAULT_TAB_ORDER.forEach(id => {
           if (!validOrder.includes(id)) validOrder.push(id);
         });
-        return validOrder;
+        order = validOrder;
       }
     }
   } catch (e) {
     console.warn('탭 순서 로드 실패, 기본값 사용:', e);
   }
-  return [...DEFAULT_TAB_ORDER];
+  // Ensure 'overview' is ALWAYS the very first item (최상단 고정)
+  order = ['overview', ...order.filter(id => id !== 'overview')];
+  return order;
 }
 
 function saveTabOrder(order) {
   try {
-    localStorage.setItem('career_dashboard_tab_order', JSON.stringify(order));
-    state.tabOrder = order;
+    const sanitized = ['overview', ...order.filter(id => id !== 'overview')];
+    localStorage.setItem('career_dashboard_tab_order', JSON.stringify(sanitized));
+    if (typeof state !== 'undefined') {
+      state.tabOrder = sanitized;
+    }
   } catch (e) {
     console.error('탭 순서 저장 실패:', e);
   }
@@ -997,6 +1033,7 @@ let state = {
   theme: 'dark',
   activeTab: 'overview',
   tabOrder: getTabOrder(),
+  hiddenTabs: getHiddenTabs(),
   navCategoryFilter: 'all', // 'all' | 'career' | 'hobby' | 'etc'
   activeExternalTabId: null,
   examFilter: 'all',
@@ -1021,28 +1058,96 @@ function setNavCategoryFilter(catId) {
   renderNavigation();
 }
 
+
+function hideTab(tabId) {
+  if (tabId === 'overview') {
+    showToast('⚠️ 종합 대시보드는 최상단 고정 탭으로 숨길 수 없습니다.');
+    return;
+  }
+  const tabDef = TAB_REGISTRY.find(t => t.id === tabId);
+  const hidden = state.hiddenTabs ? [...state.hiddenTabs] : getHiddenTabs();
+  if (!hidden.includes(tabId)) {
+    hidden.push(tabId);
+    saveHiddenTabs(hidden);
+  }
+  if (state.activeTab === tabId) {
+    switchTab('overview');
+  }
+  renderNavigation();
+  renderTabOrderModal();
+  showToast(`'${tabDef ? tabDef.name : tabId}' 탭이 숨김 처리되었습니다.`);
+}
+
+function unhideTab(tabId) {
+  const tabDef = TAB_REGISTRY.find(t => t.id === tabId);
+  let hidden = state.hiddenTabs ? [...state.hiddenTabs] : getHiddenTabs();
+  hidden = hidden.filter(id => id !== tabId);
+  saveHiddenTabs(hidden);
+  renderNavigation();
+  renderTabOrderModal();
+  showToast(`'${tabDef ? tabDef.name : tabId}' 탭의 숨기기가 취소되어 다시 표시됩니다.`);
+}
+
+function unhideAllTabs() {
+  saveHiddenTabs([]);
+  renderNavigation();
+  renderTabOrderModal();
+  showToast('모든 탭이 다시 표시됩니다.');
+}
+
+function toggleTabVisibility(tabId) {
+  const hidden = state.hiddenTabs || getHiddenTabs();
+  if (hidden.includes(tabId)) {
+    unhideTab(tabId);
+  } else {
+    hideTab(tabId);
+  }
+}
+
 function renderNavigation() {
   const currentTab = state.activeTab;
   const order = state.tabOrder && state.tabOrder.length > 0 ? state.tabOrder : getTabOrder();
   state.tabOrder = order;
+  const hiddenTabs = state.hiddenTabs || getHiddenTabs();
+  state.hiddenTabs = hiddenTabs;
   const catFilter = state.navCategoryFilter || 'all';
 
   // 1. Desktop Sidebar Navigation
   const desktopContainer = document.getElementById('desktop-sidebar-nav');
   if (desktopContainer) {
+    // 🌟 최상단 고정: 종합 대시보드 (Overview) Master Button
+    const isOverviewActive = (currentTab === 'overview');
+    const overviewActiveClasses = isOverviewActive
+      ? 'nav-tab-active text-sky-300 bg-sky-500/20 font-black border border-sky-500/40 shadow-md shadow-sky-500/15'
+      : 'text-slate-300 hover:text-white hover:bg-slate-800/80 font-bold bg-slate-900/60 border border-slate-800/80';
+
+    const overviewBtnHtml = `
+      <div class="mb-3">
+        <button data-nav-tab="overview" onclick="window.app.switchTab('overview')" class="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs transition cursor-pointer ${overviewActiveClasses}" title="종합 대시보드 (항상 최상단 단추에 고정)">
+          <div class="w-6 h-6 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center text-xs flex-shrink-0">
+            <i class="fa-solid fa-house"></i>
+          </div>
+          <span class="flex-1 text-left truncate flex items-center justify-between">
+            <span class="font-extrabold tracking-tight">종합 대시보드</span>
+            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-sky-500/15 text-sky-300 border border-sky-500/30">HOME</span>
+          </span>
+        </button>
+      </div>
+    `;
+
     // Category Filter Chips
     const filterChipsHtml = `
       <div class="grid grid-cols-4 gap-1 p-1 bg-slate-900/90 rounded-xl border border-slate-800 mb-3 text-[10px]">
-        <button onclick="window.app.setNavCategoryFilter('all')" class="py-1 px-1 rounded-lg font-bold transition text-center ${catFilter === 'all' ? 'bg-sky-500 text-white shadow-sm' : 'text-slate-400 hover:text-white'}">
+        <button onclick="window.app.setNavCategoryFilter('all')" class="py-1 px-1 rounded-lg font-bold transition text-center cursor-pointer ${catFilter === 'all' ? 'bg-sky-500 text-white shadow-sm' : 'text-slate-400 hover:text-white'}">
           전체
         </button>
-        <button onclick="window.app.setNavCategoryFilter('career')" class="py-1 px-1 rounded-lg font-bold transition text-center truncate ${catFilter === 'career' ? 'bg-amber-500 text-slate-950 font-black shadow-sm' : 'text-slate-400 hover:text-amber-300'}" title="커리어 패스 관리">
+        <button onclick="window.app.setNavCategoryFilter('career')" class="py-1 px-1 rounded-lg font-bold transition text-center truncate cursor-pointer ${catFilter === 'career' ? 'bg-amber-500 text-slate-950 font-black shadow-sm' : 'text-slate-400 hover:text-amber-300'}" title="커리어 패스 관리">
           💼 커리어
         </button>
-        <button onclick="window.app.setNavCategoryFilter('hobby')" class="py-1 px-1 rounded-lg font-bold transition text-center truncate ${catFilter === 'hobby' ? 'bg-rose-500 text-white shadow-sm' : 'text-slate-400 hover:text-rose-300'}" title="취미">
+        <button onclick="window.app.setNavCategoryFilter('hobby')" class="py-1 px-1 rounded-lg font-bold transition text-center truncate cursor-pointer ${catFilter === 'hobby' ? 'bg-rose-500 text-white shadow-sm' : 'text-slate-400 hover:text-rose-300'}" title="취미">
           ❤️ 취미
         </button>
-        <button onclick="window.app.setNavCategoryFilter('etc')" class="py-1 px-1 rounded-lg font-bold transition text-center truncate ${catFilter === 'etc' ? 'bg-slate-700 text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'}" title="기타">
+        <button onclick="window.app.setNavCategoryFilter('etc')" class="py-1 px-1 rounded-lg font-bold transition text-center truncate cursor-pointer ${catFilter === 'etc' ? 'bg-slate-700 text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'}" title="기타">
           ⚙️ 기타
         </button>
       </div>
@@ -1055,9 +1160,10 @@ function renderNavigation() {
 
     const sectionsHtml = targetCategories.map(cat => {
       // Find tabs belonging to this category, preserving relative order from state.tabOrder
+      // Exclude 'overview' (already at top) and hidden tabs
       const catTabs = order
         .map(id => TAB_REGISTRY.find(t => t.id === id))
-        .filter(t => t && t.category === cat.id);
+        .filter(t => t && t.id !== 'overview' && t.category === cat.id && !hiddenTabs.includes(t.id));
 
       if (catTabs.length === 0) return '';
 
@@ -1077,13 +1183,18 @@ function renderNavigation() {
           : `window.app.switchTab('${tabDef.id}')`;
 
         return `
-          <button data-nav-tab="${tabDef.id}" onclick="${clickHandler}" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs transition ${activeClass}">
-            <i class="fa-solid ${tabDef.icon} w-4 text-center ${tabDef.color}"></i>
-            <span class="flex-1 text-left truncate flex items-center gap-1.5">
-              <span class="truncate">${tabDef.name}</span>
-            </span>
-            ${badgeHtml}
-          </button>
+          <div class="group relative flex items-center">
+            <button data-nav-tab="${tabDef.id}" onclick="${clickHandler}" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs transition cursor-pointer pr-8 ${activeClass}">
+              <i class="fa-solid ${tabDef.icon} w-4 text-center ${tabDef.color}"></i>
+              <span class="flex-1 text-left truncate flex items-center gap-1.5">
+                <span class="truncate">${tabDef.name}</span>
+              </span>
+              ${badgeHtml}
+            </button>
+            <button type="button" onclick="event.stopPropagation(); window.app.hideTab('${tabDef.id}')" class="absolute right-1 opacity-0 group-hover:opacity-100 hover:text-rose-300 hover:bg-rose-500/20 text-slate-500 w-6 h-6 rounded-lg flex items-center justify-center transition text-[10px] bg-slate-900/90 border border-slate-700 shadow-sm cursor-pointer" title="'${tabDef.name}' 탭 숨기기">
+              <i class="fa-solid fa-eye-slash"></i>
+            </button>
+          </div>
         `;
       }).join('');
 
@@ -1105,13 +1216,36 @@ function renderNavigation() {
       `;
     }).join('');
 
-    desktopContainer.innerHTML = filterChipsHtml + sectionsHtml;
+    // Hidden tabs bottom indicator & quick unhide trigger
+    let hiddenSummaryHtml = '';
+    if (hiddenTabs.length > 0) {
+      hiddenSummaryHtml = `
+        <div class="mt-4 pt-3 border-t border-slate-800/80">
+          <button onclick="window.app.openTabOrderModal()" class="w-full flex items-center justify-between px-3 py-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-slate-400 hover:text-sky-300 text-xs transition group cursor-pointer" title="숨겨진 탭 확인 및 숨기기 취소">
+            <span class="flex items-center gap-2">
+              <i class="fa-solid fa-eye-slash text-rose-400 text-xs"></i>
+              <span>숨긴 탭 (<b class="text-white">${hiddenTabs.length}</b>개)</span>
+            </span>
+            <span class="text-[10px] text-sky-400 font-bold group-hover:underline flex items-center gap-1">
+              <span>숨기기 취소</span>
+              <i class="fa-solid fa-chevron-right text-[8px]"></i>
+            </span>
+          </button>
+        </div>
+      `;
+    }
+
+    desktopContainer.innerHTML = overviewBtnHtml + filterChipsHtml + sectionsHtml + hiddenSummaryHtml;
   }
 
   // 2. Mobile Bottom Navigation
   const mobileContainer = document.getElementById('mobile-bottom-nav');
   if (mobileContainer) {
-    mobileContainer.innerHTML = order.map((tabId) => {
+    const hiddenTabs = state.hiddenTabs || getHiddenTabs();
+    // Overview is always first
+    const visibleOrder = ['overview', ...order.filter(id => id !== 'overview' && !hiddenTabs.includes(id))];
+
+    mobileContainer.innerHTML = visibleOrder.map((tabId) => {
       const tabDef = TAB_REGISTRY.find(t => t.id === tabId);
       if (!tabDef) return '';
       const isActive = currentTab === tabDef.id;
@@ -1125,12 +1259,12 @@ function renderNavigation() {
         : `window.app.switchTab('${tabDef.id}')`;
 
       const catDef = TAB_CATEGORIES.find(c => c.id === tabDef.category);
-      const dotColor = catDef ? (catDef.id === 'career' ? 'bg-amber-400' : catDef.id === 'hobby' ? 'bg-rose-400' : 'bg-slate-400') : 'bg-slate-500';
+      const dotColor = (tabDef.id === 'overview') ? 'bg-sky-400' : catDef ? (catDef.id === 'career' ? 'bg-amber-400' : catDef.id === 'hobby' ? 'bg-rose-400' : 'bg-slate-400') : 'bg-slate-500';
 
       const indicatorBadge = `<span class="w-1.5 h-1.5 rounded-full ${dotColor} absolute top-1 right-2"></span>`;
 
       return `
-        <button data-mobile-tab="${tabDef.id}" onclick="${clickHandler}" class="flex flex-col items-center justify-center gap-1 text-[10px] px-2.5 py-1.5 rounded-xl flex-shrink-0 min-w-[52px] transition relative ${activeClass}">
+        <button data-mobile-tab="${tabDef.id}" onclick="${clickHandler}" class="flex flex-col items-center justify-center gap-1 text-[10px] px-2.5 py-1.5 rounded-xl flex-shrink-0 min-w-[52px] transition relative cursor-pointer ${activeClass}">
           ${indicatorBadge}
           <i class="fa-solid ${tabDef.icon} text-sm ${tabDef.color}"></i>
           <span class="truncate max-w-[56px]">${tabDef.shortName}</span>
@@ -1146,12 +1280,51 @@ function renderTabOrderModal() {
 
   const order = state.tabOrder && state.tabOrder.length > 0 ? state.tabOrder : getTabOrder();
   state.tabOrder = order;
+  const hiddenTabs = state.hiddenTabs || getHiddenTabs();
+  state.hiddenTabs = hiddenTabs;
 
-  container.innerHTML = order.map((tabId, idx) => {
+  const overviewDef = TAB_REGISTRY.find(t => t.id === 'overview');
+  const otherTabIds = order.filter(id => id !== 'overview');
+
+  let html = `
+    <!-- Top Fixed Item: Overview -->
+    <div class="flex items-center justify-between p-3 rounded-xl bg-sky-950/40 border border-sky-500/40 shadow-sm mb-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <span class="w-6 h-6 rounded-lg bg-sky-500/20 text-sky-400 border border-sky-500/30 flex items-center justify-center text-xs font-bold flex-shrink-0">
+          <i class="fa-solid fa-thumbtack text-[10px]"></i>
+        </span>
+        <i class="fa-solid fa-house text-sky-400 text-sm w-4 text-center flex-shrink-0"></i>
+        <div class="flex items-center gap-1.5 truncate">
+          <span class="text-xs font-extrabold text-white truncate">${overviewDef ? overviewDef.name : '종합 대시보드'}</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30 flex items-center gap-1">
+          <i class="fa-solid fa-lock text-[9px]"></i> 항상 최상단 고정
+        </span>
+      </div>
+    </div>
+
+    <!-- Divider & Section Header -->
+    <div class="flex items-center justify-between px-1 mb-2">
+      <span class="text-[11px] font-bold text-slate-400 flex items-center gap-1.5">
+        <i class="fa-solid fa-layer-group text-slate-500"></i>
+        <span>하위 탭 노출 및 순서 (${otherTabIds.length}개)</span>
+      </span>
+      ${hiddenTabs.length > 0 ? `
+        <button onclick="window.app.unhideAllTabs()" class="text-[10px] text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-1 px-2 py-0.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 cursor-pointer">
+          <i class="fa-solid fa-eye text-[9px]"></i> 전체 숨기기 취소
+        </button>
+      ` : ''}
+    </div>
+  `;
+
+  html += otherTabIds.map((tabId, idx) => {
     const tabDef = TAB_REGISTRY.find(t => t.id === tabId);
     if (!tabDef) return '';
     const isFirst = idx === 0;
-    const isLast = idx === order.length - 1;
+    const isLast = idx === otherTabIds.length - 1;
+    const isHidden = hiddenTabs.includes(tabId);
 
     const catDef = TAB_CATEGORIES.find(c => c.id === tabDef.category) || {
       name: tabDef.categoryName || '기타',
@@ -1160,41 +1333,59 @@ function renderTabOrderModal() {
       icon: 'fa-layer-group'
     };
 
-    const badgeHtml = tabDef.badge
-      ? `<span class="text-[9px] px-1.5 py-0.5 rounded font-bold ${tabDef.badgeClass || 'bg-slate-800 text-slate-300'}">${tabDef.badge}</span>`
-      : '';
-
     return `
-      <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-800/80 border border-slate-700/60 hover:border-slate-600 transition">
+      <div class="flex items-center justify-between p-2.5 rounded-xl border transition ${
+        isHidden 
+          ? 'bg-slate-900/60 border-slate-800 opacity-60 hover:opacity-100 hover:border-slate-700' 
+          : 'bg-slate-800/80 border-slate-700/60 hover:border-slate-600'
+      }">
         <div class="flex items-center gap-2.5 min-w-0">
           <span class="w-6 h-6 rounded-lg bg-slate-900 border border-slate-700 flex items-center justify-center text-xs font-bold text-slate-400 font-mono flex-shrink-0">
-            ${idx + 1}
+            ${idx + 2}
           </span>
           <i class="fa-solid ${tabDef.icon} ${tabDef.color} text-sm w-4 text-center flex-shrink-0"></i>
           <div class="flex items-center gap-1.5 truncate">
-            <span class="text-xs font-bold text-white truncate">${tabDef.name}</span>
+            <span class="text-xs font-bold ${isHidden ? 'text-slate-400 line-through' : 'text-white'} truncate">${tabDef.name}</span>
             <span class="text-[9px] px-1.5 py-0.5 rounded font-bold flex-shrink-0 ${catDef.badgeClass}">
-              <i class="fa-solid ${catDef.icon} text-[8px]"></i> ${catDef.shortName}
+              ${catDef.shortName}
             </span>
           </div>
-          ${badgeHtml}
+          ${isHidden ? `
+            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30 flex-shrink-0">숨김</span>
+          ` : ''}
         </div>
-        <div class="flex items-center gap-1 flex-shrink-0">
-          <button onclick="window.app.moveTabUp(${idx})" ${isFirst ? 'disabled' : ''} class="w-8 h-8 rounded-lg ${isFirst ? 'opacity-30 cursor-not-allowed bg-slate-900 text-slate-600' : 'bg-slate-700 hover:bg-sky-600 text-white cursor-pointer active:scale-95'} flex items-center justify-center text-xs transition" title="위로 이동">
+
+        <div class="flex items-center gap-1.5 flex-shrink-0">
+          <!-- Visibility Toggle Button -->
+          ${isHidden ? `
+            <button onclick="window.app.unhideTab('${tabDef.id}')" class="px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 text-[11px] font-bold transition flex items-center gap-1 cursor-pointer" title="이 탭을 다시 표시">
+              <i class="fa-solid fa-eye text-[10px]"></i>
+              <span>숨기기 취소</span>
+            </button>
+          ` : `
+            <button onclick="window.app.hideTab('${tabDef.id}')" class="px-2 py-1 rounded-lg bg-slate-700 hover:bg-rose-950 text-slate-300 hover:text-rose-300 border border-slate-600 hover:border-rose-500/40 text-[11px] font-medium transition flex items-center gap-1 cursor-pointer" title="이 탭을 사이드바에서 숨기기">
+              <i class="fa-solid fa-eye-slash text-[10px]"></i>
+              <span>숨기기</span>
+            </button>
+          `}
+
+          <!-- Move Up/Down Arrows -->
+          <button onclick="window.app.moveTabUp(${idx + 1})" ${isFirst ? 'disabled' : ''} class="w-7 h-7 rounded-lg ${isFirst ? 'opacity-20 cursor-not-allowed bg-slate-900 text-slate-600' : 'bg-slate-700 hover:bg-sky-600 text-white cursor-pointer active:scale-95'} flex items-center justify-center text-xs transition" title="위로 이동">
             <i class="fa-solid fa-arrow-up"></i>
           </button>
-          <button onclick="window.app.moveTabDown(${idx})" ${isLast ? 'disabled' : ''} class="w-8 h-8 rounded-lg ${isLast ? 'opacity-30 cursor-not-allowed bg-slate-900 text-slate-600' : 'bg-slate-700 hover:bg-sky-600 text-white cursor-pointer active:scale-95'} flex items-center justify-center text-xs transition" title="아래로 이동">
+          <button onclick="window.app.moveTabDown(${idx + 1})" ${isLast ? 'disabled' : ''} class="w-7 h-7 rounded-lg ${isLast ? 'opacity-20 cursor-not-allowed bg-slate-900 text-slate-600' : 'bg-slate-700 hover:bg-sky-600 text-white cursor-pointer active:scale-95'} flex items-center justify-center text-xs transition" title="아래로 이동">
             <i class="fa-solid fa-arrow-down"></i>
           </button>
         </div>
       </div>
     `;
   }).join('');
+
+  container.innerHTML = html;
 }
 
 function moveTabUp(idx) {
-  if (!checkAdminPermission('탭 순서 변경')) return;
-  if (idx <= 0 || !state.tabOrder) return;
+  if (idx <= 1 || !state.tabOrder) return; // Overview at 0 is pinned
   const newOrder = [...state.tabOrder];
   const temp = newOrder[idx - 1];
   newOrder[idx - 1] = newOrder[idx];
@@ -1207,8 +1398,7 @@ function moveTabUp(idx) {
 }
 
 function moveTabDown(idx) {
-  if (!checkAdminPermission('탭 순서 변경')) return;
-  if (!state.tabOrder || idx >= state.tabOrder.length - 1) return;
+  if (idx < 1 || !state.tabOrder || idx >= state.tabOrder.length - 1) return; // Overview at 0 is pinned
   const newOrder = [...state.tabOrder];
   const temp = newOrder[idx + 1];
   newOrder[idx + 1] = newOrder[idx];
@@ -1221,11 +1411,11 @@ function moveTabDown(idx) {
 }
 
 function resetTabOrder() {
-  if (!checkAdminPermission('탭 순서 초기화')) return;
   saveTabOrder([...DEFAULT_TAB_ORDER]);
+  saveHiddenTabs([]);
   renderNavigation();
   renderTabOrderModal();
-  showToast('대시보드 탭 순서가 기본 설정으로 초기화되었습니다.');
+  showToast('대시보드 탭 순서와 노출 설정이 기본값으로 초기화되었습니다.');
 }
 
 function openTabOrderModal() {
@@ -1614,7 +1804,7 @@ function renderOverviewTab() {
             <p class="text-xs text-slate-400 mt-0.5">사용자 지정 3대 카테고리: 커리어 패스 관리(4) · 취미(4) · 기타(2)</p>
           </div>
         </div>
-        <button onclick="window.app.openTabOrderModal()" class="admin-only text-xs text-sky-400 hover:text-sky-300 px-3 py-1.5 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center gap-1.5 font-bold transition">
+        <button onclick="window.app.openTabOrderModal()" class="text-xs text-sky-400 hover:text-sky-300 px-3 py-1.5 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center gap-1.5 font-bold transition cursor-pointer" title="탭 노출·숨김 및 순서 설정">
           <i class="fa-solid fa-arrow-down-up-across-line text-[11px]"></i>
           <span>메뉴 순서 정렬</span>
         </button>
@@ -10194,8 +10384,13 @@ window.app = {
     renderEnergyTab();
   },
 
-  // Tab Reordering & Dynamic Navigation Handlers
+  // Tab Reordering, Visibility & Dynamic Navigation Handlers
+  hideTab: (tabId) => hideTab(tabId),
+  unhideTab: (tabId) => unhideTab(tabId),
+  unhideAllTabs: () => unhideAllTabs(),
+  toggleTabVisibility: (tabId) => toggleTabVisibility(tabId),
   openTabOrderModal: () => openTabOrderModal(),
+  openTabVisibilityModal: () => openTabOrderModal(),
   moveTabUp: (idx) => moveTabUp(idx),
   moveTabDown: (idx) => moveTabDown(idx),
   resetTabOrder: () => resetTabOrder(),

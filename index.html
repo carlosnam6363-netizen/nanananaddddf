@@ -42,7 +42,7 @@
         });
       }
       // 3. 빌드 버전 검사를 통한 자동 1회 새로고침
-      var APP_VER = '20261001_v1';
+      var APP_VER = '20261001_v2';
       if (localStorage.getItem('career_app_build') !== APP_VER) {
         localStorage.setItem('career_app_build', APP_VER);
         if (!sessionStorage.getItem('build_updated')) {
@@ -115,9 +115,9 @@
       <!-- Navigation Header with Tab Order Button -->
       <div class="flex items-center justify-between px-3 py-1.5 mb-2">
         <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">메뉴 네비게이션</span>
-        <button onclick="window.app.openTabOrderModal()" class="admin-only text-[11px] text-sky-400 hover:text-sky-300 flex items-center gap-1.5 px-2 py-1 rounded-lg hover:bg-sky-500/10 border border-sky-500/20 transition font-medium" title="탭 순서 변경">
-          <i class="fa-solid fa-arrow-down-up-across-line text-[10px]"></i>
-          <span>순서 정렬</span>
+        <button onclick="window.app.openTabOrderModal()" class="text-[11px] text-sky-400 hover:text-sky-300 flex items-center gap-1.5 px-2.5 py-1 rounded-lg hover:bg-sky-500/10 border border-sky-500/20 transition font-medium cursor-pointer" title="탭 숨기기 및 노출 설정">
+          <i class="fa-solid fa-sliders text-[10px]"></i>
+          <span>탭 노출·숨김</span>
         </button>
       </div>
 
@@ -163,9 +163,9 @@
       <div id="mobile-auth-widget">
         <!-- Rendered dynamically by window.app.renderAuthWidget() -->
       </div>
-      <button onclick="window.app.openTabOrderModal()" class="admin-only text-xs text-sky-400 bg-sky-500/10 border border-sky-500/20 px-2 py-1 rounded-lg flex items-center gap-1 hover:bg-sky-500/20 transition font-bold" title="탭 순서 정렬">
-        <i class="fa-solid fa-arrow-down-up-across-line text-[10px]"></i>
-        <span class="text-[11px]">순서</span>
+      <button onclick="window.app.openTabOrderModal()" class="text-xs text-sky-400 bg-sky-500/10 border border-sky-500/20 px-2.5 py-1 rounded-lg flex items-center gap-1 hover:bg-sky-500/20 transition font-bold cursor-pointer" title="탭 노출·숨김 관리">
+        <i class="fa-solid fa-sliders text-[10px]"></i>
+        <span class="text-[11px]">탭 관리</span>
       </button>
     </div>
   </header>
@@ -1295,9 +1295,9 @@
       <div class="flex items-center justify-between pb-3 border-b border-slate-800">
         <div>
           <h3 class="font-bold text-white text-base flex items-center gap-2">
-            <i class="fa-solid fa-arrow-down-up-across-line text-sky-400"></i> 대시보드 탭 순서 정렬
+            <i class="fa-solid fa-sliders text-sky-400"></i> 대시보드 탭 노출 및 순서 관리
           </h3>
-          <p class="text-xs text-slate-400 mt-1">화살표(▲, ▼)를 클릭하여 메뉴 노출 순서를 원하는 대로 설정하세요.</p>
+          <p class="text-xs text-slate-400 mt-1">사용하지 않는 탭은 숨기거나 다시 노출할 수 있으며, 화살표(▲, ▼)로 메뉴 순서를 원하는 대로 정렬할 수 있습니다. (종합 대시보드는 항상 최상단에 고정)</p>
           <div class="flex items-center gap-1.5 mt-2 flex-wrap text-[10px]">
             <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold flex items-center gap-1">
               <i class="fa-solid fa-briefcase text-[9px]"></i> 커리어 패스 4
@@ -1976,7 +1976,7 @@
   </div>
 
   <!-- Static Seed Datasets & Core Application Script (Safe for file:// and http://) -->
-  <script src="js/data.js?v=20261001_v1"></script>
-  <script src="js/app.js?v=20261001_v1"></script>
+  <script src="js/data.js?v=20261001_v2"></script>
+  <script src="js/app.js?v=20261001_v2"></script>
 </body>
 </html>
