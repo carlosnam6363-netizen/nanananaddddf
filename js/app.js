@@ -3361,6 +3361,224 @@ const OPIC_QUESTION_BANK = [
   }
 ];
 
+function buildTopicParagraph(topicId, partIdx, item, idiom, opic) {
+  const cleanTheme = opic.theme.split('(')[0].trim();
+  const cleanSentence = (str) => {
+    if (!str) return '';
+    let s = String(str).trim();
+    s = s.charAt(0).toUpperCase() + s.slice(1);
+    if (!/[.!?]$/.test(s)) s += '.';
+    return s;
+  };
+
+  const better = cleanSentence(item.betterSay);
+  let betterLower = better.charAt(0).toLowerCase() + better.slice(1);
+  if (betterLower.endsWith('.')) betterLower = betterLower.slice(0, -1);
+
+  // 5대 최다 빈출 토픽별 특화 실전 OPIc AL 기출 모범 답변 문단 데이터베이스
+  const paragraphMap = {
+    'top-01': [ // Routine & Future Plans
+      {
+        partTitle: "서론 & 라이프스타일 개요 (Opening & Routine)",
+        lead: `Well Eva, when it comes to my typical daily routine, I always strive to strike a healthy balance between continuous professional development and personal well-being.`,
+        body: `In fact, over the past few years of preparing for my career in engineering and social welfare, ${betterLower} by establishing a structured morning study habit.`,
+        followUp: `I typically rise at six-thirty, drink a glass of warm water, and map out my three core priorities for the day before tackling any tasks.`,
+        wrap: `Starting every morning with this clear, disciplined focus gives me immense mental clarity and steady momentum throughout the entire day.`
+      },
+      {
+        partTitle: "본론 1 & 퇴근 후 몰입 학습 (Evening Focused Study)",
+        lead: `As for my schedule after study and work commitments, I make sure never to let the evening slip away aimlessly.`,
+        body: `Specifically, once my daytime responsibilities are wrapped up, ${betterLower} for upcoming professional examinations and technical certifications.`,
+        followUp: `I usually head straight to my dedicated home desk or the local library to invest at least two hours into solving advanced mock exam papers.`,
+        wrap: `Dedicating regular, uninterrupted evening blocks guarantees that I make tangible progress every single day.`
+      },
+      {
+        partTitle: "본론 2 & 미래 비전 및 마인드셋 (Proactive Future Planning)",
+        lead: `Whenever people ask me why I adhere to such an ambitious routine, I tell them that taking proactive initiative is essential in today's fast-evolving society.`,
+        body: `To be completely honest with you, ${betterLower} through concrete daily milestones rather than getting lost in vague anxieties.`,
+        followUp: `I maintain an organized digital dashboard where I track my study hours, fitness metrics, and creative projects in real time.`,
+        wrap: `Seeing visual confirmation of my growth reinforces my resilience and keeps me profoundly motivated.`
+      },
+      {
+        partTitle: "본론 3 & 동료 협업 및 리프레시 (Peer Support & Balance)",
+        lead: `Of course, maintaining high productivity doesn't mean isolating myself; shared accountability makes the journey truly sustainable.`,
+        body: `Whenever my study partners or bandmates feel overwhelmed by heavy workloads, ${betterLower} to nearby Han River park or grab a warm coffee to decompress.`,
+        followUp: `We share practical study insights, discuss career strategies, and uplift one another's spirits whenever stress arises.`,
+        wrap: `That healthy balance between intense focus and open camaraderie makes all the difference.`
+      },
+      {
+        partTitle: "결론 & 총평 (Daily Wrap-up & Outlook)",
+        lead: `Looking ahead to the upcoming months, my ultimate aspiration is to turn these daily habits into meaningful lifelong achievements.`,
+        body: `Even on demanding days when assignments run past midnight and ${betterLower}, I take great pride in knowing that I stayed true to my goals and gave my absolute best.`,
+        followUp: `Whenever I face new opportunities, I always try to ${idiom.expression} and contribute meaningfully.`,
+        wrap: `Overall, this structured yet adaptive routine is what empowers me to move forward with unwavering confidence.`
+      }
+    ],
+    'top-02': [ // Memorable Travel Experience
+      {
+        partTitle: "서론 & 순례길 여행 배경 (Journey Context)",
+        lead: `Talking about memorable travel experiences instantly brings a vibrant smile to my face, as travel has always shaped my worldview.`,
+        body: `Among all my past journeys, trekking along the historic Camino de Santiago in northern Spain was by far the most unforgettable, and throughout that expedition, ${betterLower} regarding self-reliance and emotional endurance.`,
+        followUp: `Walking over twenty kilometers every single morning with just a lightweight backpack completely transformed how I perceive life.`,
+        wrap: `The sheer purity of putting one foot in front of the other amidst the scenic Galician countryside was nothing short of magical.`
+      },
+      {
+        partTitle: "본론 1 & 경량 패킹 및 아침 출발 (Lightweight Packing)",
+        lead: `In terms of our daily routine on the Camino, waking up before sunrise to catch the morning mist was an everyday ritual.`,
+        body: `Before heading out along the rocky trails each dawn, ${betterLower} with utmost care to avoid carrying any unnecessary baggage.`,
+        followUp: `I replaced heavy hiking boots with breathable trekking sandals and packed only essential emergency remedies.`,
+        wrap: `Minimizing my physical load allowed me to walk with remarkable lightness and prevent fatigue.`
+      },
+      {
+        partTitle: "본론 2 & 돌발 상황 극복 (Overcoming Obstacles)",
+        lead: `However, like any genuine adventure, we encountered an unexpected obstacle while crossing a steep mountain ridge in unpredictable weather.`,
+        body: `A sudden temperature drop caused acute muscle exhaustion among our group, but ${betterLower} by taking immediate preventive measures and pacing our steps.`,
+        followUp: `We utilized ankle braces, trekking poles, and shared warm tea from our thermoses to keep our spirits resilient.`,
+        wrap: `Navigating through that sudden challenge forged an unbreakable bond of mutual trust among us.`
+      },
+      {
+        partTitle: "본론 3 & 글로벌 순례자 교류 (Global Camaraderie)",
+        lead: `Another unforgettable aspect of the journey was the heartwarming interactions with international pilgrims at local albergues each evening.`,
+        body: `Whenever weary travelers arrived looking for advice on the grueling terrain ahead, ${betterLower} and offered practical trail tips over communal dinners.`,
+        followUp: `We exchanged stories across languages and cultures, united by the universal greeting of 'Buen Camino.'`,
+        wrap: `Those sincere human connections made the ancient trail feel like an expansive global family.`
+      },
+      {
+        partTitle: "결론 & 순례의 교훈 (Santiago Cathedral Arrival)",
+        lead: `Reflecting back on that whole expedition, standing in front of the majestic Cathedral of Santiago de Compostela was deeply emotional.`,
+        body: `Even though my legs were aching and ${betterLower} by the time we reached the final plaza, the overwhelming sense of fulfillment brought tears to my eyes.`,
+        followUp: `The pilgrimage taught me that in any endeavor, if you ${idiom.expression} with sincerity, no distance is insurmountable.`,
+        wrap: `That profound travel memory continues to serve as my guiding compass whenever I face difficult crossroads in life.`
+      }
+    ],
+    'top-03': [ // Music & Indie Bands
+      {
+        partTitle: "서론 & 음악 열정 및 밴드 소개 (Passion for Band Music)",
+        lead: `Music is an indispensable part of my identity, serving as both my creative sanctuary and my greatest emotional outlet.`,
+        body: `As a keyboardist and synthesizer player in an active indie band, ${betterLower} by exploring rich harmonies, vintage analog synth tones, and progressive chord voicings.`,
+        followUp: `Collaborating with talented guitarists, bassists, and drummers allows me to express thoughts that words alone could never capture.`,
+        wrap: `Every time we plug into the amplifiers, the sonic energy in the room is electrifying.`
+      },
+      {
+        partTitle: "본론 1 & 정기 합주 및 톤 메이킹 (Rehearsal & Sound Shaping)",
+        lead: `Our band follows a rigorous rehearsal schedule leading up to our live performances at indie clubs in Hongdae.`,
+        body: `Whenever our team gathers at the practice studio on weekends, ${betterLower} so that every transition in our setlist flows seamlessly.`,
+        followUp: `I spend the first half-hour dialing in electric piano effects and layering atmospheric pads to establish our unique sonic signature.`,
+        wrap: `Fine-tuning the dynamic balance between instruments turns simple melodies into polished, professional tracks.`
+      },
+      {
+        partTitle: "본론 2 & 즉흥 잼과 음악적 돌파구 (Improvisation & Breakthrough)",
+        lead: `One of my favorite aspects of playing live music is the spontaneous musical communication that happens during unscripted jam sessions.`,
+        body: `During one tense rehearsal when our bridge section sounded repetitive, ${betterLower} to experiment with an unexpected jazz-funk groove.`,
+        followUp: `The rhythm section locked into the new tempo immediately, and our faces lit up as the song took on a thrilling new personality.`,
+        wrap: `Overcoming creative roadblocks through spontaneous teamwork is the ultimate thrill of being in a band.`
+      },
+      {
+        partTitle: "본론 3 & 무대 공연 및 관객 소통 (Live Gig & Stage Presence)",
+        lead: `Performing our original compositions on stage before a live audience is an adrenaline rush unlike anything else.`,
+        body: `Whenever our frontman introduces the next piece or a guest musician joins our set, ${betterLower} to build anticipation and connect authentically with the crowd.`,
+        followUp: `Seeing the audience nod their heads and groove to our synthesizer riffs validates all our late-night studio efforts.`,
+        wrap: `Music truly bridges the gap between performer and listener in the most powerful way imaginable.`
+      },
+      {
+        partTitle: "결론 & 음악이 주는 삶의 균형 (Musical Vitality & Future)",
+        lead: `All in all, playing in an indie band keeps my creative spirit alive and sharpens my analytical thinking in daily life.`,
+        body: `Even after exhausting workdays when deadlines pile up and ${betterLower}, touching the keyboard keys instantly restores my inner serenity and focus.`,
+        followUp: `In every single live show, our band members strive to ${idiom.expression} and leave our hearts on the stage.`,
+        wrap: `That enduring passion for musical craftsmanship will stay with me for the rest of my life.`
+      }
+    ],
+    'top-04': [ // Health, Fitness & Workout
+      {
+        partTitle: "서론 & 헬스 철학 및 인바디 데이터 (Fitness Philosophy)",
+        lead: `Maintaining peak physical health and stamina is a top priority that directly fuels my productivity and mental clarity.`,
+        body: `Rather than obsessing over arbitrary weight numbers on a scale, ${betterLower} through rigorous scientific body recomposition and consistent strength training.`,
+        followUp: `Over the span of eighty-nine cumulative InBody scans, I have tracked my skeletal muscle mass increasing steadily while trimming visceral fat.`,
+        wrap: `Viewing quantitative progress on muscle density and metabolic rate gives me immense discipline.`
+      },
+      {
+        partTitle: "본론 1 & 웨이트 트레이닝 루틴 (Compound Strength Training)",
+        lead: `My workout regimen is built upon progressive overload and dedicated compound resistance exercises.`,
+        body: `Whenever I enter the fitness center in the late afternoon, ${betterLower} to ensure my core and posterior chain receive maximum stimulus.`,
+        followUp: `I focus on heavy squats, deadlifts, and overhead presses with strict biomechanical form, followed by targeted mobility drills.`,
+        wrap: `Pushing through that final challenging rep builds not just physical strength, but an invincible mindset.`
+      },
+      {
+        partTitle: "본론 2 & 식단 관리 및 회복 (Nutrition & Recovery Strategy)",
+        lead: `Of course, true body transformation happens in the kitchen and during restorative sleep just as much as in the weight room.`,
+        body: `To prevent fatigue and sustain muscle hypertrophy, ${betterLower} by preparing clean, high-protein meals with complex carbohydrates in advance.`,
+        followUp: `I prioritize hydration, consume plenty of fresh greens, and avoid processed sugars to keep my cellular energy optimal.`,
+        wrap: `Treating nutrition with the same precision as an engineering project has revolutionized my endurance.`
+      },
+      {
+        partTitle: "본론 3 & 운동 멘토링 및 습관 형성 (Inspiring Others & Habit)",
+        lead: `One of the most rewarding aspects of my fitness journey is being able to inspire and guide peers who wish to get in shape.`,
+        body: `Whenever coworkers express frustration about sedentary fatigue or back stiffness, ${betterLower} and walk them through beginner-friendly postural correction routines.`,
+        followUp: `Celebrating their initial progress and seeing them gain confidence reinforces my own long-term commitment.`,
+        wrap: `A community that prioritizes health together fosters enduring mutual empowerment.`
+      },
+      {
+        partTitle: "결론 & 신체적 회복력의 힘 (Physical & Mental Resilience)",
+        lead: `In conclusion, disciplined physical conditioning is the bedrock upon which all my intellectual and professional goals rest.`,
+        body: `Even during intensive exam seasons when study marathons stretch late and ${betterLower}, I never skip my thirty-minute evening walk and stretching routine to reset my nervous system.`,
+        followUp: `In both fitness and career milestones, I always aim to ${idiom.expression} through relentless consistency.`,
+        wrap: `That robust physical vitality ensures that I can conquer any challenge with vibrant energy.`
+      }
+    ],
+    'top-05': [ // Role-Play 12: Problem Solving & Alternatives
+      {
+        partTitle: "서론 & 긴급 상황 유선 통보 (Urgent Call & Situation)",
+        lead: `Hello Eva, thank you for outlining this unexpected scheduling conflict; let me immediately place a phone call to my project partner David to resolve this smoothly.`,
+        body: `*Ring, ring...* "Hi David, this is Carlos calling with an urgent matter regarding our scheduled session today, and to be completely transparent, ${betterLower}."`,
+        followUp: `"I am calling right away because I deeply respect your time and wanted to inform you the very second this sudden issue arose."`,
+        wrap: `"Please accept my sincere apologies for any inconvenience this unexpected hiccup may cause on your schedule."`
+      },
+      {
+        partTitle: "본론 1 & 사유 설명 및 업무 중요도 (Root Cause & Commitment)",
+        lead: `"Let me walk you through exactly what happened on my end so that we are completely on the same page."`,
+        body: `"An unavoidable equipment inspection required my direct technical presence at our facility, but because our joint deliverable is vital, ${betterLower}."`,
+        followUp: `"I want to assure you that my dedication to our partnership remains 100% solid, and I have already outlined two concrete solutions."`,
+        wrap: `"We will not lose any valuable momentum on our shared objectives, and I take full responsibility for smoothing this out."`
+      },
+      {
+        partTitle: "본론 2 & 첫 번째 대안 제시 (Alternative 1: Reschedule)",
+        lead: `"To resolve this effectively, I would love to propose two flexible options for you to choose from."`,
+        body: `"First off, regarding the in-person meeting, ${betterLower} to tomorrow morning at 10 AM, and I will reserve our usual conference room in advance."`,
+        followUp: `"Alternatively, if tomorrow morning is tight for you, I can jump on a high-priority video conference tonight at 8:30 PM after I wrap up my onsite duties."`,
+        wrap: `"Whichever time window fits your calendar best, I will adapt accordingly without hesitation."`
+      },
+      {
+        partTitle: "본론 3 & 두 번째 대안 및 추가 보상 (Alternative 2 & Compensation)",
+        lead: `"Furthermore, to make up for disrupting your itinerary, I want to take care of the entire preliminary preparation myself."`,
+        body: `"If you'd like to review the draft materials asynchronously first, ${betterLower} and send over the finalized summary slides directly to your inbox."`,
+        followUp: `"That way, our rescheduled discussion will be twice as efficient, and the coffee and lunch will definitely be on me."`,
+        wrap: `"I am fully prepared to shoulder the extra workload to ensure our outcome exceeds expectations."`
+      },
+      {
+        partTitle: "결론 & 상대방 확인 요청 및 마무리 (Closing & Reassurance)",
+        lead: `"Thank you so much for your gracious patience and understanding, David; it truly means a lot to me."`,
+        body: `"Even when unexpected emergencies happen and ${betterLower}, our partnership will always deliver top-tier results."`,
+        followUp: `"Whenever we face complex project demands, I always pledge to ${idiom.expression} and support our shared success."`,
+        wrap: `"Please take a look at your calendar and shoot me a quick text on which option suits you best. Talk to you very soon!"`
+      }
+    ]
+  };
+
+  const topicPars = paragraphMap[topicId] || paragraphMap['top-01'];
+  const par = topicPars[partIdx % topicPars.length];
+  const fullText = `${par.lead} ${par.body} ${par.followUp} ${par.wrap}`;
+
+  return {
+    partTitle: par.partTitle,
+    lead: par.lead,
+    body: par.body,
+    followUp: par.followUp,
+    wrap: par.wrap,
+    fullText: fullText,
+    betterSentence: better
+  };
+}
+
 function getPodcastTracks(items, idiom, setNum, topicIndex) {
   const safeIdiom = idiom || { expression: 'bring something to the table', meaning: '유용한 가치나 아이디어를 기여하다' };
   const safeItems = (items && items.length >= 5) ? items.slice(0, 5) : [
@@ -3380,52 +3598,29 @@ function getPodcastTracks(items, idiom, setNum, topicIndex) {
   const opic = TOP_5_OPIC_TOPICS[chosenTopicIdx % TOP_5_OPIC_TOPICS.length];
   const cleanTheme = opic.theme.split('(')[0].trim();
 
-  // Helper to format clean sentences
-  const cleanSentence = (str) => {
-    if (!str) return '';
-    let s = String(str).trim();
-    s = s.charAt(0).toUpperCase() + s.slice(1);
-    if (!/[.!?]$/.test(s)) s += '.';
-    return s;
-  };
+  // Generate 5 Contextual Paragraphs interweaving user's corrected grammar sentences
+  const paragraphs = safeItems.map((item, idx) => buildTopicParagraph(opic.id, idx, item, safeIdiom, opic));
 
-  // Structured AL Answer Discourse Connectors for each of the 5 points
-  const alPartConnectors = [
-    `Well Eva, answering your question about ${cleanTheme}, to begin with: `,
-    `Furthermore, regarding my daily routine: `,
-    `In fact, what really made an impact on me was that `,
-    `More importantly, through this whole journey, `,
-    `Looking ahead, as a core value in my life: `
-  ];
-
-  const alPartTitles = [
-    "서론 & 핵심 발화 (Opening & Direct Answer)",
-    "본론 1 & 구체적 일상 (Detail & Routine)",
-    "본론 2 & 심층 경험 (Core Narrative & Impact)",
-    "본론 3 & 교훈 및 인사이트 (Insight & Growth)",
-    "결론 & 미래 비전 (Outlook & Core Philosophy)"
-  ];
-
-  // Full Cohesive 2-Minute AL Model Answer Text
-  const fullAlModelAnswer = `Well Eva, thank you for that question about ${cleanTheme}. First of all, ${cleanSentence(safeItems[0].betterSay)} On top of that, ${cleanSentence(safeItems[1].betterSay)} In fact, ${cleanSentence(safeItems[2].betterSay)} More importantly, ${cleanSentence(safeItems[3].betterSay)} Looking ahead, ${cleanSentence(safeItems[4].betterSay)} Whenever I face new opportunities, I always try to ${safeIdiom.expression}. Overall, that truly reflects my thoughts and personal goals on this topic.`;
+  // Composite 2-Minute Full AL Master Answer
+  const fullAlMasterSpeech = `Eva, here is my complete response to your question regarding ${cleanTheme}. ${paragraphs[0].lead} ${paragraphs[0].body} Furthermore, ${paragraphs[1].lead} ${paragraphs[1].body} What's more, ${paragraphs[2].lead} ${paragraphs[2].body} In addition, ${paragraphs[3].lead} ${paragraphs[3].body} Looking forward, ${paragraphs[4].lead} ${paragraphs[4].body} In everything I pursue, I constantly strive to ${safeIdiom.expression}. Thank you for listening to my story.`;
 
   return [
     {
       id: 0,
       title: `🎙️ Track 1. [OPIc 기출] Eva의 인터뷰 질문 출제 (${cleanTheme})`,
       speaker: "Interviewer Eva & Carlos",
-      durationSec: 30,
+      durationSec: 35,
       timeLabel: "00:00",
-      speechText: `Hello Carlos, here is your question: ${opic.evaPrompt}. Well Eva, thank you for asking about ${cleanTheme}. Let me share my personal story and perspectives with you.`,
+      speechText: `Hello Carlos, here is your question: ${opic.evaPrompt}. Well Eva, thank you for asking about ${cleanTheme}. Let me share my personal story, daily experiences, and future perspectives with you in detail.`,
       speechSegments: [
         {
           text: `Hello Carlos, here is your question: ${opic.evaPrompt}`,
           lang: 'en-US',
           speakerRole: 'eva',
-          speakerLabel: 'Interviewer Eva (질문 출제)'
+          speakerLabel: 'Interviewer Eva (오픽 기출 질문 출제)'
         },
         {
-          text: `Well Eva, thank you for asking about ${cleanTheme}. Let me share my personal story and perspectives with you.`,
+          text: `Well Eva, thank you for asking about ${cleanTheme}. Let me share my personal story, daily experiences, and future perspectives with you in detail.`,
           lang: 'en-US',
           speakerRole: 'carlos',
           speakerLabel: 'Carlos (답변 오프닝)'
@@ -3433,10 +3628,10 @@ function getPodcastTracks(items, idiom, setNum, topicIndex) {
       ],
       summaryKo: `오픽 기출 질문: [${opic.koreanTitle}]`,
       fullScriptHtml: `
-        <div class="space-y-2 text-xs">
+        <div class="space-y-2.5 text-xs">
           <div class="flex items-center gap-2">
-            <span class="px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 text-[10px] font-bold">오픽 기출 시뮬레이션</span>
-            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">Target: AL</span>
+            <span class="px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 text-[10px] font-bold">오픽 기출 실전 시뮬레이션</span>
+            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">Target: AL 등급 완성</span>
           </div>
           
           <div class="p-3.5 rounded-2xl bg-indigo-950/40 border border-indigo-500/30">
@@ -3450,77 +3645,82 @@ function getPodcastTracks(items, idiom, setNum, topicIndex) {
           </div>
 
           <div class="p-3 rounded-2xl bg-slate-900/80 border border-slate-800">
-            <p class="text-teal-300 font-bold mb-1">🙋‍♂️ Carlos (답변 오프닝):</p>
+            <p class="text-teal-300 font-bold mb-1">🙋‍♂️ Carlos (답변 오프닝 & 방향 제시):</p>
             <p class="text-slate-200 font-sans pl-2 border-l-2 border-teal-500/50 leading-relaxed text-xs">
-              "Well Eva, thank you for asking about ${cleanTheme}. Let me share my personal story and perspectives with you."
+              "Well Eva, thank you for asking about ${cleanTheme}. Let me share my personal story, daily experiences, and future perspectives with you in detail."
             </p>
           </div>
         </div>
       `
     },
     ...safeItems.map((item, idx) => {
-      const connector = alPartConnectors[idx];
-      const partSentence = `${connector}${cleanSentence(item.betterSay)}`;
+      const par = paragraphs[idx];
       return {
         id: idx + 1,
-        title: `💬 Track ${idx + 2}. [AL 답변 #${idx + 1}] ${alPartTitles[idx]} (${item.categoryName})`,
+        title: `💬 Track ${idx + 2}. [AL 문단 답변 #${idx + 1}] ${par.partTitle} (${item.categoryName})`,
         speaker: "Carlos",
-        durationSec: 25,
-        timeLabel: formatPodcastTime(30 + idx * 25),
-        speechText: `${partSentence} "${cleanSentence(item.betterSay)}"`,
+        durationSec: 42,
+        timeLabel: formatPodcastTime(35 + idx * 42),
+        speechText: `${par.fullText} "${par.betterSentence}"`,
         speechSegments: [
           {
-            text: partSentence,
+            text: par.fullText,
             lang: 'en-US',
             speakerRole: 'carlos',
-            speakerLabel: `Carlos (AL 실전 답변 #${idx + 1})`
+            speakerLabel: `Carlos (실전 답변 문단 #${idx + 1})`
           },
           {
-            text: `"${cleanSentence(item.betterSay)}"`,
+            text: `"${par.betterSentence}"`,
             lang: 'en-US',
             speakerRole: 'carlos',
-            speakerLabel: 'Carlos (교정 문법 쉐도잉)'
+            speakerLabel: 'Carlos (교정 핵심 문장 쉐도잉)'
           }
         ],
-        summaryKo: `[AL 답변 파트 ${idx + 1}] 내가 틀렸던 문법 수정한 AL 문장 적용: "${item.betterSay}"`,
+        summaryKo: `[AL 답변 문단 ${idx + 1}] 질문에 최적화된 기출 문단 내 오류 교정 문장 유기적 결합`,
         fullScriptHtml: `
-          <div class="space-y-2 text-xs">
-            <div class="flex items-center gap-2">
-              <span class="px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 text-[10px] font-bold">${item.categoryName}</span>
-              <span class="text-slate-400 text-xs font-mono font-bold">#${item.num}</span>
-              <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">OPIc AL 실전 답변</span>
+          <div class="space-y-2.5 text-xs">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 text-[10px] font-bold">${item.categoryName}</span>
+                <span class="text-slate-400 text-xs font-mono font-bold">#${item.num}</span>
+                <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">OPIc AL 완성 문단</span>
+              </div>
+              <span class="text-[10px] text-slate-400 font-medium">${par.partTitle}</span>
             </div>
 
-            <!-- Carlos AL Answer Discourse -->
-            <div class="p-3.5 rounded-2xl bg-slate-900/90 border border-teal-500/40 shadow-sm">
-              <p class="text-teal-300 font-bold mb-1 flex items-center gap-1.5">
+            <!-- Carlos Full Cohesive Paragraph with Highlighted Embedded Sentence -->
+            <div class="p-3.5 rounded-2xl bg-slate-900/90 border border-teal-500/40 shadow-sm space-y-2">
+              <p class="text-teal-300 font-bold flex items-center gap-1.5">
                 <i class="fa-solid fa-microphone-lines text-xs"></i>
-                <span>🙋‍♂️ Carlos (OPIc AL 답변 본문):</span>
+                <span>🙋‍♂️ Carlos (질문 맞춤형 AL 모범 답변 문단):</span>
               </p>
-              <p class="text-slate-100 font-sans text-xs sm:text-sm font-semibold leading-relaxed pl-2.5 border-l-2 border-teal-400">
-                "${connector}<mark class="bg-teal-500/20 text-teal-200 font-bold px-1.5 py-0.5 rounded border border-teal-500/30">${cleanSentence(item.betterSay)}</mark>"
-              </p>
+              <div class="text-slate-100 font-sans text-xs sm:text-sm leading-relaxed pl-2.5 border-l-2 border-teal-400 space-y-1.5">
+                <p>${par.lead}</p>
+                <p><mark class="bg-teal-500/25 text-teal-200 font-bold px-1.5 py-0.5 rounded border border-teal-500/40 leading-relaxed">${par.body}</mark></p>
+                <p class="text-slate-300">${par.followUp}</p>
+                <p class="text-slate-400 text-[11px] italic">${par.wrap}</p>
+              </div>
             </div>
 
-            <!-- Before vs After Grammar Upgrade Comparison -->
+            <!-- Before vs After Grammar Upgrade Comparison Box -->
             <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-[11px] space-y-1.5">
               <div class="flex items-start gap-2 text-rose-300">
-                <span class="font-bold text-[9px] uppercase px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 flex-shrink-0 mt-0.5">내가 틀렸던 표현</span>
+                <span class="font-bold text-[9px] uppercase px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 flex-shrink-0 mt-0.5">내가 자주 틀리던 오류</span>
                 <span class="line-through text-slate-400 font-sans">"${item.youSaid}"</span>
               </div>
               <div class="flex items-start gap-2 text-emerald-300">
-                <span class="font-bold text-[9px] uppercase px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 flex-shrink-0 mt-0.5">AL 교정 적용 표현</span>
+                <span class="font-bold text-[9px] uppercase px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 flex-shrink-0 mt-0.5">답변 속 삽입된 교정 문장</span>
                 <span class="font-bold text-emerald-200 font-sans">"${item.betterSay}"</span>
               </div>
               <div class="text-slate-400 pt-1 border-t border-slate-800/80 text-[10px]">
-                💡 문법 교정 포인트: ${item.explanation}
+                💡 문단 내 문법 교정 포인트: ${item.explanation}
               </div>
             </div>
 
             <div class="pt-1 flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-800">
-              <span>🎧 쉐도잉 반복: "${item.betterSay}"</span>
-              <button onclick="window.app.speakEnglish('${item.betterSay.replace(/'/g, "\\'")}')" class="text-teal-400 hover:text-teal-300 font-bold flex items-center gap-1">
-                <i class="fa-solid fa-volume-high"></i> 개별 문장 듣기
+              <span>🎧 핵심 문장 쉐도잉: "${par.betterSentence}"</span>
+              <button onclick="window.app.speakEnglish('${item.betterSay.replace(/'/g, "\\'")}')" class="text-teal-400 hover:text-teal-300 font-bold flex items-center gap-1 cursor-pointer">
+                <i class="fa-solid fa-volume-high"></i> 교정 문장만 듣기
               </button>
             </div>
           </div>
@@ -3529,102 +3729,46 @@ function getPodcastTracks(items, idiom, setNum, topicIndex) {
     }),
     {
       id: 6,
-      title: `✨ Track 7. [AL 이디엄] 원어민 관용구 실전 적용 ("${safeIdiom.expression}")`,
+      title: `✨ Track 7. [전체 총괄 AL 풀 마스터] 2분 완성 실전 담화 통합본 (${cleanTheme})`,
       speaker: "Carlos",
-      durationSec: 25,
-      timeLabel: formatPodcastTime(30 + 5 * 25),
-      speechText: `In any project or discussion, I always try to ${safeIdiom.expression}. "${cleanSentence(safeIdiom.expression)}"`,
+      durationSec: 55,
+      timeLabel: formatPodcastTime(35 + 5 * 42),
+      speechText: fullAlMasterSpeech,
       speechSegments: [
         {
-          text: `In any project or discussion, I always try to ${safeIdiom.expression}.`,
+          text: fullAlMasterSpeech,
           lang: 'en-US',
           speakerRole: 'carlos',
-          speakerLabel: 'Carlos (AL 이디엄 적용 답변)'
-        },
-        {
-          text: `"${cleanSentence(safeIdiom.expression)}"`,
-          lang: 'en-US',
-          speakerRole: 'carlos',
-          speakerLabel: 'Carlos (이디엄 쉐도잉)'
+          speakerLabel: 'Carlos (전체 AL 풀 마스터 연속 발화)'
         }
       ],
-      summaryKo: `오픽 AL 비밀 병기 이디엄: "${safeIdiom.expression}" 실전 답변 활용`,
-      fullScriptHtml: `
-        <div class="space-y-2 text-xs">
-          <div class="flex items-center gap-2">
-            <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-bold">오픽 AL 치트키</span>
-            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">고득점 이디엄</span>
-          </div>
-
-          <p class="text-amber-300 font-black text-sm">✨ "${safeIdiom.expression}"</p>
-          <div class="p-3 rounded-xl bg-slate-900/90 border border-amber-500/30">
-            <p class="text-amber-200 font-bold mb-1">💬 실전 답변 적용 템플릿:</p>
-            <p class="text-slate-100 italic font-sans leading-relaxed text-xs sm:text-sm pl-2 border-l-2 border-amber-400">
-              "In any project or discussion, I always try to <b class="text-amber-300 underline">${safeIdiom.expression}</b>."
-            </p>
-          </div>
-
-          <div class="p-2 rounded-xl bg-slate-900/60 border border-slate-800 text-[11px] text-slate-400">
-            <span class="text-slate-500 font-bold mr-1">[참고 의미]</span>
-            <span class="text-slate-300">${safeIdiom.meaning}</span>
-          </div>
-        </div>
-      `
-    },
-    {
-      id: 7,
-      title: "🏆 Track 8. [AL 완벽 실전] Eva 기출 & Carlos 2분 완성형 통합 답변",
-      speaker: "Interviewer Eva & Carlos",
-      durationSec: 65,
-      timeLabel: formatPodcastTime(30 + 5 * 25 + 25),
-      speechText: `${opic.evaPrompt}. ${fullAlModelAnswer}`,
-      speechSegments: [
-        {
-          text: opic.evaPrompt,
-          lang: 'en-US',
-          speakerRole: 'eva',
-          speakerLabel: 'Interviewer Eva (질문 출제)'
-        },
-        {
-          text: fullAlModelAnswer,
-          lang: 'en-US',
-          speakerRole: 'carlos',
-          speakerLabel: 'Carlos (AL 2분 완성형 통합 답변)'
-        }
-      ],
-      summaryKo: "Eva의 기출 질문 ➔ Carlos의 5대 교정 문법 통합 2분 AL 완벽 답변 리딩",
+      summaryKo: `[AL 풀 마스터] 5대 문단과 원어민 관용구("${safeIdiom.expression}")가 하나로 완성된 2분 풀 스토리`,
       fullScriptHtml: `
         <div class="space-y-3 text-xs">
-          <div class="flex items-center justify-between">
-            <p class="text-teal-300 font-bold flex items-center gap-1.5">
-              <i class="fa-solid fa-trophy text-amber-400"></i>
-              <span>OPIc Full 2-Minute AL Master Response:</span>
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-bold">2분 연속 발화 마스터</span>
+            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-teal-500/20 text-teal-300 border border-teal-500/30">OPIc AL 시험 만점 기준</span>
+          </div>
+
+          <div class="p-3.5 rounded-2xl bg-amber-950/20 border border-amber-500/30 space-y-2">
+            <h4 class="font-bold text-amber-300 flex items-center gap-1.5">
+              <i class="fa-solid fa-crown text-amber-400"></i>
+              <span>2분 완성 실전 OPIc AL 답변 총괄 담화문 (Full Cohesive Narrative):</span>
+            </h4>
+            <p class="text-slate-200 font-sans leading-relaxed text-xs sm:text-sm pl-2 border-l-2 border-amber-400/60">
+              "${fullAlMasterSpeech}"
             </p>
-            <span class="text-[10px] text-amber-300 font-mono font-bold bg-amber-500/20 px-2 py-0.5 rounded border border-amber-500/30">Target: AL 완벽 답변</span>
           </div>
 
-          <!-- Eva's Question Prompt -->
-          <div class="p-3 rounded-2xl bg-indigo-950/40 border border-indigo-500/30 text-[11px]">
-            <span class="text-indigo-300 font-bold block mb-1">👩‍💼 Interviewer Eva:</span>
-            <p class="text-slate-200 italic font-sans leading-relaxed">"${opic.evaPrompt}"</p>
-          </div>
-
-          <!-- Full Cohesive Model Answer -->
-          <div class="p-4 rounded-2xl bg-slate-900/95 border border-teal-500/40 shadow-lg space-y-2 text-xs leading-relaxed text-slate-100 font-sans">
-            <div class="flex items-center justify-between pb-2 border-b border-slate-800 text-[11px]">
-              <span class="text-teal-300 font-bold">🙋‍♂️ Carlos (완성형 AL 통합 답변 전문):</span>
-              <span class="text-slate-400 font-mono">5개 교정 문법 + 이디엄 자연 결합</span>
+          <div class="p-3 rounded-2xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
+            <div class="text-[11px] text-slate-300">
+              <span class="font-bold text-teal-300">💡 핵심 원어민 관용구:</span>
+              <span class="font-bold text-white ml-1">"${safeIdiom.expression}"</span>
+              <span class="text-slate-400 block sm:inline sm:ml-2">(${safeIdiom.meaning})</span>
             </div>
-            <p class="leading-relaxed">
-              Well Eva, thank you for that question about <b class="text-slate-200">${cleanTheme}</b>.
-              First of all, <mark class="bg-emerald-500/20 text-emerald-300 font-bold px-1 rounded border border-emerald-500/30">${cleanSentence(safeItems[0].betterSay)}</mark>
-              On top of that, <mark class="bg-emerald-500/20 text-emerald-300 font-bold px-1 rounded border border-emerald-500/30">${cleanSentence(safeItems[1].betterSay)}</mark>
-              In fact, <mark class="bg-emerald-500/20 text-emerald-300 font-bold px-1 rounded border border-emerald-500/30">${cleanSentence(safeItems[2].betterSay)}</mark>
-              More importantly, <mark class="bg-emerald-500/20 text-emerald-300 font-bold px-1 rounded border border-emerald-500/30">${cleanSentence(safeItems[3].betterSay)}</mark>
-              Looking ahead, <mark class="bg-emerald-500/20 text-emerald-300 font-bold px-1 rounded border border-emerald-500/30">${cleanSentence(safeItems[4].betterSay)}</mark>
-              Whenever I face new opportunities, I always try to <mark class="bg-amber-500/20 text-amber-300 font-bold px-1 rounded border border-amber-500/30">${safeIdiom.expression}</mark>.
-              Overall, that truly reflects my thoughts and personal goals on this topic.
-            </p>
+            <button onclick="window.app.speakEnglish('${safeIdiom.expression.replace(/'/g, "\\'")}')" class="px-2.5 py-1 rounded-lg bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-bold hover:bg-teal-500/30 transition flex items-center gap-1 cursor-pointer">
+              <i class="fa-solid fa-volume-high"></i> 이디엄 발음
+            </button>
           </div>
         </div>
       `
@@ -3632,12 +3776,10 @@ function getPodcastTracks(items, idiom, setNum, topicIndex) {
   ];
 }
 
-// --------------------------------------------------------------------------
-// Podcast Audio Controller Functions (Seamless Dual Announcer Playback)
-// --------------------------------------------------------------------------
+
 // ==========================================================================
 // Robust Mobile & Desktop Podcast Audio Engine 🎧
-// (Includes User Gesture Unlock, GC Freeze Prevention, and Mobile Chrome Fallbacks)
+// (Includes User Gesture Unlock, GC Freeze Prevention, and Mobile Fallbacks)
 // ==========================================================================
 window._podcastActiveUtterance = null;
 window._podcastResumeInterval = null;
