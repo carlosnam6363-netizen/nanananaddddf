@@ -11114,6 +11114,193 @@ const INITIAL_CONTEST_DATA = {
   }
 };
 
+// =========================================================================
+// 17. 갤럭시 모바일 캘린더 양방향 실시간 연동 데이터 (Galaxy Calendar Sync)
+// =========================================================================
+const INITIAL_CALENDAR_EVENTS = [
+  {
+    id: "cal-01",
+    title: "에너지관리기사 실기 제1차 실전 모의고사",
+    date: "2026-10-18",
+    startTime: "09:00",
+    endTime: "13:00",
+    allDay: false,
+    category: "exam",
+    categoryLabel: "시험/학사",
+    color: "#38bdf8",
+    location: "집 서재 / 독서실",
+    memo: "공학용 계산기 지참, 연소공학 및 보일러 효율 계산 공식 집중 풀이",
+    syncWithGalaxy: true,
+    lastSynced: "2026-10-01 08:30"
+  },
+  {
+    id: "cal-02",
+    title: "방통대 사회복지학과 2학기 중간과제물 최종 제출 마감",
+    date: "2026-10-15",
+    startTime: "23:59",
+    endTime: "23:59",
+    allDay: true,
+    category: "knou",
+    categoryLabel: "방통대 학점",
+    color: "#818cf8",
+    location: "방송통신대학교 온라인 과제물 포털",
+    memo: "사회복지행정론 과제물 제출 확인 및 영수증 캡처",
+    syncWithGalaxy: true,
+    lastSynced: "2026-10-01 08:30"
+  },
+  {
+    id: "cal-03",
+    title: "인디밴드 정기 합주 (신디사이저 & 보컬 사운드 체크)",
+    date: "2026-10-10",
+    startTime: "19:00",
+    endTime: "22:00",
+    allDay: false,
+    category: "band",
+    categoryLabel: "밴드 합주",
+    color: "#c084fc",
+    location: "홍대 사운드스퀘어 합주실 3호점",
+    memo: "자작곡 '청춘의 소용돌이' 신디사이저 인트로 리드 라인 및 코러스 하모니 연습",
+    syncWithGalaxy: true,
+    lastSynced: "2026-10-01 08:30"
+  },
+  {
+    id: "cal-04",
+    title: "밴드 가을 정기 클럽 라이브 공연",
+    date: "2026-10-24",
+    startTime: "18:00",
+    endTime: "21:30",
+    allDay: false,
+    category: "band",
+    categoryLabel: "밴드 공연",
+    color: "#e879f9",
+    location: "홍대 클럽 프리버드 리브스",
+    memo: "리허설 16:30까지 집결, 지인 티켓 명단 체크",
+    syncWithGalaxy: true,
+    lastSynced: "2026-10-01 08:30"
+  },
+  {
+    id: "cal-05",
+    title: "★ 2026년 제3회 에너지관리기사 실기 본시험",
+    date: "2026-11-07",
+    startTime: "09:00",
+    endTime: "12:30",
+    allDay: false,
+    category: "exam",
+    categoryLabel: "국가기술자격",
+    color: "#f59e0b",
+    location: "한국산업인력공단 서울남부국가자격시험장",
+    memo: "신분증, 수험표, 흑색볼펜, 공학용 계산기 지참 필수! 합격 목표 75점 이상!",
+    syncWithGalaxy: true,
+    lastSynced: "2026-10-01 08:30"
+  },
+  {
+    id: "cal-06",
+    title: "✈️ 산티아고 순례길 인천공항 출국 (까미노 드 포르투)",
+    date: "2026-11-09",
+    startTime: "10:30",
+    endTime: "23:00",
+    allDay: true,
+    category: "camino",
+    categoryLabel: "산티아고 순례",
+    color: "#10b981",
+    location: "인천국제공항 제2여객터미널",
+    memo: "배낭 무게 7.5kg 검사, 여권/크레덴샬/힙색 휴대 확인. 3주간의 힐링 여정 출발!",
+    syncWithGalaxy: true,
+    lastSynced: "2026-10-01 08:30"
+  },
+  {
+    id: "cal-07",
+    title: "까미노 드 포르투 해안길 1일차 트레킹 (Porto ~ Matosinhos)",
+    date: "2026-11-12",
+    startTime: "07:30",
+    endTime: "14:00",
+    allDay: false,
+    category: "camino",
+    categoryLabel: "도보 순례",
+    color: "#34d399",
+    location: "포르투 대성당 앞 광장 출발",
+    memo: "첫 크레덴샬 스탬프 날인, 대서양 해안 목재 데크길 보행 (약 12km)",
+    syncWithGalaxy: true,
+    lastSynced: "2026-10-01 08:30"
+  },
+  {
+    id: "cal-08",
+    title: "산티아고 데 콤포스텔라 완주 증명서 수령 & 피스테라 이동",
+    date: "2026-11-28",
+    startTime: "11:00",
+    endTime: "18:00",
+    allDay: false,
+    category: "camino",
+    categoryLabel: "순례 완주",
+    color: "#059669",
+    location: "산티아고 순례자 사무소 (Oficina de Acogida al Peregrino)",
+    memo: "콤포스텔라(완주증명서) 발급 및 세상의 끝 피스테라 바다 석양 조망",
+    syncWithGalaxy: true,
+    lastSynced: "2026-10-01 08:30"
+  },
+  {
+    id: "cal-09",
+    title: "[갤럭시 폰 캘린더 연동] 월간 인바디 측정 & 체형 리포트 분석",
+    date: "2026-10-02",
+    startTime: "20:00",
+    endTime: "21:00",
+    allDay: false,
+    category: "personal",
+    categoryLabel: "인바디/헬스",
+    color: "#f43f5e",
+    location: "피트니스 센터",
+    memo: "골격근량 33.5kg 유지 및 체지방률 15% 진입 점검",
+    syncWithGalaxy: true,
+    lastSynced: "2026-10-01 08:30"
+  },
+  {
+    id: "cal-10",
+    title: "[갤럭시 폰 캘린더 연동] 브런치스토리 월요 연재 글 발행",
+    date: "2026-10-05",
+    startTime: "21:00",
+    endTime: "22:00",
+    allDay: false,
+    category: "personal",
+    categoryLabel: "SNS/브런치",
+    color: "#ec4899",
+    location: "브런치 작가 스튜디오",
+    memo: "주제: 실패를 성찰의 자산으로 전환하는 법 (공모전 탈락 회고)",
+    syncWithGalaxy: true,
+    lastSynced: "2026-10-01 08:30"
+  },
+  {
+    id: "cal-11",
+    title: "[갤럭시 폰 캘린더 연동] 오픽(OPIc) AL 실전 모의 인터뷰 섀도잉",
+    date: "2026-10-12",
+    startTime: "14:00",
+    endTime: "15:00",
+    allDay: false,
+    category: "career",
+    categoryLabel: "어학/오픽",
+    color: "#14b8a6",
+    location: "모바일 팟캐스트 플레이어",
+    memo: "Eva 인터뷰 질문 5대 빈출 주제 중 'Routine & Plans' AL 2분 답변 스피킹",
+    syncWithGalaxy: true,
+    lastSynced: "2026-10-01 08:30"
+  },
+  {
+    id: "cal-12",
+    title: "[갤럭시 폰 캘린더 연동] 10월 월말 커리어 & 역량 포트폴리오 회고",
+    date: "2026-10-30",
+    startTime: "20:30",
+    endTime: "22:00",
+    allDay: false,
+    category: "career",
+    categoryLabel: "커리어 회고",
+    color: "#6366f1",
+    location: "노트북 대시보드 / 모바일",
+    memo: "에너지 실기 최종 점검, 순례길 패킹리스트 100% 완료 여부 확인",
+    syncWithGalaxy: true,
+    lastSynced: "2026-10-01 08:30"
+  }
+];
+
 global.INITIAL_CONTEST_DATA = INITIAL_CONTEST_DATA;
+global.INITIAL_CALENDAR_EVENTS = INITIAL_CALENDAR_EVENTS;
 
 })(typeof window !== 'undefined' ? window : this);

@@ -42,7 +42,7 @@
         });
       }
       // 3. 빌드 버전 검사를 통한 자동 1회 새로고침
-      var APP_VER = '20260930_v9';
+      var APP_VER = '20261001_v1';
       if (localStorage.getItem('career_app_build') !== APP_VER) {
         localStorage.setItem('career_app_build', APP_VER);
         if (!sessionStorage.getItem('build_updated')) {
@@ -202,6 +202,9 @@
     <!-- Tab Section 5: 외부 대시보드 연동 (사용자 추가 요청) -->
     <section id="tab-content-inbody" class="tab-section hidden"></section>
     <section id="tab-content-external" class="tab-section hidden"></section>
+
+    <!-- Tab Section: 갤럭시 캘린더 모바일 연동 (기타 카테고리 신규 ⭐) -->
+    <section id="tab-content-calendar" class="tab-section hidden"></section>
 
     <!-- Tab Section 7: SNS & 퍼스널 브랜딩 분석 (신규) -->
     <section id="tab-content-sns" class="tab-section hidden"></section>
@@ -1887,8 +1890,93 @@
     </div>
   </div>
 
+  <!-- Modal: 갤럭시 캘린더 일정 추가/수정 (모바일 실시간 연동) -->
+  <div id="modal-calendar-event" class="app-modal fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="glass-panel w-full max-w-lg rounded-2xl border border-indigo-500/40 p-6 bg-slate-900/95 shadow-2xl relative">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+        <h3 id="modal-cal-event-title" class="font-bold text-white text-base flex items-center gap-2">
+          <i class="fa-solid fa-calendar-plus text-indigo-400"></i>
+          <span>갤럭시 캘린더 일정 등록 / 수정</span>
+        </h3>
+        <button type="button" onclick="window.app.closeAllModals()" class="text-slate-400 hover:text-white p-1 rounded-lg">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form id="form-calendar-event" onsubmit="window.app.saveCalendarEvent(event)" class="space-y-3.5 text-xs">
+        <input type="hidden" id="cal-event-id">
+
+        <div>
+          <label class="block text-slate-300 font-bold mb-1">일정명 <span class="text-rose-400">*</span></label>
+          <input type="text" id="cal-event-title" required placeholder="예: 에너지관리기사 모의고사 / 밴드 합주 / 인바디 측정" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-indigo-400 outline-none">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">날짜 <span class="text-rose-400">*</span></label>
+            <input type="date" id="cal-event-date" required class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-indigo-400 outline-none font-mono">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">카테고리</label>
+            <select id="cal-event-category" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-indigo-400 outline-none">
+              <option value="personal">📱 갤럭시 연동 / 개인</option>
+              <option value="exam">🎓 시험 및 자격증 일정</option>
+              <option value="knou">🏛️ 방통대 사회복지 학점</option>
+              <option value="band">🎸 밴드 합주 및 공연</option>
+              <option value="camino">🥾 산티아고 순례길</option>
+              <option value="career">💼 커리어 & 업무 포트폴리오</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 pt-1 pb-1">
+          <input type="checkbox" id="cal-event-all-day" onchange="window.app.toggleCalAllDay(this.checked)" class="w-4 h-4 rounded text-indigo-500 focus:ring-0 border-slate-600 bg-slate-800 cursor-pointer">
+          <label for="cal-event-all-day" class="text-slate-300 font-medium cursor-pointer">하루 종일 (종일 일정)</label>
+        </div>
+
+        <div id="cal-time-row" class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">시작 시간</label>
+            <input type="time" id="cal-event-start-time" value="09:00" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-indigo-400 outline-none font-mono">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">종료 시간</label>
+            <input type="time" id="cal-event-end-time" value="10:00" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-indigo-400 outline-none font-mono">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-bold mb-1">장소 / 위치</label>
+          <input type="text" id="cal-event-location" placeholder="예: 집 서재, 홍대 합주실, 온라인 포털" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-indigo-400 outline-none">
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-bold mb-1">메모 / 준비물</label>
+          <textarea id="cal-event-memo" rows="2" placeholder="일정에 필요한 준비물이나 세부 메모..." class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-indigo-400 outline-none leading-relaxed"></textarea>
+        </div>
+
+        <div class="pt-3 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+          <button type="button" id="btn-cal-galaxy-direct" onclick="window.app.openCurrentModalInGalaxyCalendar()" class="px-3 py-2 rounded-xl bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 border border-indigo-500/40 font-bold transition flex items-center gap-1.5 cursor-pointer" title="모바일 삼성 캘린더 / Google 캘린더에 바로 등록">
+            <i class="fa-solid fa-mobile-screen"></i>
+            <span>갤럭시 캘린더 바로 저장</span>
+          </button>
+
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="window.app.closeAllModals()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold transition cursor-pointer">
+              취소
+            </button>
+            <button type="submit" class="px-5 py-2 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-slate-950 font-bold transition shadow-lg shadow-indigo-500/25 cursor-pointer flex items-center gap-1.5">
+              <i class="fa-solid fa-check"></i>
+              <span>저장하기</span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Static Seed Datasets & Core Application Script (Safe for file:// and http://) -->
-  <script src="js/data.js?v=20260930_v9"></script>
-  <script src="js/app.js?v=20260930_v9"></script>
+  <script src="js/data.js?v=20261001_v1"></script>
+  <script src="js/app.js?v=20261001_v1"></script>
 </body>
 </html>

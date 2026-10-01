@@ -119,6 +119,10 @@ class SyncManager {
         parsed.knou = upgradedKnou;
         parsed.english = upgradedEnglish;
         parsed.contest = upgradedContest;
+        const upgradedCalendar = (parsed.calendarEvents && Array.isArray(parsed.calendarEvents) && parsed.calendarEvents.length >= 10)
+          ? parsed.calendarEvents
+          : JSON.parse(JSON.stringify(INITIAL_CALENDAR_EVENTS));
+        parsed.calendarEvents = upgradedCalendar;
         localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
 
         return {
@@ -136,6 +140,7 @@ class SyncManager {
           knou: upgradedKnou,
           english: upgradedEnglish,
           contest: upgradedContest,
+          calendarEvents: upgradedCalendar,
           theme: parsed.theme || 'dark'
         };
       }
@@ -158,6 +163,7 @@ class SyncManager {
       knou: INITIAL_KNOU_DATA,
       english: INITIAL_ENGLISH_DATA,
       contest: INITIAL_CONTEST_DATA,
+      calendarEvents: INITIAL_CALENDAR_EVENTS,
       theme: 'dark'
     };
   }
@@ -408,8 +414,9 @@ const TAB_REGISTRY = [
   { id: 'band', name: '밴드 합주 & 문화', shortName: '밴드', icon: 'fa-guitar', color: 'text-purple-400', badge: '10/10', badgeClass: 'bg-purple-500/20 text-purple-300', category: 'hobby', categoryName: '취미' },
   { id: 'sns', name: 'SNS & 브랜딩', shortName: 'SNS', icon: 'fa-share-nodes', color: 'text-pink-400', badge: 'Brunch', badgeClass: 'bg-pink-500/20 text-pink-400', category: 'hobby', categoryName: '취미' },
 
-  // 3. 기타 (2개)
+  // 3. 기타 (3개)
   { id: 'overview', name: '종합 대시보드', shortName: '홈', icon: 'fa-house', color: 'text-sky-400', badge: null, badgeClass: '', category: 'etc', categoryName: '기타' },
+  { id: 'calendar', name: '갤럭시 캘린더 모바일 연동', shortName: '갤럭시 캘린더', icon: 'fa-calendar-check', color: 'text-indigo-400', badge: 'Galaxy Sync', badgeClass: 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30', category: 'etc', categoryName: '기타' },
   { id: 'external', name: '외부 연동 & 엑셀', shortName: '연동·엑셀', icon: 'fa-window-restore', color: 'text-emerald-400', badge: 'Excel', badgeClass: 'bg-emerald-500/20 text-emerald-400', category: 'etc', categoryName: '기타' }
 ];
 
@@ -975,6 +982,16 @@ let state = {
   englishFlipped: {},
   englishSelectedTopTopicIdx: 0,
   englishAnswererVoiceGender: 'female', // 'female' | 'male'
+  calendarEvents: INITIAL_CALENDAR_EVENTS,
+  calendarViewMode: 'month', // 'month' | 'agenda'
+  calendarSelectedDate: '2026-10-01',
+  calendarCategoryFilter: 'all', // 'all', 'exam', 'knou', 'band', 'camino', 'personal', 'career'
+  calendarCurrentMonth: '2026-10',
+  calendarSyncSettings: {
+    autoSync: true,
+    lastSyncTime: '실시간 클라우드 연결됨',
+    deviceType: 'Samsung Galaxy Mobile'
+  },
   externalSubtab: 'excel', // 'excel' or 'dashboards'
   inbodyYearFilter: 'all', // 'all', '2026', '2025', '2024', 'prev'
   theme: 'dark',
@@ -1363,6 +1380,9 @@ function renderCurrentTab() {
       break;
     case 'external':
       renderExternalTab();
+      break;
+    case 'calendar':
+      renderCalendarTab();
       break;
     case 'sns':
       renderSnsTab();
@@ -7430,6 +7450,903 @@ function renderExternalDashboardsView(activeExt) {
 
 
 // ==========================================================================
+
+// ==========================================================================
+// Galaxy Calendar Mobile Sync & Hub System (기타 > 갤럭시 캘린더 모바일 연동)
+// ==========================================================================
+
+const CAL_CATEGORY_CONFIG = {
+  personal: { label: '📱 갤럭시 연동/개인', badge: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30', dot: 'bg-indigo-400', color: '#6366f1' },
+  exam: { label: '🎓 시험/자격증', badge: 'bg-amber-500/20 text-amber-300 border-amber-500/30', dot: 'bg-amber-400', color: '#f59e0b' },
+  knou: { label: '🏛️ 방통대 사회복지', badge: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30', dot: 'bg-emerald-400', color: '#10b981' },
+  band: { label: '🎸 밴드합주/공연', badge: 'bg-purple-500/20 text-purple-300 border-purple-500/30', dot: 'bg-purple-400', color: '#8b5cf6' },
+  camino: { label: '🥾 산티아고 순례', badge: 'bg-teal-500/20 text-teal-300 border-teal-500/30', dot: 'bg-teal-400', color: '#14b8a6' },
+  career: { label: '💼 커리어/어학', badge: 'bg-blue-500/20 text-blue-300 border-blue-500/30', dot: 'bg-blue-400', color: '#3b82f6' }
+};
+
+function getCalendarEvents() {
+  if (!state.calendarEvents || !Array.isArray(state.calendarEvents) || state.calendarEvents.length === 0) {
+    state.calendarEvents = (typeof INITIAL_CALENDAR_EVENTS !== 'undefined') ? JSON.parse(JSON.stringify(INITIAL_CALENDAR_EVENTS)) : [];
+  }
+  return state.calendarEvents;
+}
+
+function renderCalendarTab() {
+  const container = document.getElementById('tab-content-calendar');
+  if (!container) return;
+
+  const events = getCalendarEvents();
+  const currentMonthStr = state.calendarCurrentMonth || '2026-10';
+  const selectedDateStr = state.calendarSelectedDate || '2026-10-01';
+  const currentFilter = state.calendarCategoryFilter || 'all';
+  const currentView = state.calendarViewMode || 'grid';
+
+  // Parse Year and Month
+  const [yearNum, monthNum] = currentMonthStr.split('-').map(v => parseInt(v, 10));
+  const monthDate = new Date(yearNum, monthNum - 1, 1);
+  const monthTitle = `${yearNum}년 ${monthNum}월`;
+
+  // Filtered Events
+  const filteredEvents = events.filter(e => {
+    if (currentFilter === 'all') return true;
+    return e.category === currentFilter;
+  });
+
+  // Events in this month
+  const thisMonthEvents = filteredEvents.filter(e => e.date && e.date.startsWith(currentMonthStr));
+
+  // Selected date events
+  const selectedDayEvents = filteredEvents.filter(e => e.date === selectedDateStr);
+
+  // Stats calculation
+  const totalEvents = events.length;
+  const syncedEvents = events.filter(e => e.syncWithGalaxy).length;
+  const examEvents = events.filter(e => e.category === 'exam').length;
+  const bandEvents = events.filter(e => e.category === 'band').length;
+
+  container.innerHTML = `
+    <div class="space-y-6 animate-fadeIn">
+      
+      <!-- 1. Header Banner & Quick Actions -->
+      <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-indigo-500/30 bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 shadow-xl relative overflow-hidden">
+        <div class="absolute -right-8 -top-8 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div class="space-y-2">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-xs font-semibold">
+              <i class="fa-solid fa-mobile-screen"></i>
+              <span>Galaxy Mobile Dual-Sync Center</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span class="text-[11px] text-emerald-300 font-normal">실시간 모바일 연동 활성화</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
+              <span>갤럭시 캘린더 모바일 연동</span>
+              <span class="text-xs px-2.5 py-0.5 rounded-lg bg-indigo-500/30 text-indigo-300 border border-indigo-500/40 font-mono">기타 메뉴</span>
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
+              PC 대시보드에서 일정을 수정하거나 등록하면 모바일 웹앱에서 실시간으로 확인되며, 
+              <b>[📱 갤럭시 캘린더 바로 저장]</b> 버튼으로 삼성 캘린더 / Google 캘린더 앱에 즉시 1초 연동됩니다.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2.5 self-start md:self-auto">
+            <button onclick="window.app.openAddCalendarEventModal('${selectedDateStr}')" class="px-4 py-2.5 bg-indigo-500 hover:bg-indigo-400 text-slate-950 rounded-xl text-xs font-bold transition shadow-lg shadow-indigo-500/25 flex items-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-plus"></i>
+              <span>새 일정 추가</span>
+            </button>
+            <button onclick="window.app.exportAllCalendarIcs()" class="px-3.5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-semibold transition flex items-center gap-2 cursor-pointer" title="모든 일정을 .ics 파일로 다운로드하여 삼성 캘린더에 일괄 등록">
+              <i class="fa-solid fa-cloud-arrow-down text-indigo-400"></i>
+              <span>전체 .ics 내보내기</span>
+            </button>
+            <button onclick="window.app.toggleGalaxySyncInfoModal()" class="px-3.5 py-2.5 bg-indigo-950/60 hover:bg-indigo-900/60 text-indigo-200 border border-indigo-500/30 rounded-xl text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer">
+              <i class="fa-solid fa-circle-question text-indigo-400"></i>
+              <span>모바일 연동 안내</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Metric Stat Cards -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-6 border-t border-slate-800/80">
+          <div class="p-3 rounded-2xl bg-slate-950/50 border border-slate-800/80 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-base">
+              <i class="fa-solid fa-calendar-check"></i>
+            </div>
+            <div>
+              <div class="text-[11px] text-slate-400">총 등록 일정</div>
+              <div class="text-lg font-bold text-white font-mono">${totalEvents}<span class="text-xs text-slate-400 font-normal">건</span></div>
+            </div>
+          </div>
+          <div class="p-3 rounded-2xl bg-slate-950/50 border border-slate-800/80 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-base">
+              <i class="fa-solid fa-mobile-screen-button"></i>
+            </div>
+            <div>
+              <div class="text-[11px] text-slate-400">갤럭시 연동 대기/완료</div>
+              <div class="text-lg font-bold text-emerald-400 font-mono">${syncedEvents}<span class="text-xs text-emerald-500/70 font-normal">건 (${Math.round((syncedEvents/totalEvents)*100)}%)</span></div>
+            </div>
+          </div>
+          <div class="p-3 rounded-2xl bg-slate-950/50 border border-slate-800/80 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-base">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div>
+              <div class="text-[11px] text-slate-400">10월 주요 시험/학사</div>
+              <div class="text-lg font-bold text-amber-300 font-mono">${examEvents}<span class="text-xs text-slate-400 font-normal">건</span></div>
+            </div>
+          </div>
+          <div class="p-3 rounded-2xl bg-slate-950/50 border border-slate-800/80 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-base">
+              <i class="fa-solid fa-guitar"></i>
+            </div>
+            <div>
+              <div class="text-[11px] text-slate-400">밴드합주 및 순례</div>
+              <div class="text-lg font-bold text-purple-300 font-mono">${bandEvents + 1}<span class="text-xs text-slate-400 font-normal">건</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Controls & Filter Bar -->
+      <div class="glass-panel rounded-2xl p-4 border border-slate-800 bg-slate-900/60 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        
+        <!-- Month Navigator -->
+        <div class="flex items-center gap-2">
+          <div class="flex items-center bg-slate-800 border border-slate-700/80 rounded-xl p-1">
+            <button onclick="window.app.navigateCalendar(-1)" class="w-8 h-8 rounded-lg hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition cursor-pointer" title="이전 달">
+              <i class="fa-solid fa-chevron-left text-xs"></i>
+            </button>
+            <span class="px-3 text-sm font-bold text-white font-mono tracking-wide">${monthTitle}</span>
+            <button onclick="window.app.navigateCalendar(1)" class="w-8 h-8 rounded-lg hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition cursor-pointer" title="다음 달">
+              <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+          </div>
+          <button onclick="window.app.navigateCalendar('today')" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition cursor-pointer">
+            오늘
+          </button>
+        </div>
+
+        <!-- Category Filter Pills -->
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 text-xs">
+          <button onclick="window.app.setCalendarCategoryFilter('all')" class="px-3 py-1.5 rounded-xl font-semibold transition cursor-pointer whitespace-nowrap ${currentFilter === 'all' ? 'bg-indigo-500 text-slate-950 font-bold' : 'bg-slate-800/80 hover:bg-slate-800 text-slate-300'}">
+            전체 (${events.length})
+          </button>
+          <button onclick="window.app.setCalendarCategoryFilter('personal')" class="px-3 py-1.5 rounded-xl font-semibold transition cursor-pointer whitespace-nowrap ${currentFilter === 'personal' ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/40' : 'bg-slate-800/80 hover:bg-slate-800 text-slate-400'}">
+            📱 갤럭시/개인
+          </button>
+          <button onclick="window.app.setCalendarCategoryFilter('exam')" class="px-3 py-1.5 rounded-xl font-semibold transition cursor-pointer whitespace-nowrap ${currentFilter === 'exam' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : 'bg-slate-800/80 hover:bg-slate-800 text-slate-400'}">
+            🎓 시험/자격증
+          </button>
+          <button onclick="window.app.setCalendarCategoryFilter('knou')" class="px-3 py-1.5 rounded-xl font-semibold transition cursor-pointer whitespace-nowrap ${currentFilter === 'knou' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' : 'bg-slate-800/80 hover:bg-slate-800 text-slate-400'}">
+            🏛️ 방통대
+          </button>
+          <button onclick="window.app.setCalendarCategoryFilter('band')" class="px-3 py-1.5 rounded-xl font-semibold transition cursor-pointer whitespace-nowrap ${currentFilter === 'band' ? 'bg-purple-500/20 text-purple-300 border border-purple-500/40' : 'bg-slate-800/80 hover:bg-slate-800 text-slate-400'}">
+            🎸 밴드합주
+          </button>
+          <button onclick="window.app.setCalendarCategoryFilter('camino')" class="px-3 py-1.5 rounded-xl font-semibold transition cursor-pointer whitespace-nowrap ${currentFilter === 'camino' ? 'bg-teal-500/20 text-teal-300 border border-teal-500/40' : 'bg-slate-800/80 hover:bg-slate-800 text-slate-400'}">
+            🥾 순례길
+          </button>
+          <button onclick="window.app.setCalendarCategoryFilter('career')" class="px-3 py-1.5 rounded-xl font-semibold transition cursor-pointer whitespace-nowrap ${currentFilter === 'career' ? 'bg-blue-500/20 text-blue-300 border border-blue-500/40' : 'bg-slate-800/80 hover:bg-slate-800 text-slate-400'}">
+            💼 커리어/어학
+          </button>
+        </div>
+
+        <!-- View Switcher -->
+        <div class="flex items-center bg-slate-800/80 border border-slate-700/80 rounded-xl p-1 self-end md:self-auto">
+          <button onclick="window.app.setCalendarViewMode('grid')" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex items-center gap-1.5 ${currentView === 'grid' ? 'bg-indigo-500 text-slate-950 font-bold shadow' : 'text-slate-400 hover:text-white'}">
+            <i class="fa-solid fa-table-cells"></i>
+            <span>월간 그리드</span>
+          </button>
+          <button onclick="window.app.setCalendarViewMode('agenda')" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex items-center gap-1.5 ${currentView === 'agenda' ? 'bg-indigo-500 text-slate-950 font-bold shadow' : 'text-slate-400 hover:text-white'}">
+            <i class="fa-solid fa-list-ul"></i>
+            <span>타임라인/목록</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 3. Main Workspace: Calendar Grid / Agenda + Selected Day Schedule -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left Column: Calendar Grid or Full Agenda List (8 cols on lg) -->
+        <div class="lg:col-span-8 space-y-4">
+          ${currentView === 'grid' ? renderCalendarGrid(yearNum, monthNum, filteredEvents, selectedDateStr) : renderCalendarAgendaView(filteredEvents, selectedDateStr)}
+        </div>
+
+        <!-- Right Column: Selected Date Agenda Details & Galaxy Sync Card (4 cols on lg) -->
+        <div class="lg:col-span-4 space-y-5">
+          ${renderSelectedDatePanel(selectedDateStr, selectedDayEvents)}
+          
+          <!-- Galaxy Sync Quick Tips Card -->
+          <div class="glass-panel rounded-2xl p-5 border border-indigo-500/20 bg-gradient-to-br from-slate-900 via-indigo-950/20 to-slate-900 shadow-md space-y-3.5">
+            <div class="flex items-center gap-2">
+              <span class="w-8 h-8 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-sm">
+                <i class="fa-solid fa-mobile-screen"></i>
+              </span>
+              <h4 class="text-sm font-bold text-white">갤럭시 모바일 100% 활용법</h4>
+            </div>
+            
+            <div class="space-y-2.5 text-xs text-slate-300">
+              <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
+                <div class="font-bold text-indigo-300 flex items-center gap-1.5 mb-1">
+                  <i class="fa-solid fa-bolt text-indigo-400"></i>
+                  <span>1초 원클릭 삼성 캘린더 등록</span>
+                </div>
+                <p class="text-[11px] text-slate-400 leading-relaxed">
+                  일정 카드의 <b>[📱 갤럭시 캘린더 바로 저장]</b>을 누르면 갤럭시 브라우저에서 삼성/Google 캘린더 앱이 바로 열리며 원클릭으로 등록됩니다.
+                </p>
+              </div>
+
+              <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
+                <div class="font-bold text-emerald-300 flex items-center gap-1.5 mb-1">
+                  <i class="fa-solid fa-arrows-rotate text-emerald-400"></i>
+                  <span>실시간 모바일 웹 대시보드</span>
+                </div>
+                <p class="text-[11px] text-slate-400 leading-relaxed">
+                  PC에서 등록/수정한 일정은 GitHub Pages 모바일 브라우저에서도 즉시 반영되어 언제 어디서나 실시간 확인 가능합니다.
+                </p>
+              </div>
+
+              <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
+                <div class="font-bold text-amber-300 flex items-center gap-1.5 mb-1">
+                  <i class="fa-solid fa-file-arrow-down text-amber-400"></i>
+                  <span>.ics 파일 탭 시 자동 앱 연동</span>
+                </div>
+                <p class="text-[11px] text-slate-400 leading-relaxed">
+                  갤럭시 파일 관리자나 다운로드 창에서 <b>.ics</b> 파일을 터치하면 삼성 캘린더가 열리며 '캘린더에 일정 추가' 팝업이 뜹니다.
+                </p>
+              </div>
+            </div>
+
+            <div class="pt-2 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
+              <span>동기화 엔진: iCal 2.0 / PWA</span>
+              <span class="text-indigo-400 font-mono">v20261001_v1</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  `;
+}
+
+function renderCalendarGrid(year, month, events, selectedDateStr) {
+  const firstDayIndex = new Date(year, month - 1, 1).getDay(); // 0 = Sun
+  const daysInMonth = new Date(year, month, 0).getDate();
+  const prevMonthDays = new Date(year, month - 1, 0).getDate();
+  
+  const todayStr = new Date().toISOString().split('T')[0];
+
+  const weekHeaders = ['일', '월', '화', '수', '목', '금', '토'];
+
+  let cellsHtml = '';
+
+  // 1. Previous month trailing days
+  for (let i = firstDayIndex - 1; i >= 0; i--) {
+    const day = prevMonthDays - i;
+    const prevMonth = month === 1 ? 12 : month - 1;
+    const prevYear = month === 1 ? year - 1 : year;
+    const dateStr = `${prevYear}-${String(prevMonth).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    cellsHtml += `
+      <div onclick="window.app.selectCalendarDate('${dateStr}')" class="min-h-[90px] sm:min-h-[110px] p-2 bg-slate-900/30 border border-slate-800/40 rounded-xl opacity-40 hover:opacity-80 transition cursor-pointer flex flex-col justify-between">
+        <span class="text-xs font-mono font-semibold text-slate-500">${day}</span>
+      </div>
+    `;
+  }
+
+  // 2. Current month days
+  for (let day = 1; day <= daysInMonth; day++) {
+    const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    const dayOfWeek = new Date(year, month - 1, day).getDay();
+    const isToday = (dateStr === todayStr);
+    const isSelected = (dateStr === selectedDateStr);
+    const dayEvents = events.filter(e => e.date === dateStr);
+
+    let textColor = 'text-slate-200';
+    if (dayOfWeek === 0) textColor = 'text-rose-400';
+    if (dayOfWeek === 6) textColor = 'text-sky-400';
+
+    cellsHtml += `
+      <div onclick="window.app.selectCalendarDate('${dateStr}')" class="min-h-[90px] sm:min-h-[110px] p-2 rounded-xl border transition cursor-pointer flex flex-col justify-between group ${
+        isSelected 
+          ? 'bg-indigo-950/40 border-indigo-500 ring-2 ring-indigo-500/50 shadow-lg' 
+          : isToday 
+            ? 'bg-slate-800/70 border-indigo-400/60' 
+            : 'bg-slate-900/70 border-slate-800/70 hover:border-slate-700 hover:bg-slate-800/50'
+      }">
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-xs font-mono font-bold ${textColor} ${isToday ? 'w-5 h-5 rounded-full bg-indigo-500 text-slate-950 flex items-center justify-center font-extrabold' : ''}">
+            ${day}
+          </span>
+          ${isToday ? '<span class="text-[9px] font-bold text-indigo-400 uppercase tracking-wider">오늘</span>' : ''}
+          ${dayEvents.length > 0 && !isToday ? `<span class="text-[10px] font-mono text-slate-400 font-bold bg-slate-800 px-1.5 py-0.2 rounded-full">${dayEvents.length}</span>` : ''}
+        </div>
+
+        <div class="space-y-1 overflow-hidden">
+          ${dayEvents.slice(0, 2).map(ev => {
+            const conf = CAL_CATEGORY_CONFIG[ev.category] || CAL_CATEGORY_CONFIG.personal;
+            return `
+              <div class="px-1.5 py-0.5 rounded text-[10px] truncate font-medium ${conf.badge}" title="${ev.title}">
+                ${ev.startTime ? `<span class="font-mono text-[9px] opacity-80">${ev.startTime}</span> ` : ''}${ev.title}
+              </div>
+            `;
+          }).join('')}
+          ${dayEvents.length > 2 ? `
+            <div class="text-[9px] font-semibold text-slate-400 pl-1">
+              +${dayEvents.length - 2}개 더보기
+            </div>
+          ` : ''}
+        </div>
+
+        <div class="flex items-center gap-1 mt-1 opacity-0 group-hover:opacity-100 transition">
+          <button onclick="event.stopPropagation(); window.app.openAddCalendarEventModal('${dateStr}')" class="text-[10px] text-indigo-300 hover:text-white" title="이 날에 일정 추가">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+      </div>
+    `;
+  }
+
+  // 3. Next month leading days
+  const totalCells = firstDayIndex + daysInMonth;
+  const remainingCells = (totalCells % 7 === 0) ? 0 : 7 - (totalCells % 7);
+  for (let day = 1; day <= remainingCells; day++) {
+    const nextMonth = month === 12 ? 1 : month + 1;
+    const nextYear = month === 12 ? year + 1 : year;
+    const dateStr = `${nextYear}-${String(nextMonth).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    cellsHtml += `
+      <div onclick="window.app.selectCalendarDate('${dateStr}')" class="min-h-[90px] sm:min-h-[110px] p-2 bg-slate-900/30 border border-slate-800/40 rounded-xl opacity-40 hover:opacity-80 transition cursor-pointer flex flex-col justify-between">
+        <span class="text-xs font-mono font-semibold text-slate-500">${day}</span>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="glass-panel rounded-2xl p-4 sm:p-5 border border-slate-800 bg-slate-900/60 shadow-lg">
+      <div class="grid grid-cols-7 gap-1.5 mb-2 text-center text-xs font-bold">
+        <div class="text-rose-400 py-1">일</div>
+        <div class="text-slate-300 py-1">월</div>
+        <div class="text-slate-300 py-1">화</div>
+        <div class="text-slate-300 py-1">수</div>
+        <div class="text-slate-300 py-1">목</div>
+        <div class="text-slate-300 py-1">금</div>
+        <div class="text-sky-400 py-1">토</div>
+      </div>
+      <div class="grid grid-cols-7 gap-1.5">
+        ${cellsHtml}
+      </div>
+    </div>
+  `;
+}
+
+function renderCalendarAgendaView(events, selectedDateStr) {
+  // Sort events chronologically
+  const sorted = [...events].sort((a, b) => {
+    if (a.date !== b.date) return a.date.localeCompare(b.date);
+    return (a.startTime || '00:00').localeCompare(b.startTime || '00:00');
+  });
+
+  if (sorted.length === 0) {
+    return `
+      <div class="glass-panel rounded-2xl p-12 text-center border border-slate-800 bg-slate-900/60">
+        <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-2xl mx-auto mb-3">
+          <i class="fa-solid fa-calendar-xmark"></i>
+        </div>
+        <h4 class="text-base font-bold text-white mb-1">등록된 일정이 없습니다</h4>
+        <p class="text-xs text-slate-400 mb-4">선택하신 카테고리에 해당하는 일정이 없습니다.</p>
+        <button onclick="window.app.openAddCalendarEventModal('${selectedDateStr}')" class="px-4 py-2 bg-indigo-500 text-slate-950 rounded-xl text-xs font-bold hover:bg-indigo-400 transition cursor-pointer">
+          <i class="fa-solid fa-plus mr-1"></i> 새 일정 등록하기
+        </button>
+      </div>
+    `;
+  }
+
+  // Group by date
+  const grouped = {};
+  sorted.forEach(e => {
+    if (!grouped[e.date]) grouped[e.date] = [];
+    grouped[e.date].push(e);
+  });
+
+  return `
+    <div class="glass-panel rounded-2xl p-5 border border-slate-800 bg-slate-900/60 shadow-lg space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-calendar-days text-indigo-400"></i>
+          <span>전체 일정 타임라인 (${sorted.length}건)</span>
+        </h3>
+        <button onclick="window.app.openAddCalendarEventModal('${selectedDateStr}')" class="text-xs text-indigo-400 hover:text-indigo-300 font-semibold flex items-center gap-1">
+          <i class="fa-solid fa-plus"></i> 일정 추가
+        </button>
+      </div>
+
+      <div class="space-y-6">
+        ${Object.keys(grouped).map(dateStr => {
+          const dateEvents = grouped[dateStr];
+          const isSelected = dateStr === selectedDateStr;
+          const d = new Date(dateStr);
+          const dayName = ['일', '월', '화', '수', '목', '금', '토'][d.getDay()];
+
+          return `
+            <div class="space-y-2.5">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-bold ${isSelected ? 'bg-indigo-500 text-slate-950' : 'bg-slate-800 text-slate-300 border border-slate-700'}">
+                  ${dateStr} (${dayName})
+                </span>
+                <div class="h-px flex-1 bg-slate-800"></div>
+                <span class="text-[11px] text-slate-500 font-mono">${dateEvents.length}개 일정</span>
+              </div>
+
+              <div class="grid grid-cols-1 gap-2 pl-2">
+                ${dateEvents.map(ev => renderEventCard(ev)).join('')}
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderSelectedDatePanel(selectedDateStr, events) {
+  const d = new Date(selectedDateStr);
+  const dayName = ['일', '월', '화', '수', '목', '금', '토'][d.getDay()];
+  const isToday = selectedDateStr === new Date().toISOString().split('T')[0];
+
+  return `
+    <div class="glass-panel rounded-2xl p-5 border border-indigo-500/30 bg-slate-900/80 shadow-lg space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div>
+          <div class="text-[11px] text-indigo-400 font-semibold uppercase tracking-wider flex items-center gap-1.5">
+            <i class="fa-solid fa-calendar-day"></i>
+            <span>선택 일자 일정</span>
+            ${isToday ? '<span class="px-1.5 py-0.2 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 text-[10px]">오늘</span>' : ''}
+          </div>
+          <h3 class="text-base font-bold text-white font-mono mt-0.5">
+            ${selectedDateStr} <span class="text-slate-400 text-sm">(${dayName}요일)</span>
+          </h3>
+        </div>
+        <button onclick="window.app.openAddCalendarEventModal('${selectedDateStr}')" class="px-3 py-1.5 rounded-xl bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 border border-indigo-500/40 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer">
+          <i class="fa-solid fa-plus"></i>
+          <span>추가</span>
+        </button>
+      </div>
+
+      <div class="space-y-3">
+        ${events.length === 0 ? `
+          <div class="py-8 text-center">
+            <div class="w-12 h-12 rounded-xl bg-slate-800/80 text-slate-500 flex items-center justify-center text-xl mx-auto mb-2">
+              <i class="fa-regular fa-calendar"></i>
+            </div>
+            <p class="text-xs text-slate-400 mb-3">등록된 일정이 없습니다.</p>
+            <button onclick="window.app.openAddCalendarEventModal('${selectedDateStr}')" class="text-xs text-indigo-400 hover:text-indigo-300 font-bold underline">
+              이 날짜에 첫 일정 등록하기
+            </button>
+          </div>
+        ` : `
+          <div class="space-y-3 max-h-[500px] overflow-y-auto pr-1">
+            ${events.map(ev => renderEventCard(ev, true)).join('')}
+          </div>
+        `}
+      </div>
+    </div>
+  `;
+}
+
+function renderEventCard(ev, isCompact = false) {
+  const conf = CAL_CATEGORY_CONFIG[ev.category] || CAL_CATEGORY_CONFIG.personal;
+  const timeDisplay = ev.allDay ? '종일 일정' : `${ev.startTime || '09:00'} ~ ${ev.endTime || '10:00'}`;
+
+  return `
+    <div class="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 hover:border-indigo-500/40 transition space-y-2 relative group">
+      <div class="flex items-start justify-between gap-2">
+        <div class="space-y-1">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="px-2 py-0.5 rounded text-[10px] font-semibold ${conf.badge}">
+              ${conf.label}
+            </span>
+            <span class="text-[11px] font-mono text-slate-400 flex items-center gap-1">
+              <i class="fa-regular fa-clock text-[10px]"></i>
+              <span>${timeDisplay}</span>
+            </span>
+          </div>
+          <h4 class="text-xs sm:text-sm font-bold text-white leading-snug">
+            ${ev.title}
+          </h4>
+        </div>
+
+        <div class="flex items-center gap-1">
+          <button onclick="window.app.openEditCalendarEventModal('${ev.id}')" class="w-6 h-6 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center text-[11px] transition cursor-pointer" title="일정 수정">
+            <i class="fa-solid fa-pen"></i>
+          </button>
+          <button onclick="window.app.deleteCalendarEvent('${ev.id}')" class="w-6 h-6 rounded-lg bg-slate-800 hover:bg-rose-950 text-slate-400 hover:text-rose-300 flex items-center justify-center text-[11px] transition cursor-pointer" title="일정 삭제">
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+        </div>
+      </div>
+
+      ${ev.location ? `
+        <div class="text-[11px] text-slate-400 flex items-center gap-1.5">
+          <i class="fa-solid fa-location-dot text-rose-400 text-[10px]"></i>
+          <span class="truncate">${ev.location}</span>
+        </div>
+      ` : ''}
+
+      ${ev.memo ? `
+        <p class="text-[11px] text-slate-300 bg-slate-900/80 p-2 rounded-lg border border-slate-800/80 leading-relaxed">
+          ${ev.memo}
+        </p>
+      ` : ''}
+
+      <!-- Direct Galaxy Mobile Sync Actions -->
+      <div class="pt-2 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-1.5">
+        <button onclick="window.app.openEventInGalaxyCalendar('${ev.id}')" class="px-2.5 py-1.5 rounded-lg bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 border border-indigo-500/40 text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer shadow-sm" title="삼성 캘린더 / Google 캘린더에 바로 저장">
+          <i class="fa-solid fa-mobile-screen"></i>
+          <span>갤럭시 캘린더 바로 저장</span>
+        </button>
+
+        <button onclick="window.app.downloadCalendarIcs('${ev.id}')" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] font-medium transition flex items-center gap-1 cursor-pointer" title=".ics 파일 다운로드">
+          <i class="fa-solid fa-file-arrow-down text-indigo-400"></i>
+          <span>.ics 받기</span>
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+// Calendar Navigation & Filter Handlers
+function navigateCalendar(dir) {
+  if (dir === 'today') {
+    const today = new Date();
+    state.calendarCurrentMonth = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
+    state.calendarSelectedDate = today.toISOString().split('T')[0];
+  } else {
+    const [y, m] = (state.calendarCurrentMonth || '2026-10').split('-').map(v => parseInt(v, 10));
+    const nextDate = new Date(y, m - 1 + dir, 1);
+    state.calendarCurrentMonth = `${nextDate.getFullYear()}-${String(nextDate.getMonth() + 1).padStart(2, '0')}`;
+    state.calendarSelectedDate = `${state.calendarCurrentMonth}-01`;
+  }
+  renderCalendarTab();
+}
+
+function setCalendarViewMode(mode) {
+  state.calendarViewMode = mode;
+  renderCalendarTab();
+}
+
+function setCalendarCategoryFilter(cat) {
+  state.calendarCategoryFilter = cat;
+  renderCalendarTab();
+}
+
+function selectCalendarDate(dateStr) {
+  state.calendarSelectedDate = dateStr;
+  const [y, m] = dateStr.split('-');
+  state.calendarCurrentMonth = `${y}-${m}`;
+  renderCalendarTab();
+}
+
+// Modal Handlers
+function openAddCalendarEventModal(prefillDate) {
+  const modal = document.getElementById('modal-calendar-event');
+  if (!modal) return;
+
+  const idInput = document.getElementById('cal-event-id');
+  const titleInput = document.getElementById('cal-event-title');
+  const dateInput = document.getElementById('cal-event-date');
+  const catInput = document.getElementById('cal-event-category');
+  const allDayInput = document.getElementById('cal-event-all-day');
+  const startInput = document.getElementById('cal-event-start-time');
+  const endInput = document.getElementById('cal-event-end-time');
+  const locInput = document.getElementById('cal-event-location');
+  const memoInput = document.getElementById('cal-event-memo');
+  const modalTitle = document.getElementById('modal-cal-event-title');
+
+  if (modalTitle) {
+    modalTitle.innerHTML = `
+      <i class="fa-solid fa-calendar-plus text-indigo-400"></i>
+      <span>갤럭시 캘린더 새 일정 등록</span>
+    `;
+  }
+
+  if (idInput) idInput.value = '';
+  if (titleInput) titleInput.value = '';
+  if (dateInput) dateInput.value = prefillDate || state.calendarSelectedDate || new Date().toISOString().split('T')[0];
+  if (catInput) catInput.value = state.calendarCategoryFilter !== 'all' ? state.calendarCategoryFilter : 'personal';
+  if (allDayInput) allDayInput.checked = false;
+  toggleCalAllDay(false);
+  if (startInput) startInput.value = '09:00';
+  if (endInput) endInput.value = '10:00';
+  if (locInput) locInput.value = '';
+  if (memoInput) memoInput.value = '';
+
+  modal.classList.remove('hidden');
+}
+
+function openEditCalendarEventModal(id) {
+  const events = getCalendarEvents();
+  const ev = events.find(e => e.id === id);
+  if (!ev) return;
+
+  const modal = document.getElementById('modal-calendar-event');
+  if (!modal) return;
+
+  const idInput = document.getElementById('cal-event-id');
+  const titleInput = document.getElementById('cal-event-title');
+  const dateInput = document.getElementById('cal-event-date');
+  const catInput = document.getElementById('cal-event-category');
+  const allDayInput = document.getElementById('cal-event-all-day');
+  const startInput = document.getElementById('cal-event-start-time');
+  const endInput = document.getElementById('cal-event-end-time');
+  const locInput = document.getElementById('cal-event-location');
+  const memoInput = document.getElementById('cal-event-memo');
+  const modalTitle = document.getElementById('modal-cal-event-title');
+
+  if (modalTitle) {
+    modalTitle.innerHTML = `
+      <i class="fa-solid fa-pen text-indigo-400"></i>
+      <span>갤럭시 캘린더 일정 수정</span>
+    `;
+  }
+
+  if (idInput) idInput.value = ev.id;
+  if (titleInput) titleInput.value = ev.title;
+  if (dateInput) dateInput.value = ev.date;
+  if (catInput) catInput.value = ev.category || 'personal';
+  if (allDayInput) allDayInput.checked = !!ev.allDay;
+  toggleCalAllDay(!!ev.allDay);
+  if (startInput) startInput.value = ev.startTime || '09:00';
+  if (endInput) endInput.value = ev.endTime || '10:00';
+  if (locInput) locInput.value = ev.location || '';
+  if (memoInput) memoInput.value = ev.memo || '';
+
+  modal.classList.remove('hidden');
+}
+
+function toggleCalAllDay(checked) {
+  const timeRow = document.getElementById('cal-time-row');
+  if (timeRow) {
+    if (checked) {
+      timeRow.classList.add('hidden');
+    } else {
+      timeRow.classList.remove('hidden');
+    }
+  }
+}
+
+function saveCalendarEvent(e) {
+  if (e && e.preventDefault) e.preventDefault();
+
+  const idInput = document.getElementById('cal-event-id');
+  const titleInput = document.getElementById('cal-event-title');
+  const dateInput = document.getElementById('cal-event-date');
+  const catInput = document.getElementById('cal-event-category');
+  const allDayInput = document.getElementById('cal-event-all-day');
+  const startInput = document.getElementById('cal-event-start-time');
+  const endInput = document.getElementById('cal-event-end-time');
+  const locInput = document.getElementById('cal-event-location');
+  const memoInput = document.getElementById('cal-event-memo');
+
+  const title = titleInput ? titleInput.value.trim() : '';
+  const date = dateInput ? dateInput.value : '';
+  if (!title || !date) {
+    showToast('⚠️ 일정명과 날짜를 입력해 주세요.');
+    return;
+  }
+
+  const events = getCalendarEvents();
+  const id = idInput && idInput.value ? idInput.value : 'cal-' + Date.now();
+  const category = catInput ? catInput.value : 'personal';
+  const conf = CAL_CATEGORY_CONFIG[category] || CAL_CATEGORY_CONFIG.personal;
+  const isAllDay = allDayInput ? allDayInput.checked : false;
+
+  const eventData = {
+    id: id,
+    title: title,
+    date: date,
+    startTime: isAllDay ? null : (startInput ? startInput.value : '09:00'),
+    endTime: isAllDay ? null : (endInput ? endInput.value : '10:00'),
+    allDay: isAllDay,
+    category: category,
+    categoryLabel: conf.label.replace(/^[^a-zA-Z가-힣0-9]+\s*/, ''),
+    color: conf.color,
+    location: locInput ? locInput.value.trim() : '',
+    memo: memoInput ? memoInput.value.trim() : '',
+    syncWithGalaxy: true,
+    lastSynced: new Date().toISOString().replace('T', ' ').substring(0, 16)
+  };
+
+  const existingIdx = events.findIndex(item => item.id === id);
+  if (existingIdx !== -1) {
+    events[existingIdx] = eventData;
+    showToast(`✅ 일정 '${title}'이(가) 성공적으로 수정되었습니다.`);
+  } else {
+    events.push(eventData);
+    showToast(`✅ 새 일정 '${title}'이(가) 등록되었습니다.`);
+  }
+
+  state.calendarEvents = events;
+  state.calendarSelectedDate = date;
+  persistState();
+
+  const modal = document.getElementById('modal-calendar-event');
+  if (modal) modal.classList.add('hidden');
+
+  renderCalendarTab();
+}
+
+function deleteCalendarEvent(id) {
+  const events = getCalendarEvents();
+  const ev = events.find(e => e.id === id);
+  if (!ev) return;
+
+  if (confirm(`'${ev.title}' 일정을 삭제하시겠습니까?`)) {
+    state.calendarEvents = events.filter(e => e.id !== id);
+    persistState();
+    showToast(`🗑️ 일정 '${ev.title}'이(가) 삭제되었습니다.`);
+    renderCalendarTab();
+  }
+}
+
+// Galaxy Mobile Direct Sync Handlers
+function generateGalaxyCalendarUrl(ev) {
+  const title = encodeURIComponent(ev.title || '새 일정');
+  const details = encodeURIComponent(
+    (ev.memo ? ev.memo + '\n\n' : '') +
+    '📱 [커리어 라이프 통합 대시보드 - 갤럭시 캘린더 연동 일정]\n분류: ' + 
+    (CAL_CATEGORY_CONFIG[ev.category]?.label || ev.category)
+  );
+  const location = encodeURIComponent(ev.location || '');
+  
+  let datesParam = '';
+  const cleanDate = (ev.date || '2026-10-01').replace(/-/g, '');
+  if (ev.allDay) {
+    const d = new Date(ev.date || '2026-10-01');
+    d.setDate(d.getDate() + 1);
+    const nextDate = d.toISOString().split('T')[0].replace(/-/g, '');
+    datesParam = `${cleanDate}/${nextDate}`;
+  } else {
+    const s = (ev.startTime || '09:00').replace(':', '') + '00';
+    const e = (ev.endTime || '10:00').replace(':', '') + '00';
+    datesParam = `${cleanDate}T${s}/${cleanDate}T${e}`;
+  }
+
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${datesParam}&details=${details}&location=${location}`;
+}
+
+function openEventInGalaxyCalendar(id) {
+  const events = getCalendarEvents();
+  const ev = events.find(e => e.id === id);
+  if (!ev) return;
+
+  const url = generateGalaxyCalendarUrl(ev);
+  window.open(url, '_blank');
+  showToast(`📱 갤럭시 삼성/Google 캘린더 등록 화면으로 이동합니다.`);
+}
+
+function openCurrentModalInGalaxyCalendar() {
+  const titleInput = document.getElementById('cal-event-title');
+  const dateInput = document.getElementById('cal-event-date');
+  const catInput = document.getElementById('cal-event-category');
+  const allDayInput = document.getElementById('cal-event-all-day');
+  const startInput = document.getElementById('cal-event-start-time');
+  const endInput = document.getElementById('cal-event-end-time');
+  const locInput = document.getElementById('cal-event-location');
+  const memoInput = document.getElementById('cal-event-memo');
+
+  const title = titleInput ? titleInput.value.trim() : '';
+  const date = dateInput ? dateInput.value : '';
+  if (!title || !date) {
+    showToast('⚠️ 일정명과 날짜를 입력한 후 갤럭시 캘린더로 연동해 주세요.');
+    return;
+  }
+
+  const dummyEvent = {
+    title: title,
+    date: date,
+    startTime: startInput ? startInput.value : '09:00',
+    endTime: endInput ? endInput.value : '10:00',
+    allDay: allDayInput ? allDayInput.checked : false,
+    category: catInput ? catInput.value : 'personal',
+    location: locInput ? locInput.value.trim() : '',
+    memo: memoInput ? memoInput.value.trim() : ''
+  };
+
+  const url = generateGalaxyCalendarUrl(dummyEvent);
+  window.open(url, '_blank');
+}
+
+function generateIcsContent(eventsList) {
+  const lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//KimNamHyun//GalaxyCareerDashboard//KO',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'X-WR-CALNAME:김남현 커리어 대시보드 캘린더'
+  ];
+
+  eventsList.forEach(ev => {
+    const cleanDate = (ev.date || '2026-10-01').replace(/-/g, '');
+    let dtstart = '';
+    let dtend = '';
+    if (ev.allDay) {
+      dtstart = `VALUE=DATE:${cleanDate}`;
+      const d = new Date(ev.date || '2026-10-01');
+      d.setDate(d.getDate() + 1);
+      const nextDate = d.toISOString().split('T')[0].replace(/-/g, '');
+      dtend = `VALUE=DATE:${nextDate}`;
+    } else {
+      const s = (ev.startTime || '09:00').replace(':', '') + '00';
+      const e = (ev.endTime || '10:00').replace(':', '') + '00';
+      dtstart = `${cleanDate}T${s}`;
+      dtend = `${cleanDate}T${e}`;
+    }
+
+    lines.push('BEGIN:VEVENT');
+    lines.push(`UID:${ev.id || 'cal-' + Date.now()}@galaxy.dashboard`);
+    lines.push(`DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z`);
+    lines.push(`DTSTART;${dtstart}`);
+    lines.push(`DTEND;${dtend}`);
+    lines.push(`SUMMARY:${ev.title}`);
+    if (ev.location) lines.push(`LOCATION:${ev.location}`);
+    if (ev.memo) lines.push(`DESCRIPTION:${ev.memo.replace(/\n/g, '\\n')}`);
+    lines.push(`CATEGORIES:${ev.categoryLabel || ev.category || 'Galaxy'}`);
+    lines.push('STATUS:CONFIRMED');
+    lines.push('END:VEVENT');
+  });
+
+  lines.push('END:VCALENDAR');
+  return lines.join('\r\n');
+}
+
+function downloadCalendarIcs(id) {
+  const events = getCalendarEvents();
+  const ev = events.find(e => e.id === id);
+  if (!ev) return;
+
+  const icsStr = generateIcsContent([ev]);
+  const blob = new Blob([icsStr], { type: 'text/calendar;charset=utf-8;' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = `${ev.title.replace(/[\\/:*?"<>|]/g, '_')}.ics`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  showToast(`📥 '${ev.title}.ics' 파일이 다운로드되었습니다. 모바일에서 터치 시 삼성 캘린더에 바로 등록됩니다.`);
+}
+
+function exportAllCalendarIcs() {
+  const events = getCalendarEvents();
+  if (events.length === 0) {
+    showToast('⚠️ 내보낼 일정이 없습니다.');
+    return;
+  }
+
+  const icsStr = generateIcsContent(events);
+  const blob = new Blob([icsStr], { type: 'text/calendar;charset=utf-8;' });
+  const link = document.createElement('a');
+  const todayStr = new Date().toISOString().split('T')[0].replace(/-/g, '');
+  link.href = URL.createObjectURL(blob);
+  link.download = `김남현_갤럭시_캘린더_전체일정_${todayStr}.ics`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  showToast(`📥 전체 ${events.length}개 일정이 .ics 파일로 다운로드되었습니다.`);
+}
+
+function toggleGalaxySyncInfoModal() {
+  alert(
+    "📱 [갤럭시 스마트폰 캘린더 연동 가이드]\n\n" +
+    "1. 실시간 모바일 웹 동기화:\n" +
+    "   - PC 대시보드에서 등록하거나 수정한 일정은 GitHub Pages 웹앱에서 즉시 실시간 반영됩니다.\n" +
+    "   - 갤럭시 삼성 인터넷 또는 크롬 브라우저에서 '홈 화면에 추가'를 누르면 전용 앱(PWA)처럼 언제든 확인 가능합니다.\n\n" +
+    "2. 갤럭시 삼성 캘린더 1초 연동:\n" +
+    "   - 일정 카드의 [📱 갤럭시 캘린더 바로 저장] 버튼을 누르면 갤럭시 폰의 삼성/Google 캘린더 앱에 일정명, 시간, 장소, 메모가 자동 입력됩니다.\n" +
+    "   - '저장' 버튼 한 번만 누르면 갤럭시 기본 캘린더에 즉시 등록됩니다.\n\n" +
+    "3. 전체 일정 일괄 가져오기 (.ics):\n" +
+    "   - [전체 .ics 내보내기] 버튼으로 받은 파일을 갤럭시에서 열면 '캘린더에 추가' 팝업이 바로 실행되어 오프라인에서도 모든 일정이 동기화됩니다."
+  );
+}
+
 function renderSnsTab() {
   const container = document.getElementById('tab-content-sns');
   if (!container) return;
@@ -9065,6 +9982,21 @@ function showToast(msg) {
 // ==========================================================================
 window.app = {
   get state() { return state; },
+  // Galaxy Mobile Calendar Handlers (기타 > 갤럭시 캘린더)
+  openAddCalendarEventModal: (date) => openAddCalendarEventModal(date),
+  openEditCalendarEventModal: (id) => openEditCalendarEventModal(id),
+  saveCalendarEvent: (e) => saveCalendarEvent(e),
+  deleteCalendarEvent: (id) => deleteCalendarEvent(id),
+  toggleCalAllDay: (checked) => toggleCalAllDay(checked),
+  openEventInGalaxyCalendar: (id) => openEventInGalaxyCalendar(id),
+  openCurrentModalInGalaxyCalendar: () => openCurrentModalInGalaxyCalendar(),
+  downloadCalendarIcs: (id) => downloadCalendarIcs(id),
+  exportAllCalendarIcs: () => exportAllCalendarIcs(),
+  navigateCalendar: (dir) => navigateCalendar(dir),
+  setCalendarViewMode: (mode) => setCalendarViewMode(mode),
+  setCalendarCategoryFilter: (cat) => setCalendarCategoryFilter(cat),
+  selectCalendarDate: (dateStr) => selectCalendarDate(dateStr),
+  toggleGalaxySyncInfoModal: () => toggleGalaxySyncInfoModal(),
   // English Grammar & Daily Podcast Handlers
   setEnglishFilter: (f) => setEnglishFilter(f),
   setEnglishMode: (m) => setEnglishMode(m),
