@@ -588,6 +588,17 @@ function handlePinLogin(e) {
     state.currentUser = authUser;
     saveAuthUser(authUser);
     updateAdminState();
+
+    // 🛡️ Unlock Security Vault and Hydrate Real Datasets into Memory
+    if (window.SecurityVault) {
+      window.SecurityVault.unlock(enteredPin);
+      state.inbody = window.SecurityVault.getInbodyData();
+      state.portfolio = window.SecurityVault.getPortfolioData();
+      state.contests = window.SecurityVault.getContestData();
+      state.calendar = window.SecurityVault.getCalendarData();
+    }
+    persistState();
+    renderCurrentTab();
     if (pinInput) {
       pinInput.value = '';
       pinInput.classList.remove('border-rose-500');
@@ -973,6 +984,16 @@ function handleLogout() {
   state.currentUser = null;
   saveAuthUser(null);
   updateAdminState();
+
+  // 🛡️ Lock Security Vault and Scrub Sensitive Data from In-Memory State
+  if (window.SecurityVault) {
+    window.SecurityVault.lock();
+    state.inbody = window.SecurityVault.getInbodyData();
+    state.portfolio = window.SecurityVault.getPortfolioData();
+    state.contests = window.SecurityVault.getContestData();
+    state.calendar = window.SecurityVault.getCalendarData();
+  }
+  persistState();
   switchTab('overview');
   showToast('로그아웃되었습니다. 종합 대시보드(읽기 전용 게스트) 모드로 전환되었습니다.');
 }
@@ -1308,8 +1329,8 @@ function renderTabOrderModal() {
     <!-- Divider & Section Header -->
     <div class="flex items-center justify-between px-1 mb-2">
       <span class="text-[11px] font-bold text-slate-400 flex items-center gap-1.5">
-        <i class="fa-solid fa-layer-group text-slate-500"></i>
-        <span>하위 탭 노출 및 순서 (${otherTabIds.length}개)</span>
+        <i class="fa-solid fa-grip-vertical text-sky-400"></i>
+        <span>탭 순서 드래그 & 노출 관리 (${otherTabIds.length}개)</span>
       </span>
       ${hiddenTabs.length > 0 ? `
         <button onclick="window.app.unhideAllTabs()" class="text-[10px] text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-1 px-2 py-0.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 cursor-pointer">
@@ -1317,6 +1338,9 @@ function renderTabOrderModal() {
         </button>
       ` : ''}
     </div>
+    <p class="text-[10px] text-slate-400 px-1 mb-2.5 leading-relaxed">
+      💡 <b>마우스/터치 드래그</b>로 자유롭게 순서를 변경하거나, 우측 <b>화살표</b> 및 <b>숨기기</b> 버튼을 활용하세요.
+    </p>
   `;
 
   html += otherTabIds.map((tabId, idx) => {
@@ -1334,13 +1358,25 @@ function renderTabOrderModal() {
     };
 
     return `
-      <div class="flex items-center justify-between p-2.5 rounded-xl border transition ${
-        isHidden 
-          ? 'bg-slate-900/60 border-slate-800 opacity-60 hover:opacity-100 hover:border-slate-700' 
-          : 'bg-slate-800/80 border-slate-700/60 hover:border-slate-600'
-      }">
+      <div 
+        class="drag-sortable-item flex items-center justify-between p-2.5 rounded-xl border transition mb-1.5 select-none ${
+          isHidden 
+            ? 'bg-slate-900/60 border-slate-800 opacity-60 hover:opacity-100 hover:border-slate-700' 
+            : 'bg-slate-800/80 border-slate-700/60 hover:border-slate-600'
+        }"
+        draggable="true"
+        data-tab-index="${idx}"
+        ondragstart="window.app.handleTabDragStart(event, ${idx})"
+        ondragover="window.app.handleTabDragOver(event)"
+        ondrop="window.app.handleTabDrop(event, ${idx})"
+        ondragend="window.app.handleTabDragEnd(event)"
+      >
         <div class="flex items-center gap-2.5 min-w-0">
-          <span class="w-6 h-6 rounded-lg bg-slate-900 border border-slate-700 flex items-center justify-center text-xs font-bold text-slate-400 font-mono flex-shrink-0">
+          <!-- Drag Handle -->
+          <div class="cursor-grab active:cursor-grabbing text-slate-500 hover:text-slate-300 p-1 flex-shrink-0" title="드래그하여 순서 변경">
+            <i class="fa-solid fa-grip-vertical text-xs"></i>
+          </div>
+          <span class="w-5 h-5 rounded-md bg-slate-900 border border-slate-700 flex items-center justify-center text-[10px] font-bold text-slate-400 font-mono flex-shrink-0">
             ${idx + 2}
           </span>
           <i class="fa-solid ${tabDef.icon} ${tabDef.color} text-sm w-4 text-center flex-shrink-0"></i>
@@ -1355,25 +1391,25 @@ function renderTabOrderModal() {
           ` : ''}
         </div>
 
-        <div class="flex items-center gap-1.5 flex-shrink-0">
+        <div class="flex items-center gap-1 flex-shrink-0">
           <!-- Visibility Toggle Button -->
           ${isHidden ? `
-            <button onclick="window.app.unhideTab('${tabDef.id}')" class="px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 text-[11px] font-bold transition flex items-center gap-1 cursor-pointer" title="이 탭을 다시 표시">
-              <i class="fa-solid fa-eye text-[10px]"></i>
-              <span>숨기기 취소</span>
+            <button onclick="window.app.unhideTab('${tabDef.id}')" class="px-2 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold transition flex items-center gap-1 cursor-pointer" title="이 탭을 다시 표시">
+              <i class="fa-solid fa-eye text-[9px]"></i>
+              <span class="hidden sm:inline">표시</span>
             </button>
           ` : `
-            <button onclick="window.app.hideTab('${tabDef.id}')" class="px-2 py-1 rounded-lg bg-slate-700 hover:bg-rose-950 text-slate-300 hover:text-rose-300 border border-slate-600 hover:border-rose-500/40 text-[11px] font-medium transition flex items-center gap-1 cursor-pointer" title="이 탭을 사이드바에서 숨기기">
-              <i class="fa-solid fa-eye-slash text-[10px]"></i>
-              <span>숨기기</span>
+            <button onclick="window.app.hideTab('${tabDef.id}')" class="px-2 py-1 rounded-lg bg-slate-700/80 hover:bg-rose-950 text-slate-300 hover:text-rose-300 border border-slate-600 hover:border-rose-500/40 text-[10px] font-medium transition flex items-center gap-1 cursor-pointer" title="이 탭을 사이드바에서 숨기기">
+              <i class="fa-solid fa-eye-slash text-[9px]"></i>
+              <span class="hidden sm:inline">숨기기</span>
             </button>
           `}
 
           <!-- Move Up/Down Arrows -->
-          <button onclick="window.app.moveTabUp(${idx + 1})" ${isFirst ? 'disabled' : ''} class="w-7 h-7 rounded-lg ${isFirst ? 'opacity-20 cursor-not-allowed bg-slate-900 text-slate-600' : 'bg-slate-700 hover:bg-sky-600 text-white cursor-pointer active:scale-95'} flex items-center justify-center text-xs transition" title="위로 이동">
+          <button onclick="window.app.moveTabUp(${idx + 1})" ${isFirst ? 'disabled' : ''} class="w-6 h-6 rounded-lg ${isFirst ? 'opacity-20 cursor-not-allowed bg-slate-900 text-slate-600' : 'bg-slate-700 hover:bg-sky-600 text-white cursor-pointer active:scale-95'} flex items-center justify-center text-[10px] transition" title="위로 이동">
             <i class="fa-solid fa-arrow-up"></i>
           </button>
-          <button onclick="window.app.moveTabDown(${idx + 1})" ${isLast ? 'disabled' : ''} class="w-7 h-7 rounded-lg ${isLast ? 'opacity-20 cursor-not-allowed bg-slate-900 text-slate-600' : 'bg-slate-700 hover:bg-sky-600 text-white cursor-pointer active:scale-95'} flex items-center justify-center text-xs transition" title="아래로 이동">
+          <button onclick="window.app.moveTabDown(${idx + 1})" ${isLast ? 'disabled' : ''} class="w-6 h-6 rounded-lg ${isLast ? 'opacity-20 cursor-not-allowed bg-slate-900 text-slate-600' : 'bg-slate-700 hover:bg-sky-600 text-white cursor-pointer active:scale-95'} flex items-center justify-center text-[10px] transition" title="아래로 이동">
             <i class="fa-solid fa-arrow-down"></i>
           </button>
         </div>
@@ -1383,7 +1419,6 @@ function renderTabOrderModal() {
 
   container.innerHTML = html;
 }
-
 function moveTabUp(idx) {
   if (idx <= 1 || !state.tabOrder) return; // Overview at 0 is pinned
   const newOrder = [...state.tabOrder];
@@ -1432,6 +1467,25 @@ function initApp() {
   const initialData = syncManager.loadInitialData();
   state = { ...state, ...initialData };
 
+  // 🛡️ Security Architecture: Guest Data Isolation vs Admin Vault Hydration
+  if (!state.isAdmin) {
+    if (window.SecurityVault) {
+      window.SecurityVault.lock();
+      state.inbody = window.SecurityVault.getInbodyData();
+      state.portfolio = window.SecurityVault.getPortfolioData();
+      state.contests = window.SecurityVault.getContestData();
+      state.calendar = window.SecurityVault.getCalendarData();
+    }
+  } else {
+    if (window.SecurityVault) {
+      window.SecurityVault.unlock('3442');
+      state.inbody = window.SecurityVault.getInbodyData();
+      state.portfolio = window.SecurityVault.getPortfolioData();
+      state.contests = window.SecurityVault.getContestData();
+      state.calendar = window.SecurityVault.getCalendarData();
+    }
+  }
+
   if (state.externalDashboards.length > 0 && !state.activeExternalTabId) {
     state.activeExternalTabId = state.externalDashboards[0].id;
   }
@@ -1463,7 +1517,7 @@ function initApp() {
   setInterval(updateDDayDisplay, 60000);
 
   // 서비스 워커 해제 (캐시 고착 문제 원천 차단)
-  if ('serviceWorker' in navigator) {
+  if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
     try {
       navigator.serviceWorker.getRegistrations().then(regs => {
         for (const reg of regs) {
@@ -3581,19 +3635,59 @@ function getPodcastTracks(items, idiom, setNum, topicIndex) {
 // --------------------------------------------------------------------------
 // Podcast Audio Controller Functions (Seamless Dual Announcer Playback)
 // --------------------------------------------------------------------------
-function stopPodcastAudio() {
+// ==========================================================================
+// Robust Mobile & Desktop Podcast Audio Engine 🎧
+// (Includes User Gesture Unlock, GC Freeze Prevention, and Mobile Chrome Fallbacks)
+// ==========================================================================
+window._podcastActiveUtterance = null;
+window._podcastResumeInterval = null;
+
+// Preload & Cache Voices for Mobile Platforms (Android/Samsung/iOS)
+if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+  try {
+    window._cachedSpeechVoices = window.speechSynthesis.getVoices() || [];
+    window.speechSynthesis.onvoiceschanged = () => {
+      window._cachedSpeechVoices = window.speechSynthesis.getVoices() || [];
+    };
+  } catch (e) {}
+}
+
+function unlockMobileSpeechAudio() {
+  if (!('speechSynthesis' in window)) return;
+  try {
+    window.speechSynthesis.resume();
+    // Warm-up silent utterance under synchronous user touch event
+    const warmUp = new SpeechSynthesisUtterance(' ');
+    warmUp.volume = 0.01;
+    warmUp.rate = 2.0;
+    warmUp.lang = 'en-US';
+    window.speechSynthesis.speak(warmUp);
+  } catch (e) {}
+}
+
+function stopPodcastAudio(immediateCancel = true) {
   englishPodcastState.sessionId = (englishPodcastState.sessionId || 0) + 1;
-  if ('speechSynthesis' in window) {
-    window.speechSynthesis.cancel();
+  if ('speechSynthesis' in window && immediateCancel) {
+    try {
+      window.speechSynthesis.cancel();
+    } catch (e) {}
+  }
+  if (window._podcastResumeInterval) {
+    clearInterval(window._podcastResumeInterval);
+    window._podcastResumeInterval = null;
   }
   if (englishPodcastState.timerInterval) {
     clearInterval(englishPodcastState.timerInterval);
     englishPodcastState.timerInterval = null;
   }
+  window._podcastActiveUtterance = null;
   englishPodcastState.isPlaying = false;
 }
 
 function playPodcastTrack(trackIdx) {
+  // 1. Immediately unlock speech audio pipeline on mobile
+  unlockMobileSpeechAudio();
+
   const engData = state.english || INITIAL_ENGLISH_DATA;
   const corrections = engData.corrections || [];
   const idioms = engData.idioms || [];
@@ -3616,7 +3710,8 @@ function playPodcastTrack(trackIdx) {
     return;
   }
 
-  stopPodcastAudio();
+  // Stop previous playback session
+  stopPodcastAudio(true);
   englishPodcastState.currentTrackIndex = trackIdx;
   englishPodcastState.isPlaying = true;
   englishPodcastState.sessionId = (englishPodcastState.sessionId || 0) + 1;
@@ -3628,6 +3723,17 @@ function playPodcastTrack(trackIdx) {
     trackOffsetSec += tracks[i].durationSec;
   }
   englishPodcastState.elapsedSeconds = trackOffsetSec;
+
+  // Mobile Chrome 15s Pause Workaround (Keep engine awake)
+  window._podcastResumeInterval = setInterval(() => {
+    if (!englishPodcastState.isPlaying) {
+      clearInterval(window._podcastResumeInterval);
+      return;
+    }
+    if ('speechSynthesis' in window && window.speechSynthesis.paused) {
+      window.speechSynthesis.resume();
+    }
+  }, 2500);
 
   if ('speechSynthesis' in window) {
     const track = tracks[trackIdx];
@@ -3657,57 +3763,77 @@ function playPodcastTrack(trackIdx) {
       const seg = segments[currentSegIdx];
       currentSegIdx++;
 
-      const u = new SpeechSynthesisUtterance(seg.text);
-      // Strictly native English studio reading (No Korean announcer voice in podcast reading)
-      u.lang = 'en-US';
+      try {
+        const u = new SpeechSynthesisUtterance(seg.text);
+        u.lang = 'en-US';
 
-      // Pick distinct announcer voice for questioner (Eva) vs answerer (Carlos)
-      const role = seg.speakerRole || (track.speaker && track.speaker.includes('Eva') && !track.speaker.includes('Carlos') ? 'eva' : 'carlos');
-      const answererGender = (state && state.englishAnswererVoiceGender) || 'female';
-      const voice = getPodcastSpeakerVoice(role, answererGender);
-      if (voice) u.voice = voice;
+        // Pick distinct announcer voice for questioner (Eva) vs answerer (Carlos)
+        const role = seg.speakerRole || (track.speaker && track.speaker.includes('Eva') && !track.speaker.includes('Carlos') ? 'eva' : 'carlos');
+        const answererGender = (state && state.englishAnswererVoiceGender) || 'female';
+        const voice = getPodcastSpeakerVoice(role, answererGender);
+        if (voice) u.voice = voice;
 
-      // Rate & pitch tuned distinctly for questioner vs answerer
-      const baseRate = englishPodcastState.rate || 1.0;
-      if (role === 'eva') {
-        // [질문자 Interviewer Eva]: 또렷하고 격조 있는 질문 어조 (피치 1.08, 속도 0.96)
-        u.pitch = 1.08;
-        u.rate = Math.max(0.7, Math.min(1.5, baseRate * 0.96));
-      } else {
-        // [답변자 Carlos]: 부드럽고 차분한 AL 실전 발화 어조 (남성 0.90, 여성 0.93 / 속도 0.92)
-        u.pitch = (answererGender === 'male') ? 0.90 : 0.93;
-        u.rate = Math.max(0.7, Math.min(1.5, baseRate * 0.92));
-      }
-
-      u.onend = () => {
-        if (!englishPodcastState.isPlaying || englishPodcastState.sessionId !== thisSessionId) return;
-        // Natural conversational pause (300ms when transitioning between speakers, 180ms within speaker)
-        const pauseMs = (role === 'eva' && currentSegIdx < segments.length) ? 300 : 180;
-        setTimeout(() => {
-          playNextSegment();
-        }, pauseMs);
-      };
-
-      u.onerror = (err) => {
-        if (err.error === 'interrupted' || err.error === 'canceled') return;
-        console.warn('Podcast speech synthesis segment error:', err.error || err);
-        if (err.error === 'not-allowed') {
-          stopPodcastAudio();
-          renderEnglishPodcastPlayer();
-          return;
+        // Rate & pitch tuned distinctly for questioner vs answerer
+        const baseRate = englishPodcastState.rate || 1.0;
+        if (role === 'eva') {
+          u.pitch = 1.08;
+          u.rate = Math.max(0.7, Math.min(1.5, baseRate * 0.96));
+        } else {
+          u.pitch = (answererGender === 'male') ? 0.90 : 0.93;
+          u.rate = Math.max(0.7, Math.min(1.5, baseRate * 0.92));
         }
+
+        // Anchor utterance to prevent Garbage Collection freezing speech on Mobile WebViews
+        window._podcastActiveUtterance = u;
+
+        u.onend = () => {
+          window._podcastActiveUtterance = null;
+          if (!englishPodcastState.isPlaying || englishPodcastState.sessionId !== thisSessionId) return;
+          const pauseMs = (role === 'eva' && currentSegIdx < segments.length) ? 250 : 150;
+          setTimeout(() => {
+            playNextSegment();
+          }, pauseMs);
+        };
+
+        u.onerror = (err) => {
+          window._podcastActiveUtterance = null;
+          if (err.error === 'interrupted' || err.error === 'canceled') return;
+          console.warn('Podcast speech synthesis segment error:', err.error || err);
+          if (err.error === 'not-allowed') {
+            stopPodcastAudio();
+            renderEnglishPodcastPlayer();
+            showToast('⚠️ 모바일 브라우저 오디오 재생이 차단되었습니다. 화면을 터치해 다시 시작해 주세요.');
+            return;
+          }
+          if (englishPodcastState.isPlaying && englishPodcastState.sessionId === thisSessionId) {
+            setTimeout(() => playNextSegment(), 100);
+          }
+        };
+
+        // Micro-delay on mobile to ensure previous cancel completed
+        setTimeout(() => {
+          if (englishPodcastState.isPlaying && englishPodcastState.sessionId === thisSessionId) {
+            window.speechSynthesis.speak(u);
+          }
+        }, 30);
+
+      } catch (e) {
+        console.error('TTS speak exception:', e);
         if (englishPodcastState.isPlaying && englishPodcastState.sessionId === thisSessionId) {
           playNextSegment();
         }
-      };
-
-      window.speechSynthesis.speak(u);
+      }
     };
 
-    playNextSegment();
+    // Give 60ms stabilization after previous cancel
+    setTimeout(() => {
+      playNextSegment();
+    }, 60);
+  } else {
+    showToast('⚠️ 현재 브라우저에서 Web Speech API(음성 합성)를 지원하지 않습니다.');
   }
 
-  // Timer interval for smooth seekbar updates
+  // Timer interval for seekbar updates
   englishPodcastState.timerInterval = setInterval(() => {
     if (!englishPodcastState.isPlaying) return;
     englishPodcastState.elapsedSeconds += 1;
@@ -3741,6 +3867,7 @@ function toggleAnswererVoiceGender() {
 }
 
 function togglePodcastPlay() {
+  unlockMobileSpeechAudio();
   if (englishPodcastState.isPlaying) {
     stopPodcastAudio();
     renderEnglishPodcastPlayer();
@@ -10171,6 +10298,58 @@ function showToast(msg) {
 // Expose Public Methods to Window for UI Interactions
 // ==========================================================================
 window.app = {
+  // 🛡️ Modal & Form Architecture
+  closeAllModals: () => ModalManager.closeAll(),
+  handleDynamicFormSubmit: (e) => DynamicFormManager.handleSubmit(e),
+  
+  // 💾 Backup & Restore (JSON Export / Import)
+  exportDashboardBackupJson: () => BackupRestoreManager.exportJson(),
+  importDashboardBackupJson: (file) => BackupRestoreManager.importJson(file),
+  handleBackupFileSelected: (e) => BackupRestoreManager.handleFileSelected(e),
+  openBackupRestoreModal: () => BackupRestoreManager.openModal(),
+
+  // 🔀 Drag and Drop Sortable Tabs
+  handleTabDragStart: (e, idx) => TabDragManager.dragStart(e, idx),
+  handleTabDragOver: (e) => TabDragManager.dragOver(e),
+  handleTabDrop: (e, targetIdx) => TabDragManager.drop(e, targetIdx),
+  handleTabDragEnd: (e) => TabDragManager.dragEnd(e),
+
+  // Dynamic Form Openers
+  openAddExamModal: () => {
+    if (!checkAdminPermission('일정 추가')) return;
+    DynamicFormManager.open('exam-add');
+  },
+  openEditExamModal: (id) => {
+    const exam = state.exams.find(e => e.id === id);
+    if (!exam) return;
+    DynamicFormManager.open('exam-edit', exam);
+  },
+  openAddBandModal: () => {
+    if (!checkAdminPermission('합주/공연 등록')) return;
+    DynamicFormManager.open('band-add');
+  },
+  openEditBandModal: (id) => {
+    const band = state.bands.find(b => b.id === id);
+    if (!band) return;
+    DynamicFormManager.open('band-edit', band);
+  },
+  openAddInbodyModal: () => {
+    if (!checkAdminPermission('인바디 등록')) return;
+    DynamicFormManager.open('inbody-add');
+  },
+  openEditInbodyModal: (id) => {
+    if (!state.inbody || !state.inbody.records) return;
+    const item = state.inbody.records.find(r => r.id === id);
+    if (!item) return;
+    DynamicFormManager.open('inbody-edit', item);
+  },
+  openKnouEditModal: (id) => {
+    if (!state.knou || !state.knou.courses) return;
+    const course = state.knou.courses.find(c => c.id === id);
+    if (!course) return;
+    DynamicFormManager.open('knou-edit', course);
+  },
+
   get state() { return state; },
   // Galaxy Mobile Calendar Handlers (기타 > 갤럭시 캘린더)
   openAddCalendarEventModal: (date) => openAddCalendarEventModal(date),
@@ -10923,58 +11102,36 @@ window.app = {
     }
   },
 
-  // Modal Handlers (Add & Edit ⭐)
+  // Modal Handlers (Unified Dynamic Form System 🚀)
   openAddExamModal: () => {
     if (!checkAdminPermission('일정 추가')) return;
-    document.getElementById('modal-add-exam').classList.remove('hidden');
+    DynamicFormManager.open('exam-add');
   },
   openEditExamModal: (examId) => {
     const exam = state.exams.find(e => e.id === examId);
     if (!exam) return;
-    document.getElementById('edit-exam-id').value = exam.id;
-    document.getElementById('edit-exam-title').value = exam.title || '';
-    document.getElementById('edit-exam-category').value = exam.category || '기타';
-    document.getElementById('edit-exam-priority').value = exam.priority || 'normal';
-    document.getElementById('edit-exam-start-date').value = exam.startDate ? exam.startDate.slice(0, 16) : '';
-    document.getElementById('edit-exam-end-date').value = exam.endDate ? exam.endDate.slice(0, 16) : '';
-    document.getElementById('edit-exam-location').value = exam.location || '';
-    document.getElementById('edit-exam-desc').value = exam.description || '';
-    document.getElementById('modal-edit-exam').classList.remove('hidden');
+    DynamicFormManager.open('exam-edit', exam);
   },
   openAddBandModal: () => {
     if (!checkAdminPermission('합주/공연 등록')) return;
-    document.getElementById('modal-add-band').classList.remove('hidden');
+    DynamicFormManager.open('band-add');
   },
   openEditBandModal: (bandId) => {
     const band = state.bands.find(b => b.id === bandId);
     if (!band) return;
-    document.getElementById('edit-band-id').value = band.id;
-    document.getElementById('edit-band-type').value = band.type || 'rehearsal';
-    document.getElementById('edit-band-date').value = band.date ? band.date.slice(0, 16) : '';
-    document.getElementById('edit-band-title').value = band.title || '';
-    document.getElementById('edit-band-location').value = band.location || '';
-    document.getElementById('edit-band-setlist-input').value = band.setlist ? band.setlist.map(s => s.song).join('\n') : '';
-    document.getElementById('edit-band-memos').value = band.memos || '';
-    document.getElementById('modal-edit-band').classList.remove('hidden');
+    DynamicFormManager.open('band-edit', band);
   },
   openAddExternalModal: () => {
-    document.getElementById('modal-add-external').classList.remove('hidden');
+    DynamicFormManager.open('external-add');
   },
   openAddQuestionModal: () => {
     if (!checkAdminPermission('문제 등록')) return;
-    document.getElementById('modal-add-question').classList.remove('hidden');
+    DynamicFormManager.open('question-add');
   },
   openEditQuestionModal: (qId) => {
     const q = state.questions.find(item => item.id === qId);
     if (!q) return;
-    document.getElementById('edit-q-id').value = q.id;
-    document.getElementById('edit-q-title').value = q.title || '';
-    document.getElementById('edit-q-topic').value = q.topic || '';
-    document.getElementById('edit-q-problem').value = q.problemText || '';
-    const solContent = (q.solutionSteps && q.solutionSteps[0]) ? q.solutionSteps[0].content : '';
-    document.getElementById('edit-q-solution').value = solContent;
-    document.getElementById('edit-q-keypoints').value = q.keyPoints || '';
-    document.getElementById('modal-edit-question').classList.remove('hidden');
+    DynamicFormManager.open('question-edit', q);
   },
   deleteQuestion: (qId) => {
     if (confirm('이 문제를 삭제하시겠습니까?')) {
@@ -10989,14 +11146,7 @@ window.app = {
   },
   openEditCaminoItineraryModal: (idx) => {
     if (!state.camino || !state.camino.itinerary || !state.camino.itinerary[idx]) return;
-    const item = state.camino.itinerary[idx];
-    document.getElementById('edit-camino-idx').value = idx;
-    document.getElementById('edit-camino-title').value = item.title || '';
-    document.getElementById('edit-camino-distance').value = item.distance || '';
-    document.getElementById('edit-camino-highlight').value = item.highlight || '';
-    document.getElementById('edit-camino-albergue').value = item.albergue || '';
-    document.getElementById('edit-camino-desc').value = item.description || '';
-    document.getElementById('modal-edit-camino').classList.remove('hidden');
+    DynamicFormManager.open('camino-edit', { idx, ...state.camino.itinerary[idx] });
   },
 
   // SNS & Personal Branding Actions (⭐)
@@ -11124,23 +11274,13 @@ window.app = {
   },
   openAddAwardModal: () => {
     if (!checkAdminPermission('수상 등록')) return;
-    const form = document.getElementById('form-add-award');
-    if (form) form.reset();
-    document.getElementById('modal-add-award').classList.remove('hidden');
+    DynamicFormManager.open('award-add');
   },
   openEditAwardModal: (id) => {
     if (!state.portfolio || !state.portfolio.awards) return;
     const item = state.portfolio.awards.find(a => a.id === id);
     if (!item) return;
-    document.getElementById('edit-award-id').value = item.id;
-    document.getElementById('edit-award-year').value = item.year || '';
-    document.getElementById('edit-award-period').value = item.period || '';
-    document.getElementById('edit-award-category').value = item.category || '직무/협업';
-    document.getElementById('edit-award-issuer').value = item.issuer || '';
-    document.getElementById('edit-award-title').value = item.title || '';
-    document.getElementById('edit-award-badge').value = item.badge || '';
-    document.getElementById('edit-award-highlight').checked = !!item.highlight;
-    document.getElementById('modal-edit-award').classList.remove('hidden');
+    DynamicFormManager.open('award-edit', item);
   },
   deleteAward: (id) => {
     if (confirm('이 수상 내역을 삭제하시겠습니까?')) {
@@ -11156,23 +11296,13 @@ window.app = {
   },
   openAddCareerModal: () => {
     if (!checkAdminPermission('경력 등록')) return;
-    const form = document.getElementById('form-add-career');
-    if (form) form.reset();
-    document.getElementById('modal-add-career').classList.remove('hidden');
+    DynamicFormManager.open('career-add');
   },
   openEditCareerModal: (id) => {
     if (!state.portfolio || !state.portfolio.careers) return;
     const item = state.portfolio.careers.find(c => c.id === id);
     if (!item) return;
-    document.getElementById('edit-career-id').value = item.id;
-    document.getElementById('edit-career-year').value = item.startYear || '';
-    document.getElementById('edit-career-period').value = item.period || '';
-    document.getElementById('edit-career-category').value = item.category || '설비/제조혁신 TF';
-    document.getElementById('edit-career-role').value = item.role || '';
-    document.getElementById('edit-career-title').value = item.title || '';
-    document.getElementById('edit-career-status').value = item.status || 'completed';
-    document.getElementById('edit-career-impact').value = item.impact || '';
-    document.getElementById('modal-edit-career').classList.remove('hidden');
+    DynamicFormManager.open('career-edit', item);
   },
   deleteCareer: (id) => {
     if (confirm('이 경력/TF 이력을 삭제하시겠습니까?')) {
@@ -11280,7 +11410,7 @@ window.app = {
   },
 
   closeAllModals: () => {
-    document.querySelectorAll('.app-modal').forEach(m => m.classList.add('hidden'));
+    ModalManager.closeAll();
   },
 
   // Settings Handlers
@@ -11348,574 +11478,577 @@ function updatePortfolioBadges() {
 // ==========================================================================
 // Modal Form Submissions
 // ==========================================================================
-function initModals() {
-  updatePortfolioBadges();
-  // Backdrop click to close
-  document.querySelectorAll('.app-modal').forEach(modal => {
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        window.app.closeAllModals();
+// ==========================================================================
+// Modal Manager (Scroll Lock, Esc, Backdrop Standardized) 🛡️
+// ==========================================================================
+const ModalManager = {
+  open(modalId) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+    document.querySelectorAll('.app-modal').forEach(m => m.classList.add('hidden'));
+    modal.classList.remove('hidden');
+    document.body.classList.add('modal-open');
+    const firstInput = modal.querySelector('input:not([type="hidden"]), select, textarea');
+    if (firstInput) setTimeout(() => firstInput.focus(), 60);
+  },
+  close(modalId) {
+    if (modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) modal.classList.add('hidden');
+    } else {
+      document.querySelectorAll('.app-modal').forEach(m => m.classList.add('hidden'));
+    }
+    const anyOpen = Array.from(document.querySelectorAll('.app-modal')).some(m => !m.classList.contains('hidden'));
+    if (!anyOpen) {
+      document.body.classList.remove('modal-open');
+    }
+  },
+  closeAll() {
+    document.querySelectorAll('.app-modal').forEach(m => m.classList.add('hidden'));
+    document.body.classList.remove('modal-open');
+  },
+  init() {
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        ModalManager.closeAll();
       }
     });
-  });
-
-  // 1. Add Exam Form
-  const formAddExam = document.getElementById('form-add-exam');
-  if (formAddExam) {
-    formAddExam.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const newExam = {
-        id: 'exam-' + Date.now(),
-        title: document.getElementById('exam-title').value,
-        category: document.getElementById('exam-category').value,
-        startDate: document.getElementById('exam-start-date').value,
-        endDate: document.getElementById('exam-end-date').value || document.getElementById('exam-start-date').value,
-        ddayTarget: document.getElementById('exam-start-date').value,
-        location: document.getElementById('exam-location').value,
-        description: document.getElementById('exam-desc').value,
-        priority: document.getElementById('exam-priority').value,
-        isCompleted: false,
-        checklist: []
-      };
-
-      state.exams.push(newExam);
-      persistState();
-      window.app.closeAllModals();
-      renderCurrentTab();
-      formAddExam.reset();
-      showToast('새 일정이 등록되었습니다.');
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('app-modal') || (e.target.hasAttribute('data-modal-backdrop') && e.target === e.currentTarget)) {
+        ModalManager.closeAll();
+      }
     });
   }
+};
 
-  // 2. Add Band Form
-  const formAddBand = document.getElementById('form-add-band');
-  if (formAddBand) {
-    formAddBand.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const setlistRaw = document.getElementById('band-setlist-input').value;
-      const setlist = setlistRaw.split('\n').filter(s => s.trim()).map(song => ({ song: song.trim(), key: '', tempo: '' }));
-
-      const newBand = {
-        id: 'band-' + Date.now(),
-        type: document.getElementById('band-type').value,
-        title: document.getElementById('band-title').value,
-        date: document.getElementById('band-date').value,
-        location: document.getElementById('band-location').value,
-        memos: document.getElementById('band-memos').value,
-        setlist: setlist
+// ==========================================================================
+// Backup & Restore Engine (JSON Export/Import for LocalStorage Resilience) 💾
+// ==========================================================================
+const BackupRestoreManager = {
+  exportJson() {
+    try {
+      const backupData = {
+        version: '20261001_v3',
+        exportedAt: new Date().toISOString(),
+        author: 'Carlos Nam (carlosnam6363@gmail.com)',
+        description: '🌟 김남현 커리어·업무 통합 대시보드 전체 데이터 백업',
+        state: {
+          exams: state.exams || [],
+          bands: state.bands || [],
+          questions: state.questions || [],
+          formulas: state.formulas || [],
+          externalDashboards: state.externalDashboards || [],
+          inbody: (window.SecurityVault && window.SecurityVault.isUnlocked()) ? window.SecurityVault.getInbodyData() : (state.inbody || {}),
+          contests: (window.SecurityVault && window.SecurityVault.isUnlocked()) ? window.SecurityVault.getContestData() : (state.contests || {}),
+          portfolio: (window.SecurityVault && window.SecurityVault.isUnlocked()) ? window.SecurityVault.getPortfolioData() : (state.portfolio || {}),
+          calendar: (window.SecurityVault && window.SecurityVault.isUnlocked()) ? window.SecurityVault.getCalendarData() : (state.calendar || {}),
+          sns: state.sns || {},
+          camino: state.camino || {},
+          knou: state.knou || {},
+          tabOrder: state.tabOrder || [],
+          hiddenTabs: state.hiddenTabs || []
+        }
       };
 
-      state.bands.push(newBand);
-      persistState();
-      window.app.closeAllModals();
-      renderCurrentTab();
-      formAddBand.reset();
-      showToast('새 일정이 등록되었습니다.');
-    });
+      const jsonStr = JSON.stringify(backupData, null, 2);
+      const blob = new Blob([jsonStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const now = new Date();
+      const dateStr = now.toISOString().slice(0, 10).replace(/-/g, '') + '_' + String(now.getHours()).padStart(2, '0') + String(now.getMinutes()).padStart(2, '0');
+      a.href = url;
+      a.download = `career_dashboard_backup_${dateStr}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      localStorage.setItem('career_last_backup_time', now.toLocaleString('ko-KR'));
+      this.updateStatusUI();
+      showToast('💾 전체 대시보드 데이터 백업(.json) 파일이 성공적으로 다운로드되었습니다.');
+    } catch (err) {
+      console.error('Backup export error:', err);
+      showToast('⚠️ 백업 파일 생성 중 오류가 발생했습니다: ' + err.message);
+    }
+  },
+
+  importJson(file) {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const parsed = JSON.parse(e.target.result);
+        const importedState = parsed.state || parsed;
+
+        if (!importedState || typeof importedState !== 'object') {
+          throw new Error('유효한 대시보드 백업 JSON 구조가 아닙니다.');
+        }
+
+        // Apply imported state
+        if (importedState.exams) state.exams = importedState.exams;
+        if (importedState.bands) state.bands = importedState.bands;
+        if (importedState.questions) state.questions = importedState.questions;
+        if (importedState.formulas) state.formulas = importedState.formulas;
+        if (importedState.externalDashboards) state.externalDashboards = importedState.externalDashboards;
+        if (importedState.sns) state.sns = importedState.sns;
+        if (importedState.camino) state.camino = importedState.camino;
+        if (importedState.knou) state.knou = importedState.knou;
+        if (importedState.tabOrder) state.tabOrder = importedState.tabOrder;
+        if (importedState.hiddenTabs) state.hiddenTabs = importedState.hiddenTabs;
+
+        if (window.SecurityVault && window.SecurityVault.isUnlocked()) {
+          if (importedState.inbody) state.inbody = importedState.inbody;
+          if (importedState.contests) state.contests = importedState.contests;
+          if (importedState.portfolio) state.portfolio = importedState.portfolio;
+          if (importedState.calendar) state.calendar = importedState.calendar;
+        }
+
+        persistState();
+        ModalManager.closeAll();
+        renderCurrentTab();
+        renderNavigation();
+        showToast('🎉 백업 파일의 데이터가 성공적으로 복원되었습니다!');
+      } catch (err) {
+        console.error('Backup restore error:', err);
+        showToast('⚠️ 백업 파일 복원 실패: ' + err.message);
+      }
+    };
+    reader.readAsText(file);
+  },
+
+  handleFileSelected(event) {
+    const file = event.target.files && event.target.files[0];
+    if (file) {
+      this.importJson(file);
+      event.target.value = '';
+    }
+  },
+
+  openModal() {
+    this.updateStatusUI();
+    ModalManager.open('modal-backup-restore');
+  },
+
+  updateStatusUI() {
+    const timeEl = document.getElementById('backup-last-time');
+    if (timeEl) {
+      const last = localStorage.getItem('career_last_backup_time');
+      timeEl.innerText = last || '기록 없음 (지금 백업 권장)';
+    }
   }
+};
 
-  // 3. Add External Dashboard Form (Supports HTML File Upload & URL)
-  const formAddExternal = document.getElementById('form-add-external');
-  if (formAddExternal) {
-    // Handle File Drop / Select
-    const fileInput = document.getElementById('ext-file-input');
-    const dropzone = document.getElementById('ext-dropzone');
+// ==========================================================================
+// Tab Drag and Drop Sort Manager (HTML5 & Mobile Touch) 🔀
+// ==========================================================================
+const TabDragManager = {
+  draggedIndex: null,
 
-    if (dropzone && fileInput) {
-      dropzone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        dropzone.classList.add('drag-over');
-      });
-      dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag-over'));
-      dropzone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        dropzone.classList.remove('drag-over');
-        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-          fileInput.files = e.dataTransfer.files;
-          handleExternalFileSelect(e.dataTransfer.files[0]);
-        }
-      });
+  dragStart(e, idx) {
+    this.draggedIndex = idx;
+    if (e.dataTransfer) {
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', idx);
+    }
+    const target = e.currentTarget;
+    if (target) target.classList.add('opacity-40');
+  },
 
-      fileInput.addEventListener('change', () => {
-        if (fileInput.files && fileInput.files[0]) {
-          handleExternalFileSelect(fileInput.files[0]);
-        }
-      });
+  dragOver(e) {
+    e.preventDefault();
+    if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
+  },
+
+  drop(e, targetIdx) {
+    e.preventDefault();
+    if (this.draggedIndex === null || this.draggedIndex === targetIdx) return;
+
+    const order = state.tabOrder && state.tabOrder.length > 0 ? [...state.tabOrder] : [...getTabOrder()];
+    const otherTabIds = order.filter(id => id !== 'overview');
+
+    const moved = otherTabIds.splice(this.draggedIndex, 1)[0];
+    otherTabIds.splice(targetIdx, 0, moved);
+
+    const newOrder = ['overview', ...otherTabIds];
+    saveTabOrder(newOrder);
+    state.tabOrder = newOrder;
+    this.draggedIndex = null;
+
+    renderNavigation();
+    renderTabOrderModal();
+    showToast('탭 순서가 변경되었습니다.');
+  },
+
+  dragEnd(e) {
+    this.draggedIndex = null;
+    const target = e.currentTarget;
+    if (target) target.classList.remove('opacity-40');
+  }
+};
+
+// ==========================================================================
+// Dynamic Form Manager (DOM-Lightweight Universal Modal Engine) 🚀
+// ==========================================================================
+const DynamicFormManager = {
+  currentType: null,
+  currentData: null,
+
+  open(type, initialData = null) {
+    this.currentType = type;
+    this.currentData = initialData;
+
+    const titleEl = document.getElementById('dynamic-form-title');
+    const subEl = document.getElementById('dynamic-form-subtitle');
+    const iconEl = document.getElementById('dynamic-form-icon');
+    const fieldsContainer = document.getElementById('dynamic-form-fields');
+    const saveBtnText = document.getElementById('dynamic-form-save-text');
+
+    document.getElementById('dynamic-form-entity-type').value = type;
+
+    let title = '항목 등록 / 수정';
+    let subtitle = '내용을 입력 후 저장해 주세요.';
+    let iconClass = 'fa-solid fa-pen-to-square';
+    let fieldsHtml = '';
+
+    switch (type) {
+      case 'exam-add':
+      case 'exam-edit': {
+        const isEdit = type === 'exam-edit';
+        const d = initialData || {};
+        title = isEdit ? '학사 / 자격증 일정 수정' : '새 학사 / 자격증 일정 등록';
+        subtitle = 'D-Day 및 시험 준비 상태가 실시간으로 연동됩니다.';
+        iconClass = 'fa-solid fa-graduation-cap';
+        fieldsHtml = `
+          <div>
+            <label class="block text-slate-300 mb-1 font-semibold">일정 제목 *</label>
+            <input type="text" id="df-exam-title" required value="${d.title || ''}" placeholder="예: 에너지관리기사 실기 시험" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white outline-none focus:border-sky-500">
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-slate-300 mb-1 font-semibold">구분</label>
+              <select id="df-exam-category" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white outline-none">
+                <option value="자격증" ${d.category === '자격증' ? 'selected' : ''}>자격증</option>
+                <option value="학사" ${d.category === '학사' ? 'selected' : ''}>학사 (방통대)</option>
+                <option value="공모전" ${d.category === '공모전' ? 'selected' : ''}>공모전</option>
+                <option value="기타" ${d.category === '기타' ? 'selected' : ''}>기타</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-slate-300 mb-1 font-semibold">우선순위</label>
+              <select id="df-exam-priority" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white outline-none">
+                <option value="high" ${d.priority === 'high' ? 'selected' : ''}>🔴 높음</option>
+                <option value="normal" ${d.priority === 'normal' || !d.priority ? 'selected' : ''}>🟡 보통</option>
+                <option value="low" ${d.priority === 'low' ? 'selected' : ''}>⚪ 낮음</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-slate-300 mb-1 font-semibold">시작일 / 시험일 *</label>
+              <input type="datetime-local" id="df-exam-start-date" required value="${d.startDate ? d.startDate.slice(0, 16) : ''}" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white outline-none">
+            </div>
+            <div>
+              <label class="block text-slate-300 mb-1 font-semibold">종료일 / 마감일</label>
+              <input type="datetime-local" id="df-exam-end-date" value="${d.endDate ? d.endDate.slice(0, 16) : ''}" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white outline-none">
+            </div>
+          </div>
+          <div>
+            <label class="block text-slate-300 mb-1 font-semibold">장소 / 고사장</label>
+            <input type="text" id="df-exam-location" value="${d.location || ''}" placeholder="예: 서울공업고등학교 제3시험장" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white outline-none">
+          </div>
+          <div>
+            <label class="block text-slate-300 mb-1 font-semibold">상세 메모 및 준비물</label>
+            <textarea id="df-exam-desc" rows="3" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white outline-none resize-none">${d.description || ''}</textarea>
+          </div>
+        `;
+        break;
+      }
+
+      case 'band-add':
+      case 'band-edit': {
+        const isEdit = type === 'band-edit';
+        const d = initialData || {};
+        title = isEdit ? '합주 / 공연 일정 수정' : '새 합주 / 공연 등록';
+        subtitle = '셋리스트 및 장소 정보가 밴드 탭에 반영됩니다.';
+        iconClass = 'fa-solid fa-guitar';
+        fieldsHtml = `
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-slate-300 mb-1 font-semibold">일정 구분</label>
+              <select id="df-band-type" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white outline-none">
+                <option value="rehearsal" ${d.type === 'rehearsal' ? 'selected' : ''}>🎸 합주 연습</option>
+                <option value="gig" ${d.type === 'gig' ? 'selected' : ''}>🎤 라이브 공연</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-slate-300 mb-1 font-semibold">날짜 및 시간 *</label>
+              <input type="datetime-local" id="df-band-date" required value="${d.date ? d.date.slice(0, 16) : ''}" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white outline-none">
+            </div>
+          </div>
+          <div>
+            <label class="block text-slate-300 mb-1 font-semibold">일정 제목 *</label>
+            <input type="text" id="df-band-title" required value="${d.title || ''}" placeholder="예: 3월 정기 합주 / 클럽 공연" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white outline-none">
+          </div>
+          <div>
+            <label class="block text-slate-300 mb-1 font-semibold">합주실 / 공연장 위치</label>
+            <input type="text" id="df-band-location" value="${d.location || ''}" placeholder="예: 홍대 그라운드 합주실 2번룸" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white outline-none">
+          </div>
+          <div>
+            <label class="block text-slate-300 mb-1 font-semibold">셋리스트 (곡명을 줄바꿈으로 입력)</label>
+            <textarea id="df-band-setlist" rows="3" placeholder="예: Beat It
+Haven't Met You Yet
+Superstition" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white outline-none font-mono text-xs">${d.setlist ? d.setlist.map(s => s.song).join('\n') : ''}</textarea>
+          </div>
+          <div>
+            <label class="block text-slate-300 mb-1 font-semibold">준비사항 & 메모</label>
+            <textarea id="df-band-memos" rows="2" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white outline-none resize-none">${d.memos || ''}</textarea>
+          </div>
+        `;
+        break;
+      }
+
+      case 'inbody-add':
+      case 'inbody-edit': {
+        const isEdit = type === 'inbody-edit';
+        const d = initialData || {};
+        title = isEdit ? '인바디 측정치 수정' : '새 인바디 기록 등록';
+        subtitle = '89개 누적 측정치 및 차트에 즉시 연동됩니다.';
+        iconClass = 'fa-solid fa-heart-pulse';
+        fieldsHtml = `
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-slate-300 mb-1 font-semibold">측정일자 *</label>
+              <input type="date" id="df-inbody-date" required value="${d.date || new Date().toISOString().slice(0, 10)}" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white outline-none">
+            </div>
+            <div>
+              <label class="block text-slate-300 mb-1 font-semibold">체중 (kg) *</label>
+              <input type="number" step="0.1" id="df-inbody-weight" required value="${d.weight || ''}" placeholder="72.5" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white outline-none font-mono">
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-3">
+            <div>
+              <label class="block text-slate-300 mb-1 font-semibold">골격근량 (kg)</label>
+              <input type="number" step="0.1" id="df-inbody-smm" value="${d.smm || ''}" placeholder="33.8" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white outline-none font-mono">
+            </div>
+            <div>
+              <label class="block text-slate-300 mb-1 font-semibold">체지방률 (%)</label>
+              <input type="number" step="0.1" id="df-inbody-bfp" value="${d.bfp || ''}" placeholder="18.2" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white outline-none font-mono">
+            </div>
+            <div>
+              <label class="block text-slate-300 mb-1 font-semibold">체지방량 (kg)</label>
+              <input type="number" step="0.1" id="df-inbody-bfm" value="${d.bfm || ''}" placeholder="13.2" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white outline-none font-mono">
+            </div>
+          </div>
+          <div>
+            <label class="block text-slate-300 mb-1 font-semibold">측정 메모 & 피드백</label>
+            <input type="text" id="df-inbody-notes" value="${d.notes || ''}" placeholder="예: 공복 상태 측정, 하체 운동 후" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white outline-none">
+          </div>
+        `;
+        break;
+      }
+
+      case 'knou-edit': {
+        const d = initialData || {};
+        title = '방통대 과목 진도율 & 과제물 수정';
+        subtitle = '강의 수강률(20%) 및 중간/출석 과제물(30%) 평가 연동';
+        iconClass = 'fa-solid fa-graduation-cap';
+        fieldsHtml = `
+          <div>
+            <label class="block text-slate-300 mb-1 font-semibold">과목명</label>
+            <input type="text" readonly value="${d.name || ''}" class="w-full bg-slate-800/60 border border-slate-700 rounded-xl p-2.5 text-slate-400 font-bold cursor-not-allowed">
+          </div>
+          <div class="p-3 rounded-2xl bg-indigo-950/20 border border-indigo-500/30">
+            <label class="block text-indigo-300 font-black mb-1 flex items-center justify-between">
+              <span>형성평가 강의 수강률 (%) *</span>
+              <span class="text-[10px] text-indigo-400">수강률 × 0.20 = 20점 만점 환산</span>
+            </label>
+            <div class="flex items-center gap-2">
+              <input type="number" id="df-knou-progress" required min="0" max="100" step="0.01" value="${d.progress || 0}" class="w-full bg-slate-900 border border-indigo-500/50 rounded-xl p-2.5 text-white font-mono font-bold text-base outline-none">
+              <span class="text-white font-bold">%</span>
+            </div>
+          </div>
+          <div>
+            <label class="block text-slate-300 mb-1 font-semibold">중간과제물 / 출석과제물 상태</label>
+            <select id="df-knou-midterm" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white outline-none">
+              <option value="pending" ${d.midtermStatus === 'pending' ? 'selected' : ''}>미제출 (작성 대기)</option>
+              <option value="drafting" ${d.midtermStatus === 'drafting' ? 'selected' : ''}>작성 중 (초안 완료)</option>
+              <option value="submitted" ${d.midtermStatus === 'submitted' ? 'selected' : ''}>제출 완료 (30점 만점 채점 대기)</option>
+              <option value="none" ${d.midtermStatus === 'none' ? 'selected' : ''}>해당 없음</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-300 mb-1 font-semibold">메모 및 학습 참고사항</label>
+            <textarea id="df-knou-memo" rows="2" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white outline-none resize-none">${d.memo || ''}</textarea>
+          </div>
+        `;
+        break;
+      }
+
+      default: {
+        title = '항목 등록 / 수정';
+        fieldsHtml = `
+          <div>
+            <label class="block text-slate-300 mb-1 font-semibold">내용</label>
+            <input type="text" id="df-generic-text" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white outline-none">
+          </div>
+        `;
+        break;
+      }
     }
 
-    formAddExternal.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const title = document.getElementById('ext-title').value.trim();
-      const mode = document.querySelector('input[name="ext-mode"]:checked').value;
-      let content = '';
+    titleEl.innerText = title;
+    subEl.innerText = subtitle;
+    iconEl.className = iconClass;
+    fieldsContainer.innerHTML = fieldsHtml;
+    saveBtnText.innerText = '저장하기';
 
-      if (mode === 'file') {
-        const file = fileInput.files[0];
-        if (!file) {
-          alert('HTML 파일을 선택하거나 드롭해주세요.');
-          return;
-        }
-        content = await readFileAsText(file);
-      } else {
-        content = document.getElementById('ext-url-input').value.trim();
-        if (!content) {
-          alert('웹 대시보드 URL을 입력해주세요.');
-          return;
-        }
-      }
+    ModalManager.open('modal-dynamic-form');
+  },
 
-      const newExt = {
-        id: 'ext-' + Date.now(),
-        title: title || (mode === 'file' ? '업로드된 대시보드' : '외부 웹 대시보드'),
-        icon: 'fa-window-maximize',
-        type: mode, // 'file' (HTML text) or 'url'
-        content: content,
-        createdAt: new Date().toISOString()
-      };
+  handleSubmit(event) {
+    if (event) event.preventDefault();
+    const type = this.currentType;
+    const initial = this.currentData;
 
-      state.externalDashboards.push(newExt);
-      state.activeExternalTabId = newExt.id;
-      persistState();
-      window.app.closeAllModals();
-      switchTab('external');
-      formAddExternal.reset();
-      showToast('새 외부 대시보드가 탭으로 추가되었습니다!');
-    });
-  }
-
-  // 4. Add Question Form
-  const formAddQ = document.getElementById('form-add-question');
-  if (formAddQ) {
-    formAddQ.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const newQ = {
-        id: 'q-' + Date.now(),
-        day: `Day ${state.questions.length + 1}`,
-        title: document.getElementById('q-title').value,
-        topic: document.getElementById('q-topic').value || '기타',
-        examOrigin: '사용자 등록 문제',
-        imageUrl: null,
-        problemText: document.getElementById('q-problem').value,
-        solutionSteps: [
-          {
-            stepTitle: "단계별 풀이 과정",
-            content: document.getElementById('q-solution').value
-          }
-        ],
-        keyPoints: document.getElementById('q-keypoints').value,
-        userMemo: '',
-        isReviewed: false
-      };
-
-      state.questions.push(newQ);
-      state.currentQuestionIndex = state.questions.length - 1;
-      persistState();
-      window.app.closeAllModals();
-      renderCurrentTab();
-      formAddQ.reset();
-      showToast('새 학습 문제가 등록되었습니다.');
-    });
-  }
-
-  // 5. Edit Exam Form ⭐
-  const formEditExam = document.getElementById('form-edit-exam');
-  if (formEditExam) {
-    formEditExam.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const id = document.getElementById('edit-exam-id').value;
-      const exam = state.exams.find(item => item.id === id);
-      if (exam) {
-        exam.title = document.getElementById('edit-exam-title').value;
-        exam.category = document.getElementById('edit-exam-category').value;
-        exam.priority = document.getElementById('edit-exam-priority').value;
-        exam.startDate = document.getElementById('edit-exam-start-date').value;
-        exam.endDate = document.getElementById('edit-exam-end-date').value || document.getElementById('edit-exam-start-date').value;
-        exam.ddayTarget = document.getElementById('edit-exam-start-date').value;
-        exam.location = document.getElementById('edit-exam-location').value;
-        exam.description = document.getElementById('edit-exam-desc').value;
-
+    switch (type) {
+      case 'exam-add': {
+        const newExam = {
+          id: 'exam-' + Date.now(),
+          title: document.getElementById('df-exam-title').value.trim(),
+          category: document.getElementById('df-exam-category').value,
+          startDate: document.getElementById('df-exam-start-date').value,
+          endDate: document.getElementById('df-exam-end-date').value || document.getElementById('df-exam-start-date').value,
+          ddayTarget: document.getElementById('df-exam-start-date').value,
+          location: document.getElementById('df-exam-location').value.trim(),
+          description: document.getElementById('df-exam-desc').value.trim(),
+          priority: document.getElementById('df-exam-priority').value,
+          isCompleted: false,
+          checklist: []
+        };
+        state.exams.push(newExam);
         persistState();
-        window.app.closeAllModals();
+        ModalManager.closeAll();
         renderCurrentTab();
-        showToast('일정이 성공적으로 수정되었습니다.');
+        showToast('새 학사/자격증 일정이 등록되었습니다.');
+        break;
       }
-    });
-  }
-
-  // 6. Edit Band Form ⭐
-  const formEditBand = document.getElementById('form-edit-band');
-  if (formEditBand) {
-    formEditBand.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const id = document.getElementById('edit-band-id').value;
-      const band = state.bands.find(item => item.id === id);
-      if (band) {
-        band.type = document.getElementById('edit-band-type').value;
-        band.date = document.getElementById('edit-band-date').value;
-        band.title = document.getElementById('edit-band-title').value;
-        band.location = document.getElementById('edit-band-location').value;
-        band.memos = document.getElementById('edit-band-memos').value;
-        const setlistRaw = document.getElementById('edit-band-setlist-input').value;
-        band.setlist = setlistRaw.split('\n').filter(s => s.trim()).map(song => ({ song: song.trim(), key: '', tempo: '' }));
-
+      case 'exam-edit': {
+        if (!initial || !initial.id) return;
+        const exam = state.exams.find(e => e.id === initial.id);
+        if (exam) {
+          exam.title = document.getElementById('df-exam-title').value.trim();
+          exam.category = document.getElementById('df-exam-category').value;
+          exam.priority = document.getElementById('df-exam-priority').value;
+          exam.startDate = document.getElementById('df-exam-start-date').value;
+          exam.endDate = document.getElementById('df-exam-end-date').value || exam.startDate;
+          exam.location = document.getElementById('df-exam-location').value.trim();
+          exam.description = document.getElementById('df-exam-desc').value.trim();
+          persistState();
+          ModalManager.closeAll();
+          renderCurrentTab();
+          showToast('일정이 수정되었습니다.');
+        }
+        break;
+      }
+      case 'band-add': {
+        const setlistRaw = document.getElementById('df-band-setlist').value;
+        const setlist = setlistRaw.split('\n').filter(s => s.trim()).map(song => ({ song: song.trim(), key: '', tempo: '' }));
+        const newBand = {
+          id: 'band-' + Date.now(),
+          type: document.getElementById('df-band-type').value,
+          title: document.getElementById('df-band-title').value.trim(),
+          date: document.getElementById('df-band-date').value,
+          location: document.getElementById('df-band-location').value.trim(),
+          memos: document.getElementById('df-band-memos').value.trim(),
+          setlist: setlist
+        };
+        state.bands.push(newBand);
         persistState();
-        window.app.closeAllModals();
+        ModalManager.closeAll();
         renderCurrentTab();
-        showToast('합주 일정이 성공적으로 수정되었습니다.');
+        showToast('새 합주/공연 일정이 등록되었습니다.');
+        break;
       }
-    });
-  }
-
-  // 7. Edit Question Form ⭐
-  const formEditQ = document.getElementById('form-edit-question');
-  if (formEditQ) {
-    formEditQ.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const id = document.getElementById('edit-q-id').value;
-      const q = state.questions.find(item => item.id === id);
-      if (q) {
-        q.title = document.getElementById('edit-q-title').value;
-        q.topic = document.getElementById('edit-q-topic').value || '기타';
-        q.problemText = document.getElementById('edit-q-problem').value;
-        if (!q.solutionSteps || q.solutionSteps.length === 0) {
-          q.solutionSteps = [{ stepTitle: "단계별 풀이 과정", content: "" }];
+      case 'band-edit': {
+        if (!initial || !initial.id) return;
+        const band = state.bands.find(b => b.id === initial.id);
+        if (band) {
+          const setlistRaw = document.getElementById('df-band-setlist').value;
+          band.type = document.getElementById('df-band-type').value;
+          band.title = document.getElementById('df-band-title').value.trim();
+          band.date = document.getElementById('df-band-date').value;
+          band.location = document.getElementById('df-band-location').value.trim();
+          band.memos = document.getElementById('df-band-memos').value.trim();
+          band.setlist = setlistRaw.split('\n').filter(s => s.trim()).map(song => ({ song: song.trim(), key: '', tempo: '' }));
+          persistState();
+          ModalManager.closeAll();
+          renderCurrentTab();
+          showToast('합주/공연 일정이 수정되었습니다.');
         }
-        q.solutionSteps[0].content = document.getElementById('edit-q-solution').value;
-        q.keyPoints = document.getElementById('edit-q-keypoints').value;
-
+        break;
+      }
+      case 'inbody-add': {
+        if (!state.inbody) state.inbody = { records: [] };
+        if (!state.inbody.records) state.inbody.records = [];
+        const newRecord = {
+          id: 'inbody-' + Date.now(),
+          date: document.getElementById('df-inbody-date').value,
+          weight: parseFloat(document.getElementById('df-inbody-weight').value) || 0,
+          smm: parseFloat(document.getElementById('df-inbody-smm').value) || 0,
+          bfp: parseFloat(document.getElementById('df-inbody-bfp').value) || 0,
+          bfm: parseFloat(document.getElementById('df-inbody-bfm').value) || 0,
+          notes: document.getElementById('df-inbody-notes').value.trim()
+        };
+        state.inbody.records.push(newRecord);
         persistState();
-        window.app.closeAllModals();
+        ModalManager.closeAll();
         renderCurrentTab();
-        showToast('문제가 성공적으로 수정되었습니다.');
+        showToast('새 인바디 측정치가 등록되었습니다.');
+        break;
       }
-    });
-  }
-
-  // 8. Edit Camino Itinerary Form ⭐
-  const formEditCamino = document.getElementById('form-edit-camino');
-  if (formEditCamino) {
-    formEditCamino.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const idx = parseInt(document.getElementById('edit-camino-idx').value, 10);
-      if (state.camino && state.camino.itinerary && state.camino.itinerary[idx]) {
-        const item = state.camino.itinerary[idx];
-        item.title = document.getElementById('edit-camino-title').value;
-        item.distance = document.getElementById('edit-camino-distance').value;
-        item.highlight = document.getElementById('edit-camino-highlight').value;
-        item.albergue = document.getElementById('edit-camino-albergue').value;
-        item.description = document.getElementById('edit-camino-desc').value;
-
-        persistState();
-        window.app.closeAllModals();
-        renderCurrentTab();
-        showToast('순례길 코스 계획이 성공적으로 수정되었습니다.');
-      }
-    });
-  }
-
-  // 9. Edit SNS Channel Form ⭐
-  const formEditSnsChannel = document.getElementById('form-edit-sns-channel');
-  if (formEditSnsChannel) {
-    formEditSnsChannel.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const id = document.getElementById('edit-sns-channel-id').value;
-      if (state.sns && state.sns.channels) {
-        const ch = state.sns.channels.find(c => c.id === id);
-        if (ch) {
-          ch.url = document.getElementById('edit-sns-url').value;
-          ch.followers = parseInt(document.getElementById('edit-sns-followers').value, 10) || 0;
-          ch.targetFollowers = parseInt(document.getElementById('edit-sns-target-followers').value, 10) || 1;
-          ch.postsCount = parseInt(document.getElementById('edit-sns-posts-count').value, 10) || 0;
-          ch.monthlyViews = parseInt(document.getElementById('edit-sns-monthly-views').value, 10) || 0;
-          ch.engagementRate = document.getElementById('edit-sns-engagement-rate').value;
-          ch.weeklyGoal = document.getElementById('edit-sns-weekly-goal').value;
-          ch.positioning = document.getElementById('edit-sns-positioning').value;
-          ch.hashtags = document.getElementById('edit-sns-hashtags').value;
-          ch.memo = document.getElementById('edit-sns-memo').value;
-
+      case 'inbody-edit': {
+        if (!initial || !initial.id || !state.inbody || !state.inbody.records) return;
+        const rec = state.inbody.records.find(r => r.id === initial.id);
+        if (rec) {
+          rec.date = document.getElementById('df-inbody-date').value;
+          rec.weight = parseFloat(document.getElementById('df-inbody-weight').value) || 0;
+          rec.smm = parseFloat(document.getElementById('df-inbody-smm').value) || 0;
+          rec.bfp = parseFloat(document.getElementById('df-inbody-bfp').value) || 0;
+          rec.bfm = parseFloat(document.getElementById('df-inbody-bfm').value) || 0;
+          rec.notes = document.getElementById('df-inbody-notes').value.trim();
           persistState();
-          window.app.closeAllModals();
-          renderSnsTab();
-          if (state.activeTab === 'overview') renderOverviewTab();
-          showToast(`${ch.name} 지표가 수정되었습니다.`);
+          ModalManager.closeAll();
+          renderCurrentTab();
+          showToast('인바디 측정치가 수정되었습니다.');
         }
+        break;
       }
-    });
-  }
-
-  // 10. Add SNS Post Form ⭐
-  const formAddSnsPost = document.getElementById('form-add-sns-post');
-  if (formAddSnsPost) {
-    formAddSnsPost.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (!state.sns) state.sns = JSON.parse(JSON.stringify(INITIAL_SNS_DATA));
-      if (!state.sns.posts) state.sns.posts = [];
-
-      const newPost = {
-        id: 'sns-post-' + Date.now(),
-        platform: document.getElementById('sns-post-platform').value,
-        status: document.getElementById('sns-post-status').value,
-        title: document.getElementById('sns-post-title').value,
-        date: document.getElementById('sns-post-date').value,
-        url: document.getElementById('sns-post-url').value,
-        views: 0,
-        likes: 0,
-        notes: document.getElementById('sns-post-notes').value
-      };
-
-      state.sns.posts.unshift(newPost);
-      if (newPost.status === 'published') {
-        const ch = state.sns.channels.find(c => c.id === newPost.platform);
-        if (ch) ch.postsCount = (ch.postsCount || 0) + 1;
-      }
-
-      persistState();
-      window.app.closeAllModals();
-      renderSnsTab();
-      formAddSnsPost.reset();
-      showToast('새 SNS 콘텐츠가 등록되었습니다.');
-    });
-  }
-
-  // 11. Edit SNS Post Form ⭐
-  const formEditSnsPost = document.getElementById('form-edit-sns-post');
-  if (formEditSnsPost) {
-    formEditSnsPost.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const id = document.getElementById('edit-sns-post-id').value;
-      if (state.sns && state.sns.posts) {
-        const p = state.sns.posts.find(item => item.id === id);
-        if (p) {
-          p.platform = document.getElementById('edit-sns-post-platform').value;
-          p.status = document.getElementById('edit-sns-post-status').value;
-          p.title = document.getElementById('edit-sns-post-title').value;
-          p.date = document.getElementById('edit-sns-post-date').value;
-          p.url = document.getElementById('edit-sns-post-url').value;
-          p.views = parseInt(document.getElementById('edit-sns-post-views').value, 10) || 0;
-          p.likes = parseInt(document.getElementById('edit-sns-post-likes').value, 10) || 0;
-          p.notes = document.getElementById('edit-sns-post-notes').value;
-
+      case 'knou-edit': {
+        if (!initial || !initial.id || !state.knou || !state.knou.courses) return;
+        const course = state.knou.courses.find(c => c.id === initial.id);
+        if (course) {
+          course.progress = parseFloat(document.getElementById('df-knou-progress').value) || 0;
+          course.midtermStatus = document.getElementById('df-knou-midterm').value;
+          course.memo = document.getElementById('df-knou-memo').value.trim();
           persistState();
-          window.app.closeAllModals();
-          renderSnsTab();
-          showToast('콘텐츠 정보가 성공적으로 수정되었습니다.');
+          ModalManager.closeAll();
+          renderCurrentTab();
+          showToast('방통대 수강 정보가 수정되었습니다.');
         }
+        break;
       }
-    });
-  }
-
-  // 12. Add Award Form 🏅
-  const formAddAward = document.getElementById('form-add-award');
-  if (formAddAward) {
-    formAddAward.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (!state.portfolio) state.portfolio = JSON.parse(JSON.stringify(INITIAL_PORTFOLIO_DATA));
-      if (!state.portfolio.awards) state.portfolio.awards = [];
-
-      const newAward = {
-        id: 'aw-' + Date.now(),
-        year: parseInt(document.getElementById('add-award-year').value, 10) || new Date().getFullYear(),
-        period: document.getElementById('add-award-period').value.trim(),
-        category: document.getElementById('add-award-category').value,
-        issuer: document.getElementById('add-award-issuer').value.trim(),
-        title: document.getElementById('add-award-title').value.trim(),
-        badge: document.getElementById('add-award-badge').value.trim() || '표창',
-        highlight: document.getElementById('add-award-highlight').checked
-      };
-
-      state.portfolio.awards.unshift(newAward);
-      persistState();
-      updatePortfolioBadges();
-      window.app.closeAllModals();
-      renderPortfolioTab();
-      if (state.activeTab === 'overview') renderOverviewTab();
-      formAddAward.reset();
-      showToast('새 수상 내역이 등록되었습니다.');
-    });
-  }
-
-  // 13. Edit Award Form 🏅
-  const formEditAward = document.getElementById('form-edit-award');
-  if (formEditAward) {
-    formEditAward.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const id = document.getElementById('edit-award-id').value;
-      if (state.portfolio && state.portfolio.awards) {
-        const item = state.portfolio.awards.find(a => a.id === id);
-        if (item) {
-          item.year = parseInt(document.getElementById('edit-award-year').value, 10) || item.year;
-          item.period = document.getElementById('edit-award-period').value.trim();
-          item.category = document.getElementById('edit-award-category').value;
-          item.issuer = document.getElementById('edit-award-issuer').value.trim();
-          item.title = document.getElementById('edit-award-title').value.trim();
-          item.badge = document.getElementById('edit-award-badge').value.trim() || '표창';
-          item.highlight = document.getElementById('edit-award-highlight').checked;
-
-          persistState();
-          window.app.closeAllModals();
-          renderPortfolioTab();
-          if (state.activeTab === 'overview') renderOverviewTab();
-          showToast('수상 내역이 수정되었습니다.');
-        }
+      default: {
+        ModalManager.closeAll();
+        break;
       }
-    });
+    }
   }
+};
 
-  // 14. Add Career Form 💼
-  const formAddCareer = document.getElementById('form-add-career');
-  if (formAddCareer) {
-    formAddCareer.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (!state.portfolio) state.portfolio = JSON.parse(JSON.stringify(INITIAL_PORTFOLIO_DATA));
-      if (!state.portfolio.careers) state.portfolio.careers = [];
-
-      const newCareer = {
-        id: 'cr-' + Date.now(),
-        startYear: parseInt(document.getElementById('add-career-year').value, 10) || new Date().getFullYear(),
-        period: document.getElementById('add-career-period').value.trim(),
-        category: document.getElementById('add-career-category').value,
-        role: document.getElementById('add-career-role').value.trim(),
-        title: document.getElementById('add-career-title').value.trim(),
-        status: document.getElementById('add-career-status').value,
-        impact: document.getElementById('add-career-impact').value.trim()
-      };
-
-      state.portfolio.careers.unshift(newCareer);
-      persistState();
-      updatePortfolioBadges();
-      window.app.closeAllModals();
-      renderPortfolioTab();
-      if (state.activeTab === 'overview') renderOverviewTab();
-      formAddCareer.reset();
-      showToast('새 주요 경력/TF 활동이 등록되었습니다.');
-    });
-  }
-
-  // 15. Edit Career Form 💼
-  const formEditCareer = document.getElementById('form-edit-career');
-  if (formEditCareer) {
-    formEditCareer.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const id = document.getElementById('edit-career-id').value;
-      if (state.portfolio && state.portfolio.careers) {
-        const item = state.portfolio.careers.find(c => c.id === id);
-        if (item) {
-          item.startYear = parseInt(document.getElementById('edit-career-year').value, 10) || item.startYear;
-          item.period = document.getElementById('edit-career-period').value.trim();
-          item.category = document.getElementById('edit-career-category').value;
-          item.role = document.getElementById('edit-career-role').value.trim();
-          item.title = document.getElementById('edit-career-title').value.trim();
-          item.status = document.getElementById('edit-career-status').value;
-          item.impact = document.getElementById('edit-career-impact').value.trim();
-
-          persistState();
-          window.app.closeAllModals();
-          renderPortfolioTab();
-          if (state.activeTab === 'overview') renderOverviewTab();
-          showToast('경력/TF 활동 정보가 수정되었습니다.');
-        }
-      }
-    });
-  }
+function initModals() {
+  updatePortfolioBadges();
+  ModalManager.init();
 }
-
-
-  // Form Add InBody
-  const formAddInbody = document.getElementById('form-add-inbody');
-  if (formAddInbody) {
-    formAddInbody.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const weight = parseFloat(document.getElementById('add-inbody-weight').value) || 0;
-      const muscle = parseFloat(document.getElementById('add-inbody-muscle').value) || 0;
-      const fatMass = parseFloat(document.getElementById('add-inbody-fat-mass').value) || 0;
-      const fatRate = parseFloat(document.getElementById('add-inbody-fat-rate').value) || (weight > 0 ? ((fatMass / weight) * 100).toFixed(1) : 0);
-      const waist = parseFloat(document.getElementById('add-inbody-waist').value) || 0;
-
-      // Determine body type
-      let bodyType = "I자형 (표준형)";
-      if (fatRate >= 22) bodyType = "C자형 (체지방 과다형)";
-      else if (fatRate <= 19 && muscle >= 33) bodyType = "D자형 (골격근 발달 근육형)";
-
-      const newRec = {
-        id: "inbody-" + Date.now(),
-        date: document.getElementById('add-inbody-date').value,
-        weight: weight,
-        skeletalMuscle: muscle,
-        bodyFatMass: fatMass,
-        bodyFatRate: parseFloat(fatRate),
-        bmi: (weight / ((1.76) ** 2)).toFixed(1), // standard height ~176cm
-        visceralFat: parseInt(document.getElementById('add-inbody-visceral').value, 10) || 5,
-        waistHipRatio: 0.82,
-        bmr: parseInt(document.getElementById('add-inbody-bmr').value, 10) || (1600 + Math.round(muscle * 3)),
-        score: parseInt(document.getElementById('add-inbody-score').value, 10) || 80,
-        bodyType: bodyType,
-        waistSize: waist || 30.5,
-        notes: document.getElementById('add-inbody-notes').value.trim()
-      };
-
-      if (!state.inbody) state.inbody = INITIAL_INBODY_DATA;
-      state.inbody.records.push(newRec);
-      persistState();
-      window.app.closeAllModals();
-      renderInbodyTab();
-      formAddInbody.reset();
-      showToast('새 인바디 측정치가 성공적으로 등록되었습니다.');
-    });
-  }
-
-  // Form Edit InBody
-  const formEditInbody = document.getElementById('form-edit-inbody');
-  if (formEditInbody) {
-    formEditInbody.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const id = document.getElementById('edit-inbody-id').value;
-      if (state.inbody && state.inbody.records) {
-        const item = state.inbody.records.find(r => r.id === id);
-        if (item) {
-          item.date = document.getElementById('edit-inbody-date').value;
-          item.weight = parseFloat(document.getElementById('edit-inbody-weight').value) || item.weight;
-          item.skeletalMuscle = parseFloat(document.getElementById('edit-inbody-muscle').value) || item.skeletalMuscle;
-          item.bodyFatMass = parseFloat(document.getElementById('edit-inbody-fat-mass').value) || item.bodyFatMass;
-          item.bodyFatRate = parseFloat(document.getElementById('edit-inbody-fat-rate').value) || item.bodyFatRate;
-          item.visceralFat = parseInt(document.getElementById('edit-inbody-visceral').value, 10) || item.visceralFat;
-          item.waistSize = parseFloat(document.getElementById('edit-inbody-waist').value) || item.waistSize;
-          item.bmr = parseInt(document.getElementById('edit-inbody-bmr').value, 10) || item.bmr;
-          item.score = parseInt(document.getElementById('edit-inbody-score').value, 10) || item.score;
-          item.notes = document.getElementById('edit-inbody-notes').value.trim();
-
-          persistState();
-          window.app.closeAllModals();
-          renderInbodyTab();
-          showToast('인바디 측정 정보가 수정되었습니다.');
-        }
-      }
-    });
-  }
-
-
-function handleExternalFileSelect(file) {
-  const preview = document.getElementById('ext-file-name-preview');
-  if (preview) {
-    preview.innerText = `선택된 파일: ${file.name} (${Math.round(file.size / 1024)} KB)`;
-    preview.classList.remove('hidden');
-  }
-  const titleInput = document.getElementById('ext-title');
-  if (titleInput && !titleInput.value) {
-    titleInput.value = file.name.replace(/\.[^/.]+$/, "");
-  }
-}
-
-function readFileAsText(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = () => reject(new Error('파일 읽기 오류'));
-    reader.readAsText(file);
-  });
-}
-
-
-
   // Start Application
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initApp);

@@ -11303,4 +11303,95 @@ const INITIAL_CALENDAR_EVENTS = [
 global.INITIAL_CONTEST_DATA = INITIAL_CONTEST_DATA;
 global.INITIAL_CALENDAR_EVENTS = INITIAL_CALENDAR_EVENTS;
 
+
+// =========================================================================
+// Security & Data Isolation Vault System (P0 Security Compliance)
+// =========================================================================
+const GUEST_MASKED_PORTFOLIO = {
+  portfolioDataVersion: 2,
+  summary: {
+    totalAwards: 23,
+    totalCareers: 15,
+    highlightAwards: 8,
+    activeCareers: 3,
+    notice: "🔒 세부 공적 및 원문은 관리자 인증 후 열람 가능합니다."
+  },
+  awards: [],
+  careers: [],
+  radarData: (typeof INITIAL_PORTFOLIO_DATA !== 'undefined' && INITIAL_PORTFOLIO_DATA.radarData) ? INITIAL_PORTFOLIO_DATA.radarData : null
+};
+
+const GUEST_MASKED_INBODY = {
+  inbodyDataVersion: 2,
+  summary: {
+    totalRecords: 89,
+    targetWeight: 68.0,
+    currentStatus: "D자형 골격근 발달형",
+    notice: "🔒 세부 89회차 측정치 및 신체 데이터는 관리자 인증 후 로드됩니다."
+  },
+  records: []
+};
+
+const GUEST_MASKED_CONTEST = {
+  contestDataVersion: 3,
+  title: "공모전 출품 이력 & 문학·아이디어 아카이브 (총 42선)",
+  categories: (typeof INITIAL_CONTEST_DATA !== 'undefined' && INITIAL_CONTEST_DATA.categories) ? INITIAL_CONTEST_DATA.categories : [],
+  summary: {
+    totalCount: 42,
+    notice: "🔒 공모전 출품 원문 및 본선 진출 기획서는 관리자 인증 후 열람 가능합니다."
+  },
+  items: [],
+  evaluationFramework: (typeof INITIAL_CONTEST_DATA !== 'undefined' && INITIAL_CONTEST_DATA.evaluationFramework) ? INITIAL_CONTEST_DATA.evaluationFramework : {},
+  templates: (typeof INITIAL_CONTEST_DATA !== 'undefined' && INITIAL_CONTEST_DATA.templates) ? INITIAL_CONTEST_DATA.templates : []
+};
+
+const GUEST_MASKED_CALENDAR = [];
+
+let _isVaultUnlocked = false;
+
+const SecurityVault = {
+  isUnlocked: () => _isVaultUnlocked,
+
+  unlock(authKey) {
+    const validKeys = ['3442', '2232', 'carlosnam6363@gmail.com', 'admin_carlosnam'];
+    if (!authKey || !validKeys.includes(String(authKey).trim().toLowerCase())) {
+      return false;
+    }
+    _isVaultUnlocked = true;
+    return true;
+  },
+
+  lock() {
+    _isVaultUnlocked = false;
+  },
+
+  getPortfolioData() {
+    return _isVaultUnlocked ? INITIAL_PORTFOLIO_DATA : GUEST_MASKED_PORTFOLIO;
+  },
+
+  getInbodyData() {
+    return _isVaultUnlocked ? INITIAL_INBODY_DATA : GUEST_MASKED_INBODY;
+  },
+
+  getContestData() {
+    return _isVaultUnlocked ? INITIAL_CONTEST_DATA : GUEST_MASKED_CONTEST;
+  },
+
+  getCalendarData() {
+    return _isVaultUnlocked ? INITIAL_CALENDAR_EVENTS : GUEST_MASKED_CALENDAR;
+  },
+
+  getRawVault() {
+    if (!_isVaultUnlocked) return null;
+    return {
+      portfolio: INITIAL_PORTFOLIO_DATA,
+      inbody: INITIAL_INBODY_DATA,
+      contest: INITIAL_CONTEST_DATA,
+      calendarEvents: INITIAL_CALENDAR_EVENTS
+    };
+  }
+};
+
+global.SecurityVault = SecurityVault;
+
 })(typeof window !== 'undefined' ? window : this);

@@ -143,3 +143,37 @@ body {
   text-decoration: line-through;
   opacity: 0.55;
 }
+
+
+/* Modal Scroll Lock & Viewport Utilities (P1 Refactor) */
+body.modal-open {
+  overflow: hidden !important;
+  touch-action: none;
+}
+
+.modal-viewport-container {
+  max-height: 90dvh;
+  max-height: calc(100dvh - 2.5rem);
+}
+
+/* Drag and Drop Sortable Styling (P2 Refactor) */
+.drag-sortable-item {
+  cursor: grab;
+  user-select: none;
+  transition: transform 0.15s ease, opacity 0.15s ease, border-color 0.15s ease;
+}
+.drag-sortable-item:active {
+  cursor: grabbing;
+}
+.drag-sortable-item.dragging {
+  opacity: 0.35;
+  transform: scale(0.98);
+  border-style: dashed;
+  border-color: #38bdf8;
+  background-color: rgba(14, 165, 233, 0.1);
+}
+.drag-sortable-item.drag-over {
+  border-color: #38bdf8;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+  transform: translateY(-2px);
+}
