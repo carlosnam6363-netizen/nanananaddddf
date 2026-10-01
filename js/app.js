@@ -106,7 +106,7 @@ class SyncManager {
         parsed.energyPlan = upgradedEnergyPlan;
         parsed.sns = upgradedSns;
         parsed.portfolio = upgradedPortfolio;
-        const upgradedKnou = (parsed.knou && parsed.knou.knouDataVersion === 1)
+        const upgradedKnou = (parsed.knou && parsed.knou.knouDataVersion === 2)
           ? parsed.knou
           : JSON.parse(JSON.stringify(INITIAL_KNOU_DATA));
         const upgradedEnglish = (parsed.english && parsed.english.englishDataVersion === 1)
