@@ -53,45 +53,12 @@ const INITIAL_CAMINO_DATA = {
       char: "푸른 대서양 해안 보드워크, 시원한 바닷바람, 완만한 해안 평지, 풍부한 해산물 요리",
       highlight: "포르투 ➔ 빌라 두 콘드 ➔ 비아나 두 카스텔루 ➔ 카미냐 ➔ (페리 이동) ➔ 아 구아르다 ➔ 바이오나 ➔ 비고 ➔ 레돈델라 (합류)",
       recommendedAlbergues: [
-        { stage: "포르투 (Porto)", name: "Porto Wine Hostel / Zero Box Lodge", type: "호텔/호스텔", price: "€25~60", rating: "4.8", tip: "11/11 첫날 시내 체크인 및 순례자 여권(크레덴셜) 발급 명소" },
-        { stage: "빌라 샤 (Vila Chã)", name: "Albergue São Mamede de Vila Chã", type: "공립 알베르게", price: "€12", rating: "4.7", tip: "대서양 해변 바로 앞, 조용하고 아늑한 바다마을 알베르게" },
-        { stage: "포보아 데 바르징", name: "Albergue de Peregrinos da Póvoa", type: "공립 알베르게", price: "€10", rating: "4.6", tip: "시설이 깔끔하고 시내 중심가 인접" },
-        { stage: "에스포센드 (Esposende)", name: "Sea Soul Albergue / Albergue de Esposende", type: "사립 알베르게", price: "€15", rating: "4.9", tip: "순례자들에게 친절하기로 유명하며 주방 시설 완비" },
-        { stage: "비아나 두 카스텔루", name: "Albergue de Santa Luzia / Pousada Juventude", type: "공립/유스호스텔", price: "€13", rating: "4.7", tip: "에펠 다리를 건너 산타 루시아 성당 조망이 압권" },
-        { stage: "카미냐 (Caminha)", name: "Bom Caminha Hostel / Albergue de Caminha", type: "사립/공립", price: "€15", rating: "4.8", tip: "스페인으로 건너가는 페리 선착장 인접 필수 거점" },
-        { stage: "아 구아르다 (A Guarda)", name: "Albergue O Peirao / Convento San Benito", type: "사립/공립", price: "€14", rating: "4.7", tip: "스페인 갈리시아 첫 관문, 랍스터와 해산물 유명" },
-        { stage: "오이아 (Oia)", name: "Albergue da Estrela", type: "사립 알베르게", price: "€15", rating: "4.9", tip: "바다 바로 앞 수도원 조망, 일몰이 환상적인 평점 1위 숙소" },
-        { stage: "바이오나 (Baiona)", name: "Albergue Baiona / Playa Sabís", type: "사립 알베르게", price: "€16", rating: "4.8", tip: "콜럼버스 핀타호가 도착했던 역사적인 항구 도시" },
-        { stage: "비고 (Vigo)", name: "Albergue Berbés (공립) / Kaps Hostel Vigo", type: "공립/캡슐호스텔", price: "€10~22", rating: "4.7", tip: "대도시 비고의 구시가지 베르베스 광장 위치" }
-      ]
-    },
-    central: {
-      id: "central",
-      name: "2. 중앙길 (Camino Portugues Central)",
-      distance: "약 240 km",
-      days: "16~18일 도보",
-      char: "전통적인 시골 전원 풍경, 고풍스러운 중세 다리와 포도밭, 역사적인 포르투갈 문화 유적",
-      highlight: "포르투 ➔ 바이랑 ➔ 바르셀로스 ➔ 폰테 데 리마 ➔ 루비앙이스 ➔ 발렌사/투이 ➔ 오 포리뇨 ➔ 레돈델라 (합류)",
-      recommendedAlbergues: [
-        { stage: "포르투 (Porto)", name: "Gallery Hostel / Porto Wine Hostel", type: "호스텔/호텔", price: "€25~55", rating: "4.9", tip: "11/11 첫날 체크인 후 포르투 대성당(Sé do Porto) 도보 10분" },
-        { stage: "바이랑 (Vairão)", name: "Albergue do Mosteiro de Vairão", type: "수도원 알베르게", price: "€12", rating: "4.8", tip: "고즈넉한 옛 수도원 건물에서 묵는 특별한 힐링 체험" },
-        { stage: "바르셀로스 (Barcelos)", name: "Albergue Casa da Fernanda (Lugar do Corgo)", type: "전설의 사립 알베르게", price: "€25(석·조식포함)", rating: "5.0", tip: "순례자들의 전설적인 숙소, 페르난다 아주머니의 따뜻한 저녁 만찬" },
-        { stage: "폰테 데 리마", name: "Old Village Hostel / Albergue de Ponte de Lima", type: "사립/공립", price: "€12~18", rating: "4.8", tip: "포르투갈에서 가장 오래된 로마식 다리가 있는 아름다운 도시" },
-        { stage: "루비앙이스 (Rubiães)", name: "Albergue de Peregrinos de Rubiães", type: "공립 알베르게", price: "€10", rating: "4.6", tip: "가장 험난한 라브루자 산맥(Alto de Labruja)을 넘은 후 꿀맛 같은 휴식" },
-        { stage: "발렌사 (Valença)", name: "Hostel Bulwark / Albergue São Teotónio", type: "요새 호스텔/공립", price: "€12~20", rating: "4.8", tip: "스페인 국경 직전 거대한 별 모양 요새 성벽 안 위치" },
-        { stage: "투이 (Tui, 스페인)", name: "Albergue Santo Domingo / Ideas Peregrinas", type: "공립/감성 사립", price: "€10~17", rating: "4.9", tip: "국경 다리를 걸어서 건너며 스페인 입국, 투이 성당 뷰" },
-        { stage: "오 포리뇨 (O Porriño)", name: "Albergue Senda Peregrina", type: "사립 알베르게", price: "€14", rating: "4.7", tip: "시내 중심가 위치, 쾌적하고 세탁 편의시설 우수" }
-      ]
-    },
-    commonSection: {
-      name: "공통 구간 (레돈델라 ➔ 산티아고)",
-      highlight: "레돈델라 ➔ 아르카데 ➔ 폰테베드라 ➔ 칼다스 데 레스 ➔ 파드론 ➔ 산티아고 대성당",
-      recommendedAlbergues: [
-        { stage: "레돈델라 (Redondela)", name: "Albergue Casa da Torre (공립) / A Dársena do Francés", type: "공립/사립", price: "€10~15", rating: "4.8", tip: "해안길과 중앙길이 만나는 지점, 16세기 석조 건물" },
-        { stage: "폰테베드라 (Pontevedra)", name: "Bulezen Urban Hostel / Albergue Virxe da Peregrina", type: "현대식 사립/공립", price: "€10~18", rating: "4.9", tip: "보행자 전용 도시, 순례자 전용 가리비 모양 성당 인접" },
-        { stage: "칼다스 데 레스", name: "Albergue As Pozas Termais / O Cruceiro", type: "온천 사립/공립", price: "€12~16", rating: "4.9", tip: "마을 천연 온천 족욕탕에서 발 피로를 완벽히 푸는 명소" },
-        { stage: "파드론 (Padrón)", name: "Albergue de Padrón / Albergue Rossol", type: "공립/사립", price: "€10~15", rating: "4.7", tip: "야고보 성인의 유해가 도착한 바위(Pedrón)와 고추 튀김 유명" },
-        { stage: "산티아고 (Santiago)", name: "Albergue Seminario Menor / Roots & Boots", type: "대형 수도원/시내", price: "€15~35", rating: "4.8", tip: "최종 목적지 산티아고 대성당 도보 10분, 완보증 수령지 인접" }
+        { stage: "레돈델라 (Redondela)", name: "Albergue Casa da Torre (공립) / A Dársena do Francés", type: "공립/사립", price: "€10~15", rating: "4.8", tip: "해안길과 중앙길이 만나는 지점, 16세기 석조 건물", nearbyBar: "O Churrasco de Juan (두 코스 합류 축하! 숯불 갈비 바베큐 Churrasco & 감자)" },
+        { stage: "폰테베드라 (Pontevedra)", name: "Bulezen Urban Hostel / Albergue Virxe da Peregrina", type: "현대식 사립/공립", price: "€10~18", rating: "4.9", tip: "보행자 전용 도시, 순례자 전용 가리비 모양 성당 인접", nearbyBar: "Bar Rianxo (Praza da Leña 옛 장작 광장 야외 테라스 정통 뽈뽀 & 꼴뚜기 튀김)" },
+        { stage: "칼다스 데 레스", name: "Albergue As Pozas Termais / O Cruceiro", type: "온천 사립/공립", price: "€12~16", rating: "4.9", tip: "마을 천연 온천 족욕탕에서 발 피로를 완벽히 푸는 명소", nearbyBar: "Restaurante O Muiño (온천 강변 옛 물레방아 레스토랑, 족욕 후 갈리시아 비프스테이크)" },
+        { stage: "파드론 (Padrón)", name: "Albergue de Padrón / Albergue Rossol", type: "공립/사립", price: "€10~15", rating: "4.7", tip: "야고보 성인의 유해가 도착한 바위(Pedrón)와 고추 튀김 유명", nearbyBar: "Pulpería Rial / Asador O Pemento (원조 파드론 꽈리고추 튀김 Pimientos & 문어 숙회)" },
+        { stage: "산티아고 (Santiago)", name: "Albergue Seminario Menor / Roots & Boots", type: "대형 수도원/시내", price: "€15~35", rating: "4.8", tip: "최종 목적지 산티아고 대성당 도보 10분, 완보증 수령지 인접", nearbyBar: "Casa Manolo (순례자 성지 3코스 만찬 €13) & Chocolatería Piedras (추로스·핫초코)" },
+        { stage: "피니스테레 (Finisterre)", name: "Albergue Finistella / Cabo Da Vila", type: "공립/사립", price: "€12~18", rating: "4.9", tip: "세상의 끝 0.00 km 비석, 장엄한 대서양 일몰 감상", nearbyBar: "Restaurante O Pirata (세상의 끝 절벽 석양 뷰, 대서양 모둠 해산물 Mariscada)" }
       ]
     }
   },
@@ -108,7 +75,7 @@ const INITIAL_CAMINO_DATA = {
     { text: "현지 식비 및 마트 장보기 (22일간 환전 예산)", category: "현지경비", cost: 750000, currency: "KRW", done: false, tip: "순례자 메뉴(€12~14), 아침 커피/토스트, 마트 과일·간식" },
     { text: "현지 교통비·페리·비상동키·세탁비", category: "현지경비", cost: 120000, currency: "KRW", done: false, tip: "포르투 메트로, 카미냐-아구아르다 페리, 비상 동키서비스" },
     { text: "현지 유심 / eSIM 데이터 무제한", category: "현지경비", cost: 35000, currency: "KRW", done: true, tip: "유럽 통합 30일 데이터 무제한 eSIM" },
-    { text: "여행자 보험 (해외 의료비 및 휴대품 보상)", category: "현지경비", cost: 45000, currency: "KRW", done: true, tip: "트레킹 상해/질병 치료비 보장 필수 가입" },
+        { id: "pack-travel-insurance", item: "해외 여행자 보험 (상해·의료비·휴대품 도난 보상)", text: "해외 여행자 보험 (상해·의료비·휴대품 도난 보상)", category: "필수품 (보험)", cost: "₩45,000", costKrw: 45000, currency: "KRW", done: true, tip: "22일 장거리 도보 중 골절·발목 염좌 응급치료비 및 휴대폰 파손/도난 100% 보장 필수 가입" },
 
     // [2. 필수품 & 수납]
     { text: "백팩 (허리 벨트가 있는 30~35L 추천 - 체중 분산)", category: "필수품", cost: 180000, currency: "KRW", done: true, tip: "어깨/허리 하중을 분산해야 22일 도보 시 무릎을 보호합니다." },

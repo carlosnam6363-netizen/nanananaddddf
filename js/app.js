@@ -2907,12 +2907,13 @@ function renderCaminoTab() {
         <table class="w-full text-left text-xs text-slate-300 border-collapse">
           <thead>
             <tr class="border-b border-slate-800 bg-slate-950/90 text-slate-400 text-[11px]">
-              <th class="py-2.5 px-3">순례 거점 (구간)</th>
-              <th class="py-2.5 px-3">추천 알베르게 / 호텔</th>
+              <th class="py-2.5 px-3 whitespace-nowrap">순례 거점 (구간)</th>
+              <th class="py-2.5 px-3 whitespace-nowrap">추천 알베르게 / 호텔</th>
               <th class="py-2.5 px-3">유형</th>
-              <th class="py-2.5 px-3 font-mono">1박 요금</th>
+              <th class="py-2.5 px-3 font-mono whitespace-nowrap">1박 요금</th>
               <th class="py-2.5 px-3">평점</th>
-              <th class="py-2.5 px-3">순례자 꿀팁 & 특징</th>
+              <th class="py-2.5 px-3">숙소 꿀팁 & 특징</th>
+              <th class="py-2.5 px-3 text-amber-300 whitespace-nowrap"><i class="fa-solid fa-wine-glass mr-1"></i>인근 추천 로컬 바 & 맛집</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-800/60">
@@ -2920,10 +2921,16 @@ function renderCaminoTab() {
               <tr class="hover:bg-slate-800/40 transition">
                 <td class="py-2.5 px-3 font-bold text-white whitespace-nowrap">${alb.stage}</td>
                 <td class="py-2.5 px-3 text-sky-300 font-medium">${alb.name}</td>
-                <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 border border-slate-700">${alb.type}</span></td>
-                <td class="py-2.5 px-3 font-mono font-bold text-amber-300">${alb.price}</td>
-                <td class="py-2.5 px-3"><span class="text-emerald-400 font-bold flex items-center gap-1"><i class="fa-solid fa-star text-[10px]"></i> ${alb.rating}</span></td>
-                <td class="py-2.5 px-3 text-slate-400 text-[11px]">${alb.tip}</td>
+                <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 border border-slate-700 whitespace-nowrap">${alb.type}</span></td>
+                <td class="py-2.5 px-3 font-mono font-bold text-amber-300 whitespace-nowrap">${alb.price}</td>
+                <td class="py-2.5 px-3 whitespace-nowrap"><span class="text-emerald-400 font-bold flex items-center gap-1"><i class="fa-solid fa-star text-[10px]"></i> ${alb.rating}</span></td>
+                <td class="py-2.5 px-3 text-slate-400 text-[11px] min-w-[140px]">${alb.tip}</td>
+                <td class="py-2.5 px-3 text-[11px] min-w-[200px]">
+                  <div class="p-2 rounded-lg bg-slate-950/80 border border-amber-500/25 flex items-start gap-1.5">
+                    <i class="fa-solid fa-utensils text-amber-400 text-[10px] mt-0.5 flex-shrink-0"></i>
+                    <span class="text-amber-200/90 font-medium leading-relaxed">${alb.nearbyBar || '인근 광장 로컬 타파스 바'}</span>
+                  </div>
+                </td>
               </tr>
             `).join('')}
           </tbody>
@@ -3053,8 +3060,12 @@ function renderCaminoTab() {
               <span class="font-mono font-bold text-amber-300">€690 (₩1,035,000)</span>
             </div>
             <div class="flex items-center justify-between text-xs">
-              <span class="text-slate-400 flex items-center gap-1.5"><i class="fa-solid fa-backpack text-purple-400 text-[11px]"></i> 장비·보험·통신 소계</span>
-              <span class="font-mono font-bold text-purple-300">₩250,000</span>
+              <span class="text-slate-400 flex items-center gap-1.5"><i class="fa-solid fa-shield-heart text-rose-400 text-[11px]"></i> 해외 여행자 보험 (상해·질병·도난)</span>
+              <span class="font-mono font-bold text-rose-300">₩45,000</span>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-slate-400 flex items-center gap-1.5"><i class="fa-solid fa-backpack text-purple-400 text-[11px]"></i> 장비·통신(eSIM)·기타 소계</span>
+              <span class="font-mono font-bold text-purple-300">₩205,000</span>
             </div>
             <div class="pt-2.5 border-t border-slate-800 flex items-center justify-between">
               <span class="text-xs font-black text-white">총 예상 지출 합계</span>
@@ -3091,7 +3102,7 @@ function renderCaminoTab() {
                   <input type="checkbox" ${item.done ? 'checked' : ''} onchange="window.app.togglePackingItem('${item.id}')" class="mt-0.5 rounded border-slate-700 text-amber-500 focus:ring-amber-500 cursor-pointer">
                   <div>
                     <div class="flex items-center gap-1.5 flex-wrap">
-                      <span class="text-xs font-bold ${item.done ? 'line-through text-slate-500' : 'text-slate-100'}">${item.item}</span>
+                      <span class="text-xs font-bold ${item.done ? 'line-through text-slate-500' : 'text-slate-100'}">${item.item || item.text || '순례 물품'}</span>
                       <span class="text-[10px] px-1.5 py-0.2 rounded font-medium bg-slate-900 border border-slate-700 text-slate-400">${item.category}</span>
                     </div>
                     ${item.note ? `<p class="text-[11px] text-slate-400 mt-0.5">${item.note}</p>` : ''}
