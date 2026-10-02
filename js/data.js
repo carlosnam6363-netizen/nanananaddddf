@@ -14,284 +14,149 @@ const INITIAL_DISCHARGE_DATE = "2026-12-19";
 // 산티아고 순례길 일정 & 준비물 데이터 (2026-11-07 ~ 11-09)
 // 산티아고 순례길 일정 & 준비물 데이터 (까미노 드 포르투 3주 여정: 2026-11-09 ~ 11-29)
 const INITIAL_CAMINO_DATA = {
-  caminoDataVersion: 4,
-  title: "산티아고 순례길 까미노 드 포르투 (Camino Portugués 3주)",
-  startDate: "2026-11-09",
-  endDate: "2026-11-29",
-  ddayTarget: "2026-11-09",
-  route: "포르투(Porto) 해안길 ~ 비아나 ~ 비고 ~ 산티아고 데 콤포스텔라 ~ 피스테라",
-  totalDistance: "약 240 km (도보 순례 + 주요 거점 도시 2일 체류)",
-  status: "준비 중 (항공권 & 코스 확정)",
-  durationInfo: "총 21일간 (출국 2일, 귀국 2일, 포르투/비아나/비고/산티아고 4대 거점 각 2일 체류 관광)",
-  packingList: [
-    // [1. 필수품 & 가방]
-    { text: "백팩 (허리 벨트가 있는 30~35L 추천 - 체중 분산)", category: "필수품", done: false, tip: "골반/허리로 무게를 지탱해야 어깨 통증을 방지합니다." },
-    { text: "힙색 / 슬링백 (여권·지갑·휴대폰 상시 소지용)", category: "필수품", done: false, tip: "알베르게나 식당에서도 몸에 항상 지닐 수 있습니다." },
-    { text: "여권 & 순례자 여권(크레덴샬) & 가리비 껍데기", category: "필수품", done: false, tip: "알베르게 투숙 및 완주 증명서(콤포스텔라) 발급 필수." },
-    { text: "간단한 세면도구 (올인원 비누, 미니 칫솔·치약)", category: "필수품", done: false, tip: "현지 약국이나 마트에서도 쉽게 추가 보충 가능합니다." },
-    { text: "비상 의약품 (소염진통제, 지사제, 소독약, 콤피드 물집 패치)", category: "필수품", done: false, tip: "물집과 근육통에 대비한 최소한의 상비약." },
-    { text: "손수건 (땀 닦기, 목/얼굴 햇볕 차단, 다용도 타월)", category: "필수품", done: false, tip: "가볍고 빨리 말라 하루 종일 요긴하게 사용됩니다." },
-    { text: "원피스 (여성 순례자에게 추천 - 알베르게 휴식 및 세탁 시)", category: "필수품", done: false, tip: "샤워 후 편하게 입거나 빨래하는 동안 입기 좋습니다." },
+  caminoDataVersion: 5,
+  title: "산티아고 순례길 피니스테레 힐링 트레킹 (Camino Portugues 22일 대여정)",
+  startDate: "2026-11-10",
+  endDate: "2026-12-01",
+  ddayTarget: "2026-11-10",
+  activeRoute: "coastal", // 'coastal' (해안길) | 'central' (중앙길)
+  route: "포르투(Porto) ➔ 해안길/중앙길 선택 ➔ 발렌사/투이 ➔ 산티아고 대성당 ➔ 피니스테레",
+  totalDistance: "약 240~280 km (도보 18일 + 포르투/산티아고 4일)",
+  status: "준비 완료 (11/10 출국 ➔ 11/11 입국·호텔 체크인 ➔ 12/01 귀국)",
+  durationInfo: "총 22일간 (11/10 인천 출국 ➔ 11/11 포르투 입국·호텔 체크인 & 준비 ➔ 11/12~11/29 순례길 도보 ➔ 11/30 산티아고 완보 ➔ 12/01 귀국 비행기 탑승)",
 
-    // [2. 의류 & 복장]
-    { text: "반팔 티 (빠르게 마르는 속건 기능성 소재 2~3벌)", category: "의류", done: false, tip: "매일 저녁 손빨래 후 다음 날 아침 바로 마르는 소재 필수." },
-    { text: "바람막이 (기능성 방풍/방수 경량 자켓)", category: "의류", done: false, tip: "아침저녁 쌀쌀한 기온과 대서양 해안 바람 차단용." },
-    { text: "경량 패딩 (갈리시아 지역 일교차 및 날씨 변화 대비 필수)", category: "의류", done: false, tip: "11월 스페인 북부의 쌀쌀한 기온에 필수적인 보온 의류." },
-    { text: "긴 바지 (트레킹용 속건 기능성 팬츠)", category: "의류", done: false, tip: "수풀이나 자갈길에서 다리를 보호하고 체온을 유지합니다." },
-    { text: "눈에 띄는 색상의 모자 (햇볕 차단 & 차도/안개길 안전 확보)", category: "의류", done: false, tip: "시야 확보 및 운전자 눈에 잘 띄도록 밝은 색상 추천." },
-    { text: "메리노울 트레킹 양말 (3켤레) & 스포츠 테이프", category: "의류", done: false, tip: "물집 예방에 가장 중요한 아이템." },
-
-    // [3. 신발 & 보호 장비]
-    { text: "신발: 샌들 활용 (등산화 대신 샌들로 무게 절감 & 슬리퍼 생략)", category: "신발/장비", done: false, tip: "통풍이 잘 되고 가벼워 슬리퍼를 따로 챙길 필요가 없습니다." },
-    { text: "발목/무릎 보호대 (내리막길 관절 보호 적극 권장)", category: "신발/장비", done: false, tip: "하루 20km 이상 보행 시 무릎과 발목 부상을 예방합니다." },
-    { text: "트레킹 폴 / 스틱 (경사로 체중 분산 적극 권장)", category: "신발/장비", done: false, tip: "무릎 하중을 최대 30%까지 줄여주는 든든한 지원군." },
-
-    // [4. 전자기기 & 결제 & 생활]
-    { text: "트래블로그 카드 2장 & 유로화 소액 현금", category: "기타", done: false, tip: "스페인 소도시 알베르게 및 카페테리아 현금 결제 대비." },
-    { text: "유럽 통합 eSIM & 20,000mAh 보조배터리", category: "기타", done: false, tip: "GPS 지도(까미노 닌자) 상시 사용 대비 대용량 배터리." },
-    { text: "초경량 침낭 라이너 & 귀마개 (알베르게 필수)", category: "기타", done: false, tip: "다인실 숙소의 소음 차단과 위생 관리." },
-    { text: "휴대용 빨랫줄 & 옷핀 & 속건 여행용 타월", category: "기타", done: false, tip: "매일 저녁 빨래 널기 필수품." }
-  ],
-  packingInsights: {
-    unnecessary: [
-      { name: "돼지코 (어댑터)", reason: "스페인과 포르투갈은 한국과 동일한 220V(C/F 타입)를 사용하므로 전혀 필요 없습니다." },
-      { name: "양우산", reason: "순례 중에는 두 손이 자유로워야 하며, 대서양 해안 바람이 세서 우산 사용이 거의 불가능합니다." },
-      { name: "침낭 커버", reason: "대부분의 알베르게에서 침낭 라이너만으로 충분하거나 1회용 시트를 제공합니다." },
-      { name: "틴트 / 색조 화장품", reason: "걷다 보면 땀과 바람으로 수시로 립밤만 찾게 되어 화장품은 무게만 차지합니다." }
+  // 💶 11월 10일 ~ 12월 1일 오전까지 사용할 환전 예산 가이드 (22일간)
+  exchangeBudget: {
+    totalEur: 1150,
+    totalKrw: 1725000, // 환율 1,500원 기준
+    exchangeRate: 1500,
+    categories: [
+      { name: "순례길 숙박비 (21박)", eur: 460, krw: 690000, desc: "포르투 호텔 1박(€60) + 알베르게 18박(평균 €15~20) + 산티아고 호텔/호스텔 2박(€80)" },
+      { name: "식비 및 간식 (22일간)", eur: 500, krw: 750000, desc: "순례자 메뉴(Menú del Peregrino €12~14) + 아침 카페/토스트(€4) + 점심 샌드위치/마트(€6)" },
+      { name: "교통·페리·세탁·입장료", eur: 80, krw: 120000, desc: "포르투 메트로, 카미냐-아구아르다 페리(€2), 대성당 박물관, 코인세탁/건조" },
+      { name: "비상 여유금 (동키서비스 등)", eur: 110, krw: 165000, desc: "컨디션 난조 시 동키서비스(1회 €6~8) 및 긴급 약국/교통 여유자금" }
     ],
-    omitted: [
-      { name: "물통 / 텀블러", alt: "생수병(500ml)으로 대체", reason: "무거운 텀블러 대신 가벼운 페트 생수병을 사서 재활용하는 것이 배낭 무게를 획기적으로 줄여줍니다." },
-      { name: "헤드랜턴", alt: "핸드폰 플래시 불빛 활용", reason: "새벽 출발 시 핸드폰 손전등으로 충분히 커버 가능하며, 불필요한 장비 무게를 뺍니다." },
-      { name: "스틱 (미니멀 패킹 시)", alt: "선택적 지참 / 필요시 현지 구매", reason: "짐을 극단적으로 줄일 땐 제외하기도 하나, 무릎·관절 보호를 위해서는 적극 권장됩니다." },
-      { name: "선크림", alt: "현지 약국·마트 구매 가능", reason: "현지에서 쉽게 살 수 있으나, 햇살이 매우 강해 얼굴이 많이 탈 수 있으므로 초반 소용량 지참은 권장." },
-      { name: "판초 우의", alt: "방수 바람막이로 대체", reason: "부피와 무게가 큰 판초 대신 가벼운 방수 바람막이 자켓으로 대처 가능합니다." }
-    ],
-    proTips: [
-      { title: "동키 서비스 (Donkey Service / JacoTrans)", desc: "몸 상태가 안 좋거나 부상이 있을 때 가방을 다음 숙소로 미리 보내주는 서비스(약 5~7유로)를 안심하고 이용하세요." },
-      { title: "가방 속 음식 여유 공간 확보", desc: "도착 마을의 마트(Día, Mercadona)에서 저녁거리와 행동식을 장볼 것을 대비해 배낭 상단에 약 20%의 여유 공간을 남겨두세요." },
-      { title: "미니멀리즘 마인드셋", desc: "짐은 최소한으로 줄이세요! 정말 필요한 것은 다음 도시의 대형 슈퍼나 약국(Farmacia)에서 언제든 구할 수 있으니 걱정 마세요." },
-      { title: "보호 장비 & 복장 가이드", desc: "발목/무릎 보호대와 스틱은 관절 보호를 위해 적극 권장하며, 복장은 기능성 바람막이와 빠르게 마르는 소재의 옷, 눈에 띄는 밝은 색상의 모자를 강력 추천합니다." }
-    ],
-    essentialApps: [
-      { name: "Camino Ninja (까미노 닌자)", type: "필수 앱", url: "https://caminoninja.com", desc: "오프라인 GPS 지도, 알베르게 공실·연락처, 일자별 고도 프로필을 완벽 지원하는 순례자 1위 필수 앱." },
-      { name: "Booking.com (부킹닷컴)", type: "숙소 예약", url: "https://www.booking.com", desc: "포르투, 비아나, 비고, 산티아고 등 4대 거점 도시 및 주말 숙소 사전 예약에 필수." },
-      { name: "Gronze.com (그론즈닷컴)", type: "정보 웹사이트", url: "https://www.gronze.com", desc: "스페인 현지 순례자들이 가장 신뢰하는 루트별 알베르게 최신 운영 현황 및 순례길 정보 웹사이트." }
+    tips: [
+      "현금은 50유로 이하 소액권(10유로, 20유로) 위주로 환전하는 것이 공립 알베르게 및 작은 바(Bar) 결제에 편리합니다.",
+      "대부분의 사립 알베르게와 식당에서는 트래블월렛/트래블로그 카드 결제가 원활합니다.",
+      "ATM 인출 수수료가 무료인 유로네트(Euronet 제외, Santander 또는 대형 은행 ATM)를 사전에 숙지하세요."
     ]
   },
-  itinerary: [
-    {
-      day: "Day 1 (11/09)",
-      date: "2026-11-09",
-      title: "인천 국제공항 출발 (출국 1일차)",
-      distance: "비행 약 14시간",
-      type: "flight",
-      stay: "기내 1박",
-      description: "인천공항 제2터미널 출발, 유럽 주요 허브(파리/프랑크푸르트 등) 경유. 에너지관리기사 시험 후 홀가분한 마음으로 떠나는 3주 순례 여정의 시작.",
-      highlight: "설레는 여정의 첫 발걸음!"
+
+  // 🥾 코스 2개 분기 (해안길 vs 중앙길) 및 크롤링 기반 최고 평점 알베르게 리스트
+  routesInfo: {
+    coastal: {
+      id: "coastal",
+      name: "1. 해안길 (Camino Portugues da Costa)",
+      distance: "약 280 km",
+      days: "18일 도보",
+      char: "푸른 대서양 해안 보드워크, 시원한 바닷바람, 완만한 해안 평지, 풍부한 해산물 요리",
+      highlight: "포르투 ➔ 빌라 두 콘드 ➔ 비아나 두 카스텔루 ➔ 카미냐 ➔ (페리 이동) ➔ 아 구아르다 ➔ 바이오나 ➔ 비고 ➔ 레돈델라 (합류)",
+      recommendedAlbergues: [
+        { stage: "포르투 (Porto)", name: "Porto Wine Hostel / Zero Box Lodge", type: "호텔/호스텔", price: "€25~60", rating: "4.8", tip: "11/11 첫날 시내 체크인 및 순례자 여권(크레덴셜) 발급 명소" },
+        { stage: "빌라 샤 (Vila Chã)", name: "Albergue São Mamede de Vila Chã", type: "공립 알베르게", price: "€12", rating: "4.7", tip: "대서양 해변 바로 앞, 조용하고 아늑한 바다마을 알베르게" },
+        { stage: "포보아 데 바르징", name: "Albergue de Peregrinos da Póvoa", type: "공립 알베르게", price: "€10", rating: "4.6", tip: "시설이 깔끔하고 시내 중심가 인접" },
+        { stage: "에스포센드 (Esposende)", name: "Sea Soul Albergue / Albergue de Esposende", type: "사립 알베르게", price: "€15", rating: "4.9", tip: "순례자들에게 친절하기로 유명하며 주방 시설 완비" },
+        { stage: "비아나 두 카스텔루", name: "Albergue de Santa Luzia / Pousada Juventude", type: "공립/유스호스텔", price: "€13", rating: "4.7", tip: "에펠 다리를 건너 산타 루시아 성당 조망이 압권" },
+        { stage: "카미냐 (Caminha)", name: "Bom Caminha Hostel / Albergue de Caminha", type: "사립/공립", price: "€15", rating: "4.8", tip: "스페인으로 건너가는 페리 선착장 인접 필수 거점" },
+        { stage: "아 구아르다 (A Guarda)", name: "Albergue O Peirao / Convento San Benito", type: "사립/공립", price: "€14", rating: "4.7", tip: "스페인 갈리시아 첫 관문, 랍스터와 해산물 유명" },
+        { stage: "오이아 (Oia)", name: "Albergue da Estrela", type: "사립 알베르게", price: "€15", rating: "4.9", tip: "바다 바로 앞 수도원 조망, 일몰이 환상적인 평점 1위 숙소" },
+        { stage: "바이오나 (Baiona)", name: "Albergue Baiona / Playa Sabís", type: "사립 알베르게", price: "€16", rating: "4.8", tip: "콜럼버스 핀타호가 도착했던 역사적인 항구 도시" },
+        { stage: "비고 (Vigo)", name: "Albergue Berbés (공립) / Kaps Hostel Vigo", type: "공립/캡슐호스텔", price: "€10~22", rating: "4.7", tip: "대도시 비고의 구시가지 베르베스 광장 위치" }
+      ]
     },
-    {
-      day: "Day 2 (11/10)",
-      date: "2026-11-10",
-      title: "포르투(Porto) 공항 도착 & 호텔 체크인 (출국 2일차)",
-      distance: "시내 이동",
-      type: "flight",
-      stay: "포르투 구시가지 호텔",
-      description: "포르투 프란시스코 사 카르네이루 공항 도착. 지하철(메트로)로 시내 이동 후 숙소 체크인. 도루강(Douro River) 강변 노을을 바라보며 시차 적응 및 휴식.",
-      highlight: "낭만의 도시 포르투 입성"
+    central: {
+      id: "central",
+      name: "2. 중앙길 (Camino Portugues Central)",
+      distance: "약 240 km",
+      days: "16~18일 도보",
+      char: "전통적인 시골 전원 풍경, 고풍스러운 중세 다리와 포도밭, 역사적인 포르투갈 문화 유적",
+      highlight: "포르투 ➔ 바이랑 ➔ 바르셀로스 ➔ 폰테 데 리마 ➔ 루비앙이스 ➔ 발렌사/투이 ➔ 오 포리뇨 ➔ 레돈델라 (합류)",
+      recommendedAlbergues: [
+        { stage: "포르투 (Porto)", name: "Gallery Hostel / Porto Wine Hostel", type: "호스텔/호텔", price: "€25~55", rating: "4.9", tip: "11/11 첫날 체크인 후 포르투 대성당(Sé do Porto) 도보 10분" },
+        { stage: "바이랑 (Vairão)", name: "Albergue do Mosteiro de Vairão", type: "수도원 알베르게", price: "€12", rating: "4.8", tip: "고즈넉한 옛 수도원 건물에서 묵는 특별한 힐링 체험" },
+        { stage: "바르셀로스 (Barcelos)", name: "Albergue Casa da Fernanda (Lugar do Corgo)", type: "전설의 사립 알베르게", price: "€25(석·조식포함)", rating: "5.0", tip: "순례자들의 전설적인 숙소, 페르난다 아주머니의 따뜻한 저녁 만찬" },
+        { stage: "폰테 데 리마", name: "Old Village Hostel / Albergue de Ponte de Lima", type: "사립/공립", price: "€12~18", rating: "4.8", tip: "포르투갈에서 가장 오래된 로마식 다리가 있는 아름다운 도시" },
+        { stage: "루비앙이스 (Rubiães)", name: "Albergue de Peregrinos de Rubiães", type: "공립 알베르게", price: "€10", rating: "4.6", tip: "가장 험난한 라브루자 산맥(Alto de Labruja)을 넘은 후 꿀맛 같은 휴식" },
+        { stage: "발렌사 (Valença)", name: "Hostel Bulwark / Albergue São Teotónio", type: "요새 호스텔/공립", price: "€12~20", rating: "4.8", tip: "스페인 국경 직전 거대한 별 모양 요새 성벽 안 위치" },
+        { stage: "투이 (Tui, 스페인)", name: "Albergue Santo Domingo / Ideas Peregrinas", type: "공립/감성 사립", price: "€10~17", rating: "4.9", tip: "국경 다리를 걸어서 건너며 스페인 입국, 투이 성당 뷰" },
+        { stage: "오 포리뇨 (O Porriño)", name: "Albergue Senda Peregrina", type: "사립 알베르게", price: "€14", rating: "4.7", tip: "시내 중심가 위치, 쾌적하고 세탁 편의시설 우수" }
+      ]
     },
-    {
-      day: "Day 3 (11/11)",
-      date: "2026-11-11",
-      title: "포르투 시내 관광 & 순례자 등록 (포르투 2일 체류 1일차)",
-      distance: "도보 관광 약 8 km",
-      type: "tour",
-      stay: "포르투 구시가지 호텔",
-      description: "아름다운 아줄레주 타일의 상벤투(São Bento) 기차역, 해리포터 모티브 렐루 서점, 클레리구스 탑 탐방. 포르투 대성당(Sé do Porto) 방문하여 순례자 여권(Credencial) 수령 및 첫 공식 스탬프(Sello) 날인.",
-      highlight: "대성당에서 순례자 여권(크레덴샬) 수령 & 첫 스탬프"
-    },
-    {
-      day: "Day 4 (11/12)",
-      date: "2026-11-12",
-      title: "동루이스 다리 & 빌라 노바 드 가이아 와이너리 (포르투 2일 체류 2일차)",
-      distance: "도보 관광 약 6 km",
-      type: "tour",
-      stay: "포르투 구시가지 호텔",
-      description: "동루이스 1세 다리(Ponte de Dom Luís I) 2층 상판 도보 횡단. 가이아 지구의 유서 깊은 포트 와인(Port Wine) 와이너리 투어 및 시음. 리베이라 광장에서 강변 버스킹 음악 감상하며 내일부터 시작될 도보 순례 마음 다잡기.",
-      highlight: "동루이스 다리 파노라마 선셋 & 포트 와인 투어"
-    },
-    {
-      day: "Day 5 (11/13)",
-      date: "2026-11-13",
-      title: "포르투 대성당 ~ 마토지뉴스 ~ 빌라 두 콘드 (해안길 도보 순례 시작)",
-      distance: "약 22 km",
-      type: "walk",
-      stay: "빌라 두 콘드 알베르게/숙소",
-      description: "포르투 대성당 앞 출발! 도루강을 따라 대서양 바다와 만나는 포즈(Foz) 지구를 지나 마토지뉴스 해변 나무 데크길을 걷습니다. 시원한 대서양 파도 소리와 함께하는 해안길(Senda Litoral) 첫 구간.",
-      highlight: "대서양 해안 나무 데크길(Passadiços) 첫 도보 순례"
-    },
-    {
-      day: "Day 6 (11/14)",
-      date: "2026-11-14",
-      title: "빌라 두 콘드 ~ 포보아 드 바르징 ~ 에스포센드",
-      distance: "약 24 km",
-      type: "walk",
-      stay: "에스포센드 알베르게",
-      description: "유서 깊은 어촌 마을 포보아 드 바르징(Póvoa de Varzim)을 거쳐 카바두강 하구의 에스포센드(Esposende)로 전진. 넓게 펼쳐진 백사장과 모래언덕, 소나무 숲길이 번갈아 나타납니다.",
-      highlight: "모래언덕(Dunes)과 소나무 숲길의 정취"
-    },
-    {
-      day: "Day 7 (11/15)",
-      date: "2026-11-15",
-      title: "에스포센드 ~ 비아나 두 카스텔루 (거점 도시 입성)",
-      distance: "약 25 km",
-      type: "walk",
-      stay: "비아나 두 카스텔루 호텔/호스텔",
-      description: "네이바강을 건너 유칼립투스 숲길을 지나 포르투갈 북부의 보석이라 불리는 해안 항구 도시 비아나 두 카스텔루(Viana do Castelo)에 입성. 에펠이 설계한 철교를 건너 역사 지구 도착.",
-      highlight: "에펠 철교 건너 아름다운 항구 도시 입성"
-    },
-    {
-      day: "Day 8 (11/16)",
-      date: "2026-11-16",
-      title: "비아나 두 카스텔루 산타 루시아 & 휴식 (비아나 2일 체류)",
-      distance: "도보 관광 약 5 km",
-      type: "tour",
-      stay: "비아나 두 카스텔루 호텔/호스텔",
-      description: "푸니쿨라를 타고 몬테 데 산타 루시아(Santa Luzia) 성당 등정. 내셔널 지오그래픽이 선정한 세계 최고의 파노라마 뷰 감상. 카베델루 해변 산책 및 전통 해산물 밥(Arroz de Marisco) 만찬으로 체력 완벽 재충전.",
-      highlight: "산타 루시아 성당에서 내려다보는 대서양 파노라마 전경"
-    },
-    {
-      day: "Day 9 (11/17)",
-      date: "2026-11-17",
-      title: "비아나 두 카스텔루 ~ 카미냐 (포르투갈 국경 관문)",
-      distance: "약 27 km",
-      type: "walk",
-      stay: "카미냐 알베르게/숙소",
-      description: "해안 암초와 바닷길을 따라 북진하여 포르투갈의 국경 관문 카미냐(Caminha) 도착. 미뇨강(Rio Minho) 건너편으로 스페인 갈리시아의 산등성이가 손에 잡힐 듯 보입니다.",
-      highlight: "국경 도시 카미냐의 고즈넉한 광장 정취"
-    },
-    {
-      day: "Day 10 (11/18)",
-      date: "2026-11-18",
-      title: "카미냐 (페리 국경 도하) ~ 아 과르다 ~ 바이오나 (스페인 진입)",
-      distance: "약 25 km",
-      type: "walk",
-      stay: "바이오나 알베르게/호스텔",
-      description: "보트를 타고 미뇨강을 건너 스페인 갈리시아 아 과르다(A Guarda)로 입국! 시차 1시간 빨라짐. 켈트 유적지 산타 테크라를 바라보며 웅장한 해안 절벽길을 따라 콜럼버스의 배 핀타호가 도착했던 역사 도시 바이오나(Baiona) 도착.",
-      highlight: "보트 타고 스페인 국경 넘기 & 웅장한 해안 절벽길"
-    },
-    {
-      day: "Day 11 (11/19)",
-      date: "2026-11-19",
-      title: "바이오나 ~ 비고 (갈리시아 최대 항구 도시 입성)",
-      distance: "약 25 km",
-      type: "walk",
-      stay: "비고 중심가 호텔/숙소",
-      description: "리아스 바이샤스(Rías Baixas) 해안 만을 따라 비고(Vigo)로 행진. 도시 외곽에서 바라보는 비고 만과 시에스 제도(Islas Cíes)의 전경이 장관을 이룹니다. 활기 넘치는 대도시 숙소 체크인.",
-      highlight: "비고 만과 시에스 섬 조망 & 활기찬 항구 도시 진입"
-    },
-    {
-      day: "Day 12 (11/20)",
-      date: "2026-11-20",
-      title: "비고 구시가지 & 카스트로 요새 탐방 (비고 2일 체류)",
-      distance: "도보 관광 약 6 km",
-      type: "tour",
-      stay: "비고 중심가 호텔/숙소",
-      description: "구시가지 카스코 베호(Casco Vello) 산책, 몬테 도 카스트로(O Castro) 요새에서 비고 항 전경 감상. 유명 굴 거리(Rúa da Pescadería)에서 신선한 갈리시아산 생굴과 알바리뇨(Albariño) 화이트 와인 페어링 즐기기.",
-      highlight: "카스트로 요새 전망 & 신선한 갈리시아 굴 거리 미식"
-    },
-    {
-      day: "Day 13 (11/21)",
-      date: "2026-11-21",
-      title: "비고 ~ 레돈델라 (해안길과 중앙길의 합류)",
-      distance: "약 16 km",
-      type: "walk",
-      stay: "레돈델라 공립 알베르게",
-      description: "비고를 출발해 산길과 숲길을 지나 레돈델라(Redondela)에 도착. 포르투갈 내륙 중앙길(Central Route)을 걸어온 전 세계 순례자들과 반갑게 합류하는 상징적인 지점.",
-      highlight: "중앙길 순례자들과의 반가운 만남 & '부엔 카미노!'"
-    },
-    {
-      day: "Day 14 (11/22)",
-      date: "2026-11-22",
-      title: "레돈델라 ~ 폰테삼파이오 ~ 폰테베드라",
-      distance: "약 19 km",
-      type: "walk",
-      stay: "폰테베드라 알베르게/호스텔",
-      description: "나폴레옹 군대를 물리친 유서 깊은 중세 다리 폰테삼파이오(Ponte Sampaio)를 건너 숲길 트레킹. 갈리시아의 주도 폰테베드라(Pontevedra) 도착, 조개껍데기 모양의 성 페레그리나(La Peregrina) 성당 참배.",
-      highlight: "조개껍데기 평면의 순례자 성 페레그리나 성당"
-    },
-    {
-      day: "Day 15 (11/23)",
-      date: "2026-11-23",
-      title: "폰테베드라 ~ 칼다스 데 레스 (온천 마을)",
-      distance: "약 21 km",
-      type: "walk",
-      stay: "칼다스 데 레스 숙소",
-      description: "아름다운 포도밭 터널과 조용한 시골 마을길을 걷습니다. 로마 시대부터 유명한 온천 마을 칼다스 데 레스(Caldas de Reis) 도착. 광장의 천연 유황 온천 족욕 분수대에 발을 담그고 피로를 말끔히 씻어냅니다.",
-      highlight: "마을 공용 온천 족욕탕에서 즐기는 피로 해소"
-    },
-    {
-      day: "Day 16 (11/24)",
-      date: "2026-11-24",
-      title: "칼다스 데 레스 ~ 발가 ~ 파드론 (성 야고보 전설의 땅)",
-      distance: "약 19 km",
-      type: "walk",
-      stay: "파드론 알베르게/숙소",
-      description: "갈리시아 전원 풍경을 지나 성 야고보의 유해를 실은 배가 도착했던 성지 파드론(Padrón) 도착. 산티아고 성당의 '페드론(배를 묶었던 돌)' 확인. 스페인 전통 꽈리고추 튀김(Pimientos de Padrón) 맛보기.",
-      highlight: "성 야고보 유골의 기원 파드론 도착 & 피미엔토스 고추 튀김"
-    },
-    {
-      day: "Day 17 (11/25)",
-      date: "2026-11-25",
-      title: "파드론 ~ 산티아고 데 콤포스텔라 (영광의 완주 입성!)",
-      distance: "약 24 km",
-      type: "walk",
-      stay: "산티아고 시내 부티크 호텔",
-      description: "마지막 걸음! 멀리 대성당 첨탑이 보이는 환희의 언덕(Monte do Gozo)을 지나 대망의 산티아고 대성당 앞 오브라도이로(Obradoiro) 광장에 마침내 입성! 배낭을 바닥에 내려놓고 성당을 올려다보는 순간 뜨거운 감격. 순례자 사무소에서 완주 인증서(Compostela) 수령.",
-      highlight: "★ 240km 대장정 완주! 오브라도이로 광장의 벅찬 감동 & 콤포스텔라 인증서"
-    },
-    {
-      day: "Day 18 (11/26)",
-      date: "2026-11-26",
-      title: "산티아고 대성당 순례자 미사 & 축하 만찬 (산티아고 2일 체류)",
-      distance: "시내 관광 약 5 km",
-      type: "tour",
-      stay: "산티아고 시내 부티크 호텔",
-      description: "낮 12시 산티아고 대성당 공식 순례자 미사 참배. 거대한 은제 향로가 성당 공중을 가르는 보타푸메이로(Botafumeiro) 장관 관람. 순례길 동행들과의 감격스러운 완주 축하 갈리시아 문어 요리(Pulpo a la Gallega) 만찬.",
-      highlight: "대성당 보타푸메이로(거대 향로) 순례자 미사 & 갈리시아 풀포 만찬"
-    },
-    {
-      day: "Day 19 (11/27)",
-      date: "2026-11-27",
-      title: "세상의 끝 피스테라(Finisterre) & 무시아(Muxía) 당일 투어",
-      distance: "투어 버스 당일 여행",
-      type: "tour",
-      stay: "산티아고 시내 부티크 호텔",
-      description: "중세 순례자들이 세상의 끝이라 믿었던 피스테라 곶(0.00 km 표지석) 방문. 끝없이 펼쳐진 대서양 바다를 바라보며 낡은 부츠나 조개껍데기를 마주하고 새로운 다짐. 파도가 부서지는 성스러운 무시아 성모 성당 방문.",
-      highlight: "대서양 절벽 끝 '0.00 km' 표지석에서 완성하는 순례의 마침표"
-    },
-    {
-      day: "Day 20 (11/28)",
-      date: "2026-11-28",
-      title: "산티아고 공항 출발 & 유럽 경유 (귀국 1일차)",
-      distance: "비행 약 15시간",
-      type: "flight",
-      stay: "기내 1박",
-      description: "산티아고 데 콤포스텔라(SCQ) 공항 출발, 마드리드/파리 경유하여 인천행 국제선 탑승. 3주간의 잊지 못할 추억과 단단해진 내면을 가슴에 품고 귀국길에 오릅니다.",
-      highlight: "3주간의 여정을 가슴에 품고 귀국길"
-    },
-    {
-      day: "Day 21 (11/29)",
-      date: "2026-11-29",
-      title: "인천 국제공항 무사 귀국 (귀국 2일차)",
-      distance: "귀가",
-      type: "flight",
-      stay: "스위트 홈",
-      description: "인천 국제공항 무사 도착. 짐 정리 및 사랑하는 가족/지인들과의 반가운 재회. 순례길에서 얻은 맑은 에너지로 앞으로의 일상과 커리어 도약을 당차게 시작!",
-      highlight: "무사 귀국 완료! 더 성숙하고 당당해진 나로서의 새로운 출발"
+    commonSection: {
+      name: "공통 구간 (레돈델라 ➔ 산티아고)",
+      highlight: "레돈델라 ➔ 아르카데 ➔ 폰테베드라 ➔ 칼다스 데 레스 ➔ 파드론 ➔ 산티아고 대성당",
+      recommendedAlbergues: [
+        { stage: "레돈델라 (Redondela)", name: "Albergue Casa da Torre (공립) / A Dársena do Francés", type: "공립/사립", price: "€10~15", rating: "4.8", tip: "해안길과 중앙길이 만나는 지점, 16세기 석조 건물" },
+        { stage: "폰테베드라 (Pontevedra)", name: "Bulezen Urban Hostel / Albergue Virxe da Peregrina", type: "현대식 사립/공립", price: "€10~18", rating: "4.9", tip: "보행자 전용 도시, 순례자 전용 가리비 모양 성당 인접" },
+        { stage: "칼다스 데 레스", name: "Albergue As Pozas Termais / O Cruceiro", type: "온천 사립/공립", price: "€12~16", rating: "4.9", tip: "마을 천연 온천 족욕탕에서 발 피로를 완벽히 푸는 명소" },
+        { stage: "파드론 (Padrón)", name: "Albergue de Padrón / Albergue Rossol", type: "공립/사립", price: "€10~15", rating: "4.7", tip: "야고보 성인의 유해가 도착한 바위(Pedrón)와 고추 튀김 유명" },
+        { stage: "산티아고 (Santiago)", name: "Albergue Seminario Menor / Roots & Boots", type: "대형 수도원/시내", price: "€15~35", rating: "4.8", tip: "최종 목적지 산티아고 대성당 도보 10분, 완보증 수령지 인접" }
+      ]
     }
+  },
+
+  // 📋 패킹 리스트 & 항공권·숙박비·환전 경비 포함 전체 예산 관리 (비용 cost 필드 탑재)
+  packingList: [
+    // [0. 항공권 & 숙박비 - 고정 지출]
+    { text: "왕복 항공권 (11/10 인천 ➔ 포르투 / 12/01 산티아고 ➔ 인천)", category: "항공·숙박비", cost: 1350000, currency: "KRW", done: true, tip: "11/10 출국 ➔ 11/11 입국, 12/01 귀국 항공편 예약 완료" },
+    { text: "포르투 첫날 호텔 1박 (11/11 체크인 & 시차적응)", category: "항공·숙박비", cost: 90000, currency: "KRW", done: false, tip: "포르투 시내 중심 호텔(순례길 전야 컨디션 조절)" },
+    { text: "순례길 공립/사립 알베르게 18박 숙박비 (평균 15~20유로)", category: "항공·숙박비", cost: 480000, currency: "KRW", done: false, tip: "18박 x 약 27,000원(€18), 현지 체크인 시 지불" },
+    { text: "산티아고 완보 축하 숙소 2박 (11/29~12/01)", category: "항공·숙박비", cost: 120000, currency: "KRW", done: false, tip: "산티아고 대성당 광장 인근 호스텔/호텔 2박" },
+
+    // [1. 현지 생활비 & 환전 경비]
+    { text: "현지 식비 및 마트 장보기 (22일간 환전 예산)", category: "현지경비", cost: 750000, currency: "KRW", done: false, tip: "순례자 메뉴(€12~14), 아침 커피/토스트, 마트 과일·간식" },
+    { text: "현지 교통비·페리·비상동키·세탁비", category: "현지경비", cost: 120000, currency: "KRW", done: false, tip: "포르투 메트로, 카미냐-아구아르다 페리, 비상 동키서비스" },
+    { text: "현지 유심 / eSIM 데이터 무제한", category: "현지경비", cost: 35000, currency: "KRW", done: true, tip: "유럽 통합 30일 데이터 무제한 eSIM" },
+    { text: "여행자 보험 (해외 의료비 및 휴대품 보상)", category: "현지경비", cost: 45000, currency: "KRW", done: true, tip: "트레킹 상해/질병 치료비 보장 필수 가입" },
+
+    // [2. 필수품 & 수납]
+    { text: "백팩 (허리 벨트가 있는 30~35L 추천 - 체중 분산)", category: "필수품", cost: 180000, currency: "KRW", done: true, tip: "어깨/허리 하중을 분산해야 22일 도보 시 무릎을 보호합니다." },
+    { text: "힙색 / 크로스백 (여권·지갑·휴대폰 소지용)", category: "필수품", cost: 35000, currency: "KRW", done: true, tip: "알베르게나 식당에서도 몸에 항상 소지할 수 있습니다." },
+    { text: "여권 & 순례자 여권(크레덴셜) & 사본", category: "필수품", cost: 5000, currency: "KRW", done: true, tip: "알베르게 체크인 및 완보 인증서(콤포스텔라) 발급 필수품." },
+    { text: "간단한 세면도구 (올인원 비누, 미니 치약·칫솔)", category: "필수품", cost: 15000, currency: "KRW", done: false, tip: "현지 약국이나 마트에서도 쉽게 추가 구매 가능합니다." },
+    { text: "비상 의약품 (소염진통제, 지사제, 소독약, 콤피드 물집 패치)", category: "필수품", cost: 30000, currency: "KRW", done: false, tip: "물집 발생 시 바늘 실 통과보다 콤피드 패치 즉시 부착 추천." },
+    { text: "손수건 (땀 닦기, 목/머리 햇빛 차단, 다용도 타월)", category: "필수품", cost: 8000, currency: "KRW", done: true, tip: "배낭 외부에 걸어두면 하루 만에 빠르게 건조됩니다." },
+    { text: "원피스 (여성 순례자 추천 - 알베르게 휴식 및 세탁 시 착용)", category: "필수품", cost: 25000, currency: "KRW", done: false, tip: "빨래 돌릴 때 편하게 입거나 숙소 내부 휴식용으로 유용합니다." },
+
+    // [3. 의류 & 신발]
+    { text: "기능성 반팔 티 (땀 흡수 빠르고 속건성 소재 2~3벌)", category: "의류", cost: 60000, currency: "KRW", done: true, tip: "매일 저녁 손빨래 후 널어두면 아침에 바로 마르는 소재 필수." },
+    { text: "기능성 바람막이 (방풍/발수 기능성 필수)", category: "의류", cost: 120000, currency: "KRW", done: true, tip: "아침 바닷바람과 비포장 산길의 변덕스러운 날씨 대비 필수." },
+    { text: "경량 패딩 (날씨 변화 대비 필수 - 11월 저녁 보온용)", category: "의류", cost: 95000, currency: "KRW", done: true, tip: "11월 중순 스페인 갈리시아 저녁 기온 급강하 대비 필수." },
+    { text: "긴 바지 (트레킹용 속건 기능성 바지 2벌)", category: "의류", cost: 80000, currency: "KRW", done: true, tip: "풀숲이나 자갈길에서 다리를 보호하고 체온을 유지합니다." },
+    { text: "눈에 띄는 색상의 모자 (햇빛 차단 & 도로/안갯길 시인성 확보)", category: "의류", cost: 25000, currency: "KRW", done: true, tip: "시야 확보 및 안전을 위해 밝은 네온/오렌지색 모자 적극 권장." },
+    { text: "기능성 트레킹 샌들 (무거운 등산화 대신 추천)", category: "신발", cost: 110000, currency: "KRW", done: true, tip: "무게를 대폭 줄이고 발 통기성 극대화, 별도 슬리퍼 불필요." },
+    { text: "발목/무릎 보호대 (내리막 자갈길 관절 보호 필수)", category: "장비", cost: 35000, currency: "KRW", done: false, tip: "연속 20km 도보 시 관절 충격을 흡수해 부상을 방지합니다." },
+    { text: "트레킹 스틱 1쌍 (하중 분산 및 추진력 확보 적극 권장)", category: "장비", cost: 65000, currency: "KRW", done: false, tip: "무릎 하중을 25% 이상 줄여주어 장기 도보 시 필수 권장." }
   ],
-  memos: "에너지관리기사 시험 직후 지친 심신을 완벽히 리셋하고 3주간 나 자신과 깊게 대화한 성찰의 시간.\n'부엔 카미노(Buen Camino)!'에서 배운 한 걸음의 위대함을 품고 앞으로 나아가기."
+
+  // 📅 22일간의 전체 일정표 (11/10 출국 ➔ 11/11 입국·체크인 ➔ 12/01 귀국, 호텔/알베르게 입력 지원)
+  itinerary: [
+    { day: 1, date: "2026-11-10 (화)", title: "인천 국제공항 출국 ➔ 유럽 경유 포르투행 비행기 탑승", distance: "항공 이동", highlight: "순례길 대장정의 시작, 기내 휴식 및 마인드셋 정돈", hotelName: "기내 숙박 (In Flight)", description: "인천공항 제1/2여객터미널 출국, 설레는 순례길 여정 시작" },
+    { day: 2, date: "2026-11-11 (수)", title: "포르투(Porto) 공항 도착 ➔ 호텔 체크인 & 순례길 최종 준비", distance: "시내 도보 4 km", highlight: "호텔 체크인 휴식, 포르투 대성당 크레덴셜 수령, 장보기", hotelName: "Porto Wine Hostel (또는 시내 호텔)", description: "포르투 공항 입국 ➔ 메트로 이동 후 호텔 체크인. 대성당에서 순례자 여권 수령, 유심 확인, 마트에서 비상 행동식 준비" },
+    { day: 3, date: "2026-11-12 (목)", title: "Day 1. 포르투 ➔ 마토지뉴시 / 라브루제 (순례 첫걸음)", distance: "18.5 km", highlight: "대서양 해안 보드워크 시작, 상쾌한 바닷바람과 첫 스탬프", hotelName: "Albergue São Mamede de Vila Chã", description: "포르투 시내에서 대서양 해안선을 따라 평탄한 목재 데크길 도보" },
+    { day: 4, date: "2026-11-13 (금)", title: "Day 2. 라브루제 ➔ 포보아 데 바르징 (Póvoa de Varzim)", distance: "15.2 km", highlight: "전통 어촌 마을과 모래사장, 바다 내음 가득한 평온한 길", hotelName: "Albergue de Peregrinos da Póvoa", description: "모래 언덕과 어촌 항구를 지나며 첫 알베르게 공동 취사 경험" },
+    { day: 5, date: "2026-11-14 (토)", title: "Day 3. 포보아 데 바르징 ➔ 에스포센드 (Esposende)", distance: "20.1 km", highlight: "카바두강(Cávado) 하구 습지와 자연보호구역 트레킹", hotelName: "Sea Soul Albergue", description: "해안 숲길과 강변을 따라 걷는 환상적인 힐링 코스" },
+    { day: 6, date: "2026-11-15 (일)", title: "Day 4. 에스포센드 ➔ 비아나 두 카스텔루 (Viana do Castelo)", distance: "22.4 km", highlight: "구스타프 에펠 설계 철교 횡단, 산타 루시아 성당 파노라마", hotelName: "Albergue de Santa Luzia", description: "역사적인 에펠 다리를 걸어 건너 웅장한 비아나 두 카스텔루 진입" },
+    { day: 7, date: "2026-11-16 (월)", title: "Day 5. 비아나 두 카스텔루 ➔ 카미냐 (Caminha)", distance: "26.8 km", highlight: "포르투갈 국경 마지막 도시, 소나무 숲길과 페리 선착장", hotelName: "Bom Caminha Hostel", description: "해안 암초 지대와 솔숲을 지나 스페인 국경 관문 카미냐 도착" },
+    { day: 8, date: "2026-11-17 (화)", title: "Day 6. 카미냐 ➔ (페리 국경 이동) ➔ 아 구아르다 ➔ 오이아 (Oia)", distance: "17.0 km", highlight: "미뇨강 국제 페리 횡단, 스페인 입국, 해변 수도원", hotelName: "Albergue da Estrela (바다 수도원 뷰)", description: "보트를 타고 스페인 국경 진입 ➔ 절벽 위 산타 마리아 데 오이아 수도원 조망" },
+    { day: 9, date: "2026-11-18 (수)", title: "Day 7. 오이아 ➔ 바이오나 (Baiona)", distance: "18.3 km", highlight: "몬테레알 요새 성벽, 콜럼버스 신대륙 발견선 핀타호 역사", hotelName: "Albergue Baiona", description: "바다 절벽을 끼고 도는 웅장한 해안 코스, 바이오나 고성 탐방" },
+    { day: 10, date: "2026-11-19 (목)", title: "Day 8. 바이오나 ➔ 비고 (Vigo)", distance: "25.0 km", highlight: "갈리시아 최대 항구 도시, 리아 데 비고(Ría de Vigo) 만 조망", hotelName: "Albergue Berbés (공립)", description: "리아스 해안의 멋진 섬들과 굴 요리 거리를 지나 비고 구시가지 도착" },
+    { day: 11, date: "2026-11-20 (금)", title: "Day 9. 비고 ➔ 레돈델라 (Redondela) [해안·중앙길 합류]", distance: "16.0 km", highlight: "해안길과 중앙길이 만나는 역사적 교차로, 철교 마을", hotelName: "Albergue Casa da Torre (공립)", description: "두 갈래 순례길이 하나로 합쳐지며 순례자들의 활기와 교류가 배가되는 지점" },
+    { day: 12, date: "2026-11-21 (토)", title: "Day 10. 레돈델라 ➔ 폰테베드라 (Pontevedra)", distance: "19.6 km", highlight: "로마 시대 폰테삼파이오 다리, 보행자 천국 구시가지", hotelName: "Bulezen Urban Hostel", description: "역사적인 석조 다리를 건너 순례자들의 수호 성당 비르헨 데 라 페레그리나 도착" },
+    { day: 13, date: "2026-11-22 (일)", title: "Day 11. 폰테베드라 ➔ 칼다스 데 레스 (Caldas de Reis)", distance: "21.1 km", highlight: "천연 온천 족욕 분수대, 포도밭 전원 오솔길", hotelName: "Albergue As Pozas Termais", description: "마을 한가운데 솟아나는 따뜻한 유황 온천수에 발을 담그고 피로 회복" },
+    { day: 14, date: "2026-11-23 (월)", title: "Day 12. 칼다스 데 레스 ➔ 파드론 (Padrón)", distance: "18.6 km", highlight: "야고보 성인 유해 기착지, 갈리시아 명물 고추튀김(Pimientos)", hotelName: "Albergue de Padrón (공립)", description: "성 야고보의 전설이 깃든 페드론 바위와 산티아고 전야의 고요한 묵상" },
+    { day: 15, date: "2026-11-24 (화)", title: "Day 13. 파드론 ➔ 산티아고 데 콤포스텔라 (대성당 도착!)", distance: "24.3 km", highlight: "오브라도이로 광장 입성, 성 야고보 대성당 포옹, 완보증 수령", hotelName: "Roots & Boots (또는 대성당 인근 호텔)", description: "마침내 산티아고 대성당 첨탑이 시야에 들어오는 벅찬 감동의 완보의 날!" },
+    { day: 16, date: "2026-11-25 (수)", title: "Day 14. 산티아고 순례자 미사 & 힐링 휴식", distance: "시내 힐링", highlight: "정오 순례자 대향로(Botafumeiro) 미사, 콤포스텔라 완보증 수령", hotelName: "산티아고 시내 숙소", description: "전 세계 순례자들과 나누는 감동의 포옹과 따뜻한 축하 만찬" },
+    { day: 17, date: "2026-11-26 (목)", title: "Day 15. 산티아고 ➔ 네그레이라 (피니스테레 연장 코스)", distance: "21.0 km", highlight: "세상의 끝(Finisterre)을 향한 새로운 연장 여정", hotelName: "Albergue de Negreira", description: "산티아고에서 서쪽 바다 끝으로 향하는 평화로운 참나무 숲길" },
+    { day: 18, date: "2026-11-27 (금)", title: "Day 16. 네그레이라 ➔ 올베이로아 (Olveiroa)", distance: "33.4 km", highlight: "갈리시아 고원 풍경, 옥수수 보관소 오레오(Hórreo) 마을", hotelName: "Albergue de Olveiroa", description: "대자연의 고요함과 바람 소리를 들으며 걷는 장거리 힐링 트레킹" },
+    { day: 19, date: "2026-11-28 (토)", title: "Day 17. 올베이로아 ➔ 체 (Cee) ➔ 코르쿠비온", distance: "20.0 km", highlight: "마침내 바다가 다시 내려다보이는 해안 절벽길", hotelName: "Albergue de Corcubión", description: "오랜만에 다시 만나는 대서양의 짙푸른 파도와 아름다운 해안선" },
+    { day: 20, date: "2026-11-29 (일)", title: "Day 18. 코르쿠비온 ➔ 세상의 끝 피니스테레 등대 (0.00 km)", distance: "13.7 km", highlight: "피니스테레 0.00 km 비석, 일몰 감상 및 조개껍데기 의식", hotelName: "Albergue Finistella (피니스테레)", description: "고대인들이 믿었던 세상의 끝 절벽 등대에서 장엄한 대서양 일몰 감상" },
+    { day: 21, date: "2026-11-30 (월)", title: "Day 19. 피니스테레 ➔ 산티아고 복귀 ➔ 귀국 전야 회포", distance: "버스 이동 80 km", highlight: "산티아고 복귀 버스, 기념품 및 선물 구매, 최종 짐 패킹", hotelName: "산티아고 공항 인근 호텔", description: "여정을 함께한 순례길의 추억을 정리하고 귀국 준비" },
+    { day: 22, date: "2026-12-01 (화)", title: "Day 20. 산티아고 공항 ➔ 귀국 비행기 탑승 ➔ 인천 향발", distance: "항공 이동", highlight: "22일간의 거룩한 여정 완수, 새로운 삶을 향한 귀국", hotelName: "기내 숙박 (In Flight)", description: "산티아고 공항에서 귀국 비행기 탑승. 평생 잊지 못할 순례길의 지혜를 품고 일상 복귀" }
+  ]
 };
+
 
 const INITIAL_SNS_DATA = {
   snsDataVersion: 3,
@@ -398,9 +263,6 @@ const INITIAL_SNS_DATA = {
   strategyMemo: "3대 채널 원소스 멀티유즈(OSMU) 운영 전략:\n1) 브런치스토리 (@musimtook · 구독자 225명 / 글 744편 / 독서노트 76편): 실패의 기록과 나만의 사색 에세이 연재\n2) 인스타그램 (@namhyeon_kim_ · 팔로워 300명 / 게시물 180개): 밴드 합주(보컬·신디사이저), 11월 산티아고 순례길 사진 & 숏폼 릴스\n3) 링크드인 (김남현): 삼성전자 TF 경험, 안전·에너지 기술자격, 화성시 청년정책협의체 분과장 인사이트 공유"
 };
 
-// ==========================================================================// ==========================================================================
-// 수상 내역 (23건) & 주요 경력 (15건) 통합 포트폴리오 초기 데이터 (⭐ 신규 추가)
-// ==========================================================================
 const INITIAL_PORTFOLIO_DATA = {
   portfolioDataVersion: 2,
   awards: [
@@ -3472,6 +3334,34 @@ const INITIAL_INBODY_DATA = {
       description: "세포외수분비 0.360~0.365의 건강한 부종 제로 상태를 유지하기 위해 매일 2.5L 이상의 수분을 섭취하고 7시간 숙면으로 근회복을 돕습니다."
     }
   ],
+  // 🥗 1주 0.5kg 체지방 감량 목표 일일 영양성분 가이드 (현재 체중 73.1kg / 골격근 33.7kg 기준)
+  nutritionGuide: {
+    motto: {
+      ko: "가장 훌륭한 조각가는 자기 몸을 깎아내는 사람이다. 지속하는 훈련과 정직한 식단만이 불변의 아름다움을 만든다.",
+      en: "It is not what we do once in a while that shapes our lives, but what we do consistently."
+    },
+    currentWeight: 73.1,
+    skeletalMuscle: 33.7,
+    bodyFatMass: 13.7,
+    bodyFatRate: 18.7,
+    targetFatLossPerWeekKg: 0.5,
+    bmrKcal: 1680,      // 기초대사량
+    tdeeKcal: 2350,     // 유지 활동대사량 (주 3~5회 운동 기준)
+    deficitDailyKcal: 550, // 주당 -3,850 kcal (지방 0.5kg 연소)
+    targetDailyKcal: 1800, // 2350 - 550 = 1800 kcal
+    macros: {
+      protein: { grams: 145, kcal: 580, pct: 32, label: "단백질 (체중 kg당 2.0g - 근손실 방지)", food: "닭가슴살 2팩, 계란 3개, 소고기 우둔살, 단백질 쉐이크" },
+      carbs: { grams: 190, kcal: 760, pct: 42, label: "복합 탄수화물 (운동 수행능력 유지)", food: "고구마 200g, 현미밥 1.5공기, 오트밀 40g, 바나나" },
+      fat: { grams: 45, kcal: 405, pct: 26, label: "불포화 지방 (호르몬 정상 분비 및 관절 보호)", food: "아보카도 반 개, 엑스트라 버진 올리브유 1스푼, 아몬드 15알" }
+    },
+    waterLiters: 3.0,
+    dailyHabits: [
+      "기상 직후 미온수 500ml 섭취로 밤새 떨어진 신진대사 부스팅",
+      "근력 운동 전 복합 탄수화물(바나나/오트밀), 운동 직후 단백질 30g 섭취",
+      "취침 3시간 전 식사 완료 및 최소 7시간 수면 확보로 성장호르몬 분비 촉진"
+    ]
+  },
+
   records: [
   {
     "id": "inbody-1",
@@ -11314,10 +11204,11 @@ const GUEST_MASKED_PORTFOLIO = {
     totalCareers: 15,
     highlightAwards: 8,
     activeCareers: 3,
-    notice: "🔒 세부 공적 및 원문은 관리자 인증 후 열람 가능합니다."
+    notice: "🌟 김남현 수상 23건 및 주요 경력·TF 15건 포트폴리오 (열람 가능)"
   },
-  awards: [],
-  careers: [],
+  // 수상 및 경력 데이터는 방문자/게스트에게도 항상 100% 정상 공개 표출
+  awards: (typeof INITIAL_PORTFOLIO_DATA !== 'undefined' && INITIAL_PORTFOLIO_DATA.awards) ? INITIAL_PORTFOLIO_DATA.awards : [],
+  careers: (typeof INITIAL_PORTFOLIO_DATA !== 'undefined' && INITIAL_PORTFOLIO_DATA.careers) ? INITIAL_PORTFOLIO_DATA.careers : [],
   radarData: (typeof INITIAL_PORTFOLIO_DATA !== 'undefined' && INITIAL_PORTFOLIO_DATA.radarData) ? INITIAL_PORTFOLIO_DATA.radarData : null
 };
 

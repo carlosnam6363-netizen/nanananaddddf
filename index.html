@@ -42,7 +42,7 @@
         });
       }
       // 3. 빌드 버전 검사를 통한 자동 1회 새로고침
-      var APP_VER = '20261001_v3';
+      var APP_VER = '20261002_v2';
       if (localStorage.getItem('career_app_build') !== APP_VER) {
         localStorage.setItem('career_app_build', APP_VER);
         if (!sessionStorage.getItem('build_updated')) {
@@ -57,6 +57,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- SheetJS for Full Excel Export -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <!-- LAME.js for 128kbps MP3 Audio Encoding -->
+  <script src="https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.min.js"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -211,7 +213,6 @@
 
     <!-- Tab Section 5: 외부 대시보드 연동 (사용자 추가 요청) -->
     <section id="tab-content-inbody" class="tab-section hidden"></section>
-    <section id="tab-content-external" class="tab-section hidden"></section>
 
     <!-- Tab Section: 갤럭시 캘린더 모바일 연동 (기타 카테고리 신규 ⭐) -->
     <section id="tab-content-calendar" class="tab-section hidden"></section>
