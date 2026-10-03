@@ -67,7 +67,7 @@ class SyncManager {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
-        const upgradedCamino = (parsed.camino && parsed.camino.caminoDataVersion === 6)
+        const upgradedCamino = (parsed.camino && parsed.camino.caminoDataVersion === 7)
           ? parsed.camino
           : (() => {
               const fresh = JSON.parse(JSON.stringify(INITIAL_CAMINO_DATA));
@@ -1823,14 +1823,14 @@ function renderOverviewTab() {
             <span class="px-2.5 py-0.5 bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[11px] font-bold rounded-full flex items-center gap-1.5">
               <i class="fa-solid fa-compass text-amber-400"></i> Buen Camino!
             </span>
-            <span class="text-[11px] text-amber-300 font-bold">11.09 ~ 11.29 (3주간)</span>
+            <span class="text-[11px] text-amber-300 font-bold">11.10 ~ 12.03 (24일 대장정)</span>
           </div>
           <h2 class="text-xl font-black text-white tracking-tight flex items-center gap-2">
             <i class="fa-solid fa-person-hiking text-amber-400 text-lg"></i>
-            <span>산티아고 순례길 (포르투 코스)</span>
+            <span>산티아고 순례길 (포르투 & 마드리드)</span>
           </h2>
           <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">
-            에너지 시험 후 떠나는 3주 대장정. 출입국 각 2일, 거점 4대 도시 각 2일 체류 관광.
+            에너지 시험 후 떠나는 24일 대여정. 11/10 인천 출국 ➔ 포르투 ➔ 산티아고 ➔ 피니스테레 ➔ 마드리드 ➔ 12/03 인천 귀국. 왕복 항공권 결제 완료(총 ₩884,184).
           </p>
         </div>
 
@@ -2448,7 +2448,7 @@ function renderOverviewTab() {
             <div class="flex items-center gap-2">
               <i class="fa-solid fa-person-hiking text-amber-400 text-lg"></i>
               <h2 class="text-lg font-bold text-white">산티아고 순례길 여정 브리핑</h2>
-              <span class="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">11/9 ~ 11/29 (3주 포르투 코스)</span>
+              <span class="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">11/10 ~ 12/03 (24일 포르투 & 마드리드)</span>
             </div>
             <button onclick="window.app.switchTab('camino')" class="text-xs text-amber-400 hover:text-amber-300 font-medium flex items-center gap-1">
               일정 및 짐싸기 체크 <i class="fa-solid fa-arrow-right"></i>
@@ -2729,23 +2729,27 @@ function renderCaminoTab() {
               <i class="fa-solid fa-compass"></i> 부엔 카미노 (Buen Camino)
             </span>
             <span class="px-3 py-1 bg-sky-500/20 text-sky-300 border border-sky-500/30 text-xs font-bold rounded-full">
-              까미노 드 포르투 (Camino Portugués 22일 여정)
+              까미노 드 포르투 & 마드리드 (총 24일 대여정)
+            </span>
+            <span class="px-2.5 py-0.5 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold rounded flex items-center gap-1">
+              <i class="fa-solid fa-plane-circle-check"></i> 왕복 항공권 결제 완료 (총 ₩884,184)
             </span>
             <span class="text-xs text-amber-200 font-bold bg-amber-500/10 px-2.5 py-0.5 rounded border border-amber-500/20">
-              2026.11.10(출국) ~ 11.11(입국·호텔체크인) ~ 12.01(귀국)
+              2026.11.10(출국) ~ 11.11(포르투 입국) ~ 12.02(마드리드 출국) ~ 12.03(인천 도착)
             </span>
           </div>
           <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
             <i class="fa-solid fa-person-hiking text-amber-400"></i>
-            산티아고 순례길 22일 대여정 & 환전·알베르게 관제
+            산티아고 순례길 24일 대여정 & 왕복 항공권·환전·알베르게 관제
           </h1>
-          <p class="text-sm text-slate-300 mt-2 max-w-2xl leading-relaxed">
-            <b>11월 10일 인천 출국</b> 후 <b>11월 11일 포르투 입국 및 호텔 체크인</b>으로 여독을 풀고 크레덴셜(순례자 여권)을 발급받아 출발 준비를 마칩니다. 
-            <b>12월 1일 오전 귀국 비행기 탑승</b>까지, 대서양 해안길과 유서 깊은 중앙길의 알베르게 정보 및 총 1,150 유로 환전 예산을 체계적으로 관리합니다.
+          <p class="text-sm text-slate-300 mt-2 max-w-3xl leading-relaxed">
+            <b>11월 10일 인천 출국</b> 후 <b>11월 11일 낮 포르투 입국 & 호텔 체크인</b>으로 여독을 풀고 크레덴셜(순례자 여권)을 발급받아 출발합니다.
+            대서양 해안길을 거쳐 <b>산티아고 대성당 완보</b> 및 <b>피니스테레(세상의 끝)</b>까지 순례 후, 스페인 고속열차(Renfe)로 <b>마드리드(Madrid)</b>에 입성하여 시내 힐링 관광을 즐깁니다. 
+            <b>12월 2일 오전 마드리드(MAD) 출국 ➔ 청두 3시간 환승 ➔ 12월 3일 낮 인천(ICN) 도착</b>까지, 왕복 항공권 100% 확정과 환전 예산 및 알베르게 정보를 원스톱으로 관리합니다.
           </p>
         </div>
 
-        <div class="bg-slate-800/90 border border-amber-400/40 rounded-xl p-4 sm:p-6 text-center min-w-[210px] shadow-lg">
+        <div class="bg-slate-800/90 border border-amber-400/40 rounded-xl p-4 sm:p-6 text-center min-w-[220px] shadow-lg flex-shrink-0">
           <div class="text-xs font-bold text-amber-400 uppercase tracking-wider mb-1">순례길 출국 D-Day</div>
           <div class="text-3xl sm:text-4xl font-black text-amber-300 tracking-tight">
             ${ddayCamino.days >= 0 ? `D-${ddayCamino.days}` : `D+${Math.abs(ddayCamino.days)}`}
@@ -2753,7 +2757,7 @@ function renderCaminoTab() {
           <div class="text-xs text-slate-300 mt-1 font-medium">
             ${ddayCamino.days >= 0 ? `2026.11.10 인천 출발 (D-${ddayCamino.days})` : '여정 진행 중 / 완료'}
           </div>
-          <div class="text-[11px] text-amber-400/80 mt-0.5 font-mono">12.01 귀국 비행기</div>
+          <div class="text-[11px] text-emerald-400 font-mono font-bold mt-1">12.02 마드리드 ➔ 12.03 인천착</div>
         </div>
       </div>
     </div>
@@ -2765,17 +2769,17 @@ function renderCaminoTab() {
           <span>총 일정 규모</span>
           <i class="fa-solid fa-plane-departure text-sky-400"></i>
         </div>
-        <div class="text-lg font-bold text-white">22일간 (11/10 ~ 12/01)</div>
-        <div class="text-[11px] text-sky-300 mt-1">11/10 출국 ➔ 12/01 귀국</div>
+        <div class="text-lg font-bold text-white">24일간 (11/10 ~ 12/03)</div>
+        <div class="text-[11px] text-sky-300 mt-1">11/10 출국 ➔ 12/03 귀국착</div>
       </div>
 
       <div class="glass-panel p-4 rounded-xl border border-emerald-500/30 bg-slate-900/60">
         <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
-          <span>11/11 입국 & 첫날 준비</span>
-          <i class="fa-solid fa-hotel text-emerald-400"></i>
+          <span>왕복 항공권 확정</span>
+          <i class="fa-solid fa-ticket text-emerald-400"></i>
         </div>
-        <div class="text-lg font-bold text-emerald-300">포르투 호텔 체크인</div>
-        <div class="text-[11px] text-slate-400 mt-1">크레덴셜 발급 & 시차 적응</div>
+        <div class="text-lg font-bold text-emerald-300">₩884,184 (100% 완료)</div>
+        <div class="text-[11px] text-slate-400 mt-1">출국 47.7만 + 귀국 40.6만</div>
       </div>
 
       <div class="glass-panel p-4 rounded-xl border border-amber-500/30 bg-slate-900/60">
@@ -2783,207 +2787,220 @@ function renderCaminoTab() {
           <span>환전 예산 가이드</span>
           <i class="fa-solid fa-euro-sign text-amber-400"></i>
         </div>
-        <div class="text-lg font-bold text-amber-300">€${exchange ? exchange.totalEur : 1150} (약 172만 원)</div>
-        <div class="text-[11px] text-slate-400 mt-1">22일간 일일 약 €52 사용</div>
+        <div class="text-lg font-bold text-amber-300">€${exchange ? exchange.totalEur : 1250} (약 187만 원)</div>
+        <div class="text-[11px] text-slate-400 mt-1">24일간 (마드리드 포함)</div>
       </div>
 
       <div class="glass-panel p-4 rounded-xl border border-purple-500/30 bg-slate-900/60">
         <div class="text-xs text-slate-400 mb-1 flex items-center justify-between">
-          <span>준비물 & 항공·숙박 합계</span>
+          <span>준비물 패킹율</span>
           <i class="fa-solid fa-receipt text-purple-400"></i>
         </div>
         <div class="text-lg font-bold text-white">${packPercent}% (${donePacking}/${totalPacking})</div>
-        <div class="text-[11px] text-purple-300 mt-1">항공·숙박비 예산 포함</div>
+        <div class="text-[11px] text-purple-300 mt-1">왕복 항공권 모두 체크 완료</div>
       </div>
     </div>
 
-    <!-- ✈️ 확정 출국 항공권 상세 예약 내역 카드 (트립닷컴 결제 완료: ₩477,357) -->
+    <!-- ✈️ [왕복 항공권 확정 예약 및 운임 관제 센터] (출국 ₩477,357 + 귀국 ₩406,827 = 총 ₩884,184) ⭐ -->
     <div class="glass-panel rounded-2xl p-6 sm:p-7 mb-8 border border-sky-500/40 bg-gradient-to-br from-slate-900 via-sky-950/25 to-slate-900 shadow-2xl relative overflow-hidden">
       <div class="absolute -right-10 -top-10 w-48 h-48 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-      <!-- Header -->
+      <!-- Master Flight Banner -->
       <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6 border-b border-slate-800 pb-5">
         <div>
           <div class="flex flex-wrap items-center gap-2 mb-2">
             <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold rounded-full flex items-center gap-1.5">
-              <i class="fa-solid fa-circle-check"></i> 예약 및 결제 완료 (신한카드)
+              <i class="fa-solid fa-circle-check"></i> 왕복 항공권 예약 & 결제 100% 완료!
             </span>
             <span class="px-2.5 py-0.5 bg-blue-500/20 text-blue-300 border border-blue-500/30 text-xs font-mono font-bold rounded">
               트립닷컴 (Trip.com)
             </span>
-            <span class="text-xs text-slate-400 font-mono">
-              결제일시: 2026.10.02 15:43
+            <span class="px-2.5 py-0.5 bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs font-bold rounded">
+              예산 343,173원 대폭 절감 달성
             </span>
           </div>
           <h2 class="text-xl sm:text-2xl font-black text-white flex items-center gap-2.5">
             <i class="fa-solid fa-plane-departure text-sky-400"></i>
-            출국 항공권: 서울/인천(ICN) ➔ 포르투(OPO) 상세 여정표
+            왕복 항공권 통합 운임 및 상세 비행 스케줄
           </h2>
           <p class="text-xs text-slate-300 mt-1">
-            중국동방항공(MU8604 · MU201) & 이지젯(U28525) 연계 편도 항공편 (경유 2회 · 총 소요 약 26시간 35분)
+            출국: 서울/인천(ICN) ➔ 포르투(OPO) | 귀국: 마드리드(MAD) ➔ 청두(TFU) ➔ 서울/인천(ICN) · 왕복 발권으로 스페인 입국심사 완벽 프리패스
           </p>
         </div>
 
         <!-- Total Price Badge -->
-        <div class="bg-slate-950/90 border border-sky-400/40 rounded-xl p-3.5 sm:p-4 text-right min-w-[210px] shadow-lg">
-          <div class="text-[11px] font-bold text-slate-400">총 결제 완료 금액</div>
-          <div class="text-2xl font-black text-emerald-300 font-mono tracking-tight">
-            ₩477,357
+        <div class="bg-slate-950/90 border border-emerald-400/40 rounded-xl p-3.5 sm:p-4 text-right min-w-[230px] shadow-lg flex-shrink-0">
+          <div class="text-[11px] font-bold text-slate-400">왕복 항공권 총 결제액</div>
+          <div class="text-2xl sm:text-3xl font-black text-emerald-300 font-mono tracking-tight">
+            ₩884,184
           </div>
-          <div class="text-[10px] text-sky-300/80 mt-0.5">성인 1인 편도 + 기내 수하물 포함</div>
+          <div class="text-[10px] text-emerald-400/90 mt-0.5 font-medium">출국 ₩477,357 + 귀국 ₩406,827</div>
         </div>
       </div>
 
-      <!-- Flight Segments Stepper Timeline -->
-      <div class="space-y-4 mb-6">
+      <!-- 2-Grid: Outbound Flight vs Inbound Flight -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         
-        <!-- Leg 1: 인천 -> 상하이 -->
-        <div class="p-4 sm:p-5 rounded-xl bg-slate-950/70 border border-slate-800/80 hover:border-sky-500/30 transition">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-            <div class="flex items-center gap-2 flex-wrap">
-              <span class="px-2.5 py-1 rounded-md bg-sky-500/20 text-sky-300 border border-sky-500/40 text-xs font-black font-mono">
-                1구간
-              </span>
-              <span class="text-sm font-bold text-white">중국동방항공 MU8604</span>
-              <span class="text-xs text-slate-400 bg-slate-900 px-2 py-0.5 rounded border border-slate-700">상하이항공 FM828 운항</span>
-              <span class="text-xs text-slate-400 font-mono">Boeing 737-800</span>
-            </div>
-            <div class="text-xs font-mono text-sky-400 bg-sky-950/50 px-2.5 py-1 rounded border border-sky-800/50">
-              <i class="fa-regular fa-clock mr-1"></i>2시간 25분 소요 · 스낵 제공
-            </div>
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-slate-900/60 p-3 rounded-lg border border-slate-800">
-            <div>
-              <div class="text-slate-400 text-[11px]">출발 (Departure)</div>
-              <div class="text-white font-bold font-mono text-sm">11월 10일 (화) 18:25</div>
-              <div class="text-sky-300 font-medium">서울/인천국제공항 (ICN) 제1터미널</div>
-            </div>
-            <div>
-              <div class="text-slate-400 text-[11px]">도착 (Arrival)</div>
-              <div class="text-white font-bold font-mono text-sm">11월 10일 (화) 19:50</div>
-              <div class="text-sky-300 font-medium">상하이 푸동국제공항 (PVG) 제1터미널</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Layover 1: 상하이 야간 환승 -->
-        <div class="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-xs text-amber-200">
-          <div class="w-7 h-7 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold flex-shrink-0">
-            <i class="fa-solid fa-hourglass-half"></i>
-          </div>
-          <div class="flex-1">
-            <span class="font-bold text-amber-300">상하이 푸동(PVG) 야간 환승: 6시간 대기 (19:50 ~ 01:50)</span>
-            <span class="text-slate-300 ml-2">수하물 자동 연결(경유지 수취 불필요), 환승 라운지 및 야간 휴식</span>
-          </div>
-        </div>
-
-        <!-- Leg 2: 상하이 -> 런던 -->
-        <div class="p-4 sm:p-5 rounded-xl bg-slate-950/70 border border-slate-800/80 hover:border-sky-500/30 transition">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-            <div class="flex items-center gap-2 flex-wrap">
-              <span class="px-2.5 py-1 rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/40 text-xs font-black font-mono">
-                2구간 (장거리 대형기)
-              </span>
-              <span class="text-sm font-bold text-white">중국동방항공 MU201</span>
-              <span class="text-xs text-purple-300 bg-purple-950/60 px-2 py-0.5 rounded border border-purple-700/50 font-mono">Boeing 787 드림라이너</span>
-            </div>
-            <div class="text-xs font-mono text-purple-300 bg-purple-950/50 px-2.5 py-1 rounded border border-purple-800/50">
-              <i class="fa-regular fa-clock mr-1"></i>12시간 40분 소요 · 기내식 2회 제공
-            </div>
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-slate-900/60 p-3 rounded-lg border border-slate-800">
-            <div>
-              <div class="text-slate-400 text-[11px]">출발 (Departure)</div>
-              <div class="text-white font-bold font-mono text-sm">11월 11일 (수) 01:50</div>
-              <div class="text-purple-300 font-medium">상하이 푸동국제공항 (PVG) 제1터미널</div>
-            </div>
-            <div>
-              <div class="text-slate-400 text-[11px]">도착 (Arrival)</div>
-              <div class="text-white font-bold font-mono text-sm">11월 11일 (수) 06:30</div>
-              <div class="text-purple-300 font-medium">런던 개트윅공항 (LGW) 북측 터미널 (North)</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Layover 2: 런던 환승 -->
-        <div class="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-sky-500/10 border border-sky-500/30 text-xs text-sky-200">
-          <div class="w-7 h-7 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold flex-shrink-0">
-            <i class="fa-solid fa-person-walking-luggage"></i>
-          </div>
-          <div class="flex-1">
-            <span class="font-bold text-sky-300">런던 개트윅(LGW) 환승: 3시간 대기 (06:30 ~ 09:30)</span>
-            <span class="text-slate-300 ml-2">개트윅 북측 터미널 이동 및 보안검색 (수하물 재위탁 여부 현장 확인)</span>
-          </div>
-        </div>
-
-        <!-- Leg 3: 런던 -> 포르투 -->
-        <div class="p-4 sm:p-5 rounded-xl bg-slate-950/70 border border-emerald-500/30 hover:border-emerald-500/50 transition">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-            <div class="flex items-center gap-2 flex-wrap">
-              <span class="px-2.5 py-1 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-black font-mono">
-                3구간 (최종 목적지 진입)
-              </span>
-              <span class="text-sm font-bold text-white">이지젯 (easyJet) U28525</span>
-              <span class="text-xs text-slate-400 font-mono">Airbus A319</span>
-              <span class="text-xs text-emerald-300 bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-800/50 font-bold">휴대 수하물 포함</span>
-            </div>
-            <div class="text-xs font-mono text-emerald-400 bg-emerald-950/50 px-2.5 py-1 rounded border border-emerald-800/50">
-              <i class="fa-regular fa-clock mr-1"></i>2시간 30분 소요
-            </div>
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-slate-900/60 p-3 rounded-lg border border-slate-800">
-            <div>
-              <div class="text-slate-400 text-[11px]">출발 (Departure)</div>
-              <div class="text-white font-bold font-mono text-sm">11월 11일 (수) 09:30</div>
-              <div class="text-emerald-300 font-medium">런던 개트윅공항 (LGW) 북측 터미널</div>
-            </div>
-            <div class="bg-emerald-950/40 p-2.5 rounded-md border border-emerald-500/30">
-              <div class="text-emerald-400 font-bold text-[11px] flex items-center gap-1">
-                <i class="fa-solid fa-flag-checkered"></i> 최종 도착 (Final Arrival)
+        <!-- CARD 1: 출국 항공권 (인천 ➔ 포르투) -->
+        <div class="p-5 rounded-2xl bg-slate-950/80 border border-sky-500/30 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-800">
+              <div class="flex items-center gap-2">
+                <span class="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold">
+                  <i class="fa-solid fa-plane-departure"></i>
+                </span>
+                <div>
+                  <h3 class="text-sm font-bold text-white">1. 출국편: 인천(ICN) ➔ 포르투(OPO)</h3>
+                  <div class="text-[10px] text-slate-400">중국동방항공 + 이지젯 (경유 2회 · 26h 35m)</div>
+                </div>
               </div>
-              <div class="text-emerald-300 font-black font-mono text-base">11월 11일 (수) 12:00 (낮 12시)</div>
-              <div class="text-white font-bold">포르투 (OPO) 프랑시스쿠 사 카르네이루 공항</div>
+              <div class="text-right">
+                <div class="text-xs font-black text-emerald-300 font-mono">₩477,357</div>
+                <div class="text-[9px] text-slate-400">결제완료 (신한카드)</div>
+              </div>
+            </div>
+
+            <!-- Segments -->
+            <div class="space-y-2.5 text-xs">
+              <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800">
+                <div class="flex items-center justify-between font-bold text-white mb-1">
+                  <span>1구간: 중국동방 MU8604</span>
+                  <span class="text-[10px] font-mono text-sky-400">2h 25m</span>
+                </div>
+                <div class="text-[11px] text-slate-300">11/10 (화) 18:25 인천 T1 ➔ 19:50 상하이 PVG T1</div>
+              </div>
+
+              <div class="px-2.5 py-1.5 rounded bg-amber-500/10 border border-amber-500/30 text-[10px] text-amber-300 flex items-center gap-1.5">
+                <i class="fa-solid fa-hourglass-half"></i> 상하이 푸동 환승 6시간 (수하물 자동 연결)
+              </div>
+
+              <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800">
+                <div class="flex items-center justify-between font-bold text-white mb-1">
+                  <span>2구간: 중국동방 MU201 (B787 대형기)</span>
+                  <span class="text-[10px] font-mono text-purple-400">12h 40m · 기내식 2회</span>
+                </div>
+                <div class="text-[11px] text-slate-300">11/11 (수) 01:50 상하이 PVG ➔ 06:30 런던 LGW North</div>
+              </div>
+
+              <div class="px-2.5 py-1.5 rounded bg-sky-500/10 border border-sky-500/30 text-[10px] text-sky-300 flex items-center gap-1.5">
+                <i class="fa-solid fa-person-walking-luggage"></i> 런던 개트윅 환승 3시간
+              </div>
+
+              <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800">
+                <div class="flex items-center justify-between font-bold text-white mb-1">
+                  <span>3구간: 이지젯 U28525 (A319)</span>
+                  <span class="text-[10px] font-mono text-emerald-400">2h 30m</span>
+                </div>
+                <div class="text-[11px] text-emerald-300 font-bold">11/11 (수) 09:30 런던 LGW ➔ 12:00 포르투 OPO 도착!</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-3 pt-2.5 border-t border-slate-800/80 text-[10px] text-slate-400 flex items-center justify-between">
+            <span>결제: 2026.10.02 15:43</span>
+            <span class="text-sky-300 font-medium">낮 12시 도착으로 호텔 체크인 완벽</span>
+          </div>
+        </div>
+
+        <!-- CARD 2: 귀국 항공권 (마드리드 ➔ 청두 ➔ 인천) [신규 확정 ⭐] -->
+        <div class="p-5 rounded-2xl bg-slate-950/80 border border-emerald-500/40 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute -right-6 -bottom-6 w-28 h-28 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+          <div>
+            <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-800">
+              <div class="flex items-center gap-2">
+                <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+                  <i class="fa-solid fa-plane-arrival"></i>
+                </span>
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <h3 class="text-sm font-bold text-white">2. 귀국편: 마드리드(MAD) ➔ 인천(ICN)</h3>
+                    <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[9px] font-bold">확정</span>
+                  </div>
+                  <div class="text-[10px] text-slate-400">쓰촨항공 (경유 1회 · 청두 3h 환승 · 총 18h 25m)</div>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="text-xs font-black text-emerald-300 font-mono">₩406,827</div>
+                <div class="text-[9px] text-emerald-400">결제완료 (트립코인+신한)</div>
+              </div>
+            </div>
+
+            <!-- Segments -->
+            <div class="space-y-2.5 text-xs">
+              <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800">
+                <div class="flex items-center justify-between font-bold text-white mb-1">
+                  <span>1구간: 쓰촨항공 3U3804 (Airbus A330 대형기)</span>
+                  <span class="text-[10px] font-mono text-purple-400">11h 55m · 기내식</span>
+                </div>
+                <div class="text-[11px] text-slate-300">12/02 (수) 11:05 마드리드 MAD T1 ➔ 12/03 06:00 청두 TFU T1</div>
+              </div>
+
+              <div class="px-2.5 py-1.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-[10px] text-emerald-300 flex items-center justify-between">
+                <span class="flex items-center gap-1.5">
+                  <i class="fa-solid fa-shield-halved"></i> <b>청두 텐푸(TFU) 환승 3시간 (06:00 ~ 09:00)</b>
+                </span>
+                <span class="font-bold text-amber-300">수하물 수취 및 재수속 불필요 (자동 연결)</span>
+              </div>
+
+              <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800">
+                <div class="flex items-center justify-between font-bold text-white mb-1">
+                  <span>2구간: 쓰촨항공 3U3973 (Airbus A321 중형기)</span>
+                  <span class="text-[10px] font-mono text-emerald-400">3h 30m · 기내식</span>
+                </div>
+                <div class="text-[11px] text-emerald-300 font-bold">12/03 (목) 09:00 청두 TFU T1 ➔ 13:30 서울/인천 ICN T1 도착!</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fare Breakdown Mini Table -->
+          <div class="mt-3 pt-2.5 border-t border-slate-800 text-[10px]">
+            <div class="grid grid-cols-3 sm:grid-cols-6 gap-1 font-mono text-center text-slate-300 mb-2">
+              <div class="bg-slate-900 p-1 rounded border border-slate-800">
+                <span class="block text-[9px] text-slate-400">성인운임</span>
+                <span class="font-bold text-white">408,000</span>
+              </div>
+              <div class="bg-slate-900 p-1 rounded border border-slate-800">
+                <span class="block text-[9px] text-slate-400">기본운임</span>
+                <span class="font-bold text-white">29,100</span>
+              </div>
+              <div class="bg-slate-900 p-1 rounded border border-slate-800">
+                <span class="block text-[9px] text-slate-400">유류할증</span>
+                <span class="font-bold text-white">311,800</span>
+              </div>
+              <div class="bg-slate-900 p-1 rounded border border-slate-800">
+                <span class="block text-[9px] text-slate-400">제세공과</span>
+                <span class="font-bold text-white">57,100</span>
+              </div>
+              <div class="bg-slate-900 p-1 rounded border border-slate-800">
+                <span class="block text-[9px] text-slate-400">발권수수료</span>
+                <span class="font-bold text-white">10,000</span>
+              </div>
+              <div class="bg-slate-900 p-1 rounded border border-slate-800">
+                <span class="block text-[9px] text-slate-400">할인액</span>
+                <span class="font-bold text-emerald-400">-1,173</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between text-slate-400 text-[10px]">
+              <span>결제: 2026.10.04 02:12 (트립코인 1,152원 + 신한 405,675원)</span>
+              <span class="text-emerald-300 font-bold">12/03 낮 13:30 인천 도착</span>
             </div>
           </div>
         </div>
 
       </div>
 
-      <!-- Fare Breakdown & Arrival Benefit Banner -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 pt-4 border-t border-slate-800">
-        <!-- Fare Breakdown -->
-        <div class="lg:col-span-2 p-3.5 rounded-xl bg-slate-950/90 border border-slate-800 text-xs">
-          <div class="font-bold text-slate-300 mb-2 flex items-center gap-1.5">
-            <i class="fa-solid fa-receipt text-sky-400"></i> 트립닷컴 결제 운임 상세 내역 (신한카드)
-          </div>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] font-mono">
-            <div class="bg-slate-900/80 p-2 rounded border border-slate-800">
-              <span class="text-slate-400 block text-[10px]">기본 항공운임</span>
-              <span class="text-white font-bold">₩188,100</span>
-            </div>
-            <div class="bg-slate-900/80 p-2 rounded border border-slate-800">
-              <span class="text-slate-400 block text-[10px]">세금 및 수수료</span>
-              <span class="text-white font-bold">₩206,800</span>
-            </div>
-            <div class="bg-slate-900/80 p-2 rounded border border-slate-800">
-              <span class="text-slate-400 block text-[10px]">발권+수하물</span>
-              <span class="text-white font-bold">₩88,400</span>
-            </div>
-            <div class="bg-slate-900/80 p-2 rounded border border-slate-800">
-              <span class="text-slate-400 block text-[10px]">특별 할인</span>
-              <span class="text-emerald-400 font-bold">-₩5,943</span>
-            </div>
+      <!-- Roundtrip Financial Advantage Banner -->
+      <div class="p-3.5 rounded-xl bg-slate-950/90 border border-slate-800 text-xs text-slate-300 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-trophy text-amber-400 text-base"></i>
+          <div>
+            <span class="font-bold text-white">유럽 왕복 88만원대(₩884,184) 초특가 발권 완성!</span>
+            <span class="text-slate-400 text-[11px] ml-1.5">기존 귀국 예상 운임(75만원) 대비 <b>343,173원</b> 예산 세이브 성공</span>
           </div>
         </div>
-
-        <!-- Afternoon Schedule Benefit -->
-        <div class="p-3.5 rounded-xl bg-emerald-950/30 border border-emerald-500/30 text-xs text-slate-300 flex flex-col justify-between">
-          <div class="font-bold text-emerald-300 mb-1 flex items-center gap-1.5">
-            <i class="fa-solid fa-clock-rotate-left"></i> 11/11 도착 후 여유로운 오후 일정
-          </div>
-          <p class="text-[11px] text-slate-300 leading-relaxed">
-            낮 12:00 공항 도착 ➔ 메트로 이동 후 호텔 체크인(14:00) ➔ 포르투 대성당(Sé) 순례자 여권 수령 ➔ 마트 장보기까지 매우 여유 있게 마칠 수 있습니다.
-          </p>
+        <div class="text-[11px] text-emerald-400 bg-emerald-950/50 px-3 py-1 rounded-lg border border-emerald-800/50 font-bold flex-shrink-0">
+          <i class="fa-solid fa-passport mr-1"></i> 유럽 입국 심사 완벽 통과 보장
         </div>
       </div>
     </div>
@@ -2997,7 +3014,7 @@ function renderCaminoTab() {
               <i class="fa-solid fa-money-bill-transfer"></i>
             </span>
             <h2 class="text-lg sm:text-xl font-black text-white">
-              11/10 ~ 12/01 환전 예산 플래너 (총 22일간)
+              11/10 ~ 12/03 환전 예산 플래너 (총 24일간 대여정)
             </h2>
             <span class="text-xs font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
               1 EUR = 1,500 KRW 기준
@@ -3148,14 +3165,14 @@ function renderCaminoTab() {
             <div>
               <h2 class="text-lg font-bold text-white flex items-center gap-2">
                 <i class="fa-solid fa-route text-amber-400"></i>
-                22일간의 여정표 & 호텔·알베르게 기록장
+                24일간의 여정표 & 호텔·알베르게 기록장
               </h2>
               <p class="text-xs text-slate-400 mt-0.5">
-                11/10 출국 ➔ 11/11 입국·호텔 체크인 & 순례 준비 ➔ 12/01 귀국 비행기. 각 일자별 숙소명을 입력하면 실시간 자동 저장됩니다.
+                11/10 출국 ➔ 11/11 포르투 입국 ➔ 11/12~11/29 도보 순례 ➔ 11/30 산티아고 ➔ 12/01 마드리드 ➔ 12/02~12/03 귀국착. 숙소명을 입력하면 실시간 자동 저장됩니다.
               </p>
             </div>
             <span class="text-xs text-amber-300 bg-amber-500/10 border border-amber-500/20 px-3 py-1.5 rounded-lg font-bold">
-              총 22일 일정
+              총 24일 일정
             </span>
           </div>
 
@@ -3252,19 +3269,19 @@ function renderCaminoTab() {
               <span class="font-mono font-bold text-emerald-300">₩477,357</span>
             </div>
             <div class="flex items-center justify-between text-xs">
-              <span class="text-slate-400 flex items-center gap-1.5"><i class="fa-solid fa-plane-arrival text-sky-400 text-[11px]"></i> 귀국 항공권 (12/01 편도 예상)</span>
-              <span class="font-mono font-bold text-slate-300">₩750,000</span>
+              <span class="text-slate-400 flex items-center gap-1.5"><i class="fa-solid fa-plane-arrival text-emerald-400 text-[11px]"></i> 귀국 항공권 (결제완료 ⭐)</span>
+              <span class="font-mono font-bold text-emerald-300">₩406,827</span>
             </div>
             <div class="flex items-center justify-between text-xs">
-              <span class="text-slate-400 flex items-center gap-1.5"><i class="fa-solid fa-hotel text-amber-400 text-[11px]"></i> 21박 숙박비 소계 (환전)</span>
-              <span class="font-mono font-bold text-amber-300">€460 (₩690,000)</span>
+              <span class="text-slate-400 flex items-center gap-1.5"><i class="fa-solid fa-hotel text-amber-400 text-[11px]"></i> 22박 숙박비 소계 (환전)</span>
+              <span class="font-mono font-bold text-amber-300">€520 (₩780,000)</span>
             </div>
             <div class="flex items-center justify-between text-xs">
               <span class="text-slate-400 flex items-center gap-1.5"><i class="fa-solid fa-utensils text-amber-400 text-[11px]"></i> 식비 및 현지 경비 (환전)</span>
-              <span class="font-mono font-bold text-amber-300">€690 (₩1,035,000)</span>
+              <span class="font-mono font-bold text-amber-300">€730 (₩1,095,000)</span>
             </div>
             <div class="flex items-center justify-between text-xs">
-              <span class="text-slate-400 flex items-center gap-1.5"><i class="fa-solid fa-shield-heart text-rose-400 text-[11px]"></i> 해외 여행자 보험 (상해·질병·도난)</span>
+              <span class="text-slate-400 flex items-center gap-1.5"><i class="fa-solid fa-shield-heart text-rose-400 text-[11px]"></i> 해외 여행자 보험 (상해·도난)</span>
               <span class="font-mono font-bold text-rose-300">₩45,000</span>
             </div>
             <div class="flex items-center justify-between text-xs">
@@ -3272,8 +3289,8 @@ function renderCaminoTab() {
               <span class="font-mono font-bold text-purple-300">₩205,000</span>
             </div>
             <div class="pt-2.5 border-t border-slate-800 flex items-center justify-between">
-              <span class="text-xs font-black text-white">총 예상 지출 합계</span>
-              <span class="text-base font-black text-emerald-400 font-mono">약 ₩3,202,357</span>
+              <span class="text-xs font-black text-white">총 지출 합계 (항공비 대폭 절감)</span>
+              <span class="text-base font-black text-emerald-400 font-mono">약 ₩3,009,184</span>
             </div>
           </div>
         </div>
