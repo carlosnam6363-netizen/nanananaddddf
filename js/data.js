@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Personal Career & Schedule Dashboard
  * Static Seed Datasets (Camino, SNS, Portfolio, Inbody, Exam, Energy Flashcards)
  *
@@ -14,17 +14,29 @@ const INITIAL_DISCHARGE_DATE = "2026-12-19";
 // 산티아고 순례길 일정 & 준비물 데이터 (2026-11-07 ~ 11-09)
 // 산티아고 순례길 일정 & 준비물 데이터 (까미노 드 포르투 3주 여정: 2026-11-09 ~ 11-29)
 const INITIAL_CAMINO_DATA = {
-  caminoDataVersion: 6,
-  title: "산티아고 순례길 피니스테레 힐링 트레킹 (Camino Portugues 22일 대여정)",
+  caminoDataVersion: 7,
+  title: "산티아고 순례길 피니스테레 완보 & 마드리드 귀국 (Camino Português 24일 대여정)",
   startDate: "2026-11-10",
-  endDate: "2026-12-01",
+  endDate: "2026-12-03",
   ddayTarget: "2026-11-10",
   activeRoute: "coastal", // 'coastal' (해안길) | 'central' (중앙길)
-  route: "포르투(Porto) ➔ 해안길/중앙길 선택 ➔ 발렌사/투이 ➔ 산티아고 대성당 ➔ 피니스테레",
-  totalDistance: "약 240~280 km (도보 18일 + 포르투/산티아고 4일)",
-  status: "출국 항공권 결제 완료 (11/10 18:25 인천발 ➔ 11/11 12:00 포르투 착 ➔ 12/01 귀국)",
-  durationInfo: "총 22일간 (11/10 18:25 인천 ICN 출발 ➔ 상하이/런던 경유 ➔ 11/11 낮 12:00 포르투 OPO 도착 & 호텔 체크인 & 순례 준비 ➔ 11/12~11/29 순례길 도보 ➔ 11/30 산티아고 완보 ➔ 12/01 귀국)",
-  // ✈️ 2026.11.10(화) 출국 항공권 확정 예약 정보 (트립닷컴 결제 완료)
+  route: "포르투(Porto) ➔ 해안길 ➔ 발렌사/투이 ➔ 산티아고 대성당 ➔ 피니스테레 ➔ 마드리드(Madrid)",
+  totalDistance: "약 240~280 km (도보 18일 + 포르투/피니스테레/마드리드 체류)",
+  status: "왕복 항공권 예약 및 결제 100% 완료! (출국 47.7만 + 귀국 40.6만 = 총 88.4만 원 확정)",
+  durationInfo: "총 24일간 (11/10 18:25 인천 ICN 출발 ➔ 상하이/런던 경유 ➔ 11/11 12:00 포르투 OPO 도착 & 순례 준비 ➔ 11/12~11/29 순례길 도보 & 피니스테레 완보 ➔ 11/30 산티아고 복귀 ➔ 12/01 마드리드 이동 & 힐링 투어 ➔ 12/02 11:05 마드리드 MAD 출발 ➔ 청두 3시간 환승 ➔ 12/03 13:30 인천 ICN 귀국 완료)",
+  
+  // ✈️ 왕복 항공권 결제 총괄 요약
+  roundtripSummary: {
+    totalFlightsPaidKrw: 884184, // 477,357 + 406,827
+    totalKrw: 884184,
+    outboundPaidKrw: 477357,
+    returnPaidKrw: 406827,
+    confirmed: true,
+    status: "왕복 항공권 100% 예약 & 결제 완료 (트립닷컴)",
+    savingsVersusBudgetKrw: 343173 // 기존 예산(122.7만 원) 대비 34.3만 원 대폭 절감!
+  },
+
+  // ✈️ 1. 출국 항공편 확정 예약 정보 (2026.11.10 화)
   flightInfo: {
     bookingPlatform: "트립닷컴 (Trip.com)",
     bookingStatus: "결제 완료 (신한카드)",
@@ -76,7 +88,7 @@ const INITIAL_CAMINO_DATA = {
         depTime: "11/11 (수) 01:50",
         depAirport: "상하이 푸동 (PVG) 제1터미널",
         arrTime: "11/11 (수) 06:30",
-        arrAirport: "런던 개트윅 (LGW) 북측 터미널 (North)",
+        arrAirport: "런던 개트윅 (LGW) 북측 터미널(North)",
         duration: "12시간 40분",
         service: "기내식 2회 제공 (기내 수면 및 시차적응)"
       },
@@ -84,101 +96,101 @@ const INITIAL_CAMINO_DATA = {
         isLayover: true,
         city: "런던 개트윅 (LGW) N터미널",
         duration: "3시간 환승 (06:30 ~ 09:30)",
-        notice: "보안검색 후 탑승구 이동 (수하물 재수속 여부 현장 확인)"
+        notice: "보안검색 후 탑승구 이동 (수하물 직송 여부 현장 확인)"
       },
       {
         segNum: 3,
         airline: "이지젯 (easyJet)",
-        flightNo: "U28525",
-        aircraft: "Airbus A319",
+        flightNo: "U28537",
+        aircraft: "Airbus A320",
         depTime: "11/11 (수) 09:30",
-        depAirport: "런던 개트윅 (LGW) 북측 터미널 (North)",
+        depAirport: "런던 개트윅 (LGW) 북측 터미널(North)",
         arrTime: "11/11 (수) 12:00",
-        arrAirport: "포르투 (OPO) 프랑시스쿠 사 카르네이루 공항 도착!",
+        arrAirport: "포르투 (OPO) 프랑시스쿠 사 카르네이루 공항",
         duration: "2시간 30분",
-        service: "휴대 수하물 기내 반입 포함"
+        service: "유럽 역내선 (위탁수하물 15kg 포함)"
       }
-    ]
-  },
-
-
-  // 💶 11월 10일 ~ 12월 1일 오전까지 사용할 환전 예산 가이드 (22일간)
-  exchangeBudget: {
-    totalEur: 1150,
-    totalKrw: 1725000, // 환율 1,500원 기준
-    exchangeRate: 1500,
-    categories: [
-      { name: "순례길 숙박비 (21박)", eur: 460, krw: 690000, desc: "포르투 호텔 1박(€60) + 알베르게 18박(평균 €15~20) + 산티아고 호텔/호스텔 2박(€80)" },
-      { name: "식비 및 간식 (22일간)", eur: 500, krw: 750000, desc: "순례자 메뉴(Menú del Peregrino €12~14) + 아침 카페/토스트(€4) + 점심 샌드위치/마트(€6)" },
-      { name: "교통·페리·세탁·입장료", eur: 80, krw: 120000, desc: "포르투 메트로, 카미냐-아구아르다 페리(€2), 대성당 박물관, 코인세탁/건조" },
-      { name: "비상 여유금 (동키서비스 등)", eur: 110, krw: 165000, desc: "컨디션 난조 시 동키서비스(1회 €6~8) 및 긴급 약국/교통 여유자금" }
     ],
-    tips: [
-      "현금은 50유로 이하 소액권(10유로, 20유로) 위주로 환전하는 것이 공립 알베르게 및 작은 바(Bar) 결제에 편리합니다.",
-      "대부분의 사립 알베르게와 식당에서는 트래블월렛/트래블로그 카드 결제가 원활합니다.",
-      "ATM 인출 수수료가 무료인 유로네트(Euronet 제외, Santander 또는 대형 은행 ATM)를 사전에 숙지하세요."
+    highlights: [
+      "인천 ➔ 상하이 ➔ 런던 ➔ 포르투 최적 연결 (총 26시간 35분)",
+      "포르투 낮 12:00 도착으로 입국 당일 포르투 시내 탐방 및 여유로운 적응 가능",
+      "유럽 역내선 구간 위탁수하물 15kg(78,400원) 사전 결제 완료",
+      "총 477,357원으로 유럽 노선 극가성비 확보"
     ]
   },
 
-  // 🥾 코스 2개 분기 (해안길 vs 중앙길) 및 크롤링 기반 최고 평점 알베르게 리스트
-  routesInfo: {
-    coastal: {
-      id: "coastal",
-      name: "1. 해안길 (Camino Portugues da Costa)",
-      distance: "약 280 km",
-      days: "18일 도보",
-      char: "푸른 대서양 해안 보드워크, 시원한 바닷바람, 완만한 해안 평지, 풍부한 해산물 요리",
-      highlight: "포르투 ➔ 빌라 두 콘드 ➔ 비아나 두 카스텔루 ➔ 카미냐 ➔ (페리 이동) ➔ 아 구아르다 ➔ 바이오나 ➔ 비고 ➔ 레돈델라 (합류)",
-      recommendedAlbergues: [
-        { stage: "레돈델라 (Redondela)", name: "Albergue Casa da Torre (공립) / A Dársena do Francés", type: "공립/사립", price: "€10~15", rating: "4.8", tip: "해안길과 중앙길이 만나는 지점, 16세기 석조 건물", nearbyBar: "O Churrasco de Juan (두 코스 합류 축하! 숯불 갈비 바베큐 Churrasco & 감자)" },
-        { stage: "폰테베드라 (Pontevedra)", name: "Bulezen Urban Hostel / Albergue Virxe da Peregrina", type: "현대식 사립/공립", price: "€10~18", rating: "4.9", tip: "보행자 전용 도시, 순례자 전용 가리비 모양 성당 인접", nearbyBar: "Bar Rianxo (Praza da Leña 옛 장작 광장 야외 테라스 정통 뽈뽀 & 꼴뚜기 튀김)" },
-        { stage: "칼다스 데 레스", name: "Albergue As Pozas Termais / O Cruceiro", type: "온천 사립/공립", price: "€12~16", rating: "4.9", tip: "마을 천연 온천 족욕탕에서 발 피로를 완벽히 푸는 명소", nearbyBar: "Restaurante O Muiño (온천 강변 옛 물레방아 레스토랑, 족욕 후 갈리시아 비프스테이크)" },
-        { stage: "파드론 (Padrón)", name: "Albergue de Padrón / Albergue Rossol", type: "공립/사립", price: "€10~15", rating: "4.7", tip: "야고보 성인의 유해가 도착한 바위(Pedrón)와 고추 튀김 유명", nearbyBar: "Pulpería Rial / Asador O Pemento (원조 파드론 꽈리고추 튀김 Pimientos & 문어 숙회)" },
-        { stage: "산티아고 (Santiago)", name: "Albergue Seminario Menor / Roots & Boots", type: "대형 수도원/시내", price: "€15~35", rating: "4.8", tip: "최종 목적지 산티아고 대성당 도보 10분, 완보증 수령지 인접", nearbyBar: "Casa Manolo (순례자 성지 3코스 만찬 €13) & Chocolatería Piedras (추로스·핫초코)" },
-        { stage: "피니스테레 (Finisterre)", name: "Albergue Finistella / Cabo Da Vila", type: "공립/사립", price: "€12~18", rating: "4.9", tip: "세상의 끝 0.00 km 비석, 장엄한 대서양 일몰 감상", nearbyBar: "Restaurante O Pirata (세상의 끝 절벽 석양 뷰, 대서양 모둠 해산물 Mariscada)" }
-      ]
-    }
+  // ✈️ 2. 귀국 항공편 확정 예약 정보 (2026.12.02 수 ~ 12.03 목, 트립닷컴 결제 완료)
+  returnFlightInfo: {
+    bookingPlatform: "트립닷컴 (Trip.com)",
+    bookingStatus: "결제 완료 (신한카드 405,675원 + 트립코인 1,152원)",
+    bookingDate: "2026-10-04 02:12",
+    totalPaidKrw: 406827,
+    confirmed: true,
+    flightNo: "3U3804 / 3U3973",
+    totalCostKrw: 406827,
+    routeType: "편도 항공편 (마드리드 ➔ 청두 ➔ 서울/인천, 경유 1회)",
+    totalDuration: "약 18시간 25분 소요",
+    departure: {
+      time: "2026-12-02 (수) 11:05",
+      airport: "마드리드 (MAD) 아돌포 수아레스 바라하스 공항 T1"
+    },
+    arrival: {
+      time: "2026-12-03 (목) 13:30",
+      airport: "서울/인천 (ICN) 제1터미널"
+    },
+    fareBreakdown: {
+      adultFare: 408000,
+      airfare: 29100,
+      fuelSurcharge: 311800,
+      taxAndFees: 57100,
+      ticketingFee: 10000,
+      coinsDiscount: -1173,
+      totalKrw: 406827
+    },
+    segments: [
+      {
+        segNum: 1,
+        airline: "사천항공 (Sichuan Airlines)",
+        flightNo: "3U3804",
+        aircraft: "Airbus A330-300 (광동체 대형기, 2-4-2 배열)",
+        depTime: "12/02 (수) 11:05",
+        depAirport: "마드리드 (MAD) 아돌포 수아레스 바라하스 T1",
+        arrTime: "12/03 (목) 06:00",
+        arrAirport: "청두 톈푸 (TFU) 제1터미널",
+        duration: "11시간 55분",
+        service: "기내식 제공 (기내 수면)"
+      },
+      {
+        isLayover: true,
+        city: "청두 톈푸 (TFU) T1",
+        duration: "3시간 환승 (06:00 ~ 09:00)",
+        notice: "★ 수하물 자동 연결 (위탁수하물 수취 및 재수속 불필요 - 인천에서 바로 수취)"
+      },
+      {
+        segNum: 2,
+        airline: "사천항공 (Sichuan Airlines)",
+        flightNo: "3U3973",
+        aircraft: "Airbus A321 (중형기, 3-3 배열)",
+        depTime: "12/03 (목) 09:00",
+        depAirport: "청두 톈푸 (TFU) 제1터미널",
+        arrTime: "12/03 (목) 13:30",
+        arrAirport: "서울/인천 (ICN) 제1터미널",
+        duration: "3시간 30분",
+        service: "기내식 제공"
+      }
+    ],
+    highlights: [
+      "마드리드 ➔ 청두 ➔ 인천 총 18시간 25분의 황금 스케줄 귀국편",
+      "청두 톈푸 공항 3시간 쾌적한 환승 + 위탁수하물 자동 연결(재수속 불필요)",
+      "A330-300 대형 기종으로 장거리 12시간 편안한 비행 및 기내식 제공",
+      "트립닷컴 특가(406,827원) 확정으로 기존 귀국 예산 75만 원 대비 34.3만 원 추가 절약!"
+    ]
   },
-
-  // 📋 패킹 리스트 & 항공권·숙박비·환전 경비 포함 전체 예산 관리 (비용 cost 필드 탑재)
-  packingList: [
-    // [0. 항공권 & 숙박비 - 고정 지출]
-    { id: "pack-flight-inbound", item: "출국 항공권 (인천➔상하이➔런던➔포르투 편도 결제완료)", text: "출국 항공권 (인천➔상하이➔런던➔포르투 편도 결제완료)", category: "항공·숙박비", cost: "₩477,357", costKrw: 477357, currency: "KRW", done: true, tip: "트립닷컴 신한카드 결제완료(477,357원). 11/10 18:25 인천발(MU8604) ➔ 상하이(MU201) ➔ 11/11 12:00 포르투 도착(U28525)" },
-    { id: "pack-flight-return", item: "귀국 항공권 (12/01 산티아고/포르투 ➔ 인천 편도 예정)", text: "귀국 항공권 (12/01 산티아고/포르투 ➔ 인천 편도 예정)", category: "항공·숙박비", cost: "₩750,000", costKrw: 750000, currency: "KRW", done: false, tip: "12/01 귀국 비행기 예상 편도 운임 (출국 47.7만 + 귀국 약 75만 = 총 항공비 약 122.7만 원)" },
-    { text: "포르투 첫날 호텔 1박 (11/11 체크인 & 시차적응)", category: "항공·숙박비", cost: 90000, currency: "KRW", done: false, tip: "포르투 시내 중심 호텔(순례길 전야 컨디션 조절)" },
-    { text: "순례길 공립/사립 알베르게 18박 숙박비 (평균 15~20유로)", category: "항공·숙박비", cost: 480000, currency: "KRW", done: false, tip: "18박 x 약 27,000원(€18), 현지 체크인 시 지불" },
-    { text: "산티아고 완보 축하 숙소 2박 (11/29~12/01)", category: "항공·숙박비", cost: 120000, currency: "KRW", done: false, tip: "산티아고 대성당 광장 인근 호스텔/호텔 2박" },
-
-    // [1. 현지 생활비 & 환전 경비]
-    { text: "현지 식비 및 마트 장보기 (22일간 환전 예산)", category: "현지경비", cost: 750000, currency: "KRW", done: false, tip: "순례자 메뉴(€12~14), 아침 커피/토스트, 마트 과일·간식" },
-    { text: "현지 교통비·페리·비상동키·세탁비", category: "현지경비", cost: 120000, currency: "KRW", done: false, tip: "포르투 메트로, 카미냐-아구아르다 페리, 비상 동키서비스" },
-    { text: "현지 유심 / eSIM 데이터 무제한", category: "현지경비", cost: 35000, currency: "KRW", done: true, tip: "유럽 통합 30일 데이터 무제한 eSIM" },
-        { id: "pack-travel-insurance", item: "해외 여행자 보험 (상해·의료비·휴대품 도난 보상)", text: "해외 여행자 보험 (상해·의료비·휴대품 도난 보상)", category: "필수품 (보험)", cost: "₩45,000", costKrw: 45000, currency: "KRW", done: true, tip: "22일 장거리 도보 중 골절·발목 염좌 응급치료비 및 휴대폰 파손/도난 100% 보장 필수 가입" },
-
-    // [2. 필수품 & 수납]
-    { text: "백팩 (허리 벨트가 있는 30~35L 추천 - 체중 분산)", category: "필수품", cost: 180000, currency: "KRW", done: true, tip: "어깨/허리 하중을 분산해야 22일 도보 시 무릎을 보호합니다." },
-    { text: "힙색 / 크로스백 (여권·지갑·휴대폰 소지용)", category: "필수품", cost: 35000, currency: "KRW", done: true, tip: "알베르게나 식당에서도 몸에 항상 소지할 수 있습니다." },
-    { text: "여권 & 순례자 여권(크레덴셜) & 사본", category: "필수품", cost: 5000, currency: "KRW", done: true, tip: "알베르게 체크인 및 완보 인증서(콤포스텔라) 발급 필수품." },
-    { text: "간단한 세면도구 (올인원 비누, 미니 치약·칫솔)", category: "필수품", cost: 15000, currency: "KRW", done: false, tip: "현지 약국이나 마트에서도 쉽게 추가 구매 가능합니다." },
-    { text: "비상 의약품 (소염진통제, 지사제, 소독약, 콤피드 물집 패치)", category: "필수품", cost: 30000, currency: "KRW", done: false, tip: "물집 발생 시 바늘 실 통과보다 콤피드 패치 즉시 부착 추천." },
-    { text: "손수건 (땀 닦기, 목/머리 햇빛 차단, 다용도 타월)", category: "필수품", cost: 8000, currency: "KRW", done: true, tip: "배낭 외부에 걸어두면 하루 만에 빠르게 건조됩니다." },
-    { text: "원피스 (여성 순례자 추천 - 알베르게 휴식 및 세탁 시 착용)", category: "필수품", cost: 25000, currency: "KRW", done: false, tip: "빨래 돌릴 때 편하게 입거나 숙소 내부 휴식용으로 유용합니다." },
-
-    // [3. 의류 & 신발]
-    { text: "기능성 반팔 티 (땀 흡수 빠르고 속건성 소재 2~3벌)", category: "의류", cost: 60000, currency: "KRW", done: true, tip: "매일 저녁 손빨래 후 널어두면 아침에 바로 마르는 소재 필수." },
-    { text: "기능성 바람막이 (방풍/발수 기능성 필수)", category: "의류", cost: 120000, currency: "KRW", done: true, tip: "아침 바닷바람과 비포장 산길의 변덕스러운 날씨 대비 필수." },
-    { text: "경량 패딩 (날씨 변화 대비 필수 - 11월 저녁 보온용)", category: "의류", cost: 95000, currency: "KRW", done: true, tip: "11월 중순 스페인 갈리시아 저녁 기온 급강하 대비 필수." },
-    { text: "긴 바지 (트레킹용 속건 기능성 바지 2벌)", category: "의류", cost: 80000, currency: "KRW", done: true, tip: "풀숲이나 자갈길에서 다리를 보호하고 체온을 유지합니다." },
-    { text: "눈에 띄는 색상의 모자 (햇빛 차단 & 도로/안갯길 시인성 확보)", category: "의류", cost: 25000, currency: "KRW", done: true, tip: "시야 확보 및 안전을 위해 밝은 네온/오렌지색 모자 적극 권장." },
-    { text: "기능성 트레킹 샌들 (무거운 등산화 대신 추천)", category: "신발", cost: 110000, currency: "KRW", done: true, tip: "무게를 대폭 줄이고 발 통기성 극대화, 별도 슬리퍼 불필요." },
-    { text: "발목/무릎 보호대 (내리막 자갈길 관절 보호 필수)", category: "장비", cost: 35000, currency: "KRW", done: false, tip: "연속 20km 도보 시 관절 충격을 흡수해 부상을 방지합니다." },
-    { text: "트레킹 스틱 1쌍 (하중 분산 및 추진력 확보 적극 권장)", category: "장비", cost: 65000, currency: "KRW", done: false, tip: "무릎 하중을 25% 이상 줄여주어 장기 도보 시 필수 권장." }
-  ],
-
-  // 📅 22일간의 전체 일정표 (11/10 출국 ➔ 11/11 입국·체크인 ➔ 12/01 귀국, 호텔/알베르게 입력 지원)
+  
+  // 24일 전체 여정
   itinerary: [
-    { day: 1, date: "2026-11-10 (화)", title: "인천공항(ICN) 18:25 출국 ➔ 상하이 푸동 환승 (중국동방항공 MU8604)", distance: "항공 이동 (ICN➔PVG 2h 25m)", highlight: "18:25 인천 T1 출발 ➔ 19:50 상하이 PVG 도착 (야간 환승 6h)", hotelName: "중국동방항공 기내박 (B787 MU201)", description: "트립닷컴 결제 완료(477,357원). 인천공항 T1에서 18:25 출발(중국동방항공 MU8604 / 상하이항공 FM828 운항, B737-800). 19:50 상하이 푸동 T1 도착 후 6시간 환승 대기(수하물 자동 연결). 11/11 01:50 런던행 탑승." },
-    { day: 2, date: "2026-11-11 (수)", title: "런던 환승 ➔ 12:00 포르투 공항(OPO) 도착 ➔ 호텔 체크인 & 순례 준비", distance: "항공 2회 (PVG➔LGW 12.6h, LGW➔OPO 2.5h) + 시내 도보 4 km", highlight: "낮 12:00 포르투 공항 정시 도착! 호텔 체크인, 대성당 크레덴셜 수령", hotelName: "Porto Wine Hostel (또는 시내 호텔)", description: "01:50 상하이 푸동 출발 ➔ 06:30 런던 개트윅 북측터미널(LGW N) 도착(MU201, B787 드림라이너, 기내식 2회). 3시간 환승 후 09:30 이지젯 U28525 탑승 ➔ 낮 12:00 포르투 공항(OPO) 무사 도착! 메트로 타고 시내 호텔 체크인, 포르투 대성당(Sé do Porto)에서 순례자 여권(크레덴셜) 발급 및 장보기." },
+    { day: 1, date: "2026-11-10 (화)", title: "Day 0. 출국: 인천 ICN ➔ 상하이 PVG 환승", distance: "비행 2h 25m", highlight: "18:25 인천 T1 출발, 19:50 상하이 푸동 T1 도착 후 야간 환승", hotelName: "기내 / 공항 라운지", description: "설레는 순례 여정의 출발. 상하이 푸동 공항 6시간 야간 환승 대기" },
+    { day: 2, date: "2026-11-11 (수)", title: "Day 0. 런던 환승 ➔ 포르투 OPO 도착 & 순례 준비", distance: "비행 12h 40m + 2h 30m", highlight: "낮 12:00 포르투 OPO 도착, 볼량 시장, 동루이스 1세 다리 석양", hotelName: "포르투 시내 호스텔/호텔", description: "상하이 ➔ 런던 개트윅 ➔ 포르투 공항 도착. 체크인 후 크레덴샬(순례자 여권) 발급 및 체력 비축" },
     { day: 3, date: "2026-11-12 (목)", title: "Day 1. 포르투 ➔ 마토지뉴시 / 라브루제 (순례 첫걸음)", distance: "18.5 km", highlight: "대서양 해안 보드워크 시작, 상쾌한 바닷바람과 첫 스탬프", hotelName: "Albergue São Mamede de Vila Chã", description: "포르투 시내에서 대서양 해안선을 따라 평탄한 목재 데크길 도보" },
     { day: 4, date: "2026-11-13 (금)", title: "Day 2. 라브루제 ➔ 포보아 데 바르징 (Póvoa de Varzim)", distance: "15.2 km", highlight: "전통 어촌 마을과 모래사장, 바다 내음 가득한 평온한 길", hotelName: "Albergue de Peregrinos da Póvoa", description: "모래 언덕과 어촌 항구를 지나며 첫 알베르게 공동 취사 경험" },
     { day: 5, date: "2026-11-14 (토)", title: "Day 3. 포보아 데 바르징 ➔ 에스포센드 (Esposende)", distance: "20.1 km", highlight: "카바두강(Cávado) 하구 습지와 자연보호구역 트레킹", hotelName: "Sea Soul Albergue", description: "해안 숲길과 강변을 따라 걷는 환상적인 힐링 코스" },
@@ -196,9 +208,11 @@ const INITIAL_CAMINO_DATA = {
     { day: 17, date: "2026-11-26 (목)", title: "Day 15. 산티아고 ➔ 네그레이라 (피니스테레 연장 코스)", distance: "21.0 km", highlight: "세상의 끝(Finisterre)을 향한 새로운 연장 여정", hotelName: "Albergue de Negreira", description: "산티아고에서 서쪽 바다 끝으로 향하는 평화로운 참나무 숲길" },
     { day: 18, date: "2026-11-27 (금)", title: "Day 16. 네그레이라 ➔ 올베이로아 (Olveiroa)", distance: "33.4 km", highlight: "갈리시아 고원 풍경, 옥수수 보관소 오레오(Hórreo) 마을", hotelName: "Albergue de Olveiroa", description: "대자연의 고요함과 바람 소리를 들으며 걷는 장거리 힐링 트레킹" },
     { day: 19, date: "2026-11-28 (토)", title: "Day 17. 올베이로아 ➔ 체 (Cee) ➔ 코르쿠비온", distance: "20.0 km", highlight: "마침내 바다가 다시 내려다보이는 해안 절벽길", hotelName: "Albergue de Corcubión", description: "오랜만에 다시 만나는 대서양의 짙푸른 파도와 아름다운 해안선" },
-    { day: 20, date: "2026-11-29 (일)", title: "Day 18. 코르쿠비온 ➔ 세상의 끝 피니스테레 등대 (0.00 km)", distance: "13.7 km", highlight: "피니스테레 0.00 km 비석, 일몰 감상 및 조개껍데기 의식", hotelName: "Albergue Finistella (피니스테레)", description: "고대인들이 믿었던 세상의 끝 절벽 등대에서 장엄한 대서양 일몰 감상" },
-    { day: 21, date: "2026-11-30 (월)", title: "Day 19. 피니스테레 ➔ 산티아고 복귀 ➔ 귀국 전야 회포", distance: "버스 이동 80 km", highlight: "산티아고 복귀 버스, 기념품 및 선물 구매, 최종 짐 패킹", hotelName: "산티아고 공항 인근 호텔", description: "여정을 함께한 순례길의 추억을 정리하고 귀국 준비" },
-    { day: 22, date: "2026-12-01 (화)", title: "Day 20. 산티아고 공항 ➔ 귀국 비행기 탑승 ➔ 인천 향발", distance: "항공 이동", highlight: "22일간의 거룩한 여정 완수, 새로운 삶을 향한 귀국", hotelName: "기내 숙박 (In Flight)", description: "산티아고 공항에서 귀국 비행기 탑승. 평생 잊지 못할 순례길의 지혜를 품고 일상 복귀" }
+    { day: 20, date: "2026-11-29 (일)", title: "Day 18. 코르쿠비온 ➔ 세상의 끝 피니스테레 등대 (0.00 km)", distance: "13.7 km", highlight: "피니스테레 0.00 km 비석, 일몰 감상 및 조개껍데기 의식, 완보증 수령", hotelName: "Albergue Finistella (피니스테레)", description: "고대인들이 믿었던 세상의 끝 절벽 등대에서 장엄한 대서양 일몰 감상" },
+    { day: 21, date: "2026-11-30 (월)", title: "Day 19. 피니스테레 ➔ 산티아고 콤포스텔라 복귀 & 자유 투어", distance: "버스 이동 80 km", highlight: "몬부스(Monbus) 버스로 산티아고 복귀, 대성당 야경 및 갈리시아 타파스", hotelName: "산티아고 중심가 숙소", description: "피니스테레에서 버스로 산티아고에 복귀하여 대성당 야경과 축하 만찬" },
+    { day: 22, date: "2026-12-01 (화)", title: "Day 20. 산티아고 ➔ 마드리드 (Renfe 고속철) & 수도 힐링 투어", distance: "고속철 600 km (약 3h 20m)", highlight: "렌페 알비아(Alvia)/아베(AVE) 마드리드 참피온 이동, 솔 광장 / 프라도 미술관 / 마요르 광장", hotelName: "마드리드 중심가 호텔 (1박)", description: "산티아고 역에서 초고속열차로 마드리드 차마르틴 역 도착, 마드리드 왕궁 및 솔 광장 야경 투어" },
+    { day: 23, date: "2026-12-02 (수)", title: "Day 21. 마드리드 공항 T1 ➔ 귀국 비행기 탑승 (3U3804)", distance: "비행 11h 55m", highlight: "11:05 마드리드 MAD T1 출발, 사천항공 A330-300 대형기 탑승, 기내 수면", hotelName: "기내 숙박 (In Flight)", description: "아돌포 수아레스 마드리드 공항에서 쓰촨항공 탑승. 24일간의 대장정을 품고 귀국길 비행" },
+    { day: 24, date: "2026-12-03 (목)", title: "Day 22. 청두 환승 ➔ 인천 ICN 무사 귀국! (3U3973)", distance: "환승 3h + 비행 3h 30m", highlight: "06:00 청두 도착 (수하물 자동연결) ➔ 09:00 청두 출발 ➔ 13:30 인천 T1 도착!", hotelName: "스위트 홈 (귀가)", description: "청두 톈푸 공항에서 편안한 환승 후 13:30 인천공항 도착. 건강하고 벅찬 마음으로 일상 복귀" }
   ]
 };
 
