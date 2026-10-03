@@ -1,4 +1,4 @@
-﻿// Self-Unregistering Service Worker
+﻿﻿// Self-Unregistering Service Worker
 // 강제 새로고침(Ctrl+Shift+R)이 필요했던 근본 원인(캐시 점유)을 브라우저에서 영구 제거합니다.
 
 self.addEventListener('install', (e) => {
