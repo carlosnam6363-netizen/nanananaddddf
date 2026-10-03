@@ -67,7 +67,7 @@ class SyncManager {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
-        const upgradedCamino = (parsed.camino && parsed.camino.caminoDataVersion === 7)
+        const upgradedCamino = (parsed.camino && parsed.camino.caminoDataVersion === 8)
           ? parsed.camino
           : (() => {
               const fresh = JSON.parse(JSON.stringify(INITIAL_CAMINO_DATA));
