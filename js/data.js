@@ -14,7 +14,7 @@ const INITIAL_DISCHARGE_DATE = "2026-12-19";
 // 산티아고 순례길 일정 & 준비물 데이터 (2026-11-07 ~ 11-09)
 // 산티아고 순례길 일정 & 준비물 데이터 (까미노 드 포르투 3주 여정: 2026-11-09 ~ 11-29)
 const INITIAL_CAMINO_DATA = {
-  caminoDataVersion: 7,
+  caminoDataVersion: 8,
   title: "산티아고 순례길 피니스테레 완보 & 마드리드 귀국 (Camino Português 24일 대여정)",
   startDate: "2026-11-10",
   endDate: "2026-12-03",
@@ -22,7 +22,7 @@ const INITIAL_CAMINO_DATA = {
   activeRoute: "coastal", // 'coastal' (해안길) | 'central' (중앙길)
   route: "포르투(Porto) ➔ 해안길 ➔ 발렌사/투이 ➔ 산티아고 대성당 ➔ 피니스테레 ➔ 마드리드(Madrid)",
   totalDistance: "약 240~280 km (도보 18일 + 포르투/피니스테레/마드리드 체류)",
-  status: "왕복 항공권 예약 및 결제 100% 완료! (출국 47.7만 + 귀국 40.6만 = 총 88.4만 원 확정)",
+  status: "왕복 항공권 발권 100% 완료 & 실전 패킹리스트 준비 완료! (배낭·선글라스·우의·패딩·팬츠 구매완료)",
   durationInfo: "총 24일간 (11/10 18:25 인천 ICN 출발 ➔ 상하이/런던 경유 ➔ 11/11 12:00 포르투 OPO 도착 & 순례 준비 ➔ 11/12~11/29 순례길 도보 & 피니스테레 완보 ➔ 11/30 산티아고 복귀 ➔ 12/01 마드리드 이동 & 힐링 투어 ➔ 12/02 11:05 마드리드 MAD 출발 ➔ 청두 3시간 환승 ➔ 12/03 13:30 인천 ICN 귀국 완료)",
   
   // ✈️ 왕복 항공권 결제 총괄 요약
@@ -186,7 +186,82 @@ const INITIAL_CAMINO_DATA = {
       "트립닷컴 특가(406,827원) 확정으로 기존 귀국 예산 75만 원 대비 34.3만 원 추가 절약!"
     ]
   },
-  
+
+  // 🥾 코스 2개 분기 (해안길 vs 중앙길) 및 알베르게 리스트
+  routesInfo: {
+    coastal: {
+      id: "coastal",
+      name: "1. 해안길 (Camino Portugues da Costa)",
+      distance: "약 280 km",
+      days: "18일 도보",
+      char: "푸른 대서양 해안 보드워크, 시원한 바닷바람, 완만한 해안 평지, 풍부한 해산물 요리",
+      highlight: "포르투 ➔ 빌라 두 콘드 ➔ 비아나 두 카스텔루 ➔ 카미냐 ➔ (페리 이동) ➔ 아 구아르다 ➔ 바이오나 ➔ 비고 ➔ 레돈델라 (합류)",
+      recommendedAlbergues: [
+        { stage: "레돈델라 (Redondela)", name: "Albergue Casa da Torre (공립) / A Dársena do Francés", type: "공립/사립", price: "€10~15", rating: "4.8", tip: "해안길과 중앙길이 만나는 지점, 16세기 석조 건물", nearbyBar: "O Churrasco de Juan (두 코스 합류 축하! 숯불 갈비 바베큐 Churrasco & 감자)" },
+        { stage: "폰테베드라 (Pontevedra)", name: "Bulezen Urban Hostel / Albergue Virxe da Peregrina", type: "현대식 사립/공립", price: "€10~18", rating: "4.9", tip: "보행자 전용 도시, 순례자 전용 가리비 모양 성당 인접", nearbyBar: "Bar Rianxo (Praza da Leña 옛 장작 광장 야외 테라스 정통 뽈뽀 & 꼴뚜기 튀김)" },
+        { stage: "칼다스 데 레스", name: "Albergue As Pozas Termais / O Cruceiro", type: "온천 사립/공립", price: "€12~16", rating: "4.9", tip: "마을 천연 온천 족욕탕에서 발 피로를 완벽히 푸는 명소", nearbyBar: "Restaurante O Muiño (온천 강변 옛 물레방아 레스토랑, 족욕 후 갈리시아 비프스테이크)" },
+        { stage: "파드론 (Padrón)", name: "Albergue de Padrón / Albergue Rossol", type: "공립/사립", price: "€10~15", rating: "4.7", tip: "야고보 성인의 유해가 도착한 바위(Pedrón)와 고추 튀김 유명", nearbyBar: "Pulpería Rial / Asador O Pemento (원조 파드론 꽈리고추 튀김 Pimientos & 문어 숙회)" },
+        { stage: "산티아고 (Santiago)", name: "Albergue Seminario Menor / Roots & Boots", type: "대형 수도원/시내", price: "€15~35", rating: "4.8", tip: "최종 목적지 산티아고 대성당 도보 10분, 완보증 수령지 인접", nearbyBar: "Casa Manolo (순례자 성지 3코스 만찬 €13) & Chocolatería Piedras (추로스·핫초코)" },
+        { stage: "피니스테레 (Finisterre)", name: "Albergue Finistella / Cabo Da Vila", type: "공립/사립", price: "€12~18", rating: "4.9", tip: "세상의 끝 0.00 km 비석, 장엄한 대서양 일몰 감상", nearbyBar: "Restaurante O Pirata (세상의 끝 절벽 석양 뷰, 대서양 모둠 해산물 Mariscada)" }
+      ]
+    }
+  },
+
+  // 💶 환전 및 현지 생활비 예산
+  exchangeBudget: {
+    totalEur: 1250,
+    totalKrw: 1875000, // 환율 1,500원 기준
+    exchangeRate: 1500,
+    categories: [
+      { name: "순례길 & 마드리드 숙박비 (22박)", eur: 520, krw: 780000, desc: "포르투 호텔 1박(€60) + 알베르게 18박(평균 €15~20) + 산티아고 호텔 2박(€80) + 마드리드 호텔 1박(€60)" },
+      { name: "식비 및 간식 (24일간)", eur: 530, krw: 795000, desc: "순례자 메뉴(Menú del Peregrino €12~14) + 마드리드 타파스 만찬 + 아침 카페/토스트(€4) + 마트 간식" },
+      { name: "교통·렌페고속열차·페리·입장료", eur: 100, krw: 150000, desc: "산티아고➔마드리드 렌페 열차, 포르투 메트로, 카미냐-아구아르다 페리(€2), 대성당·프라도 미술관" },
+      { name: "비상 여유금 (동키서비스 등)", eur: 100, krw: 150000, desc: "컨디션 난조 시 동키서비스(1회 €6~8) 및 긴급 약국/교통 여유자금" }
+    ],
+    tips: [
+      "현금은 50유로 이하 소액권(10유로, 20유로) 위주로 환전하는 것이 공립 알베르게 및 작은 바(Bar) 결제에 편리합니다.",
+      "대부분의 사립 알베르게와 식당에서는 트래블월렛/트래블로그 카드 결제가 원활합니다.",
+      "ATM 인출 수수료가 무료인 대형 은행(Santander 등) ATM 위치를 사전에 확인하세요."
+    ]
+  },
+
+  // 📋 순례자 실전 패킹 리스트 & 비용 관리 (첨부 영수증 실구매 내역 100% 반영)
+  packingList: [
+    // [0. 항공권 & 숙박비 - 고정 지출]
+    { id: "pack-flight-inbound", item: "출국 항공권 (인천➔상하이➔런던➔포르투 편도 결제완료)", text: "출국 항공권 (인천➔상하이➔런던➔포르투 편도 결제완료)", category: "항공·숙박비", cost: "₩477,357", costKrw: 477357, currency: "KRW", done: true, note: "트립닷컴 결제완료(₩477,357). 11/10 18:25 인천발(MU8604) ➔ 11/11 12:00 포르투 착" },
+    { id: "pack-flight-return", item: "귀국 항공권 (12/02 마드리드➔청두➔인천 편도 결제완료)", text: "귀국 항공권 (12/02 마드리드➔청두➔인천 편도 결제완료)", category: "항공·숙박비", cost: "₩406,827", costKrw: 406827, currency: "KRW", done: true, note: "트립닷컴 결제완료(₩406,827). 12/02 11:05 마드리드 MAD(3U3804, A330) ➔ 청두 3h 환승(수하물 자동연결) ➔ 12/03 13:30 인천 착" },
+    { id: "pack-stay-porto", item: "포르투 첫날 호텔 1박 (11/11 체크인 & 시차적응)", text: "포르투 첫날 호텔 1박 (11/11 체크인 & 시차적응)", category: "항공·숙박비", cost: "₩90,000", costKrw: 90000, currency: "KRW", done: false, note: "포르투 시내 중심 호텔 (순례길 전야 컨디션 조절)" },
+    { id: "pack-stay-albergue", item: "순례길 공립/사립 알베르게 18박 숙박비 (평균 15~20유로)", text: "순례길 공립/사립 알베르게 18박 숙박비 (평균 15~20유로)", category: "항공·숙박비", cost: "₩480,000", costKrw: 480000, currency: "KRW", done: false, note: "18박 x 약 27,000원(€18), 현지 체크인 시 지불" },
+    { id: "pack-stay-santiago", item: "산티아고 완보 숙소 2박 (11/29~12/01)", text: "산티아고 완보 숙소 2박 (11/29~12/01)", category: "항공·숙박비", cost: "₩120,000", costKrw: 120000, currency: "KRW", done: false, note: "산티아고 대성당 광장 인근 호스텔/호텔 2박" },
+    { id: "pack-stay-madrid", item: "마드리드 호텔 1박 (12/01 체크인 & 피날레 관광)", text: "마드리드 호텔 1박 (12/01 체크인 & 피날레 관광)", category: "항공·숙박비", cost: "₩90,000", costKrw: 90000, currency: "KRW", done: false, note: "마드리드 솔 광장/차마르틴역 인근 호텔 (12/02 공항 이동 편리)" },
+
+    // [1. 현지 생활비 & 환전 경비]
+    { id: "pack-living-food", item: "현지 식비 및 마트 장보기 (24일간 환전 예산)", text: "현지 식비 및 마트 장보기 (24일간 환전 예산)", category: "현지경비", cost: "₩795,000", costKrw: 795000, currency: "KRW", done: false, note: "순례자 메뉴(€12~14), 아침 커피/토스트(€4), 마드리드 타파스 만찬, 마트 간식" },
+    { id: "pack-living-transport", item: "현지 교통비·렌페고속열차·페리·비상동키", text: "현지 교통비·렌페고속열차·페리·비상동키", category: "현지경비", cost: "₩150,000", costKrw: 150000, currency: "KRW", done: false, note: "산티아고➔마드리드 렌페 열차, 포르투 메트로, 카미냐-아구아르다 페리, 비상 동키" },
+    { id: "pack-living-esim", item: "현지 유심 / eSIM 데이터 무제한", text: "현지 유심 / eSIM 데이터 무제한", category: "현지경비", cost: "₩35,000", costKrw: 35000, currency: "KRW", done: true, note: "유럽 통합 30일 데이터 무제한 eSIM" },
+    { id: "pack-travel-insurance", item: "해외 여행자 보험 (상해·의료비·휴대품 도난 보상)", text: "해외 여행자 보험 (상해·의료비·휴대품 도난 보상)", category: "필수품 (보험)", cost: "₩45,000", costKrw: 45000, currency: "KRW", done: true, note: "24일 대여정 도보 중 상해·질병 응급치료 및 휴대품 도난 보장" },
+
+    // [2. 배낭 및 필수 장비 - 첨부1 반영]
+    { id: "pack-backpack-decathlon", item: "데카트론 퀘차 MH100 아웃도어 등산 백팩 35L", text: "데카트론 퀘차 MH100 아웃도어 등산 백팩 35L", category: "배낭·가방", cost: "₩53,910", costKrw: 53910, currency: "KRW", done: true, note: "데카트론 퀘차 MH100 35L (53,910원 결제 완료, 배송완료). 35L 최적 용량과 체중 분산 허리 벨트로 무릎 보호 및 순례길 최적화 백팩." },
+    { id: "pack-sunglasses-decathlon", item: "데카트론 퀘차 MH100 성인 등산 선글라스", text: "데카트론 퀘차 MH100 성인 등산 선글라스", category: "필수품 (장비)", cost: "₩9,900", costKrw: 9900, currency: "KRW", done: true, note: "데카트론 퀘차 MH100 성인 등산 선글라스 (9,900원 결제 완료, 배송완료). 대서양 해안길의 강렬한 자외선 차단 및 눈 피로 방지 필수." },
+    { id: "pack-waistbag", item: "힙색 / 크로스백 (여권·지갑·휴대폰 소지용)", text: "힙색 / 크로스백 (여권·지갑·휴대폰 소지용)", category: "배낭·가방", cost: "₩35,000", costKrw: 35000, currency: "KRW", done: true, note: "알베르게나 식당에서도 몸에 항상 소지할 수 있는 가방" },
+    { id: "pack-passport", item: "여권 & 순례자 여권(크레덴셜) & 사본", text: "여권 & 순례자 여권(크레덴셜) & 사본", category: "필수품", cost: "₩5,000", costKrw: 5000, currency: "KRW", done: true, note: "알베르게 체크인 및 완보 인증서(콤포스텔라) 발급 필수품" },
+    { id: "pack-toiletries", item: "간단한 세면도구 (올인원 비누, 미니 치약·칫솔)", text: "간단한 세면도구 (올인원 비누, 미니 치약·칫솔)", category: "필수품", cost: "₩15,000", costKrw: 15000, currency: "KRW", done: false, note: "현지 약국이나 마트에서도 쉽게 추가 구매 가능" },
+    { id: "pack-firstaid", item: "비상 의약품 (소염진통제, 지사제, 소독약, 콤피드 물집 패치)", text: "비상 의약품 (소염진통제, 지사제, 소독약, 콤피드 물집 패치)", category: "필수품", cost: "₩30,000", costKrw: 30000, currency: "KRW", done: false, note: "물집 발생 시 바늘 실 대신 콤피드 패치 즉시 부착 추천" },
+    { id: "pack-towel", item: "손수건 / 스포츠 타월 (땀 닦기, 목 햇빛 차단, 다용도)", text: "손수건 / 스포츠 타월 (땀 닦기, 목 햇빛 차단, 다용도)", category: "필수품", cost: "₩8,000", costKrw: 8000, currency: "KRW", done: true, note: "배낭 외부에 걸어두면 빠른 속건 가능" },
+
+    // [3. 의류 및 우천/방한 - 첨부2 반영]
+    { id: "pack-poncho-sanro", item: "산로 [UNISEX] 판초 우의 레인코트 FREE", text: "산로 [UNISEX] 판초 우의 레인코트 FREE", category: "의류 (우천)", cost: "₩17,140", costKrw: 17140, currency: "KRW", done: true, note: "산로 [UNISEX] 판초 우의 레인코트 (17,140원 결제 완료, 10/07 도착 예정 배송중). 배낭을 멘 채로 덮어쓸 수 있는 판초형 우의로 갈리시아 우천 완벽 대비." },
+    { id: "pack-down-jacket-ntbc", item: "엔티비씨 2Way 후드 경량 패딩 점퍼 (스카이블루·XL)", text: "엔티비씨 2Way 후드 경량 패딩 점퍼 (스카이블루·XL)", category: "의류 (보온)", cost: "₩29,900", costKrw: 29900, currency: "KRW", done: true, note: "엔티비씨 2Way 후드 경량 패딩 점퍼 스카이블루 XL (29,900원 결제 완료, 출고준비중). 11월 스페인 갈리시아 아침/저녁 기온 급강하 및 기내 보온용." },
+    { id: "pack-hiking-pants-sanro", item: "산로 [UNISEX] 와이드 스트링 하이킹팬츠 XL", text: "산로 [UNISEX] 와이드 스트링 하이킹팬츠 XL", category: "의류", cost: "₩36,700", costKrw: 36700, currency: "KRW", done: true, note: "산로 [UNISEX] 와이드 스트링 하이킹팬츠 XL (36,700원 결제 완료, 10/07 도착 예정 배송중). 편안한 와이드핏과 밑단 스트링 조절로 장시간 쾌적한 트레킹." },
+    { id: "pack-tshirts", item: "기능성 속건 반팔 티 (2~3벌)", text: "기능성 속건 반팔 티 (2~3벌)", category: "의류", cost: "₩60,000", costKrw: 60000, currency: "KRW", done: true, note: "매일 저녁 손빨래 후 아침에 바로 마르는 속건성 소재" },
+    { id: "pack-windbreaker", item: "기능성 바람막이 (방풍/발수 기능성)", text: "기능성 바람막이 (방풍/발수 기능성)", category: "의류", cost: "₩120,000", costKrw: 120000, currency: "KRW", done: true, note: "아침 바닷바람과 비포장 산길의 변덕스러운 날씨 대비" },
+    { id: "pack-hat", item: "눈에 띄는 색상의 모자 (햇빛 차단 & 도로 시인성)", text: "눈에 띄는 색상의 모자 (햇빛 차단 & 도로 시인성)", category: "의류", cost: "₩25,000", costKrw: 25000, currency: "KRW", done: true, note: "시야 확보 및 안전을 위해 밝은 색상 모자 권장" },
+    { id: "pack-sandals", item: "기능성 트레킹 샌들 (도보 및 숙소 공용)", text: "기능성 트레킹 샌들 (도보 및 숙소 공용)", category: "신발", cost: "₩110,000", costKrw: 110000, currency: "KRW", done: true, note: "무게를 대폭 줄이고 발 통기성 극대화, 별도 슬리퍼 불필요" },
+    { id: "pack-joint-guard", item: "발목/무릎 보호대 (내리막 자갈길 관절 보호)", text: "발목/무릎 보호대 (내리막 자갈길 관절 보호)", category: "장비", cost: "₩35,000", costKrw: 35000, currency: "KRW", done: false, note: "연속 20km 도보 시 관절 충격을 흡수해 부상 방지" },
+    { id: "pack-trekking-poles", item: "트레킹 스틱 1쌍 (하중 분산 및 추진력 확보)", text: "트레킹 스틱 1쌍 (하중 분산 및 추진력 확보)", category: "장비", cost: "₩65,000", costKrw: 65000, currency: "KRW", done: false, note: "무릎 하중을 25% 이상 줄여주어 장기 도보 시 필수 권장" }
+  ],
+
   // 24일 전체 여정
   itinerary: [
     { day: 1, date: "2026-11-10 (화)", title: "Day 0. 출국: 인천 ICN ➔ 상하이 PVG 환승", distance: "비행 2h 25m", highlight: "18:25 인천 T1 출발, 19:50 상하이 푸동 T1 도착 후 야간 환승", hotelName: "기내 / 공항 라운지", description: "설레는 순례 여정의 출발. 상하이 푸동 공항 6시간 야간 환승 대기" },
