@@ -67,7 +67,7 @@ class SyncManager {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
-        const upgradedCamino = (parsed.camino && parsed.camino.caminoDataVersion === 8)
+        const upgradedCamino = (parsed.camino && parsed.camino.caminoDataVersion === 9)
           ? parsed.camino
           : (() => {
               const fresh = JSON.parse(JSON.stringify(INITIAL_CAMINO_DATA));
@@ -2675,9 +2675,66 @@ function formatDateSimple(dateStr) {
 function setCaminoActiveRoute(routeId) {
   if (!state.camino) state.camino = JSON.parse(JSON.stringify(INITIAL_CAMINO_DATA));
   state.camino.activeRoute = routeId;
+  const routesInfo = state.camino.routesInfo || INITIAL_CAMINO_DATA.routesInfo || {};
+  if (routesInfo[routeId] && routesInfo[routeId].itinerary) {
+    state.camino.itinerary = routesInfo[routeId].itinerary;
+  }
   persistState();
   renderCaminoTab();
-  showToast(routeId === 'coastal' ? '🌊 1. 해안길 (da Costa) 코스가 선택되었습니다.' : '🍇 2. 중앙길 (Central) 코스가 선택되었습니다.');
+  if (state.activeTab === 'overview') renderOverviewTab();
+  const titles = {
+    hybrid: '⭐ [옵션 1] 해안➔중앙 합류 (황금 밸런스)',
+    coastal: '🌊 [옵션 2] 완전 해안길 (da Costa)',
+    central: '🌲 [옵션 3] 정통 중앙길 (Central)'
+  };
+  showToast(`${titles[routeId] || routeId} 코스가 선택되었습니다.`);
+}
+
+function copyCourseToClipboard(routeId) {
+  const camino = state.camino || INITIAL_CAMINO_DATA;
+  const routes = camino.routesInfo || INITIAL_CAMINO_DATA.routesInfo || {};
+  const route = routes[routeId] || routes.hybrid || {};
+  if (!route || !route.itinerary) return;
+
+  let md = `### ${route.name}
+
+`;
+  md += `> **특징**: ${route.char}
+
+`;
+  md += `| 일차 | 일자 | 요일 | 코스 구분 | 출발지 | 도착지 | 일일 거리 | 주요 특징 및 비고 |
+`;
+  md += `| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+`;
+  route.itinerary.forEach(it => {
+    md += `| **${String(it.day).padStart(2, '0')}** | ${it.date} | ${it.dayOfWeek} | ${it.type} | ${it.origin} | ${it.destination} | ${it.distance} | ${it.highlight} |
+`;
+  });
+
+  const successMsg = `📋 ${route.shortName || route.name} 표가 마크다운(노션 형식)으로 복사되었습니다!`;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(md).then(() => {
+      showToast(successMsg);
+    }).catch(() => {
+      fallbackCopyText(md, successMsg);
+    });
+  } else {
+    fallbackCopyText(md, successMsg);
+  }
+}
+
+function fallbackCopyText(text, successMsg) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    showToast(successMsg);
+  } catch (e) {
+    showToast('클립보드 복사 권한이 제한되어 있습니다.');
+  }
+  document.body.removeChild(ta);
 }
 
 function updateCaminoHotel(idx, val) {
@@ -3065,129 +3122,270 @@ function renderCaminoTab() {
       </div>
     </div>
 
-    <!-- 3. 🥾 코스 2개 분기 (해안길 vs 중앙길) 탭 & 웹크롤링 추천 알베르게 (신규 ⭐) -->
-    <div class="glass-panel rounded-2xl p-6 sm:p-7 mb-8 border border-sky-500/30 bg-gradient-to-br from-slate-900 via-sky-950/15 to-slate-900 shadow-xl">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-5 border-b border-slate-800 pb-4">
+    <!-- 3. 🥾 코스 3개 독립 뷰 분기 (1.해안➔중앙 합류, 2.완전 해안길, 3.정통 중앙길) & 노션 DB 호환 뷰 -->
+    <div class="glass-panel rounded-2xl p-6 sm:p-7 mb-8 border border-amber-500/40 bg-gradient-to-br from-slate-900 via-amber-950/20 to-slate-900 shadow-2xl">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6 border-b border-slate-800 pb-5">
         <div>
-          <div class="flex items-center gap-2 mb-1">
-            <span class="w-7 h-7 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center text-sm font-bold">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm font-bold">
               <i class="fa-solid fa-map-location-dot"></i>
             </span>
-            <h2 class="text-lg sm:text-xl font-black text-white">
-              코스 선택: 1. 해안길(da Costa) vs 2. 중앙길(Central)
-            </h2>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">
+              안티그래비티 & 노션 데이터베이스 독립 뷰 탑재
+            </span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">
+              영성길(보트 포함) 3코스 공통 반영
+            </span>
           </div>
-          <p class="text-xs text-slate-400">
-            포르투에서 산티아고까지 갈 수 있는 2가지 매력적인 순례길과 크롤링 기반 평점 1위 공립·사립 알베르게 리스트입니다.
+          <h2 class="text-xl sm:text-2xl font-black text-white flex items-center gap-2.5">
+            <span>산티아고 순례길 3대 핵심 코스 선택 & 비교</span>
+          </h2>
+          <p class="text-xs text-slate-300 mt-1 max-w-3xl leading-relaxed">
+            원하시는 코스를 선택하면 <b>23일 전체 상세 일정표</b>와 <b>노션/마크다운 표 복사</b> 및 <b>추천 알베르게</b>가 실시간 동기화됩니다.
           </p>
         </div>
 
-        <!-- Route Switcher Buttons -->
-        <div class="flex items-center gap-2 bg-slate-950 p-1.5 rounded-xl border border-slate-800">
-          <button onclick="window.app.setCaminoActiveRoute('coastal')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 ${activeRouteId === 'coastal' ? 'bg-sky-500 text-slate-950 shadow-md' : 'text-slate-400 hover:text-white'}">
-            <i class="fa-solid fa-water"></i>
-            <span>1. 해안길 (da Costa)</span>
+        <!-- 3-Way Segmented Course Switcher Buttons -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 bg-slate-950 p-2 rounded-2xl border border-slate-800 shadow-inner w-full md:w-auto">
+          <button onclick="window.app.setCaminoActiveRoute('hybrid')" class="px-3.5 py-2.5 rounded-xl text-xs font-bold transition cursor-pointer flex items-center justify-center gap-2 ${activeRouteId === 'hybrid' ? 'bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/25 ring-1 ring-amber-400' : 'text-slate-400 hover:text-white hover:bg-slate-900'}">
+            <i class="fa-solid fa-star ${activeRouteId === 'hybrid' ? 'text-slate-950' : 'text-amber-400'}"></i>
+            <span>[옵션 1] 해안➔중앙 합류 (추천)</span>
           </button>
-          <button onclick="window.app.setCaminoActiveRoute('central')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 ${activeRouteId === 'central' ? 'bg-amber-500 text-slate-950 shadow-md' : 'text-slate-400 hover:text-white'}">
-            <i class="fa-solid fa-tree"></i>
-            <span>2. 중앙길 (Central)</span>
+          <button onclick="window.app.setCaminoActiveRoute('coastal')" class="px-3.5 py-2.5 rounded-xl text-xs font-bold transition cursor-pointer flex items-center justify-center gap-2 ${activeRouteId === 'coastal' ? 'bg-sky-500 text-slate-950 shadow-lg shadow-sky-500/25 ring-1 ring-sky-400' : 'text-slate-400 hover:text-white hover:bg-slate-900'}">
+            <i class="fa-solid fa-water ${activeRouteId === 'coastal' ? 'text-slate-950' : 'text-sky-400'}"></i>
+            <span>[옵션 2] 완전 해안길 (Costa)</span>
+          </button>
+          <button onclick="window.app.setCaminoActiveRoute('central')" class="px-3.5 py-2.5 rounded-xl text-xs font-bold transition cursor-pointer flex items-center justify-center gap-2 ${activeRouteId === 'central' ? 'bg-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/25 ring-1 ring-emerald-400' : 'text-slate-400 hover:text-white hover:bg-slate-900'}">
+            <i class="fa-solid fa-tree ${activeRouteId === 'central' ? 'text-slate-950' : 'text-emerald-400'}"></i>
+            <span>[옵션 3] 정통 중앙길 (Central)</span>
           </button>
         </div>
       </div>
 
-      <!-- Current Route Info Banner -->
-      <div class="p-4 rounded-xl bg-slate-950/70 border border-slate-800 mb-5">
-        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 mb-2">
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-bold px-2.5 py-0.5 rounded-full ${activeRouteId === 'coastal' ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40' : 'bg-amber-500/20 text-amber-300 border border-amber-500/40'}">
+      <!-- Selected Route Master Overview Banner -->
+      <div class="p-5 rounded-2xl bg-slate-950/85 border border-slate-800 mb-6 shadow-xl">
+        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 mb-4 pb-4 border-b border-slate-800/80">
+          <div>
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span class="text-xs font-extrabold px-3 py-1 rounded-full ${activeRouteId === 'hybrid' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : activeRouteId === 'coastal' ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40' : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'}">
+                ${currentRoute.badge || currentRoute.name}
+              </span>
+              <span class="text-xs font-mono text-slate-300 bg-slate-900 px-2.5 py-1 rounded border border-slate-800">
+                총 거리: <b class="text-white">${currentRoute.distance}</b> (${currentRoute.walkingDays || '14일 도보 + 보트'})
+              </span>
+              <span class="text-xs font-mono text-slate-300 bg-slate-900 px-2.5 py-1 rounded border border-slate-800">
+                일정: <b class="text-emerald-400">${currentRoute.totalDays || '총 23일간 (11/11 입국 ~ 12/03 귀국)'}</b>
+              </span>
+            </div>
+            <h3 class="text-xl font-black text-white">
               ${currentRoute.name}
-            </span>
-            <span class="text-xs text-slate-400 font-mono">총 거리: <b>${currentRoute.distance}</b> (${currentRoute.days})</span>
+            </h3>
+            <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+              ${currentRoute.char}
+            </p>
           </div>
-          <span class="text-[11px] text-slate-400">
-            특징: <b class="text-slate-200">${currentRoute.char}</b>
-          </span>
+
+          <!-- Quick Action Buttons -->
+          <div class="flex flex-wrap items-center gap-2.5 flex-shrink-0">
+            <button onclick="window.app.copyCourseToClipboard('${activeRouteId}')" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white font-bold text-xs shadow-lg shadow-indigo-600/25 transition flex items-center gap-2 cursor-pointer" title="노션(Notion) 데이터베이스나 마크다운 문서에 바로 붙여넣기 할 수 있는 표로 복사">
+              <i class="fa-solid fa-copy"></i>
+              <span>노션(Notion) 마크다운 표 복사</span>
+            </button>
+          </div>
         </div>
-        <div class="text-xs text-slate-300 bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/80">
-          <span class="text-amber-400 font-bold mr-1">📍 주요 루트:</span> ${currentRoute.highlight}
+
+        <!-- Highlight & Notice Details -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+          <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+            <div class="font-bold text-amber-300 flex items-center gap-1.5 mb-1.5">
+              <i class="fa-solid fa-location-crosshairs"></i> 핵심 코스 동선
+            </div>
+            <p class="text-[12px] text-slate-300 leading-relaxed">${currentRoute.highlight}</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+            <div class="font-bold text-sky-300 flex items-center gap-1.5 mb-1.5">
+              <i class="fa-solid fa-circle-exclamation"></i> 코스 특징 및 완주 팁
+            </div>
+            <p class="text-[12px] text-slate-300 leading-relaxed">${currentRoute.notice || currentRoute.char}</p>
+          </div>
         </div>
       </div>
 
-      <!-- Crawled Recommended Albergues Table -->
-      <div class="overflow-x-auto">
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-            <i class="fa-solid fa-bed text-sky-400"></i> ${currentRoute.name} 추천 알베르게 & 숙소 (웹 크롤링 평점 순)
+      <!-- 📋 [노션/DB 뷰] 23일간의 일자별 상세 일정표 (Full Notion-Style Interactive Table) -->
+      <div class="mb-8">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-3">
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-table-list text-amber-400"></i>
+              ${currentRoute.shortName || '선택 코스'} 23일간의 전체 일정표 (노션 DB 규격)
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">
+              11/11 포르투 입국부터 11/26 완주 입성, 영성길 보트, 마드리드 투어, 12/03 인천 귀국까지 완벽 구성
+            </p>
+          </div>
+          <span class="text-xs font-mono font-bold text-slate-300 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
+            전체 ${((currentRoute.itinerary) || []).length}개 구간
           </span>
-          <span class="text-[11px] text-slate-400">공립(기부제/€10~13) 및 평점 4.7+ 사립 엄선</span>
         </div>
-        <table class="w-full text-left text-xs text-slate-300 border-collapse">
-          <thead>
-            <tr class="border-b border-slate-800 bg-slate-950/90 text-slate-400 text-[11px]">
-              <th class="py-2.5 px-3 whitespace-nowrap">순례 거점 (구간)</th>
-              <th class="py-2.5 px-3 whitespace-nowrap">추천 알베르게 / 호텔</th>
-              <th class="py-2.5 px-3">유형</th>
-              <th class="py-2.5 px-3 font-mono whitespace-nowrap">1박 요금</th>
-              <th class="py-2.5 px-3">평점</th>
-              <th class="py-2.5 px-3">숙소 꿀팁 & 특징</th>
-              <th class="py-2.5 px-3 text-amber-300 whitespace-nowrap"><i class="fa-solid fa-wine-glass mr-1"></i>인근 추천 로컬 바 & 맛집</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-slate-800/60">
-            ${(currentRoute.recommendedAlbergues || []).map(alb => `
-              <tr class="hover:bg-slate-800/40 transition">
-                <td class="py-2.5 px-3 font-bold text-white whitespace-nowrap">${alb.stage}</td>
-                <td class="py-2.5 px-3 text-sky-300 font-medium">${alb.name}</td>
-                <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 border border-slate-700 whitespace-nowrap">${alb.type}</span></td>
-                <td class="py-2.5 px-3 font-mono font-bold text-amber-300 whitespace-nowrap">${alb.price}</td>
-                <td class="py-2.5 px-3 whitespace-nowrap"><span class="text-emerald-400 font-bold flex items-center gap-1"><i class="fa-solid fa-star text-[10px]"></i> ${alb.rating}</span></td>
-                <td class="py-2.5 px-3 text-slate-400 text-[11px] min-w-[140px]">${alb.tip}</td>
-                <td class="py-2.5 px-3 text-[11px] min-w-[200px]">
-                  <div class="p-2 rounded-lg bg-slate-950/80 border border-amber-500/25 flex items-start gap-1.5">
-                    <i class="fa-solid fa-utensils text-amber-400 text-[10px] mt-0.5 flex-shrink-0"></i>
-                    <span class="text-amber-200/90 font-medium leading-relaxed">${alb.nearbyBar || '인근 광장 로컬 타파스 바'}</span>
-                  </div>
-                </td>
+
+        <div class="overflow-x-auto rounded-xl border border-slate-800 shadow-xl custom-scrollbar">
+          <table class="w-full text-left text-xs text-slate-200 border-collapse bg-slate-950/80">
+            <thead>
+              <tr class="border-b border-slate-800 bg-slate-900/90 text-slate-400 text-[11px] font-bold">
+                <th class="py-3 px-3 text-center w-14">일차</th>
+                <th class="py-3 px-3 text-center whitespace-nowrap">일자 (요일)</th>
+                <th class="py-3 px-3 text-center whitespace-nowrap">코스 구분</th>
+                <th class="py-3 px-3 whitespace-nowrap">출발지 ➔ 도착지</th>
+                <th class="py-3 px-3 text-center whitespace-nowrap">거리</th>
+                <th class="py-3 px-4 min-w-[280px]">주요 특징 및 비고</th>
+                <th class="py-3 px-3 min-w-[200px]">숙소 / 알베르게</th>
               </tr>
-            `).join('')}
-          </tbody>
-        </table>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60 font-sans">
+              ${((currentRoute.itinerary) || []).map((it, idx) => {
+                let badgeClass = 'bg-slate-800 text-slate-300 border-slate-700';
+                if (it.type === '입국' || it.type === '출국' || it.type === '귀국') {
+                  badgeClass = 'bg-blue-500/20 text-blue-300 border-blue-500/40 font-bold';
+                } else if (it.type === '시차 적응' || it.type === '휴식' || it.type === '예비일') {
+                  badgeClass = 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40 font-bold';
+                } else if (it.type === '해안길') {
+                  badgeClass = 'bg-sky-500/20 text-sky-300 border-sky-500/40 font-bold';
+                } else if (it.type === '중앙길') {
+                  badgeClass = 'bg-amber-500/20 text-amber-300 border-amber-500/40 font-bold';
+                } else if (it.type === '환승 연결로' || it.type === '합류길') {
+                  badgeClass = 'bg-teal-500/20 text-teal-300 border-teal-500/40 font-bold';
+                } else if (it.type === '국경 통과') {
+                  badgeClass = 'bg-orange-500/20 text-orange-300 border-orange-500/40 font-bold';
+                } else if (it.type.includes('영성길')) {
+                  badgeClass = 'bg-purple-500/20 text-purple-300 border-purple-500/40 font-bold';
+                } else if (it.type === '완주 입성') {
+                  badgeClass = 'bg-yellow-400/20 text-yellow-200 border-yellow-400/50 font-black shadow-sm';
+                } else if (it.type === '투어' || it.type === '도시 관광') {
+                  badgeClass = 'bg-pink-500/20 text-pink-300 border-pink-500/40 font-bold';
+                } else if (it.type === '광역 이동') {
+                  badgeClass = 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40 font-bold';
+                }
+
+                const isHighlight = it.type === '완주 입성' || it.type.includes('영성길') || it.type === '국경 통과';
+
+                return `
+                  <tr class="hover:bg-slate-800/40 transition ${isHighlight ? 'bg-slate-900/30' : ''}">
+                    <td class="py-3 px-3 text-center font-mono font-bold ${it.type === '완주 입성' ? 'text-amber-400 text-sm' : 'text-slate-400'}">
+                      ${String(it.day).padStart(2, '0')}
+                    </td>
+                    <td class="py-3 px-3 text-center whitespace-nowrap font-mono text-slate-300">
+                      <b>${it.date}</b> <span class="text-slate-400">(${it.dayOfWeek})</span>
+                    </td>
+                    <td class="py-3 px-3 text-center whitespace-nowrap">
+                      <span class="px-2.5 py-1 rounded-full text-[11px] border ${badgeClass}">
+                        ${it.type}
+                      </span>
+                    </td>
+                    <td class="py-3 px-3 whitespace-nowrap font-semibold text-white">
+                      ${it.origin} <i class="fa-solid fa-arrow-right text-[10px] text-slate-500 mx-1"></i> ${it.destination}
+                    </td>
+                    <td class="py-3 px-3 text-center whitespace-nowrap font-mono text-amber-300 font-bold">
+                      ${it.distance}
+                    </td>
+                    <td class="py-3 px-4 text-[12px] text-slate-300 leading-relaxed">
+                      ${it.highlight}
+                    </td>
+                    <td class="py-3 px-3">
+                      <div class="flex items-center gap-1.5">
+                        <input type="text" value="${it.hotel || it.albergue || it.stay || ''}" onchange="window.app.updateCaminoHotel(${idx}, this.value)" placeholder="숙소 입력..." class="w-full bg-slate-900 border border-slate-700 focus:border-amber-400 rounded-lg px-2.5 py-1 text-xs text-amber-200 placeholder-slate-600 focus:outline-none transition">
+                      </div>
+                    </td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
       </div>
+
+      <!-- 추천 알베르게 & 로컬 맛집 바 가이드 -->
+      ${currentRoute.recommendedAlbergues && currentRoute.recommendedAlbergues.length > 0 ? `
+        <div class="overflow-x-auto border-t border-slate-800 pt-5">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+              <i class="fa-solid fa-bed text-sky-400"></i> ${currentRoute.shortName} 구간별 최고 평점 알베르게 & 로컬 맛집
+            </span>
+            <span class="text-[11px] text-slate-400">구글 및 순례자 포럼 평점 4.7+ 엄선</span>
+          </div>
+          <table class="w-full text-left text-xs text-slate-300 border-collapse">
+            <thead>
+              <tr class="border-b border-slate-800 bg-slate-950/90 text-slate-400 text-[11px]">
+                <th class="py-2.5 px-3 whitespace-nowrap">순례 거점 (구간)</th>
+                <th class="py-2.5 px-3 whitespace-nowrap">추천 알베르게 / 호텔</th>
+                <th class="py-2.5 px-3">유형</th>
+                <th class="py-2.5 px-3 font-mono whitespace-nowrap">1박 요금</th>
+                <th class="py-2.5 px-3">평점</th>
+                <th class="py-2.5 px-3">숙소 꿀팁 & 특징</th>
+                <th class="py-2.5 px-3 text-amber-300 whitespace-nowrap"><i class="fa-solid fa-wine-glass mr-1"></i>인근 추천 로컬 바 & 맛집</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60">
+              ${(currentRoute.recommendedAlbergues || []).map(alb => `
+                <tr class="hover:bg-slate-800/40 transition">
+                  <td class="py-2.5 px-3 font-bold text-white whitespace-nowrap">${alb.stage}</td>
+                  <td class="py-2.5 px-3 text-sky-300 font-medium">${alb.name}</td>
+                  <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 border border-slate-700 whitespace-nowrap">${alb.type}</span></td>
+                  <td class="py-2.5 px-3 font-mono font-bold text-amber-300 whitespace-nowrap">${alb.price}</td>
+                  <td class="py-2.5 px-3 whitespace-nowrap"><span class="text-emerald-400 font-bold flex items-center gap-1"><i class="fa-solid fa-star text-[10px]"></i> ${alb.rating}</span></td>
+                  <td class="py-2.5 px-3 text-slate-400 text-[11px] min-w-[140px]">${alb.tip}</td>
+                  <td class="py-2.5 px-3 text-[11px] min-w-[200px]">
+                    <div class="p-2 rounded-lg bg-slate-950/80 border border-amber-500/25 flex items-start gap-1.5">
+                      <i class="fa-solid fa-utensils text-amber-400 text-[10px] mt-0.5 flex-shrink-0"></i>
+                      <span class="text-amber-200/90 font-medium leading-relaxed">${alb.nearbyBar || '인근 광장 로컬 타파스 바'}</span>
+                    </div>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      ` : ''}
     </div>
 
-    <!-- 4. Main Content 2-Column: 22-Day Itinerary vs Packing List & Expense Summary -->
+    <!-- 4. Main Content 2-Column: Day Cards vs Packing List & Expense Summary -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       
-      <!-- Left 2 Cols: 일자별 트레킹 코스 계획 (호텔/알베르게 이름 직접 작성 기능 ⭐) -->
+      <!-- Left 2 Cols: 일자별 트레킹 코스 카드 상세 -->
       <div class="lg:col-span-2 space-y-6">
         <div class="glass-panel rounded-2xl p-6 border border-slate-700/60 shadow-xl">
           <div class="flex items-center justify-between mb-4">
             <div>
               <h2 class="text-lg font-bold text-white flex items-center gap-2">
                 <i class="fa-solid fa-route text-amber-400"></i>
-                24일간의 여정표 & 호텔·알베르게 기록장
+                ${currentRoute.shortName || '선택 코스'} 일자별 상세 카드 타임라인
               </h2>
               <p class="text-xs text-slate-400 mt-0.5">
-                11/10 출국 ➔ 11/11 포르투 입국 ➔ 11/12~11/29 도보 순례 ➔ 11/30 산티아고 ➔ 12/01 마드리드 ➔ 12/02~12/03 귀국착. 숙소명을 입력하면 실시간 자동 저장됩니다.
+                각 일차별 상세 이동 내역 및 숙소·알베르게 관리
               </p>
             </div>
             <span class="text-xs text-amber-300 bg-amber-500/10 border border-amber-500/20 px-3 py-1.5 rounded-lg font-bold">
-              총 24일 일정
+              총 ${((currentRoute.itinerary) || []).length}일 여정
             </span>
           </div>
 
           <div class="space-y-4">
-            ${(camino.itinerary || []).map((item, idx) => {
+            ${((currentRoute.itinerary) || []).map((item, idx) => {
               let typeBadge = '';
               let cardBorder = 'border-slate-700/60 hover:border-slate-600';
-              if (item.type === 'flight') {
-                typeBadge = '<span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30 text-[11px] font-bold"><i class="fa-solid fa-plane"></i> 항공 이동</span>';
+              if (item.type === '입국' || item.type === '출국' || item.type === '귀국') {
+                typeBadge = `<span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30 text-[11px] font-bold"><i class="fa-solid fa-plane"></i> ${item.type}</span>`;
                 cardBorder = 'border-blue-500/30 bg-blue-950/10';
-              } else if (item.type === 'stay') {
-                typeBadge = '<span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[11px] font-bold"><i class="fa-solid fa-hotel"></i> 호텔 체크인 & 순례 준비</span>';
+              } else if (item.type === '시차 적응' || item.type === '휴식' || item.type === '예비일') {
+                typeBadge = `<span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[11px] font-bold"><i class="fa-solid fa-hotel"></i> ${item.type}</span>`;
                 cardBorder = 'border-emerald-500/40 bg-emerald-950/10';
+              } else if (item.type.includes('영성길')) {
+                typeBadge = `<span class="px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30 text-[11px] font-bold"><i class="fa-solid fa-sailboat"></i> ${item.type}</span>`;
+                cardBorder = 'border-purple-500/40 bg-purple-950/10';
+              } else if (item.type === '완주 입성') {
+                typeBadge = `<span class="px-2 py-0.5 rounded bg-yellow-400/20 text-yellow-200 border border-yellow-400/50 text-[11px] font-black"><i class="fa-solid fa-trophy"></i> 완주 입성</span>`;
+                cardBorder = 'border-yellow-400/50 bg-yellow-950/15 shadow-lg';
               } else {
-                typeBadge = '<span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[11px] font-bold"><i class="fa-solid fa-person-walking"></i> 도보 순례</span>';
+                typeBadge = `<span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[11px] font-bold"><i class="fa-solid fa-person-walking"></i> ${item.type}</span>`;
               }
 
               return `
@@ -3195,9 +3393,10 @@ function renderCaminoTab() {
                   <div class="flex items-start justify-between gap-3 mb-2">
                     <div class="flex flex-wrap items-center gap-2">
                       <span class="px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold font-mono">
-                        ${item.day}
+                        Day ${String(item.day).padStart(2, '0')}
                       </span>
                       ${typeBadge}
+                      <span class="text-xs text-slate-300 font-mono"><b>${item.date}</b> (${item.dayOfWeek})</span>
                       <span class="text-xs text-slate-400 font-mono"><i class="fa-solid fa-shoe-prints"></i> ${item.distance}</span>
                     </div>
                     <div class="flex items-center gap-2">
@@ -3207,17 +3406,21 @@ function renderCaminoTab() {
                     </div>
                   </div>
 
-                  <h3 class="text-base font-bold text-white mb-1.5">${item.title}</h3>
-                  <p class="text-xs text-slate-300 leading-relaxed mb-3">${item.description}</p>
+                  <h3 class="text-base font-bold text-white mb-1.5 flex items-center gap-2">
+                    <span>${item.origin}</span>
+                    <i class="fa-solid fa-arrow-right text-xs text-slate-500"></i>
+                    <span class="text-amber-200">${item.destination}</span>
+                  </h3>
+                  <p class="text-xs text-slate-300 leading-relaxed mb-3">${item.desc || item.description || item.highlight}</p>
 
-                  <!-- 호텔 / 알베르게 이름 직접 입력 및 수정 필드 (사용자 요청 기능 ⭐) -->
+                  <!-- 호텔 / 알베르게 입력 필드 -->
                   <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
                     <div class="flex items-center gap-2 text-xs text-slate-300 flex-shrink-0">
                       <i class="fa-solid fa-hotel text-amber-400"></i>
                       <span class="font-bold">숙소/알베르게:</span>
                     </div>
                     <div class="flex items-center gap-2 flex-1">
-                      <input type="text" value="${item.albergue || item.stay || ''}" onchange="window.app.updateCaminoHotel(${idx}, this.value)" placeholder="호텔 또는 알베르게 이름 입력 (예: Porto Wine Hostel)" class="w-full bg-slate-800 border border-slate-700 focus:border-amber-400 rounded-lg px-3 py-1.5 text-xs text-amber-200 placeholder-slate-500 focus:outline-none transition">
+                      <input type="text" value="${item.hotel || item.albergue || item.stay || ''}" onchange="window.app.updateCaminoHotel(${idx}, this.value)" placeholder="숙소 또는 알베르게 이름 입력..." class="w-full bg-slate-800 border border-slate-700 focus:border-amber-400 rounded-lg px-3 py-1.5 text-xs text-amber-200 placeholder-slate-500 focus:outline-none transition">
                       <button onclick="window.app.updateCaminoHotel(${idx}, this.previousElementSibling.value)" class="px-2.5 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 text-xs font-bold flex-shrink-0 transition cursor-pointer">
                         저장
                       </button>
@@ -3229,6 +3432,7 @@ function renderCaminoTab() {
           </div>
         </div>
 
+        
         <!-- 순례길 나만의 메모 & 성찰 노트 -->
         <div class="glass-panel rounded-2xl p-6 border border-slate-700/60 shadow-xl">
           <div class="flex items-center justify-between mb-3">
@@ -11087,6 +11291,7 @@ window.app = {
   // Camino & Inbody & Podcast Additions
   downloadPodcastMp3: (idx) => downloadPodcastMp3(idx),
   setCaminoActiveRoute: (routeId) => setCaminoActiveRoute(routeId),
+  copyCourseToClipboard: (routeId) => copyCourseToClipboard(routeId),
   updateCaminoHotel: (idx, val) => updateCaminoHotel(idx, val),
   togglePackingItem: (idOrIdx) => {
     if (!state.camino || !state.camino.packingList) return;
