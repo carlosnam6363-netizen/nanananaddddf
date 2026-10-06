@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Personal Career & Schedule Dashboard
  * Static Seed Datasets (Camino, SNS, Portfolio, Inbody, Exam, Energy Flashcards)
  *
@@ -6929,7 +6929,7 @@ const INITIAL_INBODY_DATA = {
 // 방송대 학점관리: 사회복지사·평생교육사·방통대 학점 이수 계획표 (편집 가능)
 // =========================================================================
 const INITIAL_KNOU_CREDIT_PLAN = {
-  "planVersion": 2,
+  "planVersion": 3,
   "semesters": [
     "25년 2학기",
     "26년 1학기",
@@ -6960,7 +6960,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": "",
       "general": 3,
       "status": "done",
-      "note": "대면 수업"
+      "note": "대면 수업",
+      "grade": "A+"
     },
     {
       "id": "cp-02",
@@ -6973,7 +6974,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": "",
       "general": 3,
       "status": "done",
-      "note": ""
+      "note": "",
+      "grade": "A0"
     },
     {
       "id": "cp-03",
@@ -6986,7 +6988,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": 3,
       "general": "",
       "status": "done",
-      "note": "대면 수업"
+      "note": "대면 수업",
+      "grade": "A+"
     },
     {
       "id": "cp-04",
@@ -6999,7 +7002,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": 3,
       "general": "",
       "status": "done",
-      "note": "대면 수업"
+      "note": "대면 수업",
+      "grade": "A0"
     },
     {
       "id": "cp-05",
@@ -7012,7 +7016,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": 3,
       "general": "",
       "status": "done",
-      "note": ""
+      "note": "",
+      "grade": "A+"
     },
     {
       "id": "cp-06",
@@ -7025,7 +7030,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": "",
       "general": 3,
       "status": "done",
-      "note": "사회복지학과 개설로 신청"
+      "note": "사회복지학과 개설로 신청",
+      "grade": "A0"
     },
     {
       "id": "cp-07",
@@ -7038,7 +7044,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": "",
       "general": 1,
       "status": "done",
-      "note": ""
+      "note": "",
+      "grade": "P"
     },
     {
       "id": "cp-08",
@@ -7051,7 +7058,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": "",
       "general": 3,
       "status": "",
-      "note": "대면 수업"
+      "note": "대면 수업",
+      "grade": ""
     },
     {
       "id": "cp-09",
@@ -7064,7 +7072,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": "",
       "general": 3,
       "status": "",
-      "note": "대면 수업"
+      "note": "대면 수업",
+      "grade": ""
     },
     {
       "id": "cp-10",
@@ -7077,7 +7086,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": "",
       "general": 3,
       "status": "",
-      "note": ""
+      "note": "",
+      "grade": ""
     },
     {
       "id": "cp-11",
@@ -7090,7 +7100,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": 3,
       "general": "",
       "status": "",
-      "note": "대면 수업"
+      "note": "대면 수업",
+      "grade": ""
     },
     {
       "id": "cp-12",
@@ -7103,7 +7114,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": 3,
       "general": "",
       "status": "",
-      "note": ""
+      "note": "",
+      "grade": ""
     },
     {
       "id": "cp-13",
@@ -7116,7 +7128,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": 3,
       "general": "",
       "status": "",
-      "note": "대면 수업"
+      "note": "대면 수업",
+      "grade": ""
     },
     {
       "id": "cp-14",
@@ -7129,7 +7142,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": "",
       "general": 3,
       "status": "",
-      "note": ""
+      "note": "",
+      "grade": ""
     },
     {
       "id": "cp-15",
@@ -7142,7 +7156,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": "",
       "general": 3,
       "status": "",
-      "note": "사회복지학과 개설로 신청"
+      "note": "사회복지학과 개설로 신청",
+      "grade": ""
     },
     {
       "id": "cp-16",
@@ -7155,7 +7170,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": "",
       "general": 3,
       "status": "",
-      "note": ""
+      "note": "",
+      "grade": ""
     },
     {
       "id": "cp-17",
@@ -7168,7 +7184,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": 3,
       "general": "",
       "status": "",
-      "note": ""
+      "note": "",
+      "grade": ""
     },
     {
       "id": "cp-18",
@@ -7181,7 +7198,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": 3,
       "general": "",
       "status": "",
-      "note": "과목 열리는지 체크"
+      "note": "과목 열리는지 체크",
+      "grade": ""
     },
     {
       "id": "cp-19",
@@ -7194,7 +7212,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": 3,
       "general": "",
       "status": "",
-      "note": ""
+      "note": "",
+      "grade": ""
     },
     {
       "id": "cp-20",
@@ -7207,7 +7226,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": 3,
       "general": "",
       "status": "",
-      "note": "사회복지사 & 평생교육사 중복인정"
+      "note": "사회복지사 & 평생교육사 중복인정",
+      "grade": ""
     },
     {
       "id": "cp-21",
@@ -7220,7 +7240,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": "",
       "general": "",
       "status": "",
-      "note": ""
+      "note": "",
+      "grade": ""
     },
     {
       "id": "cp-22",
@@ -7233,7 +7254,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": 0,
       "general": 0,
       "status": "",
-      "note": "별도 기관에서 이수 후 학점 인정 등록할 것"
+      "note": "별도 기관에서 이수 후 학점 인정 등록할 것",
+      "grade": ""
     },
     {
       "id": "cp-23",
@@ -7246,7 +7268,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": "",
       "general": "",
       "status": "",
-      "note": ""
+      "note": "",
+      "grade": ""
     },
     {
       "id": "cp-24",
@@ -7259,7 +7282,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": 3,
       "general": "",
       "status": "",
-      "note": ""
+      "note": "",
+      "grade": ""
     },
     {
       "id": "cp-25",
@@ -7272,7 +7296,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": 3,
       "general": "",
       "status": "",
-      "note": "방통대 등록 후 별도 기관에서 이수"
+      "note": "방통대 등록 후 별도 기관에서 이수",
+      "grade": ""
     },
     {
       "id": "cp-26",
@@ -7285,7 +7310,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": 3,
       "general": "",
       "status": "",
-      "note": ""
+      "note": "",
+      "grade": ""
     },
     {
       "id": "cp-27",
@@ -7298,7 +7324,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": 3,
       "general": "",
       "status": "",
-      "note": ""
+      "note": "",
+      "grade": ""
     },
     {
       "id": "cp-28",
@@ -7311,7 +7338,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": "",
       "general": "",
       "status": "",
-      "note": ""
+      "note": "",
+      "grade": ""
     },
     {
       "id": "cp-29",
@@ -7324,7 +7352,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": "",
       "general": "",
       "status": "",
-      "note": ""
+      "note": "",
+      "grade": ""
     },
     {
       "id": "cp-30",
@@ -7337,7 +7366,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": "",
       "general": "",
       "status": "",
-      "note": "학점은행 수행 완료"
+      "note": "학점은행 수행 완료",
+      "grade": "P"
     },
     {
       "id": "cp-31",
@@ -7350,7 +7380,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": "",
       "general": "",
       "status": "",
-      "note": "25/10/01 ~ 08 이내 유사과목 사전심의 진행"
+      "note": "25/10/01 ~ 08 이내 유사과목 사전심의 진행",
+      "grade": ""
     },
     {
       "id": "cp-32",
@@ -7363,7 +7394,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
       "major": "",
       "general": "",
       "status": "",
-      "note": "(선택 2, 사회복지조사론 유사과목 인정)"
+      "note": "(선택 2, 사회복지조사론 유사과목 인정)",
+      "grade": ""
     }
   ]
 };
@@ -7372,8 +7404,8 @@ const INITIAL_KNOU_CREDIT_PLAN = {
 // 2026학년도 2학기 (형성평가 20% + 중간과제물 30% + 기말고사 50%)
 // =========================================================================
 const INITIAL_KNOU_DATA = {
-  knouDataVersion: 3,
-  creditPlan: INITIAL_KNOU_CREDIT_PLAN,
+  knouDataVersion: 4,
+  creditPlan: JSON.parse(JSON.stringify(INITIAL_KNOU_CREDIT_PLAN)),
   university: '국립 한국방송통신대학교 (KNOU)',
   department: '사회복지학과',
   currentSemester: '2026학년도 2학기',
@@ -11438,6 +11470,7 @@ const INITIAL_ENGLISH_DATA = {
   global.INITIAL_INBODY_DATA = INITIAL_INBODY_DATA;
   global.INITIAL_KNOU_DATA = INITIAL_KNOU_DATA;
   global.INITIAL_KNOU_CREDIT_PLAN = INITIAL_KNOU_CREDIT_PLAN;
+  global.INITIAL_KNOU_CREDIT_PLAN_SEED = JSON.parse(JSON.stringify(INITIAL_KNOU_CREDIT_PLAN));
   global.INITIAL_ENGLISH_DATA = INITIAL_ENGLISH_DATA;
 
 
