@@ -6925,11 +6925,455 @@ const INITIAL_INBODY_DATA = {
 
 
 // =========================================================================
+// =========================================================================
+// 방송대 학점관리: 사회복지사·평생교육사·방통대 학점 이수 계획표 (편집 가능)
+// =========================================================================
+const INITIAL_KNOU_CREDIT_PLAN = {
+  "planVersion": 2,
+  "semesters": [
+    "25년 2학기",
+    "26년 1학기",
+    "26년 2학기",
+    "27년 1학기",
+    "기존 이수 과목 or 유사 인정 과목"
+  ],
+  "priorMajor": 30,
+  "priorGeneral": 33,
+  "totalTarget": 130,
+  "passQual": {
+    "swReq": 10,
+    "swOpt": 7,
+    "leReq": 5,
+    "leOpt": 5,
+    "major": 69,
+    "general": 24
+  },
+  "rows": [
+    {
+      "id": "cp-01",
+      "semester": "25년 2학기",
+      "name": "평생교육프로그램개발론",
+      "swReq": false,
+      "swOpt": false,
+      "leReq": "O (필수)",
+      "leOpt": "",
+      "major": "",
+      "general": 3,
+      "status": "done",
+      "note": "대면 수업"
+    },
+    {
+      "id": "cp-02",
+      "semester": "25년 2학기",
+      "name": "평생교육경영론",
+      "swReq": false,
+      "swOpt": false,
+      "leReq": "O (필수)",
+      "leOpt": "",
+      "major": "",
+      "general": 3,
+      "status": "done",
+      "note": ""
+    },
+    {
+      "id": "cp-03",
+      "semester": "25년 2학기",
+      "name": "사례관리론 (전공, 2학기)",
+      "swReq": false,
+      "swOpt": true,
+      "leReq": "",
+      "leOpt": "",
+      "major": 3,
+      "general": "",
+      "status": "done",
+      "note": "대면 수업"
+    },
+    {
+      "id": "cp-04",
+      "semester": "25년 2학기",
+      "name": "지역사회복지론(대면, 전공, 2학기)",
+      "swReq": true,
+      "swOpt": false,
+      "leReq": "",
+      "leOpt": "",
+      "major": 3,
+      "general": "",
+      "status": "done",
+      "note": "대면 수업"
+    },
+    {
+      "id": "cp-05",
+      "semester": "25년 2학기",
+      "name": "여성복지론 (전공, 2학기)",
+      "swReq": false,
+      "swOpt": true,
+      "leReq": "",
+      "leOpt": "",
+      "major": 3,
+      "general": "",
+      "status": "done",
+      "note": ""
+    },
+    {
+      "id": "cp-06",
+      "semester": "25년 2학기",
+      "name": "인간행동과 사회환경",
+      "swReq": true,
+      "swOpt": false,
+      "leReq": "",
+      "leOpt": "",
+      "major": "",
+      "general": 3,
+      "status": "done",
+      "note": "사회복지학과 개설로 신청"
+    },
+    {
+      "id": "cp-07",
+      "semester": "25년 2학기",
+      "name": "원격 교육의 이해",
+      "swReq": false,
+      "swOpt": false,
+      "leReq": "",
+      "leOpt": "",
+      "major": "",
+      "general": 1,
+      "status": "done",
+      "note": ""
+    },
+    {
+      "id": "cp-08",
+      "semester": "26년 1학기",
+      "name": "평생교육론",
+      "swReq": false,
+      "swOpt": false,
+      "leReq": "O (필수)",
+      "leOpt": "",
+      "major": "",
+      "general": 3,
+      "status": "",
+      "note": "대면 수업"
+    },
+    {
+      "id": "cp-09",
+      "semester": "26년 1학기",
+      "name": "평생교육방법론",
+      "swReq": false,
+      "swOpt": false,
+      "leReq": "O (필수)",
+      "leOpt": "",
+      "major": "",
+      "general": 3,
+      "status": "",
+      "note": "대면 수업"
+    },
+    {
+      "id": "cp-10",
+      "semester": "26년 1학기",
+      "name": "노인교육론",
+      "swReq": false,
+      "swOpt": false,
+      "leReq": "",
+      "leOpt": "O  (선택1)",
+      "major": "",
+      "general": 3,
+      "status": "",
+      "note": ""
+    },
+    {
+      "id": "cp-11",
+      "semester": "26년 1학기",
+      "name": "사회복지(학)개론 (전공, 1학기)",
+      "swReq": true,
+      "swOpt": false,
+      "leReq": "",
+      "leOpt": "",
+      "major": 3,
+      "general": "",
+      "status": "",
+      "note": "대면 수업"
+    },
+    {
+      "id": "cp-12",
+      "semester": "26년 1학기",
+      "name": "사회복지법제와 실천 (전공, 1학기)",
+      "swReq": true,
+      "swOpt": false,
+      "leReq": "",
+      "leOpt": "",
+      "major": 3,
+      "general": "",
+      "status": "",
+      "note": ""
+    },
+    {
+      "id": "cp-13",
+      "semester": "26년 1학기",
+      "name": "사회복지실천기술론 (전공, 1학기)",
+      "swReq": true,
+      "swOpt": false,
+      "leReq": "",
+      "leOpt": "",
+      "major": 3,
+      "general": "",
+      "status": "",
+      "note": "대면 수업"
+    },
+    {
+      "id": "cp-14",
+      "semester": "26년 1학기",
+      "name": "사회복지행정론 (일반, 1학기)",
+      "swReq": true,
+      "swOpt": false,
+      "leReq": "",
+      "leOpt": "",
+      "major": "",
+      "general": 3,
+      "status": "",
+      "note": ""
+    },
+    {
+      "id": "cp-15",
+      "semester": "26년 2학기",
+      "name": "사회복지실천론 (일반, 2학기)",
+      "swReq": true,
+      "swOpt": false,
+      "leReq": "",
+      "leOpt": "",
+      "major": "",
+      "general": 3,
+      "status": "",
+      "note": "사회복지학과 개설로 신청"
+    },
+    {
+      "id": "cp-16",
+      "semester": "26년 2학기",
+      "name": "교육사회학",
+      "swReq": false,
+      "swOpt": false,
+      "leReq": "",
+      "leOpt": "O (선택1)",
+      "major": "",
+      "general": 3,
+      "status": "",
+      "note": ""
+    },
+    {
+      "id": "cp-17",
+      "semester": "26년 2학기",
+      "name": "사회복지와 문화다양성 (전공, 2학기)",
+      "swReq": false,
+      "swOpt": true,
+      "leReq": "",
+      "leOpt": "",
+      "major": 3,
+      "general": "",
+      "status": "",
+      "note": ""
+    },
+    {
+      "id": "cp-18",
+      "semester": "26년 2학기",
+      "name": "복지국가론(전공, 2학기) => 가족상담및치료 ==> 사회문제론",
+      "swReq": false,
+      "swOpt": true,
+      "leReq": "",
+      "leOpt": "",
+      "major": 3,
+      "general": "",
+      "status": "",
+      "note": "과목 열리는지 체크"
+    },
+    {
+      "id": "cp-19",
+      "semester": "26년 2학기",
+      "name": "사회복지정책론",
+      "swReq": true,
+      "swOpt": false,
+      "leReq": "",
+      "leOpt": "",
+      "major": 3,
+      "general": "",
+      "status": "",
+      "note": ""
+    },
+    {
+      "id": "cp-20",
+      "semester": "26년 2학기",
+      "name": "사회복지조사론*",
+      "swReq": true,
+      "swOpt": false,
+      "leReq": "",
+      "leOpt": "",
+      "major": 3,
+      "general": "",
+      "status": "",
+      "note": "사회복지사 & 평생교육사 중복인정"
+    },
+    {
+      "id": "cp-21",
+      "semester": "26년 2학기",
+      "name": "+ 1학점짜리 ai 활용 교육",
+      "swReq": false,
+      "swOpt": false,
+      "leReq": "",
+      "leOpt": "",
+      "major": "",
+      "general": "",
+      "status": "",
+      "note": ""
+    },
+    {
+      "id": "cp-22",
+      "semester": "26년 2학기",
+      "name": "평생교육실습 (학기 초) (실습과정, 학점 은행 등록 필수 ) (4주, 160시간 이상 실습)",
+      "swReq": false,
+      "swOpt": false,
+      "leReq": "O (필수)",
+      "leOpt": "",
+      "major": 0,
+      "general": 0,
+      "status": "",
+      "note": "별도 기관에서 이수 후 학점 인정 등록할 것"
+    },
+    {
+      "id": "cp-23",
+      "semester": "26년 2학기",
+      "name": "+인간행동과사회환경 재수강",
+      "swReq": true,
+      "swOpt": false,
+      "leReq": "",
+      "leOpt": "",
+      "major": "",
+      "general": "",
+      "status": "",
+      "note": ""
+    },
+    {
+      "id": "cp-24",
+      "semester": "27년 1학기",
+      "name": "사회복지와 인권 (전공, 1학기)",
+      "swReq": false,
+      "swOpt": true,
+      "leReq": "",
+      "leOpt": "",
+      "major": 3,
+      "general": "",
+      "status": "",
+      "note": ""
+    },
+    {
+      "id": "cp-25",
+      "semester": "27년 1학기",
+      "name": "사회복지현장실습 (160시간 이상 실습, 세미나 3회)",
+      "swReq": true,
+      "swOpt": false,
+      "leReq": "",
+      "leOpt": "",
+      "major": 3,
+      "general": "",
+      "status": "",
+      "note": "방통대 등록 후 별도 기관에서 이수"
+    },
+    {
+      "id": "cp-26",
+      "semester": "27년 1학기",
+      "name": "사회복지윤리와 철학 (전공, 1학기)",
+      "swReq": false,
+      "swOpt": true,
+      "leReq": "",
+      "leOpt": "",
+      "major": 3,
+      "general": "",
+      "status": "",
+      "note": ""
+    },
+    {
+      "id": "cp-27",
+      "semester": "27년 1학기",
+      "name": "장애인복지론 (전공,1학기)",
+      "swReq": false,
+      "swOpt": true,
+      "leReq": "",
+      "leOpt": "",
+      "major": 3,
+      "general": "",
+      "status": "",
+      "note": ""
+    },
+    {
+      "id": "cp-28",
+      "semester": "27년 1학기",
+      "name": "재수강 or 평생교육사 이수과목 대비",
+      "swReq": false,
+      "swOpt": false,
+      "leReq": "",
+      "leOpt": "",
+      "major": "",
+      "general": "",
+      "status": "",
+      "note": ""
+    },
+    {
+      "id": "cp-29",
+      "semester": "27년 1학기",
+      "name": "재수강 or 평생교육사 이수과목 대비",
+      "swReq": false,
+      "swOpt": false,
+      "leReq": "",
+      "leOpt": "",
+      "major": "",
+      "general": "",
+      "status": "",
+      "note": ""
+    },
+    {
+      "id": "cp-30",
+      "semester": "기존 이수 과목 or 유사 인정 과목",
+      "name": "상담심리학 (선택2)",
+      "swReq": false,
+      "swOpt": false,
+      "leReq": "",
+      "leOpt": "O (선택2)",
+      "major": "",
+      "general": "",
+      "status": "",
+      "note": "학점은행 수행 완료"
+    },
+    {
+      "id": "cp-31",
+      "semester": "기존 이수 과목 or 유사 인정 과목",
+      "name": "기업교육론 (선택 2기술경영 유사 과목 확인)",
+      "swReq": false,
+      "swOpt": false,
+      "leReq": "",
+      "leOpt": "O (선택2)",
+      "major": "",
+      "general": "",
+      "status": "",
+      "note": "25/10/01 ~ 08 이내 유사과목 사전심의 진행"
+    },
+    {
+      "id": "cp-32",
+      "semester": "기존 이수 과목 or 유사 인정 과목",
+      "name": "교육조사방법론 (선택 2, 사회복지조사론 유사과목 인정)",
+      "swReq": false,
+      "swOpt": false,
+      "leReq": "",
+      "leOpt": "O (선택2)",
+      "major": "",
+      "general": "",
+      "status": "",
+      "note": "(선택 2, 사회복지조사론 유사과목 인정)"
+    }
+  ]
+};
+
 // 14. 국립 한국방송통신대학교 (KNOU) 사회복지학과 학점 및 수강 관리 데이터
 // 2026학년도 2학기 (형성평가 20% + 중간과제물 30% + 기말고사 50%)
 // =========================================================================
 const INITIAL_KNOU_DATA = {
-  knouDataVersion: 2,
+  knouDataVersion: 3,
+  creditPlan: INITIAL_KNOU_CREDIT_PLAN,
   university: '국립 한국방송통신대학교 (KNOU)',
   department: '사회복지학과',
   currentSemester: '2026학년도 2학기',
@@ -10993,6 +11437,7 @@ const INITIAL_ENGLISH_DATA = {
   global.INITIAL_EXTERNAL_DASHBOARDS = INITIAL_EXTERNAL_DASHBOARDS;
   global.INITIAL_INBODY_DATA = INITIAL_INBODY_DATA;
   global.INITIAL_KNOU_DATA = INITIAL_KNOU_DATA;
+  global.INITIAL_KNOU_CREDIT_PLAN = INITIAL_KNOU_CREDIT_PLAN;
   global.INITIAL_ENGLISH_DATA = INITIAL_ENGLISH_DATA;
 
 
