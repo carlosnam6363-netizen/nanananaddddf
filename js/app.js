@@ -66,102 +66,116 @@ class SyncManager {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
+        // 🛡️ Safety Auto-Backup: 사용자 데이터 영구 보호 스냅샷
+        try {
+          const lastBackup = localStorage.getItem('career_dashboard_auto_backup_ts');
+          const now = Date.now();
+          if (!lastBackup || now - parseInt(lastBackup, 10) > 300000) {
+            localStorage.setItem('career_dashboard_auto_backup', stored);
+            localStorage.setItem('career_dashboard_auto_backup_ts', String(now));
+          }
+        } catch (e) {}
+
         const parsed = JSON.parse(stored);
-        const upgradedCamino = (parsed.camino && parsed.camino.caminoDataVersion === 9)
-          ? parsed.camino
-          : (() => {
-              const fresh = JSON.parse(JSON.stringify(INITIAL_CAMINO_DATA));
-              if (parsed.camino) {
-                if (parsed.camino.memos) fresh.memos = parsed.camino.memos;
-                if (parsed.camino.activeRoute) fresh.activeRoute = parsed.camino.activeRoute;
-                if (Array.isArray(parsed.camino.packingList)) {
-                  parsed.camino.packingList.forEach(oldItem => {
-                    if (oldItem.done) {
-                      const match = fresh.packingList.find(f => (f.id && f.id === oldItem.id) || f.text === oldItem.text || (oldItem.text && f.text && f.text.startsWith(oldItem.text.slice(0, 10))));
-                      if (match) match.done = true;
-                    }
-                  });
-                }
-                if (Array.isArray(parsed.camino.itinerary)) {
-                  parsed.camino.itinerary.forEach((oldItin, idx) => {
-                    if (fresh.itinerary[idx] && (oldItin.albergue || oldItin.stay)) {
-                      fresh.itinerary[idx].albergue = oldItin.albergue || oldItin.stay;
-                      fresh.itinerary[idx].stay = oldItin.albergue || oldItin.stay;
-                    }
-                  });
-                }
-              }
-              return fresh;
-            })();
-        const upgradedBands = (parsed.bands && parsed.bands.length > 0 && parsed.bands[0].setlist && parsed.bands[0].setlist[0].notes.includes("보컬"))
+
+        // 1. Camino: 사용자 메모, 호텔, 비용, 체크리스트 영구 보존
+        let upgradedCamino = parsed.camino;
+        if (!upgradedCamino) {
+          upgradedCamino = JSON.parse(JSON.stringify(INITIAL_CAMINO_DATA));
+        } else {
+          const freshCamino = INITIAL_CAMINO_DATA;
+          Object.keys(freshCamino).forEach(k => {
+            if (upgradedCamino[k] === undefined) {
+              upgradedCamino[k] = JSON.parse(JSON.stringify(freshCamino[k]));
+            }
+          });
+        }
+
+        // 2. Bands: 사용자 합주/세트리스트 보존
+        let upgradedBands = (Array.isArray(parsed.bands) && parsed.bands.length > 0)
           ? parsed.bands
           : JSON.parse(JSON.stringify(INITIAL_BAND_SCHEDULES));
-        const upgradedEnergyPlan = (parsed.energyPlan && parsed.energyPlanVersion === 3 && parsed.energyPlan.length === INITIAL_ENERGY_STUDY_PLAN.length)
+
+        // 3. Energy Plan: 사용자 학습 체크리스트 보존
+        let upgradedEnergyPlan = (Array.isArray(parsed.energyPlan) && parsed.energyPlan.length > 0)
           ? parsed.energyPlan
           : JSON.parse(JSON.stringify(INITIAL_ENERGY_STUDY_PLAN));
-        parsed.energyPlanVersion = 3;
-        const upgradedSns = (parsed.sns && parsed.sns.snsDataVersion === 3)
+
+        // 4. SNS: 사용자 SNS 지표 보존
+        let upgradedSns = (parsed.sns && typeof parsed.sns === 'object')
           ? parsed.sns
           : JSON.parse(JSON.stringify(INITIAL_SNS_DATA));
-        const upgradedPortfolio = (parsed.portfolio && parsed.portfolio.portfolioDataVersion === 2 && Array.isArray(parsed.portfolio.careers) && parsed.portfolio.careers.length >= 15)
+
+        // 5. Portfolio: 사용자 경력/수상 실적 보존
+        let upgradedPortfolio = (parsed.portfolio && typeof parsed.portfolio === 'object')
           ? parsed.portfolio
           : JSON.parse(JSON.stringify(INITIAL_PORTFOLIO_DATA));
-        const upgradedInbody = (parsed.inbody && parsed.inbody.inbodyDataVersion === 2 && parsed.inbody.records && parsed.inbody.records.length >= 89)
-          ? parsed.inbody
-          : JSON.parse(JSON.stringify(INITIAL_INBODY_DATA));
+        if (!upgradedPortfolio.careers || !Array.isArray(upgradedPortfolio.careers) || upgradedPortfolio.careers.length === 0) {
+          upgradedPortfolio.careers = JSON.parse(JSON.stringify(INITIAL_PORTFOLIO_DATA.careers || []));
+        }
+
+        // 6. Inbody: 사용자 인바디 측정 기록 전수 보존
+        let upgradedInbody = parsed.inbody;
+        if (!upgradedInbody || !Array.isArray(upgradedInbody.records) || upgradedInbody.records.length === 0) {
+          upgradedInbody = JSON.parse(JSON.stringify(INITIAL_INBODY_DATA));
+        } else {
+          if (!upgradedInbody.dietQuote) upgradedInbody.dietQuote = INITIAL_INBODY_DATA.dietQuote;
+          if (!upgradedInbody.nutritionTarget) upgradedInbody.nutritionTarget = INITIAL_INBODY_DATA.nutritionTarget;
+        }
+
+        // 7. KNOU: 사용자 학점 계획표 전수 보존 (과목 삭제/추가/수정 영구 보존, 임의 길이 초기화 방지)
+        let upgradedKnou = parsed.knou;
+        if (!upgradedKnou) {
+          upgradedKnou = JSON.parse(JSON.stringify(INITIAL_KNOU_DATA));
+        } else {
+          if (!upgradedKnou.courses || !Array.isArray(upgradedKnou.courses)) {
+            upgradedKnou.courses = JSON.parse(JSON.stringify(INITIAL_KNOU_DATA.courses || []));
+          }
+          if (!upgradedKnou.creditPlan || !Array.isArray(upgradedKnou.creditPlan.rows)) {
+            upgradedKnou.creditPlan = JSON.parse(JSON.stringify(INITIAL_KNOU_CREDIT_PLAN));
+          } else {
+            // 사용자의 과목 추가/삭제 상태를 100% 존중하여 유지
+            upgradedKnou.creditPlan.rows.forEach(r => {
+              if (r.grade === undefined) r.grade = (r.status === 'done' ? 'A0' : '');
+              if (r.note === undefined) r.note = '';
+              if (r.swReq === undefined) r.swReq = false;
+              if (r.swOpt === undefined) r.swOpt = false;
+              if (r.leReq === undefined) r.leReq = '';
+              if (r.leOpt === undefined) r.leOpt = '';
+            });
+            if (!upgradedKnou.creditPlan.semesters || !Array.isArray(upgradedKnou.creditPlan.semesters)) {
+              upgradedKnou.creditPlan.semesters = INITIAL_KNOU_CREDIT_PLAN.semesters;
+            }
+          }
+          upgradedKnou.knouDataVersion = 4;
+        }
+
+        // 8. English: 사용자 어학 설정 보존
+        let upgradedEnglish = (parsed.english && typeof parsed.english === 'object')
+          ? parsed.english
+          : JSON.parse(JSON.stringify(INITIAL_ENGLISH_DATA));
+
+        // 9. Contest: 공모전 아카이브 보존
+        let upgradedContest = (parsed.contest && typeof parsed.contest === 'object')
+          ? parsed.contest
+          : JSON.parse(JSON.stringify(INITIAL_CONTEST_DATA));
+
+        // 10. Calendar: 사용자 캘린더 일정 보존
+        let upgradedCalendar = (Array.isArray(parsed.calendarEvents))
+          ? parsed.calendarEvents
+          : JSON.parse(JSON.stringify(INITIAL_CALENDAR_EVENTS));
 
         parsed.camino = upgradedCamino;
         parsed.bands = upgradedBands;
         parsed.energyPlan = upgradedEnergyPlan;
         parsed.sns = upgradedSns;
         parsed.portfolio = upgradedPortfolio;
-        const upgradedKnou = (parsed.knou && parsed.knou.knouDataVersion === 4 && parsed.knou.creditPlan && Array.isArray(parsed.knou.creditPlan.rows) && parsed.knou.creditPlan.rows.length >= 32)
-          ? parsed.knou
-          : (() => {
-              const fresh = JSON.parse(JSON.stringify(INITIAL_KNOU_DATA));
-              fresh.knouDataVersion = 4;
-              fresh.creditPlan = JSON.parse(JSON.stringify(INITIAL_KNOU_CREDIT_PLAN));
-              if (parsed.knou) {
-                if (parsed.knou.courses) {
-                  parsed.knou.courses.forEach(oldCourse => {
-                    const match = fresh.courses.find(c => c.id === oldCourse.id);
-                    if (match) {
-                      match.progress = oldCourse.progress;
-                      match.midtermStatus = oldCourse.midtermStatus;
-                    }
-                  });
-                }
-                if (parsed.knou.creditPlan && Array.isArray(parsed.knou.creditPlan.rows)) {
-                  parsed.knou.creditPlan.rows.forEach(oldRow => {
-                    const match = fresh.creditPlan.rows.find(r => r.id === oldRow.id || (r.name && oldRow.name && r.name.trim() === oldRow.name.trim()));
-                    if (match) {
-                      if (oldRow.status) match.status = oldRow.status;
-                      if (oldRow.note) match.note = oldRow.note;
-                      if (oldRow.grade !== undefined && oldRow.grade !== '') match.grade = oldRow.grade;
-                      if (oldRow.major !== undefined && oldRow.major !== '') match.major = oldRow.major;
-                      if (oldRow.general !== undefined && oldRow.general !== '') match.general = oldRow.general;
-                    } else {
-                      fresh.creditPlan.rows.push(oldRow);
-                    }
-                  });
-                }
-              }
-              return fresh;
-            })();
-        const upgradedEnglish = (parsed.english && parsed.english.englishDataVersion === 1)
-          ? parsed.english
-          : JSON.parse(JSON.stringify(INITIAL_ENGLISH_DATA));
-        const upgradedContest = (parsed.contest && parsed.contest.contestDataVersion === 3)
-          ? parsed.contest
-          : JSON.parse(JSON.stringify(INITIAL_CONTEST_DATA));
         parsed.inbody = upgradedInbody;
         parsed.knou = upgradedKnou;
         parsed.english = upgradedEnglish;
         parsed.contest = upgradedContest;
-        const upgradedCalendar = (parsed.calendarEvents && Array.isArray(parsed.calendarEvents) && parsed.calendarEvents.length >= 10)
-          ? parsed.calendarEvents
-          : JSON.parse(JSON.stringify(INITIAL_CALENDAR_EVENTS));
         parsed.calendarEvents = upgradedCalendar;
+
         localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
 
         return {
@@ -7309,18 +7323,16 @@ function getKnouGradeClass(grade) {
 
 function getKnouCreditPlan() {
   if (!state.knou) state.knou = JSON.parse(JSON.stringify(INITIAL_KNOU_DATA));
-  const seed = (window.INITIAL_KNOU_CREDIT_PLAN_SEED && window.INITIAL_KNOU_CREDIT_PLAN_SEED.rows && window.INITIAL_KNOU_CREDIT_PLAN_SEED.rows.length === 32)
-    ? window.INITIAL_KNOU_CREDIT_PLAN_SEED
-    : (window.INITIAL_KNOU_CREDIT_PLAN || INITIAL_KNOU_CREDIT_PLAN);
-  const defaultPlan = JSON.parse(JSON.stringify(seed));
-  if (!state.knou.creditPlan || !state.knou.creditPlan.rows || state.knou.creditPlan.rows.length < 32) {
-    state.knou.creditPlan = defaultPlan;
+  if (!state.knou.creditPlan || !Array.isArray(state.knou.creditPlan.rows) || state.knou.creditPlan.rows.length === 0) {
+    const seed = (window.INITIAL_KNOU_CREDIT_PLAN_SEED && window.INITIAL_KNOU_CREDIT_PLAN_SEED.rows && window.INITIAL_KNOU_CREDIT_PLAN_SEED.rows.length === 32)
+      ? window.INITIAL_KNOU_CREDIT_PLAN_SEED
+      : (window.INITIAL_KNOU_CREDIT_PLAN || INITIAL_KNOU_CREDIT_PLAN);
+    state.knou.creditPlan = JSON.parse(JSON.stringify(seed));
   } else if ((state.knou.creditPlan.planVersion || 0) < 3) {
     state.knou.creditPlan.planVersion = 3;
     state.knou.creditPlan.rows.forEach(r => {
       if (r.grade === undefined) {
-        const match = defaultPlan.rows.find(d => d.id === r.id || (d.name && r.name && d.name.trim() === r.name.trim()));
-        r.grade = match && match.grade ? match.grade : (r.status === 'done' ? 'A0' : '');
+        r.grade = (r.status === 'done' ? 'A0' : '');
       }
     });
   }
@@ -7483,7 +7495,7 @@ function renderKnouCreditPlanSection() {
           </p>
         </div>
         <div class="flex flex-wrap items-center gap-2">
-          <button onclick="window.app.promptAddKnouCourse()" class="px-3 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold cursor-pointer transition shadow-lg flex items-center gap-1.5"><i class="fa-solid fa-plus-circle"></i> 과목 추가</button>
+          <button onclick="window.app.openKnouCourseManagerModal('add')" class="px-3 py-2 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-pink-500 text-white text-xs font-bold cursor-pointer transition shadow-lg flex items-center gap-1.5" title="새 과목 추가 및 등록된 과목 삭제를 한곳에서 관리"><i class="fa-solid fa-layer-group"></i> 과목 관리 (추가·삭제)</button>
           <button onclick="window.app.resetKnouPlan()" class="px-3 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold cursor-pointer transition shadow-lg flex items-center gap-1.5" title="제공해주신 32과목 표 데이터로 복원"><i class="fa-solid fa-rotate-left"></i> 기본 32과목 표 채우기</button>
           <button onclick="window.app.addKnouPlanSemester()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold cursor-pointer transition flex items-center gap-1.5"><i class="fa-solid fa-plus text-indigo-400"></i> 학기 추가</button>
           <button onclick="window.app.exportKnouPlanCsv()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold cursor-pointer transition flex items-center gap-1.5"><i class="fa-solid fa-file-csv text-emerald-400"></i> CSV 저장</button>
@@ -7539,7 +7551,7 @@ function renderKnouCreditPlanSection() {
               <th colspan="4" class="${cell} text-indigo-300">방통대 학점 (총 ${target} 학점 이상)</th>
               <th rowspan="2" class="${cell} text-emerald-300 min-w-[95px]">성적 (등급)</th>
               <th rowspan="2" class="${cell}">비고</th>
-              <th rowspan="2" class="${cell} w-16 text-center">관리</th>
+              <th rowspan="2" class="${cell} w-16 text-center"><button onclick="window.app.openKnouCourseManagerModal('delete')" class="text-rose-300 hover:text-white text-[10px] font-bold cursor-pointer transition inline-flex items-center gap-0.5" title="등록된 과목 삭제 및 관리 모달"><i class="fa-solid fa-trash-can text-[9px]"></i> 삭제관리</button></th>
             </tr>
             <tr class="bg-slate-950/90 text-slate-400 text-[10px]">
               <th class="${cell}">필수</th>
@@ -7677,142 +7689,309 @@ function deleteKnouPlanRow(rowId) {
   knouPlanSave(`'${name}' 과목이 삭제되었습니다.`);
 }
 
-function promptAddKnouCourse(defaultSemester) {
-  const plan = getKnouCreditPlan();
-  const semesters = plan.semesters || [];
-  const semOptions = semesters.map(s => `<option value="${escCp(s)}" ${s === defaultSemester ? 'selected' : ''}>${escCp(s)}</option>`).join('');
+// --------------------------------------------------------------------------
+// 🗂️ 방통대 사회복지 학점: 통합 과목 관리 (추가 & 삭제 기능 병합 모달)
+// --------------------------------------------------------------------------
+let knouManagerActiveTab = 'add';
+let knouManagerSelectedRows = new Set();
+let knouManagerSemesterFilter = 'all';
+let knouManagerSearchKeyword = '';
 
-  let modal = document.getElementById('modal-add-knou-course');
+function openKnouCourseManagerModal(defaultTab = 'add', defaultSemester = null) {
+  knouManagerActiveTab = defaultTab;
+  knouManagerSelectedRows.clear();
+  knouManagerSemesterFilter = 'all';
+  knouManagerSearchKeyword = '';
+  renderKnouCourseManagerModal(defaultSemester);
+}
+
+function promptAddKnouCourse(defaultSemester) {
+  openKnouCourseManagerModal('add', defaultSemester);
+}
+
+function renderKnouCourseManagerModal(defaultSemester) {
+  const plan = getKnouCreditPlan();
+  const rows = plan.rows || [];
+  const semesters = plan.semesters || [];
+
+  let modal = document.getElementById('modal-knou-course-manager');
   if (!modal) {
     modal = document.createElement('div');
-    modal.id = 'modal-add-knou-course';
-    modal.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm';
+    modal.id = 'modal-knou-course-manager';
+    modal.className = 'fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm';
     document.body.appendChild(modal);
   }
 
-  modal.innerHTML = `
-    <div class="glass-panel w-full max-w-lg rounded-2xl border border-indigo-500/30 bg-slate-900/95 p-6 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
-      <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
-        <h3 class="text-lg font-bold text-white flex items-center gap-2">
-          <i class="fa-solid fa-book-medical text-emerald-400"></i>
-          새 과목 추가
-        </h3>
-        <button onclick="window.app.closeAddKnouCourseModal()" class="text-slate-400 hover:text-white text-lg px-2 py-1 cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+  const semOptions = semesters.map(s => `<option value="${escCp(s)}" ${s === defaultSemester ? 'selected' : ''}>${escCp(s)}</option>`).join('');
+  const semFilterOptions = `<option value="all" ${knouManagerSemesterFilter === 'all' ? 'selected' : ''}>전체 학기 (${rows.length}과목)</option>` +
+    semesters.map(s => {
+      const cnt = rows.filter(r => r.semester === s).length;
+      return `<option value="${escCp(s)}" ${knouManagerSemesterFilter === s ? 'selected' : ''}>${escCp(s)} (${cnt}과목)</option>`;
+    }).join('');
+
+  // Delete tab filtered rows
+  const filteredRows = rows.filter(r => {
+    if (knouManagerSemesterFilter !== 'all' && r.semester !== knouManagerSemesterFilter) return false;
+    if (knouManagerSearchKeyword) {
+      const q = knouManagerSearchKeyword.toLowerCase();
+      const matchName = (r.name || '').toLowerCase().includes(q);
+      const matchNote = (r.note || '').toLowerCase().includes(q);
+      const matchSem = (r.semester || '').toLowerCase().includes(q);
+      if (!matchName && !matchNote && !matchSem) return false;
+    }
+    return true;
+  });
+
+  const selectedCount = knouManagerSelectedRows.size;
+  const allFilteredSelected = filteredRows.length > 0 && filteredRows.every(r => knouManagerSelectedRows.has(r.id));
+
+  const addTabContent = `
+    <form id="form-knou-manager-add" onsubmit="window.app.submitAddKnouCourseFromManager(event)" class="space-y-3.5">
+      <div class="bg-indigo-950/30 border border-indigo-500/20 rounded-xl p-3 text-xs text-indigo-200 mb-2 flex items-center gap-2">
+        <i class="fa-solid fa-circle-info text-indigo-400 text-sm shrink-0"></i>
+        <span>새 과목을 등록하면 즉시 이수 관리표에 반영되며 총 학점 및 GPA가 실시간 연동됩니다.</span>
       </div>
 
-      <form id="form-add-knou-course" onsubmit="window.app.submitAddKnouCourse(event)" class="space-y-3.5">
+      <div>
+        <label class="block text-xs font-bold text-slate-300 mb-1">학기 선택 <span class="text-rose-400">*</span></label>
+        <select id="knou-add-semester" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-400 font-medium">
+          ${semOptions}
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-300 mb-1">과목명 <span class="text-rose-400">*</span></label>
+        <input type="text" id="knou-add-name" required placeholder="예: 프로그램개발과평가, 사회복지세미나 등" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-400">
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">학기 선택</label>
-          <select id="add-course-semester" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-400">
-            ${semOptions}
+          <label class="block text-xs font-bold text-sky-300 mb-1">사회복지사 (2급)</label>
+          <select id="knou-add-sw" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-400">
+            <option value="none">해당 없음</option>
+            <option value="req">필수 과목</option>
+            <option value="opt">선택 과목</option>
           </select>
         </div>
-
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">과목명 <span class="text-rose-400">*</span></label>
-          <input type="text" id="add-course-name" required placeholder="예: 프로그램개발과평가" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-400">
+          <label class="block text-xs font-bold text-purple-300 mb-1">평생교육사 (2급)</label>
+          <select id="knou-add-le" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-400">
+            <option value="none">해당 없음</option>
+            <option value="req">O (필수)</option>
+            <option value="opt1">O (선택1)</option>
+            <option value="opt2">O (선택2)</option>
+          </select>
         </div>
+      </div>
 
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-bold text-sky-300 mb-1">사회복지사</label>
-            <select id="add-course-sw" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-400">
-              <option value="none">해당 없음</option>
-              <option value="req">필수 과목</option>
-              <option value="opt">선택 과목</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-purple-300 mb-1">평생교육사</label>
-            <select id="add-course-le" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-400">
-              <option value="none">해당 없음</option>
-              <option value="req">O (필수)</option>
-              <option value="opt1">O (선택1)</option>
-              <option value="opt2">O (선택2)</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1">전공 학점</label>
-            <input type="number" id="add-course-major" min="0" max="30" value="3" placeholder="3" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-400">
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1">교양/일선 학점</label>
-            <input type="number" id="add-course-general" min="0" max="30" value="0" placeholder="0" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-400">
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-bold text-emerald-300 mb-1">성적 (등급)</label>
-            <select id="add-course-grade" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-400 font-bold">
-              <option value="">- 선택 (미이수)</option>
-              <option value="A+">A+ (4.5)</option>
-              <option value="A0">A0 (4.0)</option>
-              <option value="B+">B+ (3.5)</option>
-              <option value="B0">B0 (3.0)</option>
-              <option value="C+">C+ (2.5)</option>
-              <option value="C0">C0 (2.0)</option>
-              <option value="D+">D+ (1.5)</option>
-              <option value="D0">D0 (1.0)</option>
-              <option value="F">F (0.0)</option>
-              <option value="P">P (Pass)</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1">이수 상태</label>
-            <select id="add-course-status" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-400">
-              <option value="">계획/예정</option>
-              <option value="progress">⏳ 진행 중</option>
-              <option value="done">✅ 이수 완료</option>
-            </select>
-          </div>
-        </div>
-
+      <div class="grid grid-cols-2 gap-3">
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">비고 / 메모</label>
-          <input type="text" id="add-course-note" placeholder="예: 대면 수업, 출석 수업 등" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-400">
+          <label class="block text-xs font-bold text-slate-300 mb-1">전공 학점</label>
+          <input type="number" id="knou-add-major" min="0" max="30" value="3" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-indigo-400">
         </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">교양 / 일반선택 학점</label>
+          <input type="number" id="knou-add-general" min="0" max="30" value="0" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-indigo-400">
+        </div>
+      </div>
 
-        <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-800">
-          <button type="button" onclick="window.app.closeAddKnouCourseModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold cursor-pointer transition">취소</button>
-          <button type="submit" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold cursor-pointer transition shadow-lg flex items-center gap-1.5"><i class="fa-solid fa-plus"></i> 과목 추가</button>
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-emerald-300 mb-1">성적 (등급)</label>
+          <select id="knou-add-grade" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-400 font-bold">
+            <option value="">- 선택 (미이수)</option>
+            <option value="A+">A+ (4.5)</option>
+            <option value="A0">A0 (4.0)</option>
+            <option value="B+">B+ (3.5)</option>
+            <option value="B0">B0 (3.0)</option>
+            <option value="C+">C+ (2.5)</option>
+            <option value="C0">C0 (2.0)</option>
+            <option value="D+">D+ (1.5)</option>
+            <option value="D0">D0 (1.0)</option>
+            <option value="F">F (0.0)</option>
+            <option value="P">P (Pass)</option>
+          </select>
         </div>
-      </form>
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">이수 상태</label>
+          <select id="knou-add-status" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-400">
+            <option value="">계획/예정</option>
+            <option value="progress">⏳ 진행 중</option>
+            <option value="done">✅ 이수 완료</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-300 mb-1">비고 / 메모</label>
+        <input type="text" id="knou-add-note" placeholder="예: 대면 수업, 출석 수업 등" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-400">
+      </div>
+
+      <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-800">
+        <button type="button" onclick="window.app.closeKnouCourseManagerModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold cursor-pointer transition">닫기</button>
+        <button type="submit" class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold cursor-pointer transition shadow-lg flex items-center gap-1.5"><i class="fa-solid fa-plus"></i> 과목 추가하기</button>
+      </div>
+    </form>
+  `;
+
+  const deleteRowsHtml = filteredRows.length === 0
+    ? `<tr><td colspan="7" class="text-center py-8 text-slate-500 text-xs">일치하는 등록 과목이 없습니다.</td></tr>`
+    : filteredRows.map(r => {
+        const isSelected = knouManagerSelectedRows.has(r.id);
+        const credits = (parseFloat(r.major) || 0) + (parseFloat(r.general) || 0);
+        return `
+          <tr class="hover:bg-slate-800/50 transition border-b border-slate-800/60 ${isSelected ? 'bg-rose-950/20' : ''}">
+            <td class="p-2 text-center align-middle">
+              <input type="checkbox" ${isSelected ? 'checked' : ''} onchange="window.app.toggleKnouManagerSelect('${r.id}', this.checked)" class="w-4 h-4 accent-rose-500 cursor-pointer">
+            </td>
+            <td class="p-2 align-middle">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-950/70 text-indigo-300 border border-indigo-500/30 whitespace-nowrap">${escCp(r.semester)}</span>
+            </td>
+            <td class="p-2 font-medium text-white align-middle">
+              <div class="font-bold text-xs">${escCp(r.name || '(이름 없음)')}</div>
+              ${r.note ? `<div class="text-[10px] text-slate-400 mt-0.5">${escCp(r.note)}</div>` : ''}
+            </td>
+            <td class="p-2 text-center font-mono text-xs align-middle">
+              <span class="text-sky-300 font-bold">${credits}</span>학점
+              <span class="text-[10px] text-slate-400 block">${r.major ? `전공 ${r.major}` : `교양 ${r.general}`}</span>
+            </td>
+            <td class="p-2 text-center font-bold text-xs align-middle ${getKnouGradeClass(r.grade)}">
+              ${r.grade || '-'}
+            </td>
+            <td class="p-2 text-center align-middle">
+              ${r.status === 'done' ? '<span class="px-1.5 py-0.5 rounded text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold">완료</span>' :
+                r.status === 'progress' ? '<span class="px-1.5 py-0.5 rounded text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold">진행</span>' :
+                '<span class="text-slate-500 text-[10px]">계획</span>'}
+            </td>
+            <td class="p-2 text-center align-middle">
+              <button onclick="window.app.deleteKnouCourseFromManager('${r.id}')" class="px-2 py-1 rounded bg-rose-500/15 hover:bg-rose-500/35 text-rose-300 hover:text-white border border-rose-500/25 text-xs font-bold cursor-pointer transition flex items-center gap-1 mx-auto" title="'${escCp(r.name || '과목')}' 삭제">
+                <i class="fa-solid fa-trash-can text-[10px]"></i> 삭제
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+  const deleteTabContent = `
+    <div>
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 mb-3 bg-slate-950/60 p-3 rounded-xl border border-slate-800">
+        <div class="flex items-center gap-2 flex-1">
+          <input type="text" id="knou-del-search" value="${escCp(knouManagerSearchKeyword)}" placeholder="과목명·메모 검색..." oninput="window.app.filterKnouManagerCourses()" class="w-full sm:w-48 bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-rose-400">
+          <select id="knou-del-semester" onchange="window.app.filterKnouManagerCourses()" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-rose-400 font-medium">
+            ${semFilterOptions}
+          </select>
+        </div>
+        <div class="flex items-center justify-between sm:justify-end gap-2">
+          <span class="text-xs text-slate-400 font-medium">${filteredRows.length}과목 표시 중</span>
+          <button onclick="window.app.deleteSelectedKnouCoursesFromManager()" id="btn-knou-del-selected" ${selectedCount > 0 ? '' : 'disabled'} class="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-bold cursor-pointer transition shadow flex items-center gap-1.5">
+            <i class="fa-solid fa-trash"></i> 선택 삭제 (<span id="knou-del-count">${selectedCount}</span>)
+          </button>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto rounded-xl border border-slate-800 max-h-[45vh] custom-scrollbar">
+        <table class="w-full text-xs text-left border-collapse">
+          <thead class="bg-slate-950 text-slate-400 text-[11px] sticky top-0 z-10 border-b border-slate-800">
+            <tr>
+              <th class="p-2 w-10 text-center"><input type="checkbox" ${allFilteredSelected ? 'checked' : ''} onchange="window.app.toggleKnouManagerSelectAll(this.checked)" class="w-4 h-4 accent-rose-500 cursor-pointer" title="전체 선택"></th>
+              <th class="p-2 w-28">학기</th>
+              <th class="p-2">과목 명</th>
+              <th class="p-2 w-20 text-center">학점</th>
+              <th class="p-2 w-16 text-center">성적</th>
+              <th class="p-2 w-16 text-center">상태</th>
+              <th class="p-2 w-16 text-center">삭제</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${deleteRowsHtml}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="flex items-center justify-between pt-3 mt-3 border-t border-slate-800 text-xs text-slate-400">
+        <div>💡 삭제한 과목은 영구 제거되며, 복원이 필요할 땐 언제든 <b>[기본 32과목 표 채우기]</b>로 되돌릴 수 있습니다.</div>
+        <button onclick="window.app.closeKnouCourseManagerModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold cursor-pointer transition">닫기</button>
+      </div>
     </div>
   `;
+
+  modal.innerHTML = `
+    <div class="glass-panel w-full max-w-2xl max-h-[90dvh] flex flex-col rounded-2xl border border-indigo-500/30 bg-slate-900/98 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- Modal Header -->
+      <div class="p-4 sm:p-5 border-b border-slate-800 flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-md">
+            <i class="fa-solid fa-layer-group text-sm"></i>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-black text-white flex items-center gap-2">
+              방통대 사회복지 학점 · 과목 관리
+            </h3>
+            <p class="text-[11px] text-slate-400">새 과목 추가와 등록된 과목 삭제를 한곳에서 간편하게 처리합니다.</p>
+          </div>
+        </div>
+        <button onclick="window.app.closeKnouCourseManagerModal()" class="text-slate-400 hover:text-white text-lg p-1.5 cursor-pointer rounded-lg hover:bg-slate-800 transition"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <!-- Tab Switcher (추가 & 삭제 기능 병합) -->
+      <div class="px-4 sm:px-5 pt-3 border-b border-slate-800/80 bg-slate-950/40 shrink-0 flex items-center gap-2">
+        <button onclick="window.app.switchKnouManagerTab('add')" id="btn-tab-knou-add" class="pb-2.5 px-3 text-xs font-bold border-b-2 cursor-pointer transition flex items-center gap-1.5 ${knouManagerActiveTab === 'add' ? 'border-emerald-400 text-emerald-300' : 'border-transparent text-slate-400 hover:text-slate-200'}">
+          <i class="fa-solid fa-plus-circle"></i> ➕ 새 과목 추가
+        </button>
+        <button onclick="window.app.switchKnouManagerTab('delete')" id="btn-tab-knou-delete" class="pb-2.5 px-3 text-xs font-bold border-b-2 cursor-pointer transition flex items-center gap-1.5 ${knouManagerActiveTab === 'delete' ? 'border-rose-400 text-rose-300' : 'border-transparent text-slate-400 hover:text-slate-200'}">
+          <i class="fa-solid fa-trash-can"></i> 🗑️ 등록된 과목 삭제 및 관리 <span class="ml-1 px-1.5 py-0.2 rounded-full bg-slate-800 text-[10px] text-slate-300">${rows.length}</span>
+        </button>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div class="p-4 sm:p-5 overflow-y-auto custom-scrollbar flex-1">
+        ${knouManagerActiveTab === 'add' ? addTabContent : deleteTabContent}
+      </div>
+    </div>
+  `;
+
   modal.classList.remove('hidden');
   document.body.classList.add('modal-open');
-  setTimeout(() => {
-    const inp = document.getElementById('add-course-name');
-    if (inp) inp.focus();
-  }, 100);
+  if (knouManagerActiveTab === 'add') {
+    setTimeout(() => {
+      const inp = document.getElementById('knou-add-name');
+      if (inp) inp.focus();
+    }, 100);
+  }
 }
 
-function closeAddKnouCourseModal() {
-  const modal = document.getElementById('modal-add-knou-course');
+function closeKnouCourseManagerModal() {
+  const modal = document.getElementById('modal-knou-course-manager');
   if (modal) modal.classList.add('hidden');
   document.body.classList.remove('modal-open');
 }
 
-function submitAddKnouCourse(e) {
+function closeAddKnouCourseModal() {
+  closeKnouCourseManagerModal();
+}
+
+function switchKnouManagerTab(tab) {
+  knouManagerActiveTab = tab;
+  renderKnouCourseManagerModal();
+}
+
+function submitAddKnouCourseFromManager(e) {
   if (e && e.preventDefault) e.preventDefault();
-  const semester = document.getElementById('add-course-semester').value;
-  const name = document.getElementById('add-course-name').value.trim();
+  const semester = document.getElementById('knou-add-semester').value;
+  const name = document.getElementById('knou-add-name').value.trim();
   if (!name) {
     showToast('과목명을 입력해 주세요.');
     return;
   }
-  const sw = document.getElementById('add-course-sw').value;
-  const le = document.getElementById('add-course-le').value;
-  const major = parseFloat(document.getElementById('add-course-major').value) || '';
-  const general = parseFloat(document.getElementById('add-course-general').value) || '';
-  const grade = document.getElementById('add-course-grade').value;
-  let status = document.getElementById('add-course-status').value;
+  const sw = document.getElementById('knou-add-sw').value;
+  const le = document.getElementById('knou-add-le').value;
+  const major = parseFloat(document.getElementById('knou-add-major').value) || '';
+  const general = parseFloat(document.getElementById('knou-add-general').value) || '';
+  const grade = document.getElementById('knou-add-grade').value;
+  let status = document.getElementById('knou-add-status').value;
   if (!status && grade && grade !== 'F' && grade !== 'NP') status = 'done';
-  const note = document.getElementById('add-course-note').value.trim();
+  const note = document.getElementById('knou-add-note').value.trim();
 
   const plan = getKnouCreditPlan();
   const newRow = {
@@ -7831,8 +8010,71 @@ function submitAddKnouCourse(e) {
   };
 
   plan.rows.push(newRow);
-  closeAddKnouCourseModal();
   knouPlanSave(`'${semester}'에 '${name}' 과목이 추가되었습니다. 🎉`);
+  knouManagerActiveTab = 'delete';
+  renderKnouCourseManagerModal();
+}
+
+function deleteKnouCourseFromManager(rowId) {
+  const plan = getKnouCreditPlan();
+  const row = (plan.rows || []).find(r => r.id === rowId);
+  const name = (row && row.name) ? row.name : '선택한 과목';
+  if (!confirm(`'${name}' 과목을 정말 삭제하시겠습니까?`)) return;
+  plan.rows = (plan.rows || []).filter(r => r.id !== rowId);
+  knouManagerSelectedRows.delete(rowId);
+  knouPlanSave(`'${name}' 과목이 삭제되었습니다. 🗑️`);
+  renderKnouCourseManagerModal();
+}
+
+function deleteSelectedKnouCoursesFromManager() {
+  if (knouManagerSelectedRows.size === 0) return;
+  const plan = getKnouCreditPlan();
+  const count = knouManagerSelectedRows.size;
+  if (!confirm(`선택한 ${count}개 과목을 모두 삭제하시겠습니까?`)) return;
+  plan.rows = (plan.rows || []).filter(r => !knouManagerSelectedRows.has(r.id));
+  knouManagerSelectedRows.clear();
+  knouPlanSave(`선택한 ${count}개 과목이 일괄 삭제되었습니다. 🗑️`);
+  renderKnouCourseManagerModal();
+}
+
+function filterKnouManagerCourses() {
+  const searchInput = document.getElementById('knou-del-search');
+  const semSelect = document.getElementById('knou-del-semester');
+  if (searchInput) knouManagerSearchKeyword = searchInput.value.trim();
+  if (semSelect) knouManagerSemesterFilter = semSelect.value;
+  renderKnouCourseManagerModal();
+}
+
+function toggleKnouManagerSelectAll(checked) {
+  const plan = getKnouCreditPlan();
+  const rows = plan.rows || [];
+  const filteredRows = rows.filter(r => {
+    if (knouManagerSemesterFilter !== 'all' && r.semester !== knouManagerSemesterFilter) return false;
+    if (knouManagerSearchKeyword) {
+      const q = knouManagerSearchKeyword.toLowerCase();
+      const matchName = (r.name || '').toLowerCase().includes(q);
+      const matchNote = (r.note || '').toLowerCase().includes(q);
+      const matchSem = (r.semester || '').toLowerCase().includes(q);
+      if (!matchName && !matchNote && !matchSem) return false;
+    }
+    return true;
+  });
+
+  if (checked) {
+    filteredRows.forEach(r => knouManagerSelectedRows.add(r.id));
+  } else {
+    filteredRows.forEach(r => knouManagerSelectedRows.delete(r.id));
+  }
+  renderKnouCourseManagerModal();
+}
+
+function toggleKnouManagerSelect(rowId, checked) {
+  if (checked) {
+    knouManagerSelectedRows.add(rowId);
+  } else {
+    knouManagerSelectedRows.delete(rowId);
+  }
+  renderKnouCourseManagerModal();
 }
 
 function addKnouPlanSemester() {
@@ -7898,11 +8140,14 @@ function exportKnouPlanCsv() {
       `"${(r.note || '').replace(/"/g, '""')}"`
     ].join(',') + "\r\n";
   });
-  csv += `기존 인정 학점,,,,,,"${plan.priorMajor || 0}","${plan.priorGeneral || 0}",,,,
+  csv += `기존 인정 학점,,,,,,"${plan.priorMajor || 0}","${plan.priorGeneral || 0}",,,,
+
 `;
-  csv += `TOTAL,,${t.swReq},${t.swOpt},${t.leReq},${t.leOpt},${t.major},${t.general},${t.progressCredits},${t.doneCredits},"평균 ${t.gpa}","총 ${t.total} / ${target}학점"
+  csv += `TOTAL,,${t.swReq},${t.swOpt},${t.leReq},${t.leOpt},${t.major},${t.general},${t.progressCredits},${t.doneCredits},"평균 ${t.gpa}","총 ${t.total} / ${target}학점"
+
 `;
-  csv += `PASS QUAL,,${q.swReq || ''},${q.swOpt || ''},${q.leReq || ''},${q.leOpt || ''},${q.major || ''},${q.general || ''},,,"4.5 만점",
+  csv += `PASS QUAL,,${q.swReq || ''},${q.swOpt || ''},${q.leReq || ''},${q.leOpt || ''},${q.major || ''},${q.general || ''},,,"4.5 만점",
+
 `;
 
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -12124,9 +12369,18 @@ window.app = {
   updateKnouPlanGrade: (id, g) => updateKnouPlanGrade(id, g),
   setKnouPlanStatus: (id, s, c) => setKnouPlanStatus(id, s, c),
   updateKnouPlanMeta: (p, v) => updateKnouPlanMeta(p, v),
-  promptAddKnouCourse: (sem) => promptAddKnouCourse(sem),
-  closeAddKnouCourseModal: () => closeAddKnouCourseModal(),
-  submitAddKnouCourse: (e) => submitAddKnouCourse(e),
+  openKnouCourseManagerModal: (tab, sem) => openKnouCourseManagerModal(tab, sem),
+  closeKnouCourseManagerModal: () => closeKnouCourseManagerModal(),
+  switchKnouManagerTab: (tab) => switchKnouManagerTab(tab),
+  submitAddKnouCourseFromManager: (e) => submitAddKnouCourseFromManager(e),
+  deleteKnouCourseFromManager: (id) => deleteKnouCourseFromManager(id),
+  deleteSelectedKnouCoursesFromManager: () => deleteSelectedKnouCoursesFromManager(),
+  filterKnouManagerCourses: () => filterKnouManagerCourses(),
+  toggleKnouManagerSelectAll: (c) => toggleKnouManagerSelectAll(c),
+  toggleKnouManagerSelect: (id, c) => toggleKnouManagerSelect(id, c),
+  promptAddKnouCourse: (sem) => openKnouCourseManagerModal('add', sem),
+  closeAddKnouCourseModal: () => closeKnouCourseManagerModal(),
+  submitAddKnouCourse: (e) => submitAddKnouCourseFromManager(e),
   addKnouPlanRow: (sem) => addKnouPlanRow(sem),
   deleteKnouPlanRow: (id) => deleteKnouPlanRow(id),
   addKnouPlanSemester: () => addKnouPlanSemester(),
