@@ -14,7 +14,7 @@ const INITIAL_DISCHARGE_DATE = "2026-12-19";
 // 산티아고 순례길 일정 & 준비물 데이터 (2026-11-07 ~ 11-09)
 // 산티아고 순례길 일정 & 준비물 데이터 (까미노 드 포르투 3주 여정: 2026-11-09 ~ 11-29)
 const INITIAL_CAMINO_DATA = {
-  caminoDataVersion: 9,
+  caminoDataVersion: 10,
   title: "산티아고 순례길 3개 코스 비교 관제 & 피니스테레·마드리드 귀국 (23일 대여정)",
   startDate: "2026-11-10",
   endDate: "2026-12-03",
@@ -188,6 +188,43 @@ const INITIAL_CAMINO_DATA = {
   },
 
   // 🥾 코스 2개 분기 (해안길 vs 중앙길) 및 알베르게 리스트
+    // 🏨 포르투 시내 2박 확정 숙소 정보 (11/11 수 체크인 ~ 11/13 금 체크아웃)
+  accommodationBooking: {
+    bookingPlatform: "트립닷컴 (Trip.com)",
+    bookingStatus: "결제 완료 (온라인 사전 결제)",
+    bookingNumber: "1400829745971821",
+    pinNumber: "7999",
+    hotelNameKo: "스테이 호텔 포르투 센트로 트린다데",
+    hotelNameEn: "Stay Hotel Porto Centro Trindade",
+    ratingStars: 3,
+    address: "R. de Gonçalo Cristóvão 111, 4000-408 포르투, 포르투 현, 포르투갈",
+    phone: "+351-220028060",
+    email: "stayhotelporto.3382sn6klwm30rt@htlpartner.trip.com",
+    roomType: "객실 1개 × 2박 (전체 2박 연박)",
+    checkIn: "2026-11-11 (수) 16:00 이후",
+    checkOut: "2026-11-13 (금) 12:00 이전",
+    nights: 2,
+    cancellationPolicy: "무료 취소 - 2026년 11월 8일 23:59 전 (호텔 현지 시간)",
+    costBreakdown: {
+      roomFare: 172656,
+      taxAndService: 7738,
+      specialDiscount: -25636,
+      flightMemberDiscount: -18041,
+      percent3Discount: -4102,
+      tripCoinsUsed: -990,
+      totalPaidKrw: 132615,
+      cityTaxEur: 12.00,
+      cityTaxNotice: "EUR 12.00 현장 결제 필요 (1인 1박 3유로 × 2인 2박 또는 시세 기준 호텔 결제)"
+    },
+    rewards: "60 트립코인 적립 (약 802원)",
+    features: [
+      "포르투 트린다데(Trindade) 메트로 환승역 도보 3분 초역세권",
+      "공항(OPO)에서 메트로 E라인 탑승 시 환승 없이 직통 도착",
+      "포르투 대성당, 볼량 시장, 상벤투역 등 도심 명소 및 크레덴시알 발급 최적 위치",
+      "2박 연박으로 시차 적응, 장비 최종 점검, 컨디션 조절 완벽 대비"
+    ]
+  },
+
   routesInfo: {
     "hybrid": {
         "id": "hybrid",
@@ -210,9 +247,9 @@ const INITIAL_CAMINO_DATA = {
                 "origin": "인천 (ICN)",
                 "destination": "포르투 (OPO)",
                 "distance": "항공 이동",
-                "highlight": "포르투 도착, 우마 포베이루스 체크인, 휴식",
-                "hotel": "우마 포베이루스 (Porto)",
-                "desc": "11/10 18:25 인천발(MU8604) ➔ 11/11 12:00 포르투 공항(OPO) 도착. 우마 포베이루스 체크인 및 휴식"
+                "highlight": "포르투 도착, 스테이 호텔 트린다데 체크인(16:00), 여장 풀기",
+                "hotel": "스테이 호텔 포르투 센트로 트린다데 (Stay Hotel Porto Centro Trindade)",
+                "desc": "11/10 18:25 인천발(MU8604) ➔ 11/11 12:00 포르투 공항(OPO) 도착. 메트로 E라인으로 트린다데 이동, 호텔 체크인(16:00~) 및 휴식 (예약: 1400829745971821 / PIN: 7999)"
             },
             {
                 "day": 2,
@@ -222,9 +259,9 @@ const INITIAL_CAMINO_DATA = {
                 "origin": "포르투",
                 "destination": "포르투",
                 "distance": "시내 도보",
-                "highlight": "크레덴시알 발급, 도루강 야경, 최종 패킹",
-                "hotel": "우마 포베이루스 (Porto)",
-                "desc": "포르투 대성당 크레덴시알(순례자 여권) 수령, 동루이스 1세 다리 석양, 최종 짐 패킹"
+                "highlight": "크레덴시알 발급, 도루강 야경, 최종 패킹 (2박 연박)",
+                "hotel": "스테이 호텔 포르투 센트로 트린다데 (Stay Hotel Porto Centro Trindade)",
+                "desc": "포르투 대성당 크레덴시알(순례자 여권) 발급, 볼량 시장·상벤투역 탐방, 동루이스 1세 다리 석양, 순례 전야 최종 짐 패킹 (트린다데 2박 연박)"
             },
             {
                 "day": 3,
@@ -501,9 +538,9 @@ const INITIAL_CAMINO_DATA = {
                 "origin": "인천 (ICN)",
                 "destination": "포르투 (OPO)",
                 "distance": "항공 이동",
-                "highlight": "포르투 도착, 우마 포베이루스 체크인, 휴식",
-                "hotel": "우마 포베이루스 (Porto)",
-                "desc": "11/10 18:25 인천발 ➔ 11/11 12:00 포르투 공항 도착, 숙소 체크인 후 휴식"
+                "highlight": "포르투 도착, 스테이 호텔 트린다데 체크인(16:00), 휴식",
+                "hotel": "스테이 호텔 포르투 센트로 트린다데 (Stay Hotel Porto Centro Trindade)",
+                "desc": "11/10 18:25 인천발 ➔ 11/11 12:00 포르투 공항 도착, 메트로 이동 후 스테이 호텔 트린다데 체크인(16:00~) 및 휴식 (예약: 1400829745971821)"
             },
             {
                 "day": 2,
@@ -513,9 +550,9 @@ const INITIAL_CAMINO_DATA = {
                 "origin": "포르투",
                 "destination": "포르투",
                 "distance": "시내 도보",
-                "highlight": "크레덴시알 발급, 포르투 도심 관광 및 패킹 점검",
-                "hotel": "우마 포베이루스 (Porto)",
-                "desc": "포르투 대성당 크레덴시알 발급, 볼량 시장 및 도심 산책, 패킹 최종 점검"
+                "highlight": "크레덴시알 발급, 포르투 도심 관광 및 패킹 점검 (2박 연박)",
+                "hotel": "스테이 호텔 포르투 센트로 트린다데 (Stay Hotel Porto Centro Trindade)",
+                "desc": "포르투 대성당 크레덴시알 발급, 볼량 시장 및 도심 산책, 2박 연박으로 최상의 컨디션 관리 및 패킹 최종 점검"
             },
             {
                 "day": 3,
@@ -792,9 +829,9 @@ const INITIAL_CAMINO_DATA = {
                 "origin": "인천 (ICN)",
                 "destination": "포르투 (OPO)",
                 "distance": "항공 이동",
-                "highlight": "포르투 도착, 우마 포베이루스 체크인, 휴식",
-                "hotel": "우마 포베이루스 (Porto)",
-                "desc": "11/10 18:25 인천발 ➔ 11/11 12:00 포르투 공항 도착, 숙소 체크인 및 휴식"
+                "highlight": "포르투 도착, 스테이 호텔 트린다데 체크인(16:00), 휴식",
+                "hotel": "스테이 호텔 포르투 센트로 트린다데 (Stay Hotel Porto Centro Trindade)",
+                "desc": "11/10 18:25 인천발 ➔ 11/11 12:00 포르투 공항 도착, 메트로 직통 트린다데 이동 후 호텔 체크인 및 휴식 (예약: 1400829745971821)"
             },
             {
                 "day": 2,
@@ -804,9 +841,9 @@ const INITIAL_CAMINO_DATA = {
                 "origin": "포르투",
                 "destination": "포르투",
                 "distance": "시내 도보",
-                "highlight": "대성당 크레덴시알 발급, 포르투 도심 관광",
-                "hotel": "우마 포베이루스 (Porto)",
-                "desc": "포르투 대성당 크레덴시알 수령, 볼량 시장 및 클레리고스 탑 도심 관광"
+                "highlight": "대성당 크레덴시알 발급, 포르투 도심 관광 (2박 연박)",
+                "hotel": "스테이 호텔 포르투 센트로 트린다데 (Stay Hotel Porto Centro Trindade)",
+                "desc": "포르투 대성당 크레덴시알 수령, 볼량 시장 및 클레리고스 탑 도심 관광, 2박 연박으로 내륙 중앙길 출발 전 완벽 휴식"
             },
             {
                 "day": 3,
@@ -1087,7 +1124,7 @@ const INITIAL_CAMINO_DATA = {
     // [0. 항공권 & 숙박비 - 고정 지출]
     { id: "pack-flight-inbound", item: "출국 항공권 (인천➔상하이➔런던➔포르투 편도 결제완료)", text: "출국 항공권 (인천➔상하이➔런던➔포르투 편도 결제완료)", category: "항공·숙박비", cost: "₩477,357", costKrw: 477357, currency: "KRW", done: true, note: "트립닷컴 결제완료(₩477,357). 11/10 18:25 인천발(MU8604) ➔ 11/11 12:00 포르투 착" },
     { id: "pack-flight-return", item: "귀국 항공권 (12/02 마드리드➔청두➔인천 편도 결제완료)", text: "귀국 항공권 (12/02 마드리드➔청두➔인천 편도 결제완료)", category: "항공·숙박비", cost: "₩406,827", costKrw: 406827, currency: "KRW", done: true, note: "트립닷컴 결제완료(₩406,827). 12/02 11:05 마드리드 MAD(3U3804, A330) ➔ 청두 3h 환승(수하물 자동연결) ➔ 12/03 13:30 인천 착" },
-    { id: "pack-stay-porto", item: "포르투 첫날 호텔 1박 (11/11 체크인 & 시차적응)", text: "포르투 첫날 호텔 1박 (11/11 체크인 & 시차적응)", category: "항공·숙박비", cost: "₩90,000", costKrw: 90000, currency: "KRW", done: false, note: "포르투 시내 중심 호텔 (순례길 전야 컨디션 조절)" },
+    { id: "pack-stay-porto", item: "포르투 호텔 2박 (11/11~13 스테이 호텔 포르투 센트로 트린다데 결제완료)", text: "포르투 호텔 2박 (11/11~13 스테이 호텔 포르투 센트로 트린다데 결제완료)", category: "항공·숙박비", cost: "₩132,615", costKrw: 132615, currency: "KRW", done: true, note: "트립닷컴 결제완료(₩132,615 / 현장 도시세 €12 별도). 예약번호 1400829745971821, PIN 7999. 트린다데역 인근 2박 연박" },
     { id: "pack-stay-albergue", item: "순례길 공립/사립 알베르게 18박 숙박비 (평균 15~20유로)", text: "순례길 공립/사립 알베르게 18박 숙박비 (평균 15~20유로)", category: "항공·숙박비", cost: "₩480,000", costKrw: 480000, currency: "KRW", done: false, note: "18박 x 약 27,000원(€18), 현지 체크인 시 지불" },
     { id: "pack-stay-santiago", item: "산티아고 완보 숙소 2박 (11/29~12/01)", text: "산티아고 완보 숙소 2박 (11/29~12/01)", category: "항공·숙박비", cost: "₩120,000", costKrw: 120000, currency: "KRW", done: false, note: "산티아고 대성당 광장 인근 호스텔/호텔 2박" },
     { id: "pack-stay-madrid", item: "마드리드 호텔 1박 (12/01 체크인 & 피날레 관광)", text: "마드리드 호텔 1박 (12/01 체크인 & 피날레 관광)", category: "항공·숙박비", cost: "₩90,000", costKrw: 90000, currency: "KRW", done: false, note: "마드리드 솔 광장/차마르틴역 인근 호텔 (12/02 공항 이동 편리)" },
@@ -1129,9 +1166,9 @@ const INITIAL_CAMINO_DATA = {
         "origin": "인천 (ICN)",
         "destination": "포르투 (OPO)",
         "distance": "항공 이동",
-        "highlight": "포르투 도착, 우마 포베이루스 체크인, 휴식",
-        "hotel": "우마 포베이루스 (Porto)",
-        "desc": "11/10 18:25 인천발(MU8604) ➔ 11/11 12:00 포르투 공항(OPO) 도착. 우마 포베이루스 체크인 및 휴식"
+        "highlight": "포르투 도착, 스테이 호텔 트린다데 체크인(16:00), 여장 풀기",
+        "hotel": "스테이 호텔 포르투 센트로 트린다데 (Stay Hotel Porto Centro Trindade)",
+        "desc": "11/10 18:25 인천발(MU8604) ➔ 11/11 12:00 포르투 공항(OPO) 도착. 메트로 E라인으로 트린다데 이동, 호텔 체크인(16:00~) 및 휴식 (예약: 1400829745971821 / PIN: 7999)"
     },
     {
         "day": 2,
@@ -1141,9 +1178,9 @@ const INITIAL_CAMINO_DATA = {
         "origin": "포르투",
         "destination": "포르투",
         "distance": "시내 도보",
-        "highlight": "크레덴시알 발급, 도루강 야경, 최종 패킹",
-        "hotel": "우마 포베이루스 (Porto)",
-        "desc": "포르투 대성당 크레덴시알(순례자 여권) 수령, 동루이스 1세 다리 석양, 최종 짐 패킹"
+        "highlight": "크레덴시알 발급, 도루강 야경, 최종 패킹 (2박 연박)",
+        "hotel": "스테이 호텔 포르투 센트로 트린다데 (Stay Hotel Porto Centro Trindade)",
+        "desc": "포르투 대성당 크레덴시알(순례자 여권) 발급, 볼량 시장·상벤투역 탐방, 동루이스 1세 다리 석양, 순례 전야 최종 짐 패킹 (트린다데 2박 연박)"
     },
     {
         "day": 3,
