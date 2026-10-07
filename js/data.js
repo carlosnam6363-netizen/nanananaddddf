@@ -14,7 +14,7 @@ const INITIAL_DISCHARGE_DATE = "2026-12-19";
 // 산티아고 순례길 일정 & 준비물 데이터 (2026-11-07 ~ 11-09)
 // 산티아고 순례길 일정 & 준비물 데이터 (까미노 드 포르투 3주 여정: 2026-11-09 ~ 11-29)
 const INITIAL_CAMINO_DATA = {
-  caminoDataVersion: 10,
+  caminoDataVersion: 11,
   title: "산티아고 순례길 3개 코스 비교 관제 & 피니스테레·마드리드 귀국 (23일 대여정)",
   startDate: "2026-11-10",
   endDate: "2026-12-03",
@@ -189,6 +189,168 @@ const INITIAL_CAMINO_DATA = {
 
   // 🥾 코스 2개 분기 (해안길 vs 중앙길) 및 알베르게 리스트
     // 🏨 포르투 시내 2박 확정 숙소 정보 (11/11 수 체크인 ~ 11/13 금 체크아웃)
+  // 🏨 [일정별 11월 정상 운영 숙소 리스트] (11월 현지 영업 확인 완료)
+  novemberAccommodations: [
+    {
+      day: "01",
+      date: "11/11 (수)",
+      stage: "포르투 도착",
+      stay: "Stay Hotel Porto Centro Trindade",
+      desc: "트린다데역 평지 도보 5분, 24시간 리셉션 호텔 (예약번호: 1400829745971821 / PIN: 7999)",
+      type: "호텔 (결제완료)"
+    },
+    {
+      day: "02",
+      date: "11/12 (목)",
+      stage: "포르투 휴식",
+      stay: "Stay Hotel Porto Centro Trindade (연박)",
+      desc: "대성당 및 상벤투 도보 10~15분 산책 코스, 시차적응 및 크레덴시알 발급",
+      type: "호텔 (결제완료)"
+    },
+    {
+      day: "03",
+      date: "11/13 (금)",
+      stage: "마토지뉴스 ➔ 빌라 두 콘드 / 포보아",
+      stay: "Albergue de Peregrinos de Vila do Conde (Santa Clara) 또는 Sardines & Friends Hostel",
+      desc: "산타 클라라 공립 정상 운영. 포보아 드 바르징의 사설 호스텔들도 11월 30일까지 영업 확인",
+      type: "공립/사설"
+    },
+    {
+      day: "04",
+      date: "11/14 (토)",
+      stage: "포보아 ➔ 바르셀루스 (내륙 환승)",
+      stay: "Albergue de Peregrinos Cidade de Barcelos (공립)",
+      desc: "연중무휴 공립 알베르게. 바르셀루스 중심부 위치, 주방 및 난방 완비",
+      type: "공립 (연중무휴)"
+    },
+    {
+      day: "05",
+      date: "11/15 (일)",
+      stage: "바르셀루스 ➔ 발루게스 (Balugães)",
+      stay: "Albergue Quinta da Balugães 또는 Casa da Fernanda (비토리누)",
+      desc: "발루게스 킨타 알베르게 11월 운영. 3km 전 유명 알베르게인 '카사 다 페르난다'도 운영 여부 확인 가능",
+      type: "사설/민박"
+    },
+    {
+      day: "06",
+      date: "11/16 (월)",
+      stage: "발루게스 ➔ 폰테 드 리마",
+      stay: "Albergue de Peregrinos de Ponte de Lima (공립)",
+      desc: "폰테 드 리마 강변의 60베드 대형 공립 알베르게 (연중무휴)",
+      type: "공립 (연중무휴)"
+    },
+    {
+      day: "07",
+      date: "11/17 (화)",
+      stage: "폰테 드 리마 ➔ 루비앙이스 (Rubiães)",
+      stay: "Albergue de Peregrinos de Rubiães (공립)",
+      desc: "라브루자 고개 넘은 직후 위치한 공립. (인근 사설 Ninho 등은 10월 말 조기 마감하므로 공립 이용 필수)",
+      type: "공립 필수"
+    },
+    {
+      day: "08",
+      date: "11/18 (수)",
+      stage: "루비앙이스 ➔ 발렌사 ➔ 투이 (Tui)",
+      stay: "Albergue de Peregrinos de Tui (갈리시아 주립 공립)",
+      desc: "국경 넘은 직후 투이 대성당 옆 주립(Xunta) 알베르게. 갈리시아 주정부 공립은 365일 연중 오픈",
+      type: "주립 공립 (연중무휴)"
+    },
+    {
+      day: "09",
+      date: "11/19 (목)",
+      stage: "투이 ➔ 오 포리뇨 (O Porriño)",
+      stay: "Albergue de Peregrinos de O Porriño (갈리시아 주립)",
+      desc: "강변 현대식 주립 공립 (연중무휴). 대형 마트 인접",
+      type: "주립 공립 (연중무휴)"
+    },
+    {
+      day: "10",
+      date: "11/20 (금)",
+      stage: "오 포리뇨 ➔ 레돈델라 (Redondela)",
+      stay: "Albergue Casa da Torre (갈리시아 주립 공립)",
+      desc: "16세기 석조 저택 공립 (상시 오픈). 해안길과 중앙길 합류점",
+      type: "주립 공립 (상시)"
+    },
+    {
+      day: "11",
+      date: "11/21 (토)",
+      stage: "레돈델라 ➔ 폰테베드라 (Pontevedra)",
+      stay: "Albergue Virgen Peregrina (주립) 또는 Bulezen Urban Hostel (사설)",
+      desc: "공립 알베르게 연중 상시 운영. 사설 Bulezen(캡슐형 침대, 개별 난방)도 11월 상시 예약 가능",
+      type: "주립/사설"
+    },
+    {
+      day: "12",
+      date: "11/22 (일)",
+      stage: "폰테베드라 ➔ 아르멘테이라 (영성길 1)",
+      stay: "Albergue de Peregrinos San Ero de Armenteira (공립)",
+      desc: "수도원 옆 공립 알베르게 연중무휴 정상 운영 확인. (일부 소형 사설은 11월 휴업이므로 San Ero 추천)",
+      type: "공립 (San Ero)"
+    },
+    {
+      day: "13",
+      date: "11/23 (월)",
+      stage: "아르멘테이라 ➔ 빌라노바 드 아로우사",
+      stay: "Albergue A Salazón (사설) 또는 체육관 공립",
+      desc: "A Corticela는 10/31부로 동절기 마감. A Salazón(항구 150m 앞) 및 체육관 공립 알베르게 연중무휴 확인",
+      type: "사설/공립"
+    },
+    {
+      day: "14",
+      date: "11/24 (화)",
+      stage: "빌라노바 ➔ 파드론 (보트 이동)",
+      stay: "Albergue de Peregrinos de Padrón (공립)",
+      desc: "카르멘 성당 인근 공립 알베르게 연중무휴 상시 운영",
+      type: "공립 (연중무휴)"
+    },
+    {
+      day: "15",
+      date: "11/25 (수)",
+      stage: "파드론 ➔ 오 밀라도이로 (O Milladoiro)",
+      stay: "Albergue Milladoiro (사설)",
+      desc: "12월 크리스마스 전까지 연중 정상 운영 확인(Del 1 de marzo a navidades). 산티아고 7.5km 전방",
+      type: "사설 (크리스마스전까지)"
+    },
+    {
+      day: "16",
+      date: "11/26 (목)",
+      stage: "오 밀라도이로 ➔ 산티아고 도착",
+      stay: "Albergue Seminario Menor 또는 구시가지 호텔",
+      desc: "수도원 알베르게 11월 정상 운영 (1인실 및 다인실 구비)",
+      type: "수도원/호텔"
+    },
+    {
+      day: "17~19",
+      date: "11/27~29",
+      stage: "산티아고 투어 & 휴식",
+      stay: "호텔/호스텔 연박",
+      desc: "시내 일반 숙소는 비수기 특가로 상시 정상 영업",
+      type: "호텔/호스텔"
+    },
+    {
+      day: "20~21",
+      date: "11/30~12/1",
+      stage: "마드리드 이동 & 시내 관광",
+      stay: "마드리드 차마르틴/솔 광장 인근 호텔",
+      desc: "도심 호텔 정상 운영",
+      type: "도심 호텔"
+    }
+  ],
+
+  // 💡 11월 영성길(Variante Espiritual) 특별 주의사항 및 팁
+  novSpiritualTips: [
+    {
+      badge: "숙소 변경 주의",
+      title: "빌라노바 드 아로우사 숙소 변경점",
+      content: "한국 순례자들에게 유명한 'Albergue A Corticela'는 매년 10월 31일 영업을 종료하고 동절기 휴업에 들어갑니다. 따라서 11월에는 선착장 도보 2분 거리인 [Albergue A Salazón] 또는 다목적 체육관 1층의 [공립 알베르게]를 이용하셔야 합니다."
+    },
+    {
+      badge: "보트 사전 확인 필수",
+      title: "14일 차(11/24) 보트(Traslatio) 사전 확인",
+      content: "11월은 비수기라 보트 탑승 인원(최소 출항 인원)이 차지 않거나 바다 물때(조수 간만의 차)에 따라 운항 시간이 매일 바뀝니다. 아르멘테이라에 도착하는 12일 차(11/22) 저녁에 보트 운영사(A Barca do Peregrino / Amare Turismo Náutico 등) WhatsApp으로 '11/24 출항 여부 및 시간'을 반드시 사전 확인해 두셔야 차질 없이 탑승할 수 있습니다."
+    }
+  ],
+
   accommodationBooking: {
     bookingPlatform: "트립닷컴 (Trip.com)",
     bookingStatus: "결제 완료 (온라인 사전 결제)",
@@ -272,7 +434,7 @@ const INITIAL_CAMINO_DATA = {
                 "destination": "빌라 두 콘드 / 포보아",
                 "distance": "14km",
                 "highlight": "바닷바람 맞으며 걷는 나무 데크 해안길 시작",
-                "hotel": "Albergue de Santa Clara / 포보아 숙소",
+                "hotel": "Albergue de Peregrinos de Vila do Conde (Santa Clara) 또는 Sardines & Friends Hostel",
                 "desc": "메트로로 마토지뉴스 이동 후 대서양 해안 목재 데크길을 따라 걷는 상쾌한 첫 도보"
             },
             {
@@ -284,7 +446,7 @@ const INITIAL_CAMINO_DATA = {
                 "destination": "바르셀루스 (Barcelos)",
                 "distance": "15km",
                 "highlight": "해안에서 내륙으로 전환, 포르투갈 닭 전설의 고향",
-                "hotel": "Albergue Cidade de Barcelos",
+                "hotel": "Albergue de Peregrinos Cidade de Barcelos (공립)",
                 "desc": "대서양 해안길에서 내륙 중앙길로 전환하는 연결로. 포르투갈의 상징인 수탉 전설의 유서 깊은 중세 도시 도착"
             },
             {
@@ -296,7 +458,7 @@ const INITIAL_CAMINO_DATA = {
                 "destination": "발루게스 (Balugães)",
                 "distance": "15km",
                 "highlight": "호젓한 시골 전원 풍경과 포도밭 숲길",
-                "hotel": "Casa da Fernanda / Albergue Balugães",
+                "hotel": "Albergue Quinta da Balugães 또는 Casa da Fernanda (비토리누)",
                 "desc": "한적한 시골 오솔길과 비뇨 베르데(그린 와인) 포도밭 사이를 통과하는 평화로운 전원 순례길"
             },
             {
@@ -320,7 +482,7 @@ const INITIAL_CAMINO_DATA = {
                 "destination": "루비앙이스 (Rubiães)",
                 "distance": "18km",
                 "highlight": "포르투갈 길의 상징 '라브루자(Labruja) 고개' 완주",
-                "hotel": "Albergue de Rubiães",
+                "hotel": "Albergue de Peregrinos de Rubiães (공립)",
                 "desc": "포르투갈 길 최대의 난코스이자 벅찬 파노라마를 선사하는 라브루자 고개(해발 400m) 정복"
             },
             {
@@ -332,7 +494,7 @@ const INITIAL_CAMINO_DATA = {
                 "destination": "발렌사 ➔ 투이 (Tui)",
                 "distance": "15km",
                 "highlight": "국경 철교 도보 월경(포르투갈 ➔ 스페인, 시차 +1h)",
-                "hotel": "Albergue Santo Domingo / Ideas Peregrinas",
+                "hotel": "Albergue de Peregrinos de Tui (갈리시아 주립 공립)",
                 "desc": "발렌사 고성을 지나 미뇨강 국제 철교를 걸어서 건너 스페인 갈리시아 투이로 입국 (시차 1시간 빨라짐)"
             },
             {
@@ -344,7 +506,7 @@ const INITIAL_CAMINO_DATA = {
                 "destination": "오 포리뇨 (O Porriño)",
                 "distance": "16km",
                 "highlight": "갈리시아 주정부 10유로 공립 알베르게 첫 이용",
-                "hotel": "Albergue de Peregrinos de O Porriño (공립)",
+                "hotel": "Albergue de Peregrinos de O Porriño (갈리시아 주립)",
                 "desc": "투이 대성당 조망 후 루로 강변 자연 산책로를 따라 오 포리뇨 진입, 갈리시아 공립 알베르게 숙박"
             },
             {
@@ -356,7 +518,7 @@ const INITIAL_CAMINO_DATA = {
                 "destination": "레돈델라 (Redondela)",
                 "distance": "15km",
                 "highlight": "리아스 해안 만 조망, 해안길 합류 지점",
-                "hotel": "Albergue Casa da Torre (공립)",
+                "hotel": "Albergue Casa da Torre (갈리시아 주립 공립)",
                 "desc": "해안길과 중앙길이 하나로 만나는 역사적인 분기점. 리아스 해안의 멋진 바다와 철교 감상"
             },
             {
@@ -368,7 +530,7 @@ const INITIAL_CAMINO_DATA = {
                 "destination": "폰테베드라 (Pontevedra)",
                 "distance": "18km",
                 "highlight": "가리비 모양 성당(Peregrina), 중세 구시가지",
-                "hotel": "Bulezen Urban Hostel / Virxe da Peregrina",
+                "hotel": "Albergue Virgen Peregrina (주립) 또는 Bulezen Urban Hostel (사설)",
                 "desc": "폰테삼파이오 고대 석교를 건너 보행자의 천국 폰테베드라 구시가지와 가리비 순례자 성당 탐방"
             },
             {
@@ -380,7 +542,7 @@ const INITIAL_CAMINO_DATA = {
                 "destination": "아르멘테이라",
                 "distance": "17km",
                 "highlight": "영성길 진입, 콤바드로 곡물창고 마을 통과",
-                "hotel": "Albergue de Armenteira (수도원 인근)",
+                "hotel": "Albergue de Peregrinos San Ero de Armenteira (공립)",
                 "desc": "★ 영성길(Variante Espiritual) 진입! 갈리시아 전통 곡물창고(오레오)가 늘어선 해변 콤바드로 경유 후 수도원 마을 도착"
             },
             {
@@ -392,7 +554,7 @@ const INITIAL_CAMINO_DATA = {
                 "destination": "빌라노바 드 아로우사",
                 "distance": "23km",
                 "highlight": "완만한 내리막 '돌과 물의 길' 트레킹",
-                "hotel": "Albergue de Peregrinos de Vilanova de Arousa",
+                "hotel": "Albergue A Salazón (사설) 또는 체육관 공립",
                 "desc": "물레방아와 폭포가 어우러진 갈리시아 최고의 숲길 '돌과 물의 길(Ruta da Pedra e da Auga)' 힐링 트레킹"
             },
             {
@@ -404,7 +566,7 @@ const INITIAL_CAMINO_DATA = {
                 "destination": "파드론 (Padrón)",
                 "distance": "보트 + 3km",
                 "highlight": "보트 순례길(Traslatio) 탑승, 파드론 고추 요리",
-                "hotel": "Albergue de Padrón (공립) / Albergue Rossol",
+                "hotel": "Albergue de Peregrinos de Padrón (공립)",
                 "desc": "★ 성 야고보의 유해 운구 보트 순례(Traslatio) 탑승! 강변 십자가들을 지나 파드론 기착, 명물 꽈리고추 튀김 만찬"
             },
             {
@@ -416,7 +578,7 @@ const INITIAL_CAMINO_DATA = {
                 "destination": "테오 / 오 밀라도이로",
                 "distance": "15km",
                 "highlight": "완주 전야, 고요한 참나무 숲길",
-                "hotel": "Albergue Milladoiro / Teo 숙소",
+                "hotel": "Albergue Milladoiro (사설)",
                 "desc": "대성당을 하루 앞둔 설레는 순례길. 고요한 갈리시아 참나무 숲길을 걸으며 마음 정리"
             },
             {
@@ -428,7 +590,7 @@ const INITIAL_CAMINO_DATA = {
                 "destination": "산티아고 데 콤포스텔라",
                 "distance": "10km",
                 "highlight": "산티아고 대성당 입성, 완주증 발급, 정오 미사",
-                "hotel": "산티아고 중심가 숙소 (1박)",
+                "hotel": "Albergue Seminario Menor 또는 구시가지 호텔",
                 "desc": "★ 마침내 오브라도이로 광장 대성당 입성! 성 야고보 포옹, 콤포스텔라 완보증 수령, 12시 순례자 향로 미사 참례"
             },
             {
@@ -440,7 +602,7 @@ const INITIAL_CAMINO_DATA = {
                 "destination": "피스테라 & 무시아",
                 "distance": "버스 투어",
                 "highlight": "세상의 끝(0.00km) 등대 및 대서양 바다 투어",
-                "hotel": "산티아고 중심가 숙소 (2박)",
+                "hotel": "호텔/호스텔 연박",
                 "desc": "고대인들이 믿었던 세상의 끝 피스테라 0.00km 비석과 무시아 성모 바위 절벽 일일 투어"
             },
             {
@@ -452,7 +614,7 @@ const INITIAL_CAMINO_DATA = {
                 "destination": "산티아고",
                 "distance": "시내 도보",
                 "highlight": "아바스토스 시장 해산물 식사 및 기념품 쇼핑",
-                "hotel": "산티아고 중심가 숙소 (3박)",
+                "hotel": "호텔/호스텔 연박",
                 "desc": "산티아고 아바스토스 재래시장에서 신선한 갈리시아 뽈뽀와 해산물 만찬, 가족/지인 기념품 쇼핑"
             },
             {
@@ -464,7 +626,7 @@ const INITIAL_CAMINO_DATA = {
                 "destination": "산티아고",
                 "distance": "자유",
                 "highlight": "일정 지연 대비 버퍼일 (차질 없을 시 휴식)",
-                "hotel": "산티아고 중심가 숙소 (4박)",
+                "hotel": "호텔/호스텔 연박",
                 "desc": "도보 일정 지연을 대비한 완벽한 버퍼 데이. 정상 완주 시 산티아고 구시가지 카페 힐링"
             },
             {
@@ -476,7 +638,7 @@ const INITIAL_CAMINO_DATA = {
                 "destination": "마드리드 (Chamartín)",
                 "distance": "렌페 (3.5h)",
                 "highlight": "고속열차로 마드리드 이동 후 체크인, 야경 투어",
-                "hotel": "마드리드 중심가 호텔 (1박)",
+                "hotel": "마드리드 차마르틴/솔 광장 인근 호텔",
                 "desc": "산티아고 역에서 Renfe 초고속열차 탑승(약 3시간 20분) ➔ 마드리드 차마르틴 역 도착, 호텔 체크인 & 솔 광장 야경"
             },
             {
@@ -488,7 +650,7 @@ const INITIAL_CAMINO_DATA = {
                 "destination": "마드리드",
                 "distance": "메트로/도보",
                 "highlight": "프라도 미술관, 솔 광장, 츄러스 맛집 전일 관광",
-                "hotel": "마드리드 중심가 호텔 (2박)",
+                "hotel": "마드리드 차마르틴/솔 광장 인근 호텔",
                 "desc": "세계 3대 미술관 프라도 미술관 관람, 산 히네스 원조 츄러스, 마요르 광장 및 왕궁 전일 관광"
             },
             {
