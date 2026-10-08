@@ -14,7 +14,7 @@ const INITIAL_DISCHARGE_DATE = "2026-12-19";
 // 산티아고 순례길 일정 & 준비물 데이터 (2026-11-07 ~ 11-09)
 // 산티아고 순례길 일정 & 준비물 데이터 (까미노 드 포르투 3주 여정: 2026-11-09 ~ 11-29)
 const INITIAL_CAMINO_DATA = {
-  caminoDataVersion: 11,
+  caminoDataVersion: 12,
   title: "산티아고 순례길 3개 코스 비교 관제 & 피니스테레·마드리드 귀국 (23일 대여정)",
   startDate: "2026-11-10",
   endDate: "2026-12-03",
@@ -677,6 +677,43 @@ const INITIAL_CAMINO_DATA = {
                 "hotel": "스위트 홈 (귀가)",
                 "desc": "청두 톈푸 T1 3시간 환승 (수하물 자동 연결) ➔ 13:30 인천공항 T1 도착! 대단원의 순례길 완주"
             }
+        ],
+        "recommendedAlbergues": [
+          { "stage": "포르투 (Porto)", "name": "Stay Hotel Porto Centro Trindade / Porto Wine Hostel", "type": "호텔/호스텔", "price": "₩66,000 / €30", "rating": "4.9", "tip": "트린다데역 2박 연박, 포르투 대성당 크레덴시알 발급", "nearbyBar": "Café Santiago (원조 프란세지냐) & Casa Guedes (돼지고기 샌드위치)" },
+          { "stage": "빌라 두 콘드 / 포보아", "name": "Albergue de Santa Clara / Sardines & Friends", "type": "공립/사설", "price": "€10~15", "rating": "4.7", "tip": "대서양 목재 데크길 첫 관문, 11월 30일까지 영업 확인", "nearbyBar": "Bodegão do Bairro (신선한 정어리 구이 Sardinhas & 그린와인)" },
+          { "stage": "바르셀루스 (Barcelos)", "name": "Albergue Cidade de Barcelos (공립)", "type": "공립 알베르게", "price": "€10", "rating": "4.8", "tip": "해안에서 내륙으로 전환, 수탉 전설의 유서 깊은 중세 도시", "nearbyBar": "Restaurante Bagoeira (바르셀루스 전통 로스트 치킨 Frango Assado & 비뇨 베르데)" },
+          { "stage": "발루게스 (Balugães)", "name": "Albergue Quinta da Balugães / Casa da Fernanda", "type": "사설/민박", "price": "€15~25", "rating": "5.0", "tip": "발루게스 킨타 11월 운영, 페르난다 아주머니의 따뜻한 저녁 만찬", "nearbyBar": "Casa da Fernanda 만찬 (순례자들과 나누는 공동 만찬과 노래)" },
+          { "stage": "폰테 드 리마 (Ponte de Lima)", "name": "Albergue de Peregrinos de Ponte de Lima (공립)", "type": "공립 알베르게", "price": "€10", "rating": "4.8", "tip": "포르투갈에서 가장 오래된 로마식 다리가 있는 아름다운 강변 도시", "nearbyBar": "Restaurante Encanada (로마 다리 뷰 전통 돼지수육밥 Sarrabulho & 그린와인)" },
+          { "stage": "루비앙이스 (Rubiães)", "name": "Albergue de Peregrinos de Rubiães (공립)", "type": "공립 알베르게", "price": "€10", "rating": "4.6", "tip": "라브루자 고개 넘은 직후의 꿀맛 같은 휴식 (공립 필수)", "nearbyBar": "Restaurante Bom Retiro (칼도 베르데 수프 & 갈비구이 Costela)" },
+          { "stage": "발렌사 / 투이 (Valença / Tui)", "name": "Albergue de Peregrinos de Tui (주립) / Ideas Peregrinas", "type": "주립 공립/사립", "price": "€10~17", "rating": "4.9", "tip": "국제 철교 건너 스페인 국경 통과, 투이 대성당 옆 주립 알베르게", "nearbyBar": "Tapería La de Manu (감바스 알 아히요 Gambas al Ajillo & 이베리코 하몬)" },
+          { "stage": "오 포리뇨 (O Porriño)", "name": "Albergue de Peregrinos de O Porriño (주립)", "type": "주립 공립", "price": "€10", "rating": "4.7", "tip": "강변 현대식 주립 알베르게, 쾌적한 세탁실, 대형마트 인접", "nearbyBar": "Cervecería Paso a Nivel (갈리시아 엠파나다 & 시원한 생맥주 Caña)" },
+          { "stage": "레돈델라 (Redondela)", "name": "Albergue Casa da Torre (공립)", "type": "주립 공립", "price": "€10", "rating": "4.8", "tip": "해안길과 중앙길 합류점, 16세기 석조 저택", "nearbyBar": "O Churrasco de Juan (두 코스 합류 축하! 숯불 갈비 바베큐 Churrasco & 감자)" },
+          { "stage": "폰테베드라 (Pontevedra)", "name": "Bulezen Urban Hostel / Albergue Virgen Peregrina", "type": "현대식 사립/주립", "price": "€10~18", "rating": "4.9", "tip": "보행자 전용 도시, 순례자 전용 가리비 모양 성당 인접", "nearbyBar": "Bar Rianxo (Praza da Leña 야외 광장 정통 뽈뽀 & 꼴뚜기 튀김)" },
+          { "stage": "아르멘테이라 (Armenteira)", "name": "Albergue San Ero de Armenteira (공립)", "type": "공립 알베르게", "price": "€10", "rating": "4.8", "tip": "영성길 1일차 12세기 시토회 수도원 옆 고요한 쉼터", "nearbyBar": "O Comercio de Armenteira (수도원 광장 치즈 & 와인)" },
+          { "stage": "빌라노바 드 아로우사", "name": "Albergue A Salazón (사설) / 다목적 체육관", "type": "사설/공립", "price": "€10~17", "rating": "4.7", "tip": "보트 선착장 도보 2분 (A Corticela는 10/31부 동절기 휴업)", "nearbyBar": "Chiringuito El Muelle (아로우사 바다 앞 신선한 홍합 찜 Mejillones)" },
+          { "stage": "파드론 (Padrón)", "name": "Albergue de Peregrinos de Padrón (공립)", "type": "공립 알베르게", "price": "€10", "rating": "4.7", "tip": "보트 순례 Traslatio 도착지, 성 야고보 바위(Pedrón)", "nearbyBar": "Pulpería Rial / Asador O Pemento (원조 파드론 꽈리고추 튀김 & 문어 숙회)" },
+          { "stage": "오 밀라도이로 (O Milladoiro)", "name": "Albergue Milladoiro (사설)", "type": "사립 알베르게", "price": "€15", "rating": "4.8", "tip": "산티아고 대성당 7.5km 전방, 크리스마스까지 연중 운영", "nearbyBar": "Cervecería O Rincón (생맥주 & 하몬 타파스)" },
+          { "stage": "산티아고 (Santiago)", "name": "Albergue Seminario Menor / 구시가지 호텔", "type": "대형 수도원/호텔", "price": "€15~40", "rating": "4.8", "tip": "오브라도이로 대성당 도보 10분, 완보증 수령지 인접", "nearbyBar": "Casa Manolo (순례자 성지 3코스 만찬 €13) & Chocolatería Piedras (추로스·핫초코)" }
+        ],
+        "novemberAccommodations": [
+          { "day": "01", "date": "11/11 (수)", "stage": "포르투 도착", "stay": "Stay Hotel Porto Centro Trindade", "desc": "트린다데역 평지 도보 5분, 24시간 리셉션 호텔 (예약번호: 1400829745971821 / PIN: 7999)", "type": "호텔 (결제완료)" },
+          { "day": "02", "date": "11/12 (목)", "stage": "포르투 휴식", "stay": "Stay Hotel Porto Centro Trindade (연박)", "desc": "대성당 및 상벤투 도보 10~15분 산책 코스, 시차적응 및 크레덴시알 발급", "type": "호텔 (결제완료)" },
+          { "day": "03", "date": "11/13 (금)", "stage": "마토지뉴스 ➔ 빌라 두 콘드 / 포보아", "stay": "Albergue de Peregrinos de Vila do Conde (Santa Clara) 또는 Sardines & Friends Hostel", "desc": "산타 클라라 공립 정상 운영. 포보아 드 바르징의 사설 호스텔들도 11월 30일까지 영업 확인", "type": "공립/사설" },
+          { "day": "04", "date": "11/14 (토)", "stage": "포보아 ➔ 바르셀루스 (내륙 환승)", "stay": "Albergue de Peregrinos Cidade de Barcelos (공립)", "desc": "연중무휴 공립 알베르게. 바르셀루스 중심부 위치, 주방 및 난방 완비", "type": "공립 (연중무휴)" },
+          { "day": "05", "date": "11/15 (일)", "stage": "바르셀루스 ➔ 발루게스 (Balugães)", "stay": "Albergue Quinta da Balugães 또는 Casa da Fernanda (비토리누)", "desc": "발루게스 킨타 알베르게 11월 운영. 3km 전 유명 알베르게인 '카사 다 페르난다'도 운영 여부 확인 가능", "type": "사설/민박" },
+          { "day": "06", "date": "11/16 (월)", "stage": "발루게스 ➔ 폰테 드 리마", "stay": "Albergue de Peregrinos de Ponte de Lima (공립)", "desc": "폰테 드 리마 강변의 60베드 대형 공립 알베르게 (연중무휴)", "type": "공립 (연중무휴)" },
+          { "day": "07", "date": "11/17 (화)", "stage": "폰테 드 리마 ➔ 루비앙이스 (Rubiães)", "stay": "Albergue de Peregrinos de Rubiães (공립)", "desc": "라브루자 고개 넘은 직후 위치한 공립. (인근 사설 Ninho 등은 10월 말 조기 마감하므로 공립 이용 필수)", "type": "공립 필수" },
+          { "day": "08", "date": "11/18 (수)", "stage": "루비앙이스 ➔ 발렌사 ➔ 투이 (Tui)", "stay": "Albergue de Peregrinos de Tui (갈리시아 주립 공립)", "desc": "국경 넘은 직후 투이 대성당 옆 주립(Xunta) 알베르게. 갈리시아 주정부 공립은 365일 연중 오픈", "type": "주립 공립 (연중무휴)" },
+          { "day": "09", "date": "11/19 (목)", "stage": "투이 ➔ 오 포리뇨 (O Porriño)", "stay": "Albergue de Peregrinos de O Porriño (갈리시아 주립)", "desc": "강변 현대식 주립 공립 (연중무휴). 대형 마트 인접", "type": "주립 공립 (연중무휴)" },
+          { "day": "10", "date": "11/20 (금)", "stage": "오 포리뇨 ➔ 레돈델라 (Redondela)", "stay": "Albergue Casa da Torre (갈리시아 주립 공립)", "desc": "16세기 석조 저택 공립 (상시 오픈). 해안길과 중앙길 합류점", "type": "주립 공립 (상시)" },
+          { "day": "11", "date": "11/21 (토)", "stage": "레돈델라 ➔ 폰테베드라 (Pontevedra)", "stay": "Albergue Virgen Peregrina (주립) 또는 Bulezen Urban Hostel (사설)", "desc": "공립 알베르게 연중 상시 운영. 사설 Bulezen(캡슐형 침대, 개별 난방)도 11월 상시 예약 가능", "type": "주립/사설" },
+          { "day": "12", "date": "11/22 (일)", "stage": "폰테베드라 ➔ 아르멘테이라 (영성길 1)", "stay": "Albergue de Peregrinos San Ero de Armenteira (공립)", "desc": "수도원 옆 공립 알베르게 연중무휴 정상 운영 확인. (일부 소형 사설은 11월 휴업이므로 San Ero 추천)", "type": "공립 (San Ero)" },
+          { "day": "13", "date": "11/23 (월)", "stage": "아르멘테이라 ➔ 빌라노바 드 아로우사", "stay": "Albergue A Salazón (사설) 또는 체육관 공립", "desc": "A Corticela는 10/31부로 동절기 마감. A Salazón(항구 150m 앞) 및 체육관 공립 알베르게 연중무휴 확인", "type": "사설/공립" },
+          { "day": "14", "date": "11/24 (화)", "stage": "빌라노바 ➔ 파드론 (보트 이동)", "stay": "Albergue de Peregrinos de Padrón (공립)", "desc": "카르멘 성당 인근 공립 알베르게 연중무휴 상시 운영", "type": "공립 (연중무휴)" },
+          { "day": "15", "date": "11/25 (수)", "stage": "파드론 ➔ 오 밀라도이로 (O Milladoiro)", "stay": "Albergue Milladoiro (사설)", "desc": "12월 크리스마스 전까지 연중 정상 운영 확인(Del 1 de marzo a navidades). 산티아고 7.5km 전방", "type": "사설 (크리스마스전까지)" },
+          { "day": "16", "date": "11/26 (목)", "stage": "오 밀라도이로 ➔ 산티아고 도착", "stay": "Albergue Seminario Menor 또는 구시가지 호텔", "desc": "수도원 알베르게 11월 정상 운영 (1인실 및 다인실 구비)", "type": "수도원/호텔" },
+          { "day": "17~19", "date": "11/27~29", "stage": "산티아고 투어 & 휴식", "stay": "호텔/호스텔 연박", "desc": "시내 일반 숙소는 비수기 특가로 상시 정상 영업", "type": "호텔/호스텔" },
+          { "day": "20~21", "date": "11/30~12/1", "stage": "마드리드 이동 & 시내 관광", "stay": "마드리드 차마르틴/솔 광장 인근 호텔", "desc": "도심 호텔 정상 운영", "type": "도심 호텔" }
         ]
     },
     "coastal": {
@@ -685,7 +722,7 @@ const INITIAL_CAMINO_DATA = {
         "shortName": "완전 해안길 (Costa)",
         "badge": "🌊 탁 트인 대서양 & 평지 코스",
         "themeColor": "sky",
-        "distance": "약 260 km",
+        "distance": "약 280 km",
         "walkingDays": "14일 도보 + 영성길 보트",
         "totalDays": "총 23일간 (11/11 입국 ~ 12/03 귀국)",
         "char": "바르셀루스로 꺾지 않고 계속 바다를 따라 북상하여 비아나 두 카스텔루, 카미냐를 거쳐 보트로 스페인(아 과르다)으로 넘어간 뒤 비고를 지나 폰테베드라로 합류하는 순수 해안길",
@@ -968,6 +1005,46 @@ const INITIAL_CAMINO_DATA = {
                 "hotel": "스위트 홈 (귀가)",
                 "desc": "청두 환승 후 13:30 인천공항 T1 도착"
             }
+        ],
+        "recommendedAlbergues": [
+          { "stage": "포르투 (Porto)", "name": "Stay Hotel Porto Centro Trindade / Porto Wine Hostel", "type": "호텔/호스텔", "price": "₩66,000 / €30", "rating": "4.9", "tip": "트린다데역 2박 연박, 포르투 대성당 크레덴시알 발급", "nearbyBar": "Café Santiago (원조 프란세지냐) & Casa Guedes (돼지고기 샌드위치)" },
+          { "stage": "빌라 샤 (Vila Chã)", "name": "Albergue São Mamede de Vila Chã", "type": "공립 알베르게", "price": "€12", "rating": "4.7", "tip": "대서양 해변 바로 앞, 조용하고 아늑한 바다마을 알베르게", "nearbyBar": "Restaurante O Facho (대서양 생선 대구구이 Bacalhau & 해산물 밥)" },
+          { "stage": "포보아 데 바르징", "name": "Albergue de Peregrinos da Póvoa", "type": "공립 알베르게", "price": "€10", "rating": "4.6", "tip": "해변 어촌 중심가, 주방 및 난방 완비", "nearbyBar": "Bodegão do Bairro (신선한 정어리 구이 Sardinhas & 그린와인)" },
+          { "stage": "에스포센드 (Esposende)", "name": "Sea Soul Albergue / Hostel Esposende", "type": "사립 호스텔", "price": "€15~20", "rating": "4.8", "tip": "카바두 강변과 해안 숲길 인접, 쾌적한 온열 시설", "nearbyBar": "Restaurante Camelo (문어 구이 Polvo à Lagareiro & 비뇨 베르데)" },
+          { "stage": "비아나 두 카스텔루", "name": "Albergue de Santa Luzia / 시내 호텔", "type": "공립/호텔", "price": "€12~25", "rating": "4.8", "tip": "에펠 철교 건너 산타 루시아 성당 조망", "nearbyBar": "Tasquinha da Linda (미슐랭 빕구르망 해산물 플래터 & 바지락 볶음 Ameijoas)" },
+          { "stage": "안코라 (Vila Praia de Âncora)", "name": "Albergue D'Âncora", "type": "사립 호스텔", "price": "€15~18", "rating": "4.7", "tip": "대서양 절벽과 해안 백사장 인접 아늑한 쉼터", "nearbyBar": "Restaurante Fortaleza (바닷가 테라스 해산물 파에야 & 시원한 생맥주 Super Bock)" },
+          { "stage": "카미냐 (Caminha)", "name": "Bom Caminha Hostel", "type": "사립 호스텔", "price": "€15~18", "rating": "4.8", "tip": "포르투갈 국경 마지막 도시, 소나무 숲길 및 페리 선착장", "nearbyBar": "Restaurante Canto do Doutor (전통 등심 스테이크 & 포도주)" },
+          { "stage": "아 과르다 (A Guarda)", "name": "Albergue O Peirao", "type": "사립 알베르게", "price": "€14~18", "rating": "4.7", "tip": "미뇨강 보트로 국경 통과 후 스페인 첫 기착 항구", "nearbyBar": "Bitadorna (대서양 랍스터 밥 Arroz con Bogavante & 갈리시아 알바리뇨 와인)" },
+          { "stage": "오이아 (Oia)", "name": "Albergue da Estrela (바다 수도원 뷰)", "type": "사립 알베르게", "price": "€16~20", "rating": "4.9", "tip": "파도 부서지는 절벽 위 산타 마리아 데 오이아 중세 수도원 조망", "nearbyBar": "Tapería Camboa (수도원 절벽 뷰 파도 소리와 함께 즐기는 문어숙회 Polvo)" },
+          { "stage": "바이오나 (Baiona)", "name": "Albergue Baiona / Hostel Playa Sabís", "type": "사립 호스텔", "price": "€16~22", "rating": "4.8", "tip": "콜럼버스 핀타호가 귀환한 역사적인 몬테레알 성채 요새 항구", "nearbyBar": "Taberna O Rianxo (갈리시아 전통 고기파이 엠파나다 Empanada & 타파스)" },
+          { "stage": "비고 (Vigo)", "name": "Albergue Berbés (주립 공립)", "type": "주립 공립", "price": "€10", "rating": "4.7", "tip": "갈리시아 최대 항구 도시 중심가 베르베스 광장 위치", "nearbyBar": "Rúa das Ostras (굴 골목 즉석에서 까주는 자연산 생굴 & 화이트 와인)" },
+          { "stage": "레돈델라 (Redondela)", "name": "Albergue Casa da Torre (공립)", "type": "주립 공립", "price": "€10", "rating": "4.8", "tip": "해안길과 중앙길이 만나는 역사적 교차로, 16세기 석조 저택", "nearbyBar": "O Churrasco de Juan (두 코스 합류 축하! 숯불 갈비 바베큐 Churrasco & 감자)" },
+          { "stage": "폰테베드라 (Pontevedra)", "name": "Bulezen Urban Hostel / Albergue Virgen Peregrina", "type": "현대식 사립/주립", "price": "€10~18", "rating": "4.9", "tip": "보행자 전용 도시, 순례자 전용 가리비 모양 성당 인접", "nearbyBar": "Bar Rianxo (Praza da Leña 옛 장작 광장 야외 테라스 정통 뽈뽀 & 꼴뚜기 튀김)" },
+          { "stage": "아르멘테이라 (Armenteira)", "name": "Albergue San Ero de Armenteira (공립)", "type": "공립 알베르게", "price": "€10", "rating": "4.8", "tip": "영성길 1일차 12세기 시토회 수도원 옆 고요한 쉼터", "nearbyBar": "O Comercio de Armenteira (수도원 광장 전통 갈리시아 치즈 & 빵, 와인)" },
+          { "stage": "빌라노바 드 아로우사", "name": "Albergue A Salazón (사설) / 다목적 체육관", "type": "사설/공립", "price": "€10~17", "rating": "4.7", "tip": "보트 선착장 도보 2분 (A Corticela는 10/31부 동절기 휴업)", "nearbyBar": "Chiringuito El Muelle (아로우사 바다 앞 신선한 홍합 찜 Mejillones & 타파스)" },
+          { "stage": "파드론 (Padrón)", "name": "Albergue de Peregrinos de Padrón (공립)", "type": "공립 알베르게", "price": "€10", "rating": "4.7", "tip": "보트 순례 Traslatio 도착지, 성 야고보 바위(Pedrón)", "nearbyBar": "Pulpería Rial / Asador O Pemento (원조 파드론 꽈리고추 튀김 Pimientos & 문어 숙회)" },
+          { "stage": "오 밀라도이로 (O Milladoiro)", "name": "Albergue Milladoiro (사설)", "type": "사립 알베르게", "price": "€15", "rating": "4.8", "tip": "산티아고 대성당 7.5km 전방, 크리스마스까지 연중 운영", "nearbyBar": "Cervecería O Rincón (완주 전야 생맥주 & 하몬 타파스)" },
+          { "stage": "산티아고 (Santiago)", "name": "Albergue Seminario Menor / 구시가지 호텔", "type": "대형 수도원/호텔", "price": "€15~40", "rating": "4.8", "tip": "오브라도이로 대성당 도보 10분, 완보증 수령지 인접", "nearbyBar": "Casa Manolo (순례자 성지 3코스 만찬 €13) & Chocolatería Piedras (추로스·핫초코)" }
+        ],
+        "novemberAccommodations": [
+          { "day": "01", "date": "11/11 (수)", "stage": "포르투 도착", "stay": "Stay Hotel Porto Centro Trindade", "desc": "트린다데역 평지 도보 5분, 24시간 리셉션 호텔 (예약번호: 1400829745971821 / PIN: 7999)", "type": "호텔 (결제완료)" },
+          { "day": "02", "date": "11/12 (목)", "stage": "포르투 휴식", "stay": "Stay Hotel Porto Centro Trindade (연박)", "desc": "대성당 및 상벤투 도보 10~15분 산책 코스, 시차적응 및 크레덴시알 발급", "type": "호텔 (결제완료)" },
+          { "day": "03", "date": "11/13 (금)", "stage": "마토지뉴스 ➔ 빌라 두 콘드", "stay": "Albergue de Santa Clara 또는 Sardines & Friends Hostel", "desc": "산타 클라라 공립 정상 운영. 대서양 목재 데크길 첫 관문 및 11월 30일까지 영업 확인", "type": "공립/사설" },
+          { "day": "04", "date": "11/14 (토)", "stage": "빌라 두 콘드 ➔ 에스포센드 (Esposende)", "stay": "Sea Soul Albergue 또는 Hostel Esposende", "desc": "에스포센드 사설 호스텔/알베르게 11월 정상 운영 확인. 카바두 강변 난방 완비", "type": "사설 호스텔" },
+          { "day": "05", "date": "11/15 (일)", "stage": "에스포센드 ➔ 비아나 두 카스텔루", "stay": "Albergue de Peregrinos de Santa Luzia 또는 시내 호텔", "desc": "구스타프 에펠 철교 지난 후 산타 루시아 공립 알베르게 및 시내 숙소 연중무휴 정상 운영", "type": "공립/호텔" },
+          { "day": "06", "date": "11/16 (월)", "stage": "비아나 두 카스텔루 ➔ 빌라 프라이아 드 안코라", "stay": "Albergue D'Âncora 또는 사설 호스텔", "desc": "대서양 절벽과 어촌 마을 안코라 숙소 11월 상시 정상 운영 확인", "type": "사설/공립" },
+          { "day": "07", "date": "11/17 (화)", "stage": "빌라 프라이아 ➔ 카미냐 ➔ 아 과르다 (A Guarda)", "stay": "Albergue O Peirao (스페인 아 과르다)", "desc": "미뇨강 페리/보트로 국경 통과 후 아 과르다 항구 알베르게 연중무휴 상시 운영", "type": "사설/공립 (스페인 국경)" },
+          { "day": "08", "date": "11/18 (수)", "stage": "아 과르다 ➔ 오이아 (Oia)", "stay": "Albergue da Estrela (바다 수도원 뷰)", "desc": "부서지는 대서양 파도 바로 앞 절벽 수도원 사설 알베르게 11월 상시 예약 가능", "type": "사설 알베르게" },
+          { "day": "09", "date": "11/19 (목)", "stage": "오이아 ➔ 바이오나 (Baiona)", "stay": "Albergue Baiona 또는 Hostel Playa Sabís", "desc": "콜럼버스 핀타호 기착 유서 깊은 항구 도시, 몬테레알 요새 인근 호스텔 연중 정상 운영", "type": "사설 호스텔" },
+          { "day": "10", "date": "11/20 (금)", "stage": "바이오나 ➔ 비고 (Vigo)", "stay": "Albergue Berbés (갈리시아 주립 공립)", "desc": "갈리시아 최대 항구 도시 중심가 주립(Xunta) 알베르게 365일 연중 오픈", "type": "주립 공립 (연중무휴)" },
+          { "day": "11", "date": "11/21 (토)", "stage": "비고 ➔ 레돈델라 ➔ 폰테베드라 (합류)", "stay": "Albergue Virgen Peregrina (주립) 또는 Bulezen Urban Hostel (사설)", "desc": "레돈델라에서 중앙길과 합류 후 폰테베드라 주립/사설 상시 예약 가능 (캡슐형 침대, 개별 난방)", "type": "주립/사설" },
+          { "day": "12", "date": "11/22 (일)", "stage": "폰테베드라 ➔ 아르멘테이라 (영성길 1)", "stay": "Albergue de Peregrinos San Ero de Armenteira (공립)", "desc": "수도원 옆 공립 알베르게 연중무휴 정상 운영 확인. (일부 소형 사설은 11월 휴업이므로 San Ero 추천)", "type": "공립 (San Ero)" },
+          { "day": "13", "date": "11/23 (월)", "stage": "아르멘테이라 ➔ 빌라노바 드 아로우사", "stay": "Albergue A Salazón (사설) 또는 체육관 공립", "desc": "A Corticela는 10/31부로 동절기 마감. A Salazón(항구 150m 앞) 및 체육관 공립 알베르게 연중무휴 확인", "type": "사설/공립" },
+          { "day": "14", "date": "11/24 (화)", "stage": "빌라노바 ➔ 파드론 (보트 이동)", "stay": "Albergue de Peregrinos de Padrón (공립)", "desc": "카르멘 성당 인근 공립 알베르게 연중무휴 상시 운영", "type": "공립 (연중무휴)" },
+          { "day": "15", "date": "11/25 (수)", "stage": "파드론 ➔ 오 밀라도이로 (O Milladoiro)", "stay": "Albergue Milladoiro (사설)", "desc": "12월 크리스마스 전까지 연중 정상 운영 확인(Del 1 de marzo a navidades). 산티아고 7.5km 전방", "type": "사설 (크리스마스전까지)" },
+          { "day": "16", "date": "11/26 (목)", "stage": "오 밀라도이로 ➔ 산티아고 도착", "stay": "Albergue Seminario Menor 또는 구시가지 호텔", "desc": "수도원 알베르게 11월 정상 운영 (1인실 및 다인실 구비)", "type": "수도원/호텔" },
+          { "day": "17~19", "date": "11/27~29", "stage": "산티아고 투어 & 휴식", "stay": "호텔/호스텔 연박", "desc": "시내 일반 숙소는 비수기 특가로 상시 정상 영업", "type": "호텔/호스텔" },
+          { "day": "20~21", "date": "11/30~12/1", "stage": "마드리드 이동 & 시내 관광", "stay": "마드리드 차마르틴/솔 광장 인근 호텔", "desc": "도심 호텔 정상 운영", "type": "도심 호텔" }
         ]
     },
     "central": {
@@ -1259,6 +1336,43 @@ const INITIAL_CAMINO_DATA = {
                 "hotel": "스위트 홈 (귀가)",
                 "desc": "청두 3h 환승 ➔ 13:30 인천 T1 도착"
             }
+        ],
+        "recommendedAlbergues": [
+          { "stage": "포르투 (Porto)", "name": "Stay Hotel Porto Centro Trindade / Gallery Hostel", "type": "호텔/호스텔", "price": "₩66,000 / €30", "rating": "4.9", "tip": "트린다데역 2박 연박, 중앙길 출발 대비", "nearbyBar": "Café Santiago (프란세지냐) & Casa Guedes (돼지고기 샌드위치)" },
+          { "stage": "라테스 (São Pedro de Rates)", "name": "Albergue de Peregrinos de São Pedro de Rates", "type": "공립 알베르게", "price": "€10", "rating": "4.8", "tip": "포르투갈 중앙길 최초의 역사적 공립 알베르게, 로마네스크 성당", "nearbyBar": "Restaurante O Tasco (포르투갈 시골 가정식 수프 & 비프 스테이크)" },
+          { "stage": "바르셀루스 (Barcelos)", "name": "Albergue Cidade de Barcelos (공립)", "type": "공립 알베르게", "price": "€10", "rating": "4.8", "tip": "수탉 전설의 유서 깊은 중세 도시 중심부, 난방 및 주방 완비", "nearbyBar": "Restaurante Bagoeira (바르셀루스 전통 로스트 치킨 Frango Assado & 비뇨 베르데)" },
+          { "stage": "발루게스 (Balugães)", "name": "Albergue Quinta da Balugães / Casa da Fernanda", "type": "사설/민박", "price": "€15~25", "rating": "5.0", "tip": "순례자들의 전설적인 숙소, 페르난다 아주머니의 따뜻한 저녁 만찬", "nearbyBar": "Casa da Fernanda 만찬 (순례자들과 나누는 공동 만찬과 노래)" },
+          { "stage": "폰테 드 리마 (Ponte de Lima)", "name": "Albergue de Peregrinos de Ponte de Lima (공립)", "type": "공립 알베르게", "price": "€10", "rating": "4.8", "tip": "포르투갈에서 가장 오래된 로마식 다리가 있는 아름다운 강변 도시", "nearbyBar": "Restaurante Encanada (로마 다리 뷰 전통 돼지수육밥 Sarrabulho & 그린와인)" },
+          { "stage": "루비앙이스 (Rubiães)", "name": "Albergue de Peregrinos de Rubiães (공립)", "type": "공립 알베르게", "price": "€10", "rating": "4.6", "tip": "중앙길 최대 난코스 라브루자 고개 넘은 직후의 꿀맛 같은 휴식", "nearbyBar": "Restaurante Bom Retiro (칼도 베르데 수프 & 갈비구이 Costela)" },
+          { "stage": "발렌사 / 투이 (Valença / Tui)", "name": "Albergue de Peregrinos de Tui (주립) / Ideas Peregrinas", "type": "주립 공립/사립", "price": "€10~17", "rating": "4.9", "tip": "국제 철교 건너 스페인 국경 통과, 투이 대성당 옆 주립 알베르게", "nearbyBar": "Tapería La de Manu (감바스 알 아히요 Gambas al Ajillo & 이베리코 하몬)" },
+          { "stage": "오 포리뇨 (O Porriño)", "name": "Albergue de Peregrinos de O Porriño (주립)", "type": "주립 공립", "price": "€10", "rating": "4.7", "tip": "강변 현대식 주립 알베르게, 쾌적한 세탁실, 대형마트 인접", "nearbyBar": "Cervecería Paso a Nivel (갈리시아 엠파나다 & 시원한 생맥주 Caña)" },
+          { "stage": "레돈델라 (Redondela)", "name": "Albergue Casa da Torre (공립)", "type": "주립 공립", "price": "€10", "rating": "4.8", "tip": "해안길과 중앙길 합류점, 16세기 석조 저택", "nearbyBar": "O Churrasco de Juan (두 코스 합류 축하! 숯불 갈비 바베큐 Churrasco & 감자)" },
+          { "stage": "폰테베드라 (Pontevedra)", "name": "Bulezen Urban Hostel / Albergue Virgen Peregrina", "type": "현대식 사립/주립", "price": "€10~18", "rating": "4.9", "tip": "보행자 전용 도시, 순례자 전용 가리비 모양 성당 인접", "nearbyBar": "Bar Rianxo (Praza da Leña 야외 광장 정통 뽈뽀 & 꼴뚜기 튀김)" },
+          { "stage": "아르멘테이라 (Armenteira)", "name": "Albergue San Ero de Armenteira (공립)", "type": "공립 알베르게", "price": "€10", "rating": "4.8", "tip": "영성길 1일차 12세기 시토회 수도원 옆 고요한 쉼터", "nearbyBar": "O Comercio de Armenteira (수도원 광장 치즈 & 와인)" },
+          { "stage": "빌라노바 드 아로우사", "name": "Albergue A Salazón (사설) / 다목적 체육관", "type": "사설/공립", "price": "€10~17", "rating": "4.7", "tip": "보트 선착장 도보 2분 (A Corticela는 10/31부 동절기 휴업)", "nearbyBar": "Chiringuito El Muelle (아로우사 바다 앞 신선한 홍합 찜 Mejillones)" },
+          { "stage": "파드론 (Padrón)", "name": "Albergue de Peregrinos de Padrón (공립)", "type": "공립 알베르게", "price": "€10", "rating": "4.7", "tip": "보트 순례 Traslatio 도착지, 성 야고보 바위(Pedrón)", "nearbyBar": "Pulpería Rial / Asador O Pemento (원조 파드론 꽈리고추 튀김 & 문어 숙회)" },
+          { "stage": "오 밀라도이로 (O Milladoiro)", "name": "Albergue Milladoiro (사설)", "type": "사립 알베르게", "price": "€15", "rating": "4.8", "tip": "산티아고 대성당 7.5km 전방, 크리스마스까지 연중 운영", "nearbyBar": "Cervecería O Rincón (생맥주 & 하몬 타파스)" },
+          { "stage": "산티아고 (Santiago)", "name": "Albergue Seminario Menor / 구시가지 호텔", "type": "대형 수도원/호텔", "price": "€15~40", "rating": "4.8", "tip": "오브라도이로 대성당 도보 10분, 완보증 수령지 인접", "nearbyBar": "Casa Manolo (순례자 성지 3코스 만찬 €13) & Chocolatería Piedras (추로스·핫초코)" }
+        ],
+        "novemberAccommodations": [
+          { "day": "01", "date": "11/11 (수)", "stage": "포르투 도착", "stay": "Stay Hotel Porto Centro Trindade", "desc": "트린다데역 평지 도보 5분, 24시간 리셉션 호텔 (예약번호: 1400829745971821 / PIN: 7999)", "type": "호텔 (결제완료)" },
+          { "day": "02", "date": "11/12 (목)", "stage": "포르투 휴식", "stay": "Stay Hotel Porto Centro Trindade (연박)", "desc": "대성당 및 상벤투 도보 10~15분 산책 코스, 시차적응 및 크레덴시알 발급", "type": "호텔 (결제완료)" },
+          { "day": "03", "date": "11/13 (금)", "stage": "포르투 ➔ 사오 페드로 드 라테스 (Rates)", "stay": "Albergue de Peregrinos de São Pedro de Rates (공립)", "desc": "포르투갈 중앙길 최초의 역사적 공립 알베르게 (연중무휴 운영)", "type": "공립 (연중무휴)" },
+          { "day": "04", "date": "11/14 (토)", "stage": "라테스 ➔ 바르셀루스 (Barcelos)", "stay": "Albergue de Peregrinos Cidade de Barcelos (공립)", "desc": "연중무휴 공립 알베르게. 바르셀루스 중심부 위치, 주방 및 난방 완비", "type": "공립 (연중무휴)" },
+          { "day": "05", "date": "11/15 (일)", "stage": "바르셀루스 ➔ 발루게스 (Balugães)", "stay": "Albergue Quinta da Balugães 또는 Casa da Fernanda (비토리누)", "desc": "발루게스 킨타 알베르게 11월 운영. 3km 전 유명 알베르게인 '카사 다 페르난다'도 운영 여부 확인 가능", "type": "사설/민박" },
+          { "day": "06", "date": "11/16 (월)", "stage": "발루게스 ➔ 폰테 드 리마", "stay": "Albergue de Peregrinos de Ponte de Lima (공립)", "desc": "폰테 드 리마 강변의 60베드 대형 공립 알베르게 (연중무휴)", "type": "공립 (연중무휴)" },
+          { "day": "07", "date": "11/17 (화)", "stage": "폰테 드 리마 ➔ 루비앙이스 (Rubiães)", "stay": "Albergue de Peregrinos de Rubiães (공립)", "desc": "라브루자 고개 넘은 직후 위치한 공립. (인근 사설 Ninho 등은 10월 말 조기 마감하므로 공립 이용 필수)", "type": "공립 필수" },
+          { "day": "08", "date": "11/18 (수)", "stage": "루비앙이스 ➔ 발렌사 ➔ 투이 (Tui)", "stay": "Albergue de Peregrinos de Tui (갈리시아 주립 공립)", "desc": "국경 넘은 직후 투이 대성당 옆 주립(Xunta) 알베르게. 갈리시아 주정부 공립은 365일 연중 오픈", "type": "주립 공립 (연중무휴)" },
+          { "day": "09", "date": "11/19 (목)", "stage": "투이 ➔ 오 포리뇨 (O Porriño)", "stay": "Albergue de Peregrinos de O Porriño (갈리시아 주립)", "desc": "강변 현대식 주립 공립 (연중무휴). 대형 마트 인접", "type": "주립 공립 (연중무휴)" },
+          { "day": "10", "date": "11/20 (금)", "stage": "오 포리뇨 ➔ 레돈델라 (Redondela)", "stay": "Albergue Casa da Torre (갈리시아 주립 공립)", "desc": "16세기 석조 저택 공립 (상시 오픈). 해안길과 중앙길 합류점", "type": "주립 공립 (상시)" },
+          { "day": "11", "date": "11/21 (토)", "stage": "레돈델라 ➔ 폰테베드라 (Pontevedra)", "stay": "Albergue Virgen Peregrina (주립) 또는 Bulezen Urban Hostel (사설)", "desc": "공립 알베르게 연중 상시 운영. 사설 Bulezen(캡슐형 침대, 개별 난방)도 11월 상시 예약 가능", "type": "주립/사설" },
+          { "day": "12", "date": "11/22 (일)", "stage": "폰테베드라 ➔ 아르멘테이라 (영성길 1)", "stay": "Albergue de Peregrinos San Ero de Armenteira (공립)", "desc": "수도원 옆 공립 알베르게 연중무휴 정상 운영 확인. (일부 소형 사설은 11월 휴업이므로 San Ero 추천)", "type": "공립 (San Ero)" },
+          { "day": "13", "date": "11/23 (월)", "stage": "아르멘테이라 ➔ 빌라노바 드 아로우사", "stay": "Albergue A Salazón (사설) 또는 체육관 공립", "desc": "A Corticela는 10/31부로 동절기 마감. A Salazón(항구 150m 앞) 및 체육관 공립 알베르게 연중무휴 확인", "type": "사설/공립" },
+          { "day": "14", "date": "11/24 (화)", "stage": "빌라노바 ➔ 파드론 (보트 이동)", "stay": "Albergue de Peregrinos de Padrón (공립)", "desc": "카르멘 성당 인근 공립 알베르게 연중무휴 상시 운영", "type": "공립 (연중무휴)" },
+          { "day": "15", "date": "11/25 (수)", "stage": "파드론 ➔ 오 밀라도이로 (O Milladoiro)", "stay": "Albergue Milladoiro (사설)", "desc": "12월 크리스마스 전까지 연중 정상 운영 확인(Del 1 de marzo a navidades). 산티아고 7.5km 전방", "type": "사설 (크리스마스전까지)" },
+          { "day": "16", "date": "11/26 (목)", "stage": "오 밀라도이로 ➔ 산티아고 도착", "stay": "Albergue Seminario Menor 또는 구시가지 호텔", "desc": "수도원 알베르게 11월 정상 운영 (1인실 및 다인실 구비)", "type": "수도원/호텔" },
+          { "day": "17~19", "date": "11/27~29", "stage": "산티아고 투어 & 휴식", "stay": "호텔/호스텔 연박", "desc": "시내 일반 숙소는 비수기 특가로 상시 정상 영업", "type": "호텔/호스텔" },
+          { "day": "20~21", "date": "11/30~12/1", "stage": "마드리드 이동 & 시내 관광", "stay": "마드리드 차마르틴/솔 광장 인근 호텔", "desc": "도심 호텔 정상 운영", "type": "도심 호텔" }
         ]
     }
 },

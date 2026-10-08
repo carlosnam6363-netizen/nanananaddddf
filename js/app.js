@@ -90,12 +90,20 @@ class SyncManager {
             }
           });
 
-          // 🏨 포르투 확정 호텔 및 11월 정상 운영 숙소 리스트/영성길 팁 마이그레이션 (v11)
-          if (!upgradedCamino.accommodationBooking || !upgradedCamino.novemberAccommodations || (upgradedCamino.caminoDataVersion && upgradedCamino.caminoDataVersion < 11)) {
+          // 🥾 코스 분기(해안길 vs 중앙길 vs 합류길) 및 코스별 추천 알베르게/로컬 맛집, 11월 숙소 분기 마이그레이션 (v12)
+          if (!upgradedCamino.caminoDataVersion || upgradedCamino.caminoDataVersion < 12) {
             upgradedCamino.accommodationBooking = JSON.parse(JSON.stringify(freshCamino.accommodationBooking || {}));
             upgradedCamino.novemberAccommodations = JSON.parse(JSON.stringify(freshCamino.novemberAccommodations || []));
             upgradedCamino.novSpiritualTips = JSON.parse(JSON.stringify(freshCamino.novSpiritualTips || []));
-            upgradedCamino.caminoDataVersion = 11;
+            upgradedCamino.routesInfo = JSON.parse(JSON.stringify(freshCamino.routesInfo || {}));
+            const activeR = upgradedCamino.activeRoute || 'coastal';
+            if (upgradedCamino.routesInfo[activeR] && upgradedCamino.routesInfo[activeR].itinerary) {
+              upgradedCamino.itinerary = upgradedCamino.routesInfo[activeR].itinerary;
+            }
+            if (upgradedCamino.routesInfo[activeR] && upgradedCamino.routesInfo[activeR].novemberAccommodations) {
+              upgradedCamino.novemberAccommodations = upgradedCamino.routesInfo[activeR].novemberAccommodations;
+            }
+            upgradedCamino.caminoDataVersion = 12;
           }
 
           // 구버전 호텔('우마 포베이루스')이 남아있다면 새 확정 호텔로 갱신
@@ -2770,13 +2778,16 @@ function setCaminoActiveRoute(routeId) {
   if (routesInfo[routeId] && routesInfo[routeId].itinerary) {
     state.camino.itinerary = routesInfo[routeId].itinerary;
   }
+  if (routesInfo[routeId] && routesInfo[routeId].novemberAccommodations) {
+    state.camino.novemberAccommodations = routesInfo[routeId].novemberAccommodations;
+  }
   persistState();
   renderCaminoTab();
   if (state.activeTab === 'overview') renderOverviewTab();
   const titles = {
-    hybrid: '⭐ [옵션 1] 해안➔중앙 합류 (황금 밸런스)',
-    coastal: '🌊 [옵션 2] 완전 해안길 (da Costa)',
-    central: '🌲 [옵션 3] 정통 중앙길 (Central)'
+    coastal: '🌊 [해안길] Camino da Costa (280km)',
+    central: '🌲 [중앙길] Camino Central (240km)',
+    hybrid: '⭐ [해안➔중앙 합류] 황금 밸런스 (240km)'
   };
   showToast(`${titles[routeId] || routeId} 코스가 선택되었습니다.`);
 }
@@ -2861,7 +2872,7 @@ function renderCaminoTab() {
   const currentRoute = routesInfo[activeRouteId] || routesInfo.coastal || {};
   const exchange = camino.exchangeBudget || INITIAL_CAMINO_DATA.exchangeBudget;
   const packingList = camino.packingList || INITIAL_CAMINO_DATA.packingList || [];
-  const novemberAccommodations = camino.novemberAccommodations || INITIAL_CAMINO_DATA.novemberAccommodations || [];
+  const novemberAccommodations = currentRoute.novemberAccommodations || camino.novemberAccommodations || INITIAL_CAMINO_DATA.novemberAccommodations || [];
   const novSpiritualTips = camino.novSpiritualTips || INITIAL_CAMINO_DATA.novSpiritualTips || [];
   
   const totalPacking = packingList.length;
@@ -3412,17 +3423,17 @@ function renderCaminoTab() {
 
         <!-- 3-Way Segmented Course Switcher Buttons -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 bg-slate-950 p-2 rounded-2xl border border-slate-800 shadow-inner w-full md:w-auto">
-          <button onclick="window.app.setCaminoActiveRoute('hybrid')" class="px-3.5 py-2.5 rounded-xl text-xs font-bold transition cursor-pointer flex items-center justify-center gap-2 ${activeRouteId === 'hybrid' ? 'bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/25 ring-1 ring-amber-400' : 'text-slate-400 hover:text-white hover:bg-slate-900'}">
-            <i class="fa-solid fa-star ${activeRouteId === 'hybrid' ? 'text-slate-950' : 'text-amber-400'}"></i>
-            <span>[옵션 1] 해안➔중앙 합류 (추천)</span>
-          </button>
-          <button onclick="window.app.setCaminoActiveRoute('coastal')" class="px-3.5 py-2.5 rounded-xl text-xs font-bold transition cursor-pointer flex items-center justify-center gap-2 ${activeRouteId === 'coastal' ? 'bg-sky-500 text-slate-950 shadow-lg shadow-sky-500/25 ring-1 ring-sky-400' : 'text-slate-400 hover:text-white hover:bg-slate-900'}">
+          <button onclick="window.app.setCaminoActiveRoute('coastal')" class="px-3.5 py-2.5 rounded-xl text-xs font-bold transition cursor-pointer flex items-center justify-center gap-2 ${activeRouteId === 'coastal' ? 'bg-sky-500 text-slate-950 shadow-lg shadow-sky-500/25 ring-1 ring-sky-400 font-black' : 'text-slate-400 hover:text-white hover:bg-slate-900'}">
             <i class="fa-solid fa-water ${activeRouteId === 'coastal' ? 'text-slate-950' : 'text-sky-400'}"></i>
-            <span>[옵션 2] 완전 해안길 (Costa)</span>
+            <span>🌊 [해안길] Camino da Costa (280km)</span>
           </button>
-          <button onclick="window.app.setCaminoActiveRoute('central')" class="px-3.5 py-2.5 rounded-xl text-xs font-bold transition cursor-pointer flex items-center justify-center gap-2 ${activeRouteId === 'central' ? 'bg-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/25 ring-1 ring-emerald-400' : 'text-slate-400 hover:text-white hover:bg-slate-900'}">
+          <button onclick="window.app.setCaminoActiveRoute('central')" class="px-3.5 py-2.5 rounded-xl text-xs font-bold transition cursor-pointer flex items-center justify-center gap-2 ${activeRouteId === 'central' ? 'bg-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/25 ring-1 ring-emerald-400 font-black' : 'text-slate-400 hover:text-white hover:bg-slate-900'}">
             <i class="fa-solid fa-tree ${activeRouteId === 'central' ? 'text-slate-950' : 'text-emerald-400'}"></i>
-            <span>[옵션 3] 정통 중앙길 (Central)</span>
+            <span>🌲 [중앙길] Camino Central (240km)</span>
+          </button>
+          <button onclick="window.app.setCaminoActiveRoute('hybrid')" class="px-3.5 py-2.5 rounded-xl text-xs font-bold transition cursor-pointer flex items-center justify-center gap-2 ${activeRouteId === 'hybrid' ? 'bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/25 ring-1 ring-amber-400 font-black' : 'text-slate-400 hover:text-white hover:bg-slate-900'}">
+            <i class="fa-solid fa-star ${activeRouteId === 'hybrid' ? 'text-slate-950' : 'text-amber-400'}"></i>
+            <span>⭐ [합류길] 해안➔중앙 합류 (추천)</span>
           </button>
         </div>
       </div>
