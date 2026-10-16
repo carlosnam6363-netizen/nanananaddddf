@@ -1258,86 +1258,46 @@ function renderNavigation() {
       </div>
     `;
 
-    // Category Filter Chips
-    const filterChipsHtml = `
-      <div class="grid grid-cols-4 gap-1 p-1 bg-slate-900/90 rounded-xl border border-slate-800 mb-3 text-[10px]">
-        <button onclick="window.app.setNavCategoryFilter('all')" class="py-1 px-1 rounded-lg font-bold transition text-center cursor-pointer ${catFilter === 'all' ? 'bg-sky-500 text-white shadow-sm' : 'text-slate-400 hover:text-white'}">
-          전체
-        </button>
-        <button onclick="window.app.setNavCategoryFilter('career')" class="py-1 px-1 rounded-lg font-bold transition text-center truncate cursor-pointer ${catFilter === 'career' ? 'bg-amber-500 text-slate-950 font-black shadow-sm' : 'text-slate-400 hover:text-amber-300'}" title="커리어 패스 관리">
-          💼 커리어
-        </button>
-        <button onclick="window.app.setNavCategoryFilter('hobby')" class="py-1 px-1 rounded-lg font-bold transition text-center truncate cursor-pointer ${catFilter === 'hobby' ? 'bg-rose-500 text-white shadow-sm' : 'text-slate-400 hover:text-rose-300'}" title="취미">
-          ❤️ 취미
-        </button>
-        <button onclick="window.app.setNavCategoryFilter('etc')" class="py-1 px-1 rounded-lg font-bold transition text-center truncate cursor-pointer ${catFilter === 'etc' ? 'bg-slate-700 text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'}" title="기타">
-          ⚙️ 기타
-        </button>
-      </div>
-    `;
+    const visibleTabs = order
+      .map(id => TAB_REGISTRY.find(t => t.id === id))
+      .filter(t => t && t.id !== 'overview' && !hiddenTabs.includes(t.id));
 
-    // Filter categories to display
-    const targetCategories = catFilter === 'all'
-      ? TAB_CATEGORIES
-      : TAB_CATEGORIES.filter(c => c.id === catFilter);
+    const tabsHtml = visibleTabs.map(tabDef => {
+      const isActive = currentTab === tabDef.id;
+      const activeClass = isActive
+        ? 'nav-tab-active text-sky-400 bg-sky-500/15 font-bold border border-sky-500/30 shadow-sm'
+        : 'text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium';
+      
+      let badgeHtml = '';
+      if (tabDef.badge) {
+        badgeHtml = `<span class="text-[9px] px-1.5 py-0.5 rounded font-bold ${tabDef.badgeClass || 'bg-slate-800 text-slate-300'}">${tabDef.badge}</span>`;
+      }
 
-    const sectionsHtml = targetCategories.map(cat => {
-      // Find tabs belonging to this category, preserving relative order from state.tabOrder
-      // Exclude 'overview' (already at top) and hidden tabs
-      const catTabs = order
-        .map(id => TAB_REGISTRY.find(t => t.id === id))
-        .filter(t => t && t.id !== 'overview' && t.category === cat.id && !hiddenTabs.includes(t.id));
-
-      if (catTabs.length === 0) return '';
-
-      const tabsHtml = catTabs.map(tabDef => {
-        const isActive = currentTab === tabDef.id;
-        const activeClass = isActive
-          ? 'nav-tab-active text-sky-400 bg-sky-500/15 font-bold border border-sky-500/30 shadow-sm'
-          : 'text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium';
-        
-        let badgeHtml = '';
-        if (tabDef.badge) {
-          badgeHtml = `<span class="text-[9px] px-1.5 py-0.5 rounded font-bold ${tabDef.badgeClass || 'bg-slate-800 text-slate-300'}">${tabDef.badge}</span>`;
-        }
-
-        const clickHandler = tabDef.isPortfolio
-          ? `window.app.openPortfolioTab('${tabDef.id}')`
-          : `window.app.switchTab('${tabDef.id}')`;
-
-        return `
-          <div class="group relative flex items-center">
-            <button data-nav-tab="${tabDef.id}" onclick="${clickHandler}" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs transition cursor-pointer pr-8 ${activeClass}">
-              <i class="fa-solid ${tabDef.icon} w-4 text-center ${tabDef.color}"></i>
-              <span class="flex-1 text-left truncate flex items-center gap-1.5">
-                <span class="truncate">${tabDef.name}</span>
-              </span>
-              ${badgeHtml}
-            </button>
-            <button type="button" onclick="event.stopPropagation(); window.app.hideTab('${tabDef.id}')" class="absolute right-1 opacity-0 group-hover:opacity-100 hover:text-rose-300 hover:bg-rose-500/20 text-slate-500 w-6 h-6 rounded-lg flex items-center justify-center transition text-[10px] bg-slate-900/90 border border-slate-700 shadow-sm cursor-pointer" title="'${tabDef.name}' 탭 숨기기">
-              <i class="fa-solid fa-eye-slash"></i>
-            </button>
-          </div>
-        `;
-      }).join('');
+      const clickHandler = tabDef.isPortfolio
+        ? `window.app.openPortfolioTab('${tabDef.id}')`
+        : `window.app.switchTab('${tabDef.id}')`;
 
       return `
-        <div class="mb-3">
-          <div class="flex items-center justify-between px-2.5 py-1 mb-1">
-            <span class="text-[10px] font-extrabold flex items-center gap-1.5 ${cat.color}">
-              <i class="fa-solid ${cat.icon} text-[10px]"></i>
-              <span>${cat.name}</span>
+        <div class="group relative flex items-center">
+          <button data-nav-tab="${tabDef.id}" onclick="${clickHandler}" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs transition cursor-pointer pr-8 ${activeClass}">
+            <i class="fa-solid ${tabDef.icon} w-4 text-center ${tabDef.color}"></i>
+            <span class="flex-1 text-left truncate flex items-center gap-1.5">
+              <span class="truncate">${tabDef.name}</span>
             </span>
-            <span class="text-[9px] px-1.5 py-0.5 rounded-full font-bold ${cat.headerBadge}">
-              ${catTabs.length}
-            </span>
-          </div>
-          <div class="space-y-1">
-            ${tabsHtml}
-          </div>
+            ${badgeHtml}
+          </button>
+          <button type="button" onclick="event.stopPropagation(); window.app.hideTab('${tabDef.id}')" class="absolute right-1 opacity-0 group-hover:opacity-100 hover:text-rose-300 hover:bg-rose-500/20 text-slate-500 w-6 h-6 rounded-lg flex items-center justify-center transition text-[10px] bg-slate-900/90 border border-slate-700 shadow-sm cursor-pointer" title="'${tabDef.name}' 탭 숨기기">
+            <i class="fa-solid fa-eye-slash"></i>
+          </button>
         </div>
       `;
     }).join('');
+
+    const sectionsHtml = `
+      <div class="space-y-1">
+        ${tabsHtml}
+      </div>
+    `;
 
     // Hidden tabs bottom indicator & quick unhide trigger
     let hiddenSummaryHtml = '';
@@ -1358,7 +1318,7 @@ function renderNavigation() {
       `;
     }
 
-    desktopContainer.innerHTML = overviewBtnHtml + filterChipsHtml + sectionsHtml + hiddenSummaryHtml;
+    desktopContainer.innerHTML = overviewBtnHtml + sectionsHtml + hiddenSummaryHtml;
   }
 
   // 2. Mobile Bottom Navigation
@@ -1381,14 +1341,8 @@ function renderNavigation() {
         ? `window.app.openPortfolioTab('${tabDef.id}')`
         : `window.app.switchTab('${tabDef.id}')`;
 
-      const catDef = TAB_CATEGORIES.find(c => c.id === tabDef.category);
-      const dotColor = (tabDef.id === 'overview') ? 'bg-sky-400' : catDef ? (catDef.id === 'career' ? 'bg-amber-400' : catDef.id === 'hobby' ? 'bg-rose-400' : 'bg-slate-400') : 'bg-slate-500';
-
-      const indicatorBadge = `<span class="w-1.5 h-1.5 rounded-full ${dotColor} absolute top-1 right-2"></span>`;
-
       return `
         <button data-mobile-tab="${tabDef.id}" onclick="${clickHandler}" class="flex flex-col items-center justify-center gap-1 text-[10px] px-2.5 py-1.5 rounded-xl flex-shrink-0 min-w-[52px] transition relative cursor-pointer ${activeClass}">
-          ${indicatorBadge}
           <i class="fa-solid ${tabDef.icon} text-sm ${tabDef.color}"></i>
           <span class="truncate max-w-[56px]">${tabDef.shortName}</span>
         </button>
@@ -1452,13 +1406,6 @@ function renderTabOrderModal() {
     const isLast = idx === otherTabIds.length - 1;
     const isHidden = hiddenTabs.includes(tabId);
 
-    const catDef = TAB_CATEGORIES.find(c => c.id === tabDef.category) || {
-      name: tabDef.categoryName || '기타',
-      shortName: '기타',
-      badgeClass: 'bg-slate-700/50 text-slate-300 border border-slate-600/40',
-      icon: 'fa-layer-group'
-    };
-
     return `
       <div 
         class="drag-sortable-item flex items-center justify-between p-2.5 rounded-xl border transition mb-1.5 select-none ${
@@ -1484,9 +1431,6 @@ function renderTabOrderModal() {
           <i class="fa-solid ${tabDef.icon} ${tabDef.color} text-sm w-4 text-center flex-shrink-0"></i>
           <div class="flex items-center gap-1.5 truncate">
             <span class="text-xs font-bold ${isHidden ? 'text-slate-400 line-through' : 'text-white'} truncate">${tabDef.name}</span>
-            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold flex-shrink-0 ${catDef.badgeClass}">
-              ${catDef.shortName}
-            </span>
           </div>
           ${isHidden ? `
             <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30 flex-shrink-0">숨김</span>
@@ -1945,155 +1889,92 @@ function renderOverviewTab() {
     </div>
 
     <!-- ======================================================================= -->
-    <!-- 📂 [3대 범주 분류 허브] 커리어 패스 관리 · 취미 · 기타 퀵 네비게이션 -->
+    <!-- 📂 [통합 메뉴 퀵 네비게이션] 전체 탭 바로가기 -->
     <!-- ======================================================================= -->
     <div class="glass-panel rounded-2xl p-5 sm:p-6 mb-8 border border-slate-700/60 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 shadow-2xl relative overflow-hidden">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5 border-b border-slate-800 pb-4">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4 border-b border-slate-800 pb-4">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-xl bg-sky-500/20 border border-sky-500/30 text-sky-400 flex items-center justify-center text-lg shadow-lg">
-            <i class="fa-solid fa-shapes"></i>
+            <i class="fa-solid fa-compass"></i>
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <h2 class="text-lg font-black text-white">대시보드 3대 범주 통합 허브</h2>
-              <span class="text-[10px] px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/30 font-bold">10대 탭 분류 완료</span>
+              <h2 class="text-lg font-black text-white">대시보드 메뉴 바로가기</h2>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/30 font-bold">단일 통합 목록</span>
             </div>
-            <p class="text-xs text-slate-400 mt-0.5">사용자 지정 3대 카테고리: 커리어 패스 관리(4) · 취미(4) · 기타(2)</p>
+            <p class="text-xs text-slate-400 mt-0.5">원하는 탭으로 즉시 이동하거나 순서를 자유롭게 정렬할 수 있습니다.</p>
           </div>
         </div>
-        <button onclick="window.app.openTabOrderModal()" class="text-xs text-sky-400 hover:text-sky-300 px-3 py-1.5 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center gap-1.5 font-bold transition cursor-pointer" title="탭 노출·숨김 및 순서 설정">
-          <i class="fa-solid fa-arrow-down-up-across-line text-[11px]"></i>
-          <span>메뉴 순서 정렬</span>
-        </button>
+        <div class="flex items-center gap-2">
+          <a href="https://carlosnam6363-netizen.github.io/Portfolio/" target="_blank" rel="noopener noreferrer" class="text-xs text-amber-300 hover:text-amber-200 px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center gap-1.5 font-bold transition cursor-pointer">
+            <i class="fa-solid fa-id-card-clip text-[11px]"></i>
+            <span>포트폴리오 대시보드 열기</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+          </a>
+          <button onclick="window.app.openTabOrderModal()" class="text-xs text-sky-400 hover:text-sky-300 px-3 py-1.5 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center gap-1.5 font-bold transition cursor-pointer" title="탭 노출·숨김 및 순서 설정">
+            <i class="fa-solid fa-arrow-down-up-across-line text-[11px]"></i>
+            <span>메뉴 순서 정렬</span>
+          </button>
+        </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <!-- 1. 커리어 패스 관리 (4개) -->
-        <div class="p-4 rounded-xl bg-slate-800/60 border border-amber-500/30 hover:border-amber-500/60 transition flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-xs font-black text-amber-400 flex items-center gap-1.5">
-                <i class="fa-solid fa-briefcase"></i> 커리어 패스 관리
-              </span>
-              <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                4개 탭
-              </span>
-            </div>
-            <p class="text-[11px] text-slate-400 mb-3">
-              자격증 실기 대비, 방송통신대 학사 일정, 삼성전자 15건 사내 경력, 23건 수상 내역
-            </p>
-            <div class="grid grid-cols-2 gap-2">
-              <button onclick="window.app.switchTab('energy')" class="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-700/80 border border-slate-700 text-left transition group">
-                <div class="flex items-center justify-between text-[11px] mb-1">
-                  <span class="font-bold text-white group-hover:text-amber-300 truncate">에너지관리기사</span>
-                  <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-sky-500/20 text-sky-300">D-40</span>
-                </div>
-                <div class="text-[10px] text-slate-400">플래시카드 & 40일 플랜</div>
-              </button>
-              <button onclick="window.app.switchTab('exam')" class="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-700/80 border border-slate-700 text-left transition group">
-                <div class="flex items-center justify-between text-[11px] mb-1">
-                  <span class="font-bold text-white group-hover:text-blue-300 truncate">시험·학사 일정</span>
-                  <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-blue-500/20 text-blue-300">${state.exams.length}건</span>
-                </div>
-                <div class="text-[10px] text-slate-400">2학기 중간/기말 일정</div>
-              </button>
-              <button onclick="window.app.openPortfolioTab('careers')" class="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-700/80 border border-slate-700 text-left transition group">
-                <div class="flex items-center justify-between text-[11px] mb-1">
-                  <span class="font-bold text-white group-hover:text-emerald-300 truncate">주요 경력 & TF</span>
-                  <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-emerald-500/20 text-emerald-300">15건</span>
-                </div>
-                <div class="text-[10px] text-slate-400">DIFFUSION 엔지니어</div>
-              </button>
-              <button onclick="window.app.openPortfolioTab('awards')" class="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-700/80 border border-slate-700 text-left transition group">
-                <div class="flex items-center justify-between text-[11px] mb-1">
-                  <span class="font-bold text-white group-hover:text-amber-300 truncate">수상 내역 관리</span>
-                  <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-amber-500/20 text-amber-300">23건</span>
-                </div>
-                <div class="text-[10px] text-slate-400">국방위원장상 대상 등</div>
-              </button>
-            </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5">
+        <button onclick="window.app.switchTab('english')" class="p-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 hover:border-sky-500/50 text-left transition group cursor-pointer">
+          <div class="flex items-center justify-between text-xs mb-1">
+            <i class="fa-solid fa-language text-sky-400"></i>
+            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-sky-500/20 text-sky-300">409선</span>
           </div>
-        </div>
-
-        <!-- 2. 취미 (4개) -->
-        <div class="p-4 rounded-xl bg-slate-800/60 border border-rose-500/30 hover:border-rose-500/60 transition flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-xs font-black text-rose-400 flex items-center gap-1.5">
-                <i class="fa-solid fa-heart"></i> 취미
-              </span>
-              <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">
-                4개 탭
-              </span>
-            </div>
-            <p class="text-[11px] text-slate-400 mb-3">
-              포르투 까미노 3주 순례, 골격근 40kg+ 인바디 다이어트, 직장인 인디밴드 합주, 브런치 연재
-            </p>
-            <div class="grid grid-cols-2 gap-2">
-              <button onclick="window.app.switchTab('camino')" class="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-700/80 border border-slate-700 text-left transition group">
-                <div class="flex items-center justify-between text-[11px] mb-1">
-                  <span class="font-bold text-white group-hover:text-amber-300 truncate">산티아고 순례길</span>
-                  <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-amber-500/20 text-amber-400">11/9</span>
-                </div>
-                <div class="text-[10px] text-slate-400">3주간 포르투 코스</div>
-              </button>
-              <button onclick="window.app.switchTab('inbody')" class="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-700/80 border border-slate-700 text-left transition group">
-                <div class="flex items-center justify-between text-[11px] mb-1">
-                  <span class="font-bold text-white group-hover:text-rose-300 truncate">체구 감량 & 인바디</span>
-                  <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-rose-500/20 text-rose-300">89회</span>
-                </div>
-                <div class="text-[10px] text-slate-400">골격근 40kg+ 유지 다이어트</div>
-              </button>
-              <button onclick="window.app.switchTab('band')" class="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-700/80 border border-slate-700 text-left transition group">
-                <div class="flex items-center justify-between text-[11px] mb-1">
-                  <span class="font-bold text-white group-hover:text-purple-300 truncate">밴드 합주 & 문화</span>
-                  <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-purple-500/20 text-purple-300">10/10</span>
-                </div>
-                <div class="text-[10px] text-slate-400">호랑이 합주실 '제제로감'</div>
-              </button>
-              <button onclick="window.app.switchTab('sns')" class="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-700/80 border border-slate-700 text-left transition group">
-                <div class="flex items-center justify-between text-[11px] mb-1">
-                  <span class="font-bold text-white group-hover:text-pink-300 truncate">SNS & 브랜딩</span>
-                  <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-pink-500/20 text-pink-300">Brunch</span>
-                </div>
-                <div class="text-[10px] text-slate-400">741편 12h 주기 연재</div>
-              </button>
-            </div>
+          <div class="font-bold text-white text-xs group-hover:text-sky-300 truncate">데일리 영문법</div>
+          <div class="text-[10px] text-slate-400 truncate mt-0.5">오픽 & 교정 팟캐스트</div>
+        </button>
+        <button onclick="window.app.switchTab('knou')" class="p-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 hover:border-indigo-500/50 text-left transition group cursor-pointer">
+          <div class="flex items-center justify-between text-xs mb-1">
+            <i class="fa-solid fa-building-columns text-indigo-400"></i>
+            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-indigo-500/20 text-indigo-300">71학점</span>
           </div>
-        </div>
-
-        <!-- 3. 기타 (2개) -->
-        <div class="p-4 rounded-xl bg-slate-800/60 border border-slate-700/60 hover:border-slate-500/60 transition flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-xs font-black text-slate-300 flex items-center gap-1.5">
-                <i class="fa-solid fa-layer-group"></i> 기타
-              </span>
-              <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-slate-700 text-slate-300 border border-slate-600">
-                2개 탭
-              </span>
-            </div>
-            <p class="text-[11px] text-slate-400 mb-3">
-              개인 커리어 통합 메인 관제 센터, 갤럭시 스마트폰 캘린더 양방향 일정 연동
-            </p>
-            <div class="grid grid-cols-2 gap-2">
-              <button onclick="window.app.switchTab('overview')" class="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-700/80 border border-slate-700 text-left transition group">
-                <div class="flex items-center justify-between text-[11px] mb-1">
-                  <span class="font-bold text-white group-hover:text-sky-300 truncate">종합 대시보드</span>
-                  <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-sky-500/20 text-sky-300">홈</span>
-                </div>
-                <div class="text-[10px] text-slate-400">마일스톤 & D-Day 레이더</div>
-              </button>
-              <button onclick="window.app.switchTab('calendar')" class="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-700/80 border border-slate-700 text-left transition group">
-                <div class="flex items-center justify-between text-[11px] mb-1">
-                  <span class="font-bold text-white group-hover:text-indigo-300 truncate">갤럭시 캘린더</span>
-                  <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-indigo-500/20 text-indigo-300">Sync</span>
-                </div>
-                <div class="text-[10px] text-slate-400">모바일 일정 연동</div>
-              </button>
-            </div>
+          <div class="font-bold text-white text-xs group-hover:text-indigo-300 truncate">방통대 사회복지</div>
+          <div class="text-[10px] text-slate-400 truncate mt-0.5">학점 & 수강 진도율</div>
+        </button>
+        <button onclick="window.app.switchTab('energy')" class="p-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 hover:border-amber-500/50 text-left transition group cursor-pointer">
+          <div class="flex items-center justify-between text-xs mb-1">
+            <i class="fa-solid fa-fire-flame-curved text-amber-400"></i>
+            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-amber-500/20 text-amber-300">실기</span>
           </div>
-        </div>
+          <div class="font-bold text-white text-xs group-hover:text-amber-300 truncate">에너지관리기사</div>
+          <div class="text-[10px] text-slate-400 truncate mt-0.5">플래시카드 & 40일 플랜</div>
+        </button>
+        <button onclick="window.app.switchTab('exam')" class="p-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 hover:border-blue-500/50 text-left transition group cursor-pointer">
+          <div class="flex items-center justify-between text-xs mb-1">
+            <i class="fa-solid fa-graduation-cap text-blue-400"></i>
+            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-blue-500/20 text-blue-300">${state.exams.length}건</span>
+          </div>
+          <div class="font-bold text-white text-xs group-hover:text-blue-300 truncate">시험·학사 일정</div>
+          <div class="text-[10px] text-slate-400 truncate mt-0.5">자격증 & 학사 스케줄</div>
+        </button>
+        <button onclick="window.app.switchTab('camino')" class="p-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 hover:border-amber-500/50 text-left transition group cursor-pointer">
+          <div class="flex items-center justify-between text-xs mb-1">
+            <i class="fa-solid fa-person-hiking text-amber-400"></i>
+            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-amber-500/20 text-amber-400">11/9</span>
+          </div>
+          <div class="font-bold text-white text-xs group-hover:text-amber-300 truncate">산티아고 순례길</div>
+          <div class="text-[10px] text-slate-400 truncate mt-0.5">3주간 포르투 코스</div>
+        </button>
+        <button onclick="window.app.switchTab('inbody')" class="p-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 hover:border-rose-500/50 text-left transition group cursor-pointer">
+          <div class="flex items-center justify-between text-xs mb-1">
+            <i class="fa-solid fa-weight-scale text-rose-400"></i>
+            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-rose-500/20 text-rose-300">89회</span>
+          </div>
+          <div class="font-bold text-white text-xs group-hover:text-rose-300 truncate">체구 감량 & 인바디</div>
+          <div class="text-[10px] text-slate-400 truncate mt-0.5">골격근 40kg+ 유지</div>
+        </button>
+        <button onclick="window.app.switchTab('calendar')" class="p-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 hover:border-indigo-500/50 text-left transition group cursor-pointer">
+          <div class="flex items-center justify-between text-xs mb-1">
+            <i class="fa-solid fa-calendar-days text-indigo-400"></i>
+            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-indigo-500/20 text-indigo-300">Embed</span>
+          </div>
+          <div class="font-bold text-white text-xs group-hover:text-indigo-300 truncate">갤럭시 캘린더</div>
+          <div class="text-[10px] text-slate-400 truncate mt-0.5">모바일 캘린더 삽입</div>
+        </button>
       </div>
     </div>
 
@@ -10089,6 +9970,27 @@ function renderCalendarTab() {
   const currentFilter = state.calendarCategoryFilter || 'all';
   const currentView = state.calendarViewMode || 'grid';
 
+  // Mobile Calendar Embed State
+  const savedEmbedUrl = state.calendarEmbedUrl !== undefined
+    ? state.calendarEmbedUrl
+    : (localStorage.getItem('career_calendar_embed_url') || '');
+  state.calendarEmbedUrl = savedEmbedUrl;
+  const embedViewMode = state.calendarEmbedViewMode || localStorage.getItem('career_calendar_embed_mode') || 'MONTH';
+  const showEmbedGuide = state.calendarShowGuide !== undefined ? state.calendarShowGuide : true;
+
+  // Build final iframe src if embed URL is configured
+  let activeIframeSrc = '';
+  if (savedEmbedUrl) {
+    try {
+      const urlObj = new URL(savedEmbedUrl);
+      urlObj.searchParams.set('mode', embedViewMode);
+      urlObj.searchParams.set('ctz', 'Asia/Seoul');
+      activeIframeSrc = urlObj.toString();
+    } catch (err) {
+      activeIframeSrc = savedEmbedUrl;
+    }
+  }
+
   // Parse Year and Month
   const [yearNum, monthNum] = currentMonthStr.split('-').map(v => parseInt(v, 10));
   const monthDate = new Date(yearNum, monthNum - 1, 1);
@@ -10122,21 +10024,26 @@ function renderCalendarTab() {
           <div class="space-y-2">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-xs font-semibold">
               <i class="fa-solid fa-mobile-screen"></i>
-              <span>Galaxy Mobile Dual-Sync Center</span>
+              <span>Galaxy Mobile Calendar Embed & Dual-Sync</span>
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span class="text-[11px] text-emerald-300 font-normal">실시간 모바일 연동 활성화</span>
+              <span class="text-[11px] text-emerald-300 font-normal">모바일 캘린더 대시보드 삽입 지원</span>
             </div>
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3 flex-wrap">
               <span>갤럭시 캘린더 모바일 연동</span>
-              <span class="text-xs px-2.5 py-0.5 rounded-lg bg-indigo-500/30 text-indigo-300 border border-indigo-500/40 font-mono">기타 메뉴</span>
+              <span class="text-xs px-2.5 py-0.5 rounded-lg bg-indigo-500/30 text-indigo-300 border border-indigo-500/40 font-mono">📲 모바일 캘린더 직접 삽입</span>
             </h2>
             <p class="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
-              PC 대시보드에서 일정을 수정하거나 등록하면 모바일 웹앱에서 실시간으로 확인되며, 
-              <b>[📱 갤럭시 캘린더 바로 저장]</b> 버튼으로 삼성 캘린더 / Google 캘린더 앱에 즉시 1초 연동됩니다.
+              갤럭시 스마트폰(삼성 캘린더 · Google 캘린더)의 일정을 <b>① 실시간 웹 캘린더(iframe)로 대시보드에 바로 삽입</b>하거나, 
+              <b>② 모바일에서 내보낸 .ics 파일을 업로드하여 대시보드 달력에 통째로 삽입</b>할 수 있습니다.
             </p>
           </div>
 
           <div class="flex flex-wrap items-center gap-2.5 self-start md:self-auto">
+            <input type="file" id="input-calendar-ics-import" accept=".ics,text/calendar" onchange="window.app.importCalendarIcsFile(event)" class="hidden">
+            <button onclick="document.getElementById('input-calendar-ics-import').click()" class="px-4 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-xl text-xs font-extrabold transition shadow-lg shadow-emerald-500/25 flex items-center gap-2 cursor-pointer" title="갤럭시 삼성 캘린더/구글 캘린더에서 내보낸 .ics 파일을 대시보드 달력에 즉시 삽입">
+              <i class="fa-solid fa-file-import"></i>
+              <span>모바일 .ics 파일 삽입</span>
+            </button>
             <button onclick="window.app.openAddCalendarEventModal('${selectedDateStr}')" class="px-4 py-2.5 bg-indigo-500 hover:bg-indigo-400 text-slate-950 rounded-xl text-xs font-bold transition shadow-lg shadow-indigo-500/25 flex items-center gap-2 cursor-pointer">
               <i class="fa-solid fa-plus"></i>
               <span>새 일정 추가</span>
@@ -10145,9 +10052,9 @@ function renderCalendarTab() {
               <i class="fa-solid fa-cloud-arrow-down text-indigo-400"></i>
               <span>전체 .ics 내보내기</span>
             </button>
-            <button onclick="window.app.toggleGalaxySyncInfoModal()" class="px-3.5 py-2.5 bg-indigo-950/60 hover:bg-indigo-900/60 text-indigo-200 border border-indigo-500/30 rounded-xl text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer">
-              <i class="fa-solid fa-circle-question text-indigo-400"></i>
-              <span>모바일 연동 안내</span>
+            <button onclick="window.app.toggleCalendarGuidePanel()" class="px-3.5 py-2.5 bg-indigo-950/60 hover:bg-indigo-900/60 text-indigo-200 border border-indigo-500/30 rounded-xl text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer">
+              <i class="fa-solid fa-book-open text-indigo-400"></i>
+              <span>${showEmbedGuide ? '연동 가이드 접기' : '모바일 삽입 가이드'}</span>
             </button>
           </div>
         </div>
@@ -10159,7 +10066,7 @@ function renderCalendarTab() {
               <i class="fa-solid fa-calendar-check"></i>
             </div>
             <div>
-              <div class="text-[11px] text-slate-400">총 등록 일정</div>
+              <div class="text-[11px] text-slate-400">대시보드 통합 일정</div>
               <div class="text-lg font-bold text-white font-mono">${totalEvents}<span class="text-xs text-slate-400 font-normal">건</span></div>
             </div>
           </div>
@@ -10168,8 +10075,8 @@ function renderCalendarTab() {
               <i class="fa-solid fa-mobile-screen-button"></i>
             </div>
             <div>
-              <div class="text-[11px] text-slate-400">갤럭시 연동 대기/완료</div>
-              <div class="text-lg font-bold text-emerald-400 font-mono">${syncedEvents}<span class="text-xs text-emerald-500/70 font-normal">건 (${Math.round((syncedEvents/totalEvents)*100)}%)</span></div>
+              <div class="text-[11px] text-slate-400">모바일 웹캘린더 삽입</div>
+              <div class="text-sm font-bold ${savedEmbedUrl ? 'text-emerald-400' : 'text-amber-300'} font-mono">${savedEmbedUrl ? '실시간 연결됨' : '설정 대기중'}</div>
             </div>
           </div>
           <div class="p-3 rounded-2xl bg-slate-950/50 border border-slate-800/80 flex items-center gap-3">
@@ -10177,7 +10084,7 @@ function renderCalendarTab() {
               <i class="fa-solid fa-graduation-cap"></i>
             </div>
             <div>
-              <div class="text-[11px] text-slate-400">10월 주요 시험/학사</div>
+              <div class="text-[11px] text-slate-400">주요 시험/학사 일정</div>
               <div class="text-lg font-bold text-amber-300 font-mono">${examEvents}<span class="text-xs text-slate-400 font-normal">건</span></div>
             </div>
           </div>
@@ -10191,6 +10098,151 @@ function renderCalendarTab() {
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- 1-B. 📲 모바일 캘린더 대시보드 직접 삽입 센터 (Live Web Embed & .ics Importer) -->
+      <div class="glass-panel rounded-3xl p-6 border border-indigo-500/40 bg-slate-900/80 shadow-xl space-y-5">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+          <div class="flex items-start gap-3.5">
+            <div class="w-11 h-11 rounded-2xl bg-indigo-500/20 border border-indigo-500/40 text-indigo-400 flex items-center justify-center text-xl flex-shrink-0 shadow-md">
+              <i class="fa-solid fa-calendar-plus"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <h3 class="text-base sm:text-lg font-extrabold text-white">📲 모바일 캘린더 대시보드 삽입 (Live 임베드 & 파일 연동)</h3>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold">삼성 캘린더 · Google 캘린더 호환</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">
+                갤럭시 삼성 캘린더와 연동된 <b>Google 계정 이메일</b> 또는 <b>공개 URL(iframe 코드)</b>을 입력하면 아래 화면에 모바일 캘린더가 실시간 삽입됩니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <button onclick="window.app.setQuickCalendarEmbed('carlosnam6363@gmail.com')" class="px-3 py-2 rounded-xl bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 border border-indigo-500/40 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer" title="내 Google 계정(carlosnam6363@gmail.com) 캘린더 즉시 삽입">
+              <i class="fa-solid fa-bolt text-amber-400"></i>
+              <span>내 계정(carlosnam6363) 바로 삽입</span>
+            </button>
+            ${savedEmbedUrl ? `
+              <button onclick="window.app.clearCalendarEmbedUrl()" class="px-3 py-2 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer">
+                <i class="fa-solid fa-trash-can"></i>
+                <span>삽입 초기화</span>
+              </button>
+            ` : ''}
+          </div>
+        </div>
+
+        <!-- Input Form for Embed URL / Email / Iframe Tag -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-center">
+          <div class="lg:col-span-9 flex flex-col sm:flex-row gap-2">
+            <div class="relative flex-1">
+              <i class="fa-solid fa-link absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+              <input
+                type="text"
+                id="input-calendar-embed-source"
+                value="${savedEmbedUrl.replace(/"/g, '&quot;')}"
+                placeholder="Google 이메일(예: carlosnam6363@gmail.com), 캘린더 공개 URL, 또는 <iframe src='...'> 코드 붙여넣기"
+                class="w-full bg-slate-950 border border-slate-700 focus:border-indigo-400 rounded-xl pl-9 pr-3 py-2.5 text-xs text-white font-mono outline-none"
+              >
+            </div>
+            <button onclick="window.app.saveCalendarEmbedFromInput()" class="px-5 py-2.5 bg-indigo-500 hover:bg-indigo-400 text-slate-950 font-extrabold rounded-xl text-xs transition shadow-lg shadow-indigo-500/20 flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap">
+              <i class="fa-solid fa-check"></i>
+              <span>캘린더 대시보드 삽입</span>
+            </button>
+          </div>
+
+          <div class="lg:col-span-3 flex items-center justify-end gap-1.5">
+            <span class="text-[11px] text-slate-400 mr-1">뷰 모드:</span>
+            <button onclick="window.app.setCalendarEmbedViewMode('MONTH')" class="px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition cursor-pointer ${embedViewMode === 'MONTH' ? 'bg-indigo-500 text-slate-950' : 'bg-slate-800 text-slate-300 hover:text-white'}">월간</button>
+            <button onclick="window.app.setCalendarEmbedViewMode('WEEK')" class="px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition cursor-pointer ${embedViewMode === 'WEEK' ? 'bg-indigo-500 text-slate-950' : 'bg-slate-800 text-slate-300 hover:text-white'}">주간</button>
+            <button onclick="window.app.setCalendarEmbedViewMode('AGENDA')" class="px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition cursor-pointer ${embedViewMode === 'AGENDA' ? 'bg-indigo-500 text-slate-950' : 'bg-slate-800 text-slate-300 hover:text-white'}">일정목록</button>
+          </div>
+        </div>
+
+        <!-- Embedded Live Mobile Calendar Iframe Viewer -->
+        ${activeIframeSrc ? `
+          <div class="rounded-2xl overflow-hidden border border-indigo-500/40 bg-slate-950 shadow-2xl">
+            <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900 border-b border-slate-800 text-xs">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                <span class="font-bold text-white">실시간 삽입된 모바일 연동 캘린더</span>
+                <span class="text-[10px] text-slate-400 font-mono truncate max-w-[260px] sm:max-w-md">(${savedEmbedUrl})</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <a href="${activeIframeSrc}" target="_blank" rel="noopener noreferrer" class="text-[11px] text-indigo-300 hover:text-indigo-200 flex items-center gap-1 font-semibold">
+                  <span>새 창으로 크게 보기</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+                </a>
+              </div>
+            </div>
+            <iframe
+              id="galaxy-calendar-live-iframe"
+              src="${activeIframeSrc}"
+              style="border: 0; width: 100%; height: 560px; background: #ffffff;"
+              frameborder="0"
+              scrolling="yes"
+              loading="lazy"
+            ></iframe>
+            <div class="px-4 py-2 bg-slate-900/90 border-t border-slate-800 text-[11px] text-slate-400 flex flex-wrap items-center justify-between gap-2">
+              <span>💡 화면에 <i>"일정을 표시할 수 없음 / 권한 필요"</i>가 뜰 경우: Google 캘린더에 로그인된 브라우저에서 열거나, Google 캘린더 설정에서 <b>'공개 사용 설정'</b> 또는 아래 <b>.ics 파일 삽입</b>을 이용해 주세요.</span>
+              <a href="https://calendar.google.com/calendar/r/settings" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:underline font-bold">Google 캘린더 설정 바로가기 →</a>
+            </div>
+          </div>
+        ` : `
+          <div class="p-5 rounded-2xl bg-slate-950/70 border border-dashed border-slate-700 text-center space-y-2">
+            <div class="text-sm font-bold text-slate-200">아직 실시간 웹 캘린더 URL이 삽입되지 않았습니다</div>
+            <p class="text-xs text-slate-400 max-w-xl mx-auto">
+              위의 <b>[내 계정(carlosnam6363) 바로 삽입]</b> 버튼을 클릭하거나, Google 캘린더 퍼가기 URL을 입력하면 이 자리에 모바일 캘린더 화면이 직접 표시됩니다.
+            </p>
+          </div>
+        `}
+
+        <!-- 📖 Step-by-Step Galaxy Mobile Calendar Insertion Guide -->
+        ${showEmbedGuide ? `
+          <div class="p-5 rounded-2xl bg-indigo-950/25 border border-indigo-500/30 space-y-4">
+            <div class="flex items-center justify-between">
+              <h4 class="text-sm font-extrabold text-indigo-300 flex items-center gap-2">
+                <i class="fa-solid fa-circle-info text-indigo-400"></i>
+                <span>갤럭시 모바일 캘린더를 대시보드에 삽입하는 2가지 방법 (상세 가이드)</span>
+              </h4>
+              <button onclick="window.app.toggleCalendarGuidePanel()" class="text-[11px] text-slate-400 hover:text-white cursor-pointer">닫기 ✕</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+              <!-- Method 1: Live Embed via Google Sync -->
+              <div class="p-4 rounded-xl bg-slate-900/90 border border-indigo-500/30 space-y-2.5">
+                <div class="flex items-center justify-between">
+                  <span class="font-extrabold text-white text-xs flex items-center gap-1.5">
+                    <span class="w-5 h-5 rounded-full bg-indigo-500 text-slate-950 font-black flex items-center justify-center text-[10px]">1</span>
+                    <span>방법 A: 실시간 웹 캘린더(iframe) 화면 삽입</span>
+                  </span>
+                  <span class="text-[10px] px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-bold">자동 동기화</span>
+                </div>
+                <ol class="space-y-1.5 text-[11px] text-slate-300 list-decimal list-inside leading-relaxed">
+                  <li><b>갤럭시 폰 설정</b>: <b>[삼성 캘린더]</b> 앱 실행 ➔ 좌측 상단 메뉴(<b>☰</b>) ➔ 톱니바퀴(<b>⚙️</b>) ➔ <b>[계정 관리]</b>에서 본인 <b>Google 계정(carlosnam6363@gmail.com)</b> 동기화를 켭니다.</li>
+                  <li><b>PC Google 캘린더 설정</b>: <a href="https://calendar.google.com/calendar/r/settings" target="_blank" class="text-indigo-400 underline font-bold">Google 캘린더 설정</a> 접속 ➔ 좌측 하단 '내 캘린더의 설정'에서 내 계정 클릭 ➔ <b>[일정에 대한 액세스 권한]</b>의 <b>'공개 사용 설정'</b> 체크 (또는 하단 <b>[캘린더 통합]</b>에서 <b>'이 캘린더의 공개 URL' / '맞춤설정 코드(iframe)'</b> 복사).</li>
+                  <li><b>대시보드에 삽입</b>: 위 입력창에 이메일 또는 복사한 URL을 붙여넣고 <b>[캘린더 대시보드 삽입]</b>을 누르면 실시간 달력이 바로 삽입됩니다.</li>
+                </ol>
+              </div>
+
+              <!-- Method 2: Direct .ics File Upload into Dashboard Grid -->
+              <div class="p-4 rounded-xl bg-slate-900/90 border border-emerald-500/30 space-y-2.5">
+                <div class="flex items-center justify-between">
+                  <span class="font-extrabold text-white text-xs flex items-center gap-1.5">
+                    <span class="w-5 h-5 rounded-full bg-emerald-500 text-slate-950 font-black flex items-center justify-center text-[10px]">2</span>
+                    <span>방법 B: 삼성 캘린더 .ics 파일 통째로 삽입 (비공개 안전)</span>
+                  </span>
+                  <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">네이티브 달력 통합</span>
+                </div>
+                <ol class="space-y-1.5 text-[11px] text-slate-300 list-decimal list-inside leading-relaxed">
+                  <li><b>갤럭시 삼성 캘린더에서 내보내기</b>: 스마트폰 <b>[삼성 캘린더]</b> 앱 ➔ 메뉴(<b>☰</b>) ➔ 설정(<b>⚙️</b>) ➔ <b>[캘린더 가져오기/내보내기]</b> ➔ <b>[내보내기]</b>를 눌러 휴대폰에 <code class="text-emerald-300">.ics</code> 파일을 저장합니다.</li>
+                  <li><b>대시보드에 삽입</b>: 본 탭 우측 상단의 초록색 <b>[📂 모바일 .ics 파일 삽입]</b> 버튼을 클릭하고 해당 <code class="text-emerald-300">.ics</code> 파일을 선택합니다.</li>
+                  <li><b>즉시 반영</b>: 파일 내 모든 모바일 일정이 자동 분석되어 아래 <b>대시보드 월간 그리드 및 타임라인</b>에 즉시 삽입·병합됩니다!</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        ` : ''}
       </div>
 
       <!-- 2. Controls & Filter Bar -->
@@ -10268,44 +10320,34 @@ function renderCalendarTab() {
               <span class="w-8 h-8 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-sm">
                 <i class="fa-solid fa-mobile-screen"></i>
               </span>
-              <h4 class="text-sm font-bold text-white">갤럭시 모바일 100% 활용법</h4>
+              <h4 class="text-sm font-bold text-white">갤럭시 모바일 양방향 활용 팁</h4>
             </div>
             
             <div class="space-y-2.5 text-xs text-slate-300">
               <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
+                <div class="font-bold text-emerald-300 flex items-center gap-1.5 mb-1">
+                  <i class="fa-solid fa-file-import text-emerald-400"></i>
+                  <span>모바일 → 대시보드 (.ics / iframe 삽입)</span>
+                </div>
+                <p class="text-[11px] text-slate-400 leading-relaxed">
+                  상단 <b>[모바일 .ics 파일 삽입]</b> 또는 <b>[캘린더 대시보드 삽입]</b>으로 폰의 일정을 대시보드 달력 안에 그대로 가져올 수 있습니다.
+                </p>
+              </div>
+
+              <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
                 <div class="font-bold text-indigo-300 flex items-center gap-1.5 mb-1">
                   <i class="fa-solid fa-bolt text-indigo-400"></i>
-                  <span>1초 원클릭 삼성 캘린더 등록</span>
+                  <span>대시보드 → 모바일 1초 저장</span>
                 </div>
                 <p class="text-[11px] text-slate-400 leading-relaxed">
-                  일정 카드의 <b>[📱 갤럭시 캘린더 바로 저장]</b>을 누르면 갤럭시 브라우저에서 삼성/Google 캘린더 앱이 바로 열리며 원클릭으로 등록됩니다.
-                </p>
-              </div>
-
-              <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
-                <div class="font-bold text-emerald-300 flex items-center gap-1.5 mb-1">
-                  <i class="fa-solid fa-arrows-rotate text-emerald-400"></i>
-                  <span>실시간 모바일 웹 대시보드</span>
-                </div>
-                <p class="text-[11px] text-slate-400 leading-relaxed">
-                  PC에서 등록/수정한 일정은 GitHub Pages 모바일 브라우저에서도 즉시 반영되어 언제 어디서나 실시간 확인 가능합니다.
-                </p>
-              </div>
-
-              <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
-                <div class="font-bold text-amber-300 flex items-center gap-1.5 mb-1">
-                  <i class="fa-solid fa-file-arrow-down text-amber-400"></i>
-                  <span>.ics 파일 탭 시 자동 앱 연동</span>
-                </div>
-                <p class="text-[11px] text-slate-400 leading-relaxed">
-                  갤럭시 파일 관리자나 다운로드 창에서 <b>.ics</b> 파일을 터치하면 삼성 캘린더가 열리며 '캘린더에 일정 추가' 팝업이 뜹니다.
+                  일정 카드의 <b>[📱 갤럭시 캘린더 바로 저장]</b>을 누르면 삼성/Google 캘린더 앱이 열리며 원클릭으로 폰에 등록됩니다.
                 </p>
               </div>
             </div>
 
             <div class="pt-2 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
-              <span>동기화 엔진: iCal 2.0 / PWA</span>
-              <span class="text-indigo-400 font-mono">v20261001_v1</span>
+              <span>동기화 엔진: iCal 2.0 / Google Embed</span>
+              <span class="text-indigo-400 font-mono">v20261016_v2</span>
             </div>
           </div>
         </div>
@@ -10942,17 +10984,193 @@ function exportAllCalendarIcs() {
 }
 
 function toggleGalaxySyncInfoModal() {
-  alert(
-    "📱 [갤럭시 스마트폰 캘린더 연동 가이드]\n\n" +
-    "1. 실시간 모바일 웹 동기화:\n" +
-    "   - PC 대시보드에서 등록하거나 수정한 일정은 GitHub Pages 웹앱에서 즉시 실시간 반영됩니다.\n" +
-    "   - 갤럭시 삼성 인터넷 또는 크롬 브라우저에서 '홈 화면에 추가'를 누르면 전용 앱(PWA)처럼 언제든 확인 가능합니다.\n\n" +
-    "2. 갤럭시 삼성 캘린더 1초 연동:\n" +
-    "   - 일정 카드의 [📱 갤럭시 캘린더 바로 저장] 버튼을 누르면 갤럭시 폰의 삼성/Google 캘린더 앱에 일정명, 시간, 장소, 메모가 자동 입력됩니다.\n" +
-    "   - '저장' 버튼 한 번만 누르면 갤럭시 기본 캘린더에 즉시 등록됩니다.\n\n" +
-    "3. 전체 일정 일괄 가져오기 (.ics):\n" +
-    "   - [전체 .ics 내보내기] 버튼으로 받은 파일을 갤럭시에서 열면 '캘린더에 추가' 팝업이 바로 실행되어 오프라인에서도 모든 일정이 동기화됩니다."
-  );
+  state.calendarShowGuide = !state.calendarShowGuide;
+  renderCalendarTab();
+}
+
+function toggleCalendarGuidePanel() {
+  state.calendarShowGuide = state.calendarShowGuide === undefined ? false : !state.calendarShowGuide;
+  renderCalendarTab();
+}
+
+function normalizeCalendarEmbedUrl(rawInput) {
+  if (!rawInput) return '';
+  let val = rawInput.trim();
+  // 1. If user pasted <iframe src="..."> tag, extract src attribute
+  const iframeMatch = val.match(/src=["']([^"']+)["']/i);
+  if (iframeMatch && iframeMatch[1]) {
+    val = iframeMatch[1].replace(/&amp;/g, '&');
+  }
+  // 2. If user entered an email address or calendar ID (e.g., carlosnam6363@gmail.com)
+  if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val) && !val.startsWith('http')) {
+    const encodedSrc = encodeURIComponent(val);
+    return `https://calendar.google.com/calendar/embed?src=${encodedSrc}&ctz=Asia%2FSeoul&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=1&showCalendars=0`;
+  }
+  // 3. If user pasted a standard URL
+  if (val.startsWith('http://') || val.startsWith('https://')) {
+    return val;
+  }
+  return `https://calendar.google.com/calendar/embed?src=${encodeURIComponent(val)}&ctz=Asia%2FSeoul`;
+}
+
+function saveCalendarEmbedFromInput() {
+  if (!checkAdminPermission('모바일 캘린더 삽입 설정')) return;
+  const input = document.getElementById('input-calendar-embed-source');
+  const rawVal = input ? input.value.trim() : '';
+  if (!rawVal) {
+    showToast('⚠️ 삽입할 Google 이메일 주소나 캘린더 공개 URL(또는 iframe 코드)을 입력해 주세요.');
+    return;
+  }
+  const embedUrl = normalizeCalendarEmbedUrl(rawVal);
+  state.calendarEmbedUrl = embedUrl;
+  localStorage.setItem('career_calendar_embed_url', embedUrl);
+  renderCalendarTab();
+  showToast('✅ 모바일 연동 캘린더가 대시보드에 성공적으로 삽입되었습니다.');
+}
+
+function setQuickCalendarEmbed(emailOrUrl) {
+  if (!checkAdminPermission('모바일 캘린더 삽입 설정')) return;
+  const embedUrl = normalizeCalendarEmbedUrl(emailOrUrl || 'carlosnam6363@gmail.com');
+  state.calendarEmbedUrl = embedUrl;
+  localStorage.setItem('career_calendar_embed_url', embedUrl);
+  renderCalendarTab();
+  showToast('📲 내 계정(carlosnam6363@gmail.com) 모바일 연동 캘린더가 삽입되었습니다.');
+}
+
+function clearCalendarEmbedUrl() {
+  if (!checkAdminPermission('모바일 캘린더 삽입 초기화')) return;
+  state.calendarEmbedUrl = '';
+  localStorage.removeItem('career_calendar_embed_url');
+  renderCalendarTab();
+  showToast('🗑️ 삽입된 웹 캘린더 화면이 초기화되었습니다.');
+}
+
+function setCalendarEmbedViewMode(mode) {
+  state.calendarEmbedViewMode = mode || 'MONTH';
+  localStorage.setItem('career_calendar_embed_mode', state.calendarEmbedViewMode);
+  renderCalendarTab();
+}
+
+function importCalendarIcsFile(event) {
+  if (!checkAdminPermission('모바일 .ics 일정 파일 삽입')) {
+    if (event && event.target) event.target.value = '';
+    return;
+  }
+  const file = event && event.target && event.target.files ? event.target.files[0] : null;
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const rawText = e.target.result || '';
+      // Unfold multi-line RFC 5545 lines (CRLF + space/tab)
+      const unfolded = rawText.replace(/\r?\n[ \t]/g, '');
+      const lines = unfolded.split(/\r?\n/);
+
+      const events = getCalendarEvents();
+      const existingKeys = new Set(events.map(ev => `${ev.date}|${ev.title}`));
+
+      let inEvent = false;
+      let cur = {};
+      let importedCount = 0;
+      let firstImportedMonth = null;
+
+      const parseIcsDate = (val) => {
+        if (!val) return null;
+        const clean = val.replace(/^.*:/, '').trim();
+        // Match YYYYMMDD or YYYYMMDDTHHMMSS
+        const m = clean.match(/^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2}))?/);
+        if (!m) return null;
+        const dateStr = `${m[1]}-${m[2]}-${m[3]}`;
+        const timeStr = (m[4] && m[5]) ? `${m[4]}:${m[5]}` : null;
+        return { dateStr, timeStr, allDay: !timeStr };
+      };
+
+      const unescapeIcsText = (txt) => {
+        if (!txt) return '';
+        return txt
+          .replace(/\\n/gi, '\n')
+          .replace(/\\,/g, ',')
+          .replace(/\\;/g, ';')
+          .replace(/\\\\/g, '\\')
+          .trim();
+      };
+
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (trimmed === 'BEGIN:VEVENT') {
+          inEvent = true;
+          cur = {};
+          continue;
+        }
+        if (trimmed === 'END:VEVENT') {
+          inEvent = false;
+          if (cur.summary && cur.dtstart) {
+            const startParsed = parseIcsDate(cur.dtstart);
+            const endParsed = cur.dtend ? parseIcsDate(cur.dtend) : null;
+            if (startParsed && startParsed.dateStr) {
+              const title = unescapeIcsText(cur.summary);
+              const dedupKey = `${startParsed.dateStr}|${title}`;
+              if (!existingKeys.has(dedupKey)) {
+                events.push({
+                  id: 'cal-ics-' + Date.now() + '-' + importedCount,
+                  title: title,
+                  date: startParsed.dateStr,
+                  startTime: startParsed.allDay ? null : (startParsed.timeStr || '09:00'),
+                  endTime: startParsed.allDay ? null : (endParsed && endParsed.timeStr ? endParsed.timeStr : '10:00'),
+                  allDay: startParsed.allDay,
+                  category: 'personal',
+                  categoryLabel: '갤럭시 연동 / 개인',
+                  color: 'indigo',
+                  location: unescapeIcsText(cur.location || ''),
+                  memo: unescapeIcsText(cur.description || '모바일 .ics 캘린더 파일에서 삽입됨'),
+                  syncWithGalaxy: true,
+                  lastSynced: new Date().toISOString().replace('T', ' ').substring(0, 16)
+                });
+                existingKeys.add(dedupKey);
+                importedCount++;
+                if (!firstImportedMonth) {
+                  firstImportedMonth = startParsed.dateStr.substring(0, 7);
+                }
+              }
+            }
+          }
+          cur = {};
+          continue;
+        }
+        if (!inEvent) continue;
+
+        const colonIdx = trimmed.indexOf(':');
+        if (colonIdx === -1) continue;
+        const propPart = trimmed.substring(0, colonIdx).toUpperCase();
+        const valPart = trimmed.substring(colonIdx + 1);
+        const propName = propPart.split(';')[0];
+
+        if (propName === 'SUMMARY') cur.summary = valPart;
+        else if (propName === 'DTSTART') cur.dtstart = trimmed;
+        else if (propName === 'DTEND') cur.dtend = trimmed;
+        else if (propName === 'LOCATION') cur.location = valPart;
+        else if (propName === 'DESCRIPTION') cur.description = valPart;
+      }
+
+      if (importedCount > 0) {
+        state.calendarEvents = events;
+        if (firstImportedMonth) {
+          state.calendarCurrentMonth = firstImportedMonth;
+        }
+        persistState();
+        renderCalendarTab();
+        showToast(`🎉 모바일 캘린더(.ics)에서 총 ${importedCount}건의 일정이 대시보드 달력에 삽입되었습니다!`);
+      } else {
+        showToast('ℹ️ 새로 추가할 일정이 없거나 이미 모두 대시보드에 등록되어 있습니다.');
+      }
+    } catch (err) {
+      console.error('ICS Import Error:', err);
+      showToast('⚠️ .ics 파일 분석 중 오류가 발생했습니다: ' + err.message);
+    }
+  };
+  reader.readAsText(file, 'utf-8');
+  if (event && event.target) event.target.value = '';
 }
 
 function renderSnsTab() {
@@ -12656,7 +12874,7 @@ window.app = {
   },
 
   get state() { return state; },
-  // Galaxy Mobile Calendar Handlers (기타 > 갤럭시 캘린더)
+  // Galaxy Mobile Calendar Handlers (갤럭시 캘린더 모바일 연동 & 삽입)
   openAddCalendarEventModal: (date) => openAddCalendarEventModal(date),
   openEditCalendarEventModal: (id) => openEditCalendarEventModal(id),
   saveCalendarEvent: (e) => saveCalendarEvent(e),
@@ -12671,6 +12889,12 @@ window.app = {
   setCalendarCategoryFilter: (cat) => setCalendarCategoryFilter(cat),
   selectCalendarDate: (dateStr) => selectCalendarDate(dateStr),
   toggleGalaxySyncInfoModal: () => toggleGalaxySyncInfoModal(),
+  toggleCalendarGuidePanel: () => toggleCalendarGuidePanel(),
+  saveCalendarEmbedFromInput: () => saveCalendarEmbedFromInput(),
+  setQuickCalendarEmbed: (emailOrUrl) => setQuickCalendarEmbed(emailOrUrl),
+  clearCalendarEmbedUrl: () => clearCalendarEmbedUrl(),
+  setCalendarEmbedViewMode: (mode) => setCalendarEmbedViewMode(mode),
+  importCalendarIcsFile: (e) => importCalendarIcsFile(e),
   // English Grammar & Daily Podcast Handlers
   setEnglishFilter: (f) => setEnglishFilter(f),
   setEnglishMode: (m) => setEnglishMode(m),

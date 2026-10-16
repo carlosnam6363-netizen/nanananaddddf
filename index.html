@@ -42,7 +42,7 @@
         });
       }
       // 3. 빌드 버전 검사를 통한 자동 1회 새로고침
-      var APP_VER = '20261016_v1';
+      var APP_VER = '20261016_v2';
       if (localStorage.getItem('career_app_build') !== APP_VER) {
         localStorage.setItem('career_app_build', APP_VER);
         if (!sessionStorage.getItem('build_updated')) {
@@ -94,7 +94,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
   <!-- Custom CSS (Cache-Busted) -->
-  <link rel="stylesheet" href="css/style.css?v=20261016_v1">
+  <link rel="stylesheet" href="css/style.css?v=20261016_v2">
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col lg:flex-row antialiased selection:bg-sky-500 selection:text-white pb-24 lg:pb-0">
 
@@ -377,17 +377,6 @@
             <i class="fa-solid fa-sliders text-sky-400"></i> 대시보드 탭 노출 및 순서 관리
           </h3>
           <p class="text-xs text-slate-400 mt-1">사용하지 않는 탭은 숨기거나 다시 노출할 수 있으며, 화살표(▲, ▼)로 메뉴 순서를 원하는 대로 정렬할 수 있습니다. (종합 대시보드는 항상 최상단에 고정)</p>
-          <div class="flex items-center gap-1.5 mt-2 flex-wrap text-[10px]">
-            <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold flex items-center gap-1">
-              <i class="fa-solid fa-briefcase text-[9px]"></i> 커리어 패스 4
-            </span>
-            <span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 font-bold flex items-center gap-1">
-              <i class="fa-solid fa-heart text-[9px]"></i> 취미 4
-            </span>
-            <span class="px-2 py-0.5 rounded-full bg-slate-700/60 text-slate-300 border border-slate-600/40 font-bold flex items-center gap-1">
-              <i class="fa-solid fa-layer-group text-[9px]"></i> 기타 2
-            </span>
-          </div>
         </div>
         <button onclick="window.app.closeAllModals()" class="text-slate-400 hover:text-white p-1">
           <i class="fa-solid fa-xmark text-lg"></i>
@@ -1021,7 +1010,7 @@
   </div>
 
   <!-- Static Seed Datasets & Core Application Script (Safe for file:// and http://) -->
-  <script src="js/data.js?v=20261016_v1"></script>
-  <script src="js/app.js?v=20261016_v1"></script>
+  <script src="js/data.js?v=20261016_v2"></script>
+  <script src="js/app.js?v=20261016_v2"></script>
 </body>
 </html>
