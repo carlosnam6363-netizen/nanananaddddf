@@ -13252,9 +13252,9 @@ const GUEST_MASKED_INBODY = {
     totalRecords: 89,
     targetWeight: 68.0,
     currentStatus: "D자형 골격근 발달형",
-    notice: "🔒 세부 89회차 측정치 및 신체 데이터는 관리자 인증 후 로드됩니다."
+    notice: "👀 인바디 89회차 측정치 및 신체 데이터 (게스트 모드: 읽기 전용 열람 가능, 수정/추가 시 관리자 PIN 인증 필요)"
   },
-  records: []
+  records: (typeof INITIAL_INBODY_DATA !== 'undefined' && INITIAL_INBODY_DATA.records) ? INITIAL_INBODY_DATA.records : []
 };
 
 const GUEST_MASKED_CONTEST = {
@@ -13263,14 +13263,14 @@ const GUEST_MASKED_CONTEST = {
   categories: (typeof INITIAL_CONTEST_DATA !== 'undefined' && INITIAL_CONTEST_DATA.categories) ? INITIAL_CONTEST_DATA.categories : [],
   summary: {
     totalCount: 42,
-    notice: "🔒 공모전 출품 원문 및 본선 진출 기획서는 관리자 인증 후 열람 가능합니다."
+    notice: "👀 공모전 출품 원문 및 본선 진출 기획서 (게스트 모드: 읽기 전용 열람 가능, 수정/추가 시 관리자 PIN 인증 필요)"
   },
-  items: [],
+  items: (typeof INITIAL_CONTEST_DATA !== 'undefined' && INITIAL_CONTEST_DATA.items) ? INITIAL_CONTEST_DATA.items : [],
   evaluationFramework: (typeof INITIAL_CONTEST_DATA !== 'undefined' && INITIAL_CONTEST_DATA.evaluationFramework) ? INITIAL_CONTEST_DATA.evaluationFramework : {},
   templates: (typeof INITIAL_CONTEST_DATA !== 'undefined' && INITIAL_CONTEST_DATA.templates) ? INITIAL_CONTEST_DATA.templates : []
 };
 
-const GUEST_MASKED_CALENDAR = [];
+const GUEST_MASKED_CALENDAR = (typeof INITIAL_CALENDAR_EVENTS !== 'undefined') ? INITIAL_CALENDAR_EVENTS : [];
 
 let _isVaultUnlocked = false;
 
@@ -13278,7 +13278,7 @@ const SecurityVault = {
   isUnlocked: () => _isVaultUnlocked,
 
   unlock(authKey) {
-    const validKeys = ['3442', '2232', 'carlosnam6363@gmail.com', 'admin_carlosnam'];
+    const validKeys = ['159632', 'carlosnam6363@gmail.com', 'admin_carlosnam'];
     if (!authKey || !validKeys.includes(String(authKey).trim().toLowerCase())) {
       return false;
     }
@@ -13291,23 +13291,22 @@ const SecurityVault = {
   },
 
   getPortfolioData() {
-    return _isVaultUnlocked ? INITIAL_PORTFOLIO_DATA : GUEST_MASKED_PORTFOLIO;
+    return (typeof INITIAL_PORTFOLIO_DATA !== 'undefined') ? INITIAL_PORTFOLIO_DATA : GUEST_MASKED_PORTFOLIO;
   },
 
   getInbodyData() {
-    return _isVaultUnlocked ? INITIAL_INBODY_DATA : GUEST_MASKED_INBODY;
+    return (typeof INITIAL_INBODY_DATA !== 'undefined') ? INITIAL_INBODY_DATA : GUEST_MASKED_INBODY;
   },
 
   getContestData() {
-    return _isVaultUnlocked ? INITIAL_CONTEST_DATA : GUEST_MASKED_CONTEST;
+    return (typeof INITIAL_CONTEST_DATA !== 'undefined') ? INITIAL_CONTEST_DATA : GUEST_MASKED_CONTEST;
   },
 
   getCalendarData() {
-    return _isVaultUnlocked ? INITIAL_CALENDAR_EVENTS : GUEST_MASKED_CALENDAR;
+    return (typeof INITIAL_CALENDAR_EVENTS !== 'undefined') ? INITIAL_CALENDAR_EVENTS : GUEST_MASKED_CALENDAR;
   },
 
   getRawVault() {
-    if (!_isVaultUnlocked) return null;
     return {
       portfolio: INITIAL_PORTFOLIO_DATA,
       inbody: INITIAL_INBODY_DATA,

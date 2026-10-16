@@ -670,8 +670,8 @@ function handlePinLogin(e) {
   const enteredPin = pinInput ? pinInput.value.trim() : '';
   const feedbackMsg = document.getElementById('pin-feedback-msg');
 
-  // 관리자 전용 인증 PIN: 3442
-  const validPins = ['3442'];
+  // 관리자 전용 인증 PIN: 159632
+  const validPins = ['159632'];
   const savedPin = localStorage.getItem('career_admin_pin');
   if (savedPin) validPins.push(savedPin);
 
@@ -1183,6 +1183,7 @@ function setNavCategoryFilter(catId) {
 
 
 function hideTab(tabId) {
+  if (!checkAdminPermission('탭 숨기기')) return;
   if (tabId === 'overview') {
     showToast('⚠️ 종합 대시보드는 최상단 고정 탭으로 숨길 수 없습니다.');
     return;
@@ -1202,6 +1203,7 @@ function hideTab(tabId) {
 }
 
 function unhideTab(tabId) {
+  if (!checkAdminPermission('탭 표시')) return;
   const tabDef = TAB_REGISTRY.find(t => t.id === tabId);
   let hidden = state.hiddenTabs ? [...state.hiddenTabs] : getHiddenTabs();
   hidden = hidden.filter(id => id !== tabId);
@@ -1212,6 +1214,7 @@ function unhideTab(tabId) {
 }
 
 function unhideAllTabs() {
+  if (!checkAdminPermission('탭 전체 표시')) return;
   saveHiddenTabs([]);
   renderNavigation();
   renderTabOrderModal();
@@ -1466,6 +1469,7 @@ function renderTabOrderModal() {
   container.innerHTML = html;
 }
 function moveTabUp(idx) {
+  if (!checkAdminPermission('탭 순서 정렬')) return;
   if (idx <= 1 || !state.tabOrder) return; // Overview at 0 is pinned
   const newOrder = [...state.tabOrder];
   const temp = newOrder[idx - 1];
@@ -1479,6 +1483,7 @@ function moveTabUp(idx) {
 }
 
 function moveTabDown(idx) {
+  if (!checkAdminPermission('탭 순서 정렬')) return;
   if (idx < 1 || !state.tabOrder || idx >= state.tabOrder.length - 1) return; // Overview at 0 is pinned
   const newOrder = [...state.tabOrder];
   const temp = newOrder[idx + 1];
@@ -1492,6 +1497,7 @@ function moveTabDown(idx) {
 }
 
 function resetTabOrder() {
+  if (!checkAdminPermission('탭 순서 초기화')) return;
   saveTabOrder([...DEFAULT_TAB_ORDER]);
   saveHiddenTabs([]);
   renderNavigation();
@@ -1500,6 +1506,7 @@ function resetTabOrder() {
 }
 
 function openTabOrderModal() {
+  if (!checkAdminPermission('탭 노출 및 순서 관리')) return;
   renderTabOrderModal();
   const modal = document.getElementById('modal-tab-order');
   if (modal) modal.classList.remove('hidden');
@@ -1525,7 +1532,7 @@ function initApp() {
     }
   } else {
     if (window.SecurityVault) {
-      window.SecurityVault.unlock('3442');
+      window.SecurityVault.unlock('159632');
       state.inbody = window.SecurityVault.getInbodyData();
       state.portfolio = window.SecurityVault.getPortfolioData();
       state.contests = window.SecurityVault.getContestData();
@@ -2675,6 +2682,7 @@ function fallbackCopyText(text, successMsg) {
 }
 
 function updateCaminoHotel(idx, val) {
+  if (!checkAdminPermission('숙소 정보 수정')) return;
   if (!state.camino) state.camino = JSON.parse(JSON.stringify(INITIAL_CAMINO_DATA));
   const activeRouteId = state.camino.activeRoute || 'hybrid';
   const routesInfo = state.camino.routesInfo || INITIAL_CAMINO_DATA.routesInfo || {};
@@ -7844,6 +7852,7 @@ function renderKnouCreditPlanSection() {
 }
 
 function knouPlanSave(msg) {
+  if (!checkAdminPermission('학사 계획 수정')) return;
   persistState();
   renderKnouTab();
   if (msg) showToast(msg);
@@ -7934,6 +7943,7 @@ let knouManagerSemesterFilter = 'all';
 let knouManagerSearchKeyword = '';
 
 function openKnouCourseManagerModal(defaultTab = 'add', defaultSemester = null) {
+  if (!checkAdminPermission('과목 관리')) return;
   knouManagerActiveTab = defaultTab;
   knouManagerSelectedRows.clear();
   knouManagerSemesterFilter = 'all';
@@ -8314,6 +8324,7 @@ function toggleKnouManagerSelect(rowId, checked) {
 }
 
 function addKnouPlanSemester() {
+  if (!checkAdminPermission('학기 추가')) return;
   const name = prompt('추가할 새 학기명을 입력하세요 (예: 27년 2학기):');
   if (!name || !name.trim()) return;
   const plan = getKnouCreditPlan();
@@ -8324,6 +8335,7 @@ function addKnouPlanSemester() {
 }
 
 function renameKnouPlanSemester(oldName, newName) {
+  if (!checkAdminPermission('학기명 변경')) return;
   newName = (newName || '').trim();
   const plan = getKnouCreditPlan();
   if (!newName || newName === oldName) return;
@@ -8334,6 +8346,7 @@ function renameKnouPlanSemester(oldName, newName) {
 }
 
 function deleteKnouPlanSemester(name) {
+  if (!checkAdminPermission('학기 삭제')) return;
   const plan = getKnouCreditPlan();
   const cnt = plan.rows.filter(r => r.semester === name).length;
   if (!confirm(`'${name}' 학기와 소속 과목 ${cnt}개를 모두 삭제할까요?`)) return;
@@ -8343,6 +8356,7 @@ function deleteKnouPlanSemester(name) {
 }
 
 function resetKnouPlan() {
+  if (!checkAdminPermission('학사 계획 초기화')) return;
   if (!confirm('학점 이수 계획표를 제공해주신 32과목 기본 표 데이터로 복원하시겠습니까?')) return;
   const seed = (window.INITIAL_KNOU_CREDIT_PLAN_SEED && window.INITIAL_KNOU_CREDIT_PLAN_SEED.rows && window.INITIAL_KNOU_CREDIT_PLAN_SEED.rows.length === 32)
     ? window.INITIAL_KNOU_CREDIT_PLAN_SEED
@@ -10676,6 +10690,7 @@ function selectCalendarDate(dateStr) {
 
 // Modal Handlers
 function openAddCalendarEventModal(prefillDate) {
+  if (!checkAdminPermission('일정 등록')) return;
   const modal = document.getElementById('modal-calendar-event');
   if (!modal) return;
 
@@ -10712,6 +10727,7 @@ function openAddCalendarEventModal(prefillDate) {
 }
 
 function openEditCalendarEventModal(id) {
+  if (!checkAdminPermission('일정 수정')) return;
   const events = getCalendarEvents();
   const ev = events.find(e => e.id === id);
   if (!ev) return;
@@ -10764,6 +10780,7 @@ function toggleCalAllDay(checked) {
 
 function saveCalendarEvent(e) {
   if (e && e.preventDefault) e.preventDefault();
+  if (!checkAdminPermission('일정 저장')) return;
 
   const idInput = document.getElementById('cal-event-id');
   const titleInput = document.getElementById('cal-event-title');
@@ -10824,6 +10841,7 @@ function saveCalendarEvent(e) {
 }
 
 function deleteCalendarEvent(id) {
+  if (!checkAdminPermission('일정 삭제')) return;
   const events = getCalendarEvents();
   const ev = events.find(e => e.id === id);
   if (!ev) return;
@@ -12806,6 +12824,7 @@ window.app = {
   copyCourseToClipboard: (routeId) => copyCourseToClipboard(routeId),
   updateCaminoHotel: (idx, val) => updateCaminoHotel(idx, val),
   togglePackingItem: (idOrIdx) => {
+    if (!checkAdminPermission('준비물 체크')) return;
     if (!state.camino || !state.camino.packingList) return;
     let item = null;
     if (typeof idOrIdx === 'number') {
@@ -13029,6 +13048,7 @@ window.app = {
     renderEnergyTab();
   },
   toggleCardMastered: (qId) => {
+    if (!checkAdminPermission('암기 완료 체크')) return;
     if (!state.cardMastered) state.cardMastered = {};
     state.cardMastered[qId] = !state.cardMastered[qId];
     const isM = state.cardMastered[qId];
@@ -13109,6 +13129,7 @@ window.app = {
     renderEnergyTab();
   },
   toggleFolderCompleted: (folderName) => {
+    if (!checkAdminPermission('폴더 완독 체크')) return;
     if (!state.foldersDone) state.foldersDone = {};
     state.foldersDone[folderName] = !state.foldersDone[folderName];
     showToast(`'${folderName}' 폴더 완독 상태를 변경했습니다.`);
@@ -13144,6 +13165,7 @@ window.app = {
     if (modal) modal.classList.remove('hidden');
   },
   openEditInbodyModal: (id) => {
+    if (!checkAdminPermission('인바디 기록 수정')) return;
     if (!state.inbody || !state.inbody.records) return;
     const item = state.inbody.records.find(r => r.id === id);
     if (!item) return;
@@ -13162,6 +13184,7 @@ window.app = {
     if (modal) modal.classList.remove('hidden');
   },
   deleteInbodyRecord: (id) => {
+    if (!checkAdminPermission('인바디 기록 삭제')) return;
     if (confirm('선택한 인바디 측정 기록을 삭제하시겠습니까?')) {
       if (state.inbody && state.inbody.records) {
         state.inbody.records = state.inbody.records.filter(r => r.id !== id);
@@ -13181,6 +13204,10 @@ window.app = {
 
   // ⭐ InBody CSV Importer (카카오톡 InBody-YYYYMMDD.csv 원클릭 자동 파싱 & 병합)
   importInbodyCsv: (event) => {
+    if (!checkAdminPermission('인바디 CSV 가져오기')) {
+      if (event && event.target) event.target.value = '';
+      return;
+    }
     const file = event.target.files[0];
     if (!file) return;
 
@@ -13513,6 +13540,7 @@ window.app = {
 
   // Camino Handlers (⭐)
   toggleCaminoPacking: (idx) => {
+    if (!checkAdminPermission('준비물 체크')) return;
     if (state.camino && state.camino.packingList && state.camino.packingList[idx]) {
       state.camino.packingList[idx].done = !state.camino.packingList[idx].done;
       persistState();
@@ -13522,6 +13550,7 @@ window.app = {
   },
   // Energy Study Plan Handlers (⭐)
   toggleEnergyPlanItem: (id) => {
+    if (!checkAdminPermission('학습 계획 상태 변경')) return;
     if (!state.energyPlan) state.energyPlan = INITIAL_ENERGY_STUDY_PLAN;
     const item = state.energyPlan.find(p => p.id === id);
     if (item) {
@@ -13540,6 +13569,7 @@ window.app = {
     renderCaminoTab();
   },
   addCaminoPackingItem: () => {
+    if (!checkAdminPermission('준비물 추가')) return;
     const input = document.getElementById('new-camino-packing-input');
     if (input && input.value.trim()) {
       if (!state.camino) state.camino = INITIAL_CAMINO_DATA;
@@ -13555,6 +13585,7 @@ window.app = {
     }
   },
   deleteCaminoPackingItem: (idx) => {
+    if (!checkAdminPermission('준비물 삭제')) return;
     if (state.camino && state.camino.packingList[idx]) {
       state.camino.packingList.splice(idx, 1);
       persistState();
@@ -13563,6 +13594,7 @@ window.app = {
     }
   },
   saveCaminoMemo: () => {
+    if (!checkAdminPermission('순례길 메모 저장')) return;
     const input = document.getElementById('camino-memos-input');
     if (input && state.camino) {
       state.camino.memos = input.value;
@@ -13580,6 +13612,7 @@ window.app = {
     renderBandTab();
   },
   toggleQuestionReviewed: (qId) => {
+    if (!checkAdminPermission('복습 상태 변경')) return;
     const q = state.questions.find(item => item.id === qId);
     if (q) {
       q.isReviewed = !q.isReviewed;
@@ -13589,6 +13622,7 @@ window.app = {
     }
   },
   saveQuestionMemo: (qId) => {
+    if (!checkAdminPermission('문제 메모 저장')) return;
     const input = document.getElementById(`memo-input-${qId}`);
     if (input) {
       const q = state.questions.find(item => item.id === qId);
@@ -13600,6 +13634,7 @@ window.app = {
     }
   },
   toggleChecklist: (examId, checkIdx) => {
+    if (!checkAdminPermission('체크리스트 상태 변경')) return;
     const exam = state.exams.find(e => e.id === examId);
     if (exam && exam.checklist && exam.checklist[checkIdx]) {
       exam.checklist[checkIdx].done = !exam.checklist[checkIdx].done;
@@ -13608,6 +13643,7 @@ window.app = {
     }
   },
   deleteExam: (examId) => {
+    if (!checkAdminPermission('일정 삭제')) return;
     if (confirm('이 일정을 삭제하시겠습니까?')) {
       state.exams = state.exams.filter(e => e.id !== examId);
       persistState();
@@ -13616,6 +13652,7 @@ window.app = {
     }
   },
   deleteBand: (bandId) => {
+    if (!checkAdminPermission('합주/공연 일정 삭제')) return;
     if (confirm('이 일정을 삭제하시겠습니까?')) {
       state.bands = state.bands.filter(b => b.id !== bandId);
       persistState();
@@ -13630,6 +13667,7 @@ window.app = {
     switchTab('external');
   },
   deleteExternalDashboard: (extId) => {
+    if (!checkAdminPermission('외부 대시보드 제거')) return;
     if (confirm('해당 외부 대시보드 탭을 제거하시겠습니까?')) {
       state.externalDashboards = state.externalDashboards.filter(e => e.id !== extId);
       if (state.activeExternalTabId === extId) {
@@ -13674,6 +13712,7 @@ window.app = {
     DynamicFormManager.open('band-edit', band);
   },
   openAddExternalModal: () => {
+    if (!checkAdminPermission('외부 대시보드 추가')) return;
     DynamicFormManager.open('external-add');
   },
   openAddQuestionModal: () => {
@@ -13686,6 +13725,7 @@ window.app = {
     DynamicFormManager.open('question-edit', q);
   },
   deleteQuestion: (qId) => {
+    if (!checkAdminPermission('문제 삭제')) return;
     if (confirm('이 문제를 삭제하시겠습니까?')) {
       state.questions = state.questions.filter(item => item.id !== qId);
       if (state.currentQuestionIndex >= state.questions.length) {
@@ -13703,6 +13743,7 @@ window.app = {
 
   // SNS & Personal Branding Actions (⭐)
   quickUpdateSnsMetric: (channelId, field, value) => {
+    if (!checkAdminPermission('SNS 지표 수정')) return;
     if (!state.sns || !state.sns.channels) return;
     const ch = state.sns.channels.find(c => c.id === channelId);
     if (!ch) return;
@@ -13716,6 +13757,7 @@ window.app = {
     showToast(`${ch.name.split(' ')[0]} ${fieldLabel}: ${numVal.toLocaleString()} 저장 완료!`);
   },
   resetSnsToRealStats: () => {
+    if (!checkAdminPermission('SNS 지표 초기화')) return;
     state.sns = JSON.parse(JSON.stringify(INITIAL_SNS_DATA));
     persistState();
     renderSnsTab();
@@ -13723,6 +13765,7 @@ window.app = {
     showToast('실제 프로필 수치(인스타 302명·180글 / 브런치 223명·741글)로 동기화되었습니다.');
   },
   openEditSnsChannelModal: (channelId) => {
+    if (!checkAdminPermission('SNS 채널 수정')) return;
     if (!state.sns || !state.sns.channels) return;
     const ch = state.sns.channels.find(c => c.id === channelId);
     if (!ch) return;
@@ -13741,6 +13784,7 @@ window.app = {
     document.getElementById('modal-edit-sns-channel').classList.remove('hidden');
   },
   openAddSnsPostModal: () => {
+    if (!checkAdminPermission('SNS 포스트 등록')) return;
     const form = document.getElementById('form-add-sns-post');
     if (form) form.reset();
     const dateInput = document.getElementById('sns-post-date');
@@ -13748,6 +13792,7 @@ window.app = {
     document.getElementById('modal-add-sns-post').classList.remove('hidden');
   },
   openEditSnsPostModal: (postId) => {
+    if (!checkAdminPermission('SNS 포스트 수정')) return;
     if (!state.sns || !state.sns.posts) return;
     const p = state.sns.posts.find(item => item.id === postId);
     if (!p) return;
@@ -13763,6 +13808,7 @@ window.app = {
     document.getElementById('modal-edit-sns-post').classList.remove('hidden');
   },
   deleteSnsPost: (postId) => {
+    if (!checkAdminPermission('SNS 포스트 삭제')) return;
     if (confirm('이 포스트를 삭제하시겠습니까?')) {
       if (state.sns && state.sns.posts) {
         state.sns.posts = state.sns.posts.filter(p => p.id !== postId);
@@ -13773,6 +13819,7 @@ window.app = {
     }
   },
   toggleSnsPostStatus: (postId) => {
+    if (!checkAdminPermission('SNS 포스트 상태 변경')) return;
     if (!state.sns || !state.sns.posts) return;
     const p = state.sns.posts.find(item => item.id === postId);
     if (!p) return;
@@ -13799,6 +13846,7 @@ window.app = {
     }
   },
   saveSnsStrategyMemo: () => {
+    if (!checkAdminPermission('SNS 전략 노트 저장')) return;
     const input = document.getElementById('sns-strategy-memo-input');
     if (input && state.sns) {
       state.sns.strategyMemo = input.value;
@@ -13829,12 +13877,14 @@ window.app = {
     DynamicFormManager.open('award-add');
   },
   openEditAwardModal: (id) => {
+    if (!checkAdminPermission('수상 내역 수정')) return;
     if (!state.portfolio || !state.portfolio.awards) return;
     const item = state.portfolio.awards.find(a => a.id === id);
     if (!item) return;
     DynamicFormManager.open('award-edit', item);
   },
   deleteAward: (id) => {
+    if (!checkAdminPermission('수상 내역 삭제')) return;
     if (confirm('이 수상 내역을 삭제하시겠습니까?')) {
       if (state.portfolio && state.portfolio.awards) {
         state.portfolio.awards = state.portfolio.awards.filter(a => a.id !== id);
@@ -13851,12 +13901,14 @@ window.app = {
     DynamicFormManager.open('career-add');
   },
   openEditCareerModal: (id) => {
+    if (!checkAdminPermission('경력 이력 수정')) return;
     if (!state.portfolio || !state.portfolio.careers) return;
     const item = state.portfolio.careers.find(c => c.id === id);
     if (!item) return;
     DynamicFormManager.open('career-edit', item);
   },
   deleteCareer: (id) => {
+    if (!checkAdminPermission('경력 이력 삭제')) return;
     if (confirm('이 경력/TF 이력을 삭제하시겠습니까?')) {
       if (state.portfolio && state.portfolio.careers) {
         state.portfolio.careers = state.portfolio.careers.filter(c => c.id !== id);
@@ -13999,6 +14051,7 @@ window.app = {
     });
   },
   importData: async (event) => {
+    if (!checkAdminPermission('데이터 복원')) return;
     const file = event.target.files[0];
     if (!file) return;
     try {
@@ -14125,6 +14178,7 @@ const BackupRestoreManager = {
   },
 
   importJson(file) {
+    if (!checkAdminPermission('데이터 백업 파일 복원')) return;
     if (!file) return;
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -14197,6 +14251,10 @@ const TabDragManager = {
   draggedIndex: null,
 
   dragStart(e, idx) {
+    if (!checkAdminPermission('탭 순서 정렬')) {
+      if (e && e.preventDefault) e.preventDefault();
+      return false;
+    }
     this.draggedIndex = idx;
     if (e.dataTransfer) {
       e.dataTransfer.effectAllowed = 'move';
@@ -14207,12 +14265,14 @@ const TabDragManager = {
   },
 
   dragOver(e) {
+    if (!state.isAdmin) return;
     e.preventDefault();
     if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
   },
 
   drop(e, targetIdx) {
     e.preventDefault();
+    if (!checkAdminPermission('탭 순서 정렬')) return;
     if (this.draggedIndex === null || this.draggedIndex === targetIdx) return;
 
     const order = state.tabOrder && state.tabOrder.length > 0 ? [...state.tabOrder] : [...getTabOrder()];
@@ -14246,6 +14306,7 @@ const DynamicFormManager = {
   currentData: null,
 
   open(type, initialData = null) {
+    if (!checkAdminPermission('항목 등록 및 수정')) return;
     this.currentType = type;
     this.currentData = initialData;
 
@@ -14459,6 +14520,7 @@ Superstition" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.
 
   handleSubmit(event) {
     if (event) event.preventDefault();
+    if (!checkAdminPermission('항목 저장')) return;
     const type = this.currentType;
     const initial = this.currentData;
 

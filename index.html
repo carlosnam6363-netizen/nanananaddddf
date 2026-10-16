@@ -42,7 +42,7 @@
         });
       }
       // 3. 빌드 버전 검사를 통한 자동 1회 새로고침
-      var APP_VER = '20261016_v2';
+      var APP_VER = '20261016_v3';
       if (localStorage.getItem('career_app_build') !== APP_VER) {
         localStorage.setItem('career_app_build', APP_VER);
         if (!sessionStorage.getItem('build_updated')) {
@@ -94,7 +94,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
   <!-- Custom CSS (Cache-Busted) -->
-  <link rel="stylesheet" href="css/style.css?v=20261016_v2">
+  <link rel="stylesheet" href="css/style.css?v=20261016_v3">
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col lg:flex-row antialiased selection:bg-sky-500 selection:text-white pb-24 lg:pb-0">
 
@@ -439,8 +439,8 @@
             </span>
           </div>
           <div id="locked-tab-desc" class="text-slate-300 text-[11px] leading-relaxed pt-1">
-            읽기 전용 모드에서는 <b>종합 대시보드(Overview)</b>만 이용 가능합니다.<br>
-            시험 관리, 산티아고 순례길, 밴드 활동, 에너지관리기사, 인바디 89개 기록, SNS 브랜딩 및 수상·경력 등 모든 세부 탭은 <b>관리자 로그인을 완료해야 열람 및 사용</b>할 수 있습니다.
+            현재 <b>[읽기 전용 게스트 모드]</b>입니다. 모든 탭과 데이터의 <b>조회(열람)</b>가 가능합니다.<br>
+            일정 등록·수정·삭제, 체크리스트 변경, 인바디 측정치 등록, 탭 순서 정렬 변경 등의 <b>편집 작업</b>은 <b>관리자 로그인(PIN: 159632)</b> 후 사용하실 수 있습니다.
           </div>
         </div>
 
@@ -451,14 +451,14 @@
               <i class="fa-solid fa-user text-slate-500"></i> 현재 모드
             </div>
             <div class="text-amber-400 font-bold">읽기 전용 (게스트)</div>
-            <div class="text-[10px] text-slate-400">종합 대시보드만 이용 가능</div>
+            <div class="text-[10px] text-slate-400">모든 탭 조회 가능 · 수정 불가</div>
           </div>
           <div class="p-3 rounded-xl bg-slate-950/60 border border-emerald-500/30 space-y-1">
             <div class="text-emerald-400 font-bold flex items-center gap-1">
               <i class="fa-solid fa-crown text-amber-400"></i> 관리자 모드
             </div>
-            <div class="text-emerald-300 font-bold">전체 잠금 해제</div>
-            <div class="text-[10px] text-slate-400">모든 탭 & 세부 데이터 사용</div>
+            <div class="text-emerald-300 font-bold">전체 편집 권한 활성화</div>
+            <div class="text-[10px] text-slate-400">내용 수정/추가/정렬 변경 가능</div>
           </div>
         </div>
 
@@ -493,7 +493,7 @@
           </div>
           <div>
             <h3 class="font-bold text-white text-base">관리자 보안 인증</h3>
-            <p class="text-xs text-slate-400">데이터 추가·수정 및 전체 탭 열람 제어</p>
+            <p class="text-xs text-slate-400">데이터 내용 수정·추가·삭제 및 탭 정렬 권한 제어</p>
           </div>
         </div>
         <button onclick="window.app.closeAllModals()" class="text-slate-400 hover:text-white p-1">
@@ -511,7 +511,7 @@
             <span class="text-[10px] text-amber-400/80 font-mono">단일 비밀번호 인증</span>
           </div>
           <p class="text-slate-300 text-xs leading-relaxed">
-            관리자 PIN을 입력하면 암호화된 민감 데이터 볼트가 즉시 복호화됩니다.
+            관리자 PIN을 입력하면 내용 수정, 추가, 삭제 및 탭 정렬 변경 권한이 모두 활성화됩니다.
           </p>
           <form onsubmit="window.app.handlePinLogin(event)" class="space-y-2">
             <div class="flex gap-2">
@@ -1010,7 +1010,7 @@
   </div>
 
   <!-- Static Seed Datasets & Core Application Script (Safe for file:// and http://) -->
-  <script src="js/data.js?v=20261016_v2"></script>
-  <script src="js/app.js?v=20261016_v2"></script>
+  <script src="js/data.js?v=20261016_v3"></script>
+  <script src="js/app.js?v=20261016_v3"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-﻿/* Custom Styles for Career & Work Dashboard */
+/* Custom Styles for Career & Work Dashboard */
 
 :root {
   --primary: #3b82f6;
@@ -176,4 +176,9 @@ body.modal-open {
   border-color: #38bdf8;
   box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
   transform: translateY(-2px);
+}
+
+/* Guest vs Admin UI Protection */
+body:not(.is-admin) .admin-only {
+  display: none !important;
 }
