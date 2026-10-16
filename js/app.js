@@ -508,20 +508,16 @@ const TAB_REGISTRY = [
   // 🌟 항상 최상단에 고정되는 종합 대시보드 (HOME)
   { id: 'overview', name: '종합 대시보드', shortName: '홈', icon: 'fa-house', color: 'text-sky-400', badge: 'HOME', badgeClass: 'bg-sky-500/20 text-sky-300', category: 'etc', categoryName: '기타' },
 
-  // 1. 커리어 패스 관리 (7개)
+  // 1. 커리어 패스 관리 (4개 - 포트폴리오 4대 탭은 별도 대시보드로 분리 이전)
   { id: 'english', name: '데일리 영문법 브리핑', shortName: '영문법', icon: 'fa-language', color: 'text-teal-400', badge: '409교정', badgeClass: 'bg-teal-500/20 text-teal-300', category: 'career', categoryName: '커리어 패스 관리' },
   { id: 'knou', name: '방통대 사회복지 학점', shortName: '방통대 학점', icon: 'fa-user-graduate', color: 'text-indigo-400', badge: '9과목', badgeClass: 'bg-indigo-500/20 text-indigo-300', category: 'career', categoryName: '커리어 패스 관리' },
-  { id: 'contest', name: '공모전 & 아이디어', shortName: '공모전', icon: 'fa-lightbulb', color: 'text-amber-400', badge: '42선', badgeClass: 'bg-amber-500/20 text-amber-300', category: 'career', categoryName: '커리어 패스 관리' },
   { id: 'energy', name: '에너지관리기사', shortName: '에너지', icon: 'fa-graduation-cap', color: 'text-amber-300', badge: 'D-40', badgeClass: 'bg-sky-500/20 text-sky-300', category: 'career', categoryName: '커리어 패스 관리' },
   { id: 'exam', name: '시험 및 학사 일정', shortName: '일정', icon: 'fa-calendar-days', color: 'text-blue-400', badge: null, badgeClass: '', category: 'career', categoryName: '커리어 패스 관리' },
-  { id: 'careers', name: '주요 경력 & TF', shortName: '경력', icon: 'fa-briefcase', color: 'text-emerald-400', badge: '15건', badgeClass: 'bg-emerald-500/20 text-emerald-400', isPortfolio: true, category: 'career', categoryName: '커리어 패스 관리' },
-  { id: 'awards', name: '수상 내역 관리', shortName: '수상', icon: 'fa-trophy', color: 'text-amber-400', badge: '23건', badgeClass: 'bg-amber-500/20 text-amber-400', isPortfolio: true, category: 'career', categoryName: '커리어 패스 관리' },
 
-  // 2. 취미 (4개)
+  // 2. 취미 (3개 - SNS & 브랜딩 탭은 포트폴리오 대시보드로 분리 이전)
   { id: 'camino', name: '산티아고 순례길', shortName: '순례길', icon: 'fa-person-hiking', color: 'text-amber-400', badge: '11/10 (3주)', badgeClass: 'bg-amber-500/20 text-amber-400', category: 'hobby', categoryName: '취미' },
   { id: 'inbody', name: '체구 감량 & 인바디', shortName: '인바디', icon: 'fa-weight-scale', color: 'text-rose-400', badge: '89회', badgeClass: 'bg-rose-500/20 text-rose-400', category: 'hobby', categoryName: '취미' },
   { id: 'band', name: '밴드 합주 & 문화', shortName: '밴드', icon: 'fa-guitar', color: 'text-purple-400', badge: '10/10', badgeClass: 'bg-purple-500/20 text-purple-300', category: 'hobby', categoryName: '취미' },
-  { id: 'sns', name: 'SNS & 브랜딩', shortName: 'SNS', icon: 'fa-share-nodes', color: 'text-pink-400', badge: 'Brunch', badgeClass: 'bg-pink-500/20 text-pink-400', category: 'hobby', categoryName: '취미' },
 
   // 3. 기타 (1개, overview는 최상단 고정)
   { id: 'calendar', name: '갤럭시 캘린더 모바일 연동', shortName: '갤럭시 캘린더', icon: 'fa-calendar-check', color: 'text-indigo-400', badge: 'Galaxy Sync', badgeClass: 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30', category: 'etc', categoryName: '기타' }
@@ -2664,81 +2660,39 @@ function renderOverviewTab() {
           </div>
         </div>
 
-        <!-- 3대 SNS 퍼스널 브랜딩 위젯 (신규 ⭐) -->
-        <div class="glass-panel rounded-2xl p-6 border border-pink-500/30 bg-gradient-to-b from-slate-900 to-pink-950/20">
+        <!-- 분리된 포트폴리오 & 퍼스널 브랜딩 전용 대시보드 바로가기 위젯 (신규 ⭐) -->
+        <div class="glass-panel rounded-2xl p-6 border border-amber-500/40 bg-gradient-to-b from-slate-900 via-amber-950/20 to-slate-900 shadow-xl">
           <div class="flex items-center justify-between mb-3">
             <h3 class="font-bold text-white text-sm flex items-center gap-2">
-              <i class="fa-solid fa-share-nodes text-pink-400"></i>
-              SNS & 브랜딩 채널
+              <i class="fa-solid fa-id-card-clip text-amber-400"></i>
+              포트폴리오 & 브랜딩 대시보드
             </h3>
-            <button onclick="window.app.switchTab('sns')" class="text-xs text-pink-400 hover:text-pink-300 font-bold flex items-center gap-1">
-              분석 탭 <i class="fa-solid fa-arrow-right text-[10px]"></i>
-            </button>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30">신규 분리됨</span>
           </div>
 
-          <div class="space-y-2 mb-3">
-            ${(state.sns ? state.sns.channels : INITIAL_SNS_DATA.channels).map(ch => `
-              <a href="${ch.url}" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl bg-slate-800/70 hover:bg-slate-800 border border-slate-700/50 hover:border-pink-500/40 flex items-center justify-between transition group">
-                <div class="flex items-center gap-2.5 min-w-0">
-                  <div class="w-7 h-7 rounded-lg flex items-center justify-center text-sm ${ch.id === 'linkedin' ? 'bg-blue-600/20 text-blue-400' : ch.id === 'instagram' ? 'bg-pink-600/20 text-pink-400' : 'bg-emerald-600/20 text-emerald-400'}">
-                    <i class="${ch.icon}"></i>
-                  </div>
-                  <div class="truncate">
-                    <div class="text-xs font-bold text-white group-hover:text-pink-300 transition truncate">${ch.name.split(' ')[0]}</div>
-                    <div class="text-[10px] text-slate-400 font-mono truncate">${ch.handle}</div>
-                  </div>
-                </div>
-                <div class="text-right flex items-center gap-2">
-                  <span class="text-xs font-black text-slate-200">${ch.followers.toLocaleString()}</span>
-                  <i class="fa-solid fa-arrow-up-right-from-square text-[11px] text-slate-500 group-hover:text-pink-400"></i>
-                </div>
-              </a>
-            `).join('')}
-          </div>
+          <p class="text-xs text-slate-300 mb-4 leading-relaxed">
+            <b>SNS & 브랜딩</b>, <b>공모전 & 아이디어</b>, <b>주요 경력 & TF</b>, <b>수상 내역 관리</b> 4대 탭이 전용 포트폴리오 대시보드로 독립 분리되었습니다.
+          </p>
 
-          <button onclick="window.app.switchTab('sns')" class="w-full py-2 bg-pink-500/10 hover:bg-pink-500/20 border border-pink-500/30 text-pink-300 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5">
-            <span>콘텐츠 파이프라인 & 성장 지표 관리</span>
-          </button>
-        </div>
-
-        <!-- 수상 내역 & 주요 경력 포트폴리오 위젯 (신규 ⭐) -->
-        <div class="glass-panel rounded-2xl p-6 border border-amber-500/30 bg-gradient-to-b from-slate-900 to-amber-950/20">
-          <div class="flex items-center justify-between mb-3">
-            <h3 class="font-bold text-white text-sm flex items-center gap-2">
-              <i class="fa-solid fa-trophy text-amber-400"></i>
-              수상 & 주요 경력 아카이브
-            </h3>
-            <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold">총 ${((state.portfolio ? state.portfolio.awards.length : 23) + (state.portfolio ? state.portfolio.careers.length : 15))}건</span>
-          </div>
-
-          <div class="grid grid-cols-2 gap-2.5 mb-3">
-            <div onclick="window.app.openPortfolioTab('awards')" class="p-3 rounded-xl bg-slate-800/80 hover:bg-slate-800 border border-amber-500/30 cursor-pointer transition group">
-              <div class="flex items-center justify-between text-xs text-amber-400 mb-1">
-                <span class="font-bold">🏅 수상 내역</span>
-                <i class="fa-solid fa-chevron-right text-[10px] group-hover:translate-x-0.5 transition"></i>
-              </div>
-              <div class="text-xl font-black text-white">${state.portfolio ? state.portfolio.awards.length : 23}<span class="text-xs font-normal text-slate-400"> 건</span></div>
-              <div class="text-[10px] text-slate-400 mt-0.5 truncate">사내 표창 · 국회 국방위원장상 등</div>
+          <div class="grid grid-cols-2 gap-2 mb-4 text-xs">
+            <div class="p-2.5 rounded-xl bg-slate-800/80 border border-pink-500/30 text-pink-300 font-bold flex items-center gap-2">
+              <i class="fa-solid fa-share-nodes"></i> SNS & 브랜딩
             </div>
-
-            <div onclick="window.app.openPortfolioTab('careers')" class="p-3 rounded-xl bg-slate-800/80 hover:bg-slate-800 border border-emerald-500/30 cursor-pointer transition group">
-              <div class="flex items-center justify-between text-xs text-emerald-400 mb-1">
-                <span class="font-bold">💼 주요 경력</span>
-                <i class="fa-solid fa-chevron-right text-[10px] group-hover:translate-x-0.5 transition"></i>
-              </div>
-              <div class="text-xl font-black text-white">${state.portfolio ? state.portfolio.careers.length : 15}<span class="text-xs font-normal text-slate-400"> 건</span></div>
-              <div class="text-[10px] text-slate-400 mt-0.5 truncate">SSIT 교수추천 · 기능장 7명 배출</div>
+            <div class="p-2.5 rounded-xl bg-slate-800/80 border border-purple-500/30 text-purple-300 font-bold flex items-center gap-2">
+              <i class="fa-solid fa-lightbulb"></i> 공모전 & 아이디어
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-800/80 border border-emerald-500/30 text-emerald-300 font-bold flex items-center gap-2">
+              <i class="fa-solid fa-briefcase"></i> 주요 경력 & TF
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-800/80 border border-amber-500/30 text-amber-300 font-bold flex items-center gap-2">
+              <i class="fa-solid fa-trophy"></i> 수상 내역 관리
             </div>
           </div>
 
-          <div class="grid grid-cols-2 gap-2">
-            <button onclick="window.app.openPortfolioTab('awards')" class="py-2 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 rounded-xl text-xs font-bold transition">
-              수상 탭 열기
-            </button>
-            <button onclick="window.app.openPortfolioTab('careers')" class="py-2 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 rounded-xl text-xs font-bold transition">
-              경력 탭 열기
-            </button>
-          </div>
+          <a href="https://carlosnam6363-netizen.github.io/Portfolio/" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 rounded-xl text-xs font-black transition flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20">
+            <span>포트폴리오 대시보드 열기</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+          </a>
         </div>
 
       </div>

@@ -42,7 +42,7 @@
         });
       }
       // 3. 빌드 버전 검사를 통한 자동 1회 새로고침
-      var APP_VER = '20261002_v2';
+      var APP_VER = '20261016_v1';
       if (localStorage.getItem('career_app_build') !== APP_VER) {
         localStorage.setItem('career_app_build', APP_VER);
         if (!sessionStorage.getItem('build_updated')) {
@@ -94,7 +94,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
   <!-- Custom CSS (Cache-Busted) -->
-  <link rel="stylesheet" href="css/style.css?v=20260929_v6">
+  <link rel="stylesheet" href="css/style.css?v=20261016_v1">
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col lg:flex-row antialiased selection:bg-sky-500 selection:text-white pb-24 lg:pb-0">
 
@@ -130,13 +130,17 @@
       </div>
 
       <!-- Dynamic Desktop Navigation Container -->
-      <nav id="desktop-sidebar-nav" class="space-y-1 overflow-y-auto max-h-[calc(100vh-210px)] pr-1 custom-scrollbar">
+      <nav id="desktop-sidebar-nav" class="space-y-1 overflow-y-auto max-h-[calc(100vh-250px)] pr-1 custom-scrollbar">
         <!-- Rendered dynamically by window.app.renderNavigation() -->
       </nav>
     </div>
 
     <!-- Bottom Status & Admin Auth Widget -->
     <div class="border-t border-slate-800/80 pt-3 px-2 space-y-2.5">
+      <a href="https://carlosnam6363-netizen.github.io/Portfolio/" target="_blank" rel="noopener noreferrer" class="w-full py-2 px-3 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 hover:text-amber-200 text-xs font-bold flex items-center justify-between transition">
+        <span class="flex items-center gap-1.5"><i class="fa-solid fa-id-card-clip text-amber-400"></i> 포트폴리오 대시보드</span>
+        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+      </a>
       <!-- Admin Authentication Widget (Dynamic) -->
       <div id="sidebar-auth-widget">
         <!-- Rendered dynamically by window.app.renderAuthWidget() -->
@@ -148,7 +152,7 @@
           <i class="fa-solid fa-moon"></i>
           <span>다크 테마</span>
         </button>
-        <span class="text-[10px] text-slate-500 font-mono">v3.5.0</span>
+        <span class="text-[10px] text-slate-500 font-mono">v3.6.0</span>
       </div>
     </div>
   </aside>
@@ -1017,7 +1021,7 @@
   </div>
 
   <!-- Static Seed Datasets & Core Application Script (Safe for file:// and http://) -->
-  <script src="js/data.js?v=20261004_v3"></script>
-  <script src="js/app.js?v=20261004_v3"></script>
+  <script src="js/data.js?v=20261016_v1"></script>
+  <script src="js/app.js?v=20261016_v1"></script>
 </body>
 </html>
