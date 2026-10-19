@@ -42,7 +42,7 @@
         });
       }
       // 3. 빌드 버전 검사를 통한 자동 1회 새로고침
-      var APP_VER = '20261016_v3';
+      var APP_VER = '20261019_v1';
       if (localStorage.getItem('career_app_build') !== APP_VER) {
         localStorage.setItem('career_app_build', APP_VER);
         if (!sessionStorage.getItem('build_updated')) {
@@ -94,7 +94,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
   <!-- Custom CSS (Cache-Busted) -->
-  <link rel="stylesheet" href="css/style.css?v=20261016_v3">
+  <link rel="stylesheet" href="css/style.css?v=20261019_v1">
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col lg:flex-row antialiased selection:bg-sky-500 selection:text-white pb-24 lg:pb-0">
 
@@ -1010,7 +1010,7 @@
   </div>
 
   <!-- Static Seed Datasets & Core Application Script (Safe for file:// and http://) -->
-  <script src="js/data.js?v=20261016_v3"></script>
-  <script src="js/app.js?v=20261016_v3"></script>
+  <script src="js/data.js?v=20261019_v1"></script>
+  <script src="js/app.js?v=20261019_v1"></script>
 </body>
 </html>
