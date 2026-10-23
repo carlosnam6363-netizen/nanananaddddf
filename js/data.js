@@ -14,7 +14,7 @@ const INITIAL_DISCHARGE_DATE = "2026-12-19";
 // 산티아고 순례길 일정 & 준비물 데이터 (2026-11-07 ~ 11-09)
 // 산티아고 순례길 일정 & 준비물 데이터 (까미노 드 포르투 3주 여정: 2026-11-09 ~ 11-29)
 const INITIAL_CAMINO_DATA = {
-  caminoDataVersion: 13,
+  caminoDataVersion: 14,
   title: "산티아고 순례길 3개 코스 비교 관제 & 피니스테레·마드리드 귀국 (23일 대여정)",
   startDate: "2026-11-10",
   endDate: "2026-12-03",
@@ -1436,7 +1436,9 @@ const INITIAL_CAMINO_DATA = {
     { id: "pack-eva-slippers", item: "흰색 실내화 (EVA 100% 재질, 3천원)", text: "흰색 실내화 (EVA 100% 재질, 3천원)", category: "신발", cost: "₩3,000", costKrw: 3000, currency: "KRW", done: true, note: "알베르게 및 숙소 실내용 초경량 방수 100% EVA 흰색 실내화 (₩3,000)" },
     { id: "pack-rollup-compress-bag", item: "옷 압축용 롤업 비닐 (2천원)", text: "옷 압축용 롤업 비닐 (2천원)", category: "배낭·가방", cost: "₩2,000", costKrw: 2000, currency: "KRW", done: true, note: "배낭 수납 공간 극대화 및 의류 방수/압축 보관용 롤업 비닐 (₩2,000)" },
     { id: "pack-buds3pro-case", item: "버즈3프로 플라스틱 케이스 (1천원)", text: "버즈3프로 플라스틱 케이스 (1천원)", category: "장비", cost: "₩1,000", costKrw: 1000, currency: "KRW", done: true, note: "기존에 케이스 없었음, 트레킹 중 낙하·충격 파손 예방용 플라스틱 케이스 (₩1,000)" },
-    { id: "pack-inkel-ctype-earphones", item: "알루미늄 C타입 인켈 이어폰 (5천원)", text: "알루미늄 C타입 인켈 이어폰 (5천원)", category: "장비", cost: "₩5,000", costKrw: 5000, currency: "KRW", done: true, note: "무선 이어폰 방전 대비 비상 유선 및 기내·도보용 알루미늄 C타입 인켈 이어폰 (₩5,000)" }
+    { id: "pack-inkel-ctype-earphones", item: "알루미늄 C타입 인켈 이어폰 (5천원)", text: "알루미늄 C타입 인켈 이어폰 (5천원)", category: "장비", cost: "₩5,000", costKrw: 5000, currency: "KRW", done: true, note: "무선 이어폰 방전 대비 비상 유선 및 기내·도보용 알루미늄 C타입 인켈 이어폰 (₩5,000)" },
+    { id: "pack-glucose-candy", item: "포도당 캔디 (3천원)", text: "포도당 캔디 (3천원)", category: "식품·행동식", cost: "₩3,000", costKrw: 3000, currency: "KRW", done: true, note: "장거리 트레킹 중 급격한 탈진 및 저혈당 방지, 즉각적인 에너지 보충용 (₩3,000)" },
+    { id: "pack-sleeping-bag-tuman", item: "침낭 (튜맨 컴포트 500, 6만 2천원)", text: "침낭 (튜맨 컴포트 500, 6만 2천원)", category: "장비", cost: "₩62,000", costKrw: 62000, currency: "KRW", done: true, note: "11월 늦가을/초겨울 알베르게 난방 대비 보온 침낭 (튜맨 컴포트 500 모델, ₩62,000)" }
   ],
 
   // 24일 전체 여정

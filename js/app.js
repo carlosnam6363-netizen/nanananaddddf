@@ -143,7 +143,7 @@ class SyncManager {
             }
 
             // 신규 물품 5종 자동 동기화 (기존 사용자 로컬스토리지 보존하면서 신규 항목 추가)
-            const newPackingIds = ['pack-magsafe-case', 'pack-eva-slippers', 'pack-rollup-compress-bag', 'pack-buds3pro-case', 'pack-inkel-ctype-earphones'];
+            const newPackingIds = ['pack-magsafe-case', 'pack-eva-slippers', 'pack-rollup-compress-bag', 'pack-buds3pro-case', 'pack-inkel-ctype-earphones', 'pack-glucose-candy', 'pack-sleeping-bag-tuman'];
             const newItems = (INITIAL_CAMINO_DATA.packingList || []).filter(item => newPackingIds.includes(item.id));
             newItems.forEach(newItem => {
               const existing = upgradedCamino.packingList.find(p => p.id === newItem.id);
@@ -151,7 +151,7 @@ class SyncManager {
                 upgradedCamino.packingList.push(JSON.parse(JSON.stringify(newItem)));
               }
             });
-            upgradedCamino.caminoDataVersion = 13;
+            upgradedCamino.caminoDataVersion = 14;
           }
         }
 
@@ -3733,11 +3733,11 @@ function renderCaminoTab() {
             </div>
             <div class="flex items-center justify-between text-xs">
               <span class="text-slate-400 flex items-center gap-1.5"><i class="fa-solid fa-backpack text-purple-400 text-[11px]"></i> 장비·소품·통신(eSIM) 소계</span>
-              <span class="font-mono font-bold text-purple-300">₩219,000</span>
+              <span class="font-mono font-bold text-purple-300">₩284,000</span>
             </div>
             <div class="pt-2.5 border-t border-slate-800 flex items-center justify-between">
               <span class="text-xs font-black text-white">총 지출 합계 (항공비 대폭 절감)</span>
-              <span class="text-base font-black text-emerald-400 font-mono">약 ₩3,023,184</span>
+              <span class="text-base font-black text-emerald-400 font-mono">약 ₩3,088,184</span>
             </div>
           </div>
         </div>
