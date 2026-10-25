@@ -14,7 +14,7 @@ const INITIAL_DISCHARGE_DATE = "2026-12-19";
 // 산티아고 순례길 일정 & 준비물 데이터 (2026-11-07 ~ 11-09)
 // 산티아고 순례길 일정 & 준비물 데이터 (까미노 드 포르투 3주 여정: 2026-11-09 ~ 11-29)
 const INITIAL_CAMINO_DATA = {
-  caminoDataVersion: 15,
+  caminoDataVersion: 16,
   title: "산티아고 순례길 3개 코스 비교 관제 & 피니스테레·마드리드 귀국 (23일 대여정)",
   startDate: "2026-11-10",
   endDate: "2026-12-03",
@@ -1442,7 +1442,9 @@ const INITIAL_CAMINO_DATA = {
     { id: "pack-knee-guard-daiso", item: "무릎 보호대 2개 (다이소, 개당 3천원 / 총 6천원)", text: "무릎 보호대 2개 (다이소, 개당 3천원 / 총 6천원)", category: "장비", cost: "₩6,000", costKrw: 6000, currency: "KRW", done: true, note: "다이소 압박형 무릎 보호대 2개 (좌/우 무릎 관절 보호용, 개당 ₩3,000 x 2 = ₩6,000)" },
     { id: "pack-liquid-bottle-daiso", item: "액체 소분통 2개 (다이소, 개당 1천원 / 총 2천원)", text: "액체 소분통 2개 (다이소, 개당 1천원 / 총 2천원)", category: "필수품", cost: "₩2,000", costKrw: 2000, currency: "KRW", done: true, note: "샴푸·세안제·스킨케어 기내 반입 및 배낭 경량화용 액체 소분 용기 2개 (개당 ₩1,000 x 2 = ₩2,000)" },
     { id: "pack-gloves-daiso", item: "장갑 (다이소, 1천원)", text: "장갑 (다이소, 1천원)", category: "의류 (보온)", cost: "₩1,000", costKrw: 1000, currency: "KRW", done: true, note: "새벽·아침 쌀쌀한 바닷바람 체온 유지 및 등산 스틱 사용 시 손 보호용 장갑 (₩1,000)" },
-    { id: "pack-eye-mask-daiso", item: "안대 (다이소, 2천원)", text: "안대 (다이소, 2천원)", category: "필수품", cost: "₩2,000", costKrw: 2000, currency: "KRW", done: true, note: "공용 알베르게 다인실 취침 및 기내 숙면용 빛 차단 수면 안대 (₩2,000)" }
+    { id: "pack-eye-mask-daiso", item: "안대 (다이소, 1천원)", text: "안대 (다이소, 1천원)", category: "필수품", cost: "₩1,000", costKrw: 1000, currency: "KRW", done: true, note: "공용 알베르게 다인실 취침 및 기내 숙면용 빛 차단 수면 안대 (₩1,000)" },
+    { id: "pack-spray-suncream-gift", item: "스프레이형 선크림 1개 (선물)", text: "스프레이형 선크림 1개 (선물)", category: "필수품", cost: "₩0 (선물)", costKrw: 0, currency: "KRW", done: true, note: "지인 선물로 준비 완료된 간편 분사형 자외선 차단 선크림 (대서양 해안길 햇빛 차단용, 1개)" },
+    { id: "pack-cooling-sheet-gift", item: "휴족시간 쿨링시트 1개 (선물)", text: "휴족시간 쿨링시트 1개 (선물)", category: "필수품", cost: "₩0 (선물)", costKrw: 0, currency: "KRW", done: true, note: "지인 선물로 준비 완료된 발바닥·종아리 피로 회복용 쿨링 패치 (1개)" }
   ],
 
   // 24일 전체 여정
