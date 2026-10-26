@@ -13293,7 +13293,7 @@ const SecurityVault = {
   isUnlocked: () => _isVaultUnlocked,
 
   unlock(authKey) {
-    const validKeys = ['159632', 'carlosnam6363@gmail.com', 'admin_carlosnam'];
+    const validKeys = ['3234', 'carlosnam6363@gmail.com', 'admin_carlosnam'];
     if (!authKey || !validKeys.includes(String(authKey).trim().toLowerCase())) {
       return false;
     }

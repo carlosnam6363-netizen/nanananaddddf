@@ -42,7 +42,7 @@
         });
       }
       // 3. 빌드 버전 검사를 통한 자동 1회 새로고침
-      var APP_VER = '20261026_v1';
+      var APP_VER = '20261026_v2';
       if (localStorage.getItem('career_app_build') !== APP_VER) {
         localStorage.setItem('career_app_build', APP_VER);
         if (!sessionStorage.getItem('build_updated')) {
@@ -94,7 +94,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
   <!-- Custom CSS (Cache-Busted) -->
-  <link rel="stylesheet" href="css/style.css?v=20261026_v1">
+  <link rel="stylesheet" href="css/style.css?v=20261026_v2">
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col lg:flex-row antialiased selection:bg-sky-500 selection:text-white pb-24 lg:pb-0">
 
@@ -440,7 +440,7 @@
           </div>
           <div id="locked-tab-desc" class="text-slate-300 text-[11px] leading-relaxed pt-1">
             현재 <b>[읽기 전용 게스트 모드]</b>입니다. 모든 탭과 데이터의 <b>조회(열람)</b>가 가능합니다.<br>
-            일정 등록·수정·삭제, 체크리스트 변경, 인바디 측정치 등록, 탭 순서 정렬 변경 등의 <b>편집 작업</b>은 <b>관리자 로그인(PIN: 159632)</b> 후 사용하실 수 있습니다.
+            일정 등록·수정·삭제, 체크리스트 변경, 인바디 측정치 등록, 탭 순서 정렬 변경 등의 <b>편집 작업</b>은 <b>관리자 로그인(PIN: 3234)</b> 후 사용하실 수 있습니다.
           </div>
         </div>
 
@@ -1010,7 +1010,7 @@
   </div>
 
   <!-- Static Seed Datasets & Core Application Script (Safe for file:// and http://) -->
-  <script src="js/data.js?v=20261026_v1"></script>
-  <script src="js/app.js?v=20261026_v1"></script>
+  <script src="js/data.js?v=20261026_v2"></script>
+  <script src="js/app.js?v=20261026_v2"></script>
 </body>
 </html>

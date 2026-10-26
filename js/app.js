@@ -690,8 +690,8 @@ function handlePinLogin(e) {
   const enteredPin = pinInput ? pinInput.value.trim() : '';
   const feedbackMsg = document.getElementById('pin-feedback-msg');
 
-  // 관리자 전용 인증 PIN: 159632
-  const validPins = ['159632'];
+  // 관리자 전용 인증 PIN: 3234
+  const validPins = ['3234'];
   const savedPin = localStorage.getItem('career_admin_pin');
   if (savedPin) validPins.push(savedPin);
 
@@ -1552,7 +1552,7 @@ function initApp() {
     }
   } else {
     if (window.SecurityVault) {
-      window.SecurityVault.unlock('159632');
+      window.SecurityVault.unlock('3234');
       state.inbody = window.SecurityVault.getInbodyData();
       state.portfolio = window.SecurityVault.getPortfolioData();
       state.contests = window.SecurityVault.getContestData();
@@ -8551,7 +8551,7 @@ function renderExamTab() {
               <button onclick="window.app.openEditExamModal('${item.id}')" class="text-xs text-blue-400/90 hover:text-blue-300 px-2.5 py-1 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 transition flex items-center gap-1">
                 <i class="fa-solid fa-pen-to-square"></i> 수정
               </button>
-              <button class="admin-only" onclick="window.app.deleteExam('${item.id}')" class="text-xs text-red-400/70 hover:text-red-400 px-2 py-1 transition flex items-center gap-1">
+              <button onclick="window.app.deleteExam('${item.id}')" class="text-xs text-rose-400/80 hover:text-rose-300 px-2.5 py-1 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 transition flex items-center gap-1 border border-rose-500/20 cursor-pointer">
                 <i class="fa-regular fa-trash-can"></i> 삭제
               </button>
             </div>
@@ -8663,7 +8663,7 @@ function renderBandTab() {
             <button onclick="window.app.openEditBandModal('${item.id}')" class="text-xs text-purple-400/90 hover:text-purple-300 px-2.5 py-1 rounded-lg bg-purple-500/10 hover:bg-purple-500/20 transition flex items-center gap-1">
               <i class="fa-solid fa-pen-to-square"></i> 수정
             </button>
-            <button class="admin-only" onclick="window.app.deleteBand('${item.id}')" class="text-xs text-red-400/70 hover:text-red-400 px-2 py-1 transition flex items-center gap-1">
+            <button onclick="window.app.deleteBand('${item.id}')" class="text-xs text-rose-400/80 hover:text-rose-300 px-2.5 py-1 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 transition flex items-center gap-1 border border-rose-500/20 cursor-pointer">
               <i class="fa-regular fa-trash-can"></i> 삭제
             </button>
           </div>
@@ -13663,9 +13663,10 @@ window.app = {
     }
   },
   deleteExam: (examId) => {
-    if (!checkAdminPermission('일정 삭제')) return;
-    if (confirm('이 일정을 삭제하시겠습니까?')) {
+    if (!checkAdminPermission('시험/학사 일정 삭제')) return;
+    if (confirm('이 시험/학사 일정을 삭제하시겠습니까?')) {
       state.exams = state.exams.filter(e => e.id !== examId);
+      ModalManager.closeAll();
       persistState();
       renderExamTab();
       showToast('일정이 삭제되었습니다.');
@@ -13673,8 +13674,9 @@ window.app = {
   },
   deleteBand: (bandId) => {
     if (!checkAdminPermission('합주/공연 일정 삭제')) return;
-    if (confirm('이 일정을 삭제하시겠습니까?')) {
+    if (confirm('이 합주/공연 일정을 삭제하시겠습니까?')) {
       state.bands = state.bands.filter(b => b.id !== bandId);
+      ModalManager.closeAll();
       persistState();
       renderBandTab();
       showToast('일정이 삭제되었습니다.');
@@ -14393,6 +14395,14 @@ const DynamicFormManager = {
             <label class="block text-slate-300 mb-1 font-semibold">상세 메모 및 준비물</label>
             <textarea id="df-exam-desc" rows="3" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white outline-none resize-none">${d.description || ''}</textarea>
           </div>
+          ${isEdit ? `
+            <div class="pt-3 border-t border-slate-800 flex items-center justify-between">
+              <span class="text-[11px] text-slate-400">더 이상 필요 없는 시험/학사 일정인가요?</span>
+              <button type="button" onclick="window.app.deleteExam('${d.id}')" class="px-3 py-1.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-xs font-bold transition flex items-center gap-1.5 border border-rose-500/30 cursor-pointer">
+                <i class="fa-regular fa-trash-can"></i> 이 일정 삭제하기
+              </button>
+            </div>
+          ` : ''}
         `;
         break;
       }
@@ -14436,6 +14446,14 @@ Superstition" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.
             <label class="block text-slate-300 mb-1 font-semibold">준비사항 & 메모</label>
             <textarea id="df-band-memos" rows="2" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-white outline-none resize-none">${d.memos || ''}</textarea>
           </div>
+          ${isEdit ? `
+            <div class="pt-3 border-t border-slate-800 flex items-center justify-between">
+              <span class="text-[11px] text-slate-400">더 이상 진행하지 않는 합주/공연인가요?</span>
+              <button type="button" onclick="window.app.deleteBand('${d.id}')" class="px-3 py-1.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-xs font-bold transition flex items-center gap-1.5 border border-rose-500/30 cursor-pointer">
+                <i class="fa-regular fa-trash-can"></i> 이 일정 삭제하기
+              </button>
+            </div>
+          ` : ''}
         `;
         break;
       }
