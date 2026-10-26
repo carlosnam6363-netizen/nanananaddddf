@@ -351,6 +351,97 @@ const INITIAL_CAMINO_DATA = {
     }
   ],
 
+  // 🇪🇸 스페인 & 마드리드 여행 실전 맛집 & 꿀팁 가이드
+  spainTravelGuide: {
+    topPick: {
+      name: "Tierra Burrito Bar (티에라 부리또)",
+      badge: "Carlos 원탑 강력 추천 🌯",
+      tagline: "서브웨이 방식 DIY 부리또 & 볼",
+      location: "솔광장 쪽 Tierra (센트로)",
+      meatPick: "까르니따스 (Carnitas / 부드러운 멕시칸 풀드포크)",
+      tip: "서브웨이처럼 재료를 하나씩 고르는 방식입니다. 고기는 무조건 '까르니따스'로 강력 추천! 지점마다 차이는 있지만 센트로 쪽이면 솔광장 지점이 최고입니다."
+    },
+    centroSpots: [
+      {
+        category: "츄러스",
+        icon: "fa-solid fa-mug-hot",
+        name: "산히네스 츄러스 (Chocolatería San Ginés)",
+        desc: "1894년 오픈 130년 전통의 원조 츄러스 명가. 진하고 걸쭉한 핫초콜릿에 갓 튀긴 바삭한 츄러스를 찍먹!"
+      },
+      {
+        category: "부리또",
+        icon: "fa-solid fa-wheat-awn",
+        name: "솔광장 쪽 Tierra 🌯",
+        desc: "주문 제작 방식의 멕시칸 부리또. 고기는 꼭 '까르니따스' 추천!"
+      },
+      {
+        category: "오징어 샌드위치",
+        icon: "fa-solid fa-bread-slice",
+        name: "Bar La Campana (바 라 캄파나) 🥖",
+        desc: "마요르 광장 바로 옆. 마드리드 대표 소울푸드인 오징어 튀김 바게트 샌드위치(Bocadillo de Calamares)의 정석 맛집."
+      },
+      {
+        category: "스페인 전통 식당",
+        icon: "fa-solid fa-champagne-glasses",
+        name: "메손 델 참피뇬 (Mesón del Champiñón) 🍄",
+        desc: "밤에 현지인과 한국인 여행객 모두 많이 찾는 타파스 바. 철판에 초리조와 파슬리 마늘오일을 얹어 구워낸 양송이 버섯 구이가 일품."
+      }
+    ],
+    mustEatMenus: [
+      {
+        name: "크로케따스 하몽 (Croquetas de Jamón)",
+        sub: "하몽 크로켓",
+        desc: "크리미한 베샤멜 소스 속에 짭조름한 하몽이 듬뿍 들어간 겉바속촉 튀김"
+      },
+      {
+        name: "또르띠야 데 빠따따 (Tortilla de Patatas)",
+        sub: "스페인식 감자 오믈렛",
+        desc: "도톰한 감자와 계란을 넣어 부쳐낸 스페인 국민 영양 타파스"
+      },
+      {
+        name: "하몽 이베리코 (Jamón Ibérico)",
+        sub: "스페인 프리미엄 생햄",
+        desc: "도토리를 먹고 자란 이베리코 흑돼지 최고급 생햄. 입안에서 녹아내리는 감칠맛"
+      },
+      {
+        name: "오징어 튀김 (Calamares) 🦑",
+        sub: "바삭한 깔라마리 튀김",
+        desc: "스페인에서 오징어 튀김은 무조건 꼭 드셔보세요! 레몬즙 톡 뿌려 맥주 안주로 최고"
+      }
+    ],
+    drinkPick: {
+      title: "술은 샹그리아보다 ‘띤또 데 베라노 (Tinto de Verano)’ 추천! 🍷",
+      desc: "관광객용 샹그리아보다 현지 로컬들이 일상에서 훨씬 사랑하는 와인 칵테일. 레드와인에 레몬 탄산수(가세오사)를 섞어 상큼하고 가볍게 즐길 수 있습니다."
+    },
+    marketTip: {
+      name: "산미겔 시장 (Mercado de San Miguel)",
+      badge: "구경 위주 권장",
+      advice: "관광 명소화되어 가격대가 많이 비싸게 느껴지므로 음식 구매는 개인적으로 비추천. 화려한 시장 내부 구경과 사진 촬영 위주로 즐기세요!"
+    },
+    koreanRestaurants: [
+      {
+        area: "센트로 쪽",
+        name: "사랑방 (Sarangbang)",
+        desc: "솔 광장 및 센트로 접근성이 뛰어나며 정갈하고 깔끔한 한국 가정식·식사"
+      },
+      {
+        area: "베르나베우 근처",
+        name: "놀러와포차 (Nolleowa Pocha) ⭐",
+        highlight: "추천!",
+        desc: "저는 놀러와포차에 가요! 원래 마드리드에서 반찬·김치 배달을 전문으로 하시던 분들이 오픈하신 곳이라 깊은 손맛과 찌개 맛이 일품인 찐맛집."
+      }
+    ],
+    asianMart: {
+      title: "한국 식품·라면 쇼핑 🛒",
+      summary: "중국마트나 아시안마트가 마드리드 곳곳에 많아서 신라면 등 한국 라면이나 식품은 현지에서도 손쉽게 구할 수 있습니다. 무겁게 싸오지 않아도 됨!",
+      recommendation: {
+        name: "Hualian(화련) 마트",
+        route: "센트로 쪽에서는 에스파냐광장에서 쭉 올라가면 있는 Hualian 마트 추천",
+        proTip: "1호점과 2호점이 있는데, 1호점에서 더 위로 올라가면 나오는 2호점이 매장도 크고 라면·식품 종류가 훨씬 다양하고 많습니다!"
+      }
+    }
+  },
+
   accommodationBooking: {
     bookingPlatform: "트립닷컴 (Trip.com)",
     bookingStatus: "결제 완료 (온라인 사전 결제)",

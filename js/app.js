@@ -90,11 +90,12 @@ class SyncManager {
             }
           });
 
-          // 🥾 코스 분기(해안길 vs 중앙길 vs 합류길) 및 코스별 추천 알베르게/로컬 맛집, 11월 숙소 분기 마이그레이션 (v12)
-          if (!upgradedCamino.caminoDataVersion || upgradedCamino.caminoDataVersion < 12) {
+          // 🥾 코스 분기(해안길 vs 중앙길 vs 합류길) 및 11월 숙소 분기, 스페인 여행 가이드 마이그레이션 (v13)
+          if (!upgradedCamino.caminoDataVersion || upgradedCamino.caminoDataVersion < 13) {
             upgradedCamino.accommodationBooking = JSON.parse(JSON.stringify(freshCamino.accommodationBooking || {}));
             upgradedCamino.novemberAccommodations = JSON.parse(JSON.stringify(freshCamino.novemberAccommodations || []));
             upgradedCamino.novSpiritualTips = JSON.parse(JSON.stringify(freshCamino.novSpiritualTips || []));
+            upgradedCamino.spainTravelGuide = JSON.parse(JSON.stringify(freshCamino.spainTravelGuide || {}));
             upgradedCamino.routesInfo = JSON.parse(JSON.stringify(freshCamino.routesInfo || {}));
             const activeR = upgradedCamino.activeRoute || 'coastal';
             if (upgradedCamino.routesInfo[activeR] && upgradedCamino.routesInfo[activeR].itinerary) {
@@ -103,7 +104,7 @@ class SyncManager {
             if (upgradedCamino.routesInfo[activeR] && upgradedCamino.routesInfo[activeR].novemberAccommodations) {
               upgradedCamino.novemberAccommodations = upgradedCamino.routesInfo[activeR].novemberAccommodations;
             }
-            upgradedCamino.caminoDataVersion = 12;
+            upgradedCamino.caminoDataVersion = 13;
           }
 
           // 구버전 호텔('우마 포베이루스')이 남아있다면 새 확정 호텔로 갱신
@@ -2773,6 +2774,9 @@ function renderCaminoTab() {
             <span class="text-xs text-amber-200 font-bold bg-amber-500/10 px-2.5 py-0.5 rounded border border-amber-500/20">
               2026.11.10(출국) ~ 11.11(포르투 입국) ~ 12.02(마드리드 출국) ~ 12.03(인천 도착)
             </span>
+            <a href="#spain-travel-guide-section" class="px-2.5 py-0.5 bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 text-xs font-bold rounded flex items-center gap-1 transition cursor-pointer">
+              <i class="fa-solid fa-utensils text-rose-400"></i> 스페인·마드리드 맛집 & 꿀팁 가이드
+            </a>
           </div>
           <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
             <i class="fa-solid fa-person-hiking text-amber-400"></i>
@@ -3663,7 +3667,14 @@ function renderCaminoTab() {
                     <i class="fa-solid fa-arrow-right text-xs text-slate-500"></i>
                     <span class="text-amber-200">${item.destination}</span>
                   </h3>
-                  <p class="text-xs text-slate-300 leading-relaxed mb-3">${item.desc || item.description || item.highlight}</p>
+                  <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                    ${item.desc || item.description || item.highlight}
+                    ${item.destination && item.destination.includes('마드리드') ? `
+                      <br><a href="#spain-travel-guide-section" class="inline-flex items-center gap-1 px-2.5 py-1 mt-2 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-[11px] font-bold border border-rose-500/30 transition">
+                        <i class="fa-solid fa-utensils"></i> 스페인·마드리드 맛집 & 꿀팁 가이드 확인하기
+                      </a>
+                    ` : ''}
+                  </p>
 
                   <!-- 호텔 / 알베르게 입력 필드 -->
                   <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
@@ -3975,6 +3986,302 @@ function renderCaminoTab() {
         </div>
       </div>
     </div>
+
+    <!-- 🇪🇸 [스페인 & 마드리드 여행 실전 가이드] (현지 찐맛집 · 추천 메뉴 · 한식당 · 아시안마트) -->
+    <div id="spain-travel-guide-section" class="glass-panel rounded-2xl p-6 sm:p-8 mt-8 border border-rose-500/40 bg-gradient-to-br from-slate-900 via-rose-950/20 to-slate-900 shadow-2xl relative overflow-hidden">
+      <!-- Decorative background glow -->
+      <div class="absolute -right-12 -bottom-12 w-64 h-64 bg-rose-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-12 -top-12 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Section Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-800 relative z-10">
+        <div class="flex items-center gap-3">
+          <span class="w-11 h-11 rounded-2xl bg-gradient-to-br from-rose-500/30 to-amber-500/20 text-rose-400 flex items-center justify-center font-bold text-2xl border border-rose-500/30 shadow-lg flex-shrink-0">
+            🇪🇸
+          </span>
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <h3 class="text-lg sm:text-xl font-black text-white">
+                스페인 & 마드리드 여행 실전 꿀팁 & 맛집 가이드
+              </h3>
+              <span class="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 text-[10px] font-bold">
+                피날레 투어 (11/30 ~ 12/02)
+              </span>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5 leading-relaxed">
+              순례길 완보 후 마드리드 체류 시 실패 없는 현지 1픽 맛집 · 추천 메뉴 & 띤또 데 베라노 · 한식당 · 아시안마트 총정리
+            </p>
+          </div>
+        </div>
+        <div class="text-[11px] text-amber-300 bg-amber-950/50 px-3 py-1.5 rounded-xl border border-amber-500/30 flex items-center gap-1.5 self-start sm:self-auto font-medium">
+          <i class="fa-solid fa-compass"></i> 센트로(솔광장·마요르·에스파냐) 중심 동선
+        </div>
+      </div>
+
+      <!-- 🏆 Carlos 1픽 최우선 추천: Tierra 부리또 -->
+      <div class="mb-6 p-5 rounded-2xl bg-gradient-to-r from-amber-500/15 via-rose-500/15 to-purple-500/10 border-2 border-amber-500/40 shadow-xl relative overflow-hidden">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[11px] font-black uppercase tracking-wider shadow">
+                ★ 제일 추천하는 1PICK
+              </span>
+              <span class="text-xs font-bold text-amber-200">
+                <i class="fa-solid fa-store mr-1"></i> 서브웨이 방식 DIY 부리또
+              </span>
+            </div>
+            <h4 class="text-lg sm:text-xl font-black text-white flex items-center gap-2">
+              <span>🌯 Tierra Burrito Bar (티에라 부리또)</span>
+            </h4>
+            <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">
+              서브웨이처럼 부리또/볼의 밥, 콩, 소스, 토핑 재료를 직접 고르는 방식입니다.<br>
+              고기는 꼭 <span class="text-amber-300 font-extrabold underline decoration-amber-400 decoration-2 underline-offset-2">‘까르니따스(Carnitas / 부드러운 멕시칸 풀드포크)’</span>로 선택 강력 추천!
+            </p>
+          </div>
+          <div class="w-full md:w-auto p-3.5 rounded-xl bg-slate-950/80 border border-amber-500/30 flex md:flex-col justify-between items-center md:items-start gap-1.5 flex-shrink-0">
+            <div class="text-[11px] text-slate-400">
+              <i class="fa-solid fa-location-dot text-rose-400 mr-1"></i> 추천 지점
+            </div>
+            <div class="text-sm font-bold text-amber-300">
+              솔광장 쪽 Tierra
+            </div>
+            <div class="text-[10px] text-slate-400">
+              * 센트로 이동 시 최적 접근성
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2-Column: [센트로 쪽 맛집] vs [스페인 식당 추천 메뉴 & 술] -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-6">
+        
+        <!-- CARD 1: 📍 센트로 쪽 핵심 맛집 리스트 -->
+        <div class="p-5 rounded-2xl bg-slate-950/80 border border-slate-800 shadow-md flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-800">
+              <h4 class="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center text-xs">
+                  <i class="fa-solid fa-map-pin"></i>
+                </span>
+                <span>📍 센트로 쪽 맛집 4선</span>
+              </h4>
+              <span class="text-[10px] text-slate-400 font-mono">Sol & Mayor Area</span>
+            </div>
+
+            <div class="space-y-2.5 text-xs">
+              <!-- Item 1: 츄러스 -->
+              <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-amber-500/30 transition">
+                <div class="flex items-center justify-between font-bold mb-1">
+                  <span class="text-amber-300 flex items-center gap-1.5 font-bold">
+                    <i class="fa-solid fa-mug-hot text-amber-400"></i> 츄러스
+                  </span>
+                  <span class="text-white font-extrabold text-xs">산히네스 츄러스 (San Ginés)</span>
+                </div>
+                <p class="text-[11px] text-slate-300 leading-relaxed">
+                  1894년 문을 연 130년 전통의 원조 츄러스 명가. 진하고 걸쭉한 핫초콜릿에 갓 튀긴 바삭한 츄러스를 찍먹하는 스페인 대표 디저트.
+                </p>
+              </div>
+
+              <!-- Item 2: 부리또 -->
+              <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-amber-500/30 transition">
+                <div class="flex items-center justify-between font-bold mb-1">
+                  <span class="text-amber-300 flex items-center gap-1.5 font-bold">
+                    <i class="fa-solid fa-wheat-awn text-amber-400"></i> 부리또 🌯
+                  </span>
+                  <span class="text-white font-extrabold text-xs">솔광장 쪽 Tierra</span>
+                </div>
+                <p class="text-[11px] text-slate-300 leading-relaxed">
+                  센트로 솔 광장 인근. 서브웨이식 재료 선택 부리또/볼. <span class="text-amber-200 font-bold">고기는 무조건 ‘까르니따스’</span> 추천!
+                </p>
+              </div>
+
+              <!-- Item 3: 오징어 샌드위치 -->
+              <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-amber-500/30 transition">
+                <div class="flex items-center justify-between font-bold mb-1">
+                  <span class="text-amber-300 flex items-center gap-1.5 font-bold">
+                    <i class="fa-solid fa-bread-slice text-amber-400"></i> 마드리드식 오징어 샌드위치 🥖
+                  </span>
+                  <span class="text-white font-extrabold text-xs">Bar La Campana (바 라 캄파나)</span>
+                </div>
+                <p class="text-[11px] text-slate-300 leading-relaxed">
+                  마요르 광장 바로 옆 골목. 마드리드 대표 소울푸드인 오징어 튀김 샌드위치(Bocadillo de Calamares)의 성지. 바삭한 바게트 속 가득 찬 부드러운 오징어.
+                </p>
+              </div>
+
+              <!-- Item 4: 전통 식당 -->
+              <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-amber-500/30 transition">
+                <div class="flex items-center justify-between font-bold mb-1">
+                  <span class="text-amber-300 flex items-center gap-1.5 font-bold">
+                    <i class="fa-solid fa-champagne-glasses text-amber-400"></i> 밤의 스페인 식당 🍄
+                  </span>
+                  <span class="text-white font-extrabold text-xs">메손 델 참피뇬 (Mesón del Champiñón)</span>
+                </div>
+                <p class="text-[11px] text-slate-300 leading-relaxed">
+                  밤에 현지인뿐 아니라 한국인 여행자도 많이 찾는 타파스 바. 철판에 초리조와 파슬리 마늘오일을 얹어 육즙 가득 구워낸 <span class="text-amber-200 font-bold">양송이 버섯 구이</span>가 시그니처!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2: 🍽️ 스페인 식당에서 먹어볼 메뉴 & 추천 주류 -->
+        <div class="p-5 rounded-2xl bg-slate-950/80 border border-slate-800 shadow-md flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-800">
+              <h4 class="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center text-xs">
+                  <i class="fa-solid fa-utensils"></i>
+                </span>
+                <span>🍽️ 스페인 식당에서 먹어볼 메뉴</span>
+              </h4>
+              <span class="text-[10px] text-emerald-400 font-bold">필수 주문 타파스 4선</span>
+            </div>
+
+            <div class="space-y-2.5 text-xs">
+              <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-start gap-3">
+                <span class="w-6 h-6 rounded-lg bg-rose-500/20 text-rose-300 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">1</span>
+                <div>
+                  <div class="font-bold text-white text-xs">크로케따스 하몽 (Croquetas de Jamón)</div>
+                  <div class="text-[11px] text-slate-300 mt-0.5 leading-relaxed">
+                    하몽 크로켓. 크리미한 베샤멜 소스 속에 짭조름한 하몽이 듬뿍 들어간 겉바속촉 튀김.
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-start gap-3">
+                <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">2</span>
+                <div>
+                  <div class="font-bold text-white text-xs">또르띠야 데 빠따따 (Tortilla de Patatas)</div>
+                  <div class="text-[11px] text-slate-300 mt-0.5 leading-relaxed">
+                    스페인식 감자 오믈렛. 도톰하게 썬 감자와 계란을 부쳐낸 국민 요리로 담백하고 촉촉함.
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-start gap-3">
+                <span class="w-6 h-6 rounded-lg bg-purple-500/20 text-purple-300 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">3</span>
+                <div>
+                  <div class="font-bold text-white text-xs">하몽 이베리코 (Jamón Ibérico)</div>
+                  <div class="text-[11px] text-slate-300 mt-0.5 leading-relaxed">
+                    도토리를 먹고 자란 흑돼지 최고급 생햄. 입안에서 고소한 풍미와 진한 감칠맛이 녹아내림.
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-start gap-3">
+                <span class="w-6 h-6 rounded-lg bg-sky-500/20 text-sky-300 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">4</span>
+                <div>
+                  <div class="font-bold text-white text-xs">오징어 튀김 (Calamares) 🦑</div>
+                  <div class="text-[11px] text-slate-300 mt-0.5 leading-relaxed">
+                    오징어 튀김도 꼭 드셔보세요! 질기지 않고 연한 속살에 레몬즙을 뿌려 먹으면 최고의 맥주 안주.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 🍷 추천 주류: 띤또 데 베라노 -->
+            <div class="mt-3.5 p-3 rounded-xl bg-gradient-to-r from-purple-950/70 to-rose-950/70 border border-purple-500/40 flex items-center gap-3">
+              <span class="text-2xl flex-shrink-0">🍷</span>
+              <div class="text-xs">
+                <div class="font-extrabold text-amber-200 flex items-center gap-1.5">
+                  <span>술은 샹그리아보다 ‘띤또 데 베라노(Tinto de Verano)’ 추천!</span>
+                </div>
+                <div class="text-[11px] text-slate-300 mt-0.5 leading-relaxed">
+                  관광객용 샹그리아보다 현지 스페인 사람들이 더 애음하는 음료! 레드와인에 레몬 탄산 음료를 섞어 훨씬 상큼하고 가볍게 즐길 수 있습니다.
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 3-Grid: [산미겔시장 주의] & [한식당 2곳] & [아시안마트 라면 조달] -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+
+        <!-- Card A: 👀 산미겔 시장 관람 팁 -->
+        <div class="p-4 rounded-xl bg-slate-950/80 border border-amber-500/30 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-800">
+              <span class="font-bold text-amber-300 flex items-center gap-1.5">
+                <i class="fa-solid fa-eye text-amber-400"></i> 산미겔 시장 (Mercado)
+              </span>
+              <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-bold">구경 위주 권장</span>
+            </div>
+            <p class="text-slate-300 leading-relaxed text-[11px]">
+              마요르 광장 바로 옆의 유리 온실형 마켓입니다.<br>
+              <b class="text-rose-300">💡 솔직 꿀팁:</b> 가격이 많이 비싸게 느껴져서, 음식 <b>구매는 개인적으로 비추</b>! 화려한 타파스 진열장 구경 위주로 둘러보시는 것을 추천합니다.
+            </p>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-800/80 text-[10px] text-slate-400">
+            <i class="fa-solid fa-circle-info text-amber-400 mr-1"></i> 식사는 인근 로컬 골목 맛집(La Campana 등) 추천
+          </div>
+        </div>
+
+        <!-- Card B: 🍚 한식이 생각날 때 (마드리드 찐 한식당) -->
+        <div class="p-4 rounded-xl bg-slate-950/80 border border-emerald-500/30 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-800">
+              <span class="font-bold text-emerald-300 flex items-center gap-1.5">
+                <i class="fa-solid fa-bowl-rice text-emerald-400"></i> 한식이 생각날 때 🍚
+              </span>
+              <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">2대 한식당</span>
+            </div>
+            <div class="space-y-2 text-[11px]">
+              <div class="p-2 rounded-lg bg-slate-900/90 border border-slate-800">
+                <div class="flex items-center justify-between text-white font-bold">
+                  <span>• 센트로 쪽: 사랑방</span>
+                </div>
+                <div class="text-[10px] text-slate-300 mt-0.5">시내 중심가(솔광장 인근) 정갈한 한식 식사</div>
+              </div>
+              <div class="p-2 rounded-lg bg-emerald-950/40 border border-emerald-500/40">
+                <div class="flex items-center justify-between text-emerald-200 font-bold">
+                  <span>• 베르나베우 근처: 놀러와포차 ⭐</span>
+                </div>
+                <div class="text-[10px] text-slate-200 mt-1 leading-relaxed">
+                  <span class="text-amber-300 font-bold">"저는 놀러와포차에 가요!"</span><br>
+                  원래 반찬·김치 배달을 하시던 분들이 식당을 여신 곳이라 남다른 손맛과 찌개 맛을 자랑합니다.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-800/80 text-[10px] text-emerald-400">
+            <i class="fa-solid fa-heart mr-1"></i> 20여 일 순례길 후 한식 충전에 최적
+          </div>
+        </div>
+
+        <!-- Card C: 🛒 라면 등 한국 식품 살 때 (아시안 마트) -->
+        <div class="p-4 rounded-xl bg-slate-950/80 border border-indigo-500/30 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-800">
+              <span class="font-bold text-indigo-300 flex items-center gap-1.5">
+                <i class="fa-solid fa-cart-shopping text-indigo-400"></i> 라면 등 한국 식품 살 때 🛒
+              </span>
+              <span class="px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 text-[10px] font-bold">현지 조달</span>
+            </div>
+            <p class="text-slate-300 leading-relaxed text-[11px] mb-2">
+              중국마트나 아시안마트가 많아서 라면 같은 건 현지에서도 손쉽게 구할 수 있습니다.
+            </p>
+            <div class="p-2.5 rounded-lg bg-slate-900/90 border border-indigo-500/30 text-[11px]">
+              <div class="text-white font-bold">
+                센트로: ‘Hualian(화련)’ 마트
+              </div>
+              <div class="text-[10px] text-slate-300 mt-1 leading-relaxed">
+                에스파냐광장에서 쭉 올라가면 있는 Hualian 마트 추천.<br>
+                1호점과 2호점이 있는데, <span class="text-amber-300 font-bold">1호점에서 더 올라가면 나오는 2호점이 종류가 훨씬 더 많습니다!</span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-800/80 text-[10px] text-indigo-400">
+            <i class="fa-solid fa-basket-shopping mr-1"></i> 에스파냐광장 ➔ Hualian 2호점 직행 추천
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
 
   `;
 }
