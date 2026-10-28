@@ -1345,20 +1345,20 @@ function renderNavigation() {
     desktopContainer.innerHTML = overviewBtnHtml + sectionsHtml + hiddenSummaryHtml;
   }
 
-  // 2. Mobile Bottom Navigation
+  // 2. Mobile Bottom Navigation & Auto-scroll Center
   const mobileContainer = document.getElementById('mobile-bottom-nav');
   if (mobileContainer) {
     const hiddenTabs = state.hiddenTabs || getHiddenTabs();
     // Overview is always first
     const visibleOrder = ['overview', ...order.filter(id => id !== 'overview' && !hiddenTabs.includes(id))];
 
-    mobileContainer.innerHTML = visibleOrder.map((tabId) => {
+    const tabsHtml = visibleOrder.map((tabId) => {
       const tabDef = TAB_REGISTRY.find(t => t.id === tabId);
       if (!tabDef) return '';
       const isActive = currentTab === tabDef.id;
 
       const activeClass = isActive
-        ? 'mobile-tab-active text-sky-400 font-bold bg-sky-500/20 border border-sky-500/30'
+        ? 'mobile-tab-active text-sky-300 font-extrabold bg-sky-500/25 border border-sky-500/40 shadow-sm'
         : 'text-slate-400 font-medium hover:text-slate-200';
 
       const clickHandler = tabDef.isPortfolio
@@ -1366,13 +1366,130 @@ function renderNavigation() {
         : `window.app.switchTab('${tabDef.id}')`;
 
       return `
-        <button data-mobile-tab="${tabDef.id}" onclick="${clickHandler}" class="flex flex-col items-center justify-center gap-1 text-[10px] px-2.5 py-1.5 rounded-xl flex-shrink-0 min-w-[52px] transition relative cursor-pointer ${activeClass}">
+        <button data-mobile-tab="${tabDef.id}" onclick="${clickHandler}" class="flex flex-col items-center justify-center gap-1 text-[10px] px-2.5 py-1.5 rounded-xl flex-shrink-0 min-w-[54px] transition relative cursor-pointer ${activeClass}">
           <i class="fa-solid ${tabDef.icon} text-sm ${tabDef.color}"></i>
-          <span class="truncate max-w-[56px]">${tabDef.shortName}</span>
+          <span class="truncate max-w-[58px]">${tabDef.shortName}</span>
+          ${isActive ? '<span class="w-1.5 h-1.5 rounded-full bg-sky-400 -mt-0.5 shadow-sm shadow-sky-400"></span>' : ''}
         </button>
       `;
     }).join('');
+
+    const menuBtnHtml = `
+      <button onclick="window.app.openMobileTabDrawer()" class="flex flex-col items-center justify-center gap-1 text-[10px] px-2.5 py-1.5 rounded-xl flex-shrink-0 min-w-[54px] text-slate-400 hover:text-white transition cursor-pointer" title="전체 탭 및 메뉴 열기">
+        <i class="fa-solid fa-bars text-sm text-sky-400"></i>
+        <span class="truncate max-w-[58px]">전체 메뉴</span>
+      </button>
+    `;
+
+    mobileContainer.innerHTML = tabsHtml + menuBtnHtml;
+
+    // Smoothly auto-scroll active button into view in bottom navigation
+    setTimeout(() => {
+      const activeBtn = mobileContainer.querySelector(`[data-mobile-tab="${currentTab}"]`);
+      if (activeBtn) {
+        activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+    }, 60);
   }
+
+  // 3. Sync Mobile Top Header Active Tab Chip
+  const activeTabDef = TAB_REGISTRY.find(t => t.id === currentTab) || { name: '종합 대시보드', icon: 'fa-house', color: 'text-sky-400' };
+  const headerTitleEl = document.getElementById('mobile-header-tab-title');
+  const headerIconEl = document.getElementById('mobile-header-tab-icon');
+  if (headerTitleEl) headerTitleEl.innerText = activeTabDef.name;
+  if (headerIconEl) {
+    headerIconEl.className = `fa-solid ${activeTabDef.icon} ${activeTabDef.color} text-[11px]`;
+  }
+}
+
+
+function renderMobileTabDrawer() {
+  const container = document.getElementById('mobile-tab-drawer-body');
+  if (!container) return;
+
+  const currentTab = state.activeTab;
+  const order = state.tabOrder && state.tabOrder.length > 0 ? state.tabOrder : getTabOrder();
+  const hiddenTabs = state.hiddenTabs || getHiddenTabs();
+
+  // Top Utility Grid (Quick Action Buttons)
+  const utilityHtml = `
+    <div class="grid grid-cols-3 gap-2 pb-3 border-b border-slate-800">
+      <button onclick="window.app.closeAllModals(); window.app.openBackupRestoreModal();" class="p-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 flex flex-col items-center justify-center gap-1 text-center transition cursor-pointer">
+        <i class="fa-solid fa-cloud-arrow-down text-emerald-400 text-sm"></i>
+        <span class="text-[11px] font-bold text-slate-200">데이터 백업</span>
+      </button>
+      <button onclick="window.app.closeAllModals(); window.app.openTabOrderModal();" class="p-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 flex flex-col items-center justify-center gap-1 text-center transition cursor-pointer">
+        <i class="fa-solid fa-sliders text-sky-400 text-sm"></i>
+        <span class="text-[11px] font-bold text-slate-200">탭 순서·숨김</span>
+      </button>
+      <a href="https://carlosnam6363-netizen.github.io/Portfolio/" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 flex flex-col items-center justify-center gap-1 text-center transition">
+        <i class="fa-solid fa-arrow-up-right-from-square text-amber-400 text-sm"></i>
+        <span class="text-[11px] font-bold text-amber-300">포트폴리오</span>
+      </a>
+    </div>
+  `;
+
+  // Render visible tabs in order
+  const visibleTabs = ['overview', ...order.filter(id => id !== 'overview' && !hiddenTabs.includes(id))];
+  
+  const tabsListHtml = visibleTabs.map(tabId => {
+    const tabDef = TAB_REGISTRY.find(t => t.id === tabId);
+    if (!tabDef) return '';
+    const isActive = currentTab === tabDef.id;
+
+    const activeClasses = isActive
+      ? 'bg-sky-500/20 border-sky-500/50 text-white shadow-lg shadow-sky-500/10 ring-1 ring-sky-400/30'
+      : 'bg-slate-800/60 hover:bg-slate-800 border-slate-700/60 text-slate-300 hover:text-white';
+
+    const clickHandler = tabDef.isPortfolio
+      ? `window.app.openPortfolioTab('${tabDef.id}'); window.app.closeAllModals();`
+      : `window.app.switchTab('${tabDef.id}'); window.app.closeAllModals();`;
+
+    return `
+      <button onclick="${clickHandler}" class="w-full flex items-center justify-between p-3 rounded-2xl border transition text-left cursor-pointer ${activeClasses}">
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center text-base flex-shrink-0">
+            <i class="fa-solid ${tabDef.icon} ${tabDef.color}"></i>
+          </div>
+          <div class="truncate">
+            <div class="font-bold text-xs sm:text-sm text-white flex items-center gap-1.5 truncate">
+              <span>${tabDef.name}</span>
+              ${isActive ? '<span class="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span>' : ''}
+            </div>
+            <div class="text-[10px] text-slate-400 truncate mt-0.5">
+              ${tabDef.categoryName || '개인 업무 허브'}
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 flex-shrink-0">
+          ${tabDef.badge ? `
+            <span class="text-[10px] px-2 py-0.5 rounded-full font-bold ${tabDef.badgeClass || 'bg-slate-800 text-slate-400 border border-slate-700'}">
+              ${tabDef.badge}
+            </span>
+          ` : ''}
+          ${isActive ? `
+            <span class="text-xs text-sky-400 font-extrabold flex items-center gap-1">
+              <i class="fa-solid fa-check"></i>
+            </span>
+          ` : `
+            <i class="fa-solid fa-chevron-right text-[10px] text-slate-600"></i>
+          `}
+        </div>
+      </button>
+    `;
+  }).join('');
+
+  container.innerHTML = utilityHtml + `
+    <div class="space-y-2">
+      <div class="text-[11px] font-bold text-slate-400 px-1 uppercase tracking-wider flex items-center justify-between">
+        <span>전체 대시보드 탭 (${visibleTabs.length}개)</span>
+        <span class="text-[10px] text-slate-500 font-normal">터치하여 즉시 이동</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        ${tabsListHtml}
+      </div>
+    </div>
+  `;
 }
 
 function renderTabOrderModal() {
@@ -13169,6 +13286,11 @@ window.app = {
 
   // 🛡️ Modal & Form Architecture
   closeAllModals: () => ModalManager.closeAll(),
+  openMobileTabDrawer: () => {
+    renderMobileTabDrawer();
+    ModalManager.open('modal-mobile-tab-drawer');
+  },
+  renderMobileTabDrawer: () => renderMobileTabDrawer(),
   handleDynamicFormSubmit: (e) => DynamicFormManager.handleSubmit(e),
   
   // 💾 Backup & Restore (JSON Export / Import)

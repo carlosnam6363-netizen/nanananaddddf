@@ -2,7 +2,9 @@
 <html lang="ko" class="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <!-- Pretendard Variable Font (Modern Crisp Typography for Korean UI) -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
   <!-- 강제 새로고침(Ctrl+Shift+R) 없이 항상 최신 버전을 불러오도록 캐시 방지 메타 태그 적용 -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
@@ -42,7 +44,7 @@
         });
       }
       // 3. 빌드 버전 검사를 통한 자동 1회 새로고침
-      var APP_VER = '20261026_v3';
+      var APP_VER = '20261028_v1';
       if (localStorage.getItem('career_app_build') !== APP_VER) {
         localStorage.setItem('career_app_build', APP_VER);
         if (!sessionStorage.getItem('build_updated')) {
@@ -94,7 +96,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
   <!-- Custom CSS (Cache-Busted) -->
-  <link rel="stylesheet" href="css/style.css?v=20261026_v3">
+  <link rel="stylesheet" href="css/style.css?v=20261028_v1">
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col lg:flex-row antialiased selection:bg-sky-500 selection:text-white pb-24 lg:pb-0">
 
@@ -158,30 +160,33 @@
   </aside>
 
   <!-- ========================================================================= -->
-  <!-- Mobile Top Header -->
+  <!-- Mobile Top Header (High Aesthetics & Dynamic Tab Chip) -->
   <!-- ========================================================================= -->
-  <header class="lg:hidden flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-800 sticky top-0 z-20 backdrop-blur-md">
-    <button type="button" onclick="window.app.switchTab('overview')" class="flex items-center gap-2.5 hover:opacity-80 transition cursor-pointer text-left" title="종합 대시보드로 이동">
-      <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-sky-400 flex items-center justify-center text-white text-sm shadow-md">
-        <i class="fa-solid fa-chart-pie"></i>
-      </div>
-      <div>
-        <h2 class="font-bold text-xs text-white">업무·커리어 대시보드</h2>
-        <span class="text-[10px] text-slate-400 font-mono">Personal Hub</span>
-      </div>
-    </button>
-    <div class="flex items-center gap-2">
-      <!-- Mobile Auth Quick Button -->
+  <header class="lg:hidden flex items-center justify-between px-3.5 py-2.5 bg-slate-900/95 border-b border-slate-800/80 sticky top-0 z-30 backdrop-blur-xl mobile-header-safe">
+    <!-- Left: Brand Logo & Interactive Active Tab Pill -->
+    <div class="flex items-center gap-2 min-w-0">
+      <button type="button" onclick="window.app.switchTab('overview')" class="flex items-center gap-2 hover:opacity-85 transition cursor-pointer flex-shrink-0" title="종합 대시보드 홈으로 이동">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-sky-400 flex items-center justify-center text-white text-xs shadow-md shadow-blue-500/20">
+          <i class="fa-solid fa-chart-pie"></i>
+        </div>
+      </button>
+      
+      <!-- Dynamic Active Tab Chip (Tappable -> Opens Tab Drawer!) -->
+      <button type="button" onclick="window.app.openMobileTabDrawer()" id="mobile-header-tab-pill" class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-800/90 hover:bg-slate-700/80 border border-slate-700/80 text-xs font-bold text-white shadow-sm transition truncate max-w-[160px] sm:max-w-[240px] cursor-pointer">
+        <i id="mobile-header-tab-icon" class="fa-solid fa-house text-sky-400 text-[11px]"></i>
+        <span id="mobile-header-tab-title" class="truncate">종합 대시보드</span>
+        <i class="fa-solid fa-chevron-down text-[9px] text-slate-400 ml-0.5"></i>
+      </button>
+    </div>
+
+    <!-- Right: Auth Widget & Full Menu Button -->
+    <div class="flex items-center gap-1.5 flex-shrink-0">
       <div id="mobile-auth-widget">
         <!-- Rendered dynamically by window.app.renderAuthWidget() -->
       </div>
-      <button onclick="window.app.openBackupRestoreModal()" class="text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-1 rounded-lg flex items-center gap-1 hover:bg-emerald-500/20 transition font-bold cursor-pointer" title="데이터 전체 백업 및 복원">
-        <i class="fa-solid fa-cloud-arrow-down text-[10px]"></i>
-        <span class="text-[11px]">백업</span>
-      </button>
-      <button onclick="window.app.openTabOrderModal()" class="text-xs text-sky-400 bg-sky-500/10 border border-sky-500/20 px-2.5 py-1 rounded-lg flex items-center gap-1 hover:bg-sky-500/20 transition font-bold cursor-pointer" title="탭 노출·숨김 관리">
-        <i class="fa-solid fa-sliders text-[10px]"></i>
-        <span class="text-[11px]">설정</span>
+      <button type="button" onclick="window.app.openMobileTabDrawer()" class="h-8 px-2.5 rounded-xl bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/30 text-sky-300 text-xs font-bold flex items-center gap-1.5 transition cursor-pointer shadow-sm" title="전체 탭 및 메뉴 열기">
+        <i class="fa-solid fa-bars text-xs"></i>
+        <span class="text-[11px] hidden sm:inline">메뉴</span>
       </button>
     </div>
   </header>
@@ -232,7 +237,7 @@
   <!-- ========================================================================= -->
   <!-- Mobile Bottom Navigation Bar (Dynamic) -->
   <!-- ========================================================================= -->
-  <nav id="mobile-bottom-nav" class="lg:hidden fixed bottom-0 left-0 right-0 bg-slate-900/95 border-t border-slate-800 backdrop-blur-xl z-30 flex items-center py-1.5 px-2 overflow-x-auto gap-1">
+  <nav id="mobile-bottom-nav" class="lg:hidden fixed bottom-0 left-0 right-0 bg-slate-900/95 border-t border-slate-800/80 backdrop-blur-2xl z-30 flex items-center py-1.5 px-2 overflow-x-auto gap-1 mobile-bottom-nav-safe shadow-2xl shadow-black/80">
     <!-- Rendered dynamically by window.app.renderNavigation() -->
   </nav>
 
@@ -247,6 +252,37 @@
   <!-- ========================================================================= -->
   <!-- Modals -->
   <!-- ========================================================================= -->
+
+  <!-- 0. Mobile Quick Tab Drawer & Navigator Modal (Bottom Sheet) 📱 ⭐ -->
+  <div id="modal-mobile-tab-drawer" class="app-modal fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 hidden" data-modal-backdrop>
+    <div class="bg-slate-900 border border-slate-700/80 rounded-t-3xl sm:rounded-3xl w-full max-w-lg max-h-[88dvh] flex flex-col shadow-2xl relative overflow-hidden">
+      <!-- Drag Handle for Mobile -->
+      <div class="sm:hidden w-full flex justify-center pt-2.5 pb-1">
+        <div class="w-12 h-1.5 rounded-full bg-slate-700/80"></div>
+      </div>
+
+      <!-- Header (Sticky) -->
+      <div class="flex items-center justify-between px-5 py-3.5 border-b border-slate-800 bg-slate-900/90 backdrop-blur-md sticky top-0 z-10">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-sky-500/20 to-blue-600/30 text-sky-400 border border-sky-500/30 flex items-center justify-center text-sm shadow">
+            <i class="fa-solid fa-compass"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-white text-sm">전체 탭 & 빠른 이동</h3>
+            <p class="text-[10px] text-slate-400">원하는 메뉴를 터치하여 즉시 이동하세요.</p>
+          </div>
+        </div>
+        <button type="button" onclick="window.app.closeAllModals()" class="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800 transition cursor-pointer" title="닫기">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
+
+      <!-- Dynamic Drawer Content Container -->
+      <div id="mobile-tab-drawer-body" class="p-4 sm:p-5 overflow-y-auto space-y-4 custom-scrollbar text-xs">
+        <!-- Rendered dynamically by window.app.renderMobileTabDrawer() -->
+      </div>
+    </div>
+  </div>
 
   <!-- 1. Universal Dynamic Form Modal (DOM Lightweight Architecture) 🚀 -->
   <div id="modal-dynamic-form" class="app-modal fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden" data-modal-backdrop>
@@ -1010,7 +1046,7 @@
   </div>
 
   <!-- Static Seed Datasets & Core Application Script (Safe for file:// and http://) -->
-  <script src="js/data.js?v=20261026_v3"></script>
-  <script src="js/app.js?v=20261026_v3"></script>
+  <script src="js/data.js?v=20261028_v1"></script>
+  <script src="js/app.js?v=20261028_v1"></script>
 </body>
 </html>
