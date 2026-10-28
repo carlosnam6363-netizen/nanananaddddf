@@ -1514,7 +1514,11 @@ const INITIAL_CAMINO_DATA = {
     // [3. 의류 및 우천/방한 - 첨부2 반영]
     { id: "pack-poncho-sanro", item: "산로 [UNISEX] 판초 우의 레인코트 FREE", text: "산로 [UNISEX] 판초 우의 레인코트 FREE", category: "의류 (우천)", cost: "₩17,140", costKrw: 17140, currency: "KRW", done: true, note: "산로 [UNISEX] 판초 우의 레인코트 (17,140원 결제 완료, 10/07 도착 예정 배송중). 배낭을 멘 채로 덮어쓸 수 있는 판초형 우의로 갈리시아 우천 완벽 대비." },
     { id: "pack-down-jacket-ntbc", item: "엔티비씨 2Way 후드 경량 패딩 점퍼 (스카이블루·XL)", text: "엔티비씨 2Way 후드 경량 패딩 점퍼 (스카이블루·XL)", category: "의류 (보온)", cost: "₩29,900", costKrw: 29900, currency: "KRW", done: true, note: "엔티비씨 2Way 후드 경량 패딩 점퍼 스카이블루 XL (29,900원 결제 완료, 출고준비중). 11월 스페인 갈리시아 아침/저녁 기온 급강하 및 기내 보온용." },
-    { id: "pack-hiking-pants-sanro", item: "산로 [UNISEX] 와이드 스트링 하이킹팬츠 XL", text: "산로 [UNISEX] 와이드 스트링 하이킹팬츠 XL", category: "의류", cost: "₩36,700", costKrw: 36700, currency: "KRW", done: true, note: "산로 [UNISEX] 와이드 스트링 하이킹팬츠 XL (36,700원 결제 완료, 10/07 도착 예정 배송중). 편안한 와이드핏과 밑단 스트링 조절로 장시간 쾌적한 트레킹." },
+    { id: "pack-hiking-pants-sanro", item: "산로 하이킹 팬츠 (4만원)", text: "산로 하이킹 팬츠 (4만원)", category: "의류", cost: "₩40,000", costKrw: 40000, currency: "KRW", done: true, note: "산로 와이드 스트링 하이킹팬츠 (40,000원 결제 완료). 편안한 와이드핏과 밑단 스트링 조절로 장시간 쾌적한 트레킹." },
+    { id: "pack-pants-romanticcrown", item: "로맨틱크라운 와이드 스트링 팬츠 (기 구매 제품 사용)", text: "로맨틱크라운 와이드 스트링 팬츠 (기 구매 제품 사용)", category: "의류", cost: "₩0 (기 구매 제품 사용)", costKrw: 0, currency: "KRW", done: true, note: "기존 보유 로맨틱크라운 와이드 스트링 팬츠 여벌/일상용 활용 (₩0)" },
+    { id: "pack-socks-merinowool-sanro", item: "산로 메리노울 양말 2개 (2만원)", text: "산로 메리노울 양말 2개 (2만원)", category: "의류", cost: "₩20,000", costKrw: 20000, currency: "KRW", done: true, note: "장거리 도보 및 물집 예방용 산로 메리노울 양말 2개 (₩20,000)" },
+    { id: "pack-socks-functional", item: "일반 기능성 양말 2개 (기 구매 제품 사용)", text: "일반 기능성 양말 2개 (기 구매 제품 사용)", category: "의류", cost: "₩0 (기 구매 제품 사용)", costKrw: 0, currency: "KRW", done: true, note: "기존 보유 일반 기능성 속건 양말 2켤레 활용 (₩0)" },
+    { id: "pack-underwear", item: "속옷 3개 (기 구매 제품 사용)", text: "속옷 3개 (기 구매 제품 사용)", category: "의류", cost: "₩0 (기 구매 제품 사용)", costKrw: 0, currency: "KRW", done: true, note: "기존 보유 기능성 속건 속옷 3벌 활용 (₩0)" },
     { id: "pack-tshirts", item: "기능성 속건 반팔 티 (2~3벌)", text: "기능성 속건 반팔 티 (2~3벌)", category: "의류", cost: "₩60,000", costKrw: 60000, currency: "KRW", done: true, note: "매일 저녁 손빨래 후 아침에 바로 마르는 속건성 소재" },
     { id: "pack-windbreaker", item: "기능성 바람막이 (방풍/발수 기능성)", text: "기능성 바람막이 (방풍/발수 기능성)", category: "의류", cost: "₩120,000", costKrw: 120000, currency: "KRW", done: true, note: "아침 바닷바람과 비포장 산길의 변덕스러운 날씨 대비" },
     { id: "pack-hat", item: "눈에 띄는 색상의 모자 (햇빛 차단 & 도로 시인성)", text: "눈에 띄는 색상의 모자 (햇빛 차단 & 도로 시인성)", category: "의류", cost: "₩25,000", costKrw: 25000, currency: "KRW", done: true, note: "시야 확보 및 안전을 위해 밝은 색상 모자 권장" },
@@ -1534,8 +1538,8 @@ const INITIAL_CAMINO_DATA = {
     { id: "pack-liquid-bottle-daiso", item: "액체 소분통 2개 (다이소, 개당 1천원 / 총 2천원)", text: "액체 소분통 2개 (다이소, 개당 1천원 / 총 2천원)", category: "필수품", cost: "₩2,000", costKrw: 2000, currency: "KRW", done: true, note: "샴푸·세안제·스킨케어 기내 반입 및 배낭 경량화용 액체 소분 용기 2개 (개당 ₩1,000 x 2 = ₩2,000)" },
     { id: "pack-gloves-daiso", item: "장갑 (다이소, 1천원)", text: "장갑 (다이소, 1천원)", category: "의류 (보온)", cost: "₩1,000", costKrw: 1000, currency: "KRW", done: true, note: "새벽·아침 쌀쌀한 바닷바람 체온 유지 및 등산 스틱 사용 시 손 보호용 장갑 (₩1,000)" },
     { id: "pack-eye-mask-daiso", item: "안대 (다이소, 1천원)", text: "안대 (다이소, 1천원)", category: "필수품", cost: "₩1,000", costKrw: 1000, currency: "KRW", done: true, note: "공용 알베르게 다인실 취침 및 기내 숙면용 빛 차단 수면 안대 (₩1,000)" },
-    { id: "pack-spray-suncream-gift", item: "스프레이형 선크림 1개 (선물)", text: "스프레이형 선크림 1개 (선물)", category: "필수품", cost: "₩0 (선물)", costKrw: 0, currency: "KRW", done: true, note: "지인 선물로 준비 완료된 간편 분사형 자외선 차단 선크림 (대서양 해안길 햇빛 차단용, 1개)" },
-    { id: "pack-cooling-sheet-gift", item: "휴족시간 쿨링시트 1개 (선물)", text: "휴족시간 쿨링시트 1개 (선물)", category: "필수품", cost: "₩0 (선물)", costKrw: 0, currency: "KRW", done: true, note: "지인 선물로 준비 완료된 발바닥·종아리 피로 회복용 쿨링 패치 (1개)" }
+    { id: "pack-spray-suncream-gift", item: "스프레이형 선크림 1개 (선물 / 기 구매 제품 사용)", text: "스프레이형 선크림 1개 (선물 / 기 구매 제품 사용)", category: "필수품", cost: "₩0 (기 구매 제품 사용)", costKrw: 0, currency: "KRW", done: true, note: "지인 선물로 받아 준비 완료된 간편 분사형 자외선 차단 선크림 (대서양 해안길 햇빛 차단용, 1개 / 기 구매 제품 사용)" },
+    { id: "pack-cooling-sheet-gift", item: "휴족시간 쿨링시트 1개 (선물 / 기 구매 제품 사용)", text: "휴족시간 쿨링시트 1개 (선물 / 기 구매 제품 사용)", category: "필수품", cost: "₩0 (기 구매 제품 사용)", costKrw: 0, currency: "KRW", done: true, note: "지인 선물로 받아 준비 완료된 발바닥·종아리 피로 회복용 쿨링 패치 (1개 / 기 구매 제품 사용)" }
   ],
 
   // 24일 전체 여정

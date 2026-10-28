@@ -143,8 +143,15 @@ class SyncManager {
               portoPack.note = '트립닷컴 결제완료(₩132,615 / 현장 도시세 €12 별도). 예약번호 1400829745971821, PIN 7999. 트린다데역 인근 2박 연박';
             }
 
-            // 신규 물품 5종 자동 동기화 (기존 사용자 로컬스토리지 보존하면서 신규 항목 추가)
-            const newPackingIds = ['pack-magsafe-case', 'pack-eva-slippers', 'pack-rollup-compress-bag', 'pack-buds3pro-case', 'pack-inkel-ctype-earphones', 'pack-glucose-candy', 'pack-sleeping-bag-tuman', 'pack-knee-guard-daiso', 'pack-liquid-bottle-daiso', 'pack-gloves-daiso', 'pack-eye-mask-daiso', 'pack-spray-suncream-gift', 'pack-cooling-sheet-gift'];
+            // 신규 물품 자동 동기화 (기존 사용자 로컬스토리지 보존하면서 신규 항목 추가)
+            const newPackingIds = [
+              'pack-magsafe-case', 'pack-eva-slippers', 'pack-rollup-compress-bag',
+              'pack-buds3pro-case', 'pack-inkel-ctype-earphones', 'pack-glucose-candy',
+              'pack-sleeping-bag-tuman', 'pack-knee-guard-daiso', 'pack-liquid-bottle-daiso',
+              'pack-gloves-daiso', 'pack-eye-mask-daiso', 'pack-spray-suncream-gift',
+              'pack-cooling-sheet-gift', 'pack-pants-romanticcrown',
+              'pack-socks-merinowool-sanro', 'pack-socks-functional', 'pack-underwear'
+            ];
             const newItems = (INITIAL_CAMINO_DATA.packingList || []).filter(item => newPackingIds.includes(item.id));
             newItems.forEach(newItem => {
               const existing = upgradedCamino.packingList.find(p => p.id === newItem.id);
@@ -152,6 +159,17 @@ class SyncManager {
                 upgradedCamino.packingList.push(JSON.parse(JSON.stringify(newItem)));
               }
             });
+
+            // 산로 하이킹 팬츠 4만원 갱신
+            const hikingPantsItem = upgradedCamino.packingList.find(p => p.id === 'pack-hiking-pants-sanro');
+            if (hikingPantsItem) {
+              hikingPantsItem.cost = '₩40,000';
+              hikingPantsItem.costKrw = 40000;
+              hikingPantsItem.item = '산로 하이킹 팬츠 (4만원)';
+              hikingPantsItem.text = '산로 하이킹 팬츠 (4만원)';
+              hikingPantsItem.note = '산로 와이드 스트링 하이킹팬츠 (40,000원 결제 완료). 편안한 와이드핏과 밑단 스트링 조절로 장시간 쾌적한 트레킹.';
+            }
+
             // 안대 1천원 수정 반영
             const eyeMaskItem = upgradedCamino.packingList.find(p => p.id === 'pack-eye-mask-daiso');
             if (eyeMaskItem) {
@@ -161,7 +179,19 @@ class SyncManager {
               eyeMaskItem.text = '안대 (다이소, 1천원)';
               eyeMaskItem.note = '공용 알베르게 다인실 취침 및 기내 숙면용 빛 차단 수면 안대 (₩1,000)';
             }
-            upgradedCamino.caminoDataVersion = 16;
+
+            // 0원 물품 (기 구매 제품 사용) 표시 일괄 동기화
+            upgradedCamino.packingList.forEach(p => {
+              if (p.costKrw === 0 || p.cost === '₩0' || p.cost === '₩0 (선물)') {
+                p.cost = '₩0 (기 구매 제품 사용)';
+                if (!p.item.includes('기 구매 제품 사용')) {
+                  p.item = p.item.replace('(선물)', '(선물 / 기 구매 제품 사용)');
+                  p.text = p.item;
+                }
+              }
+            });
+
+            upgradedCamino.caminoDataVersion = 17;
           }
         }
 
@@ -3915,7 +3945,7 @@ function renderCaminoTab() {
                 </div>
                 ${item.cost ? `
                   <div class="text-right flex-shrink-0">
-                    <span class="text-xs font-mono font-bold text-amber-300 bg-slate-900 px-2 py-0.5 rounded border border-slate-700 block">${item.cost}</span>
+                    <span class="text-xs font-mono font-bold ${item.costKrw === 0 || item.cost.includes('기 구매') ? 'text-emerald-300 bg-emerald-950/40 border-emerald-700/50' : 'text-amber-300 bg-slate-900 border-slate-700'} px-2 py-0.5 rounded border block">${item.cost}</span>
                   </div>
                 ` : ''}
               </div>
