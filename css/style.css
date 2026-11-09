@@ -321,3 +321,34 @@ button:active:not(:disabled), [role="button"]:active:not(:disabled) {
     padding-bottom: max(1.5rem, env(safe-area-inset-bottom)) !important;
   }
 }
+
+
+/* ========================================================================== */
+/* Camino Mobile Horizontal Carousel (Galaxy S25 Ultra Optimized)             */
+/* ========================================================================== */
+.camino-mobile-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  gap: 0.875rem;
+}
+.camino-mobile-carousel::-webkit-scrollbar {
+  display: none;
+}
+.camino-carousel-card {
+  scroll-snap-align: center;
+  flex-shrink: 0;
+  width: 84vw;
+  max-width: 360px;
+  min-width: 295px;
+}
+@media (max-width: 480px) {
+  /* 갤럭시 S25 울트라(너비 약 412px) 및 최신 대화면 플래그십 최적화 */
+  .camino-carousel-card {
+    width: 86vw;
+    min-width: 285px;
+  }
+}

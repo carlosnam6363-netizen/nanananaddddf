@@ -3179,6 +3179,7 @@ function renderCaminoTab() {
             <a href="#spain-travel-guide-section" class="px-2.5 py-0.5 bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 text-xs font-bold rounded flex items-center gap-1 transition cursor-pointer">
               <i class="fa-solid fa-utensils text-rose-400"></i> 스페인·마드리드 맛집 & 꿀팁
             </a>
+            <a href="#camino-mobile-horizontal-carousel" class="px-2.5 py-0.5 bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 border border-sky-500/30 text-xs font-bold rounded flex items-center gap-1 transition cursor-pointer shadow-sm"><i class="fa-solid fa-mobile-screen text-sky-400"></i> 스마트폰 횡스크롤 뷰어</a>
             <a href="#camino-daily-single-viewer-section" class="px-2.5 py-0.5 bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-500/40 text-xs font-bold rounded flex items-center gap-1 transition cursor-pointer shadow-sm">
               <i class="fa-solid fa-calendar-check text-amber-400"></i> 날짜별 1일 1칸 상세 뷰어 (15km·명소·맛집·알베르게)
             </a>
@@ -3667,6 +3668,127 @@ function renderCaminoTab() {
             <span>${tip}</span>
           </div>
         `).join('')}
+      </div>
+    </div>
+
+    <!-- 📱 [스마트폰 전용 횡스크롤 퀵 캐러셀] (갤럭시 S25 울트라 최적화) ⭐ -->
+    <div class="glass-panel rounded-2xl p-4 sm:p-6 mb-8 border border-sky-500/40 bg-gradient-to-br from-slate-900 via-sky-950/20 to-slate-900 shadow-2xl relative overflow-hidden">
+      <!-- Glow -->
+      <div class="absolute -right-8 -top-8 w-48 h-48 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Header with Swipe Guide & Controls -->
+      <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <span class="w-8 h-8 rounded-xl bg-gradient-to-tr from-sky-500/30 to-blue-600/30 text-sky-400 border border-sky-500/30 flex items-center justify-center text-sm shadow">
+            <i class="fa-solid fa-mobile-screen"></i>
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="text-sm sm:text-base font-black text-white">
+                스마트폰 횡스크롤 일정 요약
+              </h3>
+              <span class="px-2 py-0.2 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/30 text-[10px] font-bold">
+                S25 울트라 최적화
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-400">
+              좌우로 쓱쓱 스와이프하여 23일 일정을 한눈에 간략히 확인하세요.
+            </p>
+          </div>
+        </div>
+
+        <!-- Carousel Navigation Arrow Buttons -->
+        <div class="flex items-center gap-1.5 flex-shrink-0">
+          <button type="button" onclick="window.app.scrollCaminoCarousel('left')" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white flex items-center justify-center text-xs transition cursor-pointer" title="이전 날">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button type="button" onclick="window.app.scrollCaminoCarousel('right')" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white flex items-center justify-center text-xs transition cursor-pointer" title="다음 날">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Horizontal Swipeable Carousel Container (Snap Scroll) -->
+      <div id="camino-mobile-horizontal-carousel" class="flex items-stretch gap-3 overflow-x-auto py-2 px-1 camino-mobile-carousel custom-scrollbar -mx-2 sm:mx-0">
+        ${(currentRoute.itinerary || camino.itinerary || []).map((it, idx) => {
+          const isSelected = (state.selectedCaminoDay || 1) === it.day;
+          const attNames = (it.attractions || []).slice(0, 2).map(a => a.name.split(' ')[0]).join(', ');
+          const foodName = (it.foodSpots && it.foodSpots[0]) ? it.foodSpots[0].name.split(' ')[0] : '';
+          const albName = it.albergueInfo ? (it.albergueInfo.name.length > 18 ? it.albergueInfo.name.slice(0, 18) + '...' : it.albergueInfo.name) : (it.hotel || '');
+
+          return `
+            <div id="camino-carousel-card-${it.day}" class="camino-carousel-card p-4 rounded-2xl bg-slate-950/85 hover:bg-slate-900 border ${isSelected ? 'border-amber-400/80 ring-2 ring-amber-400/30' : 'border-slate-800 hover:border-slate-700'} transition flex flex-col justify-between shadow-lg flex-shrink-0 select-none">
+              <!-- Card Top -->
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center gap-1.5">
+                    <span class="px-2.5 py-0.5 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-black font-mono">
+                      Day ${String(it.day).padStart(2, '0')}
+                    </span>
+                    <span class="text-xs text-slate-300 font-bold font-mono">${it.date} (${it.dayOfWeek})</span>
+                  </div>
+                  <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-md ${it.walkingKm > 0 ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-mono' : 'bg-slate-800 text-slate-400'}">
+                    ${it.walkingKm > 0 ? it.walkingKm + ' km' : (it.type || '이동')}
+                  </span>
+                </div>
+
+                <!-- Origin -> Destination -->
+                <h4 class="text-sm font-extrabold text-white flex items-center gap-1.5 mb-1.5 truncate">
+                  <span class="truncate">${it.origin}</span>
+                  <i class="fa-solid fa-arrow-right text-[10px] text-amber-400 flex-shrink-0"></i>
+                  <span class="text-amber-200 truncate">${it.destination}</span>
+                </h4>
+
+                <!-- One line highlight -->
+                <p class="text-[11px] text-slate-300 leading-snug line-clamp-2 mb-3">
+                  ${it.highlight || it.desc || ''}
+                </p>
+
+                <!-- 3 Quick Info Chips -->
+                <div class="space-y-1.5 text-[10px]">
+                  <div class="p-1.5 rounded-lg bg-slate-900/90 border border-slate-800/80 flex items-center gap-1.5 text-slate-300 truncate">
+                    <i class="fa-solid fa-monument text-amber-400 flex-shrink-0 text-[10px]"></i>
+                    <span class="font-bold text-amber-200/90 flex-shrink-0">명소:</span>
+                    <span class="truncate">${attNames || '시내 자유 탐방'}</span>
+                  </div>
+
+                  <div class="p-1.5 rounded-lg bg-slate-900/90 border border-slate-800/80 flex items-center gap-1.5 text-slate-300 truncate">
+                    <i class="fa-solid fa-utensils text-rose-400 flex-shrink-0 text-[10px]"></i>
+                    <span class="font-bold text-rose-300/90 flex-shrink-0">맛집:</span>
+                    <span class="truncate">${foodName || '로컬 순례자 메뉴'}</span>
+                  </div>
+
+                  <div class="p-1.5 rounded-lg bg-slate-900/90 border border-slate-800/80 flex items-center gap-1.5 text-slate-300 truncate">
+                    <i class="fa-solid fa-hotel text-emerald-400 flex-shrink-0 text-[10px]"></i>
+                    <span class="font-bold text-emerald-300/90 flex-shrink-0">숙소:</span>
+                    <span class="truncate">${albName || '11월 공립 알베르게'}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card Bottom Button -->
+              <div class="mt-3 pt-2.5 border-t border-slate-800/80 flex items-center justify-between">
+                <span class="text-[9px] text-slate-400">
+                  ${it.difficulty ? it.difficulty.split(' ')[0] : '난이도 보통'}
+                </span>
+                <button type="button" onclick="window.app.focusCaminoDay(${it.day})" class="px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 text-[10px] font-bold border border-amber-500/30 transition flex items-center gap-1 cursor-pointer">
+                  <span>상세 보기</span>
+                  <i class="fa-solid fa-arrow-down text-[8px]"></i>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+
+      <!-- Footer swipe tip -->
+      <div class="mt-2.5 flex items-center justify-between text-[10px] text-slate-400 px-1">
+        <span class="flex items-center gap-1">
+          <i class="fa-solid fa-arrows-left-right text-sky-400"></i> 손가락으로 가볍게 스와이프하세요
+        </span>
+        <span class="text-amber-400 font-bold">
+          전체 23일 코스
+        </span>
       </div>
     </div>
 
@@ -13643,6 +13765,19 @@ window.app = {
 
   // 🛡️ Modal & Form Architecture
   closeAllModals: () => ModalManager.closeAll(),
+  scrollCaminoCarousel: (dir) => {
+    const c = document.getElementById('camino-mobile-horizontal-carousel');
+    if (!c) return;
+    const scrollAmt = c.clientWidth * 0.85;
+    c.scrollBy({ left: dir === 'left' ? -scrollAmt : scrollAmt, behavior: 'smooth' });
+  },
+  focusCaminoDay: (dayNum) => {
+    window.app.selectCaminoDay(dayNum);
+    const sec = document.getElementById('camino-daily-single-viewer-section');
+    if (sec) {
+      sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  },
   selectCaminoDay: (dayNum) => {
     state.selectedCaminoDay = Number(dayNum);
     const camino = state.camino || INITIAL_CAMINO_DATA;
@@ -13666,6 +13801,18 @@ window.app = {
         .replace(/bg-slate-900\/80 border-slate-700\/80 text-slate-400 hover:text-white hover:bg-slate-800/g, '')
         + ' bg-gradient-to-r from-amber-500/25 to-amber-600/30 border-amber-400 text-amber-200 ring-2 ring-amber-400/40 shadow-lg';
       activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+
+    // Also highlight and scroll the corresponding card in the mobile carousel
+    document.querySelectorAll('[id^="camino-carousel-card-"]').forEach(card => {
+      card.classList.remove('border-amber-400/80', 'ring-2', 'ring-amber-400/30');
+      card.classList.add('border-slate-800');
+    });
+    const activeCarouselCard = document.getElementById(`camino-carousel-card-${dayNum}`);
+    if (activeCarouselCard) {
+      activeCarouselCard.classList.remove('border-slate-800');
+      activeCarouselCard.classList.add('border-amber-400/80', 'ring-2', 'ring-amber-400/30');
+      activeCarouselCard.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
     }
   },
   openMobileTabDrawer: () => {
