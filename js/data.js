@@ -492,283 +492,1145 @@ const INITIAL_CAMINO_DATA = {
         "highlight": "포르투 ➔ 마토지뉴스(메트로) ➔ 빌라 두 콘드(해안 데크길) ➔ 바르셀루스(내륙 전환) ➔ 발루게스 ➔ 폰테 드 리마 ➔ 라브루자 고개 ➔ 발렌사/투이 ➔ 폰테베드라 ➔ 영성길(보트) ➔ 파드론 ➔ 산티아고 대성당 ➔ 피스테라/무시아 ➔ 마드리드 ➔ 인천",
         "notice": "대서양의 시원한 바다와 포르투갈 내륙의 유서 깊은 중세 마을, 장엄한 라브루자 고개, 성 야고보의 전설이 깃든 영성길 보트(Traslatio)까지 가장 완벽한 밸런스를 자랑합니다.",
         "itinerary": [
+    {
+        "day": 1,
+        "date": "11/11",
+        "dayOfWeek": "수",
+        "type": "입국 & 준비",
+        "origin": "인천 (ICN)",
+        "destination": "포르투 (OPO)",
+        "distance": "항공편 이동 (도보 0km)",
+        "walkingKm": 0,
+        "difficulty": "매우 쉬움",
+        "estimatedTime": "18시간 25분 이동",
+        "highlight": "포르투 공항 입국 ➔ 메트로 트린다데역 이동 ➔ 호텔 체크인 후 여독 풀기",
+        "desc": "인천공항 출발 후 상하이/런던 경유하여 11/11 낮 12:00 포르투 공항(OPO) 도착. 메트로 E라인으로 트린다데역 이동, 호텔 체크인(16:00~) 후 휴식",
+        "albergueInfo": {
+            "name": "스테이 호텔 포르투 센트로 트린다데 (Stay Hotel Porto Centro Trindade)",
+            "type": "도심 3성급 호텔 (트립닷컴 결제완료)",
+            "fee": "결제완료 (현장 도시세 €12/2박)",
+            "beds": "전용 더블룸 (개인실)",
+            "heating": "개별 냉난방 에어컨 완비",
+            "operatingNotice": "11월 연중무휴 정상 운영 (예약번호: 1400829745971821 / PIN: 7999)",
+            "address": "R. de Gonçalo Cristóvão 111, Porto (트린다데 메트로역 도보 3분)",
+            "note": "비행 여독을 풀고 본격적인 도보 순례 전 최상의 컨디션을 만드는 2박 연박 숙소"
+        },
+        "attractions": [
             {
-                "day": 1,
-                "date": "11/11",
-                "dayOfWeek": "수",
-                "type": "입국",
-                "origin": "인천 (ICN)",
-                "destination": "포르투 (OPO)",
-                "distance": "항공 이동",
-                "highlight": "포르투 도착, 스테이 호텔 트린다데 체크인(16:00), 여장 풀기",
-                "hotel": "스테이 호텔 포르투 센트로 트린다데 (Stay Hotel Porto Centro Trindade)",
-                "desc": "11/10 18:25 인천발(MU8604) ➔ 11/11 12:00 포르투 공항(OPO) 도착. 메트로 E라인으로 트린다데 이동, 호텔 체크인(16:00~) 및 휴식 (예약: 1400829745971821 / PIN: 7999)"
+                "name": "볼량 시장 (Mercado do Bolhão)",
+                "desc": "100년 역사를 자랑하는 포르투 서민 전통시장. 신선한 과일, 치즈, 올리브 구경"
             },
             {
-                "day": 2,
-                "date": "11/12",
-                "dayOfWeek": "목",
-                "type": "시차 적응",
-                "origin": "포르투",
-                "destination": "포르투",
-                "distance": "시내 도보",
-                "highlight": "크레덴시알 발급, 도루강 야경, 최종 패킹 (2박 연박)",
-                "hotel": "스테이 호텔 포르투 센트로 트린다데 (Stay Hotel Porto Centro Trindade)",
-                "desc": "포르투 대성당 크레덴시알(순례자 여권) 발급, 볼량 시장·상벤투역 탐방, 동루이스 1세 다리 석양, 순례 전야 최종 짐 패킹 (트린다데 2박 연박)"
+                "name": "알마스 예배당 (Capela das Almas)",
+                "desc": "외벽 전체가 15,947장의 파란색 아줄레주 타일로 뒤덮인 포르투 최고 포토스팟"
             },
             {
-                "day": 3,
-                "date": "11/13",
-                "dayOfWeek": "금",
-                "type": "해안길",
-                "origin": "마토지뉴스 (메트로 이동)",
-                "destination": "빌라 두 콘드 / 포보아",
-                "distance": "14km",
-                "highlight": "바닷바람 맞으며 걷는 나무 데크 해안길 시작",
-                "hotel": "Albergue de Peregrinos de Vila do Conde (Santa Clara) 또는 Sardines & Friends Hostel",
-                "desc": "메트로로 마토지뉴스 이동 후 대서양 해안 목재 데크길을 따라 걷는 상쾌한 첫 도보"
-            },
-            {
-                "day": 4,
-                "date": "11/14",
-                "dayOfWeek": "토",
-                "type": "환승 연결로",
-                "origin": "포보아 드 바르징",
-                "destination": "바르셀루스 (Barcelos)",
-                "distance": "15km",
-                "highlight": "해안에서 내륙으로 전환, 포르투갈 닭 전설의 고향",
-                "hotel": "Albergue de Peregrinos Cidade de Barcelos (공립)",
-                "desc": "대서양 해안길에서 내륙 중앙길로 전환하는 연결로. 포르투갈의 상징인 수탉 전설의 유서 깊은 중세 도시 도착"
-            },
-            {
-                "day": 5,
-                "date": "11/15",
-                "dayOfWeek": "일",
-                "type": "중앙길",
-                "origin": "바르셀루스",
-                "destination": "발루게스 (Balugães)",
-                "distance": "15km",
-                "highlight": "호젓한 시골 전원 풍경과 포도밭 숲길",
-                "hotel": "Albergue Quinta da Balugães 또는 Casa da Fernanda (비토리누)",
-                "desc": "한적한 시골 오솔길과 비뇨 베르데(그린 와인) 포도밭 사이를 통과하는 평화로운 전원 순례길"
-            },
-            {
-                "day": 6,
-                "date": "11/16",
-                "dayOfWeek": "월",
-                "type": "중앙길",
-                "origin": "발루게스",
-                "destination": "폰테 드 리마",
-                "distance": "17km",
-                "highlight": "가장 오래된 중세 다리 마을 입성, 그린 와인",
-                "hotel": "Albergue de Peregrinos de Ponte de Lima",
-                "desc": "포르투갈에서 가장 오래된 역사적인 중세 석조 다리와 리마 강변 정취, 특산 그린 와인 만찬"
-            },
-            {
-                "day": 7,
-                "date": "11/17",
-                "dayOfWeek": "화",
-                "type": "중앙길",
-                "origin": "폰테 드 리마",
-                "destination": "루비앙이스 (Rubiães)",
-                "distance": "18km",
-                "highlight": "포르투갈 길의 상징 '라브루자(Labruja) 고개' 완주",
-                "hotel": "Albergue de Peregrinos de Rubiães (공립)",
-                "desc": "포르투갈 길 최대의 난코스이자 벅찬 파노라마를 선사하는 라브루자 고개(해발 400m) 정복"
-            },
-            {
-                "day": 8,
-                "date": "11/18",
-                "dayOfWeek": "수",
-                "type": "국경 통과",
-                "origin": "루비앙이스",
-                "destination": "발렌사 ➔ 투이 (Tui)",
-                "distance": "15km",
-                "highlight": "국경 철교 도보 월경(포르투갈 ➔ 스페인, 시차 +1h)",
-                "hotel": "Albergue de Peregrinos de Tui (갈리시아 주립 공립)",
-                "desc": "발렌사 고성을 지나 미뇨강 국제 철교를 걸어서 건너 스페인 갈리시아 투이로 입국 (시차 1시간 빨라짐)"
-            },
-            {
-                "day": 9,
-                "date": "11/19",
-                "dayOfWeek": "목",
-                "type": "중앙길",
-                "origin": "투이",
-                "destination": "오 포리뇨 (O Porriño)",
-                "distance": "16km",
-                "highlight": "갈리시아 주정부 10유로 공립 알베르게 첫 이용",
-                "hotel": "Albergue de Peregrinos de O Porriño (갈리시아 주립)",
-                "desc": "투이 대성당 조망 후 루로 강변 자연 산책로를 따라 오 포리뇨 진입, 갈리시아 공립 알베르게 숙박"
-            },
-            {
-                "day": 10,
-                "date": "11/20",
-                "dayOfWeek": "금",
-                "type": "중앙길",
-                "origin": "오 포리뇨",
-                "destination": "레돈델라 (Redondela)",
-                "distance": "15km",
-                "highlight": "리아스 해안 만 조망, 해안길 합류 지점",
-                "hotel": "Albergue Casa da Torre (갈리시아 주립 공립)",
-                "desc": "해안길과 중앙길이 하나로 만나는 역사적인 분기점. 리아스 해안의 멋진 바다와 철교 감상"
-            },
-            {
-                "day": 11,
-                "date": "11/21",
-                "dayOfWeek": "토",
-                "type": "중앙길",
-                "origin": "레돈델라",
-                "destination": "폰테베드라 (Pontevedra)",
-                "distance": "18km",
-                "highlight": "가리비 모양 성당(Peregrina), 중세 구시가지",
-                "hotel": "Albergue Virgen Peregrina (주립) 또는 Bulezen Urban Hostel (사설)",
-                "desc": "폰테삼파이오 고대 석교를 건너 보행자의 천국 폰테베드라 구시가지와 가리비 순례자 성당 탐방"
-            },
-            {
-                "day": 12,
-                "date": "11/22",
-                "dayOfWeek": "일",
-                "type": "영성길 1",
-                "origin": "폰테베드라",
-                "destination": "아르멘테이라",
-                "distance": "17km",
-                "highlight": "영성길 진입, 콤바드로 곡물창고 마을 통과",
-                "hotel": "Albergue de Peregrinos San Ero de Armenteira (공립)",
-                "desc": "★ 영성길(Variante Espiritual) 진입! 갈리시아 전통 곡물창고(오레오)가 늘어선 해변 콤바드로 경유 후 수도원 마을 도착"
-            },
-            {
-                "day": 13,
-                "date": "11/23",
-                "dayOfWeek": "월",
-                "type": "영성길 2",
-                "origin": "아르멘테이라",
-                "destination": "빌라노바 드 아로우사",
-                "distance": "23km",
-                "highlight": "완만한 내리막 '돌과 물의 길' 트레킹",
-                "hotel": "Albergue A Salazón (사설) 또는 체육관 공립",
-                "desc": "물레방아와 폭포가 어우러진 갈리시아 최고의 숲길 '돌과 물의 길(Ruta da Pedra e da Auga)' 힐링 트레킹"
-            },
-            {
-                "day": 14,
-                "date": "11/24",
-                "dayOfWeek": "화",
-                "type": "영성길 3",
-                "origin": "빌라노바 드 아로우사",
-                "destination": "파드론 (Padrón)",
-                "distance": "보트 + 3km",
-                "highlight": "보트 순례길(Traslatio) 탑승, 파드론 고추 요리",
-                "hotel": "Albergue de Peregrinos de Padrón (공립)",
-                "desc": "★ 성 야고보의 유해 운구 보트 순례(Traslatio) 탑승! 강변 십자가들을 지나 파드론 기착, 명물 꽈리고추 튀김 만찬"
-            },
-            {
-                "day": 15,
-                "date": "11/25",
-                "dayOfWeek": "수",
-                "type": "중앙길",
-                "origin": "파드론",
-                "destination": "테오 / 오 밀라도이로",
-                "distance": "15km",
-                "highlight": "완주 전야, 고요한 참나무 숲길",
-                "hotel": "Albergue Milladoiro (사설)",
-                "desc": "대성당을 하루 앞둔 설레는 순례길. 고요한 갈리시아 참나무 숲길을 걸으며 마음 정리"
-            },
-            {
-                "day": 16,
-                "date": "11/26",
-                "dayOfWeek": "목",
-                "type": "완주 입성",
-                "origin": "오 밀라도이로",
-                "destination": "산티아고 데 콤포스텔라",
-                "distance": "10km",
-                "highlight": "산티아고 대성당 입성, 완주증 발급, 정오 미사",
-                "hotel": "Albergue Seminario Menor 또는 구시가지 호텔",
-                "desc": "★ 마침내 오브라도이로 광장 대성당 입성! 성 야고보 포옹, 콤포스텔라 완보증 수령, 12시 순례자 향로 미사 참례"
-            },
-            {
-                "day": 17,
-                "date": "11/27",
-                "dayOfWeek": "금",
-                "type": "투어",
-                "origin": "산티아고",
-                "destination": "피스테라 & 무시아",
-                "distance": "버스 투어",
-                "highlight": "세상의 끝(0.00km) 등대 및 대서양 바다 투어",
-                "hotel": "호텔/호스텔 연박",
-                "desc": "고대인들이 믿었던 세상의 끝 피스테라 0.00km 비석과 무시아 성모 바위 절벽 일일 투어"
-            },
-            {
-                "day": 18,
-                "date": "11/28",
-                "dayOfWeek": "토",
-                "type": "휴식",
-                "origin": "산티아고",
-                "destination": "산티아고",
-                "distance": "시내 도보",
-                "highlight": "아바스토스 시장 해산물 식사 및 기념품 쇼핑",
-                "hotel": "호텔/호스텔 연박",
-                "desc": "산티아고 아바스토스 재래시장에서 신선한 갈리시아 뽈뽀와 해산물 만찬, 가족/지인 기념품 쇼핑"
-            },
-            {
-                "day": 19,
-                "date": "11/29",
-                "dayOfWeek": "일",
-                "type": "예비일",
-                "origin": "산티아고",
-                "destination": "산티아고",
-                "distance": "자유",
-                "highlight": "일정 지연 대비 버퍼일 (차질 없을 시 휴식)",
-                "hotel": "호텔/호스텔 연박",
-                "desc": "도보 일정 지연을 대비한 완벽한 버퍼 데이. 정상 완주 시 산티아고 구시가지 카페 힐링"
-            },
-            {
-                "day": 20,
-                "date": "11/30",
-                "dayOfWeek": "월",
-                "type": "광역 이동",
-                "origin": "산티아고",
-                "destination": "마드리드 (Chamartín)",
-                "distance": "렌페 (3.5h)",
-                "highlight": "고속열차로 마드리드 이동 후 체크인, 야경 투어",
-                "hotel": "마드리드 차마르틴/솔 광장 인근 호텔",
-                "desc": "산티아고 역에서 Renfe 초고속열차 탑승(약 3시간 20분) ➔ 마드리드 차마르틴 역 도착, 호텔 체크인 & 솔 광장 야경"
-            },
-            {
-                "day": 21,
-                "date": "12/01",
-                "dayOfWeek": "화",
-                "type": "도시 관광",
-                "origin": "마드리드",
-                "destination": "마드리드",
-                "distance": "메트로/도보",
-                "highlight": "프라도 미술관, 솔 광장, 츄러스 맛집 전일 관광",
-                "hotel": "마드리드 차마르틴/솔 광장 인근 호텔",
-                "desc": "세계 3대 미술관 프라도 미술관 관람, 산 히네스 원조 츄러스, 마요르 광장 및 왕궁 전일 관광"
-            },
-            {
-                "day": 22,
-                "date": "12/02",
-                "dayOfWeek": "수",
-                "type": "출국",
-                "origin": "마드리드 (MAD)",
-                "destination": "청두 (TFU) 경유",
-                "distance": "항공편",
-                "highlight": "08:00 공항 도착 ➔ 11:05 출국 (쓰촨 3U3804)",
-                "hotel": "기내 숙박 (Airbus A330)",
-                "desc": "아돌포 수아레스 바라하스 T1 이동. 11:05 쓰촨항공 3U3804(A330 대형기) 탑승 귀국길 비행"
-            },
-            {
-                "day": 23,
-                "date": "12/03",
-                "dayOfWeek": "목",
-                "type": "귀국",
-                "origin": "청두 (TFU)",
-                "destination": "인천 (ICN)",
-                "distance": "항공편",
-                "highlight": "청두 3h 환승 ➔ 13:30 인천 도착 (3U3973)",
-                "hotel": "스위트 홈 (귀가)",
-                "desc": "청두 톈푸 T1 3시간 환승 (수하물 자동 연결) ➔ 13:30 인천공항 T1 도착! 대단원의 순례길 완주"
+                "name": "산투 일드폰수 성당",
+                "desc": "바탈랴 광장 앞 언덕에 우뚝 솟은 바로크 양식의 아름다운 아줄레주 성당"
             }
         ],
+        "foodSpots": [
+            {
+                "name": "Café Santiago (카페 산티아고)",
+                "menu": "원조 프란세지냐 (Francesinha, €11)",
+                "desc": "식빵 사이에 햄, 소시지, 스테이크를 넣고 치즈를 듬뿍 녹여 매콤한 맥주 소스를 부은 포르투 소울푸드"
+            },
+            {
+                "name": "Nata Lisboa (나타 리스보아)",
+                "menu": "에그타르트(Pastel de Nata) & 에스프레소(Bica)",
+                "desc": "겉은 바삭하고 속은 부드러운 커스터드 크림이 가득한 포르투갈 국민 간식"
+            }
+        ],
+        "walkingTips": "공항에서 메트로 티켓(Andante Z4)을 구매해 트린다데역까지 30분이면 도착합니다. 무리하지 말고 가벼운 산책으로 시차를 적응하세요."
+    },
+    {
+        "day": 2,
+        "date": "11/12",
+        "dayOfWeek": "목",
+        "type": "시차 적응 & 순례 준비",
+        "origin": "포르투",
+        "destination": "포르투",
+        "distance": "시내 도보 약 6~8km",
+        "walkingKm": 7,
+        "difficulty": "쉬움 (언덕길 계단)",
+        "estimatedTime": "자유 산책 (3~4시간)",
+        "highlight": "포르투 대성당 크레덴시알(순례자 여권) 발급 ➔ 루이스 1세 다리 ➔ 도루강 야경",
+        "desc": "포르투 대성당에서 순례자 여권 발급 및 첫 스탬프를 찍고, 도루강변 히베이라 지구와 루이스 1세 다리를 걸으며 내일부터 시작될 순례길을 준비합니다.",
+        "albergueInfo": {
+            "name": "스테이 호텔 포르투 센트로 트린다데 (연박 2일차)",
+            "type": "도심 3성급 호텔",
+            "fee": "결제완료 (내일 12:00 전 체크아웃)",
+            "beds": "전용 더블룸",
+            "heating": "난방 완비",
+            "operatingNotice": "연중무휴",
+            "address": "R. de Gonçalo Cristóvão 111, Porto",
+            "note": "내일 아침 출발 전 최종 배낭 패킹 무게 점검(8kg 이하 유지 권장)"
+        },
+        "attractions": [
+            {
+                "name": "포르투 대성당 (Sé do Porto)",
+                "desc": "12세기 로마네스크 요새 성당. 순례자 사무소에서 크레덴시알(순례자 여권, €2) 발급 필수!"
+            },
+            {
+                "name": "동 루이스 1세 다리 (Ponte Luís I)",
+                "desc": "에펠의 제자가 설계한 복층 철교. 상층부에서 내려다보는 도루강과 히베이라 야경이 압권"
+            },
+            {
+                "name": "상벤투 역 (Estação de São Bento)",
+                "desc": "2만 장의 아줄레주 타일로 포르투갈 역사를 기록한 세상에서 가장 아름다운 기차역"
+            },
+            {
+                "name": "클레리고스 탑 & 렐루 서점",
+                "desc": "포르투 시내 360도 파노라마 뷰 타워와 해리포터 영감을 준 환상적인 목조 서점"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Adega São Nicolau (아데가 상 니콜라우)",
+                "menu": "문어 밥(Arroz de Polvo) & 대구 튀김",
+                "desc": "히베이라 강변 골목의 미슐랭 빕구르망 노포. 뚝배기에 끓여 나오는 녹진한 문어 밥이 환상적"
+            },
+            {
+                "name": "Cálem 포트 와인 와이너리",
+                "menu": "Tawny / Ruby 포트 와인 테이스팅 (€15~)",
+                "desc": "달콤하고 도수 높은 포르투 특산 강화 와인의 역사와 시음을 즐길 수 있는 셀러"
+            }
+        ],
+        "walkingTips": "대성당에서 크레덴시알을 발급받을 때 노란 화살표 지도와 조개껍데기를 함께 챙기세요. 저녁에는 도루강 선셋을 보며 마음을 정돈합니다."
+    },
+    {
+        "day": 3,
+        "date": "11/13",
+        "dayOfWeek": "금",
+        "type": "해안길 트레킹 1일차",
+        "origin": "마토지뉴스 (Matosinhos)",
+        "destination": "빌라 두 콘드 (Vila do Conde)",
+        "distance": "도보 14.5 km",
+        "walkingKm": 14.5,
+        "difficulty": "쉬움 (완만한 해안 데크)",
+        "estimatedTime": "약 3.5 ~ 4시간",
+        "highlight": "메트로로 공업지대 점프 ➔ 대서양 바닷바람 맞으며 나무 데크길 걷기 시작!",
+        "desc": "트린다데역에서 메트로 A라인 탑승 후 마토지뉴스 센호라 다 오라 역 하차(공업지대 도보 생략), 대서양 해안 목재 데크길을 따라 빌라 두 콘드까지 쾌적하게 걷습니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos de Vila do Conde (공립 산타 클라라 알베르게)",
+            "type": "시립/공립 알베르게 (Municipal)",
+            "fee": "€10 (현장 현금)",
+            "beds": "24베드 (남녀 공용 도미토리)",
+            "heating": "전기 라디에이터 난방 완비 (11월 정상 작동)",
+            "operatingNotice": "11월 동절기 정상 운영 확인 완료 (14:00 체크인 시작)",
+            "address": "Av. Dr. Artur Cunha Araújo, Vila do Conde",
+            "note": "주방 조리 가능, 온수 샤워 양호, 세탁기 완비. 만실 시 도보 5분 사립 호스텔 다수"
+        },
+        "attractions": [
+            {
+                "name": "마토지뉴스 모래사장 & 등대",
+                "desc": "끝없이 펼쳐진 대서양 바다와 시원한 파도소리를 들으며 출발하는 첫 발걸음"
+            },
+            {
+                "name": "카보 두 문두 (Cabo do Mundo)",
+                "desc": "고대 암석 지대와 바다 생태계가 보존된 해안 자연보호구역 데크길"
+            },
+            {
+                "name": "산타 클라라 수도원 (Convento de Santa Clara)",
+                "desc": "빌라 두 콘드 언덕 위에 웅장하게 서 있는 14세기 수도원과 수로교(Aqueduto)"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Restaurante O Farol (마토지뉴스 해변)",
+                "menu": "정어리 숯불구이 (Sardinhas Assadas, €10)",
+                "desc": "부두 앞에서 굵은 소금을 뿌려 숯불에 구워낸 기름지고 고소한 가을 정어리"
+            },
+            {
+                "name": "Confeitaria Sãozinha (빌라 두 콘드)",
+                "menu": "파스텔 드 산타클라라 (아몬드 에그 패스트리)",
+                "desc": "수도원 전통 방식으로 구워낸 얇고 바삭한 빌라 두 콘드 명물 디저트"
+            }
+        ],
+        "walkingTips": "포르투 시내에서 마토지뉴스까지는 메트로로 이동하는 것이 순례자들의 정석입니다. 아스팔트 공장지대를 피해 무릎을 보호할 수 있습니다."
+    },
+    {
+        "day": 4,
+        "date": "11/14",
+        "dayOfWeek": "토",
+        "type": "해안 ➔ 중앙 연결로",
+        "origin": "포보아 드 바르징 (Póvoa de Varzim)",
+        "destination": "바르셀루스 (Barcelos)",
+        "distance": "도보 15.0 km",
+        "walkingKm": 15.0,
+        "difficulty": "보통 (완만한 구릉 시골길)",
+        "estimatedTime": "약 4시간",
+        "highlight": "해안 데크에서 포르투갈 내륙으로 전환 ➔ 전설의 '바르셀루스 수탉' 고향 입성",
+        "desc": "빌라 두 콘드와 이어진 포보아 드 바르징에서 동쪽 내륙으로 방향을 틀어 소박한 유칼립투스 숲과 시골길을 지나 유서 깊은 중세 도시 바르셀루스에 도착합니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos Cidade de Barcelos (바르셀루스 시립 공립 알베르게)",
+            "type": "시립/공립 알베르게 (Municipal)",
+            "fee": "€10 (현장 현금)",
+            "beds": "32베드",
+            "heating": "중앙 라디에이터 난방 완비 (11월 따뜻함)",
+            "operatingNotice": "11월 연중무휴 정상 운영 (13:30 오픈)",
+            "address": "Rua Miguel Bombarda 36, Barcelos",
+            "note": "구시가지 중심가 위치, 침대 간격 넓고 매우 청결함. 주변 슈퍼마켓 및 식당 도보 2분"
+        },
+        "attractions": [
+            {
+                "name": "바르셀루스 중세 석조 다리 (Ponte de Barcelos)",
+                "desc": "14세기 카바두 강을 가로지르는 고딕 양식의 아치형 다리. 순례길 인증샷 명소"
+            },
+            {
+                "name": "브라간사 공작 궁전 유적 (Paço dos Duques de Bragança)",
+                "desc": "지진으로 일부만 남은 야외 고고학 박물관. 수탉 전설의 석십자가(Cruzeiro do Senhor do Galo) 보존"
+            },
+            {
+                "name": "공화국 광장 (Campo da República)",
+                "desc": "알록달록 거대한 바르셀루스 수탉 조형물들이 가득한 도심 중앙 광장"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Restaurante Bagoeira",
+                "menu": "갈로 아스피라두(수탉 스튜) & 순례자 메뉴 (€11)",
+                "desc": "바르셀루스에서 가장 유명한 300년 전통의 대형 레스토랑. 푸짐한 고기 요리와 와인 제공"
+            },
+            {
+                "name": "Pastelaria Arantes",
+                "menu": "수탉 모양 쇼트브레드 쿠키 & 갈랑(포르투갈 라떼)",
+                "desc": "바르셀루스 수탉 모양의 바삭한 버터 쿠키를 맛볼 수 있는 광장 앞 베이커리"
+            }
+        ],
+        "walkingTips": "해안길에서 중앙길로 합류하는 연결 구간은 노란 화살표가 드문드문 보일 수 있으니 Buen Camino 앱 GPS를 켜고 걷는 것을 추천합니다."
+    },
+    {
+        "day": 5,
+        "date": "11/15",
+        "dayOfWeek": "일",
+        "type": "중앙길 전원 코스",
+        "origin": "바르셀루스 (Barcelos)",
+        "destination": "발루게스 (Balugães)",
+        "distance": "도보 15.2 km",
+        "walkingKm": 15.2,
+        "difficulty": "쉬움 (호젓한 포도밭 흙길)",
+        "estimatedTime": "약 4시간",
+        "highlight": "차량이 거의 없는 고요한 포르투갈 북부 포도밭 시골길과 옛 돌담길 힐링",
+        "desc": "바르셀루스를 벗어나 민호(Minho) 지방의 푸른 전원 풍경과 와인용 포도 덩굴, 작은 석조 다리들이 이어지는 가장 평화롭고 고즈넉한 15km 트레킹입니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos de Balugães (발루게스 공립 알베르게)",
+            "type": "시립/공립 알베르게 (Municipal)",
+            "fee": "€10",
+            "beds": "20베드",
+            "heating": "온풍 및 라디에이터 가동 (11월 훈훈함)",
+            "operatingNotice": "11월 연중무휴 운영 (자원봉사 호스피탈레로 상주)",
+            "address": "Largo da Igreja, São Martinho de Balugães",
+            "note": "교회 바로 옆 아늑한 전원 알베르게. 주방 완비, 침구 깨끗하며 조용히 휴식하기 최적"
+        },
+        "attractions": [
+            {
+                "name": "네이바 강 로마네스크 돌다리 (Ponte das Tábuas)",
+                "desc": "12세기 순례자들의 발걸음이 수없이 지나간 고색창연한 아치형 돌다리"
+            },
+            {
+                "name": "상 마르티뉴 교회 (Igreja de São Martinho)",
+                "desc": "마을 언덕에 자리한 고요한 성당. 성당 묘지와 푸른 들판의 평온한 조화"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Café Restaurante O Lavrador",
+                "menu": "포르코 알란테자나 (돼지고기 바지락 볶음, €10)",
+                "desc": "현지 농부들과 순례자들이 찾는 시골 밥집. 와인 한 병과 후식까지 포함된 가성비 최고의 시골 밥상"
+            },
+            {
+                "name": "Mercearia 전통 구멍가게",
+                "menu": "갓 구운 브로아(옥수수빵), 사과, 치즈",
+                "desc": "소박한 식료품점에서 내일 아침 행동식과 신선한 과일을 저렴하게 구매 가능"
+            }
+        ],
+        "walkingTips": "오늘은 큰 마트가 없으므로 발루게스 도착 전 작은 식료품점이 보이면 간식과 물을 미리 구입해 두세요."
+    },
+    {
+        "day": 6,
+        "date": "11/16",
+        "dayOfWeek": "월",
+        "type": "중앙길 역사 마을",
+        "origin": "발루게스 (Balugães)",
+        "destination": "폰테 드 리마 (Ponte de Lima)",
+        "distance": "도보 16.5 km",
+        "walkingKm": 16.5,
+        "difficulty": "보통 (완만한 오르내림)",
+        "estimatedTime": "약 4.5시간",
+        "highlight": "포르투갈에서 가장 오래된 마을 폰테 드 리마 입성 & 비뇨 베르데(그린 와인)",
+        "desc": "로마 군대가 건너기를 두려워했다는 '망각의 강' 리마 강을 건너 기원전 1세기에 형성된 포르투갈 최고(最古)의 역사 마을 폰테 드 리마로 향합니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos de Ponte de Lima (폰테 드 리마 공립 알베르게)",
+            "type": "시립/공립 알베르게 (Municipal)",
+            "fee": "€10",
+            "beds": "60베드 (대형 공립)",
+            "heating": "라디에이터 난방 완비 (11월 정상 작동)",
+            "operatingNotice": "11월 연중무휴 운영 (14:00 개방)",
+            "address": "Rua Além da Ponte, Além da Ponte, Ponte de Lima",
+            "note": "중세 다리 건너자마자 우측 위치. 시설 매우 현대적이고 넓으며 세탁실과 건조기 완비"
+        },
+        "attractions": [
+            {
+                "name": "폰테 드 리마 중세 로마 다리 (Ponte Romana)",
+                "desc": "로마 시대 원형 교각 5개와 14세기 고딕 아치가 어우러진 포르투갈의 국보급 다리"
+            },
+            {
+                "name": "카몽이스 광장 (Largo de Camões)",
+                "desc": "16세기 귀족 가문 문장과 아름다운 분수대가 있는 마을의 심장부"
+            },
+            {
+                "name": "아르닐랴스 가로수길 (Avenida dos Plátanos)",
+                "desc": "백년 넘은 플라타너스 거목들이 강변을 따라 터널을 이루는 낭만 산책로"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Restaurante Encanada (강변 뷰)",
+                "menu": "아로스 드 사라불류(Arroz de Sarrabulho, €13)",
+                "desc": "폰테 드 리마의 전설적인 향토 요리. 돼지고기 육수에 쌀과 고기를 넣고 푹 끓여낸 깊고 구수한 죽 요리"
+            },
+            {
+                "name": "O Convidado",
+                "menu": "비뇨 베르데 (Vinho Verde / 그린 와인) & 대구 스테이크",
+                "desc": "폰테 드 리마 특산 탄산감 있는 산뜻하고 청량한 화이트 그린 와인과 완벽한 페어링"
+            }
+        ],
+        "walkingTips": "내일은 포르투갈 길 최고 난코스인 라브루자 고개가 기다리고 있으니, 오늘은 리마 강변에서 맛있는 저녁을 먹고 충분한 수면을 취하세요."
+    },
+    {
+        "day": 7,
+        "date": "11/17",
+        "dayOfWeek": "화",
+        "type": "중앙길 최고봉 돌파",
+        "origin": "폰테 드 리마 (Ponte de Lima)",
+        "destination": "루비앙이스 (Rubiães)",
+        "distance": "도보 17.5 km",
+        "walkingKm": 17.5,
+        "difficulty": "어려움 (해발 400m 라브루자 고개 오르막)",
+        "estimatedTime": "약 5시간",
+        "highlight": "포르투갈 길의 상징 '라브루자 고개(Alto da Labruja)' 완주 & 성취감 폭발!",
+        "desc": "폰테 드 리마의 평온함을 뒤로하고 울창한 참나무 숲과 돌바위 오르막길을 올라 해발 400m 라브루자 고개 정상 십자가에 도달한 뒤 루비앙이스로 내려옵니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos de Rubiães (루비앙이스 공립 알베르게)",
+            "type": "시립/공립 알베르게 (Municipal)",
+            "fee": "€10",
+            "beds": "34베드",
+            "heating": "난방 가동 (11월 필수 난방)",
+            "operatingNotice": "11월 연중무휴 정상 운영 (13:30 오픈)",
+            "address": "Estrada Romana, Rubiães (Paredes de Coura)",
+            "note": "고개 내려온 직후 위치. 정원과 주방이 넓고 온수가 콸콸 나옴. 근처 식당 도보 5분"
+        },
+        "attractions": [
+            {
+                "name": "라브루자 십자가 고개 정상 (Cruz dos Franceses)",
+                "desc": "고개 정점에 세워진 돌십자가. 나폴레옹 군대에 맞선 역사가 서려 있으며 순례자들이 돌을 얹고 기도하는 곳"
+            },
+            {
+                "name": "루비앙이스 12세기 로마네스크 성당 (Igreja de São Pedro de Rubiães)",
+                "desc": "순례길 옆 고즈넉한 돌담 속에 자리 잡은 유서 깊은 중세 석조 성당"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Café Repouso do Peregrino (고개 오르막 직전)",
+                "menu": "또르띠야 샌드위치 & 갓 짠 오렌지 주스",
+                "desc": "라브루자 본격 등산 전 마지막으로 당과 수분을 보충할 수 있는 쉼터 카페"
+            },
+            {
+                "name": "Restaurante Bom Retiro (루비앙이스)",
+                "menu": "칼두 베르데(양배추 감자 수프) & 구운 치킨 (€10)",
+                "desc": "등산으로 지친 몸을 따뜻하게 데워주는 정통 포르투갈 가정식 수프와 맥주"
+            }
+        ],
+        "walkingTips": "오르막 바윗길이 비에 젖으면 미끄러울 수 있으니 등산 스틱을 적극 활용하고 보폭을 좁혀 천천히 오르세요. 정상에 오르면 탁 트인 뷰가 보상해 줍니다."
+    },
+    {
+        "day": 8,
+        "date": "11/18",
+        "dayOfWeek": "수",
+        "type": "국경 횡단 & 스페인 입성",
+        "origin": "루비앙이스 (Rubiães)",
+        "destination": "발렌사 ➔ 투이 (Tui)",
+        "distance": "도보 16.0 km",
+        "walkingKm": 16.0,
+        "difficulty": "쉬움 (완만한 내리막 및 평지)",
+        "estimatedTime": "약 4시간",
+        "highlight": "국제 에펠 철교 걸어서 국경 통과! (포르투갈 ➔ 스페인 갈리시아, 시차 +1시간)",
+        "desc": "포르투갈 북단 국경 요새 발렌사 성곽을 통과해 미뇨 강 철교를 걸어서 건넙니다. 국경을 넘는 순간 스페인 갈리시아주 투이로 바뀌며 시계 바늘이 1시간 앞으로 이동합니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos da Xunta de Galicia de Tui (투이 갈리시아 주정부 공립)",
+            "type": "갈리시아 주정부 공립 알베르게 (Xunta)",
+            "fee": "€10 (고정 공정 요금)",
+            "beds": "42베드",
+            "heating": "중앙 집중식 라디에이터 난방 완비 (매우 따뜻함)",
+            "operatingNotice": "11월 연중무휴 정상 운영 (13:00 개방)",
+            "address": "Rúa Pescadores, Tui (대성당 도보 3분)",
+            "note": "스페인 Xunta 공립 시스템 첫 이용! 깨끗한 1회용 시트/베개커버 제공, 쾌적한 시설"
+        },
+        "attractions": [
+            {
+                "name": "발렌사 성곽 요새 (Fortaleza de Valença)",
+                "desc": "17세기 스페인 침략을 막기 위해 축조된 거대한 별 모양의 이중 성벽 요새"
+            },
+            {
+                "name": "미뇨강 국제 철교 (Ponte Internacional Valença-Tui)",
+                "desc": "도보로 국경을 넘는 감동의 다리. 다리 중앙에서 포르투갈과 스페인 경계 인증샷 필수!"
+            },
+            {
+                "name": "투이 요새형 대성당 (Catedral de Santa María de Tui)",
+                "desc": "성벽처럼 견고한 고딕-로마네스크 대성당. 스페인 포르투갈 길의 출발 기점으로 유명"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Tapería La de Manu (투이 구시가지)",
+                "menu": "뽈뽀 아 페이라 (문어 숙회) & 띤또 데 베라노",
+                "desc": "스페인 입성을 축하하는 첫 타파스! 올리브유와 고춧가루를 얹은 부드러운 갈리시아 문어"
+            },
+            {
+                "name": "Panadería Argibay",
+                "menu": "엠파나다 가예가 (Empanada Gallega - 참치/고기 파이)",
+                "desc": "바삭하고 고소한 갈리시아 전통 미트 파이. 내일 걸으며 먹을 비상식으로 최고"
+            }
+        ],
+        "walkingTips": "국경을 건너면 시차가 1시간 빨라집니다(포르투갈 13시 = 스페인 14시). 알베르게 체크인 시간과 저녁 식사 시간에 착오 없도록 스마트폰 시계를 확인하세요."
+    },
+    {
+        "day": 9,
+        "date": "11/19",
+        "dayOfWeek": "목",
+        "type": "스페인 갈리시아길 1일차",
+        "origin": "투이 (Tui)",
+        "destination": "오 포리뇨 (O Porriño)",
+        "distance": "도보 15.5 km",
+        "walkingKm": 15.5,
+        "difficulty": "쉬움 (평탄한 자연 생태 하천길)",
+        "estimatedTime": "약 4시간",
+        "highlight": "루로 강변 숲길(Senda Fluvial) 우회로로 공업단지 피하고 쾌적한 힐링 트레킹",
+        "desc": "투이 구시가지를 내려와 과거 악명 높았던 공단 아스팔트길 대신 새롭게 정비된 '루로 강 생태 하천길(Río Louro)'을 따라 푸른 숲과 물소리를 즐기며 걷습니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos da Xunta de Galicia de O Porriño (오 포리뇨 공립)",
+            "type": "갈리시아 주정부 공립 (Xunta)",
+            "fee": "€10",
+            "beds": "50베드",
+            "heating": "난방 완비 (따뜻함)",
+            "operatingNotice": "11월 연중무휴 운영 (13:00 오픈)",
+            "address": "Rúa de Manuel Rodríguez 50, O Porriño",
+            "note": "강변 공원 옆에 위치하여 산책하기 좋고, 시내 중심부 도보 5분 거리"
+        },
+        "attractions": [
+            {
+                "name": "루로 강 자연 생태길 (Senda do Río Louro)",
+                "desc": "갈대숲과 목교, 버드나무가 어우러진 아름다운 자연 친화적 순례 우회로"
+            },
+            {
+                "name": "오 포리뇨 시청사 (Casa Consistorial)",
+                "desc": "갈리시아의 가우디라 불리는 천재 건축가 안토니오 팔라시오스가 설계한 독창적인 석조 건축"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Panadería O Forno do Porriño",
+                "menu": "원조 오 포리뇨 빵 (Pan de Porriño)",
+                "desc": "스페인 왕실에도 납품되었다는 겉바속촉 쫄깃한 천연 발효빵. 순례길 최고의 빵으로 꼽힘"
+            },
+            {
+                "name": "Bar Restaurante Paso a Nivel",
+                "menu": "순례자 점심 정식 (Menú del Día, €11)",
+                "desc": "푸짐한 렌틸콩 수프, 갓 튀긴 돼지 안심가스, 홈메이드 플랑(푸딩) 세트"
+            }
+        ],
+        "walkingTips": "갈림길에서 반드시 노란색 'Alternative / Senda Fluvial' 표지판을 따르세요. 공장 도로를 피하고 아름다운 강변 숲길로 안내합니다."
+    },
+    {
+        "day": 10,
+        "date": "11/20",
+        "dayOfWeek": "금",
+        "type": "바다 조망 코스",
+        "origin": "오 포리뇨 (O Porriño)",
+        "destination": "레돈델라 (Redondela)",
+        "distance": "도보 15.2 km",
+        "walkingKm": 15.2,
+        "difficulty": "보통 (완만한 언덕 넘어 비고 만 조망)",
+        "estimatedTime": "약 4시간",
+        "highlight": "두 개의 거대한 철도 고가교가 교차하는 '철교의 마을' 레돈델라 도착",
+        "desc": "모스(Mos) 마을의 언덕길을 넘어 대서양 비고 만(Ría de Vigo)이 살짝 내려다보이는 산등성이를 지나 해안길과 중앙길이 만나는 교통 요충지 레돈델라로 진입합니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos da Xunta de Galicia Casa da Torre (레돈델라 공립)",
+            "type": "갈리시아 주정부 공립 (Xunta)",
+            "fee": "€10",
+            "beds": "42베드",
+            "heating": "난방 완비 (고풍스러운 석조 건물에 라디에이터 설치)",
+            "operatingNotice": "11월 연중무휴 정상 운영 (13:00 오픈)",
+            "address": "Rúa Isidoro Queimaliños 2, Redondela",
+            "note": "16세기 귀족 고택(Casa da Torre)을 리모델링한 알베르게. 매우 고풍스럽고 운치 있음"
+        },
+        "attractions": [
+            {
+                "name": "모스 성당과 궁전 (Pazo de Mos)",
+                "desc": "언덕 중턱에 자리 잡은 17세기 갈리시아 전형적인 귀족 장원 궁전"
+            },
+            {
+                "name": "레돈델라 고가 철교 (Viaducto de Madrid & Pontevedra)",
+                "desc": "마을 공중을 가로지르는 19세기 철도 역사 유물. 레돈델라의 상징"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Tapería O Choco",
+                "menu": "초코 먹물 볶음 (Choco en su Tinta, €12)",
+                "desc": "레돈델라의 상징인 신선한 갑오징어(Choco)를 먹물 소스에 부드럽게 조려낸 대표 미식"
+            },
+            {
+                "name": "Cafetería D'Lourdes",
+                "menu": "또르띠야 에스파뇰라 (감자 오믈렛)",
+                "desc": "도톰하고 촉촉한 스페인 국민 오믈렛과 따뜻한 커피 한 잔"
+            }
+        ],
+        "walkingTips": "레돈델라는 해안길(Coastal)과 중앙길(Central)이 합류하는 곳이라 순례자들이 많아집니다. 공립 알베르게 입실을 위해 13:00 전후 도착을 권장합니다."
+    },
+    {
+        "day": 11,
+        "date": "11/21",
+        "dayOfWeek": "토",
+        "type": "역사 문화 중심지",
+        "origin": "레돈델라 (Redondela)",
+        "destination": "폰테베드라 (Pontevedra)",
+        "distance": "도보 17.8 km",
+        "walkingKm": 17.8,
+        "difficulty": "보통 (아르카데 굴 시식 후 숲길)",
+        "estimatedTime": "약 4.5시간",
+        "highlight": "굴 마을 아르카데 ➔ 중세 돌다리 ➔ 가리비 모양 페레그리나 성당의 폰테베드라",
+        "desc": "갈리시아 굴로 유명한 아르카데를 지나 나폴레옹 전쟁의 격전지 폰테삼파이오 다리를 건너, 갈리시아에서 가장 아름답게 보존된 보행자 천국 폰테베드라 구시가에 도착합니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos da Xunta de Galicia Virgen Peregrina (폰테베드라 공립)",
+            "type": "갈리시아 주정부 공립 (Xunta)",
+            "fee": "€10",
+            "beds": "92베드 (대형 공립)",
+            "heating": "중앙 집중식 난방 완비 (매우 따뜻함)",
+            "operatingNotice": "11월 연중무휴 정상 운영 (13:00 오픈)",
+            "address": "Rúa Otero Pedrayo s/n, Pontevedra (기차역 인근)",
+            "note": "넓은 정원과 쾌적한 시설, 세탁기/건조기 구비. 구시가지 도보 10분"
+        },
+        "attractions": [
+            {
+                "name": "폰테삼파이오 돌다리 (Ponte Sampaio)",
+                "desc": "10개의 아치가 베르두고 강을 건너는 웅장한 다리. 1809년 스페인 민병대가 프랑스군을 격퇴한 역사 현장"
+            },
+            {
+                "name": "페레그리나 성당 (Santuario da Virxe Peregrina)",
+                "desc": "성당 평면 자체가 순례자의 상징인 가리비 조개 모양으로 지어진 유일무이한 18세기 성당"
+            },
+            {
+                "name": "에레리아 광장 (Praza da Ferraría) & 구시가지",
+                "desc": "차량이 다니지 않는 중세 광장. 밤이 되면 타파스 바들의 불빛으로 활기가 넘침"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "O Lar do Leitón (아르카데 굴 맛집)",
+                "menu": "신선한 자연산 굴(Ostras) & 알바리뇨 와인",
+                "desc": "7km 지점 아르카데에서 맛보는 바다 내음 가득한 굴 한 접시. 순례길의 빼놓을 수 없는 미식 호사"
+            },
+            {
+                "name": "Casa Fidel O Pulpeiro (폰테베드라)",
+                "menu": "뽈뽀 아 페이라 (갈리시아 전통 문어 숙회, €14)",
+                "desc": "나무 접시에 담겨 나오는 야들야들한 문어와 삶은 감자. 폰테베드라 현지인 원탑 문어집"
+            }
+        ],
+        "walkingTips": "내일은 드디어 성스러운 영성길(Variante Espiritual)로 갈라지는 날입니다! 폰테베드라 구시가지에서 타파스를 즐기며 에너지를 충전하세요."
+    },
+    {
+        "day": 12,
+        "date": "11/22",
+        "dayOfWeek": "일",
+        "type": "영성길(Variante Espiritual) 1일차",
+        "origin": "폰테베드라 (Pontevedra)",
+        "destination": "콤바드로 ➔ 아르멘테이라 (Armenteira)",
+        "distance": "도보 17.5 km",
+        "walkingKm": 17.5,
+        "difficulty": "보통~약간 높음 (콤바드로 이후 숲 오르막)",
+        "estimatedTime": "약 5시간",
+        "highlight": "영성길 진입 ➔ 바다 위 곡물창고 마을 콤바드로 ➔ 12세기 시토회 아르멘테이라 수도원",
+        "desc": "폰테베드라 3km 후 영성길로 좌회전! 바다 위에 떠 있는 듯한 전통 곡물창고 마을 콤바드로(Combarro)를 둘러보고, 산속 깊은 시토회 수도원 아르멘테이라로 올라갑니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos de Armenteira (아르멘테이라 공립 알베르게)",
+            "type": "갈리시아 주정부/시립 공립",
+            "fee": "€10",
+            "beds": "32베드",
+            "heating": "바닥 난방 및 온풍 가동 (11월 따뜻함)",
+            "operatingNotice": "11월 연중무휴 정상 운영 (13:30 오픈)",
+            "address": "Lugar Vilar 1, Armenteira (Meis)",
+            "note": "수도원 바로 옆 위치. 주변이 고요한 숲이라 명상과 휴식에 최적. 저녁 수도원 미사 참석 추천"
+        },
+        "attractions": [
+            {
+                "name": "콤바드로 전통 곡물창고 마을 (Hórreos de Combarro)",
+                "desc": "바닷가를 따라 화강암으로 지어진 30여 개의 전통 오레오(곡물창고)와 십자가상이 장관을 이루는 어촌"
+            },
+            {
+                "name": "아르멘테이라 시토회 수도원 (Mosteiro de Santa María de Armenteira)",
+                "desc": "1162년 건립된 중세 시토회 수도원. 수녀님들의 그레고리안 성가 저녁 기도(19:00)가 마음에 큰 평안을 줌"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Tapería O Bocoi (콤바드로 바닷가)",
+                "menu": "바지락 와인 찜(Almejas) & 정어리 구이",
+                "desc": "바다 물결이 찰랑이는 테라스에서 즐기는 신선한 해산물 타파스"
+            },
+            {
+                "name": "Bar O Mosteiro (아르멘테이라)",
+                "menu": "따뜻한 갈리시아 수프(Caldo) & 돼지 등갈비 구이",
+                "desc": "수도원 앞 유일한 식당. 등산 후 마시는 시원한 맥주와 푸짐한 시골 정식"
+            }
+        ],
+        "walkingTips": "★ 매우 중요: 오늘 저녁 아르멘테이라 도착 즉시 보트 운영사(A Barca do Peregrino / Amare WhatsApp)에 연락해 모레(11/24) 아침 빌라노바 발 보트 출항 시간과 물때를 반드시 확인 예약하세요!"
+    },
+    {
+        "day": 13,
+        "date": "11/23",
+        "dayOfWeek": "월",
+        "type": "영성길 2일차 (힐링 트레킹)",
+        "origin": "아르멘테이라 (Armenteira)",
+        "destination": "빌라노바 드 아로우사 (Vilanova de Arousa)",
+        "distance": "도보 22.0 km",
+        "walkingKm": 22.0,
+        "difficulty": "쉬움 (완만한 내리막 계곡 숲길)",
+        "estimatedTime": "약 5시간",
+        "highlight": "'돌과 물의 길(Ruta da Pedra e da Auga)' ➔ 수십 개 물레방아 계곡 ➔ 바다 항구 도착",
+        "desc": "수도원에서 빌라노바 해변까지 계곡물을 따라 완만하게 내려가는 '돌과 물의 길'은 순례길 전체에서 가장 아름다운 자연 산책로로 꼽히며, 내리막이라 22km지만 15km 체감 피로도입니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos de Vilanova de Arousa (공립 다목적 스포츠센터)",
+            "type": "시립/공립 알베르게 (Municipal)",
+            "fee": "€10",
+            "beds": "50베드",
+            "heating": "난방 완비 (11월 정상 운영)",
+            "operatingNotice": "11월 연중무휴 정상 운영 확인 완료 (A Corticela는 동절기 휴업이므로 이곳 또는 A Salazón 이용)",
+            "address": "Pavillón Polideportivo, Av. González Besada, Vilanova de Arousa",
+            "note": "보트 선착장까지 도보 3분! 내일 아침 보트 탑승에 가장 이상적인 위치"
+        },
+        "attractions": [
+            {
+                "name": "돌과 물의 길 (Ruta da Pedra e da Auga)",
+                "desc": "이끼 낀 고대 수차(물레방아)와 폭포, 졸졸 흐르는 계곡물이 이어지는 동화 같은 숲길"
+            },
+            {
+                "name": "아로우사 바다 하구 & 선착장",
+                "desc": "홍합 양식 뗏목(Bateas)이 그림처럼 떠 있는 잔잔한 리아스 해안 풍경"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Mesón da Auga (계곡 중간 쉼터)",
+                "menu": "오렌지 착즙 주스 & 엠파나다 조각",
+                "desc": "계곡 물소리를 들으며 쉬어갈 수 있는 숲속의 오아시스 같은 카페"
+            },
+            {
+                "name": "Restaurante O Faro (빌라노바 항구)",
+                "menu": "신선한 홍합 찜(Mejillones al Vapor, €8) & 맛조개",
+                "desc": "아로우사 만에서 갓 건져 올린 살이 꽉 찬 특산 홍합 요리"
+            }
+        ],
+        "walkingTips": "한국인들에게 알려진 'A Corticela' 알베르게는 10월 말 동절기 휴업하므로, 선착장 바로 앞 시립 체육관 공립 알베르게 또는 사립 A Salazón을 이용하세요."
+    },
+    {
+        "day": 14,
+        "date": "11/24",
+        "dayOfWeek": "화",
+        "type": "영성길 3일차 (보트 순례 Traslatio)",
+        "origin": "빌라노바 드 아로우사",
+        "destination": "보트(Traslatio) ➔ 파드론 (Padrón)",
+        "distance": "보트 28km + 도보 3.5 km",
+        "walkingKm": 3.5,
+        "difficulty": "매우 쉬움 (보트 유람 & 가벼운 산책)",
+        "estimatedTime": "보트 1시간 15분 + 도보 1시간",
+        "highlight": "성 야고보 유해 이동 뱃길(Traslatio) 보트 탑승 ➔ 파드론 고추 요리 미식!",
+        "desc": "성 야고보의 제자들이 유해를 싣고 거슬러 올라갔던 세계 유일의 수상 십자가 뱃길(Traslatio)을 보트로 순례한 후, 폰테세수레스 선착장에 내려 파드론까지 가볍게 걷습니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos da Xunta de Galicia de Padrón (파드론 공립)",
+            "type": "갈리시아 주정부 공립 (Xunta)",
+            "fee": "€10",
+            "beds": "46베드",
+            "heating": "라디에이터 난방 완비 (매우 따뜻함)",
+            "operatingNotice": "11월 연중무휴 정상 운영 (13:00 오픈)",
+            "address": "Convento do Carme s/n, Padrón",
+            "note": "카르멘 수도원 바로 아래 언덕에 위치. 마당이 운치 있고 내부가 조용함"
+        },
+        "attractions": [
+            {
+                "name": "바다 위의 십자가 뱃길 (Via Crucis Marítimo-Fluvial)",
+                "desc": "보트를 타고 우야 강을 거슬러 오르며 강가 바위 위에 세워진 17개의 석조 십자가를 참배하는 신비로운 경험"
+            },
+            {
+                "name": "파드론 성 야고보 성당 & 성석 (O Pedrón)",
+                "desc": "성 야고보의 유해를 실은 돌배를 묶었다는 로마 시대 성스러운 돌기둥(Pedrón)이 제단 아래 보존됨"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Pulpería Rial (파드론 명소)",
+                "menu": "파드론 고추 튀김 (Pimientos de Padrón, €7) & 문어",
+                "desc": "'어떤 것은 맵고, 어떤 것은 안 맵다!' 올리브유에 튀겨 거친 소금을 뿌린 파드론의 원조 고추 요리"
+            },
+            {
+                "name": "Asador O'Pepiño",
+                "menu": "갈리시아 소고기 스테이크(Churrasco) & 엠파나다",
+                "desc": "화덕에서 장작불로 구워내는 부드럽고 육즙 가득한 전통 바비큐"
+            }
+        ],
+        "walkingTips": "보트 비용은 약 €25~30(현장 지불)입니다. 11월에는 바닷바람이 쌀쌀하니 방풍 자켓과 넥워머, 장갑을 착용하고 승선하세요."
+    },
+    {
+        "day": 15,
+        "date": "11/25",
+        "dayOfWeek": "수",
+        "type": "산티아고 입성 전야",
+        "origin": "파드론 (Padrón)",
+        "destination": "테오(Teo) / 오 밀라도이로 (O Milladoiro)",
+        "distance": "도보 15.5 km",
+        "walkingKm": 15.5,
+        "difficulty": "쉬움 (완만한 숲길 및 마을길)",
+        "estimatedTime": "약 4시간",
+        "highlight": "완주 전야의 설렘 ➔ 산티아고 대성당 첨탑이 처음으로 바라보이는 언덕 도착",
+        "desc": "이리아 플라비아의 옛 주교좌 성당을 지나 울창한 참나무 숲길을 걸어 산티아고 바로 코앞인 오 밀라도이로(O Milladoiro)에 도착하여 마지막 밤을 보냅니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos da Xunta de Galicia de Teo (테오 공립 알베르게)",
+            "type": "갈리시아 주정부 공립 (Xunta)",
+            "fee": "€10",
+            "beds": "35베드",
+            "heating": "난방 완비 (11월 정상 작동)",
+            "operatingNotice": "11월 연중무휴 정상 운영 (13:00 오픈)",
+            "address": "Rúa Calvo Sotelo, Teo (또는 오 밀라도이로 사립/공립)",
+            "note": "산티아고 입성 직전 조용하고 평화로운 휴식을 취할 수 있는 최적의 전야 알베르게"
+        },
+        "attractions": [
+            {
+                "name": "이리아 플라비아 산타 마리아 성당 (Igreja de Santa María Maior)",
+                "desc": "노벨문학상 작가 카밀로 호세 세라의 묘비가 있는 1세기 고대 기독교 유적지 성당"
+            },
+            {
+                "name": "오 밀라도이로 전망 언덕 (Agro dos Monteiros)",
+                "desc": "남쪽에서 순례길을 걷는 이들이 처음으로 산티아고 대성당의 웅장한 첨탑을 마주하는 감동의 장소"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Restaurante O Secreto",
+                "menu": "갈리시아 갈비탕 수프 & 수제 미트볼",
+                "desc": "지역 주민들이 즐겨 찾는 인정 넘치는 밥집. 내일 완주를 앞두고 든든한 저녁 식사"
+            },
+            {
+                "name": "Cervecería Milladoiro",
+                "menu": "에스트레야 갈리시아 생맥주 & 감자튀김",
+                "desc": "시원한 맥주 한 잔으로 200여 km의 대여정을 자축하는 전야의 건배"
+            }
+        ],
+        "walkingTips": "내일은 산티아고 대성당까지 단 8km만 남았습니다! 아침 8시에 출발하면 10시 반에 성당 광장에 도착해 여유롭게 정오 미사에 참석할 수 있습니다."
+    },
+    {
+        "day": 16,
+        "date": "11/26",
+        "dayOfWeek": "목",
+        "type": "대망의 산티아고 완주 입성!",
+        "origin": "오 밀라도이로",
+        "destination": "산티아고 데 콤포스텔라 (Santiago)",
+        "distance": "도보 8.5 km",
+        "walkingKm": 8.5,
+        "difficulty": "매우 쉬움 (가벼운 발걸음)",
+        "estimatedTime": "약 2~2.5시간",
+        "highlight": "오브라도이로 광장 입성! ➔ 대성당 순례자 정오 미사 ➔ 콤포스텔라 완주증 수령",
+        "desc": "마지막 8.5km를 걸어 포르타 파시네이라 문을 통과하여 대망의 오브라도이로 광장에 도착합니다! 웅장한 성당 앞에 배낭을 내려놓고 가슴 벅찬 완주의 기쁨을 만끽합니다.",
+        "albergueInfo": {
+            "name": "산티아고 데 콤포스텔라 시내 호스텔 / 호텔 (2박 연박)",
+            "type": "시내 호스텔/호텔 (사전 예약/자유 선택)",
+            "fee": "약 €25~40 / 1박",
+            "beds": "개인실 또는 소규모 도미토리",
+            "heating": "난방 완비",
+            "operatingNotice": "11월 정상 운영",
+            "address": "Santiago de Compostela 구시가지 중심부",
+            "note": "완주 후 여유롭게 휴식하고 짐을 풀기 위한 대성당 도보 5~10분 거리 숙소"
+        },
+        "attractions": [
+            {
+                "name": "오브라도이로 광장 (Praza do Obradoiro)",
+                "desc": "전 세계 순례자들의 종착지! 광장 바닥에 누워 성당 파사드를 바라보는 감동의 순간"
+            },
+            {
+                "name": "산티아고 대성당 순례자 정오 미사 (12:00)",
+                "desc": "대성당 중앙 제단에서 거대한 향로(Botafumeiro)가 공중을 가르는 장엄한 순례자 축복 미사"
+            },
+            {
+                "name": "순례자 사무소 (Oficina de Acogida al Peregrino)",
+                "desc": "스탬프가 가득 찬 크레덴시알을 제시하고 라틴어 완주 증서(Compostela)와 거리 증명서 발급"
+            },
+            {
+                "name": "성 야고보 사도 동상 포옹 & 지하 무덤 참배",
+                "desc": "성당 제단 뒤편으로 올라가 사도의 동상을 뒤에서 포옹하고 은제 관에 담긴 유해를 마주함"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Casa Manolo (순례자 성지 식당)",
+                "menu": "3코스 순례자 정식 (와인 1병 포함, €13)",
+                "desc": "전 세계 순례자들로 붐비는 가성비 전설의 식당. 칼라마리, 송어구이, 돼지갈비 등 푸짐한 만찬"
+            },
+            {
+                "name": "Pastelería Mercedes Mora",
+                "menu": "타르타 데 산티아고 (Tarta de Santiago, 아몬드 케이크)",
+                "desc": "밀가루 없이 아몬드 가루와 계란, 레몬 껍질로 구워낸 고소하고 달콤한 전통 케이크"
+            }
+        ],
+        "walkingTips": "순례자 사무소 완주증 발급 대기 줄이 길 수 있으니, 대성당 정오 미사 전이나 미사 직후 방문하여 QR 대기표를 먼저 발급받으세요."
+    },
+    {
+        "day": 17,
+        "date": "11/27",
+        "dayOfWeek": "금",
+        "type": "세상의 끝 투어 (피니스테레 & 무시아)",
+        "origin": "산티아고",
+        "destination": "피스테라 (Finisterre) & 무시아 (Muxía)",
+        "distance": "당일 버스 투어 (도보 3km)",
+        "walkingKm": 3.0,
+        "difficulty": "매우 쉬움 (유람 및 해안 절벽 산책)",
+        "estimatedTime": "종일 데이 투어 (09:00 ~ 18:30)",
+        "highlight": "고대인들이 믿었던 세상의 끝 '0.00 km' 등대 절벽 & 대서양의 거친 파도",
+        "desc": "산티아고 광장에서 출발하는 피니스테레-무시아 일일 투어 버스를 타고 유럽 대륙의 서쪽 끝 0.00km 표지석과 성모 마리아의 전설이 깃든 무시아 해안 바위를 탐방합니다.",
+        "albergueInfo": {
+            "name": "산티아고 데 콤포스텔라 연박 숙소",
+            "type": "시내 숙소",
+            "fee": "연박",
+            "beds": "침대",
+            "heating": "난방 완비",
+            "operatingNotice": "정상 운영",
+            "address": "Santiago de Compostela",
+            "note": "투어 종료 후 산티아고 숙소로 복귀하여 편안하게 취침"
+        },
+        "attractions": [
+            {
+                "name": "피니스테레 등대 (Cabo Fisterra 0.00km 표지석)",
+                "desc": "로마인들이 세상의 끝이라 여겼던 깎아지른 절벽 끝 등대. 순례자들이 신발과 옷을 태우며 새 삶을 다짐하던 곳"
+            },
+            {
+                "name": "무시아 바르카 성당 (Santuario da Virxe da Barca)",
+                "desc": "거대한 화강암 바위와 대서양 성난 파도가 부딪히는 신비롭고 웅장한 해안 성지"
+            },
+            {
+                "name": "에자로 폭포 (Fervenza do Ézaro)",
+                "desc": "유럽에서 유일하게 바다로 직접 떨어지는 장엄한 에자로 강 폭포"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "O Pirata (피니스테레 항구)",
+                "menu": "잠부리냐스(가리비 구이, €12) & 페르세베스(거북손)",
+                "desc": "대서양 청정 해역에서 채취한 달콤 쫄깃한 가리비와 독특한 감칠맛의 귀한 거북손 요리"
+            },
+            {
+                "name": "A Lareira (피니스테레)",
+                "menu": "해산물 빠에야 (Arroz con Mariscos)",
+                "desc": "새우, 홍합, 게살이 푸짐하게 들어간 갈리시아식 해물 밥"
+            }
+        ],
+        "walkingTips": "대서양 절벽 바람이 거세므로 윈드브레이커와 경량 패딩을 꼭 챙기세요. 현지 투어는 산티아고 인포센터나 온라인(Civitatis/GetYourGuide)으로 예약 가능합니다."
+    },
+    {
+        "day": 18,
+        "date": "11/28",
+        "dayOfWeek": "토",
+        "type": "산티아고 힐링 & 미식 탐방",
+        "origin": "산티아고",
+        "destination": "산티아고",
+        "distance": "시내 미식 도보 약 5km",
+        "walkingKm": 5.0,
+        "difficulty": "매우 쉬움",
+        "estimatedTime": "자유 힐링 산책",
+        "highlight": "아바스토스 수산시장 즉석 해산물 구이 ➔ 알라메다 공원 인생샷 포토존",
+        "desc": "순례의 모든 긴장을 풀고 스페인 3대 전통 수산시장인 아바스토스 시장에서 싱싱한 해산물을 맛보고, 알라메다 공원에서 대성당 전경을 바라보며 사색을 즐깁니다.",
+        "albergueInfo": {
+            "name": "산티아고 데 콤포스텔라 숙소",
+            "type": "시내 숙소",
+            "fee": "자유",
+            "beds": "침대",
+            "heating": "난방 완비",
+            "operatingNotice": "정상 운영",
+            "address": "Santiago de Compostela",
+            "note": "내일 일정을 대비한 여유로운 휴식"
+        },
+        "attractions": [
+            {
+                "name": "아바스토스 시장 (Mercado de Abastos)",
+                "desc": "갈리시아에서 두 번째로 방문객이 많은 명소. 신선한 문어, 바지락, 소고기를 구매해 시장 식당에서 즉석 요리 가능"
+            },
+            {
+                "name": "알라메다 공원 (Parque da Alameda)",
+                "desc": "대성당 파사드가 액자처럼 한눈에 들어오는 최고의 포토존과 두 자매 조각상(As Duas Marías)"
+            },
+            {
+                "name": "킨타나 광장 (Praza da Quintana)",
+                "desc": "밤이 되면 성당 모퉁이 조명 아래 지팡이를 든 순례자의 그림자가 나타나는 신비로운 광장"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Abastos 2.0 (시장 레스토랑)",
+                "menu": "시장 오마카세 타파스 코스 (€25~)",
+                "desc": "그날 시장에 들어온 가장 신선한 제철 해산물로 셰프가 즉석 창작해내는 갈리시아 미식의 정점"
+            },
+            {
+                "name": "A Taberna do Bispo (핀초스 거리)",
+                "menu": "하몽 이베리코 핀초 & 뿔뽀 또스따",
+                "desc": "프랑코 거리(Rúa do Franco) 최고의 타파스 바. 카운터에 화려하게 진열된 핑거푸드와 시원한 맥주"
+            },
+            {
+                "name": "Chocolatería Metate",
+                "menu": "원조 초콜라테 콘 추로스 (핫초코 & 츄러스)",
+                "desc": "걸쭉하고 진한 다크 초콜릿에 갓 튀긴 바삭한 츄러스를 찍어 먹는 힐링 디저트"
+            }
+        ],
+        "walkingTips": "아바스토스 시장은 오전에 가장 활기가 넘칩니다. 시장 1동 수산물 코너에서 랍스터나 가리비를 골라 5동 식당에 가져가면 1인당 €5 조리비로 멋진 요리를 해줍니다."
+    },
+    {
+        "day": 19,
+        "date": "11/29",
+        "dayOfWeek": "일",
+        "type": "순례 완보 사색 & 예비일",
+        "origin": "산티아고",
+        "destination": "산티아고",
+        "distance": "시내 도보 약 4km",
+        "walkingKm": 4.0,
+        "difficulty": "매우 쉬움",
+        "estimatedTime": "자유 일정",
+        "highlight": "일정 지연 대비 버퍼 데이 ➔ 차질 없는 완주로 여유로운 선물 쇼핑 & 감사 기도",
+        "desc": "도보 순례 중 날씨나 부상으로 일정이 지연될 경우를 대비한 황금 같은 예비일(Buffer Day)입니다. 일정이 완벽히 완료되었으므로 소중한 사람들을 위한 선물 쇼핑과 성찰의 시간을 갖습니다.",
+        "albergueInfo": {
+            "name": "산티아고 데 콤포스텔라 숙소",
+            "type": "시내 숙소",
+            "fee": "자유",
+            "beds": "침대",
+            "heating": "난방 완비",
+            "operatingNotice": "정상 운영",
+            "address": "Santiago de Compostela",
+            "note": "내일 아침 마드리드 행 렌페 고속열차 탑승 준비 (산티아고 역 위치 확인)"
+        },
+        "attractions": [
+            {
+                "name": "순례 박물관 (Museo das Peregrinacións)",
+                "desc": "1000년간 이어진 산티아고 순례길의 역사와 유물, 전 세계 순례자들의 흔적을 모아둔 박물관"
+            },
+            {
+                "name": "산 마르틴 피나리오 수도원 (San Martiño Pinario)",
+                "desc": "스페인에서 두 번째로 큰 거대한 수도원과 화려한 황금 제단"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "O Sendeiro (숨은 정원 식당)",
+                "menu": "갈리시아 소고기 스테이크 & 밤 크림 디저트",
+                "desc": "조용한 골목 돌담 정원에서 즐기는 감성적이고 정갈한 순례 완주 축하 만찬"
+            },
+            {
+                "name": "Café Casino (1873년 오픈)",
+                "menu": "카페 콘 레체 & 아몬드 비스킷",
+                "desc": "역대 문인들과 예술가들이 사색을 즐겼던 클래식한 분위기의 역사적인 카페"
+            }
+        ],
+        "walkingTips": "내일 탑승할 Renfe 고속열차 승차권 모바일 앱(Renfe 또는 Omio)을 확인해 두고, 남은 유로화 동전들을 기념품 구매로 알뜰하게 사용하세요."
+    },
+    {
+        "day": 20,
+        "date": "11/30",
+        "dayOfWeek": "월",
+        "type": "광역 이동 & 마드리드 입성",
+        "origin": "산티아고 (Santiago)",
+        "destination": "마드리드 (Chamartín)",
+        "distance": "초고속열차 Renfe (약 3시간 20분 이동)",
+        "walkingKm": 4.0,
+        "difficulty": "쉬움 (열차 이동 및 시내 산책)",
+        "estimatedTime": "열차 3h 20m + 야경 도보 2h",
+        "highlight": "갈리시아에서 스페인 심장부 마드리드로 고속 이동 ➔ 솔 광장 야경 투어",
+        "desc": "산티아고 데 콤포스텔라 역에서 초고속열차(Renfe Alvia) 탑승하여 스페인 내륙을 가로질러 마드리드 차마르틴 역 도착, 호텔 체크인 후 화려한 대도시의 밤을 즐깁니다.",
+        "albergueInfo": {
+            "name": "마드리드 중심가 호텔 (차마르틴역 / 솔 광장 인근)",
+            "type": "도심 호텔",
+            "fee": "사전 예약 / 약 ₩90,000",
+            "beds": "전용 개인실",
+            "heating": "난방 완비",
+            "operatingNotice": "연중무휴",
+            "address": "Madrid Centro (솔 광장 또는 차마르틴역 인근)",
+            "note": "12/02 마드리드 바라하스 공항(MAD) 출국에 편리한 위치"
+        },
+        "attractions": [
+            {
+                "name": "푸에르타 델 솔 (Puerta del Sol)",
+                "desc": "스페인의 도로 원점 0km 킬로미터 제로 표지판과 마드리드의 상징 '곰과 딸기나무' 동상"
+            },
+            {
+                "name": "마요르 광장 (Plaza Mayor)",
+                "desc": "붉은빛 건물들이 사각형을 이루는 400년 역사의 광장. 웅장한 펠리페 3세 기마상"
+            },
+            {
+                "name": "그란 비아 (Gran Vía)",
+                "desc": "화려한 네온사인과 극장, 쇼핑가가 불야성을 이루는 마드리드의 브로드웨이"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Bar La Campana (마요르 광장 옆)",
+                "menu": "오징어 샌드위치 (Bocadillo de Calamares, €4.5)",
+                "desc": "바삭하고 두툼한 바게트 속에 갓 튀긴 부드러운 오징어가 한가득! 마드리드 소울푸드"
+            },
+            {
+                "name": "Chocolatería San Ginés (산히네스)",
+                "menu": "원조 초콜라테 콘 추로스 (1894년 창업)",
+                "desc": "130년 전통의 24시간 츄러스 성지. 진한 핫초코에 바삭한 츄러스를 찍먹하는 불멸의 맛"
+            }
+        ],
+        "walkingTips": "산티아고에서 마드리드로 넘어오면 시골 순례길과 달리 소매치기가 많으니 스마트폰과 지갑 등 소지품 관리에 유의하세요."
+    },
+    {
+        "day": 21,
+        "date": "12/01",
+        "dayOfWeek": "화",
+        "type": "마드리드 피날레 시내 관광",
+        "origin": "마드리드",
+        "destination": "마드리드",
+        "distance": "메트로 & 시내 도보 약 8km",
+        "walkingKm": 8.0,
+        "difficulty": "쉬움",
+        "estimatedTime": "전일 관광 (09:00 ~ 21:00)",
+        "highlight": "프라도 미술관 ➔ Carlos 1픽 Tierra 부리또 ➔ 놀러와포차 한식 충전 ➔ Hualian 마트",
+        "desc": "세계 3대 미술관 프라도 미술관을 관람하고, 솔광장 Tierra 까르니따스 부리또와 베르나베우 근처 놀러와포차 한식, 그리고 에스파냐광장 Hualian 마트 쇼핑까지 완벽한 피날레를 즐깁니다.",
+        "albergueInfo": {
+            "name": "마드리드 호텔 (연박 2일차)",
+            "type": "도심 호텔",
+            "fee": "숙박 중",
+            "beds": "개인실",
+            "heating": "난방 완비",
+            "operatingNotice": "연중무휴",
+            "address": "Madrid Centro",
+            "note": "내일 아침 08:00 마드리드 바라하스 공항 T1 이동을 위한 최종 짐 패킹"
+        },
+        "attractions": [
+            {
+                "name": "프라도 미술관 (Museo Nacional del Prado)",
+                "desc": "벨라스케스의 '시녀들', 고야의 '옷을 입은/벗은 마하' 등 스페인 회화의 정수를 감상"
+            },
+            {
+                "name": "마드리드 왕궁 & 알무데나 대성당",
+                "desc": "베르사유 궁전에 필적하는 3,000개가 넘는 방을 가진 유럽 최대 규모의 왕궁 외관"
+            },
+            {
+                "name": "산미겔 시장 (Mercado de San Miguel)",
+                "desc": "유리 온실 형태의 화려한 미식 마켓. 가격이 비싸니 구매보다는 사진 촬영과 구경 위주 추천"
+            },
+            {
+                "name": "에스파냐 광장 (Plaza de España)",
+                "desc": "돈키호테와 산초 판사 동상이 우뚝 선 마드리드의 대표적인 녹지 쉼터 광장"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Tierra Burrito Bar (솔광장 지점)",
+                "menu": "까르니따스 부리또 / 볼 (Carlos 강력 추천 1PICK!)",
+                "desc": "서브웨이처럼 고르는 멕시칸 부리또. 고기는 무조건 부드러운 풀드포크 '까르니따스' 선택 필수!"
+            },
+            {
+                "name": "Mesón del Champiñón (메손 델 참피뇬)",
+                "menu": "양송이 버섯 구이 & 띤또 데 베라노",
+                "desc": "철판에 초리조와 파슬리 마늘오일을 얹어 육즙이 뚝뚝 떨어지는 명물 버섯 타파스"
+            },
+            {
+                "name": "놀러와포차 (베르나베우 근처)",
+                "menu": "김치찌개 / 제육볶음 / 삼겹살",
+                "desc": "반찬 배달로 다져진 깊은 손맛의 한국인 찐맛집! 20여 일 만에 맛보는 감동의 한식"
+            },
+            {
+                "name": "Hualian(화련) 아시안마트 2호점",
+                "menu": "신라면, 김치, 한국 과자 쇼핑",
+                "desc": "에스파냐광장에서 올라가면 나오는 2호점이 매장도 크고 라면·식품 종류가 가장 다양함"
+            }
+        ],
+        "walkingTips": "프라도 미술관은 현장 대기 줄이 길 수 있으니 전날 모바일 공식 홈페이지에서 시간 지정 티켓을 예매해 두면 대기 없이 즉시 입장 가능합니다."
+    },
+    {
+        "day": 22,
+        "date": "12/02",
+        "dayOfWeek": "수",
+        "type": "출국 & 귀국길 비행",
+        "origin": "마드리드 (MAD)",
+        "destination": "청두 (TFU) 경유",
+        "distance": "항공편 (11시간 55분 비행)",
+        "walkingKm": 1.5,
+        "difficulty": "매우 쉬움",
+        "estimatedTime": "08:00 공항 도착 ➔ 11:05 이륙",
+        "highlight": "08:00 바라하스 T1 도착 ➔ 11:05 쓰촨항공 3U3804(A330 대형기) 탑승 귀국 비행",
+        "desc": "호텔 체크아웃 후 바라하스 공항 T1으로 이동, 11:05 쓰촨항공 3U3804 탑승. 최신 Airbus A330 대형기에서 편안하게 기내식을 즐기며 환승지 청두로 향합니다.",
+        "albergueInfo": {
+            "name": "쓰촨항공 3U3804 기내 (Airbus A330 대형기)",
+            "type": "국제선 항공편 기내",
+            "fee": "결제완료 (₩406,827 포함)",
+            "beds": "항공기 좌석 (기내식 2회 제공)",
+            "heating": "기내 온도 조절 (담요 제공)",
+            "operatingNotice": "정시 운항",
+            "address": "마드리드 MAD T1 ➔ 청두 톈푸 TFU T1",
+            "note": "장거리 비행 중 편안한 복장과 수면 안대, C타입 이어폰 사용"
+        },
+        "attractions": [
+            {
+                "name": "마드리드 바라하스 공항 T1 면세점",
+                "desc": "남은 유로화로 하몽 진공팩, 뚜론(전통 엿), 올리브 오일, 스페인 와인 면세 쇼핑"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "쓰촨항공 기내식",
+                "menu": "따뜻한 기내식 식사 2회 & 음료",
+                "desc": "마드리드-청두 구간 제공되는 정규 기내식"
+            }
+        ],
+        "walkingTips": "국제선 비행이므로 최소 3시간 전인 아침 08:00까지 공항 터미널 1(T1) 쓰촨항공 카운터에 도착해 위탁수하물 수속을 마치세요."
+    },
+    {
+        "day": 23,
+        "date": "12/03",
+        "dayOfWeek": "목",
+        "type": "환승 & 인천 도착 (대단원 완결)",
+        "origin": "청두 (TFU)",
+        "destination": "인천 (ICN)",
+        "distance": "항공편 (3시간 30분 비행) ➔ 귀가",
+        "walkingKm": 1.0,
+        "difficulty": "매우 쉬움",
+        "estimatedTime": "06:00 청두 환승 ➔ 13:30 인천 도착",
+        "highlight": "청두 톈푸 T1 3시간 황금 환승(수하물 자동 연결) ➔ 13:30 인천공항 T1 도착!",
+        "desc": "06:00 청두 톈푸 공항 T1 도착 후 여유로운 3시간 환승(수하물 자동 연결로 찾을 필요 없음). 09:00 쓰촨항공 3U3973 환승 후 낮 13:30 인천공항 도착으로 24일간의 대여정을 영광스럽게 마무리합니다.",
+        "albergueInfo": {
+            "name": "스위트 홈 (Sweet Home)",
+            "type": "자택",
+            "fee": "₩0 (가장 따뜻한 보금자리)",
+            "beds": "나만의 침대",
+            "heating": "난방 완비",
+            "operatingNotice": "연중무휴 영구 개방",
+            "address": "대한민국 자택",
+            "note": "24일간의 위대한 여정을 완주한 나 자신을 격려하고 맞이하는 최고의 보금자리"
+        },
+        "attractions": [
+            {
+                "name": "인천국제공항 제1여객터미널 입국장",
+                "desc": "24일 만에 밟는 대한민국 땅. 순례길 완주의 감동과 환희"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "인천공항 한식당 / 집밥",
+                "menu": "얼큰한 김치찌개 / 된장찌개 & 쌀밥",
+                "desc": "귀국 직후 온몸의 피로를 녹여주는 진정한 고향의 맛"
+            }
+        ],
+        "walkingTips": "청두 공항 환승 시 수하물은 인천까지 자동 연결되므로 기내 수하물만 들고 'International Transfers' 표지판을 따라 이동하면 30분 내로 환승 게이트에 도착합니다."
+    }
+],
         "recommendedAlbergues": [
           { "stage": "포르투 (Porto)", "name": "Stay Hotel Porto Centro Trindade / Porto Wine Hostel", "type": "호텔/호스텔", "price": "₩66,000 / €30", "rating": "4.9", "tip": "트린다데역 2박 연박, 포르투 대성당 크레덴시알 발급", "nearbyBar": "Café Santiago (원조 프란세지냐) & Casa Guedes (돼지고기 샌드위치)" },
           { "stage": "빌라 두 콘드 / 포보아", "name": "Albergue de Santa Clara / Sardines & Friends", "type": "공립/사설", "price": "€10~15", "rating": "4.7", "tip": "대서양 목재 데크길 첫 관문, 11월 30일까지 영업 확인", "nearbyBar": "Bodegão do Bairro (신선한 정어리 구이 Sardinhas & 그린와인)" },
@@ -1549,277 +2411,1139 @@ const INITIAL_CAMINO_DATA = {
         "day": 1,
         "date": "11/11",
         "dayOfWeek": "수",
-        "type": "입국",
+        "type": "입국 & 준비",
         "origin": "인천 (ICN)",
         "destination": "포르투 (OPO)",
-        "distance": "항공 이동",
-        "highlight": "포르투 도착, 스테이 호텔 트린다데 체크인(16:00), 여장 풀기",
-        "hotel": "스테이 호텔 포르투 센트로 트린다데 (Stay Hotel Porto Centro Trindade)",
-        "desc": "11/10 18:25 인천발(MU8604) ➔ 11/11 12:00 포르투 공항(OPO) 도착. 메트로 E라인으로 트린다데 이동, 호텔 체크인(16:00~) 및 휴식 (예약: 1400829745971821 / PIN: 7999)"
+        "distance": "항공편 이동 (도보 0km)",
+        "walkingKm": 0,
+        "difficulty": "매우 쉬움",
+        "estimatedTime": "18시간 25분 이동",
+        "highlight": "포르투 공항 입국 ➔ 메트로 트린다데역 이동 ➔ 호텔 체크인 후 여독 풀기",
+        "desc": "인천공항 출발 후 상하이/런던 경유하여 11/11 낮 12:00 포르투 공항(OPO) 도착. 메트로 E라인으로 트린다데역 이동, 호텔 체크인(16:00~) 후 휴식",
+        "albergueInfo": {
+            "name": "스테이 호텔 포르투 센트로 트린다데 (Stay Hotel Porto Centro Trindade)",
+            "type": "도심 3성급 호텔 (트립닷컴 결제완료)",
+            "fee": "결제완료 (현장 도시세 €12/2박)",
+            "beds": "전용 더블룸 (개인실)",
+            "heating": "개별 냉난방 에어컨 완비",
+            "operatingNotice": "11월 연중무휴 정상 운영 (예약번호: 1400829745971821 / PIN: 7999)",
+            "address": "R. de Gonçalo Cristóvão 111, Porto (트린다데 메트로역 도보 3분)",
+            "note": "비행 여독을 풀고 본격적인 도보 순례 전 최상의 컨디션을 만드는 2박 연박 숙소"
+        },
+        "attractions": [
+            {
+                "name": "볼량 시장 (Mercado do Bolhão)",
+                "desc": "100년 역사를 자랑하는 포르투 서민 전통시장. 신선한 과일, 치즈, 올리브 구경"
+            },
+            {
+                "name": "알마스 예배당 (Capela das Almas)",
+                "desc": "외벽 전체가 15,947장의 파란색 아줄레주 타일로 뒤덮인 포르투 최고 포토스팟"
+            },
+            {
+                "name": "산투 일드폰수 성당",
+                "desc": "바탈랴 광장 앞 언덕에 우뚝 솟은 바로크 양식의 아름다운 아줄레주 성당"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Café Santiago (카페 산티아고)",
+                "menu": "원조 프란세지냐 (Francesinha, €11)",
+                "desc": "식빵 사이에 햄, 소시지, 스테이크를 넣고 치즈를 듬뿍 녹여 매콤한 맥주 소스를 부은 포르투 소울푸드"
+            },
+            {
+                "name": "Nata Lisboa (나타 리스보아)",
+                "menu": "에그타르트(Pastel de Nata) & 에스프레소(Bica)",
+                "desc": "겉은 바삭하고 속은 부드러운 커스터드 크림이 가득한 포르투갈 국민 간식"
+            }
+        ],
+        "walkingTips": "공항에서 메트로 티켓(Andante Z4)을 구매해 트린다데역까지 30분이면 도착합니다. 무리하지 말고 가벼운 산책으로 시차를 적응하세요."
     },
     {
         "day": 2,
         "date": "11/12",
         "dayOfWeek": "목",
-        "type": "시차 적응",
+        "type": "시차 적응 & 순례 준비",
         "origin": "포르투",
         "destination": "포르투",
-        "distance": "시내 도보",
-        "highlight": "크레덴시알 발급, 도루강 야경, 최종 패킹 (2박 연박)",
-        "hotel": "스테이 호텔 포르투 센트로 트린다데 (Stay Hotel Porto Centro Trindade)",
-        "desc": "포르투 대성당 크레덴시알(순례자 여권) 발급, 볼량 시장·상벤투역 탐방, 동루이스 1세 다리 석양, 순례 전야 최종 짐 패킹 (트린다데 2박 연박)"
+        "distance": "시내 도보 약 6~8km",
+        "walkingKm": 7,
+        "difficulty": "쉬움 (언덕길 계단)",
+        "estimatedTime": "자유 산책 (3~4시간)",
+        "highlight": "포르투 대성당 크레덴시알(순례자 여권) 발급 ➔ 루이스 1세 다리 ➔ 도루강 야경",
+        "desc": "포르투 대성당에서 순례자 여권 발급 및 첫 스탬프를 찍고, 도루강변 히베이라 지구와 루이스 1세 다리를 걸으며 내일부터 시작될 순례길을 준비합니다.",
+        "albergueInfo": {
+            "name": "스테이 호텔 포르투 센트로 트린다데 (연박 2일차)",
+            "type": "도심 3성급 호텔",
+            "fee": "결제완료 (내일 12:00 전 체크아웃)",
+            "beds": "전용 더블룸",
+            "heating": "난방 완비",
+            "operatingNotice": "연중무휴",
+            "address": "R. de Gonçalo Cristóvão 111, Porto",
+            "note": "내일 아침 출발 전 최종 배낭 패킹 무게 점검(8kg 이하 유지 권장)"
+        },
+        "attractions": [
+            {
+                "name": "포르투 대성당 (Sé do Porto)",
+                "desc": "12세기 로마네스크 요새 성당. 순례자 사무소에서 크레덴시알(순례자 여권, €2) 발급 필수!"
+            },
+            {
+                "name": "동 루이스 1세 다리 (Ponte Luís I)",
+                "desc": "에펠의 제자가 설계한 복층 철교. 상층부에서 내려다보는 도루강과 히베이라 야경이 압권"
+            },
+            {
+                "name": "상벤투 역 (Estação de São Bento)",
+                "desc": "2만 장의 아줄레주 타일로 포르투갈 역사를 기록한 세상에서 가장 아름다운 기차역"
+            },
+            {
+                "name": "클레리고스 탑 & 렐루 서점",
+                "desc": "포르투 시내 360도 파노라마 뷰 타워와 해리포터 영감을 준 환상적인 목조 서점"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Adega São Nicolau (아데가 상 니콜라우)",
+                "menu": "문어 밥(Arroz de Polvo) & 대구 튀김",
+                "desc": "히베이라 강변 골목의 미슐랭 빕구르망 노포. 뚝배기에 끓여 나오는 녹진한 문어 밥이 환상적"
+            },
+            {
+                "name": "Cálem 포트 와인 와이너리",
+                "menu": "Tawny / Ruby 포트 와인 테이스팅 (€15~)",
+                "desc": "달콤하고 도수 높은 포르투 특산 강화 와인의 역사와 시음을 즐길 수 있는 셀러"
+            }
+        ],
+        "walkingTips": "대성당에서 크레덴시알을 발급받을 때 노란 화살표 지도와 조개껍데기를 함께 챙기세요. 저녁에는 도루강 선셋을 보며 마음을 정돈합니다."
     },
     {
         "day": 3,
         "date": "11/13",
         "dayOfWeek": "금",
-        "type": "해안길",
-        "origin": "마토지뉴스 (메트로 이동)",
-        "destination": "빌라 두 콘드 / 포보아",
-        "distance": "14km",
-        "highlight": "바닷바람 맞으며 걷는 나무 데크 해안길 시작",
-        "hotel": "Albergue de Santa Clara / 포보아 숙소",
-        "desc": "메트로로 마토지뉴스 이동 후 대서양 해안 목재 데크길을 따라 걷는 상쾌한 첫 도보"
+        "type": "해안길 트레킹 1일차",
+        "origin": "마토지뉴스 (Matosinhos)",
+        "destination": "빌라 두 콘드 (Vila do Conde)",
+        "distance": "도보 14.5 km",
+        "walkingKm": 14.5,
+        "difficulty": "쉬움 (완만한 해안 데크)",
+        "estimatedTime": "약 3.5 ~ 4시간",
+        "highlight": "메트로로 공업지대 점프 ➔ 대서양 바닷바람 맞으며 나무 데크길 걷기 시작!",
+        "desc": "트린다데역에서 메트로 A라인 탑승 후 마토지뉴스 센호라 다 오라 역 하차(공업지대 도보 생략), 대서양 해안 목재 데크길을 따라 빌라 두 콘드까지 쾌적하게 걷습니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos de Vila do Conde (공립 산타 클라라 알베르게)",
+            "type": "시립/공립 알베르게 (Municipal)",
+            "fee": "€10 (현장 현금)",
+            "beds": "24베드 (남녀 공용 도미토리)",
+            "heating": "전기 라디에이터 난방 완비 (11월 정상 작동)",
+            "operatingNotice": "11월 동절기 정상 운영 확인 완료 (14:00 체크인 시작)",
+            "address": "Av. Dr. Artur Cunha Araújo, Vila do Conde",
+            "note": "주방 조리 가능, 온수 샤워 양호, 세탁기 완비. 만실 시 도보 5분 사립 호스텔 다수"
+        },
+        "attractions": [
+            {
+                "name": "마토지뉴스 모래사장 & 등대",
+                "desc": "끝없이 펼쳐진 대서양 바다와 시원한 파도소리를 들으며 출발하는 첫 발걸음"
+            },
+            {
+                "name": "카보 두 문두 (Cabo do Mundo)",
+                "desc": "고대 암석 지대와 바다 생태계가 보존된 해안 자연보호구역 데크길"
+            },
+            {
+                "name": "산타 클라라 수도원 (Convento de Santa Clara)",
+                "desc": "빌라 두 콘드 언덕 위에 웅장하게 서 있는 14세기 수도원과 수로교(Aqueduto)"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Restaurante O Farol (마토지뉴스 해변)",
+                "menu": "정어리 숯불구이 (Sardinhas Assadas, €10)",
+                "desc": "부두 앞에서 굵은 소금을 뿌려 숯불에 구워낸 기름지고 고소한 가을 정어리"
+            },
+            {
+                "name": "Confeitaria Sãozinha (빌라 두 콘드)",
+                "menu": "파스텔 드 산타클라라 (아몬드 에그 패스트리)",
+                "desc": "수도원 전통 방식으로 구워낸 얇고 바삭한 빌라 두 콘드 명물 디저트"
+            }
+        ],
+        "walkingTips": "포르투 시내에서 마토지뉴스까지는 메트로로 이동하는 것이 순례자들의 정석입니다. 아스팔트 공장지대를 피해 무릎을 보호할 수 있습니다."
     },
     {
         "day": 4,
         "date": "11/14",
         "dayOfWeek": "토",
-        "type": "환승 연결로",
-        "origin": "포보아 드 바르징",
+        "type": "해안 ➔ 중앙 연결로",
+        "origin": "포보아 드 바르징 (Póvoa de Varzim)",
         "destination": "바르셀루스 (Barcelos)",
-        "distance": "15km",
-        "highlight": "해안에서 내륙으로 전환, 포르투갈 닭 전설의 고향",
-        "hotel": "Albergue Cidade de Barcelos",
-        "desc": "대서양 해안길에서 내륙 중앙길로 전환하는 연결로. 포르투갈의 상징인 수탉 전설의 유서 깊은 중세 도시 도착"
+        "distance": "도보 15.0 km",
+        "walkingKm": 15.0,
+        "difficulty": "보통 (완만한 구릉 시골길)",
+        "estimatedTime": "약 4시간",
+        "highlight": "해안 데크에서 포르투갈 내륙으로 전환 ➔ 전설의 '바르셀루스 수탉' 고향 입성",
+        "desc": "빌라 두 콘드와 이어진 포보아 드 바르징에서 동쪽 내륙으로 방향을 틀어 소박한 유칼립투스 숲과 시골길을 지나 유서 깊은 중세 도시 바르셀루스에 도착합니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos Cidade de Barcelos (바르셀루스 시립 공립 알베르게)",
+            "type": "시립/공립 알베르게 (Municipal)",
+            "fee": "€10 (현장 현금)",
+            "beds": "32베드",
+            "heating": "중앙 라디에이터 난방 완비 (11월 따뜻함)",
+            "operatingNotice": "11월 연중무휴 정상 운영 (13:30 오픈)",
+            "address": "Rua Miguel Bombarda 36, Barcelos",
+            "note": "구시가지 중심가 위치, 침대 간격 넓고 매우 청결함. 주변 슈퍼마켓 및 식당 도보 2분"
+        },
+        "attractions": [
+            {
+                "name": "바르셀루스 중세 석조 다리 (Ponte de Barcelos)",
+                "desc": "14세기 카바두 강을 가로지르는 고딕 양식의 아치형 다리. 순례길 인증샷 명소"
+            },
+            {
+                "name": "브라간사 공작 궁전 유적 (Paço dos Duques de Bragança)",
+                "desc": "지진으로 일부만 남은 야외 고고학 박물관. 수탉 전설의 석십자가(Cruzeiro do Senhor do Galo) 보존"
+            },
+            {
+                "name": "공화국 광장 (Campo da República)",
+                "desc": "알록달록 거대한 바르셀루스 수탉 조형물들이 가득한 도심 중앙 광장"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Restaurante Bagoeira",
+                "menu": "갈로 아스피라두(수탉 스튜) & 순례자 메뉴 (€11)",
+                "desc": "바르셀루스에서 가장 유명한 300년 전통의 대형 레스토랑. 푸짐한 고기 요리와 와인 제공"
+            },
+            {
+                "name": "Pastelaria Arantes",
+                "menu": "수탉 모양 쇼트브레드 쿠키 & 갈랑(포르투갈 라떼)",
+                "desc": "바르셀루스 수탉 모양의 바삭한 버터 쿠키를 맛볼 수 있는 광장 앞 베이커리"
+            }
+        ],
+        "walkingTips": "해안길에서 중앙길로 합류하는 연결 구간은 노란 화살표가 드문드문 보일 수 있으니 Buen Camino 앱 GPS를 켜고 걷는 것을 추천합니다."
     },
     {
         "day": 5,
         "date": "11/15",
         "dayOfWeek": "일",
-        "type": "중앙길",
-        "origin": "바르셀루스",
+        "type": "중앙길 전원 코스",
+        "origin": "바르셀루스 (Barcelos)",
         "destination": "발루게스 (Balugães)",
-        "distance": "15km",
-        "highlight": "호젓한 시골 전원 풍경과 포도밭 숲길",
-        "hotel": "Casa da Fernanda / Albergue Balugães",
-        "desc": "한적한 시골 오솔길과 비뇨 베르데(그린 와인) 포도밭 사이를 통과하는 평화로운 전원 순례길"
+        "distance": "도보 15.2 km",
+        "walkingKm": 15.2,
+        "difficulty": "쉬움 (호젓한 포도밭 흙길)",
+        "estimatedTime": "약 4시간",
+        "highlight": "차량이 거의 없는 고요한 포르투갈 북부 포도밭 시골길과 옛 돌담길 힐링",
+        "desc": "바르셀루스를 벗어나 민호(Minho) 지방의 푸른 전원 풍경과 와인용 포도 덩굴, 작은 석조 다리들이 이어지는 가장 평화롭고 고즈넉한 15km 트레킹입니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos de Balugães (발루게스 공립 알베르게)",
+            "type": "시립/공립 알베르게 (Municipal)",
+            "fee": "€10",
+            "beds": "20베드",
+            "heating": "온풍 및 라디에이터 가동 (11월 훈훈함)",
+            "operatingNotice": "11월 연중무휴 운영 (자원봉사 호스피탈레로 상주)",
+            "address": "Largo da Igreja, São Martinho de Balugães",
+            "note": "교회 바로 옆 아늑한 전원 알베르게. 주방 완비, 침구 깨끗하며 조용히 휴식하기 최적"
+        },
+        "attractions": [
+            {
+                "name": "네이바 강 로마네스크 돌다리 (Ponte das Tábuas)",
+                "desc": "12세기 순례자들의 발걸음이 수없이 지나간 고색창연한 아치형 돌다리"
+            },
+            {
+                "name": "상 마르티뉴 교회 (Igreja de São Martinho)",
+                "desc": "마을 언덕에 자리한 고요한 성당. 성당 묘지와 푸른 들판의 평온한 조화"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Café Restaurante O Lavrador",
+                "menu": "포르코 알란테자나 (돼지고기 바지락 볶음, €10)",
+                "desc": "현지 농부들과 순례자들이 찾는 시골 밥집. 와인 한 병과 후식까지 포함된 가성비 최고의 시골 밥상"
+            },
+            {
+                "name": "Mercearia 전통 구멍가게",
+                "menu": "갓 구운 브로아(옥수수빵), 사과, 치즈",
+                "desc": "소박한 식료품점에서 내일 아침 행동식과 신선한 과일을 저렴하게 구매 가능"
+            }
+        ],
+        "walkingTips": "오늘은 큰 마트가 없으므로 발루게스 도착 전 작은 식료품점이 보이면 간식과 물을 미리 구입해 두세요."
     },
     {
         "day": 6,
         "date": "11/16",
         "dayOfWeek": "월",
-        "type": "중앙길",
-        "origin": "발루게스",
-        "destination": "폰테 드 리마",
-        "distance": "17km",
-        "highlight": "가장 오래된 중세 다리 마을 입성, 그린 와인",
-        "hotel": "Albergue de Peregrinos de Ponte de Lima",
-        "desc": "포르투갈에서 가장 오래된 역사적인 중세 석조 다리와 리마 강변 정취, 특산 그린 와인 만찬"
+        "type": "중앙길 역사 마을",
+        "origin": "발루게스 (Balugães)",
+        "destination": "폰테 드 리마 (Ponte de Lima)",
+        "distance": "도보 16.5 km",
+        "walkingKm": 16.5,
+        "difficulty": "보통 (완만한 오르내림)",
+        "estimatedTime": "약 4.5시간",
+        "highlight": "포르투갈에서 가장 오래된 마을 폰테 드 리마 입성 & 비뇨 베르데(그린 와인)",
+        "desc": "로마 군대가 건너기를 두려워했다는 '망각의 강' 리마 강을 건너 기원전 1세기에 형성된 포르투갈 최고(最古)의 역사 마을 폰테 드 리마로 향합니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos de Ponte de Lima (폰테 드 리마 공립 알베르게)",
+            "type": "시립/공립 알베르게 (Municipal)",
+            "fee": "€10",
+            "beds": "60베드 (대형 공립)",
+            "heating": "라디에이터 난방 완비 (11월 정상 작동)",
+            "operatingNotice": "11월 연중무휴 운영 (14:00 개방)",
+            "address": "Rua Além da Ponte, Além da Ponte, Ponte de Lima",
+            "note": "중세 다리 건너자마자 우측 위치. 시설 매우 현대적이고 넓으며 세탁실과 건조기 완비"
+        },
+        "attractions": [
+            {
+                "name": "폰테 드 리마 중세 로마 다리 (Ponte Romana)",
+                "desc": "로마 시대 원형 교각 5개와 14세기 고딕 아치가 어우러진 포르투갈의 국보급 다리"
+            },
+            {
+                "name": "카몽이스 광장 (Largo de Camões)",
+                "desc": "16세기 귀족 가문 문장과 아름다운 분수대가 있는 마을의 심장부"
+            },
+            {
+                "name": "아르닐랴스 가로수길 (Avenida dos Plátanos)",
+                "desc": "백년 넘은 플라타너스 거목들이 강변을 따라 터널을 이루는 낭만 산책로"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Restaurante Encanada (강변 뷰)",
+                "menu": "아로스 드 사라불류(Arroz de Sarrabulho, €13)",
+                "desc": "폰테 드 리마의 전설적인 향토 요리. 돼지고기 육수에 쌀과 고기를 넣고 푹 끓여낸 깊고 구수한 죽 요리"
+            },
+            {
+                "name": "O Convidado",
+                "menu": "비뇨 베르데 (Vinho Verde / 그린 와인) & 대구 스테이크",
+                "desc": "폰테 드 리마 특산 탄산감 있는 산뜻하고 청량한 화이트 그린 와인과 완벽한 페어링"
+            }
+        ],
+        "walkingTips": "내일은 포르투갈 길 최고 난코스인 라브루자 고개가 기다리고 있으니, 오늘은 리마 강변에서 맛있는 저녁을 먹고 충분한 수면을 취하세요."
     },
     {
         "day": 7,
         "date": "11/17",
         "dayOfWeek": "화",
-        "type": "중앙길",
-        "origin": "폰테 드 리마",
+        "type": "중앙길 최고봉 돌파",
+        "origin": "폰테 드 리마 (Ponte de Lima)",
         "destination": "루비앙이스 (Rubiães)",
-        "distance": "18km",
-        "highlight": "포르투갈 길의 상징 '라브루자(Labruja) 고개' 완주",
-        "hotel": "Albergue de Rubiães",
-        "desc": "포르투갈 길 최대의 난코스이자 벅찬 파노라마를 선사하는 라브루자 고개(해발 400m) 정복"
+        "distance": "도보 17.5 km",
+        "walkingKm": 17.5,
+        "difficulty": "어려움 (해발 400m 라브루자 고개 오르막)",
+        "estimatedTime": "약 5시간",
+        "highlight": "포르투갈 길의 상징 '라브루자 고개(Alto da Labruja)' 완주 & 성취감 폭발!",
+        "desc": "폰테 드 리마의 평온함을 뒤로하고 울창한 참나무 숲과 돌바위 오르막길을 올라 해발 400m 라브루자 고개 정상 십자가에 도달한 뒤 루비앙이스로 내려옵니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos de Rubiães (루비앙이스 공립 알베르게)",
+            "type": "시립/공립 알베르게 (Municipal)",
+            "fee": "€10",
+            "beds": "34베드",
+            "heating": "난방 가동 (11월 필수 난방)",
+            "operatingNotice": "11월 연중무휴 정상 운영 (13:30 오픈)",
+            "address": "Estrada Romana, Rubiães (Paredes de Coura)",
+            "note": "고개 내려온 직후 위치. 정원과 주방이 넓고 온수가 콸콸 나옴. 근처 식당 도보 5분"
+        },
+        "attractions": [
+            {
+                "name": "라브루자 십자가 고개 정상 (Cruz dos Franceses)",
+                "desc": "고개 정점에 세워진 돌십자가. 나폴레옹 군대에 맞선 역사가 서려 있으며 순례자들이 돌을 얹고 기도하는 곳"
+            },
+            {
+                "name": "루비앙이스 12세기 로마네스크 성당 (Igreja de São Pedro de Rubiães)",
+                "desc": "순례길 옆 고즈넉한 돌담 속에 자리 잡은 유서 깊은 중세 석조 성당"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Café Repouso do Peregrino (고개 오르막 직전)",
+                "menu": "또르띠야 샌드위치 & 갓 짠 오렌지 주스",
+                "desc": "라브루자 본격 등산 전 마지막으로 당과 수분을 보충할 수 있는 쉼터 카페"
+            },
+            {
+                "name": "Restaurante Bom Retiro (루비앙이스)",
+                "menu": "칼두 베르데(양배추 감자 수프) & 구운 치킨 (€10)",
+                "desc": "등산으로 지친 몸을 따뜻하게 데워주는 정통 포르투갈 가정식 수프와 맥주"
+            }
+        ],
+        "walkingTips": "오르막 바윗길이 비에 젖으면 미끄러울 수 있으니 등산 스틱을 적극 활용하고 보폭을 좁혀 천천히 오르세요. 정상에 오르면 탁 트인 뷰가 보상해 줍니다."
     },
     {
         "day": 8,
         "date": "11/18",
         "dayOfWeek": "수",
-        "type": "국경 통과",
-        "origin": "루비앙이스",
+        "type": "국경 횡단 & 스페인 입성",
+        "origin": "루비앙이스 (Rubiães)",
         "destination": "발렌사 ➔ 투이 (Tui)",
-        "distance": "15km",
-        "highlight": "국경 철교 도보 월경(포르투갈 ➔ 스페인, 시차 +1h)",
-        "hotel": "Albergue Santo Domingo / Ideas Peregrinas",
-        "desc": "발렌사 고성을 지나 미뇨강 국제 철교를 걸어서 건너 스페인 갈리시아 투이로 입국 (시차 1시간 빨라짐)"
+        "distance": "도보 16.0 km",
+        "walkingKm": 16.0,
+        "difficulty": "쉬움 (완만한 내리막 및 평지)",
+        "estimatedTime": "약 4시간",
+        "highlight": "국제 에펠 철교 걸어서 국경 통과! (포르투갈 ➔ 스페인 갈리시아, 시차 +1시간)",
+        "desc": "포르투갈 북단 국경 요새 발렌사 성곽을 통과해 미뇨 강 철교를 걸어서 건넙니다. 국경을 넘는 순간 스페인 갈리시아주 투이로 바뀌며 시계 바늘이 1시간 앞으로 이동합니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos da Xunta de Galicia de Tui (투이 갈리시아 주정부 공립)",
+            "type": "갈리시아 주정부 공립 알베르게 (Xunta)",
+            "fee": "€10 (고정 공정 요금)",
+            "beds": "42베드",
+            "heating": "중앙 집중식 라디에이터 난방 완비 (매우 따뜻함)",
+            "operatingNotice": "11월 연중무휴 정상 운영 (13:00 개방)",
+            "address": "Rúa Pescadores, Tui (대성당 도보 3분)",
+            "note": "스페인 Xunta 공립 시스템 첫 이용! 깨끗한 1회용 시트/베개커버 제공, 쾌적한 시설"
+        },
+        "attractions": [
+            {
+                "name": "발렌사 성곽 요새 (Fortaleza de Valença)",
+                "desc": "17세기 스페인 침략을 막기 위해 축조된 거대한 별 모양의 이중 성벽 요새"
+            },
+            {
+                "name": "미뇨강 국제 철교 (Ponte Internacional Valença-Tui)",
+                "desc": "도보로 국경을 넘는 감동의 다리. 다리 중앙에서 포르투갈과 스페인 경계 인증샷 필수!"
+            },
+            {
+                "name": "투이 요새형 대성당 (Catedral de Santa María de Tui)",
+                "desc": "성벽처럼 견고한 고딕-로마네스크 대성당. 스페인 포르투갈 길의 출발 기점으로 유명"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Tapería La de Manu (투이 구시가지)",
+                "menu": "뽈뽀 아 페이라 (문어 숙회) & 띤또 데 베라노",
+                "desc": "스페인 입성을 축하하는 첫 타파스! 올리브유와 고춧가루를 얹은 부드러운 갈리시아 문어"
+            },
+            {
+                "name": "Panadería Argibay",
+                "menu": "엠파나다 가예가 (Empanada Gallega - 참치/고기 파이)",
+                "desc": "바삭하고 고소한 갈리시아 전통 미트 파이. 내일 걸으며 먹을 비상식으로 최고"
+            }
+        ],
+        "walkingTips": "국경을 건너면 시차가 1시간 빨라집니다(포르투갈 13시 = 스페인 14시). 알베르게 체크인 시간과 저녁 식사 시간에 착오 없도록 스마트폰 시계를 확인하세요."
     },
     {
         "day": 9,
         "date": "11/19",
         "dayOfWeek": "목",
-        "type": "중앙길",
-        "origin": "투이",
+        "type": "스페인 갈리시아길 1일차",
+        "origin": "투이 (Tui)",
         "destination": "오 포리뇨 (O Porriño)",
-        "distance": "16km",
-        "highlight": "갈리시아 주정부 10유로 공립 알베르게 첫 이용",
-        "hotel": "Albergue de Peregrinos de O Porriño (공립)",
-        "desc": "투이 대성당 조망 후 루로 강변 자연 산책로를 따라 오 포리뇨 진입, 갈리시아 공립 알베르게 숙박"
+        "distance": "도보 15.5 km",
+        "walkingKm": 15.5,
+        "difficulty": "쉬움 (평탄한 자연 생태 하천길)",
+        "estimatedTime": "약 4시간",
+        "highlight": "루로 강변 숲길(Senda Fluvial) 우회로로 공업단지 피하고 쾌적한 힐링 트레킹",
+        "desc": "투이 구시가지를 내려와 과거 악명 높았던 공단 아스팔트길 대신 새롭게 정비된 '루로 강 생태 하천길(Río Louro)'을 따라 푸른 숲과 물소리를 즐기며 걷습니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos da Xunta de Galicia de O Porriño (오 포리뇨 공립)",
+            "type": "갈리시아 주정부 공립 (Xunta)",
+            "fee": "€10",
+            "beds": "50베드",
+            "heating": "난방 완비 (따뜻함)",
+            "operatingNotice": "11월 연중무휴 운영 (13:00 오픈)",
+            "address": "Rúa de Manuel Rodríguez 50, O Porriño",
+            "note": "강변 공원 옆에 위치하여 산책하기 좋고, 시내 중심부 도보 5분 거리"
+        },
+        "attractions": [
+            {
+                "name": "루로 강 자연 생태길 (Senda do Río Louro)",
+                "desc": "갈대숲과 목교, 버드나무가 어우러진 아름다운 자연 친화적 순례 우회로"
+            },
+            {
+                "name": "오 포리뇨 시청사 (Casa Consistorial)",
+                "desc": "갈리시아의 가우디라 불리는 천재 건축가 안토니오 팔라시오스가 설계한 독창적인 석조 건축"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Panadería O Forno do Porriño",
+                "menu": "원조 오 포리뇨 빵 (Pan de Porriño)",
+                "desc": "스페인 왕실에도 납품되었다는 겉바속촉 쫄깃한 천연 발효빵. 순례길 최고의 빵으로 꼽힘"
+            },
+            {
+                "name": "Bar Restaurante Paso a Nivel",
+                "menu": "순례자 점심 정식 (Menú del Día, €11)",
+                "desc": "푸짐한 렌틸콩 수프, 갓 튀긴 돼지 안심가스, 홈메이드 플랑(푸딩) 세트"
+            }
+        ],
+        "walkingTips": "갈림길에서 반드시 노란색 'Alternative / Senda Fluvial' 표지판을 따르세요. 공장 도로를 피하고 아름다운 강변 숲길로 안내합니다."
     },
     {
         "day": 10,
         "date": "11/20",
         "dayOfWeek": "금",
-        "type": "중앙길",
-        "origin": "오 포리뇨",
+        "type": "바다 조망 코스",
+        "origin": "오 포리뇨 (O Porriño)",
         "destination": "레돈델라 (Redondela)",
-        "distance": "15km",
-        "highlight": "리아스 해안 만 조망, 해안길 합류 지점",
-        "hotel": "Albergue Casa da Torre (공립)",
-        "desc": "해안길과 중앙길이 하나로 만나는 역사적인 분기점. 리아스 해안의 멋진 바다와 철교 감상"
+        "distance": "도보 15.2 km",
+        "walkingKm": 15.2,
+        "difficulty": "보통 (완만한 언덕 넘어 비고 만 조망)",
+        "estimatedTime": "약 4시간",
+        "highlight": "두 개의 거대한 철도 고가교가 교차하는 '철교의 마을' 레돈델라 도착",
+        "desc": "모스(Mos) 마을의 언덕길을 넘어 대서양 비고 만(Ría de Vigo)이 살짝 내려다보이는 산등성이를 지나 해안길과 중앙길이 만나는 교통 요충지 레돈델라로 진입합니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos da Xunta de Galicia Casa da Torre (레돈델라 공립)",
+            "type": "갈리시아 주정부 공립 (Xunta)",
+            "fee": "€10",
+            "beds": "42베드",
+            "heating": "난방 완비 (고풍스러운 석조 건물에 라디에이터 설치)",
+            "operatingNotice": "11월 연중무휴 정상 운영 (13:00 오픈)",
+            "address": "Rúa Isidoro Queimaliños 2, Redondela",
+            "note": "16세기 귀족 고택(Casa da Torre)을 리모델링한 알베르게. 매우 고풍스럽고 운치 있음"
+        },
+        "attractions": [
+            {
+                "name": "모스 성당과 궁전 (Pazo de Mos)",
+                "desc": "언덕 중턱에 자리 잡은 17세기 갈리시아 전형적인 귀족 장원 궁전"
+            },
+            {
+                "name": "레돈델라 고가 철교 (Viaducto de Madrid & Pontevedra)",
+                "desc": "마을 공중을 가로지르는 19세기 철도 역사 유물. 레돈델라의 상징"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Tapería O Choco",
+                "menu": "초코 먹물 볶음 (Choco en su Tinta, €12)",
+                "desc": "레돈델라의 상징인 신선한 갑오징어(Choco)를 먹물 소스에 부드럽게 조려낸 대표 미식"
+            },
+            {
+                "name": "Cafetería D'Lourdes",
+                "menu": "또르띠야 에스파뇰라 (감자 오믈렛)",
+                "desc": "도톰하고 촉촉한 스페인 국민 오믈렛과 따뜻한 커피 한 잔"
+            }
+        ],
+        "walkingTips": "레돈델라는 해안길(Coastal)과 중앙길(Central)이 합류하는 곳이라 순례자들이 많아집니다. 공립 알베르게 입실을 위해 13:00 전후 도착을 권장합니다."
     },
     {
         "day": 11,
         "date": "11/21",
         "dayOfWeek": "토",
-        "type": "중앙길",
-        "origin": "레돈델라",
+        "type": "역사 문화 중심지",
+        "origin": "레돈델라 (Redondela)",
         "destination": "폰테베드라 (Pontevedra)",
-        "distance": "18km",
-        "highlight": "가리비 모양 성당(Peregrina), 중세 구시가지",
-        "hotel": "Bulezen Urban Hostel / Virxe da Peregrina",
-        "desc": "폰테삼파이오 고대 석교를 건너 보행자의 천국 폰테베드라 구시가지와 가리비 순례자 성당 탐방"
+        "distance": "도보 17.8 km",
+        "walkingKm": 17.8,
+        "difficulty": "보통 (아르카데 굴 시식 후 숲길)",
+        "estimatedTime": "약 4.5시간",
+        "highlight": "굴 마을 아르카데 ➔ 중세 돌다리 ➔ 가리비 모양 페레그리나 성당의 폰테베드라",
+        "desc": "갈리시아 굴로 유명한 아르카데를 지나 나폴레옹 전쟁의 격전지 폰테삼파이오 다리를 건너, 갈리시아에서 가장 아름답게 보존된 보행자 천국 폰테베드라 구시가에 도착합니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos da Xunta de Galicia Virgen Peregrina (폰테베드라 공립)",
+            "type": "갈리시아 주정부 공립 (Xunta)",
+            "fee": "€10",
+            "beds": "92베드 (대형 공립)",
+            "heating": "중앙 집중식 난방 완비 (매우 따뜻함)",
+            "operatingNotice": "11월 연중무휴 정상 운영 (13:00 오픈)",
+            "address": "Rúa Otero Pedrayo s/n, Pontevedra (기차역 인근)",
+            "note": "넓은 정원과 쾌적한 시설, 세탁기/건조기 구비. 구시가지 도보 10분"
+        },
+        "attractions": [
+            {
+                "name": "폰테삼파이오 돌다리 (Ponte Sampaio)",
+                "desc": "10개의 아치가 베르두고 강을 건너는 웅장한 다리. 1809년 스페인 민병대가 프랑스군을 격퇴한 역사 현장"
+            },
+            {
+                "name": "페레그리나 성당 (Santuario da Virxe Peregrina)",
+                "desc": "성당 평면 자체가 순례자의 상징인 가리비 조개 모양으로 지어진 유일무이한 18세기 성당"
+            },
+            {
+                "name": "에레리아 광장 (Praza da Ferraría) & 구시가지",
+                "desc": "차량이 다니지 않는 중세 광장. 밤이 되면 타파스 바들의 불빛으로 활기가 넘침"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "O Lar do Leitón (아르카데 굴 맛집)",
+                "menu": "신선한 자연산 굴(Ostras) & 알바리뇨 와인",
+                "desc": "7km 지점 아르카데에서 맛보는 바다 내음 가득한 굴 한 접시. 순례길의 빼놓을 수 없는 미식 호사"
+            },
+            {
+                "name": "Casa Fidel O Pulpeiro (폰테베드라)",
+                "menu": "뽈뽀 아 페이라 (갈리시아 전통 문어 숙회, €14)",
+                "desc": "나무 접시에 담겨 나오는 야들야들한 문어와 삶은 감자. 폰테베드라 현지인 원탑 문어집"
+            }
+        ],
+        "walkingTips": "내일은 드디어 성스러운 영성길(Variante Espiritual)로 갈라지는 날입니다! 폰테베드라 구시가지에서 타파스를 즐기며 에너지를 충전하세요."
     },
     {
         "day": 12,
         "date": "11/22",
         "dayOfWeek": "일",
-        "type": "영성길 1",
-        "origin": "폰테베드라",
-        "destination": "아르멘테이라",
-        "distance": "17km",
-        "highlight": "영성길 진입, 콤바드로 곡물창고 마을 통과",
-        "hotel": "Albergue de Armenteira (수도원 인근)",
-        "desc": "★ 영성길(Variante Espiritual) 진입! 갈리시아 전통 곡물창고(오레오)가 늘어선 해변 콤바드로 경유 후 수도원 마을 도착"
+        "type": "영성길(Variante Espiritual) 1일차",
+        "origin": "폰테베드라 (Pontevedra)",
+        "destination": "콤바드로 ➔ 아르멘테이라 (Armenteira)",
+        "distance": "도보 17.5 km",
+        "walkingKm": 17.5,
+        "difficulty": "보통~약간 높음 (콤바드로 이후 숲 오르막)",
+        "estimatedTime": "약 5시간",
+        "highlight": "영성길 진입 ➔ 바다 위 곡물창고 마을 콤바드로 ➔ 12세기 시토회 아르멘테이라 수도원",
+        "desc": "폰테베드라 3km 후 영성길로 좌회전! 바다 위에 떠 있는 듯한 전통 곡물창고 마을 콤바드로(Combarro)를 둘러보고, 산속 깊은 시토회 수도원 아르멘테이라로 올라갑니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos de Armenteira (아르멘테이라 공립 알베르게)",
+            "type": "갈리시아 주정부/시립 공립",
+            "fee": "€10",
+            "beds": "32베드",
+            "heating": "바닥 난방 및 온풍 가동 (11월 따뜻함)",
+            "operatingNotice": "11월 연중무휴 정상 운영 (13:30 오픈)",
+            "address": "Lugar Vilar 1, Armenteira (Meis)",
+            "note": "수도원 바로 옆 위치. 주변이 고요한 숲이라 명상과 휴식에 최적. 저녁 수도원 미사 참석 추천"
+        },
+        "attractions": [
+            {
+                "name": "콤바드로 전통 곡물창고 마을 (Hórreos de Combarro)",
+                "desc": "바닷가를 따라 화강암으로 지어진 30여 개의 전통 오레오(곡물창고)와 십자가상이 장관을 이루는 어촌"
+            },
+            {
+                "name": "아르멘테이라 시토회 수도원 (Mosteiro de Santa María de Armenteira)",
+                "desc": "1162년 건립된 중세 시토회 수도원. 수녀님들의 그레고리안 성가 저녁 기도(19:00)가 마음에 큰 평안을 줌"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Tapería O Bocoi (콤바드로 바닷가)",
+                "menu": "바지락 와인 찜(Almejas) & 정어리 구이",
+                "desc": "바다 물결이 찰랑이는 테라스에서 즐기는 신선한 해산물 타파스"
+            },
+            {
+                "name": "Bar O Mosteiro (아르멘테이라)",
+                "menu": "따뜻한 갈리시아 수프(Caldo) & 돼지 등갈비 구이",
+                "desc": "수도원 앞 유일한 식당. 등산 후 마시는 시원한 맥주와 푸짐한 시골 정식"
+            }
+        ],
+        "walkingTips": "★ 매우 중요: 오늘 저녁 아르멘테이라 도착 즉시 보트 운영사(A Barca do Peregrino / Amare WhatsApp)에 연락해 모레(11/24) 아침 빌라노바 발 보트 출항 시간과 물때를 반드시 확인 예약하세요!"
     },
     {
         "day": 13,
         "date": "11/23",
         "dayOfWeek": "월",
-        "type": "영성길 2",
-        "origin": "아르멘테이라",
-        "destination": "빌라노바 드 아로우사",
-        "distance": "23km",
-        "highlight": "완만한 내리막 '돌과 물의 길' 트레킹",
-        "hotel": "Albergue de Peregrinos de Vilanova de Arousa",
-        "desc": "물레방아와 폭포가 어우러진 갈리시아 최고의 숲길 '돌과 물의 길(Ruta da Pedra e da Auga)' 힐링 트레킹"
+        "type": "영성길 2일차 (힐링 트레킹)",
+        "origin": "아르멘테이라 (Armenteira)",
+        "destination": "빌라노바 드 아로우사 (Vilanova de Arousa)",
+        "distance": "도보 22.0 km",
+        "walkingKm": 22.0,
+        "difficulty": "쉬움 (완만한 내리막 계곡 숲길)",
+        "estimatedTime": "약 5시간",
+        "highlight": "'돌과 물의 길(Ruta da Pedra e da Auga)' ➔ 수십 개 물레방아 계곡 ➔ 바다 항구 도착",
+        "desc": "수도원에서 빌라노바 해변까지 계곡물을 따라 완만하게 내려가는 '돌과 물의 길'은 순례길 전체에서 가장 아름다운 자연 산책로로 꼽히며, 내리막이라 22km지만 15km 체감 피로도입니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos de Vilanova de Arousa (공립 다목적 스포츠센터)",
+            "type": "시립/공립 알베르게 (Municipal)",
+            "fee": "€10",
+            "beds": "50베드",
+            "heating": "난방 완비 (11월 정상 운영)",
+            "operatingNotice": "11월 연중무휴 정상 운영 확인 완료 (A Corticela는 동절기 휴업이므로 이곳 또는 A Salazón 이용)",
+            "address": "Pavillón Polideportivo, Av. González Besada, Vilanova de Arousa",
+            "note": "보트 선착장까지 도보 3분! 내일 아침 보트 탑승에 가장 이상적인 위치"
+        },
+        "attractions": [
+            {
+                "name": "돌과 물의 길 (Ruta da Pedra e da Auga)",
+                "desc": "이끼 낀 고대 수차(물레방아)와 폭포, 졸졸 흐르는 계곡물이 이어지는 동화 같은 숲길"
+            },
+            {
+                "name": "아로우사 바다 하구 & 선착장",
+                "desc": "홍합 양식 뗏목(Bateas)이 그림처럼 떠 있는 잔잔한 리아스 해안 풍경"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Mesón da Auga (계곡 중간 쉼터)",
+                "menu": "오렌지 착즙 주스 & 엠파나다 조각",
+                "desc": "계곡 물소리를 들으며 쉬어갈 수 있는 숲속의 오아시스 같은 카페"
+            },
+            {
+                "name": "Restaurante O Faro (빌라노바 항구)",
+                "menu": "신선한 홍합 찜(Mejillones al Vapor, €8) & 맛조개",
+                "desc": "아로우사 만에서 갓 건져 올린 살이 꽉 찬 특산 홍합 요리"
+            }
+        ],
+        "walkingTips": "한국인들에게 알려진 'A Corticela' 알베르게는 10월 말 동절기 휴업하므로, 선착장 바로 앞 시립 체육관 공립 알베르게 또는 사립 A Salazón을 이용하세요."
     },
     {
         "day": 14,
         "date": "11/24",
         "dayOfWeek": "화",
-        "type": "영성길 3",
+        "type": "영성길 3일차 (보트 순례 Traslatio)",
         "origin": "빌라노바 드 아로우사",
-        "destination": "파드론 (Padrón)",
-        "distance": "보트 + 3km",
-        "highlight": "보트 순례길(Traslatio) 탑승, 파드론 고추 요리",
-        "hotel": "Albergue de Padrón (공립) / Albergue Rossol",
-        "desc": "★ 성 야고보의 유해 운구 보트 순례(Traslatio) 탑승! 강변 십자가들을 지나 파드론 기착, 명물 꽈리고추 튀김 만찬"
+        "destination": "보트(Traslatio) ➔ 파드론 (Padrón)",
+        "distance": "보트 28km + 도보 3.5 km",
+        "walkingKm": 3.5,
+        "difficulty": "매우 쉬움 (보트 유람 & 가벼운 산책)",
+        "estimatedTime": "보트 1시간 15분 + 도보 1시간",
+        "highlight": "성 야고보 유해 이동 뱃길(Traslatio) 보트 탑승 ➔ 파드론 고추 요리 미식!",
+        "desc": "성 야고보의 제자들이 유해를 싣고 거슬러 올라갔던 세계 유일의 수상 십자가 뱃길(Traslatio)을 보트로 순례한 후, 폰테세수레스 선착장에 내려 파드론까지 가볍게 걷습니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos da Xunta de Galicia de Padrón (파드론 공립)",
+            "type": "갈리시아 주정부 공립 (Xunta)",
+            "fee": "€10",
+            "beds": "46베드",
+            "heating": "라디에이터 난방 완비 (매우 따뜻함)",
+            "operatingNotice": "11월 연중무휴 정상 운영 (13:00 오픈)",
+            "address": "Convento do Carme s/n, Padrón",
+            "note": "카르멘 수도원 바로 아래 언덕에 위치. 마당이 운치 있고 내부가 조용함"
+        },
+        "attractions": [
+            {
+                "name": "바다 위의 십자가 뱃길 (Via Crucis Marítimo-Fluvial)",
+                "desc": "보트를 타고 우야 강을 거슬러 오르며 강가 바위 위에 세워진 17개의 석조 십자가를 참배하는 신비로운 경험"
+            },
+            {
+                "name": "파드론 성 야고보 성당 & 성석 (O Pedrón)",
+                "desc": "성 야고보의 유해를 실은 돌배를 묶었다는 로마 시대 성스러운 돌기둥(Pedrón)이 제단 아래 보존됨"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Pulpería Rial (파드론 명소)",
+                "menu": "파드론 고추 튀김 (Pimientos de Padrón, €7) & 문어",
+                "desc": "'어떤 것은 맵고, 어떤 것은 안 맵다!' 올리브유에 튀겨 거친 소금을 뿌린 파드론의 원조 고추 요리"
+            },
+            {
+                "name": "Asador O'Pepiño",
+                "menu": "갈리시아 소고기 스테이크(Churrasco) & 엠파나다",
+                "desc": "화덕에서 장작불로 구워내는 부드럽고 육즙 가득한 전통 바비큐"
+            }
+        ],
+        "walkingTips": "보트 비용은 약 €25~30(현장 지불)입니다. 11월에는 바닷바람이 쌀쌀하니 방풍 자켓과 넥워머, 장갑을 착용하고 승선하세요."
     },
     {
         "day": 15,
         "date": "11/25",
         "dayOfWeek": "수",
-        "type": "중앙길",
-        "origin": "파드론",
-        "destination": "테오 / 오 밀라도이로",
-        "distance": "15km",
-        "highlight": "완주 전야, 고요한 참나무 숲길",
-        "hotel": "Albergue Milladoiro / Teo 숙소",
-        "desc": "대성당을 하루 앞둔 설레는 순례길. 고요한 갈리시아 참나무 숲길을 걸으며 마음 정리"
+        "type": "산티아고 입성 전야",
+        "origin": "파드론 (Padrón)",
+        "destination": "테오(Teo) / 오 밀라도이로 (O Milladoiro)",
+        "distance": "도보 15.5 km",
+        "walkingKm": 15.5,
+        "difficulty": "쉬움 (완만한 숲길 및 마을길)",
+        "estimatedTime": "약 4시간",
+        "highlight": "완주 전야의 설렘 ➔ 산티아고 대성당 첨탑이 처음으로 바라보이는 언덕 도착",
+        "desc": "이리아 플라비아의 옛 주교좌 성당을 지나 울창한 참나무 숲길을 걸어 산티아고 바로 코앞인 오 밀라도이로(O Milladoiro)에 도착하여 마지막 밤을 보냅니다.",
+        "albergueInfo": {
+            "name": "Albergue de Peregrinos da Xunta de Galicia de Teo (테오 공립 알베르게)",
+            "type": "갈리시아 주정부 공립 (Xunta)",
+            "fee": "€10",
+            "beds": "35베드",
+            "heating": "난방 완비 (11월 정상 작동)",
+            "operatingNotice": "11월 연중무휴 정상 운영 (13:00 오픈)",
+            "address": "Rúa Calvo Sotelo, Teo (또는 오 밀라도이로 사립/공립)",
+            "note": "산티아고 입성 직전 조용하고 평화로운 휴식을 취할 수 있는 최적의 전야 알베르게"
+        },
+        "attractions": [
+            {
+                "name": "이리아 플라비아 산타 마리아 성당 (Igreja de Santa María Maior)",
+                "desc": "노벨문학상 작가 카밀로 호세 세라의 묘비가 있는 1세기 고대 기독교 유적지 성당"
+            },
+            {
+                "name": "오 밀라도이로 전망 언덕 (Agro dos Monteiros)",
+                "desc": "남쪽에서 순례길을 걷는 이들이 처음으로 산티아고 대성당의 웅장한 첨탑을 마주하는 감동의 장소"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Restaurante O Secreto",
+                "menu": "갈리시아 갈비탕 수프 & 수제 미트볼",
+                "desc": "지역 주민들이 즐겨 찾는 인정 넘치는 밥집. 내일 완주를 앞두고 든든한 저녁 식사"
+            },
+            {
+                "name": "Cervecería Milladoiro",
+                "menu": "에스트레야 갈리시아 생맥주 & 감자튀김",
+                "desc": "시원한 맥주 한 잔으로 200여 km의 대여정을 자축하는 전야의 건배"
+            }
+        ],
+        "walkingTips": "내일은 산티아고 대성당까지 단 8km만 남았습니다! 아침 8시에 출발하면 10시 반에 성당 광장에 도착해 여유롭게 정오 미사에 참석할 수 있습니다."
     },
     {
         "day": 16,
         "date": "11/26",
         "dayOfWeek": "목",
-        "type": "완주 입성",
+        "type": "대망의 산티아고 완주 입성!",
         "origin": "오 밀라도이로",
-        "destination": "산티아고 데 콤포스텔라",
-        "distance": "10km",
-        "highlight": "산티아고 대성당 입성, 완주증 발급, 정오 미사",
-        "hotel": "산티아고 중심가 숙소 (1박)",
-        "desc": "★ 마침내 오브라도이로 광장 대성당 입성! 성 야고보 포옹, 콤포스텔라 완보증 수령, 12시 순례자 향로 미사 참례"
+        "destination": "산티아고 데 콤포스텔라 (Santiago)",
+        "distance": "도보 8.5 km",
+        "walkingKm": 8.5,
+        "difficulty": "매우 쉬움 (가벼운 발걸음)",
+        "estimatedTime": "약 2~2.5시간",
+        "highlight": "오브라도이로 광장 입성! ➔ 대성당 순례자 정오 미사 ➔ 콤포스텔라 완주증 수령",
+        "desc": "마지막 8.5km를 걸어 포르타 파시네이라 문을 통과하여 대망의 오브라도이로 광장에 도착합니다! 웅장한 성당 앞에 배낭을 내려놓고 가슴 벅찬 완주의 기쁨을 만끽합니다.",
+        "albergueInfo": {
+            "name": "산티아고 데 콤포스텔라 시내 호스텔 / 호텔 (2박 연박)",
+            "type": "시내 호스텔/호텔 (사전 예약/자유 선택)",
+            "fee": "약 €25~40 / 1박",
+            "beds": "개인실 또는 소규모 도미토리",
+            "heating": "난방 완비",
+            "operatingNotice": "11월 정상 운영",
+            "address": "Santiago de Compostela 구시가지 중심부",
+            "note": "완주 후 여유롭게 휴식하고 짐을 풀기 위한 대성당 도보 5~10분 거리 숙소"
+        },
+        "attractions": [
+            {
+                "name": "오브라도이로 광장 (Praza do Obradoiro)",
+                "desc": "전 세계 순례자들의 종착지! 광장 바닥에 누워 성당 파사드를 바라보는 감동의 순간"
+            },
+            {
+                "name": "산티아고 대성당 순례자 정오 미사 (12:00)",
+                "desc": "대성당 중앙 제단에서 거대한 향로(Botafumeiro)가 공중을 가르는 장엄한 순례자 축복 미사"
+            },
+            {
+                "name": "순례자 사무소 (Oficina de Acogida al Peregrino)",
+                "desc": "스탬프가 가득 찬 크레덴시알을 제시하고 라틴어 완주 증서(Compostela)와 거리 증명서 발급"
+            },
+            {
+                "name": "성 야고보 사도 동상 포옹 & 지하 무덤 참배",
+                "desc": "성당 제단 뒤편으로 올라가 사도의 동상을 뒤에서 포옹하고 은제 관에 담긴 유해를 마주함"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Casa Manolo (순례자 성지 식당)",
+                "menu": "3코스 순례자 정식 (와인 1병 포함, €13)",
+                "desc": "전 세계 순례자들로 붐비는 가성비 전설의 식당. 칼라마리, 송어구이, 돼지갈비 등 푸짐한 만찬"
+            },
+            {
+                "name": "Pastelería Mercedes Mora",
+                "menu": "타르타 데 산티아고 (Tarta de Santiago, 아몬드 케이크)",
+                "desc": "밀가루 없이 아몬드 가루와 계란, 레몬 껍질로 구워낸 고소하고 달콤한 전통 케이크"
+            }
+        ],
+        "walkingTips": "순례자 사무소 완주증 발급 대기 줄이 길 수 있으니, 대성당 정오 미사 전이나 미사 직후 방문하여 QR 대기표를 먼저 발급받으세요."
     },
     {
         "day": 17,
         "date": "11/27",
         "dayOfWeek": "금",
-        "type": "투어",
+        "type": "세상의 끝 투어 (피니스테레 & 무시아)",
         "origin": "산티아고",
-        "destination": "피스테라 & 무시아",
-        "distance": "버스 투어",
-        "highlight": "세상의 끝(0.00km) 등대 및 대서양 바다 투어",
-        "hotel": "산티아고 중심가 숙소 (2박)",
-        "desc": "고대인들이 믿었던 세상의 끝 피스테라 0.00km 비석과 무시아 성모 바위 절벽 일일 투어"
+        "destination": "피스테라 (Finisterre) & 무시아 (Muxía)",
+        "distance": "당일 버스 투어 (도보 3km)",
+        "walkingKm": 3.0,
+        "difficulty": "매우 쉬움 (유람 및 해안 절벽 산책)",
+        "estimatedTime": "종일 데이 투어 (09:00 ~ 18:30)",
+        "highlight": "고대인들이 믿었던 세상의 끝 '0.00 km' 등대 절벽 & 대서양의 거친 파도",
+        "desc": "산티아고 광장에서 출발하는 피니스테레-무시아 일일 투어 버스를 타고 유럽 대륙의 서쪽 끝 0.00km 표지석과 성모 마리아의 전설이 깃든 무시아 해안 바위를 탐방합니다.",
+        "albergueInfo": {
+            "name": "산티아고 데 콤포스텔라 연박 숙소",
+            "type": "시내 숙소",
+            "fee": "연박",
+            "beds": "침대",
+            "heating": "난방 완비",
+            "operatingNotice": "정상 운영",
+            "address": "Santiago de Compostela",
+            "note": "투어 종료 후 산티아고 숙소로 복귀하여 편안하게 취침"
+        },
+        "attractions": [
+            {
+                "name": "피니스테레 등대 (Cabo Fisterra 0.00km 표지석)",
+                "desc": "로마인들이 세상의 끝이라 여겼던 깎아지른 절벽 끝 등대. 순례자들이 신발과 옷을 태우며 새 삶을 다짐하던 곳"
+            },
+            {
+                "name": "무시아 바르카 성당 (Santuario da Virxe da Barca)",
+                "desc": "거대한 화강암 바위와 대서양 성난 파도가 부딪히는 신비롭고 웅장한 해안 성지"
+            },
+            {
+                "name": "에자로 폭포 (Fervenza do Ézaro)",
+                "desc": "유럽에서 유일하게 바다로 직접 떨어지는 장엄한 에자로 강 폭포"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "O Pirata (피니스테레 항구)",
+                "menu": "잠부리냐스(가리비 구이, €12) & 페르세베스(거북손)",
+                "desc": "대서양 청정 해역에서 채취한 달콤 쫄깃한 가리비와 독특한 감칠맛의 귀한 거북손 요리"
+            },
+            {
+                "name": "A Lareira (피니스테레)",
+                "menu": "해산물 빠에야 (Arroz con Mariscos)",
+                "desc": "새우, 홍합, 게살이 푸짐하게 들어간 갈리시아식 해물 밥"
+            }
+        ],
+        "walkingTips": "대서양 절벽 바람이 거세므로 윈드브레이커와 경량 패딩을 꼭 챙기세요. 현지 투어는 산티아고 인포센터나 온라인(Civitatis/GetYourGuide)으로 예약 가능합니다."
     },
     {
         "day": 18,
         "date": "11/28",
         "dayOfWeek": "토",
-        "type": "휴식",
+        "type": "산티아고 힐링 & 미식 탐방",
         "origin": "산티아고",
         "destination": "산티아고",
-        "distance": "시내 도보",
-        "highlight": "아바스토스 시장 해산물 식사 및 기념품 쇼핑",
-        "hotel": "산티아고 중심가 숙소 (3박)",
-        "desc": "산티아고 아바스토스 재래시장에서 신선한 갈리시아 뽈뽀와 해산물 만찬, 가족/지인 기념품 쇼핑"
+        "distance": "시내 미식 도보 약 5km",
+        "walkingKm": 5.0,
+        "difficulty": "매우 쉬움",
+        "estimatedTime": "자유 힐링 산책",
+        "highlight": "아바스토스 수산시장 즉석 해산물 구이 ➔ 알라메다 공원 인생샷 포토존",
+        "desc": "순례의 모든 긴장을 풀고 스페인 3대 전통 수산시장인 아바스토스 시장에서 싱싱한 해산물을 맛보고, 알라메다 공원에서 대성당 전경을 바라보며 사색을 즐깁니다.",
+        "albergueInfo": {
+            "name": "산티아고 데 콤포스텔라 숙소",
+            "type": "시내 숙소",
+            "fee": "자유",
+            "beds": "침대",
+            "heating": "난방 완비",
+            "operatingNotice": "정상 운영",
+            "address": "Santiago de Compostela",
+            "note": "내일 일정을 대비한 여유로운 휴식"
+        },
+        "attractions": [
+            {
+                "name": "아바스토스 시장 (Mercado de Abastos)",
+                "desc": "갈리시아에서 두 번째로 방문객이 많은 명소. 신선한 문어, 바지락, 소고기를 구매해 시장 식당에서 즉석 요리 가능"
+            },
+            {
+                "name": "알라메다 공원 (Parque da Alameda)",
+                "desc": "대성당 파사드가 액자처럼 한눈에 들어오는 최고의 포토존과 두 자매 조각상(As Duas Marías)"
+            },
+            {
+                "name": "킨타나 광장 (Praza da Quintana)",
+                "desc": "밤이 되면 성당 모퉁이 조명 아래 지팡이를 든 순례자의 그림자가 나타나는 신비로운 광장"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Abastos 2.0 (시장 레스토랑)",
+                "menu": "시장 오마카세 타파스 코스 (€25~)",
+                "desc": "그날 시장에 들어온 가장 신선한 제철 해산물로 셰프가 즉석 창작해내는 갈리시아 미식의 정점"
+            },
+            {
+                "name": "A Taberna do Bispo (핀초스 거리)",
+                "menu": "하몽 이베리코 핀초 & 뿔뽀 또스따",
+                "desc": "프랑코 거리(Rúa do Franco) 최고의 타파스 바. 카운터에 화려하게 진열된 핑거푸드와 시원한 맥주"
+            },
+            {
+                "name": "Chocolatería Metate",
+                "menu": "원조 초콜라테 콘 추로스 (핫초코 & 츄러스)",
+                "desc": "걸쭉하고 진한 다크 초콜릿에 갓 튀긴 바삭한 츄러스를 찍어 먹는 힐링 디저트"
+            }
+        ],
+        "walkingTips": "아바스토스 시장은 오전에 가장 활기가 넘칩니다. 시장 1동 수산물 코너에서 랍스터나 가리비를 골라 5동 식당에 가져가면 1인당 €5 조리비로 멋진 요리를 해줍니다."
     },
     {
         "day": 19,
         "date": "11/29",
         "dayOfWeek": "일",
-        "type": "예비일",
+        "type": "순례 완보 사색 & 예비일",
         "origin": "산티아고",
         "destination": "산티아고",
-        "distance": "자유",
-        "highlight": "일정 지연 대비 버퍼일 (차질 없을 시 휴식)",
-        "hotel": "산티아고 중심가 숙소 (4박)",
-        "desc": "도보 일정 지연을 대비한 완벽한 버퍼 데이. 정상 완주 시 산티아고 구시가지 카페 힐링"
+        "distance": "시내 도보 약 4km",
+        "walkingKm": 4.0,
+        "difficulty": "매우 쉬움",
+        "estimatedTime": "자유 일정",
+        "highlight": "일정 지연 대비 버퍼 데이 ➔ 차질 없는 완주로 여유로운 선물 쇼핑 & 감사 기도",
+        "desc": "도보 순례 중 날씨나 부상으로 일정이 지연될 경우를 대비한 황금 같은 예비일(Buffer Day)입니다. 일정이 완벽히 완료되었으므로 소중한 사람들을 위한 선물 쇼핑과 성찰의 시간을 갖습니다.",
+        "albergueInfo": {
+            "name": "산티아고 데 콤포스텔라 숙소",
+            "type": "시내 숙소",
+            "fee": "자유",
+            "beds": "침대",
+            "heating": "난방 완비",
+            "operatingNotice": "정상 운영",
+            "address": "Santiago de Compostela",
+            "note": "내일 아침 마드리드 행 렌페 고속열차 탑승 준비 (산티아고 역 위치 확인)"
+        },
+        "attractions": [
+            {
+                "name": "순례 박물관 (Museo das Peregrinacións)",
+                "desc": "1000년간 이어진 산티아고 순례길의 역사와 유물, 전 세계 순례자들의 흔적을 모아둔 박물관"
+            },
+            {
+                "name": "산 마르틴 피나리오 수도원 (San Martiño Pinario)",
+                "desc": "스페인에서 두 번째로 큰 거대한 수도원과 화려한 황금 제단"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "O Sendeiro (숨은 정원 식당)",
+                "menu": "갈리시아 소고기 스테이크 & 밤 크림 디저트",
+                "desc": "조용한 골목 돌담 정원에서 즐기는 감성적이고 정갈한 순례 완주 축하 만찬"
+            },
+            {
+                "name": "Café Casino (1873년 오픈)",
+                "menu": "카페 콘 레체 & 아몬드 비스킷",
+                "desc": "역대 문인들과 예술가들이 사색을 즐겼던 클래식한 분위기의 역사적인 카페"
+            }
+        ],
+        "walkingTips": "내일 탑승할 Renfe 고속열차 승차권 모바일 앱(Renfe 또는 Omio)을 확인해 두고, 남은 유로화 동전들을 기념품 구매로 알뜰하게 사용하세요."
     },
     {
         "day": 20,
         "date": "11/30",
         "dayOfWeek": "월",
-        "type": "광역 이동",
-        "origin": "산티아고",
+        "type": "광역 이동 & 마드리드 입성",
+        "origin": "산티아고 (Santiago)",
         "destination": "마드리드 (Chamartín)",
-        "distance": "렌페 (3.5h)",
-        "highlight": "고속열차로 마드리드 이동 후 체크인, 야경 투어",
-        "hotel": "마드리드 중심가 호텔 (1박)",
-        "desc": "산티아고 역에서 Renfe 초고속열차 탑승(약 3시간 20분) ➔ 마드리드 차마르틴 역 도착, 호텔 체크인 & 솔 광장 야경"
+        "distance": "초고속열차 Renfe (약 3시간 20분 이동)",
+        "walkingKm": 4.0,
+        "difficulty": "쉬움 (열차 이동 및 시내 산책)",
+        "estimatedTime": "열차 3h 20m + 야경 도보 2h",
+        "highlight": "갈리시아에서 스페인 심장부 마드리드로 고속 이동 ➔ 솔 광장 야경 투어",
+        "desc": "산티아고 데 콤포스텔라 역에서 초고속열차(Renfe Alvia) 탑승하여 스페인 내륙을 가로질러 마드리드 차마르틴 역 도착, 호텔 체크인 후 화려한 대도시의 밤을 즐깁니다.",
+        "albergueInfo": {
+            "name": "마드리드 중심가 호텔 (차마르틴역 / 솔 광장 인근)",
+            "type": "도심 호텔",
+            "fee": "사전 예약 / 약 ₩90,000",
+            "beds": "전용 개인실",
+            "heating": "난방 완비",
+            "operatingNotice": "연중무휴",
+            "address": "Madrid Centro (솔 광장 또는 차마르틴역 인근)",
+            "note": "12/02 마드리드 바라하스 공항(MAD) 출국에 편리한 위치"
+        },
+        "attractions": [
+            {
+                "name": "푸에르타 델 솔 (Puerta del Sol)",
+                "desc": "스페인의 도로 원점 0km 킬로미터 제로 표지판과 마드리드의 상징 '곰과 딸기나무' 동상"
+            },
+            {
+                "name": "마요르 광장 (Plaza Mayor)",
+                "desc": "붉은빛 건물들이 사각형을 이루는 400년 역사의 광장. 웅장한 펠리페 3세 기마상"
+            },
+            {
+                "name": "그란 비아 (Gran Vía)",
+                "desc": "화려한 네온사인과 극장, 쇼핑가가 불야성을 이루는 마드리드의 브로드웨이"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Bar La Campana (마요르 광장 옆)",
+                "menu": "오징어 샌드위치 (Bocadillo de Calamares, €4.5)",
+                "desc": "바삭하고 두툼한 바게트 속에 갓 튀긴 부드러운 오징어가 한가득! 마드리드 소울푸드"
+            },
+            {
+                "name": "Chocolatería San Ginés (산히네스)",
+                "menu": "원조 초콜라테 콘 추로스 (1894년 창업)",
+                "desc": "130년 전통의 24시간 츄러스 성지. 진한 핫초코에 바삭한 츄러스를 찍먹하는 불멸의 맛"
+            }
+        ],
+        "walkingTips": "산티아고에서 마드리드로 넘어오면 시골 순례길과 달리 소매치기가 많으니 스마트폰과 지갑 등 소지품 관리에 유의하세요."
     },
     {
         "day": 21,
         "date": "12/01",
         "dayOfWeek": "화",
-        "type": "도시 관광",
+        "type": "마드리드 피날레 시내 관광",
         "origin": "마드리드",
         "destination": "마드리드",
-        "distance": "메트로/도보",
-        "highlight": "프라도 미술관, 솔 광장, 츄러스 맛집 전일 관광",
-        "hotel": "마드리드 중심가 호텔 (2박)",
-        "desc": "세계 3대 미술관 프라도 미술관 관람, 산 히네스 원조 츄러스, 마요르 광장 및 왕궁 전일 관광"
+        "distance": "메트로 & 시내 도보 약 8km",
+        "walkingKm": 8.0,
+        "difficulty": "쉬움",
+        "estimatedTime": "전일 관광 (09:00 ~ 21:00)",
+        "highlight": "프라도 미술관 ➔ Carlos 1픽 Tierra 부리또 ➔ 놀러와포차 한식 충전 ➔ Hualian 마트",
+        "desc": "세계 3대 미술관 프라도 미술관을 관람하고, 솔광장 Tierra 까르니따스 부리또와 베르나베우 근처 놀러와포차 한식, 그리고 에스파냐광장 Hualian 마트 쇼핑까지 완벽한 피날레를 즐깁니다.",
+        "albergueInfo": {
+            "name": "마드리드 호텔 (연박 2일차)",
+            "type": "도심 호텔",
+            "fee": "숙박 중",
+            "beds": "개인실",
+            "heating": "난방 완비",
+            "operatingNotice": "연중무휴",
+            "address": "Madrid Centro",
+            "note": "내일 아침 08:00 마드리드 바라하스 공항 T1 이동을 위한 최종 짐 패킹"
+        },
+        "attractions": [
+            {
+                "name": "프라도 미술관 (Museo Nacional del Prado)",
+                "desc": "벨라스케스의 '시녀들', 고야의 '옷을 입은/벗은 마하' 등 스페인 회화의 정수를 감상"
+            },
+            {
+                "name": "마드리드 왕궁 & 알무데나 대성당",
+                "desc": "베르사유 궁전에 필적하는 3,000개가 넘는 방을 가진 유럽 최대 규모의 왕궁 외관"
+            },
+            {
+                "name": "산미겔 시장 (Mercado de San Miguel)",
+                "desc": "유리 온실 형태의 화려한 미식 마켓. 가격이 비싸니 구매보다는 사진 촬영과 구경 위주 추천"
+            },
+            {
+                "name": "에스파냐 광장 (Plaza de España)",
+                "desc": "돈키호테와 산초 판사 동상이 우뚝 선 마드리드의 대표적인 녹지 쉼터 광장"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "Tierra Burrito Bar (솔광장 지점)",
+                "menu": "까르니따스 부리또 / 볼 (Carlos 강력 추천 1PICK!)",
+                "desc": "서브웨이처럼 고르는 멕시칸 부리또. 고기는 무조건 부드러운 풀드포크 '까르니따스' 선택 필수!"
+            },
+            {
+                "name": "Mesón del Champiñón (메손 델 참피뇬)",
+                "menu": "양송이 버섯 구이 & 띤또 데 베라노",
+                "desc": "철판에 초리조와 파슬리 마늘오일을 얹어 육즙이 뚝뚝 떨어지는 명물 버섯 타파스"
+            },
+            {
+                "name": "놀러와포차 (베르나베우 근처)",
+                "menu": "김치찌개 / 제육볶음 / 삼겹살",
+                "desc": "반찬 배달로 다져진 깊은 손맛의 한국인 찐맛집! 20여 일 만에 맛보는 감동의 한식"
+            },
+            {
+                "name": "Hualian(화련) 아시안마트 2호점",
+                "menu": "신라면, 김치, 한국 과자 쇼핑",
+                "desc": "에스파냐광장에서 올라가면 나오는 2호점이 매장도 크고 라면·식품 종류가 가장 다양함"
+            }
+        ],
+        "walkingTips": "프라도 미술관은 현장 대기 줄이 길 수 있으니 전날 모바일 공식 홈페이지에서 시간 지정 티켓을 예매해 두면 대기 없이 즉시 입장 가능합니다."
     },
     {
         "day": 22,
         "date": "12/02",
         "dayOfWeek": "수",
-        "type": "출국",
+        "type": "출국 & 귀국길 비행",
         "origin": "마드리드 (MAD)",
         "destination": "청두 (TFU) 경유",
-        "distance": "항공편",
-        "highlight": "08:00 공항 도착 ➔ 11:05 출국 (쓰촨 3U3804)",
-        "hotel": "기내 숙박 (Airbus A330)",
-        "desc": "아돌포 수아레스 바라하스 T1 이동. 11:05 쓰촨항공 3U3804(A330 대형기) 탑승 귀국길 비행"
+        "distance": "항공편 (11시간 55분 비행)",
+        "walkingKm": 1.5,
+        "difficulty": "매우 쉬움",
+        "estimatedTime": "08:00 공항 도착 ➔ 11:05 이륙",
+        "highlight": "08:00 바라하스 T1 도착 ➔ 11:05 쓰촨항공 3U3804(A330 대형기) 탑승 귀국 비행",
+        "desc": "호텔 체크아웃 후 바라하스 공항 T1으로 이동, 11:05 쓰촨항공 3U3804 탑승. 최신 Airbus A330 대형기에서 편안하게 기내식을 즐기며 환승지 청두로 향합니다.",
+        "albergueInfo": {
+            "name": "쓰촨항공 3U3804 기내 (Airbus A330 대형기)",
+            "type": "국제선 항공편 기내",
+            "fee": "결제완료 (₩406,827 포함)",
+            "beds": "항공기 좌석 (기내식 2회 제공)",
+            "heating": "기내 온도 조절 (담요 제공)",
+            "operatingNotice": "정시 운항",
+            "address": "마드리드 MAD T1 ➔ 청두 톈푸 TFU T1",
+            "note": "장거리 비행 중 편안한 복장과 수면 안대, C타입 이어폰 사용"
+        },
+        "attractions": [
+            {
+                "name": "마드리드 바라하스 공항 T1 면세점",
+                "desc": "남은 유로화로 하몽 진공팩, 뚜론(전통 엿), 올리브 오일, 스페인 와인 면세 쇼핑"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "쓰촨항공 기내식",
+                "menu": "따뜻한 기내식 식사 2회 & 음료",
+                "desc": "마드리드-청두 구간 제공되는 정규 기내식"
+            }
+        ],
+        "walkingTips": "국제선 비행이므로 최소 3시간 전인 아침 08:00까지 공항 터미널 1(T1) 쓰촨항공 카운터에 도착해 위탁수하물 수속을 마치세요."
     },
     {
         "day": 23,
         "date": "12/03",
         "dayOfWeek": "목",
-        "type": "귀국",
+        "type": "환승 & 인천 도착 (대단원 완결)",
         "origin": "청두 (TFU)",
         "destination": "인천 (ICN)",
-        "distance": "항공편",
-        "highlight": "청두 3h 환승 ➔ 13:30 인천 도착 (3U3973)",
-        "hotel": "스위트 홈 (귀가)",
-        "desc": "청두 톈푸 T1 3시간 환승 (수하물 자동 연결) ➔ 13:30 인천공항 T1 도착! 대단원의 순례길 완주"
+        "distance": "항공편 (3시간 30분 비행) ➔ 귀가",
+        "walkingKm": 1.0,
+        "difficulty": "매우 쉬움",
+        "estimatedTime": "06:00 청두 환승 ➔ 13:30 인천 도착",
+        "highlight": "청두 톈푸 T1 3시간 황금 환승(수하물 자동 연결) ➔ 13:30 인천공항 T1 도착!",
+        "desc": "06:00 청두 톈푸 공항 T1 도착 후 여유로운 3시간 환승(수하물 자동 연결로 찾을 필요 없음). 09:00 쓰촨항공 3U3973 환승 후 낮 13:30 인천공항 도착으로 24일간의 대여정을 영광스럽게 마무리합니다.",
+        "albergueInfo": {
+            "name": "스위트 홈 (Sweet Home)",
+            "type": "자택",
+            "fee": "₩0 (가장 따뜻한 보금자리)",
+            "beds": "나만의 침대",
+            "heating": "난방 완비",
+            "operatingNotice": "연중무휴 영구 개방",
+            "address": "대한민국 자택",
+            "note": "24일간의 위대한 여정을 완주한 나 자신을 격려하고 맞이하는 최고의 보금자리"
+        },
+        "attractions": [
+            {
+                "name": "인천국제공항 제1여객터미널 입국장",
+                "desc": "24일 만에 밟는 대한민국 땅. 순례길 완주의 감동과 환희"
+            }
+        ],
+        "foodSpots": [
+            {
+                "name": "인천공항 한식당 / 집밥",
+                "menu": "얼큰한 김치찌개 / 된장찌개 & 쌀밥",
+                "desc": "귀국 직후 온몸의 피로를 녹여주는 진정한 고향의 맛"
+            }
+        ],
+        "walkingTips": "청두 공항 환승 시 수하물은 인천까지 자동 연결되므로 기내 수하물만 들고 'International Transfers' 표지판을 따라 이동하면 30분 내로 환승 게이트에 도착합니다."
     }
 ]
 };

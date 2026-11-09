@@ -202,7 +202,12 @@ class SyncManager {
               }
             });
 
-            upgradedCamino.caminoDataVersion = 18;
+                        // 🥾 v19: 15km 최적화 23일 일정 & 명소·맛집·11월 공립 알베르게 동기화
+            upgradedCamino.itinerary = JSON.parse(JSON.stringify(freshCamino.itinerary || []));
+            if (upgradedCamino.routesInfo && upgradedCamino.routesInfo.hybrid) {
+              upgradedCamino.routesInfo.hybrid.itinerary = JSON.parse(JSON.stringify(freshCamino.itinerary || []));
+            }
+            upgradedCamino.caminoDataVersion = 19;
           }
         }
 
@@ -2883,6 +2888,245 @@ function updateCaminoHotel(idx, val) {
   showToast(`🏨 Day ${idx + 1} 숙소/알베르게가 저장되었습니다: ${val}`);
 }
 
+
+// --------------------------------------------------------------------------
+// 🥾 [순례길 1일 1칸 스마트 상세 뷰어 컴포넌트] (15km 코스 · 명소 · 맛집 · 11월 공립 알베르게)
+// --------------------------------------------------------------------------
+function getSingleCaminoDayCardHtml(dayNum, itineraryList) {
+  const camino = state.camino || INITIAL_CAMINO_DATA;
+  const list = itineraryList || camino.itinerary || INITIAL_CAMINO_DATA.itinerary || [];
+  const item = list.find(d => Number(d.day) === Number(dayNum)) || list[0] || {};
+  const dayIndex = list.findIndex(d => Number(d.day) === Number(dayNum));
+  const prevDay = dayIndex > 0 ? list[dayIndex - 1].day : null;
+  const nextDay = dayIndex < list.length - 1 ? list[dayIndex + 1].day : null;
+
+  const alb = item.albergueInfo || {};
+  const attractions = item.attractions || [];
+  const foodSpots = item.foodSpots || [];
+
+  return `
+    <div class="p-6 sm:p-7 rounded-2xl bg-slate-950/90 border-2 border-amber-500/40 shadow-2xl relative">
+      <!-- Top Quick Header & Prev/Next Mini Controls -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 mb-5 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 text-sm font-black font-mono shadow-md">
+            Day ${String(item.day).padStart(2, '0')}
+          </span>
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <h3 class="text-lg sm:text-xl font-black text-white">
+                ${item.origin} <i class="fa-solid fa-arrow-right text-xs text-amber-400 mx-1"></i> ${item.destination}
+              </h3>
+              <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-bold">
+                ${item.type || '도보 순례'}
+              </span>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5 font-mono">
+              <i class="fa-regular fa-calendar text-amber-400/80 mr-1"></i> 2026.${item.date} (${item.dayOfWeek}) · ${item.distance}
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 self-end sm:self-auto">
+          ${prevDay ? `
+            <button type="button" onclick="window.app.selectCaminoDay(${prevDay})" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs text-slate-200 font-bold transition flex items-center gap-1.5 cursor-pointer">
+              <i class="fa-solid fa-chevron-left text-[10px]"></i> Day ${prevDay}
+            </button>
+          ` : ''}
+          ${nextDay ? `
+            <button type="button" onclick="window.app.selectCaminoDay(${nextDay})" class="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-xs text-amber-200 font-bold transition flex items-center gap-1.5 cursor-pointer">
+              Day ${nextDay} <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </button>
+          ` : ''}
+        </div>
+      </div>
+
+      <!-- 4-Grid Core Metrics Banner -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg flex-shrink-0">
+            <i class="fa-solid fa-person-walking"></i>
+          </div>
+          <div>
+            <div class="text-[10px] text-slate-400 font-medium">도보 거리</div>
+            <div class="text-sm sm:text-base font-extrabold text-white font-mono">${item.walkingKm > 0 ? item.walkingKm + ' km' : '항공/열차'}</div>
+            <div class="text-[9px] text-amber-400 font-bold">15km 내외 밸런스</div>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-lg flex-shrink-0">
+            <i class="fa-solid fa-clock"></i>
+          </div>
+          <div>
+            <div class="text-[10px] text-slate-400 font-medium">예상 소요 시간</div>
+            <div class="text-sm sm:text-base font-extrabold text-white font-mono">${item.estimatedTime || '약 4시간'}</div>
+            <div class="text-[9px] text-sky-300">휴식 포함 여유 보행</div>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg flex-shrink-0">
+            <i class="fa-solid fa-mountain"></i>
+          </div>
+          <div>
+            <div class="text-[10px] text-slate-400 font-medium">코스 난이도</div>
+            <div class="text-xs sm:text-sm font-extrabold text-emerald-300">${item.difficulty || '보통'}</div>
+            <div class="text-[9px] text-slate-400">지형 맞춤 페이스</div>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-lg flex-shrink-0">
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <div class="min-w-0">
+            <div class="text-[10px] text-slate-400 font-medium">오늘의 핵심</div>
+            <div class="text-xs font-bold text-purple-300 truncate">${item.highlight || '순례길 트레킹'}</div>
+            <div class="text-[9px] text-slate-400">포토 & 기억할 순간</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description Banner -->
+      <div class="p-3.5 rounded-xl bg-slate-900/70 border border-slate-800/80 text-xs text-slate-300 leading-relaxed mb-6">
+        <i class="fa-solid fa-compass text-amber-400 mr-1.5"></i> <b>여정 요약:</b> ${item.desc || item.description || ''}
+      </div>
+
+      <!-- 2-Column Content Grid: [명소 & 맛집] vs [11월 공립 알베르게 & 실전 팁] -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-5">
+        
+        <!-- CARD 1: 🏛️ 꼭 둘러볼 명소 & 포토스팟 -->
+        <div class="p-4 sm:p-5 rounded-xl bg-slate-900/90 border border-slate-800 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-2.5 mb-3 border-b border-slate-800">
+              <span class="text-sm font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-monument text-amber-400"></i> 꼭 둘러볼 도시 명소 & 포토스팟
+              </span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20 font-bold">
+                ${attractions.length}곳 추천
+              </span>
+            </div>
+
+            <div class="space-y-3 text-xs">
+              ${attractions.map((att, aIdx) => `
+                <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800 hover:border-amber-500/30 transition">
+                  <div class="font-bold text-amber-200 flex items-center gap-1.5 mb-1">
+                    <span class="w-4 h-4 rounded-full bg-amber-500/20 text-amber-300 flex items-center justify-center text-[10px] font-mono">${aIdx + 1}</span>
+                    <span>${att.name}</span>
+                  </div>
+                  <p class="text-[11px] text-slate-300 leading-relaxed">${att.desc}</p>
+                </div>
+              `).join('')}
+              ${attractions.length === 0 ? '<p class="text-slate-400 text-xs">휴식 및 이동 일정입니다.</p>' : ''}
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2: 🍽️ 로컬 추천 음식점, 맛집 & 카페 -->
+        <div class="p-4 sm:p-5 rounded-xl bg-slate-900/90 border border-slate-800 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-2.5 mb-3 border-b border-slate-800">
+              <span class="text-sm font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-utensils text-rose-400"></i> 현지 추천 음식점 & 미식 바
+              </span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-300 border border-rose-500/20 font-bold">
+                로컬 맛집
+              </span>
+            </div>
+
+            <div class="space-y-3 text-xs">
+              ${foodSpots.map((food, fIdx) => `
+                <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800 hover:border-rose-500/30 transition">
+                  <div class="flex items-center justify-between font-bold text-rose-200 mb-1">
+                    <span class="flex items-center gap-1.5">
+                      <i class="fa-solid fa-bowl-food text-rose-400 text-xs"></i>
+                      <span>${food.name}</span>
+                    </span>
+                    <span class="text-[10px] text-amber-300 font-mono font-bold">${food.menu || ''}</span>
+                  </div>
+                  <p class="text-[11px] text-slate-300 leading-relaxed">${food.desc || ''}</p>
+                </div>
+              `).join('')}
+              ${foodSpots.length === 0 ? '<p class="text-slate-400 text-xs">식당 정보가 준비 중입니다.</p>' : ''}
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CARD 3 & 4: [11월 비수기 운영 공립 알베르게] & [오늘의 실전 팁] -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        
+        <!-- CARD 3: 🏨 11월 비수기 운영 공립 알베르게 정보 -->
+        <div class="p-4 sm:p-5 rounded-xl bg-slate-900/90 border border-emerald-500/40 flex flex-col justify-between shadow-lg">
+          <div>
+            <div class="flex items-center justify-between pb-2.5 mb-3 border-b border-slate-800">
+              <span class="text-sm font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-hotel text-emerald-400"></i> 11월 비수기 운영 공립 알베르게 / 숙소
+              </span>
+              <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
+                ${alb.type || '공립 알베르게'}
+              </span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-emerald-500/20 space-y-2.5 text-xs">
+              <div class="flex items-center justify-between font-bold">
+                <span class="text-sm text-white font-extrabold flex items-center gap-1.5">
+                  <i class="fa-solid fa-bed text-emerald-400"></i> ${alb.name || item.hotel || '공립 알베르게'}
+                </span>
+                <span class="font-mono text-emerald-300 font-bold bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/30">${alb.fee || '€10'}</span>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2 text-[11px] pt-1 border-t border-slate-800">
+                <div class="text-slate-300">
+                  <span class="text-slate-500">난방 상태:</span> <b class="text-amber-300">${alb.heating || '라디에이터 난방 완비'}</b>
+                </div>
+                <div class="text-slate-300">
+                  <span class="text-slate-500">침대 규모:</span> <b class="text-slate-200">${alb.beds || '20~40베드'}</b>
+                </div>
+              </div>
+
+              <div class="text-[11px] text-slate-300 pt-1 border-t border-slate-800">
+                <span class="text-slate-500">11월 운영:</span> <span class="text-emerald-300 font-bold">${alb.operatingNotice || '11월 연중무휴 정상 운영'}</span>
+              </div>
+
+              <div class="text-[11px] text-slate-400 leading-relaxed">
+                <i class="fa-solid fa-circle-info text-emerald-400 mr-1"></i> ${alb.note || alb.address || ''}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 4: 💡 오늘의 실전 순례 꿀팁 -->
+        <div class="p-4 sm:p-5 rounded-xl bg-slate-900/90 border border-sky-500/40 flex flex-col justify-between shadow-lg">
+          <div>
+            <div class="flex items-center justify-between pb-2.5 mb-3 border-b border-slate-800">
+              <span class="text-sm font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-lightbulb text-amber-400"></i> 오늘의 실전 순례 꿀팁 & 주의사항
+              </span>
+              <span class="px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/30 text-[10px] font-bold">
+                실전 노하우
+              </span>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-slate-950/80 border border-sky-500/20 text-xs text-slate-200 leading-relaxed space-y-2">
+              <p>
+                ${item.walkingTips || '비가 올 수 있으므로 배낭 레인커버와 방수 판초 우의를 챙기시고, 15km 보행 중 1~2시간마다 발바닥 통풍 휴식을 권장합니다.'}
+              </p>
+              <div class="pt-2 border-t border-slate-800/80 text-[11px] text-sky-300 flex items-center gap-1.5">
+                <i class="fa-solid fa-shield-halved"></i> <b>비상 연락:</b> 스페인 긴급구조 112 / 포르투갈 112
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  `;
+}
+
 function renderCaminoTab() {
   const container = document.getElementById('tab-content-camino');
   if (!container) return;
@@ -2933,7 +3177,10 @@ function renderCaminoTab() {
               2026.11.10(출국) ~ 11.11(포르투 입국) ~ 12.02(마드리드 출국) ~ 12.03(인천 도착)
             </span>
             <a href="#spain-travel-guide-section" class="px-2.5 py-0.5 bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 text-xs font-bold rounded flex items-center gap-1 transition cursor-pointer">
-              <i class="fa-solid fa-utensils text-rose-400"></i> 스페인·마드리드 맛집 & 꿀팁 가이드
+              <i class="fa-solid fa-utensils text-rose-400"></i> 스페인·마드리드 맛집 & 꿀팁
+            </a>
+            <a href="#camino-daily-single-viewer-section" class="px-2.5 py-0.5 bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-500/40 text-xs font-bold rounded flex items-center gap-1 transition cursor-pointer shadow-sm">
+              <i class="fa-solid fa-calendar-check text-amber-400"></i> 날짜별 1일 1칸 상세 뷰어 (15km·명소·맛집·알베르게)
             </a>
           </div>
           <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
@@ -4439,6 +4686,75 @@ function renderCaminoTab() {
       </div>
 
     </div>
+
+    <!-- 📅 [최하단 1일 1칸 날짜별 스마트 상세 뷰어] (15km 내외 코스 · 명소 · 음식점 · 11월 공립 알베르게) ⭐ -->
+    <div id="camino-daily-single-viewer-section" class="glass-panel rounded-2xl p-6 sm:p-8 mt-8 border-2 border-amber-500/50 bg-gradient-to-br from-slate-900 via-amber-950/20 to-slate-900 shadow-2xl relative overflow-hidden">
+      <!-- Glow effect -->
+      <div class="absolute -right-16 -top-16 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Section Title & Subtitle -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-800 relative z-10">
+        <div class="flex items-center gap-3">
+          <span class="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-500/30 to-amber-600/20 text-amber-400 flex items-center justify-center font-bold text-2xl border border-amber-500/30 shadow-lg flex-shrink-0">
+            📅
+          </span>
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <h3 class="text-lg sm:text-xl font-black text-white">
+                날짜별 1일 1칸 순례길 상세 뷰어 (Day-by-Day Focus)
+              </h3>
+              <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-bold">
+                1일 1칸 선택 집중 뷰
+              </span>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5 leading-relaxed">
+              매일 <b>15km 내외</b> 최적 보행 · <b>방문 도시별 명소 & 로컬 맛집</b> · <b>11월 비수기 난방 공립 알베르게</b>가 1칸에 완벽히 정리됩니다.
+            </p>
+          </div>
+        </div>
+
+        <div class="text-[11px] text-amber-300 bg-amber-950/50 px-3 py-1.5 rounded-xl border border-amber-500/30 flex items-center gap-1.5 self-start sm:self-auto font-medium">
+          <i class="fa-solid fa-hand-pointer text-amber-400"></i> 아래 날짜 버튼을 터치하여 1칸씩 전환
+        </div>
+      </div>
+
+      <!-- 1. Horizontal Scrollable Day Selector Pills (Day 1 ~ Day 23) -->
+      <div class="mb-6">
+        <div class="flex items-center justify-between text-xs font-bold text-slate-400 mb-2 px-1">
+          <span class="flex items-center gap-1.5">
+            <i class="fa-solid fa-calendar-days text-amber-400"></i> 순례 일정 선택 (Day 1 ~ 23)
+          </span>
+          <span class="text-[11px] text-slate-500 font-normal">좌우로 스크롤하여 날짜를 선택하세요</span>
+        </div>
+
+        <div id="camino-days-pill-carousel" class="flex items-center gap-2 overflow-x-auto pb-2 pt-1 px-1 custom-scrollbar -mx-2 sm:mx-0">
+          ${(currentRoute.itinerary || camino.itinerary || []).map((it, itIdx) => {
+            const isSelected = (state.selectedCaminoDay || 1) === it.day;
+            const activeClasses = isSelected
+              ? 'bg-gradient-to-r from-amber-500/25 to-amber-600/30 border-amber-400 text-amber-200 ring-2 ring-amber-400/40 shadow-lg'
+              : 'bg-slate-900/80 border-slate-700/80 text-slate-400 hover:text-white hover:bg-slate-800';
+
+            return `
+              <button type="button" onclick="window.app.selectCaminoDay(${it.day})" id="camino-day-tab-btn-${it.day}" class="flex-shrink-0 px-3.5 py-2.5 rounded-xl border text-left transition cursor-pointer flex flex-col items-start gap-1 min-w-[110px] ${activeClasses}">
+                <div class="flex items-center justify-between w-full">
+                  <span class="font-mono text-xs font-black ${isSelected ? 'text-amber-300' : 'text-slate-200'}">Day ${String(it.day).padStart(2, '0')}</span>
+                  <span class="text-[10px] px-1.5 py-0.2 rounded font-bold ${isSelected ? 'bg-amber-400 text-slate-950' : 'bg-slate-800 text-slate-400'}">${it.walkingKm > 0 ? it.walkingKm + 'km' : (it.type || '이동')}</span>
+                </div>
+                <div class="text-[11px] font-bold truncate max-w-[100px] text-white">${it.date} (${it.dayOfWeek})</div>
+                <div class="text-[10px] text-slate-400 truncate max-w-[100px]">${(it.destination || '').split(' ')[0]}</div>
+              </button>
+            `;
+          }).join('')}
+        </div>
+      </div>
+
+      <!-- 2. Single Day Selected Focus Card Container -->
+      <div id="camino-single-day-card-container">
+        ${getSingleCaminoDayCardHtml(state.selectedCaminoDay || 1, currentRoute.itinerary || camino.itinerary || [])}
+      </div>
+
+    </div>
+
 
 
   `;
@@ -13327,6 +13643,31 @@ window.app = {
 
   // 🛡️ Modal & Form Architecture
   closeAllModals: () => ModalManager.closeAll(),
+  selectCaminoDay: (dayNum) => {
+    state.selectedCaminoDay = Number(dayNum);
+    const camino = state.camino || INITIAL_CAMINO_DATA;
+    const currentRoute = (camino.routesInfo && camino.routesInfo[camino.activeRoute || 'hybrid']) || {};
+    const itineraryList = currentRoute.itinerary || camino.itinerary || INITIAL_CAMINO_DATA.itinerary || [];
+
+    const container = document.getElementById('camino-single-day-card-container');
+    if (container) {
+      container.innerHTML = getSingleCaminoDayCardHtml(dayNum, itineraryList);
+    }
+
+    // Update active styles on pill buttons
+    document.querySelectorAll('[id^="camino-day-tab-btn-"]').forEach(btn => {
+      btn.className = btn.className
+        .replace(/bg-gradient-to-r from-amber-500\/25 to-amber-600\/30 border-amber-400 text-amber-200 ring-2 ring-amber-400\/40 shadow-lg/g, '')
+        + ' bg-slate-900/80 border-slate-700/80 text-slate-400 hover:text-white hover:bg-slate-800';
+    });
+    const activeBtn = document.getElementById(`camino-day-tab-btn-${dayNum}`);
+    if (activeBtn) {
+      activeBtn.className = activeBtn.className
+        .replace(/bg-slate-900\/80 border-slate-700\/80 text-slate-400 hover:text-white hover:bg-slate-800/g, '')
+        + ' bg-gradient-to-r from-amber-500/25 to-amber-600/30 border-amber-400 text-amber-200 ring-2 ring-amber-400/40 shadow-lg';
+      activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+  },
   openMobileTabDrawer: () => {
     renderMobileTabDrawer();
     ModalManager.open('modal-mobile-tab-drawer');
