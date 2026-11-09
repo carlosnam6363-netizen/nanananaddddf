@@ -150,7 +150,7 @@ class SyncManager {
               'pack-sleeping-bag-tuman', 'pack-knee-guard-daiso', 'pack-liquid-bottle-daiso',
               'pack-gloves-daiso', 'pack-eye-mask-daiso', 'pack-spray-suncream-gift',
               'pack-cooling-sheet-gift', 'pack-pants-romanticcrown',
-              'pack-socks-merinowool-sanro', 'pack-socks-functional', 'pack-underwear'
+              'pack-socks-merinowool-sanro', 'pack-socks-functional', 'pack-underwear', 'pack-towel-extra-daiso'
             ];
             const newItems = (INITIAL_CAMINO_DATA.packingList || []).filter(item => newPackingIds.includes(item.id));
             newItems.forEach(newItem => {
@@ -168,6 +168,17 @@ class SyncManager {
               hikingPantsItem.item = '산로 하이킹 팬츠 (4만원)';
               hikingPantsItem.text = '산로 하이킹 팬츠 (4만원)';
               hikingPantsItem.note = '산로 와이드 스트링 하이킹팬츠 (40,000원 결제 완료). 편안한 와이드핏과 밑단 스트링 조절로 장시간 쾌적한 트레킹.';
+            }
+
+            // 스페인, 포르투갈 e-sim 25일치 16,500원 갱신
+            const esimItem = upgradedCamino.packingList.find(p => p.id === 'pack-living-esim');
+            if (esimItem) {
+              esimItem.cost = '₩16,500';
+              esimItem.costKrw = 16500;
+              esimItem.item = '스페인, 포르투갈 e-sim 25일치 (1gb + 384kbps 무제한, 16,500원)';
+              esimItem.text = '스페인, 포르투갈 e-sim 25일치 (1gb + 384kbps 무제한, 16,500원)';
+              esimItem.note = '스페인·포르투갈 eSIM 25일치 (매일 1GB 고속 데이터 소진 후 384kbps 무제한, ₩16,500 결제완료)';
+              esimItem.done = true;
             }
 
             // 안대 1천원 수정 반영
@@ -191,7 +202,7 @@ class SyncManager {
               }
             });
 
-            upgradedCamino.caminoDataVersion = 17;
+            upgradedCamino.caminoDataVersion = 18;
           }
         }
 

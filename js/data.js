@@ -1499,7 +1499,7 @@ const INITIAL_CAMINO_DATA = {
     // [1. 현지 생활비 & 환전 경비]
     { id: "pack-living-food", item: "현지 식비 및 마트 장보기 (24일간 환전 예산)", text: "현지 식비 및 마트 장보기 (24일간 환전 예산)", category: "현지경비", cost: "₩795,000", costKrw: 795000, currency: "KRW", done: false, note: "순례자 메뉴(€12~14), 아침 커피/토스트(€4), 마드리드 타파스 만찬, 마트 간식" },
     { id: "pack-living-transport", item: "현지 교통비·렌페고속열차·페리·비상동키", text: "현지 교통비·렌페고속열차·페리·비상동키", category: "현지경비", cost: "₩150,000", costKrw: 150000, currency: "KRW", done: false, note: "산티아고➔마드리드 렌페 열차, 포르투 메트로, 카미냐-아구아르다 페리, 비상 동키" },
-    { id: "pack-living-esim", item: "현지 유심 / eSIM 데이터 무제한", text: "현지 유심 / eSIM 데이터 무제한", category: "현지경비", cost: "₩35,000", costKrw: 35000, currency: "KRW", done: true, note: "유럽 통합 30일 데이터 무제한 eSIM" },
+    { id: "pack-living-esim", item: "스페인, 포르투갈 e-sim 25일치 (1gb + 384kbps 무제한, 16,500원)", text: "스페인, 포르투갈 e-sim 25일치 (1gb + 384kbps 무제한, 16,500원)", category: "현지경비", cost: "₩16,500", costKrw: 16500, currency: "KRW", done: true, note: "스페인·포르투갈 eSIM 25일치 (매일 1GB 고속 데이터 소진 후 384kbps 무제한, ₩16,500 결제완료)" },
     { id: "pack-travel-insurance", item: "해외 여행자 보험 (상해·의료비·휴대품 도난 보상)", text: "해외 여행자 보험 (상해·의료비·휴대품 도난 보상)", category: "필수품 (보험)", cost: "₩45,000", costKrw: 45000, currency: "KRW", done: true, note: "24일 대여정 도보 중 상해·질병 응급치료 및 휴대품 도난 보장" },
 
     // [2. 배낭 및 필수 장비 - 첨부1 반영]
@@ -1510,6 +1510,7 @@ const INITIAL_CAMINO_DATA = {
     { id: "pack-toiletries", item: "간단한 세면도구 (올인원 비누, 미니 치약·칫솔)", text: "간단한 세면도구 (올인원 비누, 미니 치약·칫솔)", category: "필수품", cost: "₩15,000", costKrw: 15000, currency: "KRW", done: false, note: "현지 약국이나 마트에서도 쉽게 추가 구매 가능" },
     { id: "pack-firstaid", item: "비상 의약품 (소염진통제, 지사제, 소독약, 콤피드 물집 패치)", text: "비상 의약품 (소염진통제, 지사제, 소독약, 콤피드 물집 패치)", category: "필수품", cost: "₩30,000", costKrw: 30000, currency: "KRW", done: false, note: "물집 발생 시 바늘 실 대신 콤피드 패치 즉시 부착 추천" },
     { id: "pack-towel", item: "손수건 / 스포츠 타월 (땀 닦기, 목 햇빛 차단, 다용도)", text: "손수건 / 스포츠 타월 (땀 닦기, 목 햇빛 차단, 다용도)", category: "필수품", cost: "₩8,000", costKrw: 8000, currency: "KRW", done: true, note: "배낭 외부에 걸어두면 빠른 속건 가능" },
+    { id: "pack-towel-extra-daiso", item: "스포츠 타월 여분 1개 (다이소, 3천원)", text: "스포츠 타월 여분 1개 (다이소, 3천원)", category: "필수품", cost: "₩3,000", costKrw: 3000, currency: "KRW", done: true, note: "다이소 스포츠 타월 여분 1개 (비상 및 세탁 교체용, ₩3,000)" },
 
     // [3. 의류 및 우천/방한 - 첨부2 반영]
     { id: "pack-poncho-sanro", item: "산로 [UNISEX] 판초 우의 레인코트 FREE", text: "산로 [UNISEX] 판초 우의 레인코트 FREE", category: "의류 (우천)", cost: "₩17,140", costKrw: 17140, currency: "KRW", done: true, note: "산로 [UNISEX] 판초 우의 레인코트 (17,140원 결제 완료, 10/07 도착 예정 배송중). 배낭을 멘 채로 덮어쓸 수 있는 판초형 우의로 갈리시아 우천 완벽 대비." },
